@@ -1,0 +1,117 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\CarlosEZD\\Desktop\\TCC\\AssisTec\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{0107DE09-5745-4BB2-B7F8-AAB0EF65E6FA}|AssisTec\\AssisTec.csproj|c:\\users\\carlosezd\\desktop\\tcc\\assistec\\assistec\\login.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{0107DE09-5745-4BB2-B7F8-AAB0EF65E6FA}|AssisTec\\AssisTec.csproj|solutionrelative:assistec\\login.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0107DE09-5745-4BB2-B7F8-AAB0EF65E6FA}|AssisTec\\AssisTec.csproj|C:\\Users\\CarlosEZD\\Desktop\\TCC\\AssisTec\\assistec\\login.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0107DE09-5745-4BB2-B7F8-AAB0EF65E6FA}|AssisTec\\AssisTec.csproj|solutionrelative:assistec\\login.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0107DE09-5745-4BB2-B7F8-AAB0EF65E6FA}|AssisTec\\AssisTec.csproj|C:\\Users\\CarlosEZD\\Desktop\\TCC\\AssisTec\\assistec\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0107DE09-5745-4BB2-B7F8-AAB0EF65E6FA}|AssisTec\\AssisTec.csproj|solutionrelative:assistec\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0107DE09-5745-4BB2-B7F8-AAB0EF65E6FA}|AssisTec\\AssisTec.csproj|C:\\Users\\CarlosEZD\\Desktop\\TCC\\AssisTec\\assistec\\gerenciador_usuarios.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{0107DE09-5745-4BB2-B7F8-AAB0EF65E6FA}|AssisTec\\AssisTec.csproj|solutionrelative:assistec\\gerenciador_usuarios.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0107DE09-5745-4BB2-B7F8-AAB0EF65E6FA}|AssisTec\\AssisTec.csproj|C:\\Users\\CarlosEZD\\Desktop\\TCC\\AssisTec\\assistec\\gerenciador_usuarios.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0107DE09-5745-4BB2-B7F8-AAB0EF65E6FA}|AssisTec\\AssisTec.csproj|solutionrelative:assistec\\gerenciador_usuarios.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0107DE09-5745-4BB2-B7F8-AAB0EF65E6FA}|AssisTec\\AssisTec.csproj|C:\\Users\\CarlosEZD\\Desktop\\TCC\\AssisTec\\assistec\\conexao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0107DE09-5745-4BB2-B7F8-AAB0EF65E6FA}|AssisTec\\AssisTec.csproj|solutionrelative:assistec\\conexao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 3,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "conexao.cs",
+              "DocumentMoniker": "C:\\Users\\CarlosEZD\\Desktop\\TCC\\AssisTec\\AssisTec\\conexao.cs",
+              "RelativeDocumentMoniker": "AssisTec\\conexao.cs",
+              "ToolTip": "C:\\Users\\CarlosEZD\\Desktop\\TCC\\AssisTec\\AssisTec\\conexao.cs",
+              "RelativeToolTip": "AssisTec\\conexao.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAABgAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-21T14:13:22.798Z",
+              "IsPinned": true
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\CarlosEZD\\Desktop\\TCC\\AssisTec\\AssisTec\\Program.cs",
+              "RelativeDocumentMoniker": "AssisTec\\Program.cs",
+              "ToolTip": "C:\\Users\\CarlosEZD\\Desktop\\TCC\\AssisTec\\AssisTec\\Program.cs",
+              "RelativeToolTip": "AssisTec\\Program.cs",
+              "ViewState": "AQIAAAIAAAAAAAAAAAAAwBIAAAAlAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-21T23:13:31.636Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Gerenciador_Usuarios.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\CarlosEZD\\Desktop\\TCC\\AssisTec\\AssisTec\\Gerenciador_Usuarios.cs",
+              "RelativeDocumentMoniker": "AssisTec\\Gerenciador_Usuarios.cs",
+              "ToolTip": "C:\\Users\\CarlosEZD\\Desktop\\Curso C#\\AssisTec\\AssisTec\\Gerenciador_Usuarios.cs [Design]",
+              "RelativeToolTip": "..\\..\\Curso C#\\AssisTec\\AssisTec\\Gerenciador_Usuarios.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-21T23:16:15.966Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "login.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\CarlosEZD\\Desktop\\TCC\\AssisTec\\AssisTec\\login.cs",
+              "RelativeDocumentMoniker": "AssisTec\\login.cs",
+              "ToolTip": "C:\\Users\\CarlosEZD\\Desktop\\TCC\\AssisTec\\AssisTec\\login.cs [Design]",
+              "RelativeToolTip": "AssisTec\\login.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-21T22:53:39.684Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "login.cs",
+              "DocumentMoniker": "C:\\Users\\CarlosEZD\\Desktop\\TCC\\AssisTec\\AssisTec\\login.cs",
+              "RelativeDocumentMoniker": "AssisTec\\login.cs",
+              "ToolTip": "C:\\Users\\CarlosEZD\\Desktop\\TCC\\AssisTec\\AssisTec\\login.cs",
+              "RelativeToolTip": "AssisTec\\login.cs",
+              "ViewState": "AQIAAAYAAAAAAAAAAAAswBQAAAAVAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-21T23:09:18.668Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Gerenciador_Usuarios.cs",
+              "DocumentMoniker": "C:\\Users\\CarlosEZD\\Desktop\\TCC\\AssisTec\\AssisTec\\Gerenciador_Usuarios.cs",
+              "RelativeDocumentMoniker": "AssisTec\\Gerenciador_Usuarios.cs",
+              "ToolTip": "C:\\Users\\CarlosEZD\\Desktop\\TCC\\AssisTec\\AssisTec\\Gerenciador_Usuarios.cs",
+              "RelativeToolTip": "AssisTec\\Gerenciador_Usuarios.cs",
+              "ViewState": "AQIAABMAAAAAAAAAAAASwCcAAAAkAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-21T13:54:00.984Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
