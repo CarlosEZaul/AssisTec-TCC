@@ -155,11 +155,11 @@
     <Compile Include="Gerenciador_Clientes.Designer.cs">
       <DependentUpon>Gerenciador_Clientes.cs</DependentUpon>
     </Compile>
-    <Compile Include="Gerenciador_Usuarios.cs">
+    <Compile Include="Gerenciador_Tecnicos.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Gerenciador_Usuarios.Designer.cs">
-      <DependentUpon>Gerenciador_Usuarios.cs</DependentUpon>
+    <Compile Include="Gerenciador_Tecnicos.Designer.cs">
+      <DependentUpon>Gerenciador_Tecnicos.cs</DependentUpon>
     </Compile>
     <Compile Include="ICepApiService.cs" />
     <Compile Include="login.cs">
@@ -175,8 +175,8 @@
     <EmbeddedResource Include="Gerenciador_Clientes.resx">
       <DependentUpon>Gerenciador_Clientes.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Gerenciador_Usuarios.resx">
-      <DependentUpon>Gerenciador_Usuarios.cs</DependentUpon>
+    <EmbeddedResource Include="Gerenciador_Tecnicos.resx">
+      <DependentUpon>Gerenciador_Tecnicos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="login.resx">
       <DependentUpon>login.cs</DependentUpon>

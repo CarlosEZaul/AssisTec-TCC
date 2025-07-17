@@ -486,9 +486,6 @@ namespace AssisTec
             {
                 MessageBox.Show("Por favor, verifique o CEP informado.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
-
-            
-            
         }
 
         private void btnEditar_Click(object sender, EventArgs e)

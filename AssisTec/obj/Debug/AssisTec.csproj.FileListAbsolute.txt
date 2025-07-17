@@ -148,7 +148,6 @@ C:\Users\CarlosEZD\Downloads\AssisTec-TCC-master\AssisTec-TCC-master\AssisTec\bi
 C:\Users\CarlosEZD\Downloads\AssisTec-TCC-master\AssisTec-TCC-master\AssisTec\bin\Debug\System.ValueTuple.xml
 C:\Users\CarlosEZD\Downloads\AssisTec-TCC-master\AssisTec-TCC-master\AssisTec\obj\Debug\AssisTec.csproj.AssemblyReference.cache
 C:\Users\CarlosEZD\Downloads\AssisTec-TCC-master\AssisTec-TCC-master\AssisTec\obj\Debug\AssisTec.Gerenciador_Clientes.resources
-C:\Users\CarlosEZD\Downloads\AssisTec-TCC-master\AssisTec-TCC-master\AssisTec\obj\Debug\AssisTec.Gerenciador_Usuarios.resources
 C:\Users\CarlosEZD\Downloads\AssisTec-TCC-master\AssisTec-TCC-master\AssisTec\obj\Debug\AssisTec.login.resources
 C:\Users\CarlosEZD\Downloads\AssisTec-TCC-master\AssisTec-TCC-master\AssisTec\obj\Debug\AssisTec.Properties.Resources.resources
 C:\Users\CarlosEZD\Downloads\AssisTec-TCC-master\AssisTec-TCC-master\AssisTec\obj\Debug\AssisTec.csproj.GenerateResource.cache
@@ -157,3 +156,4 @@ C:\Users\CarlosEZD\Downloads\AssisTec-TCC-master\AssisTec-TCC-master\AssisTec\ob
 C:\Users\CarlosEZD\Downloads\AssisTec-TCC-master\AssisTec-TCC-master\AssisTec\obj\Debug\AssisTec.csproj.Up2Date
 C:\Users\CarlosEZD\Downloads\AssisTec-TCC-master\AssisTec-TCC-master\AssisTec\obj\Debug\AssisTec.exe
 C:\Users\CarlosEZD\Downloads\AssisTec-TCC-master\AssisTec-TCC-master\AssisTec\obj\Debug\AssisTec.pdb
+C:\Users\CarlosEZD\Downloads\AssisTec-TCC-master\AssisTec-TCC-master\AssisTec\obj\Debug\AssisTec.Gerenciador_Tecnicos.resources

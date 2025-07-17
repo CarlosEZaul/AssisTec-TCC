@@ -2,7 +2,7 @@
 
 namespace AssisTec
 {
-    partial class Gerenciador_Usuarios
+    partial class Gerenciador_Tecnicos
     {
         /// <summary>
         /// Required designer variable.
@@ -31,11 +31,11 @@ namespace AssisTec
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Gerenciador_Usuarios));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Gerenciador_Tecnicos));
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnPDF = new System.Windows.Forms.Button();
-            this.cbStatus = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.cbStatus = new System.Windows.Forms.ComboBox();
             this.btnBuscar = new System.Windows.Forms.Button();
             this.btnEditar = new System.Windows.Forms.Button();
             this.lblcomplemento = new System.Windows.Forms.Label();
@@ -79,11 +79,10 @@ namespace AssisTec
             // 
             // panel1
             // 
-            this.panel1.AutoSize = true;
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(55)))), ((int)(((byte)(76)))));
             this.panel1.Controls.Add(this.btnPDF);
-            this.panel1.Controls.Add(this.cbStatus);
             this.panel1.Controls.Add(this.label1);
+            this.panel1.Controls.Add(this.cbStatus);
             this.panel1.Controls.Add(this.btnBuscar);
             this.panel1.Controls.Add(this.btnEditar);
             this.panel1.Controls.Add(this.lblcomplemento);
@@ -117,8 +116,8 @@ namespace AssisTec
             this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(551, 411);
-            this.panel1.TabIndex = 37;
+            this.panel1.Size = new System.Drawing.Size(564, 411);
+            this.panel1.TabIndex = 38;
             // 
             // btnPDF
             // 
@@ -127,7 +126,7 @@ namespace AssisTec
             this.btnPDF.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnPDF.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.btnPDF.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnPDF.Location = new System.Drawing.Point(455, 376);
+            this.btnPDF.Location = new System.Drawing.Point(440, 376);
             this.btnPDF.Name = "btnPDF";
             this.btnPDF.Size = new System.Drawing.Size(75, 23);
             this.btnPDF.TabIndex = 34;
@@ -135,26 +134,26 @@ namespace AssisTec
             this.btnPDF.UseVisualStyleBackColor = false;
             this.btnPDF.Click += new System.EventHandler(this.btnPDF_Click);
             // 
-            // cbStatus
-            // 
-            this.cbStatus.FormattingEnabled = true;
-            this.cbStatus.Items.AddRange(new object[] { "Ativo", "Desativado" });
-            this.cbStatus.Location = new System.Drawing.Point(61, 155);
-            this.cbStatus.Name = "cbStatus";
-            this.cbStatus.Size = new System.Drawing.Size(116, 21);
-            this.cbStatus.TabIndex = 33;
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Comic Sans MS", 9.75F);
             this.label1.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label1.Location = new System.Drawing.Point(3, 155);
+            this.label1.Location = new System.Drawing.Point(2, 149);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(51, 18);
-            this.label1.TabIndex = 32;
+            this.label1.TabIndex = 33;
             this.label1.Text = "Status:";
+            // 
+            // cbStatus
+            // 
+            this.cbStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.Simple;
+            this.cbStatus.FormattingEnabled = true;
+            this.cbStatus.Location = new System.Drawing.Point(60, 146);
+            this.cbStatus.Name = "cbStatus";
+            this.cbStatus.Size = new System.Drawing.Size(121, 21);
+            this.cbStatus.TabIndex = 32;
             // 
             // btnBuscar
             // 
@@ -162,7 +161,7 @@ namespace AssisTec
             this.btnBuscar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnBuscar.Enabled = false;
             this.btnBuscar.Font = new System.Drawing.Font("Comic Sans MS", 9F);
-            this.btnBuscar.Location = new System.Drawing.Point(324, 207);
+            this.btnBuscar.Location = new System.Drawing.Point(331, 207);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(75, 23);
             this.btnBuscar.TabIndex = 31;
@@ -178,7 +177,7 @@ namespace AssisTec
             this.btnEditar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnEditar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.btnEditar.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnEditar.Location = new System.Drawing.Point(131, 376);
+            this.btnEditar.Location = new System.Drawing.Point(116, 376);
             this.btnEditar.Name = "btnEditar";
             this.btnEditar.Size = new System.Drawing.Size(75, 23);
             this.btnEditar.TabIndex = 30;
@@ -315,7 +314,7 @@ namespace AssisTec
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label4.Location = new System.Drawing.Point(183, 13);
+            this.label4.Location = new System.Drawing.Point(190, 13);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(193, 23);
@@ -329,7 +328,7 @@ namespace AssisTec
             this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.btnCancel.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnCancel.Location = new System.Drawing.Point(374, 376);
+            this.btnCancel.Location = new System.Drawing.Point(359, 376);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 17;
@@ -345,7 +344,7 @@ namespace AssisTec
             this.btnDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDelete.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.btnDelete.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnDelete.Location = new System.Drawing.Point(293, 376);
+            this.btnDelete.Location = new System.Drawing.Point(278, 376);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(75, 23);
             this.btnDelete.TabIndex = 16;
@@ -360,7 +359,7 @@ namespace AssisTec
             this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.btnSave.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnSave.Location = new System.Drawing.Point(212, 376);
+            this.btnSave.Location = new System.Drawing.Point(197, 376);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 23);
             this.btnSave.TabIndex = 15;
@@ -375,7 +374,7 @@ namespace AssisTec
             this.btnNew.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnNew.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.btnNew.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnNew.Location = new System.Drawing.Point(50, 376);
+            this.btnNew.Location = new System.Drawing.Point(35, 376);
             this.btnNew.Name = "btnNew";
             this.btnNew.Size = new System.Drawing.Size(75, 23);
             this.btnNew.TabIndex = 14;
@@ -519,17 +518,16 @@ namespace AssisTec
             // 
             // panel2
             // 
-            this.panel2.AutoSize = true;
             this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(44)))), ((int)(((byte)(64)))));
             this.panel2.Controls.Add(this.btnAtualizar);
             this.panel2.Controls.Add(this.lblbusca);
             this.panel2.Controls.Add(this.txtBusca);
             this.panel2.Controls.Add(this.dgvTecnicos);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panel2.Location = new System.Drawing.Point(551, 0);
+            this.panel2.Location = new System.Drawing.Point(564, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(503, 411);
-            this.panel2.TabIndex = 38;
+            this.panel2.Size = new System.Drawing.Size(518, 411);
+            this.panel2.TabIndex = 39;
             // 
             // btnAtualizar
             // 
@@ -548,7 +546,7 @@ namespace AssisTec
             this.lblbusca.AutoSize = true;
             this.lblbusca.Font = new System.Drawing.Font("Comic Sans MS", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblbusca.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.lblbusca.Location = new System.Drawing.Point(14, 13);
+            this.lblbusca.Location = new System.Drawing.Point(22, 13);
             this.lblbusca.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblbusca.Name = "lblbusca";
             this.lblbusca.Size = new System.Drawing.Size(47, 18);
@@ -559,12 +557,12 @@ namespace AssisTec
             // 
             this.txtBusca.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.txtBusca.BackColor = System.Drawing.Color.White;
-            this.txtBusca.Location = new System.Drawing.Point(67, 12);
+            this.txtBusca.Location = new System.Drawing.Point(75, 12);
             this.txtBusca.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtBusca.Name = "txtBusca";
             this.txtBusca.Size = new System.Drawing.Size(363, 20);
             this.txtBusca.TabIndex = 33;
-            this.txtBusca.Click += new System.EventHandler(this.txtBusca_TextChanged);
+            this.txtBusca.TextChanged += new System.EventHandler(this.txtBusca_TextChanged);
             // 
             // dgvTecnicos
             // 
@@ -574,24 +572,23 @@ namespace AssisTec
             this.dgvTecnicos.BackgroundColor = System.Drawing.Color.Gray;
             this.dgvTecnicos.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Sunken;
             this.dgvTecnicos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvTecnicos.Location = new System.Drawing.Point(14, 45);
+            this.dgvTecnicos.Location = new System.Drawing.Point(22, 45);
             this.dgvTecnicos.Name = "dgvTecnicos";
             this.dgvTecnicos.ReadOnly = true;
             this.dgvTecnicos.Size = new System.Drawing.Size(478, 354);
             this.dgvTecnicos.TabIndex = 34;
             this.dgvTecnicos.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvTecnicos_CellClick);
             // 
-            // Gerenciador_Usuarios
+            // Gerenciador_Tecnicos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(1076, 411);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
-            this.Location = new System.Drawing.Point(15, 15);
-            this.Name = "Gerenciador_Usuarios";
-            this.Load += new System.EventHandler(this.Gerenciador_Usuarios_Load);
+            this.Name = "Gerenciador_Tecnicos";
+            this.Text = "Gerenciador_Tecnicos";
+            this.Load += new System.EventHandler(this.Gerenciador_Tecnicos_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
@@ -599,13 +596,12 @@ namespace AssisTec
             ((System.ComponentModel.ISupportInitialize)(this.btnAtualizar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTecnicos)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
         }
 
         private System.Windows.Forms.Button btnPDF;
 
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox cbStatus;
+        private System.Windows.Forms.Label label1;
 
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.PictureBox btnAtualizar;
@@ -613,6 +609,7 @@ namespace AssisTec
         private System.Windows.Forms.TextBox txtBusca;
         private System.Windows.Forms.DataGridView dgvTecnicos;
 
+        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button btnBuscar;
         private System.Windows.Forms.Button btnEditar;
@@ -627,7 +624,6 @@ namespace AssisTec
         private System.Windows.Forms.Label lblbairro;
         private System.Windows.Forms.TextBox txtBairro;
         private System.Windows.Forms.Label lblrua;
-        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.Button btnSave;

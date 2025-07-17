@@ -80,7 +80,7 @@ namespace AssisTec
 
                     MessageBox.Show($"Bem-vindo, {nome}!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                    Gerenciador_Clientes frmUser = new Gerenciador_Clientes(); // ou outro formulário dependendo do nível
+                    Gerenciador_Tecnicos frmUser = new Gerenciador_Tecnicos();
                     this.Hide();
                     frmUser.ShowDialog();
                     this.Close();
