@@ -14,25 +14,28 @@ using Exception = System.Exception;
 
 namespace AssisTec
 {
-    public partial class Gerenciador_Clientes : Form
+    public partial class Gerenciador_Usuarios : Form
     {
         conexao con = new conexao();
         string sql;
         MySqlCommand cmd;
         private int modo;
-        private int id;
+        private string id;
         private string uf;
         private bool okCep;
 
-        public Gerenciador_Clientes()
+        public Gerenciador_Usuarios()
         {
             InitializeComponent();
             disabletxt();
             ApplyModernDesign(); // Aplicar design moderno
         }
 
-        private void Gerenciador_ClientesLoad(object sender, EventArgs e)
+        private void Gerenciador_Usuarios_Load(object sender, EventArgs e)
         {
+            cbStatus.Items.Clear();
+            cbStatus.Items.Add("Ativo");
+            cbStatus.Items.Add("Desativado");
             disable();
             btnNew.Focus();
             listGrid();
@@ -115,21 +118,21 @@ namespace AssisTec
 
         private void StyleDataGridView()
         {
-            dgvClientes.BorderStyle = BorderStyle.None;
-            dgvClientes.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(245, 245, 245);
-            dgvClientes.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
-            dgvClientes.DefaultCellStyle.SelectionBackColor = Color.FromArgb(210, 232, 255);
-            dgvClientes.DefaultCellStyle.SelectionForeColor = Color.Black;
-            dgvClientes.BackgroundColor = Color.White;
-            dgvClientes.RowHeadersVisible = false;
-            dgvClientes.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvClientes.RowTemplate.Height = 35;
-            dgvClientes.EnableHeadersVisualStyles = false;
-            dgvClientes.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(50, 50, 50);
-            dgvClientes.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
-            dgvClientes.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI Semibold", 10);
-            dgvClientes.ColumnHeadersHeight = 40;
-            dgvClientes.DefaultCellStyle.Font = new Font("Segoe UI", 9);
+            dgvTecnicos.BorderStyle = BorderStyle.None;
+            dgvTecnicos.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(245, 245, 245);
+            dgvTecnicos.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
+            dgvTecnicos.DefaultCellStyle.SelectionBackColor = Color.FromArgb(210, 232, 255);
+            dgvTecnicos.DefaultCellStyle.SelectionForeColor = Color.Black;
+            dgvTecnicos.BackgroundColor = Color.White;
+            dgvTecnicos.RowHeadersVisible = false;
+            dgvTecnicos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvTecnicos.RowTemplate.Height = 35;
+            dgvTecnicos.EnableHeadersVisualStyles = false;
+            dgvTecnicos.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(50, 50, 50);
+            dgvTecnicos.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            dgvTecnicos.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI Semibold", 10);
+            dgvTecnicos.ColumnHeadersHeight = 40;
+            dgvTecnicos.DefaultCellStyle.Font = new Font("Segoe UI", 9);
         }
 
         private void StyleTextBox(TextBox textBox)
@@ -163,25 +166,38 @@ namespace AssisTec
 
         #region Métodos de Manipulação de Dados
 
-        
+        private string DataFormatada(string dat)
+        {
+            try
+            {
+                string data = mtbNasc.Text;
+                DateTime dataConvertida = DateTime.ParseExact(data, "dd/MM/yyyy", null);
+                return dataConvertida.ToString("yyyy/MM/dd");
+            }
+            catch
+            {
+                MessageBox.Show("Formato de data inválido. Use DD/MM/AAAA.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return null;
+            }
+        }
         
         private void formartGrid()
         { 
-            if (dgvClientes.Columns.Count > 0)
+            if (dgvTecnicos.Columns.Count > 0)
             {
-                dgvClientes.Columns[0].HeaderText = "ID";
-                dgvClientes.Columns[0].Visible = false;
-                dgvClientes.Columns[1].HeaderText = "NOME";
-                dgvClientes.Columns[2].HeaderText = "CPF";
-                dgvClientes.Columns[3].HeaderText = "TEL.";
-                dgvClientes.Columns[4].HeaderText = "DATA DE NASC.";
-                dgvClientes.Columns[5].HeaderText = "CEP";
-                dgvClientes.Columns[6].HeaderText = "RUA";
-                dgvClientes.Columns[7].HeaderText = "NUMERO";
-                dgvClientes.Columns[8].HeaderText = "CIDADE";
-                dgvClientes.Columns[9].HeaderText = "ESTADO";
-                dgvClientes.Columns[10].HeaderText = "BAIRRO";
-                dgvClientes.Columns[11].HeaderText = "COMPLEMENTO";
+                dgvTecnicos.Columns[0].HeaderText = "ID";
+                dgvTecnicos.Columns[0].Visible = false;
+                dgvTecnicos.Columns[1].HeaderText = "NOME";
+                dgvTecnicos.Columns[2].HeaderText = "CPF";
+                dgvTecnicos.Columns[3].HeaderText = "TEL.";
+                dgvTecnicos.Columns[4].HeaderText = "DATA DE NASC.";
+                dgvTecnicos.Columns[5].HeaderText = "CEP";
+                dgvTecnicos.Columns[6].HeaderText = "RUA";
+                dgvTecnicos.Columns[7].HeaderText = "NUMERO";
+                dgvTecnicos.Columns[8].HeaderText = "CIDADE";
+                dgvTecnicos.Columns[9].HeaderText = "ESTADO";
+                dgvTecnicos.Columns[10].HeaderText = "BAIRRO";
+                dgvTecnicos.Columns[11].HeaderText = "COMPLEMENTO";
             }
         }
 
@@ -219,6 +235,8 @@ namespace AssisTec
             txtCidade.Enabled = false;
             txtBairro.Enabled = false;
             btnBuscar.Enabled = false;
+            cbStatus.Enabled = false;
+            cbStatus.DropDownStyle = ComboBoxStyle.Simple;
         }
 
         private void disabletxt()
@@ -234,6 +252,8 @@ namespace AssisTec
             txtRua.Enabled = false;
             txtCidade.Enabled = false;
             txtBairro.Enabled = false;
+            cbStatus.Enabled = false;
+            cbStatus.DropDownStyle = ComboBoxStyle.Simple;
         }
         
         private void deleteAll()
@@ -250,6 +270,7 @@ namespace AssisTec
             txtEstado.Text = "";
             txtComp.Text = "";
             txtBusca.Text = "";
+            cbStatus.SelectedText = null;
         }
 
         private void enableTxt()
@@ -263,7 +284,8 @@ namespace AssisTec
             txtComp.Enabled = true;
             btnCancel.Enabled = true;
             btnSave.Enabled = true;
-            
+            cbStatus.Enabled = true;
+            cbStatus.DropDownStyle = ComboBoxStyle.DropDown;
             txtRua.BackColor = Color.White;
             txtCidade.BackColor = Color.White;
             txtBairro.BackColor = Color.White;
@@ -275,13 +297,13 @@ namespace AssisTec
             try
             {
                 con.OpenConnection();
-                sql = "SELECT * FROM clientes ORDER BY NOME ASC";
+                sql = "SELECT * FROM tecnicos ORDER BY NOME ASC";
                 cmd = new MySqlCommand(sql, con.con);
                 MySqlDataAdapter da = new MySqlDataAdapter();
                 da.SelectCommand = cmd;
                 DataTable dt = new DataTable();
                 da.Fill(dt);
-                dgvClientes.DataSource = dt;
+                dgvTecnicos.DataSource = dt;
                 con.CloseConnection();
                 formartGrid();
             }
@@ -290,145 +312,43 @@ namespace AssisTec
                 MessageBox.Show("Erro ao carregar dados: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
         
-        
-        private Cliente formCliente()
+        async Task BuscarCep(string cep)
         {
-            Cliente cliente = new Cliente();
-            cliente.id = id;
-            cliente.nome = txtName.Text;
-            cliente.cpf = mtbCPF.Text;
-            cliente.telefone = mtbTel.Text;
-            cliente.dataNascimento = mtbNasc.Text;
-            string dataFormatada = cliente.dataNascimentoFormatada;
-            if (dataFormatada == null)
-            {
-                return null;
-            }
-            
-            cliente.cep = mtbCep.Text;
-            cliente.rua = txtRua.Text;
-            cliente.numero = Convert.ToInt32(txtNumber.Text);
-            cliente.cidade = txtCidade.Text;
-            cliente.estado = txtEstado.Text;
-            cliente.bairro = txtBairro.Text;
-            cliente.complemento = txtComp.Text;
-            return cliente;
-            
-            
-            
-        }
-        private void editarCliente()
-        {
-            Cliente cliente = formCliente();
-            if (cliente == null)
-            {
-                MessageBox.Show("Tentativa de cadastro com campo inválido!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-            
             try
             {
-                con.OpenConnection();
-                sql = "update clientes set nome=@nome, cpf=@cpf, telefone=@telefone, datanasc=@datanasc, cep=@cep, rua=@rua, numero=@numero, cidade=@cidade, estado=@estado, bairro=@bairro, complemento=@complemento where id=@id";
+                // Mostrar indicador de carregamento
+                Cursor = Cursors.WaitCursor;
                 
-                cmd = new MySqlCommand(sql, con.con);
-                cmd.Parameters.AddWithValue("@id", cliente.id);
-                cmd.Parameters.AddWithValue("@nome", cliente.nome);
-                cmd.Parameters.AddWithValue("@cpf", cliente.cpf);
-                cmd.Parameters.AddWithValue("@telefone", cliente.telefone);
-                cmd.Parameters.AddWithValue("@datanasc", cliente.dataNascimentoFormatada);
-                cmd.Parameters.AddWithValue("@cep", cliente.cep);
-                cmd.Parameters.AddWithValue("@rua", cliente.rua);
-                cmd.Parameters.AddWithValue("@numero", cliente.numero);
-                cmd.Parameters.AddWithValue("@cidade", cliente.cidade);
-                cmd.Parameters.AddWithValue("@estado", cliente.estado);
-                cmd.Parameters.AddWithValue("@bairro", cliente.bairro);
-                cmd.Parameters.AddWithValue("@complemento", cliente.complemento);
-
-                cmd.ExecuteNonQuery();
-                con.CloseConnection();
-                modo = 0;
-                deleteAll();
-                disable();
-                listGrid();
-                    
+                var cepBuscar = RestService.For<ICepApiService>("http://viacep.com.br");
+                var endereco = await cepBuscar.GetAdressAsync(cep);
                 
-                MessageBox.Show("Cliente editado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            catch (Exception exception)
-            {
-                MessageBox.Show("Erro ao editar!\n" + exception.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            
-            
-        }
-
-        private void novoCliente()
-        {
-            Cliente cliente = formCliente();
-            if (cliente == null)
-            {
-                MessageBox.Show("Cadastro com um campo inválido!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtCidade.Text = endereco.cidade;
+                txtRua.Text = endereco.rua;
+                txtBairro.Text = endereco.bairro;
+                txtEstado.Text = endereco.estado + " - " + endereco.uf;
+                okCep = true;
                 
-            }
-            try
-            {
-                    
-                con.OpenConnection();
-                sql = "SELECT COUNT(*) FROM clientes WHERE cpf=@cpf";
-                cmd = new MySqlCommand(sql, con.con);
-                cmd.Parameters.AddWithValue("@cpf", cliente.cpf);
-                int count = Convert.ToInt32(cmd.ExecuteScalar());
-                if (count > 0)
+                if (endereco.cidade == null && endereco.rua == null && endereco.bairro == null)
                 {
-                    MessageBox.Show("Cliente já cadastrado!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    con.CloseConnection();
+                    MessageBox.Show("Falha ao localizar CEP!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    okCep = false;
                 }
-                else
-                {
-                    disable();
-                    btnNew.Enabled = true;
-                    btnBuscar.Enabled = false;
 
-                    con.OpenConnection();
-                    sql = "insert into clientes (nome, cpf, telefone, datanasc, cep, rua, numero, cidade, estado, bairro, complemento) values (@nome, @cpf, @telefone, @datanasc, @cep, @rua, @numero, @cidade, @estado, @bairro, @complemento)";
-                    cmd = new MySqlCommand(sql, con.con);
-                        
-                    cmd.Parameters.AddWithValue("@nome", cliente.nome);
-                    cmd.Parameters.AddWithValue("@cpf", cliente.cpf);
-                    cmd.Parameters.AddWithValue("@telefone", cliente.telefone);
-                    cmd.Parameters.AddWithValue("@datanasc", cliente.dataNascimentoFormatada);
-                    cmd.Parameters.AddWithValue("@cep", cliente.cep);
-                    cmd.Parameters.AddWithValue("@rua", cliente.rua);
-                    cmd.Parameters.AddWithValue("@numero", cliente.numero);
-                    cmd.Parameters.AddWithValue("@cidade", cliente.cidade);
-                    cmd.Parameters.AddWithValue("@estado", cliente.estado);
-                    cmd.Parameters.AddWithValue("@bairro", cliente.bairro);
-                    cmd.Parameters.AddWithValue("@complemento", cliente.complemento);
-
-                    cmd.ExecuteNonQuery();
-                    con.CloseConnection();
-                    
-                    
-                    MessageBox.Show("Cadastrado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    deleteAll();
-                    btnSave.Enabled = false;
-                    btnNew.Enabled = true;
-                    listGrid();
-                }
-                    
+                uf = endereco.uf;
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Erro ao cadastrar cliente\n" + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("CEP inválido!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                okCep = false;
             }
-            
-            
-            
+            finally
+            {
+                
+                Cursor = Cursors.Default;
+            }
         }
-        
+
         #endregion
 
         #region Manipuladores de Eventos
@@ -461,10 +381,12 @@ namespace AssisTec
 
         private void btnSave_Click(object sender, EventArgs e)
         {
+            // Validação de campos obrigatórios
             if (string.IsNullOrWhiteSpace(txtName.Text) ||
                 !mtbCPF.MaskFull ||
                 !mtbTel.MaskFull ||
                 !mtbCep.MaskFull ||
+                string.IsNullOrWhiteSpace(cbStatus.Text)||
                 string.IsNullOrWhiteSpace(txtNumber.Text) ||
                 !DateTime.TryParseExact(mtbNasc.Text, "dd/MM/yyyy", null, System.Globalization.DateTimeStyles.None, out _))
             {
@@ -472,15 +394,100 @@ namespace AssisTec
                 txtName.Focus();
                 return;
             }
+
+            string dataformat = DataFormatada(mtbNasc.Text);
+            if (dataformat == null) return;
             
-            if (modo == 1 && okCep == true) 
+            if (modo == 1 && okCep == true) // Editar
             {
-                editarCliente();
-                
+                try
+                {
+                    con.OpenConnection();
+                    sql = "update tecnicos set nome=@nome, cpf=@cpf, telefone=@telefone, datanasc=@datanasc, cep=@cep, rua=@rua, numero=@numero, cidade=@cidade, estado=@estado, bairro=@bairro, complemento=@complemento, status=@status where id=@id";
+                    cmd = new MySqlCommand(sql, con.con);
+                    cmd.Parameters.AddWithValue("@id", id);
+                    cmd.Parameters.AddWithValue("@nome", txtName.Text);
+                    cmd.Parameters.AddWithValue("@cpf", mtbCPF.Text);
+                    cmd.Parameters.AddWithValue("@telefone", mtbTel.Text);
+                    cmd.Parameters.AddWithValue("@datanasc", dataformat);
+                    cmd.Parameters.AddWithValue("@cep", mtbCep.Text);
+                    cmd.Parameters.AddWithValue("@rua", txtRua.Text);
+                    cmd.Parameters.AddWithValue("@numero", txtNumber.Text);
+                    cmd.Parameters.AddWithValue("@cidade", txtCidade.Text);
+                    cmd.Parameters.AddWithValue("@estado", uf);
+                    cmd.Parameters.AddWithValue("@bairro", txtBairro.Text);
+                    cmd.Parameters.AddWithValue("@complemento", txtComp.Text);
+                    cmd.Parameters.AddWithValue("@status", cbStatus.Text);
+
+                    cmd.ExecuteNonQuery();
+                    con.CloseConnection();
+                    modo = 0;
+                    deleteAll();
+                    disable();
+                    listGrid();
+                    
+                    // Mostrar mensagem de sucesso
+                    MessageBox.Show("tecnicos editado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch (Exception exception)
+                {
+                    MessageBox.Show("Erro ao editar!\n" + exception.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
-            else if (modo == 2 && okCep == true) 
+            
+            else if (modo == 2 && okCep == true) // Novo 
             {
-                novoCliente();
+                try
+                {
+                    
+                    con.OpenConnection();
+                    sql = "SELECT COUNT(*) FROM tecnicos WHERE cpf=@cpf";
+                    cmd = new MySqlCommand(sql, con.con);
+                    cmd.Parameters.AddWithValue("@cpf", mtbCPF.Text);
+                    int count = Convert.ToInt32(cmd.ExecuteScalar());
+                    if (count > 0)
+                    {
+                        MessageBox.Show("tecnico já cadastrado!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        con.CloseConnection();
+                    }
+                    else
+                    {
+                        disable();
+                        btnNew.Enabled = true;
+                        btnBuscar.Enabled = false;
+
+                        con.OpenConnection();
+                        sql = "insert into tecnicos (nome, cpf, telefone, datanasc, cep, rua, numero, cidade, estado, bairro, complemento, status) values (@nome, @cpf, @telefone, @datanasc, @cep, @rua, @numero, @cidade, @estado, @bairro, @complemento, @status)";
+                        cmd = new MySqlCommand(sql, con.con);
+                        cmd.Parameters.AddWithValue("@nome", txtName.Text);
+                        cmd.Parameters.AddWithValue("@cpf", mtbCPF.Text);
+                        cmd.Parameters.AddWithValue("@telefone", mtbTel.Text);
+                        cmd.Parameters.AddWithValue("@datanasc", dataformat);
+                        cmd.Parameters.AddWithValue("@cep", mtbCep.Text);
+                        cmd.Parameters.AddWithValue("@rua", txtRua.Text);
+                        cmd.Parameters.AddWithValue("@numero", txtNumber.Text);
+                        cmd.Parameters.AddWithValue("@cidade", txtCidade.Text);
+                        cmd.Parameters.AddWithValue("@estado", uf);
+                        cmd.Parameters.AddWithValue("@bairro", txtBairro.Text);
+                        cmd.Parameters.AddWithValue("@complemento", txtComp.Text);
+                        cmd.Parameters.AddWithValue("@status", cbStatus.Text);
+
+                        cmd.ExecuteNonQuery();
+                        con.CloseConnection();
+                    
+                        // Mostrar mensagem de sucesso
+                        MessageBox.Show("Cadastrado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        deleteAll();
+                        btnSave.Enabled = false;
+                        btnNew.Enabled = true;
+                        listGrid();
+                    }
+                    
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Erro ao cadastrar técnico\n" + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
             else if (!okCep)
             {
@@ -511,45 +518,11 @@ namespace AssisTec
             }
         }
 
-        async Task BuscarCep(string cep)
-        {
-            try
-            {
-                
-                Cursor = Cursors.WaitCursor;
-                
-                var cepBuscar = RestService.For<ICepApiService>("http://viacep.com.br");
-                var endereco = await cepBuscar.GetAdressAsync(cep);
-                
-                txtCidade.Text = endereco.cidade;
-                txtRua.Text = endereco.rua;
-                txtBairro.Text = endereco.bairro;
-                txtEstado.Text = endereco.estado + " - " + endereco.uf;
-                okCep = true;
-                
-                if (endereco.cidade == null && endereco.rua == null && endereco.bairro == null)
-                {
-                    MessageBox.Show("Falha ao localizar CEP!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    okCep = false;
-                }
-
-                uf = endereco.uf;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("CEP inválido!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                okCep = false;
-            }
-            finally
-            {
-                
-                Cursor = Cursors.Default;
-            }
-        }
+        
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            DialogResult result = MessageBox.Show("Deseja excluir usuário?", "Confirmar Exclusão", 
+            DialogResult result = MessageBox.Show("Deseja excluir tecnico?", "Confirmar Exclusão", 
                 MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 
             if (result == DialogResult.Yes)
@@ -557,7 +530,7 @@ namespace AssisTec
                 try
                 {
                     con.OpenConnection();
-                    sql = "DELETE FROM clientes WHERE id = @id";
+                    sql = "DELETE FROM tecnicos WHERE id = @id";
                     cmd = new MySqlCommand(sql, con.con);
                     cmd.Parameters.AddWithValue("@id", id);
                     cmd.ExecuteNonQuery();
@@ -565,7 +538,7 @@ namespace AssisTec
                     listGrid();
                     deleteAll();
                     
-                    MessageBox.Show("Cliente excluído com sucesso!", "Sucesso", 
+                    MessageBox.Show("Tecnico excluído com sucesso!", "Sucesso", 
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 catch (Exception exception)
@@ -579,9 +552,10 @@ namespace AssisTec
             btnEditar.Enabled = false;
         }
 
-        private void dgvClientes_CellClick(object sender, DataGridViewCellEventArgs e)
+        private void dgvTecnicos_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex >= 0 && dgvClientes.Rows.Count > 0)
+            
+            if (e.RowIndex >= 0 && dgvTecnicos.Rows.Count > 0)
             {
                 try
                 {
@@ -590,20 +564,21 @@ namespace AssisTec
                     btnSave.Enabled = false;
                     btnNew.Enabled = true;
                     btnEditar.Enabled = true;
+                    btnPDF.Enabled = true;
+                    id = dgvTecnicos.Rows[e.RowIndex].Cells[0].Value.ToString();
+                    txtName.Text = dgvTecnicos.Rows[e.RowIndex].Cells[1].Value.ToString();
+                    mtbCPF.Text = dgvTecnicos.Rows[e.RowIndex].Cells[2].Value.ToString();
+                    mtbTel.Text = dgvTecnicos.Rows[e.RowIndex].Cells[3].Value.ToString();
                     
-                    id = Convert.ToInt32(dgvClientes.Rows[e.RowIndex].Cells[0].Value);
-                    txtName.Text = dgvClientes.Rows[e.RowIndex].Cells[1].Value.ToString();
-                    mtbCPF.Text = dgvClientes.Rows[e.RowIndex].Cells[2].Value.ToString();
-                    mtbTel.Text = dgvClientes.Rows[e.RowIndex].Cells[3].Value.ToString();
-                    
-                    DateTime data = Convert.ToDateTime(dgvClientes.Rows[e.RowIndex].Cells[4].Value.ToString());
+                    DateTime data = Convert.ToDateTime(dgvTecnicos.Rows[e.RowIndex].Cells[4].Value.ToString());
                     mtbNasc.Text = data.ToString("dd/MM/yyyy");
                     
-                    mtbCep.Text = dgvClientes.Rows[e.RowIndex].Cells[5].Value.ToString();
+                    mtbCep.Text = dgvTecnicos.Rows[e.RowIndex].Cells[5].Value.ToString();
                     BuscarCep(mtbCep.Text);
                     
-                    txtNumber.Text = dgvClientes.Rows[e.RowIndex].Cells[7].Value.ToString();
-                    txtComp.Text = dgvClientes.Rows[e.RowIndex].Cells[11].Value.ToString();
+                    txtNumber.Text = dgvTecnicos.Rows[e.RowIndex].Cells[7].Value.ToString();
+                    txtComp.Text = dgvTecnicos.Rows[e.RowIndex].Cells[11].Value.ToString();
+                    cbStatus.SelectedItem = dgvTecnicos.Rows[e.RowIndex].Cells[12].Value.ToString();
                 }
                 catch (Exception ex)
                 {
@@ -617,13 +592,13 @@ namespace AssisTec
             try
             {
                 con.OpenConnection();
-                sql = "SELECT * FROM clientes WHERE nome LIKE @nome ORDER BY NOME ASC";  
+                sql = "SELECT * FROM tecnicos WHERE nome LIKE @nome ORDER BY NOME ASC";  
                 cmd = new MySqlCommand(sql, con.con);
                 cmd.Parameters.AddWithValue("@nome", txtBusca.Text + "%");
                 DataTable dt = new DataTable();
                 MySqlDataAdapter da = new MySqlDataAdapter(cmd);
                 da.Fill(dt);
-                dgvClientes.DataSource = dt;
+                dgvTecnicos.DataSource = dt;
                 con.CloseConnection();
                 formartGrid();
             }
@@ -639,6 +614,12 @@ namespace AssisTec
         private void btnAtualizar_Click(object sender, EventArgs e)
         {
             listGrid();
+        }
+
+
+        private void btnPDF_Click(object sender, EventArgs e)
+        {
+            
         }
     }
 }
