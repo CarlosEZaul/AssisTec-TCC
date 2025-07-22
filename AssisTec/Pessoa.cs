@@ -10,6 +10,7 @@ namespace AssisTec
         private int Id;
         private string Nome;
         private string CPF;
+        private string RG;
         private string Telefone;
         private string DataNascimento;
         private string CEP;
@@ -65,12 +66,20 @@ namespace AssisTec
 
         public string cpf
         {
-            get {return CPF;} set{CPF = value;}
+            get {return CPF;} 
+            set{CPF = value;}
+        }
+
+        public string rg
+        {
+            get { return RG; }
+            set { RG = value; }
         }
 
         public string telefone
         {
-            get {return Telefone;} set{Telefone = value;}
+            get {return Telefone;}
+            set{Telefone = value;}
         }
 
         public string dataNascimento

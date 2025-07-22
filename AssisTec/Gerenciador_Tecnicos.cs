@@ -106,6 +106,7 @@ namespace AssisTec
 
                 // Estilo das caixas de texto com máscara
                 StyleMaskedTextBox(mtbCPF);
+                StyleMaskedTextBox(mtbRG);
                 StyleMaskedTextBox(mtbTel);
                 StyleMaskedTextBox(mtbNasc);
                 StyleMaskedTextBox(mtbCep);
@@ -188,17 +189,18 @@ namespace AssisTec
                 dgvTecnicos.Columns[0].Visible = false;
                 dgvTecnicos.Columns[1].HeaderText = "NOME";
                 dgvTecnicos.Columns[2].HeaderText = "CPF";
-                dgvTecnicos.Columns[3].HeaderText = "TEL.";
-                dgvTecnicos.Columns[4].HeaderText = "DATA DE NASC.";
-                dgvTecnicos.Columns[5].HeaderText = "CEP";
-                dgvTecnicos.Columns[6].HeaderText = "RUA";
-                dgvTecnicos.Columns[7].HeaderText = "NUMERO";
-                dgvTecnicos.Columns[8].HeaderText = "CIDADE";
-                dgvTecnicos.Columns[9].HeaderText = "ESTADO";
-                dgvTecnicos.Columns[10].HeaderText = "BAIRRO";
-                dgvTecnicos.Columns[11].HeaderText = "COMPLEMENTO";
-                dgvTecnicos.Columns[12].HeaderText = "STATUS";
-                dgvTecnicos.Columns[13].HeaderText = "PERIODO";
+                dgvTecnicos.Columns[3].HeaderText = "RG";
+                dgvTecnicos.Columns[4].HeaderText = "TEL.";
+                dgvTecnicos.Columns[5].HeaderText = "DATA DE NASC.";
+                dgvTecnicos.Columns[6].HeaderText = "CEP";
+                dgvTecnicos.Columns[7].HeaderText = "RUA";
+                dgvTecnicos.Columns[8].HeaderText = "NUMERO";
+                dgvTecnicos.Columns[9].HeaderText = "CIDADE";
+                dgvTecnicos.Columns[10].HeaderText = "ESTADO";
+                dgvTecnicos.Columns[11].HeaderText = "BAIRRO";
+                dgvTecnicos.Columns[12].HeaderText = "COMPLEMENTO";
+                dgvTecnicos.Columns[13].HeaderText = "STATUS";
+                dgvTecnicos.Columns[14].HeaderText = "PERIODO";
             }
         }
 
@@ -226,6 +228,7 @@ namespace AssisTec
         {
             txtName.Enabled = false;
             mtbCPF.Enabled = false;
+            mtbRG.Enabled = false;
             mtbNasc.Enabled = false;
             mtbTel.Enabled = false;
             mtbCep.Enabled = false;
@@ -249,6 +252,7 @@ namespace AssisTec
         {
             txtName.Enabled = false;
             mtbCPF.Enabled = false;
+            mtbRG.Enabled = false;
             mtbNasc.Enabled = false;
             mtbTel.Enabled = false;
             mtbCep.Enabled = false;
@@ -268,6 +272,7 @@ namespace AssisTec
         {
             txtName.Text = "";
             mtbCPF.Text = "";
+            mtbRG.Text = "";
             mtbNasc.Text = "";
             txtNumber.Text = "";
             mtbTel.Text = "";
@@ -286,6 +291,7 @@ namespace AssisTec
         {
             txtName.Enabled = true;
             mtbCPF.Enabled = true;
+            mtbRG.Enabled=true;
             mtbNasc.Enabled = true;
             txtNumber.Enabled = true;
             mtbTel.Enabled = true;
@@ -331,6 +337,7 @@ namespace AssisTec
             tecnico.id = id;
             tecnico.nome = txtName.Text;
             tecnico.cpf = mtbCPF.Text;
+            tecnico.rg = mtbRG.Text;
             tecnico.telefone = mtbTel.Text;
             tecnico.dataNascimento = mtbNasc.Text;
             string dataFormatada = tecnico.dataNascimentoFormatada;
@@ -350,9 +357,30 @@ namespace AssisTec
             tecnico.periodo = cbPeriodo.Text;
             return tecnico;
         }
+        private bool TecnicoJaExiste(string cpf, string rg, int? idIgnorar = null)
+        {
+            con.OpenConnection();
+            string sql = "SELECT COUNT(*) FROM tecnicos WHERE (cpf = @cpf OR rg = @rg)";
+            if (idIgnorar.HasValue)
+                sql += " AND id <> @id";
+
+            using (MySqlCommand cmd = new MySqlCommand(sql, con.con))
+            {
+                cmd.Parameters.AddWithValue("@cpf", cpf);
+                cmd.Parameters.AddWithValue("@rg", rg);
+                if (idIgnorar.HasValue)
+                    cmd.Parameters.AddWithValue("@id", idIgnorar.Value);
+
+                int count = Convert.ToInt32(cmd.ExecuteScalar());
+                con.CloseConnection();
+                return count > 0;
+            }
+        }
 
         private void novoTecnico()
         {
+            btnNew.Enabled = true;
+            btnBuscar.Enabled = false;
             Tecnico tecnico = formTecnico();
             if (tecnico == null)
             {
@@ -362,52 +390,48 @@ namespace AssisTec
 
             try
             {
+                if (TecnicoJaExiste(tecnico.cpf, tecnico.rg))
+                {
+                    MessageBox.Show("Técnico já cadastrado!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+
+                
+                disable();
+                btnNew.Enabled = true;
+                btnBuscar.Enabled = false;
 
                 con.OpenConnection();
-                sql = "SELECT COUNT(*) FROM tecnicos WHERE cpf=@cpf";
+                sql =
+                    "insert into tecnicos (nome, cpf, rg ,telefone, datanasc, cep, rua, numero, cidade, estado, bairro, complemento, status,periodo) values (@nome, @cpf,@rg, @telefone, @datanasc, @cep, @rua, @numero, @cidade, @estado, @bairro, @complemento, @status, @periodo)";
                 cmd = new MySqlCommand(sql, con.con);
+                cmd.Parameters.AddWithValue("@nome", tecnico.nome);
                 cmd.Parameters.AddWithValue("@cpf", tecnico.cpf);
-                int count = Convert.ToInt32(cmd.ExecuteScalar());
-                if (count > 0)
-                {
-                    MessageBox.Show("tecnico já cadastrado!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    con.CloseConnection();
-                }
-                else
-                {
-                    disable();
-                    btnNew.Enabled = true;
-                    btnBuscar.Enabled = false;
+                cmd.Parameters.AddWithValue("@rg", tecnico.rg);
+                cmd.Parameters.AddWithValue("@telefone", tecnico.telefone);
+                cmd.Parameters.AddWithValue("@datanasc", tecnico.dataNascimentoFormatada);
+                cmd.Parameters.AddWithValue("@cep", tecnico.cep);
+                cmd.Parameters.AddWithValue("@rua", tecnico.rua);
+                cmd.Parameters.AddWithValue("@numero", tecnico.numero);
+                cmd.Parameters.AddWithValue("@cidade", tecnico.cidade);
+                cmd.Parameters.AddWithValue("@estado", tecnico.estado);
+                cmd.Parameters.AddWithValue("@bairro", tecnico.bairro);
+                cmd.Parameters.AddWithValue("@complemento", tecnico.complemento);
+                cmd.Parameters.AddWithValue("@status", tecnico.status);
+                cmd.Parameters.AddWithValue("@periodo", tecnico.periodo);
 
-                    con.OpenConnection();
-                    sql =
-                        "insert into tecnicos (nome, cpf, telefone, datanasc, cep, rua, numero, cidade, estado, bairro, complemento, status,periodo) values (@nome, @cpf, @telefone, @datanasc, @cep, @rua, @numero, @cidade, @estado, @bairro, @complemento, @status, @periodo)";
-                    cmd = new MySqlCommand(sql, con.con);
-                    cmd.Parameters.AddWithValue("@nome", tecnico.nome);
-                    cmd.Parameters.AddWithValue("@cpf", tecnico.cpf);
-                    cmd.Parameters.AddWithValue("@telefone", tecnico.telefone);
-                    cmd.Parameters.AddWithValue("@datanasc", tecnico.dataNascimentoFormatada);
-                    cmd.Parameters.AddWithValue("@cep", tecnico.cep);
-                    cmd.Parameters.AddWithValue("@rua", tecnico.rua);
-                    cmd.Parameters.AddWithValue("@numero", tecnico.numero);
-                    cmd.Parameters.AddWithValue("@cidade", tecnico.cidade);
-                    cmd.Parameters.AddWithValue("@estado", tecnico.estado);
-                    cmd.Parameters.AddWithValue("@bairro", tecnico.bairro);
-                    cmd.Parameters.AddWithValue("@complemento", tecnico.complemento);
-                    cmd.Parameters.AddWithValue("@status", tecnico.status);
-                    cmd.Parameters.AddWithValue("@periodo", tecnico.periodo);
+                cmd.ExecuteNonQuery();
+                con.CloseConnection();
 
-                    cmd.ExecuteNonQuery();
-                    con.CloseConnection();
-
-                    // Mostrar mensagem de sucesso
-                    MessageBox.Show("Cadastrado com sucesso!", "Sucesso", MessageBoxButtons.OK,
-                        MessageBoxIcon.Information);
-                    deleteAll();
-                    btnSave.Enabled = false;
-                    btnNew.Enabled = true;
-                    listGrid();
-                }
+                // Mostrar mensagem de sucesso
+                MessageBox.Show("Cadastrado com sucesso!", "Sucesso", MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
+                deleteAll();
+                btnSave.Enabled = false;
+                btnNew.Enabled = true;
+                listGrid();
+                
 
             }
             catch (Exception ex)
@@ -429,13 +453,21 @@ namespace AssisTec
 
             try
             {
+                if (TecnicoJaExiste(tecnico.cpf, tecnico.rg, tecnico.id))
+                {
+                    MessageBox.Show("Técnico já cadastrado!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                
                 con.OpenConnection();
                 sql =
-                    "update tecnicos set nome=@nome, cpf=@cpf, telefone=@telefone, datanasc=@datanasc, cep=@cep, rua=@rua, numero=@numero, cidade=@cidade, estado=@estado, bairro=@bairro, complemento=@complemento, status=@status, periodo=@periodo where id=@id";
+                    "update tecnicos set nome=@nome, cpf=@cpf,rg=@rg, telefone=@telefone, datanasc=@datanasc, cep=@cep, rua=@rua, numero=@numero, cidade=@cidade, estado=@estado, bairro=@bairro, complemento=@complemento, status=@status, periodo=@periodo where id=@id";
                 cmd = new MySqlCommand(sql, con.con);
                 cmd.Parameters.AddWithValue("@id", tecnico.id);
                 cmd.Parameters.AddWithValue("@nome", tecnico.nome);
                 cmd.Parameters.AddWithValue("@cpf", tecnico.cpf);
+                cmd.Parameters.AddWithValue("@rg", tecnico.rg);
                 cmd.Parameters.AddWithValue("@telefone", tecnico.telefone);
                 cmd.Parameters.AddWithValue("@datanasc", tecnico.dataNascimentoFormatada);
                 cmd.Parameters.AddWithValue("@cep", tecnico.cep);
@@ -453,6 +485,8 @@ namespace AssisTec
                 modo = 0;
                 deleteAll();
                 disable();
+                btnNew.Enabled = true;
+                btnBuscar.Enabled = false;
                 listGrid();
 
                 // Mostrar mensagem de sucesso
@@ -537,6 +571,7 @@ namespace AssisTec
 
             if (string.IsNullOrWhiteSpace(txtName.Text) ||
                 !mtbCPF.MaskFull ||
+                !mtbRG.MaskFull||
                 !mtbTel.MaskFull ||
                 !mtbCep.MaskFull ||
                 string.IsNullOrWhiteSpace(cbStatus.Text) ||
@@ -640,18 +675,19 @@ namespace AssisTec
                     id = Convert.ToInt32(dgvTecnicos.Rows[e.RowIndex].Cells[0].Value.ToString());
                     txtName.Text = dgvTecnicos.Rows[e.RowIndex].Cells[1].Value.ToString();
                     mtbCPF.Text = dgvTecnicos.Rows[e.RowIndex].Cells[2].Value.ToString();
-                    mtbTel.Text = dgvTecnicos.Rows[e.RowIndex].Cells[3].Value.ToString();
+                    mtbRG.Text = dgvTecnicos.Rows[e.RowIndex].Cells[3].Value.ToString();
+                    mtbTel.Text = dgvTecnicos.Rows[e.RowIndex].Cells[4].Value.ToString();
 
-                    DateTime data = Convert.ToDateTime(dgvTecnicos.Rows[e.RowIndex].Cells[4].Value.ToString());
+                    DateTime data = Convert.ToDateTime(dgvTecnicos.Rows[e.RowIndex].Cells[5].Value.ToString());
                     mtbNasc.Text = data.ToString("dd/MM/yyyy");
 
-                    mtbCep.Text = dgvTecnicos.Rows[e.RowIndex].Cells[5].Value.ToString();
+                    mtbCep.Text = dgvTecnicos.Rows[e.RowIndex].Cells[6].Value.ToString();
                     BuscarCep(mtbCep.Text);
 
-                    txtNumber.Text = dgvTecnicos.Rows[e.RowIndex].Cells[7].Value.ToString();
-                    txtComp.Text = dgvTecnicos.Rows[e.RowIndex].Cells[11].Value.ToString();
-                    cbStatus.SelectedItem = dgvTecnicos.Rows[e.RowIndex].Cells[12].Value.ToString();
-                    cbPeriodo.SelectedItem = dgvTecnicos.Rows[e.RowIndex].Cells[13].Value.ToString();
+                    txtNumber.Text = dgvTecnicos.Rows[e.RowIndex].Cells[8].Value.ToString();
+                    txtComp.Text = dgvTecnicos.Rows[e.RowIndex].Cells[12].Value.ToString();
+                    cbStatus.SelectedItem = dgvTecnicos.Rows[e.RowIndex].Cells[13].Value.ToString();
+                    cbPeriodo.SelectedItem = dgvTecnicos.Rows[e.RowIndex].Cells[14].Value.ToString();
                 }
                 catch (Exception ex)
                 {
@@ -794,31 +830,13 @@ namespace AssisTec
                 cabecalho.SetWidths(new float[] { 1f, 4f });
                 cabecalho.SpacingAfter = 20f;
 
-                // Logo menor para a seção
-                try 
-                {
-                    Image logoSecao = Image.GetInstance(caminhoLogo);
-                    logoSecao.ScaleToFit(60f, 60f); // Logo menor para a seção
-                    PdfPCell cellLogoSecao = new PdfPCell(logoSecao);
-                    cellLogoSecao.Border = 0;
-                    cellLogoSecao.HorizontalAlignment = Element.ALIGN_CENTER;
-                    cellLogoSecao.VerticalAlignment = Element.ALIGN_MIDDLE;
-                    cellLogoSecao.BackgroundColor = BaseColor.WHITE;
-                    cellLogoSecao.Padding = 10f;
-                    cabecalho.AddCell(cellLogoSecao);
-                }
-                catch
-                {
-                    // Se não encontrar a logo, adiciona célula vazia
-                    PdfPCell cellVaziaSecao = new PdfPCell(new Phrase(""));
-                    cellVaziaSecao.Border = 0;
-                    cabecalho.AddCell(cellVaziaSecao);
-                }
+                
+               
 
                 // Título da ficha
                 font fontTecnico = FontFactory.GetFont("Arial", 20, font.BOLD, corSecundaria);
                 PdfPCell cellTituloSecao = new PdfPCell(new Phrase("FICHA DO TÉCNICO", fontTecnico));
-                cellTituloSecao.HorizontalAlignment = Element.ALIGN_LEFT;
+                cellTituloSecao.HorizontalAlignment = Element.ALIGN_CENTER;
                 cellTituloSecao.VerticalAlignment = Element.ALIGN_MIDDLE;
                 cellTituloSecao.Border = 0;
                 cellTituloSecao.PaddingLeft = 20f;
@@ -899,8 +917,9 @@ namespace AssisTec
                 bool alternar = true;
                 AddLinhaDados("Nome Completo:", tecnico.nome, alternar = !alternar);
                 AddLinhaDados("CPF:", tecnico.cpf, alternar = !alternar);
+                AddLinhaDados("RG: ", tecnico.rg, alternar = !alternar);
                 AddLinhaDados("Telefone:", tecnico.telefone, alternar = !alternar);
-                AddLinhaDados("Data de Nascimento:", tecnico.dataNascimentoFormatada, alternar = !alternar);
+                AddLinhaDados("Data de Nascimento:", tecnico.dataNascimento, alternar = !alternar);
 
                 doc.Add(tabelaPessoais);
 

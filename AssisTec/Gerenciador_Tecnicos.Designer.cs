@@ -33,6 +33,8 @@ namespace AssisTec
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Gerenciador_Tecnicos));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.mtbRG = new System.Windows.Forms.MaskedTextBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.cbPeriodo = new System.Windows.Forms.ComboBox();
             this.btnPDF = new System.Windows.Forms.Button();
@@ -82,6 +84,8 @@ namespace AssisTec
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(55)))), ((int)(((byte)(76)))));
+            this.panel1.Controls.Add(this.mtbRG);
+            this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.cbPeriodo);
             this.panel1.Controls.Add(this.btnPDF);
@@ -122,6 +126,29 @@ namespace AssisTec
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(564, 411);
             this.panel1.TabIndex = 38;
+            // 
+            // mtbRG
+            // 
+            this.mtbRG.BackColor = System.Drawing.Color.White;
+            this.mtbRG.Location = new System.Drawing.Point(246, 65);
+            this.mtbRG.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.mtbRG.Mask = "00.000.000-0";
+            this.mtbRG.Name = "mtbRG";
+            this.mtbRG.Size = new System.Drawing.Size(131, 20);
+            this.mtbRG.TabIndex = 38;
+            this.mtbRG.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Comic Sans MS", 9.75F);
+            this.label3.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.label3.Location = new System.Drawing.Point(211, 66);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(29, 18);
+            this.label3.TabIndex = 37;
+            this.label3.Text = "RG:";
             // 
             // label2
             // 
@@ -622,6 +649,9 @@ namespace AssisTec
             ((System.ComponentModel.ISupportInitialize)(this.dgvTecnicos)).EndInit();
             this.ResumeLayout(false);
         }
+
+        private System.Windows.Forms.MaskedTextBox mtbRG;
+        private System.Windows.Forms.Label label3;
 
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox cbPeriodo;
