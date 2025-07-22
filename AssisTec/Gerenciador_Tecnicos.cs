@@ -10,6 +10,15 @@ using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 using Refit;
 using Exception = System.Exception;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
+using System.IO;
+using Mysqlx;
+using Font = System.Drawing.Font;
+using font = iTextSharp.text.Font;
+using Image = iTextSharp.text.Image;
+using Rectangle = iTextSharp.text.Rectangle;
+
 
 namespace AssisTec
 {
@@ -35,6 +44,9 @@ namespace AssisTec
             cbStatus.Items.Clear();
             cbStatus.Items.Add("Ativo");
             cbStatus.Items.Add("Desativado");
+            cbPeriodo.Items.Clear();
+            cbPeriodo.Items.Add("08:00 - 14:00");
+            cbPeriodo.Items.Add("14:00 - 20:00");
             disable();
             btnNew.Focus();
             listGrid();
@@ -185,6 +197,8 @@ namespace AssisTec
                 dgvTecnicos.Columns[9].HeaderText = "ESTADO";
                 dgvTecnicos.Columns[10].HeaderText = "BAIRRO";
                 dgvTecnicos.Columns[11].HeaderText = "COMPLEMENTO";
+                dgvTecnicos.Columns[12].HeaderText = "STATUS";
+                dgvTecnicos.Columns[13].HeaderText = "PERIODO";
             }
         }
 
@@ -195,6 +209,7 @@ namespace AssisTec
             btnDelete.Enabled = true;
             btnEditar.Enabled = true;
             btnSave.Enabled = true;
+            btnPDF.Enabled=true;
         }
 
         private void desableBtn()
@@ -204,6 +219,7 @@ namespace AssisTec
             btnDelete.Enabled = false;
             btnEditar.Enabled = false;
             btnSave.Enabled = false;
+            btnPDF.Enabled = false;
         }
 
         private void disable()
@@ -224,6 +240,9 @@ namespace AssisTec
             btnBuscar.Enabled = false;
             cbStatus.Enabled = false;
             cbStatus.DropDownStyle = ComboBoxStyle.Simple;
+            btnPDF.Enabled = false;
+            cbPeriodo.Enabled = false;
+            cbPeriodo.DropDownStyle = ComboBoxStyle.Simple;
         }
 
         private void disabletxt()
@@ -241,6 +260,8 @@ namespace AssisTec
             txtBairro.Enabled = false;
             cbStatus.Enabled = false;
             cbStatus.DropDownStyle = ComboBoxStyle.Simple;
+            cbPeriodo.Enabled = false;
+            cbPeriodo.DropDownStyle = ComboBoxStyle.Simple;
         }
 
         private void deleteAll()
@@ -258,6 +279,7 @@ namespace AssisTec
             txtComp.Text = "";
             txtBusca.Text = "";
             cbStatus.SelectedText = null;
+            cbPeriodo.SelectedText = null;
         }
 
         private void enableTxt()
@@ -273,6 +295,8 @@ namespace AssisTec
             btnSave.Enabled = true;
             cbStatus.Enabled = true;
             cbStatus.DropDownStyle = ComboBoxStyle.DropDown;
+            cbPeriodo.Enabled = true;
+            cbPeriodo.DropDownStyle = ComboBoxStyle.DropDown;
             txtRua.BackColor = Color.White;
             txtCidade.BackColor = Color.White;
             txtBairro.BackColor = Color.White;
@@ -323,6 +347,7 @@ namespace AssisTec
             tecnico.bairro = txtBairro.Text;
             tecnico.complemento = txtComp.Text;
             tecnico.status = cbStatus.Text;
+            tecnico.periodo = cbPeriodo.Text;
             return tecnico;
         }
 
@@ -356,7 +381,7 @@ namespace AssisTec
 
                     con.OpenConnection();
                     sql =
-                        "insert into tecnicos (nome, cpf, telefone, datanasc, cep, rua, numero, cidade, estado, bairro, complemento, status) values (@nome, @cpf, @telefone, @datanasc, @cep, @rua, @numero, @cidade, @estado, @bairro, @complemento, @status)";
+                        "insert into tecnicos (nome, cpf, telefone, datanasc, cep, rua, numero, cidade, estado, bairro, complemento, status,periodo) values (@nome, @cpf, @telefone, @datanasc, @cep, @rua, @numero, @cidade, @estado, @bairro, @complemento, @status, @periodo)";
                     cmd = new MySqlCommand(sql, con.con);
                     cmd.Parameters.AddWithValue("@nome", tecnico.nome);
                     cmd.Parameters.AddWithValue("@cpf", tecnico.cpf);
@@ -370,6 +395,7 @@ namespace AssisTec
                     cmd.Parameters.AddWithValue("@bairro", tecnico.bairro);
                     cmd.Parameters.AddWithValue("@complemento", tecnico.complemento);
                     cmd.Parameters.AddWithValue("@status", tecnico.status);
+                    cmd.Parameters.AddWithValue("@periodo", tecnico.periodo);
 
                     cmd.ExecuteNonQuery();
                     con.CloseConnection();
@@ -405,7 +431,7 @@ namespace AssisTec
             {
                 con.OpenConnection();
                 sql =
-                    "update tecnicos set nome=@nome, cpf=@cpf, telefone=@telefone, datanasc=@datanasc, cep=@cep, rua=@rua, numero=@numero, cidade=@cidade, estado=@estado, bairro=@bairro, complemento=@complemento, status=@status where id=@id";
+                    "update tecnicos set nome=@nome, cpf=@cpf, telefone=@telefone, datanasc=@datanasc, cep=@cep, rua=@rua, numero=@numero, cidade=@cidade, estado=@estado, bairro=@bairro, complemento=@complemento, status=@status, periodo=@periodo where id=@id";
                 cmd = new MySqlCommand(sql, con.con);
                 cmd.Parameters.AddWithValue("@id", tecnico.id);
                 cmd.Parameters.AddWithValue("@nome", tecnico.nome);
@@ -420,6 +446,7 @@ namespace AssisTec
                 cmd.Parameters.AddWithValue("@bairro", tecnico.bairro);
                 cmd.Parameters.AddWithValue("@complemento", tecnico.complemento);
                 cmd.Parameters.AddWithValue("@status", tecnico.status);
+                cmd.Parameters.AddWithValue("@periodo", tecnico.periodo);
 
                 cmd.ExecuteNonQuery();
                 con.CloseConnection();
@@ -513,6 +540,7 @@ namespace AssisTec
                 !mtbTel.MaskFull ||
                 !mtbCep.MaskFull ||
                 string.IsNullOrWhiteSpace(cbStatus.Text) ||
+                string.IsNullOrWhiteSpace(cbPeriodo.Text) ||
                 string.IsNullOrWhiteSpace(txtNumber.Text) ||
                 !DateTime.TryParseExact(mtbNasc.Text, "dd/MM/yyyy", null, System.Globalization.DateTimeStyles.None,
                     out _))
@@ -623,6 +651,7 @@ namespace AssisTec
                     txtNumber.Text = dgvTecnicos.Rows[e.RowIndex].Cells[7].Value.ToString();
                     txtComp.Text = dgvTecnicos.Rows[e.RowIndex].Cells[11].Value.ToString();
                     cbStatus.SelectedItem = dgvTecnicos.Rows[e.RowIndex].Cells[12].Value.ToString();
+                    cbPeriodo.SelectedItem = dgvTecnicos.Rows[e.RowIndex].Cells[13].Value.ToString();
                 }
                 catch (Exception ex)
                 {
@@ -634,6 +663,7 @@ namespace AssisTec
 
         private void txtBusca_TextChanged(object sender, EventArgs e)
         {
+            desableBtn();
             try
             {
                 con.OpenConnection();
@@ -652,6 +682,7 @@ namespace AssisTec
 
                 Console.WriteLine("Erro na busca: " + ex.Message);
             }
+            btnNew.Enabled = true;
         }
 
         #endregion
@@ -664,7 +695,371 @@ namespace AssisTec
 
         private void btnPDF_Click(object sender, EventArgs e)
         {
+            if (id == 0)
+            {
+                MessageBox.Show(("Selecione um Técnico!"));
+                return;
+            }
+
+            try
+            {
+                Tecnico tecnico = formTecnico();
+                
+                SaveFileDialog salvar = new SaveFileDialog();
+                salvar.Filter = "PDF FILE|*.pdf";
+                salvar.Title = "Salvar PDF do Tecnico";
+                salvar.FileName = "Técnico " + tecnico.nome;
+                if (salvar.ShowDialog() != DialogResult.OK)
+                {
+                    return;
+                }
+                
+                
+                
+                string caminho = salvar.FileName;
+                Document doc = new Document(PageSize.A4, 30f, 30f, 40f, 40f);
+                PdfWriter.GetInstance(doc, new FileStream(caminho, FileMode.Create));
+                doc.Open();
+
+                // Cores personalizadas
+                BaseColor corPrimaria = new BaseColor(41, 128, 185);     // Azul elegante
+                BaseColor corSecundaria = new BaseColor(52, 73, 94);     // Cinza escuro
+                BaseColor corFundo = new BaseColor(236, 240, 241);       // Cinza claro
+                BaseColor corTexto = new BaseColor(44, 62, 80);          // Cinza escuro para texto
+
+                // === CABEÇALHO PRINCIPAL ===
+                // Cabeçalho com logo e título na barra azul
+                PdfPTable cabecalhoPrincipal = new PdfPTable(3);
+                cabecalhoPrincipal.WidthPercentage = 100;
+                cabecalhoPrincipal.SetWidths(new float[] { 1f, 2f, 1f }); // Logo, Título, Espaço
+
+                // Logo na barra azul
+                string caminhoLogo = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "img\\logo\\logo.png");
+                PdfPCell cellLogoHeader;
+                try 
+                {
+                    Image logo = Image.GetInstance(caminhoLogo);
+                    logo.ScaleToFit(100f, 80f); // Logo maior
+                    cellLogoHeader = new PdfPCell(logo);
+                    cellLogoHeader.HorizontalAlignment = Element.ALIGN_LEFT;
+                    cellLogoHeader.VerticalAlignment = Element.ALIGN_MIDDLE;
+                    cellLogoHeader.PaddingLeft = 20f;
+                }
+                catch
+                {
+                    // Se não encontrar a logo, adiciona célula com texto
+                    font fontLogoAlt = FontFactory.GetFont("Arial", 16, font.BOLD, BaseColor.WHITE);
+                    cellLogoHeader = new PdfPCell(new Phrase("LOGO", fontLogoAlt));
+                    cellLogoHeader.HorizontalAlignment = Element.ALIGN_LEFT;
+                    cellLogoHeader.VerticalAlignment = Element.ALIGN_MIDDLE;
+                    cellLogoHeader.PaddingLeft = 20f;
+                }
+
+                cellLogoHeader.BackgroundColor = corPrimaria;
+                cellLogoHeader.Border = 0;
+                cellLogoHeader.FixedHeight = 80f;
+                cabecalhoPrincipal.AddCell(cellLogoHeader);
+
+                // Título centralizado na barra azul
+                font fontTitulo = FontFactory.GetFont("Arial", 28, font.BOLD, BaseColor.WHITE);
+                PdfPCell cellTitulo = new PdfPCell(new Phrase("AssisTec", fontTitulo));
+                cellTitulo.BackgroundColor = corPrimaria;
+                cellTitulo.HorizontalAlignment = Element.ALIGN_CENTER;
+                cellTitulo.VerticalAlignment = Element.ALIGN_MIDDLE;
+                cellTitulo.Border = 0;
+                cellTitulo.FixedHeight = 80f;
+                cabecalhoPrincipal.AddCell(cellTitulo);
+
+                // Célula vazia para balanceamento
+                PdfPCell cellVazia = new PdfPCell(new Phrase(""));
+                cellVazia.BackgroundColor = corPrimaria;
+                cellVazia.Border = 0;
+                cellVazia.FixedHeight = 80f;
+                cabecalhoPrincipal.AddCell(cellVazia);
+
+                doc.Add(cabecalhoPrincipal);
+
+                // Subtítulo
+                font fontSubtitulo = FontFactory.GetFont("Arial", 14, font.ITALIC, corSecundaria);
+                Paragraph subtitulo = new Paragraph("Sistema de Gestão Técnica", fontSubtitulo);
+                subtitulo.Alignment = Element.ALIGN_CENTER;
+                subtitulo.SpacingAfter = 20f;
+                subtitulo.SpacingBefore = 15f;
+                doc.Add(subtitulo);
+
+                // === SEÇÃO DO TÉCNICO ===
+                // Cabeçalho da seção com logo menor
+                PdfPTable cabecalho = new PdfPTable(2);
+                cabecalho.WidthPercentage = 100;
+                cabecalho.SetWidths(new float[] { 1f, 4f });
+                cabecalho.SpacingAfter = 20f;
+
+                // Logo menor para a seção
+                try 
+                {
+                    Image logoSecao = Image.GetInstance(caminhoLogo);
+                    logoSecao.ScaleToFit(60f, 60f); // Logo menor para a seção
+                    PdfPCell cellLogoSecao = new PdfPCell(logoSecao);
+                    cellLogoSecao.Border = 0;
+                    cellLogoSecao.HorizontalAlignment = Element.ALIGN_CENTER;
+                    cellLogoSecao.VerticalAlignment = Element.ALIGN_MIDDLE;
+                    cellLogoSecao.BackgroundColor = BaseColor.WHITE;
+                    cellLogoSecao.Padding = 10f;
+                    cabecalho.AddCell(cellLogoSecao);
+                }
+                catch
+                {
+                    // Se não encontrar a logo, adiciona célula vazia
+                    PdfPCell cellVaziaSecao = new PdfPCell(new Phrase(""));
+                    cellVaziaSecao.Border = 0;
+                    cabecalho.AddCell(cellVaziaSecao);
+                }
+
+                // Título da ficha
+                font fontTecnico = FontFactory.GetFont("Arial", 20, font.BOLD, corSecundaria);
+                PdfPCell cellTituloSecao = new PdfPCell(new Phrase("FICHA DO TÉCNICO", fontTecnico));
+                cellTituloSecao.HorizontalAlignment = Element.ALIGN_LEFT;
+                cellTituloSecao.VerticalAlignment = Element.ALIGN_MIDDLE;
+                cellTituloSecao.Border = 0;
+                cellTituloSecao.PaddingLeft = 20f;
+                cabecalho.AddCell(cellTituloSecao);
+
+                doc.Add(cabecalho);
+
+                // Nome do técnico em destaque
+                font fontNomeTecnico = FontFactory.GetFont("Arial", 18, font.BOLD, corPrimaria);
+                Paragraph nomeTecnico = new Paragraph(tecnico.nome.ToUpper(), fontNomeTecnico);
+                nomeTecnico.Alignment = Element.ALIGN_CENTER;
+                nomeTecnico.SpacingAfter = 25f;
+                nomeTecnico.SpacingBefore = 10f;
+
+                // Adicionar uma linha decorativa
+                PdfPTable linhaDivisoria = new PdfPTable(1);
+                linhaDivisoria.WidthPercentage = 60;
+                linhaDivisoria.HorizontalAlignment = Element.ALIGN_CENTER;
+                PdfPCell cellLinha = new PdfPCell();
+                cellLinha.BackgroundColor = corPrimaria;
+                cellLinha.FixedHeight = 3f;
+                cellLinha.Border = 0;
+                linhaDivisoria.AddCell(cellLinha);
+
+                doc.Add(nomeTecnico);
+                doc.Add(linhaDivisoria);
+                doc.Add(new Paragraph("\n"));
+
+                // === DADOS PESSOAIS ===
+                font fontSecao = FontFactory.GetFont("Arial", 14, font.BOLD, BaseColor.WHITE);
+                PdfPTable tituloSecao1 = new PdfPTable(1);
+                tituloSecao1.WidthPercentage = 100;
+                tituloSecao1.SpacingBefore = 10f;
+                PdfPCell cellSecao1 = new PdfPCell(new Phrase("DADOS PESSOAIS", fontSecao));
+                cellSecao1.BackgroundColor = corSecundaria;
+                cellSecao1.HorizontalAlignment = Element.ALIGN_CENTER;
+                cellSecao1.Padding = 8f;
+                cellSecao1.Border = 0;
+                tituloSecao1.AddCell(cellSecao1);
+                doc.Add(tituloSecao1);
+
+                // Tabela de dados pessoais
+                PdfPTable tabelaPessoais = new PdfPTable(2);
+                tabelaPessoais.WidthPercentage = 100;
+                tabelaPessoais.SpacingAfter = 15f;
+                tabelaPessoais.SetWidths(new float[] { 1f, 2f });
+
+                font boldFont = FontFactory.GetFont("Arial", 11, font.BOLD, corTexto);
+                font regularFont = FontFactory.GetFont("Arial", 11, font.NORMAL, corTexto);
+
+                void AddLinhaDados(string texto, string valor, bool alternarCor = true)
+                {
+                    PdfPCell cell1 = new PdfPCell(new Phrase(texto, boldFont));
+                    PdfPCell cell2 = new PdfPCell(new Phrase(valor ?? "N/A", regularFont));
+                    
+                    if (alternarCor)
+                    {
+                        cell1.BackgroundColor = corFundo;
+                        cell2.BackgroundColor = BaseColor.WHITE;
+                    }
+                    else
+                    {
+                        cell1.BackgroundColor = BaseColor.WHITE;
+                        cell2.BackgroundColor = corFundo;
+                    }
+                    
+                    cell1.Padding = 8f;
+                    cell2.Padding = 8f;
+                    cell1.Border = Rectangle.BOTTOM_BORDER;
+                    cell2.Border = Rectangle.BOTTOM_BORDER;
+                    cell1.BorderColor = new BaseColor(189, 195, 199);
+                    cell2.BorderColor = new BaseColor(189, 195, 199);
+                    
+                    tabelaPessoais.AddCell(cell1);
+                    tabelaPessoais.AddCell(cell2);
+                }
+
+                bool alternar = true;
+                AddLinhaDados("Nome Completo:", tecnico.nome, alternar = !alternar);
+                AddLinhaDados("CPF:", tecnico.cpf, alternar = !alternar);
+                AddLinhaDados("Telefone:", tecnico.telefone, alternar = !alternar);
+                AddLinhaDados("Data de Nascimento:", tecnico.dataNascimentoFormatada, alternar = !alternar);
+
+                doc.Add(tabelaPessoais);
+
+                // === INFORMAÇÕES PROFISSIONAIS ===
+                PdfPTable tituloSecao3 = new PdfPTable(1);
+                tituloSecao3.WidthPercentage = 100;
+                tituloSecao3.SpacingBefore = 10f;
+                PdfPCell cellSecao3 = new PdfPCell(new Phrase("INFORMAÇÕES PROFISSIONAIS", fontSecao));
+                cellSecao3.BackgroundColor = corSecundaria;
+                cellSecao3.HorizontalAlignment = Element.ALIGN_CENTER;
+                cellSecao3.Padding = 8f;
+                cellSecao3.Border = 0;
+                tituloSecao3.AddCell(cellSecao3);
+                doc.Add(tituloSecao3);
+
+                // Tabela de informações profissionais
+                PdfPTable tabelaProfissional = new PdfPTable(2);
+                tabelaProfissional.WidthPercentage = 100;
+                tabelaProfissional.SpacingAfter = 15f;
+                tabelaProfissional.SetWidths(new float[] { 1f, 2f });
+
+                // Função local para adicionar linhas na tabela profissional
+                void AddLinhaProfissional(string texto, string valor, bool alternarCor = true)
+                {
+                    PdfPCell cell1 = new PdfPCell(new Phrase(texto, boldFont));
+                    PdfPCell cell2 = new PdfPCell(new Phrase(valor ?? "N/A", regularFont));
+                    
+                    if (alternarCor)
+                    {
+                        cell1.BackgroundColor = corFundo;
+                        cell2.BackgroundColor = BaseColor.WHITE;
+                    }
+                    else
+                    {
+                        cell1.BackgroundColor = BaseColor.WHITE;
+                        cell2.BackgroundColor = corFundo;
+                    }
+                    
+                    cell1.Padding = 8f;
+                    cell2.Padding = 8f;
+                    cell1.Border = Rectangle.BOTTOM_BORDER;
+                    cell2.Border = Rectangle.BOTTOM_BORDER;
+                    cell1.BorderColor = new BaseColor(189, 195, 199);
+                    cell2.BorderColor = new BaseColor(189, 195, 199);
+                    
+                    tabelaProfissional.AddCell(cell1);
+                    tabelaProfissional.AddCell(cell2);
+                }
+
+                // Adicionar os dados profissionais
+                alternar = true;
+                AddLinhaProfissional("Status:", tecnico.status, alternar = !alternar);
+                AddLinhaProfissional("Período:", tecnico.periodo, alternar = !alternar);
+
+                doc.Add(tabelaProfissional);
+
+                // === ENDEREÇO ===
+                PdfPTable tituloSecao2 = new PdfPTable(1);
+                tituloSecao2.WidthPercentage = 100;
+                tituloSecao2.SpacingBefore = 10f;
+                PdfPCell cellSecao2 = new PdfPCell(new Phrase("ENDEREÇO", fontSecao));
+                cellSecao2.BackgroundColor = corSecundaria;
+                cellSecao2.HorizontalAlignment = Element.ALIGN_CENTER;
+                cellSecao2.Padding = 8f;
+                cellSecao2.Border = 0;
+                tituloSecao2.AddCell(cellSecao2);
+                doc.Add(tituloSecao2);
+
+                // Tabela de endereço
+                PdfPTable tabelaEndereco = new PdfPTable(2);
+                tabelaEndereco.WidthPercentage = 100;
+                tabelaEndereco.SpacingAfter = 20f;
+                tabelaEndereco.SetWidths(new float[] { 1f, 2f });
+
+                // Função local para adicionar linhas na tabela de endereço
+                void AddLinhaEndereco(string texto, string valor, bool alternarCor = true)
+                {
+                    PdfPCell cell1 = new PdfPCell(new Phrase(texto, boldFont));
+                    PdfPCell cell2 = new PdfPCell(new Phrase(valor ?? "N/A", regularFont));
+                    
+                    if (alternarCor)
+                    {
+                        cell1.BackgroundColor = corFundo;
+                        cell2.BackgroundColor = BaseColor.WHITE;
+                    }
+                    else
+                    {
+                        cell1.BackgroundColor = BaseColor.WHITE;
+                        cell2.BackgroundColor = corFundo;
+                    }
+                    
+                    cell1.Padding = 8f;
+                    cell2.Padding = 8f;
+                    cell1.Border = Rectangle.BOTTOM_BORDER;
+                    cell2.Border = Rectangle.BOTTOM_BORDER;
+                    cell1.BorderColor = new BaseColor(189, 195, 199);
+                    cell2.BorderColor = new BaseColor(189, 195, 199);
+                    
+                    tabelaEndereco.AddCell(cell1);
+                    tabelaEndereco.AddCell(cell2);
+                }
+
+                // Agora adicionar os dados do endereço
+                alternar = true;
+                AddLinhaEndereco("CEP:", tecnico.cep, alternar = !alternar);
+                AddLinhaEndereco("Rua:", tecnico.rua, alternar = !alternar);
+                AddLinhaEndereco("Número:", tecnico.numero.ToString(), alternar = !alternar);
+                AddLinhaEndereco("Bairro:", tecnico.bairro, alternar = !alternar);
+                AddLinhaEndereco("Cidade:", tecnico.cidade, alternar = !alternar);
+                AddLinhaEndereco("Estado:", tecnico.estado, alternar = !alternar);
+                AddLinhaEndereco("Complemento:", tecnico.complemento, alternar = !alternar);
+
+                doc.Add(tabelaEndereco);
+
+                // === RODAPÉ ===
+                // Linha decorativa
+                PdfPTable linhaRodape = new PdfPTable(1);
+                linhaRodape.WidthPercentage = 100;
+                linhaRodape.SpacingBefore = 20f;
+                PdfPCell cellLinhaRodape = new PdfPCell();
+                cellLinhaRodape.BackgroundColor = corPrimaria;
+                cellLinhaRodape.FixedHeight = 2f;
+                cellLinhaRodape.Border = 0;
+                linhaRodape.AddCell(cellLinhaRodape);
+                doc.Add(linhaRodape);
+
+                // Informações do rodapé
+                font fontRodape = FontFactory.GetFont("Arial", 10, font.NORMAL, corSecundaria);
+                Paragraph rodape = new Paragraph("Documento gerado automaticamente em " + DateTime.Now.ToString("dd/MM/yyyy às HH:mm"), fontRodape);
+                rodape.Alignment = Element.ALIGN_CENTER;
+                rodape.SpacingBefore = 10f;
+                doc.Add(rodape);
+
+                // Assinatura
+                doc.Add(new Paragraph("\n\n"));
+                PdfPTable assinatura = new PdfPTable(1);
+                assinatura.WidthPercentage = 50;
+                assinatura.HorizontalAlignment = Element.ALIGN_CENTER;
+                PdfPCell cellAssinatura = new PdfPCell(new Phrase("_________________________________\nAssinatura do Técnico", fontRodape));
+                cellAssinatura.HorizontalAlignment = Element.ALIGN_CENTER;
+                cellAssinatura.Border = 0;
+                cellAssinatura.PaddingTop = 20f;
+                assinatura.AddCell(cellAssinatura);
+                doc.Add(assinatura);
+
+                doc.Close();
+
+
+
+   
+                MessageBox.Show("Documento gerado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("Erro ao gerar PDF Documento!" + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
             
+                
         }
     }
 }

@@ -33,6 +33,8 @@ namespace AssisTec
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Gerenciador_Tecnicos));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label2 = new System.Windows.Forms.Label();
+            this.cbPeriodo = new System.Windows.Forms.ComboBox();
             this.btnPDF = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.cbStatus = new System.Windows.Forms.ComboBox();
@@ -80,6 +82,8 @@ namespace AssisTec
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(55)))), ((int)(((byte)(76)))));
+            this.panel1.Controls.Add(this.label2);
+            this.panel1.Controls.Add(this.cbPeriodo);
             this.panel1.Controls.Add(this.btnPDF);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.cbStatus);
@@ -119,6 +123,27 @@ namespace AssisTec
             this.panel1.Size = new System.Drawing.Size(564, 411);
             this.panel1.TabIndex = 38;
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Comic Sans MS", 9.75F);
+            this.label2.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.label2.Location = new System.Drawing.Point(188, 149);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(62, 18);
+            this.label2.TabIndex = 36;
+            this.label2.Text = "Periodo: ";
+            // 
+            // cbPeriodo
+            // 
+            this.cbPeriodo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.Simple;
+            this.cbPeriodo.FormattingEnabled = true;
+            this.cbPeriodo.Location = new System.Drawing.Point(246, 146);
+            this.cbPeriodo.Name = "cbPeriodo";
+            this.cbPeriodo.Size = new System.Drawing.Size(121, 20);
+            this.cbPeriodo.TabIndex = 35;
+            // 
             // btnPDF
             // 
             this.btnPDF.BackColor = System.Drawing.Color.RoyalBlue;
@@ -152,7 +177,7 @@ namespace AssisTec
             this.cbStatus.FormattingEnabled = true;
             this.cbStatus.Location = new System.Drawing.Point(60, 146);
             this.cbStatus.Name = "cbStatus";
-            this.cbStatus.Size = new System.Drawing.Size(121, 21);
+            this.cbStatus.Size = new System.Drawing.Size(121, 20);
             this.cbStatus.TabIndex = 32;
             // 
             // btnBuscar
@@ -317,9 +342,9 @@ namespace AssisTec
             this.label4.Location = new System.Drawing.Point(190, 13);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(193, 23);
+            this.label4.Size = new System.Drawing.Size(197, 23);
             this.label4.TabIndex = 18;
-            this.label4.Text = "Gerenciador de Clientes";
+            this.label4.Text = "Gerenciador de Tecnicos";
             // 
             // btnCancel
             // 
@@ -597,6 +622,9 @@ namespace AssisTec
             ((System.ComponentModel.ISupportInitialize)(this.dgvTecnicos)).EndInit();
             this.ResumeLayout(false);
         }
+
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.ComboBox cbPeriodo;
 
         private System.Windows.Forms.Button btnPDF;
 

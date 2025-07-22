@@ -63,7 +63,7 @@ namespace AssisTec
                 con.OpenConnection(); 
 
                 sql = "SELECT nome, nivel FROM usuarios WHERE cpf = @cpf AND senha = @senha";
-                cmd = new MySqlCommand(sql, con.con); // con.con é sua MySqlConnection
+                cmd = new MySqlCommand(sql, con.con);
 
                 cmd.Parameters.AddWithValue("@cpf", mtbCPF.Text.Trim());
                 cmd.Parameters.AddWithValue("@senha", txtPassword.Text.Trim());
