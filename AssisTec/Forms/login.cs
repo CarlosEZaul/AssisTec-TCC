@@ -60,12 +60,12 @@ namespace AssisTec
 
             try
             {
-                con.OpenConnection(); 
-
-                sql = "SELECT nome, nivel FROM usuarios WHERE cpf = @cpf AND senha = @senha";
+                con.OpenConnection();
+                string cpf = mtbCPF.Text.Replace(".", "").Replace("-", "").Replace(",", "").Trim();
+                sql = "SELECT nome FROM usuarios WHERE cpf = @cpf AND senha = @senha";
                 cmd = new MySqlCommand(sql, con.con);
-
-                cmd.Parameters.AddWithValue("@cpf", mtbCPF.Text.Trim());
+    
+                cmd.Parameters.AddWithValue("@cpf", cpf);
                 cmd.Parameters.AddWithValue("@senha", txtPassword.Text.Trim());
 
                 MySqlDataReader reader = cmd.ExecuteReader();
@@ -73,17 +73,17 @@ namespace AssisTec
                 if (reader.Read())
                 {
                     string nome = reader.GetString("nome");
-                    int nivel = reader.GetInt32("nivel");
+                    
 
                     reader.Close();
                     con.CloseConnection();
 
                     MessageBox.Show($"Bem-vindo, {nome}!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                    Gerenciador_Tecnicos frmUser = new Gerenciador_Tecnicos();
+                    Gerenciador_Usuarios frmUser = new Gerenciador_Usuarios();
                     this.Hide();
                     frmUser.ShowDialog();
-                    this.Close();
+                    this.Close();   
                 }
                 else
                 {

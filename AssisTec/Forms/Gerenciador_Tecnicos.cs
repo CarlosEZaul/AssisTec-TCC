@@ -369,8 +369,10 @@ namespace AssisTec
                 cmd.Parameters.AddWithValue("@cpf", cpf);
                 cmd.Parameters.AddWithValue("@rg", rg);
                 if (idIgnorar.HasValue)
+                {
                     cmd.Parameters.AddWithValue("@id", idIgnorar.Value);
-
+                }
+                
                 int count = Convert.ToInt32(cmd.ExecuteScalar());
                 con.CloseConnection();
                 return count > 0;
@@ -757,14 +759,14 @@ namespace AssisTec
                 PdfWriter.GetInstance(doc, new FileStream(caminho, FileMode.Create));
                 doc.Open();
 
-                // Cores personalizadas
+                
                 BaseColor corPrimaria = new BaseColor(41, 128, 185);     // Azul elegante
                 BaseColor corSecundaria = new BaseColor(52, 73, 94);     // Cinza escuro
                 BaseColor corFundo = new BaseColor(236, 240, 241);       // Cinza claro
                 BaseColor corTexto = new BaseColor(44, 62, 80);          // Cinza escuro para texto
 
-                // === CABEÇALHO PRINCIPAL ===
-                // Cabeçalho com logo e título na barra azul
+                
+                // Cabeçalho
                 PdfPTable cabecalhoPrincipal = new PdfPTable(3);
                 cabecalhoPrincipal.WidthPercentage = 100;
                 cabecalhoPrincipal.SetWidths(new float[] { 1f, 2f, 1f }); // Logo, Título, Espaço
@@ -783,7 +785,7 @@ namespace AssisTec
                 }
                 catch
                 {
-                    // Se não encontrar a logo, adiciona célula com texto
+                    
                     font fontLogoAlt = FontFactory.GetFont("Arial", 16, font.BOLD, BaseColor.WHITE);
                     cellLogoHeader = new PdfPCell(new Phrase("LOGO", fontLogoAlt));
                     cellLogoHeader.HorizontalAlignment = Element.ALIGN_LEFT;
@@ -796,7 +798,7 @@ namespace AssisTec
                 cellLogoHeader.FixedHeight = 80f;
                 cabecalhoPrincipal.AddCell(cellLogoHeader);
 
-                // Título centralizado na barra azul
+                // Título 
                 font fontTitulo = FontFactory.GetFont("Arial", 28, font.BOLD, BaseColor.WHITE);
                 PdfPCell cellTitulo = new PdfPCell(new Phrase("AssisTec", fontTitulo));
                 cellTitulo.BackgroundColor = corPrimaria;
@@ -806,7 +808,7 @@ namespace AssisTec
                 cellTitulo.FixedHeight = 80f;
                 cabecalhoPrincipal.AddCell(cellTitulo);
 
-                // Célula vazia para balanceamento
+                
                 PdfPCell cellVazia = new PdfPCell(new Phrase(""));
                 cellVazia.BackgroundColor = corPrimaria;
                 cellVazia.Border = 0;
@@ -823,8 +825,8 @@ namespace AssisTec
                 subtitulo.SpacingBefore = 15f;
                 doc.Add(subtitulo);
 
-                // === SEÇÃO DO TÉCNICO ===
-                // Cabeçalho da seção com logo menor
+                
+                // Cabeçalho2
                 PdfPTable cabecalho = new PdfPTable(2);
                 cabecalho.WidthPercentage = 100;
                 cabecalho.SetWidths(new float[] { 1f, 4f });
@@ -851,7 +853,7 @@ namespace AssisTec
                 nomeTecnico.SpacingAfter = 25f;
                 nomeTecnico.SpacingBefore = 10f;
 
-                // Adicionar uma linha decorativa
+                // linha decorativa
                 PdfPTable linhaDivisoria = new PdfPTable(1);
                 linhaDivisoria.WidthPercentage = 60;
                 linhaDivisoria.HorizontalAlignment = Element.ALIGN_CENTER;
@@ -865,7 +867,7 @@ namespace AssisTec
                 doc.Add(linhaDivisoria);
                 doc.Add(new Paragraph("\n"));
 
-                // === DADOS PESSOAIS ===
+                // Dados
                 font fontSecao = FontFactory.GetFont("Arial", 14, font.BOLD, BaseColor.WHITE);
                 PdfPTable tituloSecao1 = new PdfPTable(1);
                 tituloSecao1.WidthPercentage = 100;
@@ -923,7 +925,7 @@ namespace AssisTec
 
                 doc.Add(tabelaPessoais);
 
-                // === INFORMAÇÕES PROFISSIONAIS ===
+                // info. profissionais
                 PdfPTable tituloSecao3 = new PdfPTable(1);
                 tituloSecao3.WidthPercentage = 100;
                 tituloSecao3.SpacingBefore = 10f;
@@ -941,7 +943,7 @@ namespace AssisTec
                 tabelaProfissional.SpacingAfter = 15f;
                 tabelaProfissional.SetWidths(new float[] { 1f, 2f });
 
-                // Função local para adicionar linhas na tabela profissional
+                
                 void AddLinhaProfissional(string texto, string valor, bool alternarCor = true)
                 {
                     PdfPCell cell1 = new PdfPCell(new Phrase(texto, boldFont));
@@ -976,7 +978,7 @@ namespace AssisTec
 
                 doc.Add(tabelaProfissional);
 
-                // === ENDEREÇO ===
+                // Endereco
                 PdfPTable tituloSecao2 = new PdfPTable(1);
                 tituloSecao2.WidthPercentage = 100;
                 tituloSecao2.SpacingBefore = 10f;
@@ -1034,7 +1036,7 @@ namespace AssisTec
 
                 doc.Add(tabelaEndereco);
 
-                // === RODAPÉ ===
+                // Rodape
                 // Linha decorativa
                 PdfPTable linhaRodape = new PdfPTable(1);
                 linhaRodape.WidthPercentage = 100;

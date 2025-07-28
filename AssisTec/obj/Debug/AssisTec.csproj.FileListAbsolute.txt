@@ -219,3 +219,4 @@ C:\Users\CarlosEZD\Desktop\AssisTec-TCC-master\AssisTec-TCC-master\AssisTec\obj\
 C:\Users\CarlosEZD\Desktop\AssisTec-TCC-master\AssisTec-TCC-master\AssisTec\obj\Debug\AssisTec.csproj.Up2Date
 C:\Users\CarlosEZD\Desktop\AssisTec-TCC-master\AssisTec-TCC-master\AssisTec\obj\Debug\AssisTec.exe
 C:\Users\CarlosEZD\Desktop\AssisTec-TCC-master\AssisTec-TCC-master\AssisTec\obj\Debug\AssisTec.pdb
+C:\Users\CarlosEZD\Desktop\AssisTec-TCC-master\AssisTec-TCC-master\AssisTec\obj\Debug\AssisTec.Gerenciador_Usuarios.resources
