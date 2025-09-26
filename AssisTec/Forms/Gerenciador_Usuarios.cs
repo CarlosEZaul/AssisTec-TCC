@@ -332,7 +332,7 @@ namespace AssisTec
             Usuario user = new Usuario();
             user.id = id;
             user.nome = txtName.Text;
-            user.cpf = mtbCPF.Text.Replace(",", "").Replace(".", "").Replace("-", "").Trim();
+            user.cpf = mtbCPF.Text;
             user.telefone = mtbTel.Text;
             user.senha = txtSenha.Text;
 
