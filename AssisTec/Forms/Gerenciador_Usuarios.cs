@@ -44,7 +44,7 @@ namespace AssisTec
 
         private void Gerenciador_Usuarios_Load(object sender, EventArgs e)
         {
-            ConfigurarComboBoxes();
+            ConfigurarComboBox();
             listGrid();
         }
          #region Design Moderno
@@ -163,7 +163,7 @@ namespace AssisTec
 
         #region Metodos ou funcoes
 
-        private void ConfigurarComboBoxes()
+        private void ConfigurarComboBox()
         {
             cbStatus.Items.Clear();
             cbStatus.Items.Add("Ativo");
@@ -185,6 +185,7 @@ namespace AssisTec
             btnDelete.Enabled = true;
             btnEditar.Enabled = true;
             btnSave.Enabled = true;
+            btnBuscar.Enabled = true;
         }
 
         private void desableBtn()
@@ -194,6 +195,7 @@ namespace AssisTec
             btnDelete.Enabled = false;
             btnEditar.Enabled = false;
             btnSave.Enabled = false;
+            btnBuscar.Enabled = false;
         }
 
         private void disable()
@@ -204,6 +206,7 @@ namespace AssisTec
             btnCancel.Enabled = false;
             btnSave.Enabled = false;
             cbStatus.Enabled = false;
+            btnBuscar.Enabled = false;
             cbStatus.DropDownStyle = ComboBoxStyle.Simple;
             cbNivel.Enabled = false;
             cbNivel.DropDownStyle = ComboBoxStyle.Simple;
@@ -215,6 +218,12 @@ namespace AssisTec
             mtbCPF.Enabled = false;
             mtbTel.Enabled = false;
             txtSenha.Enabled = false;
+            txtRua.Enabled = false;
+            txtBairro.Enabled = false;
+            txtCidade.Enabled = false;
+            txtComp.Enabled = false;
+            txtEstado.Enabled=false;
+            txtNumber.Enabled = false;
             cbStatus.Enabled = false;
             cbStatus.DropDownStyle = ComboBoxStyle.Simple;
             cbNivel.Enabled = false;
@@ -224,10 +233,18 @@ namespace AssisTec
         private void deleteAll()
         {
             txtName.Text = "";
+            txtSenha.Text = "";
             mtbCPF.Text = "";
             mtbTel.Text = "";
             txtSenha.Text = "";
             txtBusca.Text = "";
+            mtbCep.Text = "";
+            txtRua.Text = "";
+            txtBairro.Text = "";
+            txtCidade.Text = "";
+            txtComp.Text = "";
+            txtNumber.Text = "";
+            txtEstado.Text = "";
             cbStatus.SelectedText = null;
             cbNivel.SelectedText = null;
             
@@ -242,6 +259,12 @@ namespace AssisTec
             btnCancel.Enabled = true;
             btnSave.Enabled = true;
             cbStatus.Enabled = true;
+            txtRua.Enabled = true;
+            txtBairro.Enabled = true;
+            txtCidade.Enabled = true;
+            txtComp.Enabled = true;
+            txtNumber.Enabled = true;
+            txtEstado.Enabled=true;
             cbStatus.DropDownStyle = ComboBoxStyle.DropDown;
             cbNivel.Enabled = true;
             cbNivel.DropDownStyle = ComboBoxStyle.DropDown;
@@ -274,19 +297,33 @@ namespace AssisTec
             if (dgvUsuarios.Columns.Count > 0)
             {
                 dgvUsuarios.Columns[0].HeaderText = "ID";
-                dgvUsuarios.Columns[0].Visible = false;
-                dgvUsuarios.Columns[1].HeaderText = "NOME";
-                dgvUsuarios.Columns[1].Width = 200;
+                dgvUsuarios.Columns[1].HeaderText = "Nome";
                 dgvUsuarios.Columns[2].HeaderText = "CPF";
-                dgvUsuarios.Columns[2].Width = 120;
-                dgvUsuarios.Columns[3].HeaderText = "TELEFONE";
-                dgvUsuarios.Columns[3].Width = 120;
-                dgvUsuarios.Columns[4].HeaderText = "SENHA";
-                dgvUsuarios.Columns[4].Width = 120;
-                dgvUsuarios.Columns[5].HeaderText = "STATUS";
-                dgvUsuarios.Columns[5].Width = 80;
-                dgvUsuarios.Columns[6].HeaderText = "NÍVEL";
-                dgvUsuarios.Columns[6].Width = 50;
+                dgvUsuarios.Columns[3].HeaderText = "Senha";
+                dgvUsuarios.Columns[4].HeaderText = "Telefone";
+                dgvUsuarios.Columns[5].HeaderText = "Nível";
+                dgvUsuarios.Columns[6].HeaderText = "Status";
+                dgvUsuarios.Columns[7].HeaderText = "CEP";
+                dgvUsuarios.Columns[8].HeaderText = "Rua";
+                dgvUsuarios.Columns[9].HeaderText = "Número";
+                dgvUsuarios.Columns[10].HeaderText = "Cidade";
+                dgvUsuarios.Columns[11].HeaderText = "Bairro";
+                dgvUsuarios.Columns[12].HeaderText = "Estado";
+                dgvUsuarios.Columns[13].HeaderText = "Complemento";
+                
+                dgvUsuarios.Columns[0].Width = 50;   
+                dgvUsuarios.Columns[1].Width = 150;  
+                dgvUsuarios.Columns[2].Width = 100;  
+                dgvUsuarios.Columns[3].Width = 100;  
+                dgvUsuarios.Columns[4].Width = 80;
+                dgvUsuarios.Columns[5].Width = 60;   
+                dgvUsuarios.Columns[6].Width = 80;   
+                dgvUsuarios.Columns[7].Width = 150; 
+                dgvUsuarios.Columns[8].Width = 70;  
+                dgvUsuarios.Columns[9].Width = 120;
+                dgvUsuarios.Columns[10].Width = 120; 
+                dgvUsuarios.Columns[11].Width = 80; 
+                dgvUsuarios.Columns[12].Width = 150; 
                 
             }
         }
@@ -295,24 +332,35 @@ namespace AssisTec
             Usuario user = new Usuario();
             user.id = id;
             user.nome = txtName.Text;
-            user.cpf = mtbCPF.Text.Replace(",","").Replace(".","").Replace("-","").Trim();
+            user.cpf = mtbCPF.Text.Replace(",", "").Replace(".", "").Replace("-", "").Trim();
             user.telefone = mtbTel.Text;
             user.senha = txtSenha.Text;
-            
+
             if (cbNivel.SelectedItem != null)
             {
                 string texto = cbNivel.SelectedItem.ToString();
                 user.nivel = int.Parse(texto.Split('-')[0].Trim());
             }
-            
+
             user.status = cbStatus.SelectedItem?.ToString() ?? "";
+
+            
+            user.cep = mtbCep.Text;
+            user.rua = txtRua.Text;
+            user.numero = txtNumber.Text;
+            user.cidade = txtCidade.Text;
+            user.bairro = txtBairro.Text;
+            user.estado = txtEstado.Text;
+            user.complemento = txtComp.Text;
+
             return user;
         }
 
-        private bool usuarioExiste( string cpf, int? ignorarId=null)
+
+        private bool usuarioExiste(string cpf, int? ignorarId = null)
         {
             con.OpenConnection();
-            sql = "SELECT * FROM usuarios WHERE cpf = @cpf";
+            sql = "SELECT COUNT(*) FROM usuarios WHERE cpf = @cpf";
             if (ignorarId.HasValue)
             {
                 sql += " AND id <> @id"; 
@@ -324,19 +372,20 @@ namespace AssisTec
                 if (ignorarId.HasValue)
                 {
                     cmd.Parameters.AddWithValue("@id", ignorarId.Value);
-                    
                 }
-                int cout = Convert.ToInt32(cmd.ExecuteScalar());
-                return cout > 0;
+
+                int count = Convert.ToInt32(cmd.ExecuteScalar());
+                con.CloseConnection();
+                return count > 0;
             }
-            
         }
-        private void editarUsuario()
+        private bool editarUsuario()
         {
             Usuario user = formUsuario();
             if (user == null)
             {
                 MessageBox.Show("Tentativa de cadastro com campo inválido", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
             }
 
             try
@@ -344,10 +393,14 @@ namespace AssisTec
                 if (usuarioExiste(user.cpf, user.id))
                 {
                     MessageBox.Show("Usuário já existe", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
+                    return false;
                 }
+                
                 con.OpenConnection();
-                sql = "update usuarios set nome=@nome, cpf=@cpf, telefone = @tel, nivel=@nivel,senha=@senha, status=@status where id=@id";
+                sql = @"UPDATE usuarios 
+                SET nome=@nome, cpf=@cpf, telefone=@tel, nivel=@nivel, senha=@senha, status=@status, 
+                    cep=@cep, rua=@rua, numero=@numero, cidade=@cidade, bairro=@bairro, estado=@estado, complemento=@complemento
+                WHERE id=@id";
                 cmd = new MySqlCommand(sql, con.con);
                 cmd.Parameters.AddWithValue("@nome", user.nome);
                 cmd.Parameters.AddWithValue("@cpf", user.cpf);
@@ -355,28 +408,51 @@ namespace AssisTec
                 cmd.Parameters.AddWithValue("@nivel", user.nivel);
                 cmd.Parameters.AddWithValue("@senha", user.senha);
                 cmd.Parameters.AddWithValue("@status", user.status);
+                cmd.Parameters.AddWithValue("@cep", user.cep);
+                cmd.Parameters.AddWithValue("@rua", user.rua);
+                cmd.Parameters.AddWithValue("@numero", user.numero);
+                cmd.Parameters.AddWithValue("@cidade", user.cidade);
+                cmd.Parameters.AddWithValue("@bairro", user.bairro);
+                cmd.Parameters.AddWithValue("@estado", user.estado);
+                cmd.Parameters.AddWithValue("@complemento", user.complemento);
                 cmd.Parameters.AddWithValue("@id", user.id);
+
                 cmd.ExecuteNonQuery();
                 con.CloseConnection();
+
                 MessageBox.Show("Usuário editado com sucesso", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 listGrid();
-                
+                return true;
             }
             catch (Exception ex)
             {
-               MessageBox.Show(ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
             }
-
         }
 
-        private void novoUsuario()
+
+        private bool novoUsuario()
         {
             Usuario user = formUsuario();
+            
+            if (user == null)
+            {
+                MessageBox.Show("Tentativa de cadastro com campo inválido. Verifique os dados.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            
             try
             {
+                if (usuarioExiste(user.cpf))
+                {
+                    MessageBox.Show("Usuário com este CPF já existe", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
+                }
+                
                 con.OpenConnection();
-                sql =
-                    "insert into usuarios nome, cpf, telefone,senha, nivel, status values (@nome, @cpf, @telefone, @senha, @nivel, @status)";
+                sql = "INSERT INTO usuarios (nome, cpf, telefone, senha, nivel, status, cep, rua, numero, cidade, bairro, estado, complemento) " +
+                      "VALUES (@nome, @cpf, @telefone, @senha, @nivel, @status, @cep, @rua, @numero, @cidade, @bairro, @estado, @complemento)";
                 cmd = new MySqlCommand(sql, con.con);
                 cmd.Parameters.AddWithValue("@nome", user.nome);
                 cmd.Parameters.AddWithValue("@cpf", user.cpf);
@@ -384,11 +460,27 @@ namespace AssisTec
                 cmd.Parameters.AddWithValue("@senha", user.senha);
                 cmd.Parameters.AddWithValue("@nivel", user.nivel);
                 cmd.Parameters.AddWithValue("@status", user.status);
+                cmd.Parameters.AddWithValue("@cep", user.cep);
+                cmd.Parameters.AddWithValue("@rua", user.rua);
+                cmd.Parameters.AddWithValue("@numero", user.numero);
+                cmd.Parameters.AddWithValue("@cidade", user.cidade);
+                cmd.Parameters.AddWithValue("@bairro", user.bairro);
+                cmd.Parameters.AddWithValue("@estado", user.estado);
+                cmd.Parameters.AddWithValue("@complemento", user.complemento);
 
+                cmd.ExecuteNonQuery();
+                con.CloseConnection();
+
+                MessageBox.Show("Usuário cadastrado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                listGrid();
+                deleteAll();
+                return true;
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Erro ao cadastrar usuário "+ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                
+                MessageBox.Show("Erro ao cadastrar usuário: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return true;
             }
         }
         
@@ -466,20 +558,25 @@ namespace AssisTec
                 return;
             }
 
-            if (modo == 1)
+            bool success = false; 
+
+            if (modo == 1) 
             {
-                editarUsuario();
+                success = editarUsuario(); 
+            }
+
+            if (modo == 2) 
+            {
+                success = novoUsuario(); 
+            }
+    
+            
+            if (success)
+            {
                 modo = 0;
                 disable();
                 btnNew.Enabled = true;
-                deleteAll();
-                
-            }
-
-            if (modo == 2)
-            {
-                novoUsuario();
-                modo = 0;
+                deleteAll(); 
             }
             
             
@@ -494,13 +591,16 @@ namespace AssisTec
                     enableBtn();
                     btnSave.Enabled = false;
                     btnNew.Enabled = true;
-                    id = Convert.ToInt32(dgvUsuarios.Rows[e.RowIndex].Cells[0].Value.ToString());
-                    txtName.Text = dgvUsuarios.Rows[e.RowIndex].Cells[1].Value.ToString();
-                    mtbCPF.Text = dgvUsuarios.Rows[e.RowIndex].Cells[2].Value.ToString();
-                    mtbTel.Text = dgvUsuarios.Rows[e.RowIndex].Cells[3].Value.ToString();
-                    txtSenha.Text = dgvUsuarios.Rows[e.RowIndex].Cells[4].Value.ToString();
-                    
-                    int nivel=  Convert.ToInt32(dgvUsuarios.Rows[e.RowIndex].Cells[6].Value.ToString());
+
+                    id = Convert.ToInt32(dgvUsuarios.Rows[e.RowIndex].Cells["id"].Value);
+                    txtName.Text = dgvUsuarios.Rows[e.RowIndex].Cells["nome"].Value.ToString();
+                    mtbCPF.Text = dgvUsuarios.Rows[e.RowIndex].Cells["cpf"].Value.ToString();
+                    mtbTel.Text = dgvUsuarios.Rows[e.RowIndex].Cells["telefone"].Value.ToString();
+                    mtbCep.Text = dgvUsuarios.Rows[e.RowIndex].Cells["cep"].Value.ToString();
+                    txtSenha.Text = dgvUsuarios.Rows[e.RowIndex].Cells["senha"].Value.ToString();
+                    cbStatus.SelectedItem = dgvUsuarios.Rows[e.RowIndex].Cells["status"].Value.ToString();
+
+                    int nivel = Convert.ToInt32(dgvUsuarios.Rows[e.RowIndex].Cells["nivel"].Value);
                     foreach (var item in cbNivel.Items)
                     {
                         if (item.ToString().StartsWith(nivel.ToString()))
@@ -509,18 +609,22 @@ namespace AssisTec
                             break;
                         }
                     }
-                    
-                    cbStatus.SelectedItem = dgvUsuarios.Rows[e.RowIndex].Cells[5].Value.ToString();
 
+                    // Endereço
+                    txtRua.Text = dgvUsuarios.Rows[e.RowIndex].Cells["rua"].Value.ToString();
+                    txtNumber.Text = dgvUsuarios.Rows[e.RowIndex].Cells["numero"].Value.ToString();
+                    txtCidade.Text = dgvUsuarios.Rows[e.RowIndex].Cells["cidade"].Value.ToString();
+                    txtBairro.Text = dgvUsuarios.Rows[e.RowIndex].Cells["bairro"].Value.ToString();
+                    txtEstado.Text = dgvUsuarios.Rows[e.RowIndex].Cells["estado"].Value.ToString();
+                    txtComp.Text = dgvUsuarios.Rows[e.RowIndex].Cells["complemento"].Value.ToString();
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-                
             }
-            
         }
+
 
         private void mtbCep_Leave(object sender, EventArgs e)
         {
@@ -572,6 +676,10 @@ namespace AssisTec
             btnBuscar.Enabled = false;
         }
 
-        
+
+        private void btnAtualizar_Click(object sender, EventArgs e)
+        {
+            listGrid();
+        }
     }
 }

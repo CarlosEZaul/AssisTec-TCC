@@ -1,59 +1,34 @@
 ﻿namespace AssisTec
 {
-    public class Usuario
+    public class Usuario:Pessoa
     {
-        
-        
-        private int Id;
-        private string Nome;
-        private string Cpf;
-        private string Telefone;
         private string Senha;
-        private int Nivel;
         private string Status;
-
-       
-        public int id
+        private int Nivel;
+        public string cep { get; set; }
+        public string rua { get; set; }
+        public string numero { get; set; }
+        public string cidade { get; set; }
+        public string bairro { get; set; }
+        public string estado { get; set; }
+        public string complemento { get; set; }
+        public string status
         {
-            get { return Id;}
-            set { Id = value;}
+            get { return Status; }
+            set { Status = value; }
         }
 
-        public string nome
-        {
-            get { return Nome;}
-            set { Nome = value;}
-        }
-
-        public string cpf
-        {
-            get { return Cpf;}
-            set { Cpf = value;}
-        }
-
-        public string telefone
-        {
-            get { return Telefone;}
-            set { Telefone = value;}
-        }
         public string senha
         {
-            get { return Senha;}
-            set { Senha = value;}
+            get { return Senha; }
+            set { Senha = value; }
         }
 
         public int nivel
         {
-            get { return Nivel;}
-            set { Nivel = value;}
+            get { return Nivel; }
+            set { Nivel = value; }
         }
-
-        public string status
-        {
-            get { return Status;}
-            set { Status = value;}
-        }
-
         
     }
     

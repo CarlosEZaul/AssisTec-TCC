@@ -30,10 +30,13 @@ namespace AssisTec
         public void CloseConnection() {
             try
             {
-                con= new MySqlConnection(connection);
+                con = new MySqlConnection(connection);
                 con.Close();
             }
-            catch (Exception ex) { }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao fechar banco");
+            }
         }
     }
 }
