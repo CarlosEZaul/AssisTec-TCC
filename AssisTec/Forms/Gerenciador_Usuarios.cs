@@ -6,6 +6,8 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
+using Refit;
 
 namespace AssisTec
 {
@@ -404,7 +406,41 @@ namespace AssisTec
             
         }
         
-        
+        async Task BuscarCep(string cep)
+        {
+            try
+            {
+                
+                Cursor = Cursors.WaitCursor;
+                
+                var cepBuscar = RestService.For<ICepApiService>("http://viacep.com.br");
+                var endereco = await cepBuscar.GetAdressAsync(cep);
+                
+                txtCidade.Text = endereco.cidade;
+                txtRua.Text = endereco.rua;
+                txtBairro.Text = endereco.bairro;
+                txtEstado.Text = endereco.estado + " - " + endereco.uf;
+                okCep = true;
+                
+                if (endereco.cidade == null && endereco.rua == null && endereco.bairro == null)
+                {
+                    MessageBox.Show("Falha ao localizar CEP!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    okCep = false;
+                }
+
+                uf = endereco.uf;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("CEP inválido!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                okCep = false;
+            }
+            finally
+            {
+                
+                Cursor = Cursors.Default;
+            }
+        }
         
         #endregion
 
@@ -485,5 +521,57 @@ namespace AssisTec
             }
             
         }
+
+        private void mtbCep_Leave(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(mtbCep.Text) && mtbCep.Text.Replace("-", "").Length == 8)
+            {
+                BuscarCep(mtbCep.Text);
+            }
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show("Deseja excluir usuário?", "Confirmar Exclusão", 
+                MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                
+            if (result == DialogResult.Yes)
+            {
+                try
+                {
+                    con.OpenConnection();
+                    sql = "DELETE FROM usuarios WHERE id = @id";
+                    cmd = new MySqlCommand(sql, con.con);
+                    cmd.Parameters.AddWithValue("@id", id);
+                    cmd.ExecuteNonQuery();
+                    con.CloseConnection();
+                    listGrid();
+                    deleteAll();
+                    
+                    MessageBox.Show("Cliente excluído com sucesso!", "Sucesso", 
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch (Exception exception)
+                {
+                    MessageBox.Show("Erro ao excluir cliente!\n" + exception.Message, "Erro", 
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+
+            btnDelete.Enabled = false;
+            btnEditar.Enabled = false;
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            deleteAll();
+            disable();
+            desableBtn();
+            btnNew.Enabled = true;
+            btnDelete.Enabled = false;
+            btnBuscar.Enabled = false;
+        }
+
+        
     }
 }

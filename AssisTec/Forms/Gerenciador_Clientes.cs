@@ -546,7 +546,7 @@ namespace AssisTec
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            DialogResult result = MessageBox.Show("Deseja excluir usuário?", "Confirmar Exclusão", 
+            DialogResult result = MessageBox.Show("Deseja excluir cliente?", "Confirmar Exclusão", 
                 MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 
             if (result == DialogResult.Yes)
