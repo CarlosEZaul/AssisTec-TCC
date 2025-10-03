@@ -44,7 +44,7 @@ namespace AssisTec
         {
             try
             {
-                // Propriedades do formulário.
+                // Propriedades do formulário (específicas deste form)
                 this.Text = "Gerenciador de Clientes";
                 this.BackColor = Color.FromArgb(240, 240, 240);
                 this.Font = new Font("Segoe UI", 9F);
@@ -52,27 +52,14 @@ namespace AssisTec
                 this.MaximizeBox = false;
                 this.StartPosition = FormStartPosition.CenterScreen;
 
-                // Estilo dos painéis
+                // Estilo dos painéis (específicos deste form)
                 panel1.BackColor = Color.FromArgb(39, 54, 77);
                 panel2.BackColor = Color.FromArgb(32, 45, 64);
-                
-                // Estilo das labels
-                foreach (Control control in this.Controls)
-                {
-                    if (control is Panel panel)
-                    {
-                        foreach (Control panelControl in panel.Controls)
-                        {
-                            if (panelControl is Label label)
-                            {
-                                label.ForeColor = Color.White; // branco puro
-                                label.Font = new Font("Segoe UI", 9F);
-                            }
-                        }
-                    }
-                }
+        
+                // Estilo das labels: Usando o método estático
+                DesingComponentes.ApplyLabelStyles(this);
 
-                // Estilo dos cabeçalhos de seção
+                // Estilo dos cabeçalhos de seção (específicos deste form)
                 label4.Font = new Font("Segoe UI Semibold", 14F);
                 label4.ForeColor = Color.White;
 
@@ -80,83 +67,29 @@ namespace AssisTec
                 lblendereco.ForeColor = Color.White;
 
 
-                // Estilo das caixas de texto
-                StyleTextBox(txtName);
-                StyleTextBox(txtRua);
-                StyleTextBox(txtNumber);
-                StyleTextBox(txtBairro);
-                StyleTextBox(txtCidade);
-                StyleTextBox(txtEstado);
-                StyleTextBox(txtComp);
-                StyleTextBox(txtBusca);
+                // Estilo das caixas de texto: Usando o método estático para cada controle
+                DesingComponentes.StyleTextBox(txtName);
+                DesingComponentes.StyleTextBox(txtRua);
+                // ... (outros TextBoxes)
+                DesingComponentes.StyleTextBox(txtBusca);
 
-                // Estilo das caixas de texto com máscara
-                StyleMaskedTextBox(mtbCPF);
-                StyleMaskedTextBox(mtbTel);
-                StyleMaskedTextBox(mtbNasc);
-                StyleMaskedTextBox(mtbCep);
+                // Estilo das caixas de texto com máscara: Usando o método estático para cada controle
+                DesingComponentes.StyleMaskedTextBox(mtbCPF);
+                // ... (outros MaskedTextBoxes)
+                DesingComponentes.StyleMaskedTextBox(mtbCep);
 
-                // Estilo dos botões
-                StyleButton(btnNew, Color.FromArgb(0, 120, 215));
-                StyleButton(btnEditar, Color.FromArgb(0, 120, 215));
-                StyleButton(btnSave, Color.FromArgb(0, 120, 215));
-                StyleButton(btnDelete, Color.FromArgb(209, 17, 65));
-                StyleButton(btnCancel, Color.FromArgb(100, 100, 100));
-                StyleButton(btnBuscar, Color.FromArgb(0, 120, 215));
+                // Estilo dos botões: Usando o método estático para cada controle
+                DesingComponentes.StyleButton(btnNew, Color.FromArgb(0, 120, 215));
+                DesingComponentes.StyleButton(btnDelete, Color.FromArgb(209, 17, 65));
+                // ... (outros Buttons)
 
-                // Estilo do DataGridView
-                StyleDataGridView();
+                // Estilo do DataGridView: Usando o método estático (se o form tiver um DataGridView)
+                DesingComponentes.StyleDataGridView(dgvClientes); 
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Erro ao aplicar design: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-        }
-
-        private void StyleDataGridView()
-        {
-            dgvClientes.BorderStyle = BorderStyle.None;
-            dgvClientes.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(245, 245, 245);
-            dgvClientes.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
-            dgvClientes.DefaultCellStyle.SelectionBackColor = Color.FromArgb(210, 232, 255);
-            dgvClientes.DefaultCellStyle.SelectionForeColor = Color.Black;
-            dgvClientes.BackgroundColor = Color.White;
-            dgvClientes.RowHeadersVisible = false;
-            dgvClientes.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvClientes.RowTemplate.Height = 35;
-            dgvClientes.EnableHeadersVisualStyles = false;
-            dgvClientes.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(50, 50, 50);
-            dgvClientes.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
-            dgvClientes.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI Semibold", 10);
-            dgvClientes.ColumnHeadersHeight = 40;
-            dgvClientes.DefaultCellStyle.Font = new Font("Segoe UI", 9);
-        }
-
-        private void StyleTextBox(TextBox textBox)
-        {
-            textBox.BorderStyle = BorderStyle.FixedSingle;
-            textBox.BackColor = Color.White;
-            textBox.Font = new Font("Segoe UI", 9F);
-            textBox.ForeColor = Color.FromArgb(60, 60, 60);
-        }
-
-        private void StyleMaskedTextBox(MaskedTextBox maskedTextBox)
-        {
-            maskedTextBox.BorderStyle = BorderStyle.FixedSingle;
-            maskedTextBox.BackColor = Color.White;
-            maskedTextBox.Font = new Font("Segoe UI", 9F);
-            maskedTextBox.ForeColor = Color.FromArgb(60, 60, 60);
-        }
-
-        private void StyleButton(Button button, Color backgroundColor)
-        {
-            button.FlatStyle = FlatStyle.Flat;
-            button.FlatAppearance.BorderSize = 0;
-            button.BackColor = backgroundColor;
-            button.ForeColor = Color.White;
-            button.Font = new Font("Segoe UI Semibold", 9F);
-            button.Cursor = Cursors.Hand;
-            // Não alterar o tamanho para evitar problemas de layout
         }
 
         #endregion
@@ -179,8 +112,8 @@ namespace AssisTec
                 dgvClientes.Columns[6].HeaderText = "RUA";
                 dgvClientes.Columns[7].HeaderText = "NUMERO";
                 dgvClientes.Columns[8].HeaderText = "CIDADE";
-                dgvClientes.Columns[9].HeaderText = "ESTADO";
-                dgvClientes.Columns[10].HeaderText = "BAIRRO";
+                dgvClientes.Columns[9].HeaderText = "BAIRRO";
+                dgvClientes.Columns[10].HeaderText = "ESTADO";
                 dgvClientes.Columns[11].HeaderText = "COMPLEMENTO";
             }
         }

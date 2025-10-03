@@ -8,19 +8,21 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
+using SistemaGestao;
 
 namespace AssisTec
 {
-    public partial class login : Form
+    public partial class FrmLogin : Form
     {
         conexao con = new conexao();
         private string sql;
         MySqlCommand cmd;
-        public login()
+        public FrmLogin()
         {
             
             InitializeComponent();
             ApplyDesing();
+            mtbCPF.Focus();
         }
 
         private void ApplyDesing()
@@ -62,7 +64,10 @@ namespace AssisTec
             {
                 con.OpenConnection();
                 string cpf = mtbCPF.Text.Replace(".", "").Replace("-", "").Replace(",", "").Trim();
-                sql = "SELECT nome FROM usuarios WHERE cpf = @cpf AND senha = @senha";
+                
+                sql = @"SELECT nome FROM usuarios 
+                            WHERE REPLACE(REPLACE(REPLACE(cpf, '.', ''), '-', ''), ',', '') = @cpf 
+                            AND TRIM(senha) = @senha";
                 cmd = new MySqlCommand(sql, con.con);
     
                 cmd.Parameters.AddWithValue("@cpf", cpf);
@@ -79,7 +84,10 @@ namespace AssisTec
                     con.CloseConnection();
 
                     MessageBox.Show($"Bem-vindo, {nome}!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
+                    FrmPrincipal form =  new FrmPrincipal();
+                    form.Show();
+                    this.Hide();
+                    
                     
                 }
                 else

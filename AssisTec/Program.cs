@@ -16,7 +16,7 @@ namespace AssisTec
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Gerenciador_Usuarios());
+            Application.Run(new FrmLogin());
         }
     }
 }

@@ -53,7 +53,7 @@ namespace AssisTec
         {
             try
             {
-                // Propriedades do formulário.
+                // Propriedades do formulário (específicas deste form)
                 this.Text = "Gerenciador de Clientes";
                 this.BackColor = Color.FromArgb(240, 240, 240);
                 this.Font = new Font("Segoe UI", 9F);
@@ -61,54 +61,43 @@ namespace AssisTec
                 this.MaximizeBox = false;
                 this.StartPosition = FormStartPosition.CenterScreen;
 
-                // Estilo dos painéis
+                // Estilo dos painéis (específicos deste form)
                 panel1.BackColor = Color.FromArgb(39, 54, 77);
                 panel2.BackColor = Color.FromArgb(32, 45, 64);
+        
+                // Estilo das labels: Usando o método estático
+                DesingComponentes.ApplyLabelStyles(this);
 
-                // Estilo das labels
-                foreach (Control control in this.Controls)
-                {
-                    if (control is Panel panel)
-                    {
-                        foreach (Control panelControl in panel.Controls)
-                        {
-                            if (panelControl is Label label)
-                            {
-                                label.ForeColor = Color.White; // branco puro
-                                label.Font = new Font("Segoe UI", 9F);
-                            }
-                        }
-                    }
-                }
-
-                // Estilo dos cabeçalhos de seção
+                // Estilo dos cabeçalhos de seção (específicos deste form)
                 label4.Font = new Font("Segoe UI Semibold", 14F);
                 label4.ForeColor = Color.White;
-                
-                // Estilo das caixas de texto
-                StyleTextBox(txtName);
-                StyleTextBox(txtBusca);
-                StyleTextBox(txtSenha);
-                StyleTextBox(txtBusca);
 
-                // Estilo das caixas de texto com máscara
-                StyleMaskedTextBox(mtbCPF);
-                StyleMaskedTextBox(mtbTel);
+                lblendereco.Font = new Font("Segoe UI Semibold", 14F);
+                lblendereco.ForeColor = Color.White;
 
-                // Estilo dos botões
-                StyleButton(btnNew, Color.FromArgb(0, 120, 215));
-                StyleButton(btnEditar, Color.FromArgb(0, 120, 215));
-                StyleButton(btnSave, Color.FromArgb(0, 120, 215));
-                StyleButton(btnDelete, Color.FromArgb(209, 17, 65));
-                StyleButton(btnCancel, Color.FromArgb(100, 100, 100));
 
-                // Estilo do DataGridView
-                StyleDataGridView();
+                // Estilo das caixas de texto: Usando o método estático para cada controle
+                DesingComponentes.StyleTextBox(txtName);
+                DesingComponentes.StyleTextBox(txtRua);
+                // ... (outros TextBoxes)
+                DesingComponentes.StyleTextBox(txtBusca);
+
+                // Estilo das caixas de texto com máscara: Usando o método estático para cada controle
+                DesingComponentes.StyleMaskedTextBox(mtbCPF);
+                // ... (outros MaskedTextBoxes)
+                DesingComponentes.StyleMaskedTextBox(mtbCep);
+
+                // Estilo dos botões: Usando o método estático para cada controle
+                DesingComponentes.StyleButton(btnNew, Color.FromArgb(0, 120, 215));
+                DesingComponentes.StyleButton(btnDelete, Color.FromArgb(209, 17, 65));
+                // ... (outros Buttons)
+
+                // Estilo do DataGridView: Usando o método estático (se o form tiver um DataGridView)
+                DesingComponentes.StyleDataGridView(dgvUsuarios); 
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Erro ao aplicar design: " + ex.Message, "Erro", MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
+                MessageBox.Show("Erro ao aplicar design: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
