@@ -162,7 +162,8 @@ namespace AssisTec
             cbNivel.Items.Clear();
             cbNivel.Items.Add("1- Apenas Visualização");
             cbNivel.Items.Add("2- Gestor/Funcionário");
-            cbNivel.Items.Add("3- Gerente");
+            cbNivel.Items.Add("3 - Técnico de TI");
+            cbNivel.Items.Add("4 - Gerente");
             cbNivel.DropDownStyle = ComboBoxStyle.DropDownList;
         }
         

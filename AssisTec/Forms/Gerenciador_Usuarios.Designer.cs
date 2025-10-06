@@ -124,7 +124,7 @@ namespace AssisTec
             // txtSenha
             // 
             this.txtSenha.BackColor = System.Drawing.Color.White;
-            this.txtSenha.Location = new System.Drawing.Point(74, 66);
+            this.txtSenha.Location = new System.Drawing.Point(253, 69);
             this.txtSenha.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtSenha.Name = "txtSenha";
             this.txtSenha.Size = new System.Drawing.Size(152, 20);
@@ -135,7 +135,7 @@ namespace AssisTec
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Comic Sans MS", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label3.Location = new System.Drawing.Point(5, 70);
+            this.label3.Location = new System.Drawing.Point(196, 72);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(49, 18);
@@ -147,7 +147,7 @@ namespace AssisTec
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Comic Sans MS", 9.75F);
             this.label2.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label2.Location = new System.Drawing.Point(8, 122);
+            this.label2.Location = new System.Drawing.Point(9, 132);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(43, 18);
@@ -157,7 +157,7 @@ namespace AssisTec
             // cbNivel
             // 
             this.cbNivel.FormattingEnabled = true;
-            this.cbNivel.Location = new System.Drawing.Point(74, 119);
+            this.cbNivel.Location = new System.Drawing.Point(75, 129);
             this.cbNivel.Name = "cbNivel";
             this.cbNivel.Size = new System.Drawing.Size(121, 21);
             this.cbNivel.TabIndex = 34;
@@ -167,7 +167,7 @@ namespace AssisTec
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Comic Sans MS", 9.75F);
             this.label1.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label1.Location = new System.Drawing.Point(8, 156);
+            this.label1.Location = new System.Drawing.Point(9, 166);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(51, 18);
@@ -177,7 +177,7 @@ namespace AssisTec
             // cbStatus
             // 
             this.cbStatus.FormattingEnabled = true;
-            this.cbStatus.Location = new System.Drawing.Point(66, 153);
+            this.cbStatus.Location = new System.Drawing.Point(67, 163);
             this.cbStatus.Name = "cbStatus";
             this.cbStatus.Size = new System.Drawing.Size(121, 21);
             this.cbStatus.TabIndex = 32;
@@ -412,7 +412,7 @@ namespace AssisTec
             // mtbTel
             // 
             this.mtbTel.BackColor = System.Drawing.Color.White;
-            this.mtbTel.Location = new System.Drawing.Point(72, 92);
+            this.mtbTel.Location = new System.Drawing.Point(73, 102);
             this.mtbTel.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.mtbTel.Mask = "(00) 00000-0000";
             this.mtbTel.Name = "mtbTel";
@@ -466,7 +466,7 @@ namespace AssisTec
             // mtbCPF
             // 
             this.mtbCPF.BackColor = System.Drawing.Color.White;
-            this.mtbCPF.Location = new System.Drawing.Point(275, 66);
+            this.mtbCPF.Location = new System.Drawing.Point(50, 69);
             this.mtbCPF.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.mtbCPF.Mask = "000.000.000-00";
             this.mtbCPF.Name = "mtbCPF";
@@ -488,7 +488,7 @@ namespace AssisTec
             this.lbltel.AutoSize = true;
             this.lbltel.Font = new System.Drawing.Font("Comic Sans MS", 9.75F);
             this.lbltel.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.lbltel.Location = new System.Drawing.Point(3, 94);
+            this.lbltel.Location = new System.Drawing.Point(4, 104);
             this.lbltel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbltel.Name = "lbltel";
             this.lbltel.Size = new System.Drawing.Size(67, 18);
@@ -500,7 +500,7 @@ namespace AssisTec
             this.lblcpf.AutoSize = true;
             this.lblcpf.Font = new System.Drawing.Font("Comic Sans MS", 9.75F);
             this.lblcpf.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.lblcpf.Location = new System.Drawing.Point(231, 68);
+            this.lblcpf.Location = new System.Drawing.Point(6, 72);
             this.lblcpf.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblcpf.Name = "lblcpf";
             this.lblcpf.Size = new System.Drawing.Size(35, 18);

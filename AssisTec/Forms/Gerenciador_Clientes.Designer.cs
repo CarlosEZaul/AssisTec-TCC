@@ -107,16 +107,15 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(564, 411);
+            this.panel1.Size = new System.Drawing.Size(564, 449);
             this.panel1.TabIndex = 37;
             // 
             // btnBuscar
             // 
-            this.btnBuscar.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnBuscar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnBuscar.Enabled = false;
             this.btnBuscar.Font = new System.Drawing.Font("Comic Sans MS", 9F);
-            this.btnBuscar.Location = new System.Drawing.Point(331, 207);
+            this.btnBuscar.Location = new System.Drawing.Point(330, 203);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(75, 23);
             this.btnBuscar.TabIndex = 31;
@@ -132,7 +131,7 @@
             this.btnEditar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnEditar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.btnEditar.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnEditar.Location = new System.Drawing.Point(166, 375);
+            this.btnEditar.Location = new System.Drawing.Point(165, 370);
             this.btnEditar.Name = "btnEditar";
             this.btnEditar.Size = new System.Drawing.Size(75, 23);
             this.btnEditar.TabIndex = 30;
@@ -145,7 +144,7 @@
             this.lblcomplemento.AutoSize = true;
             this.lblcomplemento.Font = new System.Drawing.Font("Comic Sans MS", 9.75F);
             this.lblcomplemento.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.lblcomplemento.Location = new System.Drawing.Point(290, 322);
+            this.lblcomplemento.Location = new System.Drawing.Point(289, 317);
             this.lblcomplemento.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblcomplemento.Name = "lblcomplemento";
             this.lblcomplemento.Size = new System.Drawing.Size(89, 18);
@@ -156,7 +155,7 @@
             // 
             this.mtbCep.BackColor = System.Drawing.Color.White;
             this.mtbCep.Font = new System.Drawing.Font("Comic Sans MS", 8.25F);
-            this.mtbCep.Location = new System.Drawing.Point(193, 207);
+            this.mtbCep.Location = new System.Drawing.Point(192, 202);
             this.mtbCep.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.mtbCep.Mask = "00000-000";
             this.mtbCep.Name = "mtbCep";
@@ -169,7 +168,7 @@
             this.lblcep.AutoSize = true;
             this.lblcep.Font = new System.Drawing.Font("Comic Sans MS", 9.75F);
             this.lblcep.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.lblcep.Location = new System.Drawing.Point(156, 207);
+            this.lblcep.Location = new System.Drawing.Point(155, 202);
             this.lblcep.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblcep.Name = "lblcep";
             this.lblcep.Size = new System.Drawing.Size(35, 18);
@@ -179,7 +178,7 @@
             // txtComp
             // 
             this.txtComp.BackColor = System.Drawing.Color.White;
-            this.txtComp.Location = new System.Drawing.Point(382, 317);
+            this.txtComp.Location = new System.Drawing.Point(381, 312);
             this.txtComp.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtComp.Name = "txtComp";
             this.txtComp.Size = new System.Drawing.Size(165, 20);
@@ -190,7 +189,7 @@
             this.lblestado.AutoSize = true;
             this.lblestado.Font = new System.Drawing.Font("Comic Sans MS", 9.75F);
             this.lblestado.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.lblestado.Location = new System.Drawing.Point(6, 320);
+            this.lblestado.Location = new System.Drawing.Point(5, 315);
             this.lblestado.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblestado.Name = "lblestado";
             this.lblestado.Size = new System.Drawing.Size(53, 18);
@@ -200,7 +199,7 @@
             // txtEstado
             // 
             this.txtEstado.BackColor = System.Drawing.Color.White;
-            this.txtEstado.Location = new System.Drawing.Point(67, 319);
+            this.txtEstado.Location = new System.Drawing.Point(66, 314);
             this.txtEstado.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtEstado.Name = "txtEstado";
             this.txtEstado.ReadOnly = true;
@@ -212,7 +211,7 @@
             this.lblcidade.AutoSize = true;
             this.lblcidade.Font = new System.Drawing.Font("Comic Sans MS", 9.75F);
             this.lblcidade.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.lblcidade.Location = new System.Drawing.Point(5, 278);
+            this.lblcidade.Location = new System.Drawing.Point(4, 273);
             this.lblcidade.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblcidade.Name = "lblcidade";
             this.lblcidade.Size = new System.Drawing.Size(54, 18);
@@ -222,7 +221,7 @@
             // txtCidade
             // 
             this.txtCidade.BackColor = System.Drawing.Color.White;
-            this.txtCidade.Location = new System.Drawing.Point(67, 277);
+            this.txtCidade.Location = new System.Drawing.Point(66, 272);
             this.txtCidade.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtCidade.Name = "txtCidade";
             this.txtCidade.ReadOnly = true;
@@ -234,7 +233,7 @@
             this.lblbairro.AutoSize = true;
             this.lblbairro.Font = new System.Drawing.Font("Comic Sans MS", 9.75F);
             this.lblbairro.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.lblbairro.Location = new System.Drawing.Point(292, 278);
+            this.lblbairro.Location = new System.Drawing.Point(291, 273);
             this.lblbairro.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblbairro.Name = "lblbairro";
             this.lblbairro.Size = new System.Drawing.Size(50, 18);
@@ -244,7 +243,7 @@
             // txtBairro
             // 
             this.txtBairro.BackColor = System.Drawing.Color.White;
-            this.txtBairro.Location = new System.Drawing.Point(350, 276);
+            this.txtBairro.Location = new System.Drawing.Point(349, 271);
             this.txtBairro.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtBairro.Name = "txtBairro";
             this.txtBairro.ReadOnly = true;
@@ -256,7 +255,7 @@
             this.lblrua.AutoSize = true;
             this.lblrua.Font = new System.Drawing.Font("Comic Sans MS", 9.75F);
             this.lblrua.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.lblrua.Location = new System.Drawing.Point(6, 241);
+            this.lblrua.Location = new System.Drawing.Point(5, 236);
             this.lblrua.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblrua.Name = "lblrua";
             this.lblrua.Size = new System.Drawing.Size(34, 18);
@@ -265,11 +264,10 @@
             // 
             // label4
             // 
-            this.label4.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label4.Location = new System.Drawing.Point(190, 13);
+            this.label4.Location = new System.Drawing.Point(189, 9);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(193, 23);
@@ -283,7 +281,7 @@
             this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.btnCancel.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnCancel.Location = new System.Drawing.Point(409, 375);
+            this.btnCancel.Location = new System.Drawing.Point(408, 370);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 17;
@@ -299,7 +297,7 @@
             this.btnDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDelete.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.btnDelete.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnDelete.Location = new System.Drawing.Point(328, 375);
+            this.btnDelete.Location = new System.Drawing.Point(327, 370);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(75, 23);
             this.btnDelete.TabIndex = 16;
@@ -314,7 +312,7 @@
             this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.btnSave.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnSave.Location = new System.Drawing.Point(247, 375);
+            this.btnSave.Location = new System.Drawing.Point(246, 370);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 23);
             this.btnSave.TabIndex = 15;
@@ -329,7 +327,7 @@
             this.btnNew.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnNew.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.btnNew.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnNew.Location = new System.Drawing.Point(85, 375);
+            this.btnNew.Location = new System.Drawing.Point(84, 370);
             this.btnNew.Name = "btnNew";
             this.btnNew.Size = new System.Drawing.Size(75, 23);
             this.btnNew.TabIndex = 14;
@@ -340,7 +338,7 @@
             // mtbNasc
             // 
             this.mtbNasc.BackColor = System.Drawing.Color.White;
-            this.mtbNasc.Location = new System.Drawing.Point(142, 121);
+            this.mtbNasc.Location = new System.Drawing.Point(141, 116);
             this.mtbNasc.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.mtbNasc.Mask = "00/00/0000";
             this.mtbNasc.Name = "mtbNasc";
@@ -352,7 +350,7 @@
             // mtbTel
             // 
             this.mtbTel.BackColor = System.Drawing.Color.White;
-            this.mtbTel.Location = new System.Drawing.Point(72, 92);
+            this.mtbTel.Location = new System.Drawing.Point(71, 87);
             this.mtbTel.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.mtbTel.Mask = "(00) 00000-0000";
             this.mtbTel.Name = "mtbTel";
@@ -363,7 +361,7 @@
             // txtNumber
             // 
             this.txtNumber.BackColor = System.Drawing.Color.White;
-            this.txtNumber.Location = new System.Drawing.Point(319, 238);
+            this.txtNumber.Location = new System.Drawing.Point(318, 233);
             this.txtNumber.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtNumber.Name = "txtNumber";
             this.txtNumber.Size = new System.Drawing.Size(60, 20);
@@ -374,7 +372,7 @@
             this.lblnum.AutoSize = true;
             this.lblnum.Font = new System.Drawing.Font("Comic Sans MS", 9.75F);
             this.lblnum.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.lblnum.Location = new System.Drawing.Point(292, 237);
+            this.lblnum.Location = new System.Drawing.Point(291, 232);
             this.lblnum.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblnum.Name = "lblnum";
             this.lblnum.Size = new System.Drawing.Size(27, 18);
@@ -384,7 +382,7 @@
             // txtRua
             // 
             this.txtRua.BackColor = System.Drawing.Color.White;
-            this.txtRua.Location = new System.Drawing.Point(67, 236);
+            this.txtRua.Location = new System.Drawing.Point(66, 231);
             this.txtRua.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtRua.Name = "txtRua";
             this.txtRua.ReadOnly = true;
@@ -396,7 +394,7 @@
             this.lblendereco.AutoSize = true;
             this.lblendereco.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblendereco.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.lblendereco.Location = new System.Drawing.Point(215, 181);
+            this.lblendereco.Location = new System.Drawing.Point(214, 176);
             this.lblendereco.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblendereco.Name = "lblendereco";
             this.lblendereco.Size = new System.Drawing.Size(86, 23);
@@ -406,7 +404,7 @@
             // mtbCPF
             // 
             this.mtbCPF.BackColor = System.Drawing.Color.White;
-            this.mtbCPF.Location = new System.Drawing.Point(72, 66);
+            this.mtbCPF.Location = new System.Drawing.Point(71, 61);
             this.mtbCPF.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.mtbCPF.Mask = "000.000.000-00";
             this.mtbCPF.Name = "mtbCPF";
@@ -417,7 +415,7 @@
             // txtName
             // 
             this.txtName.BackColor = System.Drawing.Color.White;
-            this.txtName.Location = new System.Drawing.Point(72, 39);
+            this.txtName.Location = new System.Drawing.Point(71, 34);
             this.txtName.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(377, 20);
@@ -428,7 +426,7 @@
             this.lbldatanasc.AutoSize = true;
             this.lbldatanasc.Font = new System.Drawing.Font("Comic Sans MS", 9.75F);
             this.lbldatanasc.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.lbldatanasc.Location = new System.Drawing.Point(2, 125);
+            this.lbldatanasc.Location = new System.Drawing.Point(1, 120);
             this.lbldatanasc.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbldatanasc.Name = "lbldatanasc";
             this.lbldatanasc.Size = new System.Drawing.Size(132, 18);
@@ -440,7 +438,7 @@
             this.lbltel.AutoSize = true;
             this.lbltel.Font = new System.Drawing.Font("Comic Sans MS", 9.75F);
             this.lbltel.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.lbltel.Location = new System.Drawing.Point(3, 94);
+            this.lbltel.Location = new System.Drawing.Point(2, 89);
             this.lbltel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbltel.Name = "lbltel";
             this.lbltel.Size = new System.Drawing.Size(67, 18);
@@ -452,7 +450,7 @@
             this.lblcpf.AutoSize = true;
             this.lblcpf.Font = new System.Drawing.Font("Comic Sans MS", 9.75F);
             this.lblcpf.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.lblcpf.Location = new System.Drawing.Point(3, 67);
+            this.lblcpf.Location = new System.Drawing.Point(2, 62);
             this.lblcpf.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblcpf.Name = "lblcpf";
             this.lblcpf.Size = new System.Drawing.Size(35, 18);
@@ -464,7 +462,7 @@
             this.lblNome.AutoSize = true;
             this.lblNome.Font = new System.Drawing.Font("Comic Sans MS", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblNome.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.lblNome.Location = new System.Drawing.Point(3, 43);
+            this.lblNome.Location = new System.Drawing.Point(2, 38);
             this.lblNome.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblNome.Name = "lblNome";
             this.lblNome.Size = new System.Drawing.Size(45, 18);
@@ -481,14 +479,15 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel2.Location = new System.Drawing.Point(564, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(518, 411);
+            this.panel2.Size = new System.Drawing.Size(590, 449);
             this.panel2.TabIndex = 38;
             // 
             // btnAtualizar
             // 
+            this.btnAtualizar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnAtualizar.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnAtualizar.BackgroundImage")));
             this.btnAtualizar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnAtualizar.Location = new System.Drawing.Point(458, 3);
+            this.btnAtualizar.Location = new System.Drawing.Point(507, 20);
             this.btnAtualizar.Name = "btnAtualizar";
             this.btnAtualizar.Size = new System.Drawing.Size(42, 36);
             this.btnAtualizar.TabIndex = 35;
@@ -501,7 +500,7 @@
             this.lblbusca.AutoSize = true;
             this.lblbusca.Font = new System.Drawing.Font("Comic Sans MS", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblbusca.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.lblbusca.Location = new System.Drawing.Point(22, 13);
+            this.lblbusca.Location = new System.Drawing.Point(57, 35);
             this.lblbusca.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblbusca.Name = "lblbusca";
             this.lblbusca.Size = new System.Drawing.Size(47, 18);
@@ -512,7 +511,7 @@
             // 
             this.txtBusca.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.txtBusca.BackColor = System.Drawing.Color.White;
-            this.txtBusca.Location = new System.Drawing.Point(75, 12);
+            this.txtBusca.Location = new System.Drawing.Point(110, 34);
             this.txtBusca.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtBusca.Name = "txtBusca";
             this.txtBusca.Size = new System.Drawing.Size(363, 20);
@@ -527,10 +526,10 @@
             this.dgvClientes.BackgroundColor = System.Drawing.Color.Gray;
             this.dgvClientes.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Sunken;
             this.dgvClientes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvClientes.Location = new System.Drawing.Point(22, 45);
+            this.dgvClientes.Location = new System.Drawing.Point(5, 79);
             this.dgvClientes.Name = "dgvClientes";
             this.dgvClientes.ReadOnly = true;
-            this.dgvClientes.Size = new System.Drawing.Size(478, 354);
+            this.dgvClientes.Size = new System.Drawing.Size(572, 331);
             this.dgvClientes.TabIndex = 34;
             this.dgvClientes.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvClientes_CellClick);
             // 
@@ -539,11 +538,13 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(1076, 411);
+            this.ClientSize = new System.Drawing.Size(1154, 449);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Location = new System.Drawing.Point(15, 15);
             this.Name = "Gerenciador_Clientes";
+            this.ShowIcon = false;
+            this.ShowInTaskbar = false;
             this.Load += new System.EventHandler(this.Gerenciador_ClientesLoad);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

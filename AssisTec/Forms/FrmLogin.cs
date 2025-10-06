@@ -84,7 +84,7 @@ namespace AssisTec
                     con.CloseConnection();
 
                     MessageBox.Show($"Bem-vindo, {nome}!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    FrmPrincipal form =  new FrmPrincipal();
+                    Gerenciador_Clientes form =  new Gerenciador_Clientes();
                     form.Show();
                     this.Hide();
                     
