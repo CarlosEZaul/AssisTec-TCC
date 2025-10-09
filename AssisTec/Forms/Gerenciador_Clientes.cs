@@ -33,6 +33,7 @@ namespace AssisTec
 
         private void Gerenciador_ClientesLoad(object sender, EventArgs e)
         {
+            
             disable();
             btnNew.Focus();
             listGrid();

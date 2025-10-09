@@ -343,3 +343,4 @@ C:\Users\carlo\OneDrive\Área de Trabalho\AssisTec\AssisTec\obj\Debug\AssisTec.e
 C:\Users\carlo\OneDrive\Área de Trabalho\AssisTec\AssisTec\obj\Debug\AssisTec.pdb
 C:\Users\carlo\OneDrive\Área de Trabalho\AssisTec\AssisTec\obj\Debug\AssisTec.FrmLogin.resources
 C:\Users\carlo\OneDrive\Área de Trabalho\AssisTec\AssisTec\bin\Debug\Guna.UI2.dll
+C:\Users\carlo\OneDrive\Área de Trabalho\AssisTEC\AssisTec\obj\Debug\AssisTec.FrmPrincipal.resources
