@@ -32,7 +32,7 @@ namespace AssisTec
 
             // ======== BOTÃO GERENCIAR CLIENTE ========
             Guna2Button btnCliente = new Guna2Button();
-            btnCliente.Text = "Gerenciar Cliente";
+            btnCliente.Text = "👨‍👩‍👧‍👦 Gerenciar Cliente";
             btnCliente.Width = 160;
             btnCliente.Height = 50;
             btnCliente.Location = new System.Drawing.Point(160, 0);

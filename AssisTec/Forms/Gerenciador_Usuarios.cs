@@ -46,108 +46,119 @@ namespace AssisTec
         {
             ConfigurarComboBox();
             listGrid();
+            
         }
          #region Design Moderno
-
-        private void ApplyModernDesign()
-        {
-            try
-            {
-                // Propriedades do formulário (específicas deste form)
-                this.Text = "Gerenciador de Clientes";
-                this.BackColor = Color.FromArgb(240, 240, 240);
-                this.Font = new Font("Segoe UI", 9F);
-                this.FormBorderStyle = FormBorderStyle.FixedSingle;
-                this.MaximizeBox = false;
-                this.StartPosition = FormStartPosition.CenterScreen;
-
-                // Estilo dos painéis (específicos deste form)
-                panel1.BackColor = Color.FromArgb(39, 54, 77);
-                panel2.BackColor = Color.FromArgb(32, 45, 64);
         
-                // Estilo das labels: Usando o método estático
-                DesingComponentes.ApplyLabelStyles(this);
-
-                // Estilo dos cabeçalhos de seção (específicos deste form)
-                label4.Font = new Font("Segoe UI Semibold", 14F);
-                label4.ForeColor = Color.White;
-
-                lblendereco.Font = new Font("Segoe UI Semibold", 14F);
-                lblendereco.ForeColor = Color.White;
-
-
-                // Estilo das caixas de texto: Usando o método estático para cada controle
-                DesingComponentes.StyleTextBox(txtName);
-                DesingComponentes.StyleTextBox(txtRua);
-                // ... (outros TextBoxes)
-                DesingComponentes.StyleTextBox(txtBusca);
-
-                // Estilo das caixas de texto com máscara: Usando o método estático para cada controle
-                DesingComponentes.StyleMaskedTextBox(mtbCPF);
-                // ... (outros MaskedTextBoxes)
-                DesingComponentes.StyleMaskedTextBox(mtbCep);
-
-                // Estilo dos botões: Usando o método estático para cada controle
-                DesingComponentes.StyleButton(btnNew, Color.FromArgb(0, 120, 215));
-                DesingComponentes.StyleButton(btnDelete, Color.FromArgb(209, 17, 65));
-                // ... (outros Buttons)
-
-                // Estilo do DataGridView: Usando o método estático (se o form tiver um DataGridView)
-                DesingComponentes.StyleDataGridView(dgvUsuarios); 
-                
-                
-            }
-            catch (Exception ex)
+             private void StyleDataGridView()
             {
-                MessageBox.Show("Erro ao aplicar design: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                dgvUsuarios.BorderStyle = BorderStyle.None;
+                dgvUsuarios.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(245, 245, 245);
+                dgvUsuarios.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
+                dgvUsuarios.DefaultCellStyle.SelectionBackColor = Color.FromArgb(210, 232, 255);
+                dgvUsuarios.DefaultCellStyle.SelectionForeColor = Color.Black;
+                dgvUsuarios.BackgroundColor = Color.White;
+                dgvUsuarios.RowHeadersVisible = false; 
+                dgvUsuarios.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+                dgvUsuarios.RowTemplate.Height = 35;
+                dgvUsuarios.EnableHeadersVisualStyles = false;
+                dgvUsuarios.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(50, 50, 50);
+                dgvUsuarios.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+                dgvUsuarios.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI Semibold", 10);
+                dgvUsuarios.ColumnHeadersHeight = 40;
+                dgvUsuarios.DefaultCellStyle.Font = new Font("Segoe UI", 9);
+    
+                // ===============================================
+                // CÓDIGO INSERIDO PARA FORÇAR SCROLL HORIZONTAL
+                // ===============================================
+    
+                // 1. Desliga o ajuste automático para que as colunas não se restrinjam à largura do controle.
+                dgvUsuarios.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
+    
+                // 2. Garante que as barras de rolagem (incluindo horizontal) estejam sempre ativas.
+                dgvUsuarios.ScrollBars = ScrollBars.Both;
             }
-        }
 
-        private void StyleDataGridView()
-        {
-            dgvUsuarios.BorderStyle = BorderStyle.None;
-            dgvUsuarios.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(245, 245, 245);
-            dgvUsuarios.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
-            dgvUsuarios.DefaultCellStyle.SelectionBackColor = Color.FromArgb(210, 232, 255);
-            dgvUsuarios.DefaultCellStyle.SelectionForeColor = Color.Black;
-            dgvUsuarios.BackgroundColor = Color.White;
-            dgvUsuarios.RowHeadersVisible = false;
-            dgvUsuarios.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvUsuarios.RowTemplate.Height = 35;
-            dgvUsuarios.EnableHeadersVisualStyles = false;
-            dgvUsuarios.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(50, 50, 50);
-            dgvUsuarios.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
-            dgvUsuarios.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI Semibold", 10);
-            dgvUsuarios.ColumnHeadersHeight = 40;
-            dgvUsuarios.DefaultCellStyle.Font = new Font("Segoe UI", 9);
-        }
+            private void StyleTextBox(TextBox textBox)
+            {
+                textBox.BorderStyle = BorderStyle.FixedSingle;
+                textBox.BackColor = Color.White;
+                textBox.Font = new Font("Segoe UI", 9F);
+                textBox.ForeColor = Color.FromArgb(60, 60, 60);
+            }
 
-        private void StyleTextBox(TextBox textBox)
-        {
-            textBox.BorderStyle = BorderStyle.FixedSingle;
-            textBox.BackColor = Color.White;
-            textBox.Font = new Font("Segoe UI", 9F);
-            textBox.ForeColor = Color.FromArgb(60, 60, 60);
-        }
+            private void StyleMaskedTextBox(MaskedTextBox maskedTextBox)
+            {
+                maskedTextBox.BorderStyle = BorderStyle.FixedSingle;
+                maskedTextBox.BackColor = Color.White;
+                maskedTextBox.Font = new Font("Segoe UI", 9F);
+                maskedTextBox.ForeColor = Color.FromArgb(60, 60, 60);
+            }
 
-        private void StyleMaskedTextBox(MaskedTextBox maskedTextBox)
-        {
-            maskedTextBox.BorderStyle = BorderStyle.FixedSingle;
-            maskedTextBox.BackColor = Color.White;
-            maskedTextBox.Font = new Font("Segoe UI", 9F);
-            maskedTextBox.ForeColor = Color.FromArgb(60, 60, 60);
-        }
+            private void StyleButton(Button button, Color backgroundColor)
+            {
+                button.FlatStyle = FlatStyle.Flat;
+                button.FlatAppearance.BorderSize = 0;
+                button.BackColor = backgroundColor;
+                button.ForeColor = Color.White;
+                button.Font = new Font("Segoe UI Semibold", 9F);
+                button.Cursor = Cursors.Hand;
+                // Não alterar o tamanho para evitar problemas de layout
+            }
+            private void ApplyModernDesign()
+            {
+                
+                try
+                {
+                    // Propriedades do formulário (específicas deste form)
+                    this.Text = "Gerenciador de Clientes";
+                    this.BackColor = Color.FromArgb(240, 240, 240);
+                    this.Font = new Font("Segoe UI", 9F);
+                    this.FormBorderStyle = FormBorderStyle.FixedSingle;
+                    this.MaximizeBox = false;
+                    this.StartPosition = FormStartPosition.CenterScreen;
 
-        private void StyleButton(Button button, Color backgroundColor)
-        {
-            button.FlatStyle = FlatStyle.Flat;
-            button.FlatAppearance.BorderSize = 0;
-            button.BackColor = backgroundColor;
-            button.ForeColor = Color.White;
-            button.Font = new Font("Segoe UI Semibold", 9F);
-            button.Cursor = Cursors.Hand;
-            // Não alterar o tamanho para evitar problemas de layout
-        }
+                    // Estilo dos painéis (específicos deste form)
+                    panel1.BackColor = Color.FromArgb(39, 54, 77);
+                    panel2.BackColor = Color.FromArgb(32, 45, 64);
+            
+                    // Estilo das labels: Usando o método estático
+                    DesingComponentes.ApplyLabelStyles(this);
+
+                    // Estilo dos cabeçalhos de seção (específicos deste form)
+                    label4.Font = new Font("Segoe UI Semibold", 14F);
+                    label4.ForeColor = Color.White;
+
+                    lblendereco.Font = new Font("Segoe UI Semibold", 14F);
+                    lblendereco.ForeColor = Color.White;
+
+
+                    // Estilo das caixas de texto: Usando o método estático para cada controle
+                    DesingComponentes.StyleTextBox(txtName);
+                    DesingComponentes.StyleTextBox(txtRua);
+                    // ... (outros TextBoxes)
+                    DesingComponentes.StyleTextBox(txtBusca);
+
+                    // Estilo das caixas de texto com máscara: Usando o método estático para cada controle
+                    DesingComponentes.StyleMaskedTextBox(mtbCPF);
+                    // ... (outros MaskedTextBoxes)
+                    DesingComponentes.StyleMaskedTextBox(mtbCep);
+
+                    // Estilo dos botões: Usando o método estático para cada controle
+                    DesingComponentes.StyleButton(btnNew, Color.FromArgb(0, 120, 215));
+                    DesingComponentes.StyleButton(btnDelete, Color.FromArgb(209, 17, 65));
+                    // ... (outros Buttons)
+
+                    // Estilo do DataGridView: Usando o método estático (se o form tiver um DataGridView)
+                    DesingComponentes.StyleDataGridView(dgvUsuarios); 
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Erro ao aplicar design: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+
+        
 
         #endregion
         
@@ -285,40 +296,55 @@ namespace AssisTec
 
 
         private void formartGrid()
-        {
-            if (dgvUsuarios.Columns.Count > 0)
-            {
-                dgvUsuarios.Columns[0].HeaderText = "ID";
-                dgvUsuarios.Columns[1].HeaderText = "Nome";
-                dgvUsuarios.Columns[2].HeaderText = "CPF";
-                dgvUsuarios.Columns[3].HeaderText = "Senha";
-                dgvUsuarios.Columns[4].HeaderText = "Telefone";
-                dgvUsuarios.Columns[5].HeaderText = "Nível";
-                dgvUsuarios.Columns[6].HeaderText = "Status";
-                dgvUsuarios.Columns[7].HeaderText = "CEP";
-                dgvUsuarios.Columns[8].HeaderText = "Rua";
-                dgvUsuarios.Columns[9].HeaderText = "Número";
-                dgvUsuarios.Columns[10].HeaderText = "Cidade";
-                dgvUsuarios.Columns[11].HeaderText = "Bairro";
-                dgvUsuarios.Columns[12].HeaderText = "Estado";
-                dgvUsuarios.Columns[13].HeaderText = "Complemento";
-                
-                dgvUsuarios.Columns[0].Width = 50;   
-                dgvUsuarios.Columns[1].Width = 150;  
-                dgvUsuarios.Columns[2].Width = 100;  
-                dgvUsuarios.Columns[3].Width = 100;  
-                dgvUsuarios.Columns[4].Width = 80;
-                dgvUsuarios.Columns[5].Width = 60;   
-                dgvUsuarios.Columns[6].Width = 80;   
-                dgvUsuarios.Columns[7].Width = 150; 
-                dgvUsuarios.Columns[8].Width = 70;  
-                dgvUsuarios.Columns[9].Width = 120;
-                dgvUsuarios.Columns[10].Width = 120; 
-                dgvUsuarios.Columns[11].Width = 80; 
-                dgvUsuarios.Columns[12].Width = 150; 
-                
-            }
-        }
+{
+    if (dgvUsuarios.Columns.Count > 0)
+    {
+        // Headers
+        dgvUsuarios.Columns[0].HeaderText = "ID";
+        dgvUsuarios.Columns[0].Visible = false;
+        dgvUsuarios.Columns[1].HeaderText = "Nome";
+        dgvUsuarios.Columns[2].HeaderText = "CPF";
+        dgvUsuarios.Columns[3].HeaderText = "Senha";
+        dgvUsuarios.Columns[4].HeaderText = "Telefone";
+        dgvUsuarios.Columns[5].HeaderText = "Nível";
+        dgvUsuarios.Columns[6].HeaderText = "Status";
+        dgvUsuarios.Columns[7].HeaderText = "CEP";
+        dgvUsuarios.Columns[8].HeaderText = "Rua";
+        dgvUsuarios.Columns[9].HeaderText = "Número";
+        dgvUsuarios.Columns[10].HeaderText = "Cidade";
+        dgvUsuarios.Columns[11].HeaderText = "Bairro";
+        dgvUsuarios.Columns[12].HeaderText = "Estado";
+        dgvUsuarios.Columns[13].HeaderText = "Complemento"; // Coluna 13
+        
+        // Larguras
+        
+        dgvUsuarios.Columns[1].Width = 120;  
+        dgvUsuarios.Columns[2].Width = 100;  
+        dgvUsuarios.Columns[3].Width = 100;  
+        dgvUsuarios.Columns[4].Width = 80;
+        dgvUsuarios.Columns[5].Width = 60;   
+        dgvUsuarios.Columns[6].Width = 80;   
+        dgvUsuarios.Columns[7].Width = 150; 
+        dgvUsuarios.Columns[8].Width = 150;  
+        dgvUsuarios.Columns[9].Width = 80;   
+        dgvUsuarios.Columns[10].Width = 120; 
+        dgvUsuarios.Columns[11].Width = 120; 
+        dgvUsuarios.Columns[12].Width = 100; 
+        dgvUsuarios.Columns[13].Width = 100; 
+        // ===============================================
+        // CÓDIGO INSERIDO PARA GARANTIR LARGURA TOTAL
+        // ===============================================
+        
+        // Largura da Coluna 13 (Complemento) que estava faltando:
+        dgvUsuarios.Columns[13].Width = 200; 
+        
+        // Você também pode aumentar a largura de uma das colunas (ex: Nome) para garantir que o total 
+        // seja MAIOR do que a largura do seu DataGridView no formulário.
+        dgvUsuarios.Columns[1].Width = 250; // Nome mais largo
+        
+        // Largura total agora é aproximadamente 1640 pixels, o que deve forçar a rolagem.
+    }
+}
         Usuario formUsuario()
         {
             Usuario user = new Usuario();
@@ -672,11 +698,6 @@ namespace AssisTec
         private void btnAtualizar_Click(object sender, EventArgs e)
         {
             listGrid();
-        }
-
-        private void panel2_Paint(object sender, PaintEventArgs e)
-        {
-            throw new System.NotImplementedException();
         }
     }
 }

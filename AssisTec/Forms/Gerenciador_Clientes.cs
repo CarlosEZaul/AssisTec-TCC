@@ -512,6 +512,7 @@ namespace AssisTec
 
         private void dgvClientes_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+           
             if (e.RowIndex >= 0 && dgvClientes.Rows.Count > 0)
             {
                 try
