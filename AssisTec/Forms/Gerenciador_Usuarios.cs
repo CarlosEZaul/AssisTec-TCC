@@ -699,5 +699,10 @@ namespace AssisTec
         {
             listGrid();
         }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
