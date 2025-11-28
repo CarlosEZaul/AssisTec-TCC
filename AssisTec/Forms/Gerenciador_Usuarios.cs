@@ -94,6 +94,8 @@ namespace AssisTec
 
                 // Estilo do DataGridView: Usando o método estático (se o form tiver um DataGridView)
                 DesingComponentes.StyleDataGridView(dgvUsuarios); 
+                
+                
             }
             catch (Exception ex)
             {
@@ -670,6 +672,11 @@ namespace AssisTec
         private void btnAtualizar_Click(object sender, EventArgs e)
         {
             listGrid();
+        }
+
+        private void panel2_Paint(object sender, PaintEventArgs e)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

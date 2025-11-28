@@ -61,11 +61,11 @@ namespace AssisTec
                 DesingComponentes.ApplyLabelStyles(this);
 
                 // Estilo dos cabeçalhos de seção (específicos deste form)
-                label4.Font = new Font("Segoe UI Semibold", 14F);
-                label4.ForeColor = Color.White;
+                label1.Font = new Font("Segoe UI Semibold", 14F);
+                label1.ForeColor = Color.White;
 
-                lblendereco.Font = new Font("Segoe UI Semibold", 14F);
-                lblendereco.ForeColor = Color.White;
+                lblEnd.Font = new Font("Segoe UI Semibold", 14F);
+                lblEnd.ForeColor = Color.White;
 
 
                 // Estilo das caixas de texto: Usando o método estático para cada controle
@@ -570,6 +570,12 @@ namespace AssisTec
         private void btnAtualizar_Click(object sender, EventArgs e)
         {
             listGrid();
+        }
+
+
+        private void label14_Click(object sender, EventArgs e)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

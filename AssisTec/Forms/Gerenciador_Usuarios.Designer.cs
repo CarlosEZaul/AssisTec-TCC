@@ -33,6 +33,11 @@ namespace AssisTec
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Gerenciador_Usuarios));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.btnAtualizar = new System.Windows.Forms.PictureBox();
+            this.lblbusca = new System.Windows.Forms.Label();
+            this.txtBusca = new System.Windows.Forms.TextBox();
+            this.dgvUsuarios = new System.Windows.Forms.DataGridView();
             this.txtSenha = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -67,11 +72,6 @@ namespace AssisTec
             this.lbltel = new System.Windows.Forms.Label();
             this.lblcpf = new System.Windows.Forms.Label();
             this.lblNome = new System.Windows.Forms.Label();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.btnAtualizar = new System.Windows.Forms.PictureBox();
-            this.lblbusca = new System.Windows.Forms.Label();
-            this.txtBusca = new System.Windows.Forms.TextBox();
-            this.dgvUsuarios = new System.Windows.Forms.DataGridView();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnAtualizar)).BeginInit();
@@ -81,6 +81,7 @@ namespace AssisTec
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(55)))), ((int)(((byte)(76)))));
+            this.panel1.Controls.Add(this.panel2);
             this.panel1.Controls.Add(this.txtSenha);
             this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.label2);
@@ -115,11 +116,74 @@ namespace AssisTec
             this.panel1.Controls.Add(this.lbltel);
             this.panel1.Controls.Add(this.lblcpf);
             this.panel1.Controls.Add(this.lblNome);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Location = new System.Drawing.Point(23, 12);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(564, 411);
+            this.panel1.Size = new System.Drawing.Size(1904, 983);
             this.panel1.TabIndex = 38;
+            // 
+            // panel2
+            // 
+            this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(44)))), ((int)(((byte)(64)))));
+            this.panel2.Controls.Add(this.btnAtualizar);
+            this.panel2.Controls.Add(this.lblbusca);
+            this.panel2.Controls.Add(this.txtBusca);
+            this.panel2.Controls.Add(this.dgvUsuarios);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panel2.Location = new System.Drawing.Point(536, 0);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(1368, 983);
+            this.panel2.TabIndex = 39;
+            // 
+            // btnAtualizar
+            // 
+            this.btnAtualizar.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.btnAtualizar.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnAtualizar.BackgroundImage")));
+            this.btnAtualizar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnAtualizar.Location = new System.Drawing.Point(976, 7);
+            this.btnAtualizar.Name = "btnAtualizar";
+            this.btnAtualizar.Size = new System.Drawing.Size(42, 36);
+            this.btnAtualizar.TabIndex = 35;
+            this.btnAtualizar.TabStop = false;
+            this.btnAtualizar.Click += new System.EventHandler(this.btnAtualizar_Click);
+            // 
+            // lblbusca
+            // 
+            this.lblbusca.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.lblbusca.AutoSize = true;
+            this.lblbusca.Font = new System.Drawing.Font("Comic Sans MS", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblbusca.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.lblbusca.Location = new System.Drawing.Point(437, 21);
+            this.lblbusca.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblbusca.Name = "lblbusca";
+            this.lblbusca.Size = new System.Drawing.Size(53, 18);
+            this.lblbusca.TabIndex = 32;
+            this.lblbusca.Text = "Buscar:";
+            // 
+            // txtBusca
+            // 
+            this.txtBusca.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.txtBusca.BackColor = System.Drawing.Color.White;
+            this.txtBusca.Location = new System.Drawing.Point(498, 20);
+            this.txtBusca.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.txtBusca.Name = "txtBusca";
+            this.txtBusca.Size = new System.Drawing.Size(471, 20);
+            this.txtBusca.TabIndex = 33;
+            // 
+            // dgvUsuarios
+            // 
+            this.dgvUsuarios.AllowUserToAddRows = false;
+            this.dgvUsuarios.AllowUserToDeleteRows = false;
+            this.dgvUsuarios.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvUsuarios.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvUsuarios.BackgroundColor = System.Drawing.Color.Gray;
+            this.dgvUsuarios.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Sunken;
+            this.dgvUsuarios.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvUsuarios.Location = new System.Drawing.Point(18, 43);
+            this.dgvUsuarios.Name = "dgvUsuarios";
+            this.dgvUsuarios.ReadOnly = true;
+            this.dgvUsuarios.Size = new System.Drawing.Size(1317, 890);
+            this.dgvUsuarios.TabIndex = 34;
+            this.dgvUsuarios.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvUsuarios_CellClick);
             // 
             // txtSenha
             // 
@@ -184,10 +248,9 @@ namespace AssisTec
             // 
             // btnBuscar
             // 
-            this.btnBuscar.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnBuscar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnBuscar.Font = new System.Drawing.Font("Comic Sans MS", 9F);
-            this.btnBuscar.Location = new System.Drawing.Point(331, 207);
+            this.btnBuscar.Location = new System.Drawing.Point(331, 209);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(75, 23);
             this.btnBuscar.TabIndex = 31;
@@ -337,11 +400,10 @@ namespace AssisTec
             // 
             // label4
             // 
-            this.label4.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label4.Location = new System.Drawing.Point(190, 13);
+            this.label4.Location = new System.Drawing.Point(156, 9);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(198, 23);
@@ -519,76 +581,19 @@ namespace AssisTec
             this.lblNome.TabIndex = 1;
             this.lblNome.Text = "Nome:";
             // 
-            // panel2
-            // 
-            this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(44)))), ((int)(((byte)(64)))));
-            this.panel2.Controls.Add(this.btnAtualizar);
-            this.panel2.Controls.Add(this.lblbusca);
-            this.panel2.Controls.Add(this.txtBusca);
-            this.panel2.Controls.Add(this.dgvUsuarios);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panel2.Location = new System.Drawing.Point(564, 0);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(518, 411);
-            this.panel2.TabIndex = 39;
-            // 
-            // btnAtualizar
-            // 
-            this.btnAtualizar.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnAtualizar.BackgroundImage")));
-            this.btnAtualizar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnAtualizar.Location = new System.Drawing.Point(458, 3);
-            this.btnAtualizar.Name = "btnAtualizar";
-            this.btnAtualizar.Size = new System.Drawing.Size(42, 36);
-            this.btnAtualizar.TabIndex = 35;
-            this.btnAtualizar.TabStop = false;
-            this.btnAtualizar.Click += new System.EventHandler(this.btnAtualizar_Click);
-            // 
-            // lblbusca
-            // 
-            this.lblbusca.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.lblbusca.AutoSize = true;
-            this.lblbusca.Font = new System.Drawing.Font("Comic Sans MS", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblbusca.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.lblbusca.Location = new System.Drawing.Point(22, 13);
-            this.lblbusca.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblbusca.Name = "lblbusca";
-            this.lblbusca.Size = new System.Drawing.Size(47, 18);
-            this.lblbusca.TabIndex = 32;
-            this.lblbusca.Text = "Busca:";
-            // 
-            // txtBusca
-            // 
-            this.txtBusca.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.txtBusca.BackColor = System.Drawing.Color.White;
-            this.txtBusca.Location = new System.Drawing.Point(75, 12);
-            this.txtBusca.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.txtBusca.Name = "txtBusca";
-            this.txtBusca.Size = new System.Drawing.Size(363, 20);
-            this.txtBusca.TabIndex = 33;
-            // 
-            // dgvUsuarios
-            // 
-            this.dgvUsuarios.AllowUserToAddRows = false;
-            this.dgvUsuarios.AllowUserToDeleteRows = false;
-            this.dgvUsuarios.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.dgvUsuarios.BackgroundColor = System.Drawing.Color.Gray;
-            this.dgvUsuarios.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Sunken;
-            this.dgvUsuarios.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvUsuarios.Location = new System.Drawing.Point(22, 45);
-            this.dgvUsuarios.Name = "dgvUsuarios";
-            this.dgvUsuarios.ReadOnly = true;
-            this.dgvUsuarios.Size = new System.Drawing.Size(478, 354);
-            this.dgvUsuarios.TabIndex = 34;
-            this.dgvUsuarios.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvUsuarios_CellClick);
-            // 
             // Gerenciador_Usuarios
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1076, 411);
-            this.Controls.Add(this.panel2);
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.ClientSize = new System.Drawing.Size(1904, 983);
+            this.ControlBox = false;
             this.Controls.Add(this.panel1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "Gerenciador_Usuarios";
+            this.ShowIcon = false;
             this.Text = "Gerenciador_Usuarios";
             this.Load += new System.EventHandler(this.Gerenciador_Usuarios_Load);
             this.panel1.ResumeLayout(false);

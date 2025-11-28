@@ -44,7 +44,7 @@ namespace AssisTec
             this.panelNavegacao.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelNavegacao.Location = new System.Drawing.Point(0, 0);
             this.panelNavegacao.Name = "panelNavegacao";
-            this.panelNavegacao.Size = new System.Drawing.Size(1350, 58);
+            this.panelNavegacao.Size = new System.Drawing.Size(1904, 58);
             this.panelNavegacao.TabIndex = 0;
             // 
             // panel1
@@ -56,24 +56,24 @@ namespace AssisTec
             // 
             // panelConteudo
             // 
+            this.panelConteudo.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.panelConteudo.BackColor = System.Drawing.SystemColors.HotTrack;
-            this.panelConteudo.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelConteudo.Location = new System.Drawing.Point(0, 58);
             this.panelConteudo.Name = "panelConteudo";
-            this.panelConteudo.Size = new System.Drawing.Size(1350, 671);
+            this.panelConteudo.Size = new System.Drawing.Size(1904, 983);
             this.panelConteudo.TabIndex = 1;
             // 
             // FrmPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1350, 729);
+            this.BackColor = System.Drawing.SystemColors.Control;
+            this.ClientSize = new System.Drawing.Size(1904, 1041);
             this.Controls.Add(this.panelConteudo);
             this.Controls.Add(this.panelNavegacao);
             this.Location = new System.Drawing.Point(15, 15);
             this.Name = "FrmPrincipal";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.panelNavegacao.ResumeLayout(false);
             this.ResumeLayout(false);
         }
