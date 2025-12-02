@@ -73,6 +73,7 @@ namespace AssisTec
             this.dgvUsuarios = new System.Windows.Forms.DataGridView();
             this.panel2 = new System.Windows.Forms.Panel();
             this.label14 = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnAtualizar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvUsuarios)).BeginInit();
@@ -342,7 +343,7 @@ namespace AssisTec
             this.lblcep.AutoSize = true;
             this.lblcep.Font = new System.Drawing.Font("Comic Sans MS", 9.75F);
             this.lblcep.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.lblcep.Location = new System.Drawing.Point(153, 418);
+            this.lblcep.Location = new System.Drawing.Point(130, 426);
             this.lblcep.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblcep.Name = "lblcep";
             this.lblcep.Size = new System.Drawing.Size(35, 18);
@@ -353,7 +354,7 @@ namespace AssisTec
             // 
             this.mtbCep.BackColor = System.Drawing.Color.White;
             this.mtbCep.Font = new System.Drawing.Font("Comic Sans MS", 8.25F);
-            this.mtbCep.Location = new System.Drawing.Point(190, 418);
+            this.mtbCep.Location = new System.Drawing.Point(167, 426);
             this.mtbCep.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.mtbCep.Mask = "00000-000";
             this.mtbCep.Name = "mtbCep";
@@ -468,6 +469,7 @@ namespace AssisTec
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(55)))), ((int)(((byte)(76)))));
+            this.panel1.Controls.Add(this.button1);
             this.panel1.Controls.Add(this.lblEnd);
             this.panel1.Controls.Add(this.txtSenha);
             this.panel1.Controls.Add(this.label3);
@@ -514,7 +516,7 @@ namespace AssisTec
             this.lblEnd.AutoSize = true;
             this.lblEnd.Font = new System.Drawing.Font("Comic Sans MS", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblEnd.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.lblEnd.Location = new System.Drawing.Point(200, 374);
+            this.lblEnd.Location = new System.Drawing.Point(190, 372);
             this.lblEnd.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblEnd.Name = "lblEnd";
             this.lblEnd.Size = new System.Drawing.Size(96, 27);
@@ -593,6 +595,19 @@ namespace AssisTec
             this.label14.TabIndex = 47;
             this.label14.Text = "Buscar:";
             // 
+            // button1
+            // 
+            this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button1.Enabled = false;
+            this.button1.Font = new System.Drawing.Font("Comic Sans MS", 9F);
+            this.button1.Location = new System.Drawing.Point(305, 426);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 48;
+            this.button1.Text = "Buscar";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.mtbCep_Leave);
+            // 
             // Gerenciador_Usuarios
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -618,6 +633,8 @@ namespace AssisTec
             this.panel2.PerformLayout();
             this.ResumeLayout(false);
         }
+
+        private System.Windows.Forms.Button button1;
 
         private System.Windows.Forms.Label lblEnd;
 

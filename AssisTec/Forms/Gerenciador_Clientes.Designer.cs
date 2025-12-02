@@ -231,7 +231,7 @@
             this.lblEnd.AutoSize = true;
             this.lblEnd.Font = new System.Drawing.Font("Comic Sans MS", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblEnd.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.lblEnd.Location = new System.Drawing.Point(200, 374);
+            this.lblEnd.Location = new System.Drawing.Point(190, 372);
             this.lblEnd.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblEnd.Name = "lblEnd";
             this.lblEnd.Size = new System.Drawing.Size(96, 27);
@@ -315,7 +315,7 @@
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Comic Sans MS", 9.75F);
             this.label7.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label7.Location = new System.Drawing.Point(100, 434);
+            this.label7.Location = new System.Drawing.Point(124, 427);
             this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(35, 18);
@@ -387,7 +387,7 @@
             this.btnBuscar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnBuscar.Enabled = false;
             this.btnBuscar.Font = new System.Drawing.Font("Comic Sans MS", 9F);
-            this.btnBuscar.Location = new System.Drawing.Point(288, 432);
+            this.btnBuscar.Location = new System.Drawing.Point(305, 427);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(75, 23);
             this.btnBuscar.TabIndex = 31;
@@ -426,7 +426,7 @@
             // 
             this.mtbCep.BackColor = System.Drawing.Color.White;
             this.mtbCep.Font = new System.Drawing.Font("Comic Sans MS", 8.25F);
-            this.mtbCep.Location = new System.Drawing.Point(150, 431);
+            this.mtbCep.Location = new System.Drawing.Point(167, 426);
             this.mtbCep.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.mtbCep.Mask = "00000-000";
             this.mtbCep.Name = "mtbCep";
