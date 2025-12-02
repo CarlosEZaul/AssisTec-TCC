@@ -40,10 +40,22 @@ namespace AssisTec
             btnCliente.ForeColor = System.Drawing.Color.White;
             btnCliente.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
             btnCliente.Click += (s, e) => AbrirForm(new Gerenciador_Clientes());
-
+            
+            // ======== BOTÃO GERENCIAR CLIENTE ========
+            Guna2Button btnPedido = new Guna2Button();
+            btnPedido.Text = "📦 Gerenciar Pedidos";
+            btnPedido.Width = 160;
+            btnPedido.Height = 50;
+            btnPedido.Location = new System.Drawing.Point(320, 0);
+            btnPedido.FillColor = System.Drawing.Color.FromArgb(94, 148, 255);
+            btnPedido.ForeColor = System.Drawing.Color.White;
+            btnPedido.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            btnPedido.Click += (s, e) => AbrirForm(new Gerenciador_Pedidos());
+            
             // Adiciona os botões lado a lado no painel
             panelNavegacao.Controls.Add(btnCliente);
             panelNavegacao.Controls.Add(btnUsuario);
+            panelNavegacao.Controls.Add(btnPedido);
         }
 
         private void AbrirForm(Form formFilho)

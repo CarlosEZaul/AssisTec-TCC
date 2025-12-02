@@ -97,7 +97,30 @@ namespace AssisTec
 
         #region Métodos de Manipulação de Dados
 
-        
+        private Cliente formCliente()
+        {
+            Cliente cliente = new Cliente();
+            cliente.id = id;
+            cliente.nome = txtName.Text;
+            cliente.cpf = mtbCPF.Text;
+            cliente.telefone = mtbTel.Text;
+            cliente.dataNascimento = mtbNasc.Text;
+            string dataFormatada = cliente.dataNascimentoFormatada;
+            if (dataFormatada == null)
+            {
+                return null;
+            }
+            
+            cliente.cep = mtbCep.Text;
+            cliente.rua = txtRua.Text;
+            cliente.numero = Convert.ToInt32(txtNumber.Text);
+            cliente.cidade = txtCidade.Text;
+            cliente.estado = txtEstado.Text;
+            cliente.bairro = txtBairro.Text;
+            cliente.complemento = txtComp.Text;
+            return cliente;
+            
+        }
         
         private void formartGrid()
         { 
@@ -227,32 +250,7 @@ namespace AssisTec
 
         
         
-        private Cliente formCliente()
-        {
-            Cliente cliente = new Cliente();
-            cliente.id = id;
-            cliente.nome = txtName.Text;
-            cliente.cpf = mtbCPF.Text;
-            cliente.telefone = mtbTel.Text;
-            cliente.dataNascimento = mtbNasc.Text;
-            string dataFormatada = cliente.dataNascimentoFormatada;
-            if (dataFormatada == null)
-            {
-                return null;
-            }
-            
-            cliente.cep = mtbCep.Text;
-            cliente.rua = txtRua.Text;
-            cliente.numero = Convert.ToInt32(txtNumber.Text);
-            cliente.cidade = txtCidade.Text;
-            cliente.estado = txtEstado.Text;
-            cliente.bairro = txtBairro.Text;
-            cliente.complemento = txtComp.Text;
-            return cliente;
-            
-            
-            
-        }
+        
         private void editarCliente()
         {
             Cliente cliente = formCliente();
@@ -265,7 +263,7 @@ namespace AssisTec
             try
             {
                 con.OpenConnection();
-                sql = "update clientes set nome=@nome, cpf=@cpf, telefone=@telefone, datanasc=@datanasc, cep=@cep, rua=@rua, numero=@numero, cidade=@cidade, estado=@estado, bairro=@bairro, complemento=@complemento where id=@id";
+                sql = "update clientes set nome=@nome, cpf=@cpf, telefone=@telefone, datanasc=@datanasc, cep=@cep, rua=@rua, numero=@numero, cidade=@cidade, estado=@estado, bairro=@bairro, complemento=@complemento where id_cliente=@id";
                 
                 cmd = new MySqlCommand(sql, con.con);
                 cmd.Parameters.AddWithValue("@id", cliente.id);
@@ -488,7 +486,7 @@ namespace AssisTec
                 try
                 {
                     con.OpenConnection();
-                    sql = "DELETE FROM clientes WHERE id = @id";
+                    sql = "DELETE FROM clientes WHERE id_cliente = @id";
                     cmd = new MySqlCommand(sql, con.con);
                     cmd.Parameters.AddWithValue("@id", id);
                     cmd.ExecuteNonQuery();

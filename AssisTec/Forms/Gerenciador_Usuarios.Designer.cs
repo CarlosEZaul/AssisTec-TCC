@@ -66,6 +66,7 @@ namespace AssisTec
             this.label3 = new System.Windows.Forms.Label();
             this.txtSenha = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.button1 = new System.Windows.Forms.Button();
             this.lblEnd = new System.Windows.Forms.Label();
             this.lblendereco = new System.Windows.Forms.Label();
             this.txtBusca = new System.Windows.Forms.TextBox();
@@ -73,7 +74,6 @@ namespace AssisTec
             this.dgvUsuarios = new System.Windows.Forms.DataGridView();
             this.panel2 = new System.Windows.Forms.Panel();
             this.label14 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnAtualizar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvUsuarios)).BeginInit();
@@ -511,6 +511,19 @@ namespace AssisTec
             this.panel1.Size = new System.Drawing.Size(1888, 967);
             this.panel1.TabIndex = 39;
             // 
+            // button1
+            // 
+            this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button1.Enabled = false;
+            this.button1.Font = new System.Drawing.Font("Comic Sans MS", 9F);
+            this.button1.Location = new System.Drawing.Point(305, 426);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 48;
+            this.button1.Text = "Buscar";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.mtbCep_Leave);
+            // 
             // lblEnd
             // 
             this.lblEnd.AutoSize = true;
@@ -594,19 +607,6 @@ namespace AssisTec
             this.label14.Size = new System.Drawing.Size(53, 18);
             this.label14.TabIndex = 47;
             this.label14.Text = "Buscar:";
-            // 
-            // button1
-            // 
-            this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button1.Enabled = false;
-            this.button1.Font = new System.Drawing.Font("Comic Sans MS", 9F);
-            this.button1.Location = new System.Drawing.Point(305, 426);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 48;
-            this.button1.Text = "Buscar";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.mtbCep_Leave);
             // 
             // Gerenciador_Usuarios
             // 

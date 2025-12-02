@@ -90,37 +90,44 @@ namespace AssisTec
 
         public string cep
         {
-            get {return CEP;} set{CEP = value;}
+            get {return CEP;} 
+            set{CEP = value;}
         }
 
         public string estado
         {
-            get {return Estado;} set{Estado = value;}
+            get {return Estado;} 
+            set{Estado = value;}
         }
 
         public string cidade
         {
-            get {return Cidade;} set{Cidade = value;}
+            get {return Cidade;} 
+            set{Cidade = value;}
         }
 
         public string bairro
         {
-            get {return Bairro;} set{Bairro = value;}
+            get {return Bairro;} 
+            set{Bairro = value;}
         }
 
         public string rua
         {
-            get {return Rua;} set{Rua = value;}
+            get {return Rua;} 
+            set{Rua = value;}
         }
 
         public int numero
         {
-            get {return Numero;} set{Numero = value;}
+            get {return Numero;} 
+            set{Numero = value;}
         }
 
         public string complemento
         {
-            get {return Complemento;} set{Complemento = value;}
+            get {return Complemento;} 
+            set{Complemento = value;}
         }
         
         

@@ -407,3 +407,4 @@ C:\Users\Pc do estagiario\Desktop\AssisTEC\AssisTec\obj\Debug\AssisTec.csproj.Ge
 C:\Users\Pc do estagiario\Desktop\AssisTEC\AssisTec\obj\Debug\RefitStubs.g.cs
 C:\Users\Pc do estagiario\Desktop\AssisTEC\AssisTec\obj\Debug\AssisTec.csproj.CoreCompileInputs.cache
 C:\Users\Pc do estagiario\Desktop\AssisTEC\AssisTec\obj\Debug\AssisTec.csproj.Up2Date
+C:\Users\Pc do estagiario\Desktop\AssisTEC\AssisTec\obj\Debug\AssisTec.Gerenciador_Pedidos.resources

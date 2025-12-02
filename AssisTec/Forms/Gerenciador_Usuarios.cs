@@ -416,7 +416,7 @@ namespace AssisTec
                 sql = @"UPDATE usuarios 
                 SET nome=@nome, cpf=@cpf, telefone=@tel, nivel=@nivel, senha=@senha, status=@status, 
                     cep=@cep, rua=@rua, numero=@numero, cidade=@cidade, bairro=@bairro, estado=@estado, complemento=@complemento
-                WHERE id=@id";
+                WHERE id_usuario=@id";
                 cmd = new MySqlCommand(sql, con.con);
                 cmd.Parameters.AddWithValue("@nome", user.nome);
                 cmd.Parameters.AddWithValue("@cpf", user.cpf);
@@ -660,7 +660,7 @@ namespace AssisTec
                 try
                 {
                     con.OpenConnection();
-                    sql = "DELETE FROM usuarios WHERE id = @id";
+                    sql = "DELETE FROM usuarios WHERE id_usuario = @id";
                     cmd = new MySqlCommand(sql, con.con);
                     cmd.Parameters.AddWithValue("@id", id);
                     cmd.ExecuteNonQuery();
