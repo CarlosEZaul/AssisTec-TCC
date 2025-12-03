@@ -85,7 +85,7 @@ namespace AssisTec
                 // ... (outros Buttons)
 
                 // Estilo do DataGridView: Usando o método estático (se o form tiver um DataGridView)
-                DesingComponentes.StyleDataGridView(dgvClientes); 
+                // DesingComponentes.StyleDataGridView(dgvClientes); 
             }
             catch (Exception ex)
             {

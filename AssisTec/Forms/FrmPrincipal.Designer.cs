@@ -31,6 +31,7 @@ namespace AssisTec
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmPrincipal));
             this.panelNavegacao = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panelConteudo = new System.Windows.Forms.Panel();
@@ -71,8 +72,10 @@ namespace AssisTec
             this.ClientSize = new System.Drawing.Size(1904, 1041);
             this.Controls.Add(this.panelConteudo);
             this.Controls.Add(this.panelNavegacao);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Location = new System.Drawing.Point(15, 15);
             this.Name = "FrmPrincipal";
+            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.panelNavegacao.ResumeLayout(false);
             this.ResumeLayout(false);

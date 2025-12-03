@@ -22,6 +22,7 @@ public static class DesingComponentes
         dgv.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI Semibold", 10);
         dgv.ColumnHeadersHeight = 40;
         dgv.DefaultCellStyle.Font = new Font("Segoe UI", 9);
+        
     }
 
     public static void StyleTextBox(TextBox textBox)

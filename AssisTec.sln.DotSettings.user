@@ -5,6 +5,7 @@
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=AssisTec_002FForms_002FGerenciador_005FUsuario/@EntryIndexRemoved">True</s:Boolean>
 	
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=AssisTec_002FForms_002FGerenciador_005FUsuarios/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=AssisTec_002FForms_002FSubForms_0020do_0020Gerenciador_0020de_0020Pedidos_002FNovo_005FPedido/@EntryIndexedValue">True</s:Boolean>
 	
 	
 	
@@ -12,4 +13,4 @@
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=AssisTec_002FGerenciador_005FUsuarios/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=AssisTec_002FProperties_002FResources/@EntryIndexedValue">False</s:Boolean>
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/Initialized/@EntryValue">True</s:Boolean>
-	<s:Boolean x:Key="/Default/ResxEditorPersonal/ShowOnlyErrors/@EntryValue">True</s:Boolean></wpf:ResourceDictionary>
+	<s:Boolean x:Key="/Default/ResxEditorPersonal/ShowOnlyErrors/@EntryValue">False</s:Boolean></wpf:ResourceDictionary>
