@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using AssisTec.AtendeClienteService;
+using AssisTec.SubForms_do_Gerenciador_de_Pedidos;
 using MySql.Data.MySqlClient;
 using Refit;
 using Exception = System.Exception;
@@ -19,7 +20,6 @@ namespace AssisTec
         conexao con = new conexao();
         string sql;
         MySqlCommand cmd;
-        private int modo;
         private int id;
         private string uf;
         private bool okCep;
@@ -68,6 +68,8 @@ namespace AssisTec
 
                 // Estilo dos botões: Usando o método estático para cada controle
                 DesingComponentes.StyleButton(btnNew, Color.FromArgb(0, 120, 215));
+                DesingComponentes.StyleButton(btnCancel, Color.FromArgb(0, 120, 215));
+                DesingComponentes.StyleButton(btnImprimir, Color.FromArgb(0, 120, 215));
                 DesingComponentes.StyleButton(btnDelete, Color.FromArgb(209, 17, 65));
                 // ... (outros Buttons)
 
@@ -111,15 +113,40 @@ namespace AssisTec
             try
             {
                 con.OpenConnection();
-                sql = "SELECT * FROM pedidos ORDER BY id_pedido ASC";
+
+                sql = @" SELECT 
+                                p.id_pedido,
+                                c.nome AS cliente,
+                                u.nome AS tecnico,
+                                e.descricao AS equipamento,
+                                p.problema_relatado,
+                                p.diagnostico,
+                                p.status,
+                                p.data_abertura,
+                                p.data_atualizacao,
+                                p.data_fechamento,
+                                p.valor_mao_obra,
+                                p.valor_pecas,
+                                p.valor_total,
+                                p.observacoes
+                            FROM pedidos p
+                            LEFT JOIN clientes c      ON p.id_cliente = c.id_cliente
+                            LEFT JOIN usuarios u      ON p.id_tecnico = u.id_usuario
+                            LEFT JOIN equipamentos e  ON p.id_equipamento = e.id_equipamento
+                            ORDER BY p.id_pedido ASC;
+";
+
                 cmd = new MySqlCommand(sql, con.con);
-                MySqlDataAdapter da = new MySqlDataAdapter();
-                da.SelectCommand = cmd;
+                MySqlDataAdapter da = new MySqlDataAdapter(cmd);
+
                 DataTable dt = new DataTable();
                 da.Fill(dt);
+
                 dgvPedidos.DataSource = dt;
+
                 con.CloseConnection();
                 formatGrid();
+
             }
             catch (Exception ex)
             {
@@ -127,5 +154,33 @@ namespace AssisTec
             }
         }
         #endregion
+
+        private void btnNew_Click(object sender, EventArgs e)
+        {
+            Novo_Pedido novo_pedido = new Novo_Pedido();
+            novo_pedido.ShowDialog();
+        }
+
+        private void txtBusca_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                con.OpenConnection();
+                sql = "SELECT p.*, e.descricao\nFROM pedidos p\nINNER JOIN equipamentos e \n    ON p.id_equipamento = e.id_equipamento\nWHERE e.descricao LIKE @descricao\nORDER BY e.descricao ASC;\n";  
+                cmd = new MySqlCommand(sql, con.con);
+                cmd.Parameters.AddWithValue("@nome", txtBusca.Text + "%");
+                DataTable dt = new DataTable();
+                MySqlDataAdapter da = new MySqlDataAdapter(cmd);
+                da.Fill(dt);
+                dgvPedidos.DataSource = dt;
+                con.CloseConnection();
+                formatGrid();
+            }
+            catch (Exception ex)
+            {
+                
+                Console.WriteLine("Erro na busca: " + ex.Message);
+            }
+        }
     }
 }

@@ -555,6 +555,7 @@ namespace AssisTec
             this.txtBusca.Name = "txtBusca";
             this.txtBusca.Size = new System.Drawing.Size(471, 20);
             this.txtBusca.TabIndex = 33;
+            this.txtBusca.TextChanged += new System.EventHandler(this.txtBusca_TextChanged);
             // 
             // btnAtualizar
             // 
@@ -579,7 +580,6 @@ namespace AssisTec
             this.dgvUsuarios.MultiSelect = false;
             this.dgvUsuarios.Name = "dgvUsuarios";
             this.dgvUsuarios.ReadOnly = true;
-            this.dgvUsuarios.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
             this.dgvUsuarios.Size = new System.Drawing.Size(1290, 883);
             this.dgvUsuarios.TabIndex = 48;
             this.dgvUsuarios.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvUsuarios_CellClick);

@@ -34,10 +34,10 @@ namespace AssisTec
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Gerenciador_Pedidos));
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.btnImprimir = new System.Windows.Forms.Button();
             this.btnEditar = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
-            this.btnSave = new System.Windows.Forms.Button();
             this.btnNew = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
@@ -67,16 +67,30 @@ namespace AssisTec
             // 
             // panel3
             // 
+            this.panel3.Controls.Add(this.btnImprimir);
             this.panel3.Controls.Add(this.btnEditar);
             this.panel3.Controls.Add(this.btnCancel);
             this.panel3.Controls.Add(this.btnDelete);
-            this.panel3.Controls.Add(this.btnSave);
             this.panel3.Controls.Add(this.btnNew);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel3.Location = new System.Drawing.Point(0, 783);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(1880, 153);
             this.panel3.TabIndex = 37;
+            // 
+            // btnImprimir
+            // 
+            this.btnImprimir.BackColor = System.Drawing.Color.RoyalBlue;
+            this.btnImprimir.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnImprimir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnImprimir.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.btnImprimir.ForeColor = System.Drawing.SystemColors.Control;
+            this.btnImprimir.Location = new System.Drawing.Point(925, 75);
+            this.btnImprimir.Name = "btnImprimir";
+            this.btnImprimir.Size = new System.Drawing.Size(75, 23);
+            this.btnImprimir.TabIndex = 36;
+            this.btnImprimir.Text = "Imprimir";
+            this.btnImprimir.UseVisualStyleBackColor = false;
             // 
             // btnEditar
             // 
@@ -86,7 +100,7 @@ namespace AssisTec
             this.btnEditar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnEditar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.btnEditar.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnEditar.Location = new System.Drawing.Point(793, 44);
+            this.btnEditar.Location = new System.Drawing.Point(682, 75);
             this.btnEditar.Name = "btnEditar";
             this.btnEditar.Size = new System.Drawing.Size(75, 23);
             this.btnEditar.TabIndex = 35;
@@ -100,7 +114,7 @@ namespace AssisTec
             this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.btnCancel.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnCancel.Location = new System.Drawing.Point(1036, 44);
+            this.btnCancel.Location = new System.Drawing.Point(844, 75);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 34;
@@ -115,26 +129,12 @@ namespace AssisTec
             this.btnDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDelete.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.btnDelete.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnDelete.Location = new System.Drawing.Point(955, 44);
+            this.btnDelete.Location = new System.Drawing.Point(763, 75);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(75, 23);
             this.btnDelete.TabIndex = 33;
             this.btnDelete.Text = "Excluir";
             this.btnDelete.UseVisualStyleBackColor = false;
-            // 
-            // btnSave
-            // 
-            this.btnSave.BackColor = System.Drawing.Color.RoyalBlue;
-            this.btnSave.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.btnSave.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnSave.Location = new System.Drawing.Point(874, 44);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(75, 23);
-            this.btnSave.TabIndex = 32;
-            this.btnSave.Text = "Salvar";
-            this.btnSave.UseVisualStyleBackColor = false;
             // 
             // btnNew
             // 
@@ -143,12 +143,13 @@ namespace AssisTec
             this.btnNew.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnNew.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.btnNew.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnNew.Location = new System.Drawing.Point(712, 44);
+            this.btnNew.Location = new System.Drawing.Point(601, 75);
             this.btnNew.Name = "btnNew";
             this.btnNew.Size = new System.Drawing.Size(75, 23);
             this.btnNew.TabIndex = 31;
             this.btnNew.Text = "Novo";
             this.btnNew.UseVisualStyleBackColor = false;
+            this.btnNew.Click += new System.EventHandler(this.btnNew_Click);
             // 
             // panel2
             // 
@@ -168,7 +169,7 @@ namespace AssisTec
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Comic Sans MS", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label1.Location = new System.Drawing.Point(823, 9);
+            this.label1.Location = new System.Drawing.Point(717, 9);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(227, 27);
@@ -179,7 +180,7 @@ namespace AssisTec
             // 
             this.label14.Font = new System.Drawing.Font("Comic Sans MS", 9.75F);
             this.label14.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label14.Location = new System.Drawing.Point(651, 56);
+            this.label14.Location = new System.Drawing.Point(623, 56);
             this.label14.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(53, 18);
@@ -190,7 +191,7 @@ namespace AssisTec
             // 
             this.btnAtualizar.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnAtualizar.BackgroundImage")));
             this.btnAtualizar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnAtualizar.Location = new System.Drawing.Point(1190, 42);
+            this.btnAtualizar.Location = new System.Drawing.Point(1160, 42);
             this.btnAtualizar.Name = "btnAtualizar";
             this.btnAtualizar.Size = new System.Drawing.Size(42, 36);
             this.btnAtualizar.TabIndex = 49;
@@ -202,7 +203,7 @@ namespace AssisTec
             this.lblbusca.AutoSize = true;
             this.lblbusca.Font = new System.Drawing.Font("Comic Sans MS", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblbusca.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.lblbusca.Location = new System.Drawing.Point(659, 56);
+            this.lblbusca.Location = new System.Drawing.Point(633, 56);
             this.lblbusca.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblbusca.Name = "lblbusca";
             this.lblbusca.Size = new System.Drawing.Size(0, 18);
@@ -211,11 +212,12 @@ namespace AssisTec
             // txtBusca
             // 
             this.txtBusca.BackColor = System.Drawing.Color.White;
-            this.txtBusca.Location = new System.Drawing.Point(712, 55);
+            this.txtBusca.Location = new System.Drawing.Point(682, 54);
             this.txtBusca.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtBusca.Name = "txtBusca";
             this.txtBusca.Size = new System.Drawing.Size(471, 20);
             this.txtBusca.TabIndex = 48;
+            this.txtBusca.TextChanged += new System.EventHandler(this.txtBusca_TextChanged);
             // 
             // dgvPedidos
             // 
@@ -226,11 +228,12 @@ namespace AssisTec
             this.dgvPedidos.BackgroundColor = System.Drawing.Color.Gray;
             this.dgvPedidos.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Sunken;
             this.dgvPedidos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvPedidos.Location = new System.Drawing.Point(286, 84);
+            this.dgvPedidos.Location = new System.Drawing.Point(172, 84);
             this.dgvPedidos.MultiSelect = false;
             this.dgvPedidos.Name = "dgvPedidos";
             this.dgvPedidos.ReadOnly = true;
-            this.dgvPedidos.Size = new System.Drawing.Size(1290, 671);
+            this.dgvPedidos.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
+            this.dgvPedidos.Size = new System.Drawing.Size(1517, 671);
             this.dgvPedidos.TabIndex = 35;
             // 
             // Gerenciador_Pedidos
@@ -257,12 +260,13 @@ namespace AssisTec
             this.ResumeLayout(false);
         }
 
+        private System.Windows.Forms.Button btnImprimir;
+
         private System.Windows.Forms.Label label1;
 
         private System.Windows.Forms.Button btnEditar;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Button btnDelete;
-        private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Button btnNew;
 
         private System.Windows.Forms.Panel panel3;

@@ -702,5 +702,27 @@ namespace AssisTec
         {
             throw new System.NotImplementedException();
         }
+
+        private void txtBusca_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                con.OpenConnection();
+                sql = "SELECT * FROM usuarios WHERE nome LIKE @nome ORDER BY NOME ASC";  
+                cmd = new MySqlCommand(sql, con.con);
+                cmd.Parameters.AddWithValue("@nome", txtBusca.Text + "%");
+                DataTable dt = new DataTable();
+                MySqlDataAdapter da = new MySqlDataAdapter(cmd);
+                da.Fill(dt);
+                dgvUsuarios.DataSource = dt;
+                con.CloseConnection();
+                formartGrid();
+            }
+            catch (Exception ex)
+            {
+                
+                Console.WriteLine("Erro na busca: " + ex.Message);
+            }
+        }
     }
 }

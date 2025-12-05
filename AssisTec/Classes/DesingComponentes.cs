@@ -20,9 +20,10 @@ public static class DesingComponentes
         dgv.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(50, 50, 50);
         dgv.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
         dgv.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI Semibold", 10);
-        dgv.ColumnHeadersHeight = 40;
+        dgv.ColumnHeadersHeight = 20;
         dgv.DefaultCellStyle.Font = new Font("Segoe UI", 9);
         
+
     }
 
     public static void StyleTextBox(TextBox textBox)

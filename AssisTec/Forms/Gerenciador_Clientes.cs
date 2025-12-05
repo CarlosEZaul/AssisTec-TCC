@@ -81,11 +81,12 @@ namespace AssisTec
 
                 // Estilo dos botões: Usando o método estático para cada controle
                 DesingComponentes.StyleButton(btnNew, Color.FromArgb(0, 120, 215));
+                
                 DesingComponentes.StyleButton(btnDelete, Color.FromArgb(209, 17, 65));
                 // ... (outros Buttons)
 
                 // Estilo do DataGridView: Usando o método estático (se o form tiver um DataGridView)
-                // DesingComponentes.StyleDataGridView(dgvClientes); 
+                 DesingComponentes.StyleDataGridView(dgvClientes); 
             }
             catch (Exception ex)
             {
@@ -130,7 +131,7 @@ namespace AssisTec
                 dgvClientes.Columns[0].Visible = false;
                 dgvClientes.Columns[1].HeaderText = "NOME";
                 dgvClientes.Columns[2].HeaderText = "CPF";
-                dgvClientes.Columns[3].HeaderText = "TEL.";
+                dgvClientes.Columns[3].HeaderText = "TELEFONE";
                 dgvClientes.Columns[4].HeaderText = "DATA DE NASC.";
                 dgvClientes.Columns[5].HeaderText = "CEP";
                 dgvClientes.Columns[6].HeaderText = "RUA";
@@ -140,6 +141,18 @@ namespace AssisTec
                 dgvClientes.Columns[10].HeaderText = "ESTADO";
                 dgvClientes.Columns[11].HeaderText = "COMPLEMENTO";
             }
+            dgvClientes.Columns[1].Width = 130;  
+            dgvClientes.Columns[2].Width = 100;  
+            dgvClientes.Columns[3].Width = 100;  
+            dgvClientes.Columns[4].Width = 80;
+            dgvClientes.Columns[5].Width = 60;   
+            dgvClientes.Columns[6].Width = 140;   
+            dgvClientes.Columns[7].Width = 120; 
+            dgvClientes.Columns[8].Width = 120;  
+            dgvClientes.Columns[9].Width = 100;   
+            dgvClientes.Columns[10].Width = 120; 
+            dgvClientes.Columns[11].Width = 120; 
+            
         }
 
         private void enableBtn()
