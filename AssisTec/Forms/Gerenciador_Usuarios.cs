@@ -299,49 +299,39 @@ namespace AssisTec
         {
             if (dgvUsuarios.Columns.Count <= 0) return;
             // Headers
-    dgvUsuarios.Columns[0].HeaderText = "ID";
-    dgvUsuarios.Columns[0].Visible = false;
-    dgvUsuarios.Columns[1].HeaderText = "Nome";
-    dgvUsuarios.Columns[2].HeaderText = "CPF";
-    dgvUsuarios.Columns[3].HeaderText = "Senha";
-    dgvUsuarios.Columns[4].HeaderText = "Telefone";
-    dgvUsuarios.Columns[5].HeaderText = "Nível";
-    dgvUsuarios.Columns[6].HeaderText = "Status";
-    dgvUsuarios.Columns[7].HeaderText = "CEP";
-    dgvUsuarios.Columns[8].HeaderText = "Rua";
-    dgvUsuarios.Columns[9].HeaderText = "Número";
-    dgvUsuarios.Columns[10].HeaderText = "Cidade";
-    dgvUsuarios.Columns[11].HeaderText = "Bairro";
-    dgvUsuarios.Columns[12].HeaderText = "Estado";
-    dgvUsuarios.Columns[13].HeaderText = "Complemento"; // Coluna 13
+            dgvUsuarios.Columns[0].HeaderText = "ID";
+            dgvUsuarios.Columns[0].Visible = false;
+            dgvUsuarios.Columns[1].HeaderText = "Nome";
+            dgvUsuarios.Columns[2].HeaderText = "CPF";
+            dgvUsuarios.Columns[3].HeaderText = "Senha";
+            dgvUsuarios.Columns[4].HeaderText = "Telefone";
+            dgvUsuarios.Columns[5].HeaderText = "Nível";
+            dgvUsuarios.Columns[6].HeaderText = "Status";
+            dgvUsuarios.Columns[7].HeaderText = "CEP";
+            dgvUsuarios.Columns[8].HeaderText = "Rua";
+            dgvUsuarios.Columns[9].HeaderText = "Número";
+            dgvUsuarios.Columns[10].HeaderText = "Cidade";
+            dgvUsuarios.Columns[11].HeaderText = "Bairro";
+            dgvUsuarios.Columns[12].HeaderText = "Estado";
+            dgvUsuarios.Columns[13].HeaderText = "Complemento"; // Coluna 13
         
     // Larguras
         
-    dgvUsuarios.Columns[1].Width = 100;  
-    dgvUsuarios.Columns[2].Width = 100;  
-    dgvUsuarios.Columns[3].Width = 100;  
-    dgvUsuarios.Columns[4].Width = 80;
-    dgvUsuarios.Columns[5].Width = 60;   
-    dgvUsuarios.Columns[6].Width = 80;   
-    dgvUsuarios.Columns[7].Width = 120; 
-    dgvUsuarios.Columns[8].Width = 120;  
-    dgvUsuarios.Columns[9].Width = 80;   
-    dgvUsuarios.Columns[10].Width = 120; 
-    dgvUsuarios.Columns[11].Width = 120; 
-    dgvUsuarios.Columns[12].Width = 100; 
-    dgvUsuarios.Columns[13].Width = 100; 
-    // ===============================================
-    // CÓDIGO INSERIDO PARA GARANTIR LARGURA TOTAL
-    // ===============================================
-        
-    // Largura da Coluna 13 (Complemento) que estava faltando:
-    dgvUsuarios.Columns[13].Width = 200; 
-        
-    // Você também pode aumentar a largura de uma das colunas (ex: Nome) para garantir que o total 
-    // seja MAIOR do que a largura do seu DataGridView no formulário.
-    dgvUsuarios.Columns[1].Width = 250; // Nome mais largo
-        
-    // Largura total agora é aproximadamente 1640 pixels, o que deve forçar a rolagem.
+            dgvUsuarios.Columns[1].Width = 250;  
+            dgvUsuarios.Columns[2].Width = 100;  
+            dgvUsuarios.Columns[3].Width = 100;  
+            dgvUsuarios.Columns[4].Width = 80;
+            dgvUsuarios.Columns[5].Width = 60;   
+            dgvUsuarios.Columns[6].Width = 80;   
+            dgvUsuarios.Columns[7].Width = 120; 
+            dgvUsuarios.Columns[8].Width = 120;  
+            dgvUsuarios.Columns[9].Width = 80;   
+            dgvUsuarios.Columns[10].Width = 120; 
+            dgvUsuarios.Columns[11].Width = 120; 
+            dgvUsuarios.Columns[12].Width = 100; 
+            dgvUsuarios.Columns[13].Width = 100; 
+            dgvUsuarios.Columns[13].Width = 200; 
+            
         }
         Usuario formUsuario()
         {
@@ -379,7 +369,7 @@ namespace AssisTec
             sql = "SELECT COUNT(*) FROM usuarios WHERE cpf = @cpf";
             if (ignorarId.HasValue)
             {
-                sql += " AND id <> @id"; 
+                sql += " AND id_usuario <> @id"; 
             }
 
             using (MySqlCommand cmd = new MySqlCommand(sql, con.con))
@@ -608,7 +598,7 @@ namespace AssisTec
                     btnSave.Enabled = false;
                     btnNew.Enabled = true;
 
-                    id = Convert.ToInt32(dgvUsuarios.Rows[e.RowIndex].Cells["id"].Value);
+                    id = Convert.ToInt32(dgvUsuarios.Rows[e.RowIndex].Cells[0].Value);
                     txtName.Text = dgvUsuarios.Rows[e.RowIndex].Cells["nome"].Value.ToString();
                     mtbCPF.Text = dgvUsuarios.Rows[e.RowIndex].Cells["cpf"].Value.ToString();
                     mtbTel.Text = dgvUsuarios.Rows[e.RowIndex].Cells["telefone"].Value.ToString();
