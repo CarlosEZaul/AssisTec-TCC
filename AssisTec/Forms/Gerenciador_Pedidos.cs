@@ -86,6 +86,20 @@ namespace AssisTec
         
         #region Métodos de Manipulação de Dados
 
+        private void enableBtn()
+        {
+            btnDelete.Enabled = true;
+            btnEditar.Enabled = true;
+            btnCancel.Enabled = true;
+        }
+
+        private void disableBtn()
+        {
+            btnDelete.Enabled = false;
+            btnEditar.Enabled = false;
+            btnCancel.Enabled = false;
+        }
+        
         private void formatGrid()
         {
             if (dgvPedidos.Columns.Count > 0)
@@ -159,6 +173,8 @@ namespace AssisTec
         {
             Novo_Pedido novo_pedido = new Novo_Pedido();
             novo_pedido.ShowDialog();
+            listGrid();
+            
         }
 
         private void txtBusca_TextChanged(object sender, EventArgs e)
@@ -181,6 +197,63 @@ namespace AssisTec
                 
                 Console.WriteLine("Erro na busca: " + ex.Message);
             }
+        }
+
+        private void btnAtualizar_Click(object sender, EventArgs e)
+        {
+            listGrid();
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show("Deseja excluir pedido?", "Confirmar Exclusão", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (result == DialogResult.Yes)
+            {
+                try
+                {
+                    con.OpenConnection();
+                    sql = "DELETE FROM pedidos WHERE id_pedido = @id";
+                    cmd = new MySqlCommand(sql, con.con);
+                    cmd.Parameters.AddWithValue("@id", id);
+                    cmd.ExecuteNonQuery();
+                    con.CloseConnection();
+                    listGrid();
+                }
+                catch(Exception exception)
+                {
+                    MessageBox.Show("Erro ao excluir pedido: " + exception.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                
+            }
+                
+        }
+
+        private void dgvPedidos_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0 && dgvPedidos.Rows.Count > 0)
+            {
+                try
+                {
+                    id= Convert.ToInt32(dgvPedidos.Rows[e.RowIndex].Cells[0].Value);
+                    enableBtn();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Erro ao selecionar registro: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            disableBtn();
+        }
+
+        private void btnEditar_Click(object sender, EventArgs e)
+        {
+            Editar_Pedido editar_Pedido = new Editar_Pedido();
+            editar_Pedido.ShowDialog();
         }
     }
 }

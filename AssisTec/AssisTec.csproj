@@ -221,6 +221,9 @@
     <EmbeddedResource Include="Forms\Gerenciador_Usuarios.resx">
       <DependentUpon>Gerenciador_Usuarios.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\SubForms do Gerenciador de Pedidos\Editar_Pedido.resx">
+      <DependentUpon>Editar_Pedido.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\SubForms do Gerenciador de Pedidos\Novo_Pedido.resx">
       <DependentUpon>Novo_Pedido.cs</DependentUpon>
     </EmbeddedResource>

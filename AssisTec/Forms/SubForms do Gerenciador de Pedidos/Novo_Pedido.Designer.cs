@@ -31,11 +31,6 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
         /// </summary>
         private void InitializeComponent()
         {
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.cbTecnico = new System.Windows.Forms.ComboBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.cbCliente = new System.Windows.Forms.ComboBox();
-            this.lblNome = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
             this.btnLimpar = new System.Windows.Forms.Button();
@@ -60,63 +55,21 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             this.label2 = new System.Windows.Forms.Label();
             this.txtDescricao = new System.Windows.Forms.TextBox();
             this.lblEnd = new System.Windows.Forms.Label();
-            this.panel1.SuspendLayout();
+            this.lblNome = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.cbTecnico = new System.Windows.Forms.ComboBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.cbCliente = new System.Windows.Forms.ComboBox();
+            this.label12 = new System.Windows.Forms.Label();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
+            this.panel1.SuspendLayout();
+            this.panel4.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // panel1
-            // 
-            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(55)))), ((int)(((byte)(76)))));
-            this.panel1.Controls.Add(this.cbTecnico);
-            this.panel1.Controls.Add(this.label1);
-            this.panel1.Controls.Add(this.cbCliente);
-            this.panel1.Controls.Add(this.lblNome);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(852, 359);
-            this.panel1.TabIndex = 41;
-            // 
-            // cbTecnico
-            // 
-            this.cbTecnico.FormattingEnabled = true;
-            this.cbTecnico.Location = new System.Drawing.Point(546, 19);
-            this.cbTecnico.Name = "cbTecnico";
-            this.cbTecnico.Size = new System.Drawing.Size(270, 21);
-            this.cbTecnico.TabIndex = 37;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Comic Sans MS", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label1.Location = new System.Drawing.Point(479, 22);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(60, 18);
-            this.label1.TabIndex = 36;
-            this.label1.Text = "Técnico:";
-            // 
-            // cbCliente
-            // 
-            this.cbCliente.FormattingEnabled = true;
-            this.cbCliente.Location = new System.Drawing.Point(103, 19);
-            this.cbCliente.Name = "cbCliente";
-            this.cbCliente.Size = new System.Drawing.Size(270, 21);
-            this.cbCliente.TabIndex = 35;
-            // 
-            // lblNome
-            // 
-            this.lblNome.AutoSize = true;
-            this.lblNome.Font = new System.Drawing.Font("Comic Sans MS", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblNome.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.lblNome.Location = new System.Drawing.Point(31, 22);
-            this.lblNome.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblNome.Name = "lblNome";
-            this.lblNome.Size = new System.Drawing.Size(54, 18);
-            this.lblNome.TabIndex = 7;
-            this.lblNome.Text = "Cliente:";
             // 
             // panel2
             // 
@@ -142,9 +95,9 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             this.panel2.Controls.Add(this.txtDescricao);
             this.panel2.Controls.Add(this.lblEnd);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel2.Location = new System.Drawing.Point(0, 53);
+            this.panel2.Location = new System.Drawing.Point(0, 43);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(852, 306);
+            this.panel2.Size = new System.Drawing.Size(876, 226);
             this.panel2.TabIndex = 42;
             // 
             // panel3
@@ -153,9 +106,9 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             this.panel3.Controls.Add(this.btnFechar);
             this.panel3.Controls.Add(this.btnSalvar);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel3.Location = new System.Drawing.Point(0, 265);
+            this.panel3.Location = new System.Drawing.Point(0, 192);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(852, 41);
+            this.panel3.Size = new System.Drawing.Size(876, 34);
             this.panel3.TabIndex = 66;
             // 
             // btnLimpar
@@ -165,7 +118,7 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             this.btnLimpar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnLimpar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.btnLimpar.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnLimpar.Location = new System.Drawing.Point(372, 6);
+            this.btnLimpar.Location = new System.Drawing.Point(418, 3);
             this.btnLimpar.Name = "btnLimpar";
             this.btnLimpar.Size = new System.Drawing.Size(75, 23);
             this.btnLimpar.TabIndex = 35;
@@ -180,7 +133,7 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             this.btnFechar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnFechar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.btnFechar.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnFechar.Location = new System.Drawing.Point(453, 6);
+            this.btnFechar.Location = new System.Drawing.Point(499, 3);
             this.btnFechar.Name = "btnFechar";
             this.btnFechar.Size = new System.Drawing.Size(75, 23);
             this.btnFechar.TabIndex = 33;
@@ -195,7 +148,7 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             this.btnSalvar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSalvar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.btnSalvar.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnSalvar.Location = new System.Drawing.Point(291, 6);
+            this.btnSalvar.Location = new System.Drawing.Point(337, 3);
             this.btnSalvar.Name = "btnSalvar";
             this.btnSalvar.Size = new System.Drawing.Size(75, 23);
             this.btnSalvar.TabIndex = 31;
@@ -220,9 +173,8 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             this.txtProblemas.BackColor = System.Drawing.Color.White;
             this.txtProblemas.Location = new System.Drawing.Point(155, 156);
             this.txtProblemas.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.txtProblemas.Multiline = true;
             this.txtProblemas.Name = "txtProblemas";
-            this.txtProblemas.Size = new System.Drawing.Size(462, 103);
+            this.txtProblemas.Size = new System.Drawing.Size(717, 20);
             this.txtProblemas.TabIndex = 64;
             // 
             // label9
@@ -284,7 +236,7 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             this.txtAcessorio.Location = new System.Drawing.Point(692, 85);
             this.txtAcessorio.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtAcessorio.Name = "txtAcessorio";
-            this.txtAcessorio.Size = new System.Drawing.Size(149, 20);
+            this.txtAcessorio.Size = new System.Drawing.Size(180, 20);
             this.txtAcessorio.TabIndex = 58;
             // 
             // label6
@@ -344,10 +296,10 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             // txtMarca
             // 
             this.txtMarca.BackColor = System.Drawing.Color.White;
-            this.txtMarca.Location = new System.Drawing.Point(690, 54);
+            this.txtMarca.Location = new System.Drawing.Point(666, 54);
             this.txtMarca.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtMarca.Name = "txtMarca";
-            this.txtMarca.Size = new System.Drawing.Size(151, 20);
+            this.txtMarca.Size = new System.Drawing.Size(206, 20);
             this.txtMarca.TabIndex = 52;
             // 
             // label3
@@ -397,18 +349,127 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             this.lblEnd.AutoSize = true;
             this.lblEnd.Font = new System.Drawing.Font("Comic Sans MS", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblEnd.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.lblEnd.Location = new System.Drawing.Point(393, 15);
+            this.lblEnd.Location = new System.Drawing.Point(401, 10);
             this.lblEnd.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblEnd.Name = "lblEnd";
             this.lblEnd.Size = new System.Drawing.Size(125, 27);
             this.lblEnd.TabIndex = 47;
             this.lblEnd.Text = "Equipamento";
             // 
+            // lblNome
+            // 
+            this.lblNome.AutoSize = true;
+            this.lblNome.Font = new System.Drawing.Font("Comic Sans MS", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNome.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.lblNome.Location = new System.Drawing.Point(31, 56);
+            this.lblNome.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblNome.Name = "lblNome";
+            this.lblNome.Size = new System.Drawing.Size(54, 18);
+            this.lblNome.TabIndex = 7;
+            this.lblNome.Text = "Cliente:";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Comic Sans MS", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.label1.Location = new System.Drawing.Point(468, 56);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(60, 18);
+            this.label1.TabIndex = 36;
+            this.label1.Text = "Técnico:";
+            // 
+            // textBox1
+            // 
+            this.textBox1.BackColor = System.Drawing.Color.White;
+            this.textBox1.Location = new System.Drawing.Point(103, 27);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(270, 20);
+            this.textBox1.TabIndex = 67;
+            // 
+            // textBox2
+            // 
+            this.textBox2.BackColor = System.Drawing.Color.White;
+            this.textBox2.Location = new System.Drawing.Point(535, 27);
+            this.textBox2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(270, 20);
+            this.textBox2.TabIndex = 68;
+            // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(55)))), ((int)(((byte)(76)))));
+            this.panel1.Controls.Add(this.panel4);
+            this.panel1.Controls.Add(this.textBox2);
+            this.panel1.Controls.Add(this.textBox1);
+            this.panel1.Controls.Add(this.label1);
+            this.panel1.Controls.Add(this.lblNome);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(876, 269);
+            this.panel1.TabIndex = 41;
+            // 
+            // panel4
+            // 
+            this.panel4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(55)))), ((int)(((byte)(76)))));
+            this.panel4.Controls.Add(this.cbTecnico);
+            this.panel4.Controls.Add(this.label11);
+            this.panel4.Controls.Add(this.cbCliente);
+            this.panel4.Controls.Add(this.label12);
+            this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel4.Location = new System.Drawing.Point(0, 0);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(876, 269);
+            this.panel4.TabIndex = 69;
+            // 
+            // cbTecnico
+            // 
+            this.cbTecnico.FormattingEnabled = true;
+            this.cbTecnico.Location = new System.Drawing.Point(554, 26);
+            this.cbTecnico.Name = "cbTecnico";
+            this.cbTecnico.Size = new System.Drawing.Size(270, 21);
+            this.cbTecnico.TabIndex = 37;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Comic Sans MS", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.label11.Location = new System.Drawing.Point(487, 29);
+            this.label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(60, 18);
+            this.label11.TabIndex = 36;
+            this.label11.Text = "Técnico:";
+            // 
+            // cbCliente
+            // 
+            this.cbCliente.FormattingEnabled = true;
+            this.cbCliente.Location = new System.Drawing.Point(122, 26);
+            this.cbCliente.Name = "cbCliente";
+            this.cbCliente.Size = new System.Drawing.Size(270, 21);
+            this.cbCliente.TabIndex = 35;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Comic Sans MS", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.label12.Location = new System.Drawing.Point(50, 29);
+            this.label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(54, 18);
+            this.label12.TabIndex = 7;
+            this.label12.Text = "Cliente:";
+            // 
             // Novo_Pedido
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(852, 359);
+            this.ClientSize = new System.Drawing.Size(876, 269);
             this.ControlBox = false;
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
@@ -419,13 +480,23 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.panel3.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
+            this.panel4.ResumeLayout(false);
+            this.panel4.PerformLayout();
             this.ResumeLayout(false);
         }
+
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.ComboBox cbTecnico;
+        private System.Windows.Forms.ComboBox cbCliente;
+        private System.Windows.Forms.Label label12;
 
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Button btnLimpar;
@@ -464,10 +535,10 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
 
         private System.Windows.Forms.Panel panel2;
 
-        private System.Windows.Forms.ComboBox cbTecnico;
+        
         private System.Windows.Forms.Label label1;
 
-        private System.Windows.Forms.ComboBox cbCliente;
+        
 
         private System.Windows.Forms.Label lblNome;
 

@@ -106,6 +106,7 @@ namespace AssisTec
             this.btnEditar.TabIndex = 35;
             this.btnEditar.Text = "Editar";
             this.btnEditar.UseVisualStyleBackColor = false;
+            this.btnEditar.Click += new System.EventHandler(this.btnEditar_Click);
             // 
             // btnCancel
             // 
@@ -120,6 +121,7 @@ namespace AssisTec
             this.btnCancel.TabIndex = 34;
             this.btnCancel.Text = "Cancelar";
             this.btnCancel.UseVisualStyleBackColor = false;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // btnDelete
             // 
@@ -135,6 +137,7 @@ namespace AssisTec
             this.btnDelete.TabIndex = 33;
             this.btnDelete.Text = "Excluir";
             this.btnDelete.UseVisualStyleBackColor = false;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // btnNew
             // 
@@ -196,6 +199,7 @@ namespace AssisTec
             this.btnAtualizar.Size = new System.Drawing.Size(42, 36);
             this.btnAtualizar.TabIndex = 49;
             this.btnAtualizar.TabStop = false;
+            this.btnAtualizar.Click += new System.EventHandler(this.btnAtualizar_Click);
             // 
             // lblbusca
             // 
@@ -235,6 +239,7 @@ namespace AssisTec
             this.dgvPedidos.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
             this.dgvPedidos.Size = new System.Drawing.Size(1517, 671);
             this.dgvPedidos.TabIndex = 35;
+            this.dgvPedidos.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvPedidos_CellClick);
             // 
             // Gerenciador_Pedidos
             // 
