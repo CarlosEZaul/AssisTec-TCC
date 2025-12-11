@@ -41,9 +41,9 @@ namespace AssisTec
             btnCliente.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
             btnCliente.Click += (s, e) => AbrirForm(new Gerenciador_Clientes());
             
-            // ======== BOTÃO GERENCIAR CLIENTE ========
+            // ======== BOTÃO GERENCIAR PEDIDO ========
             Guna2Button btnPedido = new Guna2Button();
-            btnPedido.Text = "📦 Gerenciar Pedidos";
+            btnPedido.Text = "📑 Gerenciar Pedidos";
             btnPedido.Width = 160;
             btnPedido.Height = 50;
             btnPedido.Location = new System.Drawing.Point(320, 0);
@@ -52,10 +52,23 @@ namespace AssisTec
             btnPedido.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
             btnPedido.Click += (s, e) => AbrirForm(new Gerenciador_Pedidos());
             
+            // ======== BOTÃO GERENCIAR PRODUTO ========
+            Guna2Button btnProduto = new Guna2Button();
+            btnProduto.Text = "📲 Produto";
+            btnProduto.Width = 160;
+            btnProduto.Height = 50;
+            btnProduto.Location = new System.Drawing.Point(480, 0);
+            btnProduto.FillColor = System.Drawing.Color.FromArgb(94, 148, 255);
+            btnProduto.ForeColor = System.Drawing.Color.White;
+            btnProduto.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            btnProduto.Click += (s, e) => AbrirForm(new Produto());
+
+            
             // Adiciona os botões lado a lado no painel
             panelNavegacao.Controls.Add(btnCliente);
             panelNavegacao.Controls.Add(btnUsuario);
             panelNavegacao.Controls.Add(btnPedido);
+            panelNavegacao.Controls.Add(btnProduto);
         }
 
         private void AbrirForm(Form formFilho)

@@ -58,7 +58,8 @@ namespace AssisTec
             // panelConteudo
             // 
             this.panelConteudo.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelConteudo.BackColor = System.Drawing.SystemColors.HotTrack;
+            this.panelConteudo.AutoSize = true;
+            this.panelConteudo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(55)))), ((int)(((byte)(76)))));
             this.panelConteudo.Location = new System.Drawing.Point(0, 58);
             this.panelConteudo.Name = "panelConteudo";
             this.panelConteudo.Size = new System.Drawing.Size(1904, 983);
@@ -79,6 +80,7 @@ namespace AssisTec
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.panelNavegacao.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
         }
 
         private System.Windows.Forms.Panel panelConteudo;

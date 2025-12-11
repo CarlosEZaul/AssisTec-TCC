@@ -23,10 +23,12 @@ namespace AssisTec
         private int id;
         private string uf;
         private bool okCep;
+        
         public Gerenciador_Pedidos()
         {
             InitializeComponent();
             ApplyModernDesign();
+            
             
         }
 
@@ -89,15 +91,23 @@ namespace AssisTec
         private void enableBtn()
         {
             btnDelete.Enabled = true;
-            btnEditar.Enabled = true;
+            btnGerenciar.Enabled = true;
             btnCancel.Enabled = true;
         }
 
         private void disableBtn()
         {
             btnDelete.Enabled = false;
-            btnEditar.Enabled = false;
+            btnGerenciar.Enabled = false;
             btnCancel.Enabled = false;
+        }
+        
+        private Pedido formPedido()
+        {
+            Pedido pedido = new Pedido();
+            pedido.id_pedido = id;
+            return pedido;
+            
         }
         
         private void formatGrid()
@@ -157,7 +167,7 @@ namespace AssisTec
                 da.Fill(dt);
 
                 dgvPedidos.DataSource = dt;
-
+                
                 con.CloseConnection();
                 formatGrid();
 
@@ -231,11 +241,14 @@ namespace AssisTec
 
         private void dgvPedidos_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+            Pedido pedido = formPedido();
             if (e.RowIndex >= 0 && dgvPedidos.Rows.Count > 0)
             {
                 try
                 {
-                    id= Convert.ToInt32(dgvPedidos.Rows[e.RowIndex].Cells[0].Value);
+                    pedido.id_pedido= id=Convert.ToInt32(dgvPedidos.Rows[e.RowIndex].Cells[0].Value);
+                    
+                    
                     enableBtn();
                 }
                 catch (Exception ex)
@@ -251,6 +264,12 @@ namespace AssisTec
         }
 
         private void btnEditar_Click(object sender, EventArgs e)
+        {
+            Editar_Pedido editar_Pedido = new Editar_Pedido();
+            editar_Pedido.ShowDialog();
+        }
+
+        private void dgvPedidos_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             Editar_Pedido editar_Pedido = new Editar_Pedido();
             editar_Pedido.ShowDialog();

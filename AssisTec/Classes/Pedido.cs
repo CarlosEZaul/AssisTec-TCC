@@ -8,7 +8,8 @@ namespace AssisTec
         private int Id_pedido;
         private int Id_cliente;
         private int Id_equipamento;
-
+        private int Id_tecnico;
+        
         private string Problema_relatado;
         private string Diagnostico;
         private string Status;
@@ -62,6 +63,12 @@ namespace AssisTec
             set { Id_equipamento = value; }
         }
 
+        public int id_tecnico
+        {
+            get { return Id_tecnico; }
+            set { Id_tecnico = value; }
+        }
+        
         public string problema_relatado
         {
             get { return Problema_relatado; }

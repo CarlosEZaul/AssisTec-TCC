@@ -95,9 +95,9 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             this.panel2.Controls.Add(this.txtDescricao);
             this.panel2.Controls.Add(this.lblEnd);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel2.Location = new System.Drawing.Point(0, 43);
+            this.panel2.Location = new System.Drawing.Point(0, 62);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(876, 226);
+            this.panel2.Size = new System.Drawing.Size(908, 226);
             this.panel2.TabIndex = 42;
             // 
             // panel3
@@ -108,7 +108,7 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             this.panel3.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel3.Location = new System.Drawing.Point(0, 192);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(876, 34);
+            this.panel3.Size = new System.Drawing.Size(908, 34);
             this.panel3.TabIndex = 66;
             // 
             // btnLimpar
@@ -409,7 +409,7 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(876, 269);
+            this.panel1.Size = new System.Drawing.Size(908, 288);
             this.panel1.TabIndex = 41;
             // 
             // panel4
@@ -422,7 +422,7 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel4.Location = new System.Drawing.Point(0, 0);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(876, 269);
+            this.panel4.Size = new System.Drawing.Size(908, 288);
             this.panel4.TabIndex = 69;
             // 
             // cbTecnico
@@ -469,7 +469,7 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(876, 269);
+            this.ClientSize = new System.Drawing.Size(908, 288);
             this.ControlBox = false;
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
