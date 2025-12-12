@@ -75,7 +75,7 @@
             this.txtRua = new System.Windows.Forms.TextBox();
             this.lblendereco = new System.Windows.Forms.Label();
             this.mtbCPF = new System.Windows.Forms.MaskedTextBox();
-            this.txtName = new System.Windows.Forms.TextBox();
+            this.txtNome = new System.Windows.Forms.TextBox();
             this.lbldatanasc = new System.Windows.Forms.Label();
             this.lbltel = new System.Windows.Forms.Label();
             this.lblcpf = new System.Windows.Forms.Label();
@@ -214,7 +214,7 @@
             this.panel3.Controls.Add(this.txtRua);
             this.panel3.Controls.Add(this.lblendereco);
             this.panel3.Controls.Add(this.mtbCPF);
-            this.panel3.Controls.Add(this.txtName);
+            this.panel3.Controls.Add(this.txtNome);
             this.panel3.Controls.Add(this.lbldatanasc);
             this.panel3.Controls.Add(this.lbltel);
             this.panel3.Controls.Add(this.lblcpf);
@@ -674,14 +674,14 @@
             this.mtbCPF.TabIndex = 7;
             this.mtbCPF.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // txtName
+            // txtNome
             // 
-            this.txtName.BackColor = System.Drawing.Color.White;
-            this.txtName.Location = new System.Drawing.Point(71, 162);
-            this.txtName.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.txtName.Name = "txtName";
-            this.txtName.Size = new System.Drawing.Size(377, 20);
-            this.txtName.TabIndex = 6;
+            this.txtNome.BackColor = System.Drawing.Color.White;
+            this.txtNome.Location = new System.Drawing.Point(71, 162);
+            this.txtNome.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.txtNome.Name = "txtNome";
+            this.txtNome.Size = new System.Drawing.Size(377, 20);
+            this.txtNome.TabIndex = 6;
             // 
             // lbldatanasc
             // 
@@ -792,7 +792,7 @@
         private System.Windows.Forms.Label lblcpf;
         private System.Windows.Forms.Label lbltel;
         private System.Windows.Forms.Label lbldatanasc;
-        private System.Windows.Forms.TextBox txtName;
+        private System.Windows.Forms.TextBox txtNome;
         private System.Windows.Forms.MaskedTextBox mtbCPF;
         private System.Windows.Forms.TextBox txtRua;
         private System.Windows.Forms.Label lblendereco;

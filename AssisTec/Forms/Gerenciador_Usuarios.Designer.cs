@@ -35,7 +35,7 @@ namespace AssisTec
             this.lblNome = new System.Windows.Forms.Label();
             this.lblcpf = new System.Windows.Forms.Label();
             this.lbltel = new System.Windows.Forms.Label();
-            this.txtName = new System.Windows.Forms.TextBox();
+            this.txtNome = new System.Windows.Forms.TextBox();
             this.mtbCPF = new System.Windows.Forms.MaskedTextBox();
             this.txtRua = new System.Windows.Forms.TextBox();
             this.lblnum = new System.Windows.Forms.Label();
@@ -58,7 +58,6 @@ namespace AssisTec
             this.mtbCep = new System.Windows.Forms.MaskedTextBox();
             this.lblcomplemento = new System.Windows.Forms.Label();
             this.btnEditar = new System.Windows.Forms.Button();
-            this.btnBuscar = new System.Windows.Forms.Button();
             this.cbStatus = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.cbNivel = new System.Windows.Forms.ComboBox();
@@ -66,7 +65,7 @@ namespace AssisTec
             this.label3 = new System.Windows.Forms.Label();
             this.txtSenha = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnBuscar = new System.Windows.Forms.Button();
             this.lblEnd = new System.Windows.Forms.Label();
             this.lblendereco = new System.Windows.Forms.Label();
             this.txtBusca = new System.Windows.Forms.TextBox();
@@ -116,14 +115,14 @@ namespace AssisTec
             this.lbltel.TabIndex = 4;
             this.lbltel.Text = "Telefone:";
             // 
-            // txtName
+            // txtNome
             // 
-            this.txtName.BackColor = System.Drawing.Color.White;
-            this.txtName.Location = new System.Drawing.Point(73, 110);
-            this.txtName.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.txtName.Name = "txtName";
-            this.txtName.Size = new System.Drawing.Size(377, 20);
-            this.txtName.TabIndex = 6;
+            this.txtNome.BackColor = System.Drawing.Color.White;
+            this.txtNome.Location = new System.Drawing.Point(73, 110);
+            this.txtNome.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.txtNome.Name = "txtNome";
+            this.txtNome.Size = new System.Drawing.Size(377, 20);
+            this.txtNome.TabIndex = 6;
             // 
             // mtbCPF
             // 
@@ -392,19 +391,6 @@ namespace AssisTec
             this.btnEditar.UseVisualStyleBackColor = false;
             this.btnEditar.Click += new System.EventHandler(this.btnEditar_Click);
             // 
-            // btnBuscar
-            // 
-            this.btnBuscar.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnBuscar.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnBuscar.Font = new System.Drawing.Font("Comic Sans MS", 9F);
-            this.btnBuscar.Location = new System.Drawing.Point(1015, 201);
-            this.btnBuscar.Name = "btnBuscar";
-            this.btnBuscar.Size = new System.Drawing.Size(75, 23);
-            this.btnBuscar.TabIndex = 31;
-            this.btnBuscar.Text = "Buscar";
-            this.btnBuscar.UseVisualStyleBackColor = true;
-            this.btnBuscar.Click += new System.EventHandler(this.mtbCep_Leave);
-            // 
             // cbStatus
             // 
             this.cbStatus.FormattingEnabled = true;
@@ -469,7 +455,7 @@ namespace AssisTec
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(55)))), ((int)(((byte)(76)))));
-            this.panel1.Controls.Add(this.button1);
+            this.panel1.Controls.Add(this.btnBuscar);
             this.panel1.Controls.Add(this.lblEnd);
             this.panel1.Controls.Add(this.txtSenha);
             this.panel1.Controls.Add(this.label3);
@@ -477,7 +463,6 @@ namespace AssisTec
             this.panel1.Controls.Add(this.cbNivel);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.cbStatus);
-            this.panel1.Controls.Add(this.btnBuscar);
             this.panel1.Controls.Add(this.btnEditar);
             this.panel1.Controls.Add(this.lblcomplemento);
             this.panel1.Controls.Add(this.mtbCep);
@@ -501,7 +486,7 @@ namespace AssisTec
             this.panel1.Controls.Add(this.txtRua);
             this.panel1.Controls.Add(this.lblendereco);
             this.panel1.Controls.Add(this.mtbCPF);
-            this.panel1.Controls.Add(this.txtName);
+            this.panel1.Controls.Add(this.txtNome);
             this.panel1.Controls.Add(this.lbltel);
             this.panel1.Controls.Add(this.lblcpf);
             this.panel1.Controls.Add(this.lblNome);
@@ -511,18 +496,18 @@ namespace AssisTec
             this.panel1.Size = new System.Drawing.Size(1888, 967);
             this.panel1.TabIndex = 39;
             // 
-            // button1
+            // btnBuscar
             // 
-            this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button1.Enabled = false;
-            this.button1.Font = new System.Drawing.Font("Comic Sans MS", 9F);
-            this.button1.Location = new System.Drawing.Point(305, 426);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 48;
-            this.button1.Text = "Buscar";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.mtbCep_Leave);
+            this.btnBuscar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnBuscar.Enabled = false;
+            this.btnBuscar.Font = new System.Drawing.Font("Comic Sans MS", 9F);
+            this.btnBuscar.Location = new System.Drawing.Point(305, 426);
+            this.btnBuscar.Name = "btnBuscar";
+            this.btnBuscar.Size = new System.Drawing.Size(75, 23);
+            this.btnBuscar.TabIndex = 48;
+            this.btnBuscar.Text = "Buscar";
+            this.btnBuscar.UseVisualStyleBackColor = true;
+            this.btnBuscar.Click += new System.EventHandler(this.mtbCep_Leave);
             // 
             // lblEnd
             // 
@@ -634,7 +619,7 @@ namespace AssisTec
             this.ResumeLayout(false);
         }
 
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnBuscar;
 
         private System.Windows.Forms.Label lblEnd;
 
@@ -655,7 +640,7 @@ namespace AssisTec
         private System.Windows.Forms.ComboBox cbNivel;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox cbStatus;
-        private System.Windows.Forms.Button btnBuscar;
+        
         private System.Windows.Forms.Button btnEditar;
         private System.Windows.Forms.Label lblcomplemento;
         private System.Windows.Forms.MaskedTextBox mtbCep;
@@ -678,7 +663,7 @@ namespace AssisTec
         private System.Windows.Forms.Label lblnum;
         private System.Windows.Forms.TextBox txtRua;
         private System.Windows.Forms.MaskedTextBox mtbCPF;
-        private System.Windows.Forms.TextBox txtName;
+        private System.Windows.Forms.TextBox txtNome;
         private System.Windows.Forms.Label lbltel;
         private System.Windows.Forms.Label lblcpf;
         private System.Windows.Forms.Label lblNome;

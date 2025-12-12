@@ -45,52 +45,31 @@ namespace AssisTec
         {
             try
             {
-                // Propriedades do formulário (específicas deste form)
                 this.Text = "Gerenciador de Clientes";
                 this.BackColor = Color.FromArgb(240, 240, 240);
-                this.Font = new Font("Segoe UI", 9F);
-                this.FormBorderStyle = FormBorderStyle.FixedSingle;
-                this.MaximizeBox = false;
-                this.StartPosition = FormStartPosition.CenterScreen;
 
-                // Estilo dos painéis (específicos deste form)
-                panel1.BackColor = Color.FromArgb(39, 54, 77);
-                panel2.BackColor = Color.FromArgb(32, 45, 64);
-        
-                // Estilo das labels: Usando o método estático
+                // Labels
                 DesingComponentes.ApplyLabelStyles(this);
 
-                // Estilo dos cabeçalhos de seção (específicos deste form)
-                label1.Font = new Font("Segoe UI Semibold", 14F);
-                label1.ForeColor = Color.White;
-
-                lblEnd.Font = new Font("Segoe UI Semibold", 14F);
-                lblEnd.ForeColor = Color.White;
-
-
-                // Estilo das caixas de texto: Usando o método estático para cada controle
-                DesingComponentes.StyleTextBox(txtName);
+                // TextBox
+                DesingComponentes.StyleTextBox(txtNome);
                 DesingComponentes.StyleTextBox(txtRua);
-                // ... (outros TextBoxes)
-                DesingComponentes.StyleTextBox(txtBusca);
 
-                // Estilo das caixas de texto com máscara: Usando o método estático para cada controle
+                // MaskedTextBox
                 DesingComponentes.StyleMaskedTextBox(mtbCPF);
-                // ... (outros MaskedTextBoxes)
                 DesingComponentes.StyleMaskedTextBox(mtbCep);
 
-                // Estilo dos botões: Usando o método estático para cada controle
+                // Botões
                 DesingComponentes.StyleButton(btnNew, Color.FromArgb(0, 120, 215));
-                
                 DesingComponentes.StyleButton(btnDelete, Color.FromArgb(209, 17, 65));
-                // ... (outros Buttons)
 
-                // Estilo do DataGridView: Usando o método estático (se o form tiver um DataGridView)
-                 DesingComponentes.StyleDataGridView(dgvClientes); 
+                // DataGridView
+                DesingComponentes.StyleDataGridView(dgvClientes, DataGridViewAutoSizeColumnsMode.Fill);
+
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Erro ao aplicar design: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Erro ao aplicar design: " + ex.Message);
             }
         }
 
@@ -102,7 +81,7 @@ namespace AssisTec
         {
             Cliente cliente = new Cliente();
             cliente.id = id;
-            cliente.nome = txtName.Text;
+            cliente.nome = txtNome.Text;
             cliente.cpf = mtbCPF.Text;
             cliente.telefone = mtbTel.Text;
             cliente.dataNascimento = mtbNasc.Text;
@@ -141,17 +120,7 @@ namespace AssisTec
                 dgvClientes.Columns[10].HeaderText = "ESTADO";
                 dgvClientes.Columns[11].HeaderText = "COMPLEMENTO";
             }
-            dgvClientes.Columns[1].Width = 130;  
-            dgvClientes.Columns[2].Width = 100;  
-            dgvClientes.Columns[3].Width = 100;  
-            dgvClientes.Columns[4].Width = 80;
-            dgvClientes.Columns[5].Width = 60;   
-            dgvClientes.Columns[6].Width = 140;   
-            dgvClientes.Columns[7].Width = 120; 
-            dgvClientes.Columns[8].Width = 120;  
-            dgvClientes.Columns[9].Width = 100;   
-            dgvClientes.Columns[10].Width = 120; 
-            dgvClientes.Columns[11].Width = 120; 
+            
             
         }
 
@@ -175,7 +144,7 @@ namespace AssisTec
 
         private void disable()
         {
-            txtName.Enabled = false;
+            txtNome.Enabled = false;
             mtbCPF.Enabled = false;
             mtbNasc.Enabled = false;
             mtbTel.Enabled = false;
@@ -193,7 +162,7 @@ namespace AssisTec
 
         private void disabletxt()
         {
-            txtName.Enabled = false;
+            txtNome.Enabled = false;
             mtbCPF.Enabled = false;
             mtbNasc.Enabled = false;
             mtbTel.Enabled = false;
@@ -208,7 +177,7 @@ namespace AssisTec
         
         private void deleteAll()
         {
-            txtName.Text = "";
+            txtNome.Text = "";
             mtbCPF.Text = "";
             mtbNasc.Text = "";
             txtNumber.Text = "";
@@ -224,7 +193,7 @@ namespace AssisTec
 
         private void enableTxt()
         {
-            txtName.Enabled = true;
+            txtNome.Enabled = true;
             mtbCPF.Enabled = true;
             mtbNasc.Enabled = true;
             txtNumber.Enabled = true;
@@ -391,7 +360,7 @@ namespace AssisTec
             btnDelete.Enabled = false;
             deleteAll();
             
-            txtName.Focus();
+            txtNome.Focus();
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -406,7 +375,7 @@ namespace AssisTec
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtName.Text) ||
+            if (string.IsNullOrWhiteSpace(txtNome.Text) ||
                 !mtbCPF.MaskFull ||
                 !mtbTel.MaskFull ||
                 !mtbCep.MaskFull ||
@@ -414,7 +383,7 @@ namespace AssisTec
                 !DateTime.TryParseExact(mtbNasc.Text, "dd/MM/yyyy", null, System.Globalization.DateTimeStyles.None, out _))
             {
                 MessageBox.Show("Preencha todos os campos obrigatórios corretamente!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txtName.Focus();
+                txtNome.Focus();
                 return;
             }
             
@@ -535,7 +504,7 @@ namespace AssisTec
                     btnEditar.Enabled = true;
                     
                     id = Convert.ToInt32(dgvClientes.Rows[e.RowIndex].Cells[0].Value);
-                    txtName.Text = dgvClientes.Rows[e.RowIndex].Cells[1].Value.ToString();
+                    txtNome.Text = dgvClientes.Rows[e.RowIndex].Cells[1].Value.ToString();
                     mtbCPF.Text = dgvClientes.Rows[e.RowIndex].Cells[2].Value.ToString();
                     mtbTel.Text = dgvClientes.Rows[e.RowIndex].Cells[3].Value.ToString();
                     

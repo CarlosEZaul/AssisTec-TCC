@@ -21,25 +21,13 @@ namespace AssisTec
         private string uf;
         private bool okCep;
         int nivel = 0;
-
-        // Novos controles para melhor organização
-        private Panel pnlFormulario;
-        private Panel pnlBotoes;
-        private Panel pnlLista;
-        private Panel pnlBusca;
-        private GroupBox gbDadosUsuario;
-        private GroupBox gbListaUsuarios;
-        private Label lblTitulo;
-        private Label lblSubtitulo;
-        private Button btnTogglePassword;
-        private PictureBox picIcone;
-
+        
         public Gerenciador_Usuarios()
         {
             InitializeComponent();
             disabletxt();
             ApplyModernDesign();
-            
+
         }
 
         private void Gerenciador_Usuarios_Load(object sender, EventArgs e)
@@ -50,113 +38,37 @@ namespace AssisTec
         }
          #region Design Moderno
         
-             private void StyleDataGridView()
-            {
-                dgvUsuarios.BorderStyle = BorderStyle.None;
-                dgvUsuarios.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(245, 245, 245);
-                dgvUsuarios.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
-                dgvUsuarios.DefaultCellStyle.SelectionBackColor = Color.FromArgb(210, 232, 255);
-                dgvUsuarios.DefaultCellStyle.SelectionForeColor = Color.Black;
-                dgvUsuarios.BackgroundColor = Color.White;
-                dgvUsuarios.RowHeadersVisible = false; 
-                dgvUsuarios.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-                dgvUsuarios.RowTemplate.Height = 35;
-                dgvUsuarios.EnableHeadersVisualStyles = false;
-                dgvUsuarios.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(50, 50, 50);
-                dgvUsuarios.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
-                dgvUsuarios.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI Semibold", 10);
-                dgvUsuarios.ColumnHeadersHeight = 40;
-                dgvUsuarios.DefaultCellStyle.Font = new Font("Segoe UI", 9);
-    
-                // ===============================================
-                // CÓDIGO INSERIDO PARA FORÇAR SCROLL HORIZONTAL
-                // ===============================================
-    
-                // 1. Desliga o ajuste automático para que as colunas não se restrinjam à largura do controle.
-                dgvUsuarios.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
-    
-                // 2. Garante que as barras de rolagem (incluindo horizontal) estejam sempre ativas.
-                dgvUsuarios.ScrollBars = ScrollBars.Both;
-            }
+         private void ApplyModernDesign()
+         {
+             try
+             {
+                 this.Text = "Gerenciador de Usuários";
+                 this.BackColor = Color.FromArgb(240, 240, 240);
 
-            private void StyleTextBox(TextBox textBox)
-            {
-                textBox.BorderStyle = BorderStyle.FixedSingle;
-                textBox.BackColor = Color.White;
-                textBox.Font = new Font("Segoe UI", 9F);
-                textBox.ForeColor = Color.FromArgb(60, 60, 60);
-            }
+                 // Labels
+                 DesingComponentes.ApplyLabelStyles(this);
 
-            private void StyleMaskedTextBox(MaskedTextBox maskedTextBox)
-            {
-                maskedTextBox.BorderStyle = BorderStyle.FixedSingle;
-                maskedTextBox.BackColor = Color.White;
-                maskedTextBox.Font = new Font("Segoe UI", 9F);
-                maskedTextBox.ForeColor = Color.FromArgb(60, 60, 60);
-            }
+                 // TextBox
+                 DesingComponentes.StyleTextBox(txtNome);
+                 DesingComponentes.StyleTextBox(txtRua);
 
-            private void StyleButton(Button button, Color backgroundColor)
-            {
-                button.FlatStyle = FlatStyle.Flat;
-                button.FlatAppearance.BorderSize = 0;
-                button.BackColor = backgroundColor;
-                button.ForeColor = Color.White;
-                button.Font = new Font("Segoe UI Semibold", 9F);
-                button.Cursor = Cursors.Hand;
-                // Não alterar o tamanho para evitar problemas de layout
-            }
-            private void ApplyModernDesign()
-            {
-                
-                try
-                {
-                    // Propriedades do formulário (específicas deste form)
-                    this.Text = "Gerenciador de Clientes";
-                    this.BackColor = Color.FromArgb(240, 240, 240);
-                    this.Font = new Font("Segoe UI", 9F);
-                    this.FormBorderStyle = FormBorderStyle.FixedSingle;
-                    this.MaximizeBox = false;
-                    this.StartPosition = FormStartPosition.CenterScreen;
+                 // MaskedTextBox
+                 DesingComponentes.StyleMaskedTextBox(mtbCPF);
+                 DesingComponentes.StyleMaskedTextBox(mtbCep);
 
-                    // Estilo dos painéis (específicos deste form)
-                    panel1.BackColor = Color.FromArgb(39, 54, 77);
-                    panel2.BackColor = Color.FromArgb(32, 45, 64);
-            
-                    // Estilo das labels: Usando o método estático
-                    DesingComponentes.ApplyLabelStyles(this);
+                 // Botões
+                 DesingComponentes.StyleButton(btnNew, Color.FromArgb(0, 120, 215));
+                 DesingComponentes.StyleButton(btnDelete, Color.FromArgb(209, 17, 65));
 
-                    // Estilo dos cabeçalhos de seção (específicos deste form)
-                    label4.Font = new Font("Segoe UI Semibold", 14F);
-                    label4.ForeColor = Color.White;
+                 // DataGridView
+                 DesingComponentes.StyleDataGridView(dgvUsuarios, DataGridViewAutoSizeColumnsMode.Fill);
 
-                    lblEnd.Font = new Font("Segoe UI Semibold", 14F);
-                    lblEnd.ForeColor = Color.White;
-
-
-                    // Estilo das caixas de texto: Usando o método estático para cada controle
-                    DesingComponentes.StyleTextBox(txtName);
-                    DesingComponentes.StyleTextBox(txtRua);
-                    // ... (outros TextBoxes)
-                    DesingComponentes.StyleTextBox(txtBusca);
-
-                    // Estilo das caixas de texto com máscara: Usando o método estático para cada controle
-                    DesingComponentes.StyleMaskedTextBox(mtbCPF);
-                    // ... (outros MaskedTextBoxes)
-                    DesingComponentes.StyleMaskedTextBox(mtbCep);
-
-                    // Estilo dos botões: Usando o método estático para cada controle
-                    DesingComponentes.StyleButton(btnNew, Color.FromArgb(0, 120, 215));
-                    DesingComponentes.StyleButton(btnDelete, Color.FromArgb(209, 17, 65));
-                    // ... (outros Buttons)
-
-                    // Estilo do DataGridView: Usando o método estático (se o form tiver um DataGridView)
-                    DesingComponentes.StyleDataGridView(dgvUsuarios); 
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Erro ao aplicar design: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
+             }
+             catch (Exception ex)
+             {
+                 MessageBox.Show("Erro ao aplicar design: " + ex.Message);
+             }
+         }
 
         
 
@@ -203,7 +115,7 @@ namespace AssisTec
 
         private void disable()
         {
-            txtName.Enabled = false;
+            txtNome.Enabled = false;
             mtbCPF.Enabled = false;
             mtbTel.Enabled = false;
             btnCancel.Enabled = false;
@@ -217,7 +129,7 @@ namespace AssisTec
 
         private void disabletxt()
         {
-            txtName.Enabled = false;
+            txtNome.Enabled = false;
             mtbCPF.Enabled = false;
             mtbTel.Enabled = false;
             txtSenha.Enabled = false;
@@ -235,7 +147,7 @@ namespace AssisTec
 
         private void deleteAll()
         {
-            txtName.Text = "";
+            txtNome.Text = "";
             txtSenha.Text = "";
             mtbCPF.Text = "";
             mtbTel.Text = "";
@@ -255,7 +167,7 @@ namespace AssisTec
 
         private void enableTxt()
         {
-            txtName.Enabled = true;
+            txtNome.Enabled = true;
             mtbCPF.Enabled = true;
             txtSenha.Enabled = true;
             mtbTel.Enabled = true;
@@ -314,30 +226,13 @@ namespace AssisTec
             dgvUsuarios.Columns[11].HeaderText = "Bairro";
             dgvUsuarios.Columns[12].HeaderText = "Estado";
             dgvUsuarios.Columns[13].HeaderText = "Complemento"; // Coluna 13
-        
-    // Larguras
-        
-            dgvUsuarios.Columns[1].Width = 250;  
-            dgvUsuarios.Columns[2].Width = 100;  
-            dgvUsuarios.Columns[3].Width = 100;  
-            dgvUsuarios.Columns[4].Width = 80;
-            dgvUsuarios.Columns[5].Width = 60;   
-            dgvUsuarios.Columns[6].Width = 80;   
-            dgvUsuarios.Columns[7].Width = 120; 
-            dgvUsuarios.Columns[8].Width = 120;  
-            dgvUsuarios.Columns[9].Width = 80;   
-            dgvUsuarios.Columns[10].Width = 120; 
-            dgvUsuarios.Columns[11].Width = 120; 
-            dgvUsuarios.Columns[12].Width = 100; 
-            dgvUsuarios.Columns[13].Width = 100; 
-            dgvUsuarios.Columns[13].Width = 200; 
             
         }
         Usuario formUsuario()
         {
             Usuario user = new Usuario();
             user.id = id;
-            user.nome = txtName.Text;
+            user.nome = txtNome.Text;
             user.cpf = mtbCPF.Text;
             user.telefone = mtbTel.Text;
             user.senha = txtSenha.Text;
@@ -500,7 +395,7 @@ namespace AssisTec
             modo = 2;
             enableTxt();
             deleteAll();
-            txtName.Focus();
+            txtNome.Focus();
             
         }
         
@@ -555,12 +450,12 @@ namespace AssisTec
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            if(string.IsNullOrEmpty(txtName.Text)|| string.IsNullOrEmpty(txtSenha.Text)|| !mtbCPF.MaskFull|| !mtbTel.MaskFull ||
+            if(string.IsNullOrEmpty(txtNome.Text)|| string.IsNullOrEmpty(txtSenha.Text)|| !mtbCPF.MaskFull|| !mtbTel.MaskFull ||
                string.IsNullOrEmpty(cbNivel.Text)|| string.IsNullOrEmpty(cbStatus.Text))
             {
                 MessageBox.Show("Preencha todos os campos corretamente", "Erro", MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
-                txtName.Focus();
+                txtNome.Focus();
                 return;
             }
 
@@ -599,7 +494,7 @@ namespace AssisTec
                     btnNew.Enabled = true;
 
                     id = Convert.ToInt32(dgvUsuarios.Rows[e.RowIndex].Cells[0].Value);
-                    txtName.Text = dgvUsuarios.Rows[e.RowIndex].Cells["nome"].Value.ToString();
+                    txtNome.Text = dgvUsuarios.Rows[e.RowIndex].Cells["nome"].Value.ToString();
                     mtbCPF.Text = dgvUsuarios.Rows[e.RowIndex].Cells["cpf"].Value.ToString();
                     mtbTel.Text = dgvUsuarios.Rows[e.RowIndex].Cells["telefone"].Value.ToString();
                     mtbCep.Text = dgvUsuarios.Rows[e.RowIndex].Cells["cep"].Value.ToString();

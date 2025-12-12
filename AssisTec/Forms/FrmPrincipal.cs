@@ -21,7 +21,7 @@ namespace AssisTec
 
             // ======== BOTÃO GERENCIAR USUÁRIO ========
             Guna2Button btnUsuario = new Guna2Button();
-            btnUsuario.Text = "👤 Gerenciar Usuário";
+            btnUsuario.Text = "👤 Gerenciar Usuários";
             btnUsuario.Width = 160;
             btnUsuario.Height = 50;
             btnUsuario.Location = new System.Drawing.Point(0, 0);
@@ -32,7 +32,7 @@ namespace AssisTec
 
             // ======== BOTÃO GERENCIAR CLIENTE ========
             Guna2Button btnCliente = new Guna2Button();
-            btnCliente.Text = "👨‍👩‍👧‍👦 Gerenciar Cliente";
+            btnCliente.Text = "👨‍👩‍👧‍👦 Gerenciar Clientes";
             btnCliente.Width = 160;
             btnCliente.Height = 50;
             btnCliente.Location = new System.Drawing.Point(160, 0);
