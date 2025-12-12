@@ -61,7 +61,7 @@ namespace AssisTec
             btnProduto.FillColor = System.Drawing.Color.FromArgb(94, 148, 255);
             btnProduto.ForeColor = System.Drawing.Color.White;
             btnProduto.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            btnProduto.Click += (s, e) => AbrirForm(new Produto());
+            btnProduto.Click += (s, e) => AbrirForm(new FrmProduto());
 
             
             // Adiciona os botões lado a lado no painel

@@ -410,3 +410,4 @@ C:\Users\Pc do estagiario\Desktop\AssisTEC\AssisTec\obj\Debug\AssisTec.csproj.Up
 C:\Users\Pc do estagiario\Desktop\AssisTEC\AssisTec\obj\Debug\AssisTec.Gerenciador_Pedidos.resources
 C:\Users\Pc do estagiario\Desktop\AssisTEC\AssisTec\obj\Debug\AssisTec.SubForms_do_Gerenciador_de_Pedidos.Novo_Pedido.resources
 C:\Users\Pc do estagiario\Desktop\AssisTEC\AssisTec\obj\Debug\AssisTec.SubForms_do_Gerenciador_de_Pedidos.Editar_Pedido.resources
+C:\Users\Pc do estagiario\Desktop\AssisTEC\AssisTec\obj\Debug\AssisTec.FrmProduto.resources

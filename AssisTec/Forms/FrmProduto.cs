@@ -2,9 +2,9 @@
 
 namespace AssisTec
 {
-    public partial class Produto : Form
+    public partial class FrmProduto : Form
     {
-        public Produto()
+        public FrmProduto()
         {
             InitializeComponent();
         }

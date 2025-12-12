@@ -183,7 +183,7 @@ namespace AssisTec
             // 
             this.label14.Font = new System.Drawing.Font("Comic Sans MS", 9.75F);
             this.label14.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label14.Location = new System.Drawing.Point(556, 60);
+            this.label14.Location = new System.Drawing.Point(556, 57);
             this.label14.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(53, 18);
@@ -194,7 +194,7 @@ namespace AssisTec
             // 
             this.btnAtualizar.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnAtualizar.BackgroundImage")));
             this.btnAtualizar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnAtualizar.Location = new System.Drawing.Point(1093, 46);
+            this.btnAtualizar.Location = new System.Drawing.Point(1093, 43);
             this.btnAtualizar.Name = "btnAtualizar";
             this.btnAtualizar.Size = new System.Drawing.Size(42, 36);
             this.btnAtualizar.TabIndex = 49;
@@ -207,7 +207,7 @@ namespace AssisTec
             this.lblbusca.AutoSize = true;
             this.lblbusca.Font = new System.Drawing.Font("Comic Sans MS", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblbusca.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.lblbusca.Location = new System.Drawing.Point(570, 60);
+            this.lblbusca.Location = new System.Drawing.Point(570, 57);
             this.lblbusca.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblbusca.Name = "lblbusca";
             this.lblbusca.Size = new System.Drawing.Size(0, 18);
@@ -216,7 +216,7 @@ namespace AssisTec
             // txtBusca
             // 
             this.txtBusca.BackColor = System.Drawing.Color.White;
-            this.txtBusca.Location = new System.Drawing.Point(615, 58);
+            this.txtBusca.Location = new System.Drawing.Point(615, 55);
             this.txtBusca.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtBusca.Name = "txtBusca";
             this.txtBusca.Size = new System.Drawing.Size(471, 20);
