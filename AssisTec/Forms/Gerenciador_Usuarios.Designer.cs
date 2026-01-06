@@ -571,13 +571,13 @@ namespace AssisTec
             // 
             // panel2
             // 
-            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(44)))), ((int)(((byte)(64)))));
             this.panel2.Controls.Add(this.dgvUsuarios);
             this.panel2.Controls.Add(this.label14);
             this.panel2.Controls.Add(this.btnAtualizar);
             this.panel2.Controls.Add(this.txtBusca);
-            this.panel2.Location = new System.Drawing.Point(520, 3);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panel2.Location = new System.Drawing.Point(520, 0);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(1368, 967);
             this.panel2.TabIndex = 40;

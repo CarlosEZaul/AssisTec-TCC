@@ -155,6 +155,7 @@
     <Compile Include="Classes\ICepApiService.cs" />
     <Compile Include="Classes\Pedido.cs" />
     <Compile Include="Classes\Pessoa.cs" />
+    <Compile Include="Classes\Produto.cs" />
     <Compile Include="Classes\Tecnico.cs" />
     <Compile Include="Classes\Usuario.cs" />
     <Compile Include="Connected Services\wscep\wscep.cs">

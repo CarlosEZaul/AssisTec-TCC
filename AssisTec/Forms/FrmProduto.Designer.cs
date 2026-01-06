@@ -31,33 +31,39 @@ namespace AssisTec
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmProduto));
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.txtPrecoVenda = new System.Windows.Forms.TextBox();
+            this.txtPrecoCompra = new System.Windows.Forms.TextBox();
             this.btnEditar = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnNew = new System.Windows.Forms.Button();
-            this.cbEstado = new System.Windows.Forms.ComboBox();
+            this.cbUnidade = new System.Windows.Forms.ComboBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.txtEstoqueMinimo = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.txtEstoque = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.txtName = new System.Windows.Forms.TextBox();
+            this.txtDescricao = new System.Windows.Forms.TextBox();
             this.panel4 = new System.Windows.Forms.Panel();
-            this.dgvPedidos = new System.Windows.Forms.DataGridView();
+            this.label14 = new System.Windows.Forms.Label();
+            this.btnAtualizar = new System.Windows.Forms.PictureBox();
+            this.lblbusca = new System.Windows.Forms.Label();
+            this.txtBusca = new System.Windows.Forms.TextBox();
+            this.dgvProdutos = new System.Windows.Forms.DataGridView();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvPedidos)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnAtualizar)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvProdutos)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -72,29 +78,49 @@ namespace AssisTec
             // 
             // panel3
             // 
+            this.panel3.Controls.Add(this.txtPrecoVenda);
+            this.panel3.Controls.Add(this.txtPrecoCompra);
             this.panel3.Controls.Add(this.btnEditar);
             this.panel3.Controls.Add(this.btnCancel);
             this.panel3.Controls.Add(this.btnDelete);
             this.panel3.Controls.Add(this.btnSave);
             this.panel3.Controls.Add(this.btnNew);
-            this.panel3.Controls.Add(this.cbEstado);
+            this.panel3.Controls.Add(this.cbUnidade);
             this.panel3.Controls.Add(this.label7);
             this.panel3.Controls.Add(this.label6);
-            this.panel3.Controls.Add(this.textBox4);
+            this.panel3.Controls.Add(this.txtEstoqueMinimo);
             this.panel3.Controls.Add(this.label5);
-            this.panel3.Controls.Add(this.textBox3);
+            this.panel3.Controls.Add(this.txtEstoque);
             this.panel3.Controls.Add(this.label4);
-            this.panel3.Controls.Add(this.textBox2);
             this.panel3.Controls.Add(this.label3);
-            this.panel3.Controls.Add(this.textBox1);
             this.panel3.Controls.Add(this.label1);
             this.panel3.Controls.Add(this.label2);
-            this.panel3.Controls.Add(this.txtName);
+            this.panel3.Controls.Add(this.txtDescricao);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel3.Location = new System.Drawing.Point(0, 0);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(520, 977);
             this.panel3.TabIndex = 38;
+            // 
+            // txtPrecoVenda
+            // 
+            this.txtPrecoVenda.BackColor = System.Drawing.Color.White;
+            this.txtPrecoVenda.Location = new System.Drawing.Point(120, 300);
+            this.txtPrecoVenda.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.txtPrecoVenda.Name = "txtPrecoVenda";
+            this.txtPrecoVenda.Size = new System.Drawing.Size(351, 20);
+            this.txtPrecoVenda.TabIndex = 54;
+            this.txtPrecoVenda.TextChanged += new System.EventHandler(this.textBoxPrecoVenda_TextChanged);
+            // 
+            // txtPrecoCompra
+            // 
+            this.txtPrecoCompra.BackColor = System.Drawing.Color.White;
+            this.txtPrecoCompra.Location = new System.Drawing.Point(130, 251);
+            this.txtPrecoCompra.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.txtPrecoCompra.Name = "txtPrecoCompra";
+            this.txtPrecoCompra.Size = new System.Drawing.Size(341, 20);
+            this.txtPrecoCompra.TabIndex = 53;
+            this.txtPrecoCompra.TextChanged += new System.EventHandler(this.textBoxPrecoCompra_TextChanged);
             // 
             // btnEditar
             // 
@@ -110,6 +136,7 @@ namespace AssisTec
             this.btnEditar.TabIndex = 52;
             this.btnEditar.Text = "Editar";
             this.btnEditar.UseVisualStyleBackColor = false;
+            this.btnEditar.Click += new System.EventHandler(this.btnEditar_Click);
             // 
             // btnCancel
             // 
@@ -139,6 +166,7 @@ namespace AssisTec
             this.btnDelete.TabIndex = 50;
             this.btnDelete.Text = "Excluir";
             this.btnDelete.UseVisualStyleBackColor = false;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // btnSave
             // 
@@ -153,6 +181,7 @@ namespace AssisTec
             this.btnSave.TabIndex = 49;
             this.btnSave.Text = "Salvar";
             this.btnSave.UseVisualStyleBackColor = false;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // btnNew
             // 
@@ -167,14 +196,15 @@ namespace AssisTec
             this.btnNew.TabIndex = 48;
             this.btnNew.Text = "Novo";
             this.btnNew.UseVisualStyleBackColor = false;
+            this.btnNew.Click += new System.EventHandler(this.btnNew_Click);
             // 
-            // cbEstado
+            // cbUnidade
             // 
-            this.cbEstado.FormattingEnabled = true;
-            this.cbEstado.Location = new System.Drawing.Point(93, 201);
-            this.cbEstado.Name = "cbEstado";
-            this.cbEstado.Size = new System.Drawing.Size(377, 21);
-            this.cbEstado.TabIndex = 47;
+            this.cbUnidade.FormattingEnabled = true;
+            this.cbUnidade.Location = new System.Drawing.Point(93, 201);
+            this.cbUnidade.Name = "cbUnidade";
+            this.cbUnidade.Size = new System.Drawing.Size(377, 21);
+            this.cbUnidade.TabIndex = 47;
             // 
             // label7
             // 
@@ -201,14 +231,15 @@ namespace AssisTec
             this.label6.TabIndex = 44;
             this.label6.Text = "Estoque Mínimo:";
             // 
-            // textBox4
+            // txtEstoqueMinimo
             // 
-            this.textBox4.BackColor = System.Drawing.Color.White;
-            this.textBox4.Location = new System.Drawing.Point(120, 400);
-            this.textBox4.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(350, 20);
-            this.textBox4.TabIndex = 43;
+            this.txtEstoqueMinimo.BackColor = System.Drawing.Color.White;
+            this.txtEstoqueMinimo.Location = new System.Drawing.Point(120, 400);
+            this.txtEstoqueMinimo.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.txtEstoqueMinimo.Name = "txtEstoqueMinimo";
+            this.txtEstoqueMinimo.Size = new System.Drawing.Size(350, 20);
+            this.txtEstoqueMinimo.TabIndex = 43;
+            this.txtEstoqueMinimo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtEstoqueMinimo_KeyPress);
             // 
             // label5
             // 
@@ -222,14 +253,15 @@ namespace AssisTec
             this.label5.TabIndex = 42;
             this.label5.Text = "Estoque:";
             // 
-            // textBox3
+            // txtEstoque
             // 
-            this.textBox3.BackColor = System.Drawing.Color.White;
-            this.textBox3.Location = new System.Drawing.Point(80, 347);
-            this.textBox3.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(390, 20);
-            this.textBox3.TabIndex = 41;
+            this.txtEstoque.BackColor = System.Drawing.Color.White;
+            this.txtEstoque.Location = new System.Drawing.Point(80, 347);
+            this.txtEstoque.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.txtEstoque.Name = "txtEstoque";
+            this.txtEstoque.Size = new System.Drawing.Size(390, 20);
+            this.txtEstoque.TabIndex = 41;
+            this.txtEstoque.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtEstoque_KeyPress);
             // 
             // label4
             // 
@@ -243,15 +275,6 @@ namespace AssisTec
             this.label4.TabIndex = 40;
             this.label4.Text = "Preço de Venda:";
             // 
-            // textBox2
-            // 
-            this.textBox2.BackColor = System.Drawing.Color.White;
-            this.textBox2.Location = new System.Drawing.Point(119, 298);
-            this.textBox2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(350, 20);
-            this.textBox2.TabIndex = 39;
-            // 
             // label3
             // 
             this.label3.AutoSize = true;
@@ -263,15 +286,6 @@ namespace AssisTec
             this.label3.Size = new System.Drawing.Size(113, 18);
             this.label3.TabIndex = 38;
             this.label3.Text = "Preço de Compra:";
-            // 
-            // textBox1
-            // 
-            this.textBox1.BackColor = System.Drawing.Color.White;
-            this.textBox1.Location = new System.Drawing.Point(135, 249);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(336, 20);
-            this.textBox1.TabIndex = 37;
             // 
             // label1
             // 
@@ -297,41 +311,89 @@ namespace AssisTec
             this.label2.TabIndex = 35;
             this.label2.Text = "Descrição:";
             // 
-            // txtName
+            // txtDescricao
             // 
-            this.txtName.BackColor = System.Drawing.Color.White;
-            this.txtName.Location = new System.Drawing.Point(94, 155);
-            this.txtName.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.txtName.Name = "txtName";
-            this.txtName.Size = new System.Drawing.Size(377, 20);
-            this.txtName.TabIndex = 34;
+            this.txtDescricao.BackColor = System.Drawing.Color.White;
+            this.txtDescricao.Location = new System.Drawing.Point(94, 155);
+            this.txtDescricao.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.txtDescricao.Name = "txtDescricao";
+            this.txtDescricao.Size = new System.Drawing.Size(377, 20);
+            this.txtDescricao.TabIndex = 34;
             // 
             // panel4
             // 
             this.panel4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(44)))), ((int)(((byte)(64)))));
-            this.panel4.Controls.Add(this.dgvPedidos);
+            this.panel4.Controls.Add(this.label14);
+            this.panel4.Controls.Add(this.btnAtualizar);
+            this.panel4.Controls.Add(this.lblbusca);
+            this.panel4.Controls.Add(this.txtBusca);
+            this.panel4.Controls.Add(this.dgvProdutos);
             this.panel4.Dock = System.Windows.Forms.DockStyle.Right;
             this.panel4.Location = new System.Drawing.Point(546, 0);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(1352, 977);
             this.panel4.TabIndex = 38;
             // 
-            // dgvPedidos
+            // label14
             // 
-            this.dgvPedidos.AllowUserToAddRows = false;
-            this.dgvPedidos.AllowUserToDeleteRows = false;
-            this.dgvPedidos.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
-            this.dgvPedidos.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgvPedidos.BackgroundColor = System.Drawing.Color.Gray;
-            this.dgvPedidos.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Sunken;
-            this.dgvPedidos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvPedidos.Location = new System.Drawing.Point(38, 49);
-            this.dgvPedidos.MultiSelect = false;
-            this.dgvPedidos.Name = "dgvPedidos";
-            this.dgvPedidos.ReadOnly = true;
-            this.dgvPedidos.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
-            this.dgvPedidos.Size = new System.Drawing.Size(1290, 883);
-            this.dgvPedidos.TabIndex = 36;
+            this.label14.Font = new System.Drawing.Font("Comic Sans MS", 9.75F);
+            this.label14.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.label14.Location = new System.Drawing.Point(276, 19);
+            this.label14.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(53, 18);
+            this.label14.TabIndex = 50;
+            this.label14.Text = "Buscar:";
+            // 
+            // btnAtualizar
+            // 
+            this.btnAtualizar.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnAtualizar.BackgroundImage")));
+            this.btnAtualizar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnAtualizar.Location = new System.Drawing.Point(815, 7);
+            this.btnAtualizar.Name = "btnAtualizar";
+            this.btnAtualizar.Size = new System.Drawing.Size(42, 36);
+            this.btnAtualizar.TabIndex = 49;
+            this.btnAtualizar.TabStop = false;
+            // 
+            // lblbusca
+            // 
+            this.lblbusca.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.lblbusca.AutoSize = true;
+            this.lblbusca.Font = new System.Drawing.Font("Comic Sans MS", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblbusca.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.lblbusca.Location = new System.Drawing.Point(170, 18);
+            this.lblbusca.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblbusca.Name = "lblbusca";
+            this.lblbusca.Size = new System.Drawing.Size(0, 18);
+            this.lblbusca.TabIndex = 47;
+            // 
+            // txtBusca
+            // 
+            this.txtBusca.BackColor = System.Drawing.Color.White;
+            this.txtBusca.Location = new System.Drawing.Point(337, 17);
+            this.txtBusca.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.txtBusca.Name = "txtBusca";
+            this.txtBusca.Size = new System.Drawing.Size(471, 20);
+            this.txtBusca.TabIndex = 48;
+            this.txtBusca.TextChanged += new System.EventHandler(this.txtBusca_TextChanged);
+            // 
+            // dgvProdutos
+            // 
+            this.dgvProdutos.AllowUserToAddRows = false;
+            this.dgvProdutos.AllowUserToDeleteRows = false;
+            this.dgvProdutos.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvProdutos.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvProdutos.BackgroundColor = System.Drawing.Color.Gray;
+            this.dgvProdutos.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Sunken;
+            this.dgvProdutos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvProdutos.Location = new System.Drawing.Point(38, 49);
+            this.dgvProdutos.MultiSelect = false;
+            this.dgvProdutos.Name = "dgvProdutos";
+            this.dgvProdutos.ReadOnly = true;
+            this.dgvProdutos.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
+            this.dgvProdutos.Size = new System.Drawing.Size(1290, 883);
+            this.dgvProdutos.TabIndex = 36;
+            this.dgvProdutos.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvProdutos_CellClick);
             // 
             // panel1
             // 
@@ -359,10 +421,20 @@ namespace AssisTec
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             this.panel4.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvPedidos)).EndInit();
+            this.panel4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnAtualizar)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvProdutos)).EndInit();
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
         }
+
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.PictureBox btnAtualizar;
+        private System.Windows.Forms.Label lblbusca;
+        private System.Windows.Forms.TextBox txtBusca;
+
+        private System.Windows.Forms.TextBox txtPrecoCompra;
+        private System.Windows.Forms.TextBox txtPrecoVenda;
 
         private System.Windows.Forms.Button btnEditar;
         private System.Windows.Forms.Button btnCancel;
@@ -370,25 +442,23 @@ namespace AssisTec
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Button btnNew;
 
-        private System.Windows.Forms.ComboBox cbEstado;
+        private System.Windows.Forms.ComboBox cbUnidade;
 
         private System.Windows.Forms.Label label7;
 
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox txtEstoque;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.TextBox txtEstoqueMinimo;
 
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox textBox2;
 
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox textBox1;
 
         private System.Windows.Forms.Label label1;
 
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox txtName;
+        private System.Windows.Forms.TextBox txtDescricao;
 
         private System.Windows.Forms.Panel panel4;
 
@@ -396,7 +466,7 @@ namespace AssisTec
 
         private System.Windows.Forms.Panel panel2;
 
-        private System.Windows.Forms.DataGridView dgvPedidos;
+        private System.Windows.Forms.DataGridView dgvProdutos;
 
         private System.Windows.Forms.Panel panel1;
 
