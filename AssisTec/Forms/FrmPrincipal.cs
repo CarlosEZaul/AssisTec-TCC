@@ -54,7 +54,7 @@ namespace AssisTec
             
             // ======== BOTÃO GERENCIAR PRODUTO ========
             Guna2Button btnProduto = new Guna2Button();
-            btnProduto.Text = "📲 Produto";
+            btnProduto.Text = "📲 Produtos";
             btnProduto.Width = 160;
             btnProduto.Height = 50;
             btnProduto.Location = new System.Drawing.Point(480, 0);

@@ -462,5 +462,11 @@ namespace AssisTec
                 Console.WriteLine("Erro na busca: " + ex.Message);
             }
         }
+
+
+        private void btnAtualizar_Click(object sender, EventArgs e)
+        {
+            listGrid();
+        }
     }
 }

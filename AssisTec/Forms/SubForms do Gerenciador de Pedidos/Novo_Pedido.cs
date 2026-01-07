@@ -81,39 +81,60 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
         
         private void btnSalvar_Click(object sender, EventArgs e)
         {
-            con.OpenConnection();
-            sql = "insert into equipamentos (id_cliente, descricao, tipo, marca, modelo, numero_serie, acessorios, estado_entrada, observacoes) values (@id_cliente, @descricao, @tipo, @marca, @modelo, @numero_serie, @acessorios, @estado_entrada, @observacoes)";
-            cmd = new MySqlCommand(sql, con.con);
-            
-            cmd.Parameters.AddWithValue("@id_cliente", cbCliente.SelectedValue);            
-            cmd.Parameters.AddWithValue("@descricao", txtDescricao.Text);
-            cmd.Parameters.AddWithValue("@tipo", txtTipo.Text);
-            cmd.Parameters.AddWithValue("@marca", txtMarca.Text);
-            cmd.Parameters.AddWithValue("@modelo", txtModelo.Text);
-            cmd.Parameters.AddWithValue("@numero_serie", txtNdeSerie.Text);
-            cmd.Parameters.AddWithValue("@estado_entrada", cbEstado.SelectedText);
-            cmd.Parameters.AddWithValue("@acessorios", txtAcessorio.Text);
-            cmd.Parameters.AddWithValue("@observacoes", txtObservacoes.Text);
-            cmd.ExecuteNonQuery();
+            if (string.IsNullOrWhiteSpace(cbCliente.Text) || string.IsNullOrWhiteSpace(cbTecnico.Text) ||
+                string.IsNullOrWhiteSpace(txtDescricao.Text) ||
+                string.IsNullOrWhiteSpace(txtTipo.Text) || string.IsNullOrWhiteSpace(txtMarca.Text) ||
+                string.IsNullOrWhiteSpace(txtModelo.Text) ||
+                string.IsNullOrWhiteSpace(txtNdeSerie.Text) || string.IsNullOrWhiteSpace(txtAcessorio.Text) ||
+                string.IsNullOrWhiteSpace(cbEstado.Text) ||
+                string.IsNullOrWhiteSpace(txtObservacoes.Text) || string.IsNullOrWhiteSpace(txtProblemas.Text))
+            {
+                MessageBox.Show("Preencha todos os campos", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
 
-            int idEquipamento = (int)cmd.LastInsertedId;
-            var dataAtual = DateTime.Now;
-            con.CloseConnection();
+            try
+            {
+                con.OpenConnection();
+                sql = "insert into equipamentos (id_cliente, descricao, tipo, marca, modelo, numero_serie, acessorios, estado_entrada, observacoes) values (@id_cliente, @descricao, @tipo, @marca, @modelo, @numero_serie, @acessorios, @estado_entrada, @observacoes)";
+                cmd = new MySqlCommand(sql, con.con);
+                
+                cmd.Parameters.AddWithValue("@id_cliente", cbCliente.SelectedValue);            
+                cmd.Parameters.AddWithValue("@descricao", txtDescricao.Text);
+                cmd.Parameters.AddWithValue("@tipo", txtTipo.Text);
+                cmd.Parameters.AddWithValue("@marca", txtMarca.Text);
+                cmd.Parameters.AddWithValue("@modelo", txtModelo.Text);
+                cmd.Parameters.AddWithValue("@numero_serie", txtNdeSerie.Text);
+                cmd.Parameters.AddWithValue("@estado_entrada", cbEstado.SelectedText);
+                cmd.Parameters.AddWithValue("@acessorios", txtAcessorio.Text);
+                cmd.Parameters.AddWithValue("@observacoes", txtObservacoes.Text);
+                cmd.ExecuteNonQuery();
+
+                int idEquipamento = (int)cmd.LastInsertedId;
+                var dataAtual = DateTime.Now;
+                con.CloseConnection();
+                
+                con.OpenConnection();
+                sql = "insert into pedidos (id_cliente , id_tecnico , id_equipamento , problema_relatado, data_abertura) values (@id_cliente, @id_tecnico, @id_equipamento, @problema_relatado, @data_abertura)";
+                cmd = new MySqlCommand(sql, con.con);
+                
+                cmd.Parameters.AddWithValue("@id_cliente", cbCliente.SelectedValue);            
+                cmd.Parameters.AddWithValue("@id_tecnico", cbTecnico.SelectedValue);
+                cmd.Parameters.AddWithValue("@id_equipamento", idEquipamento);
+                cmd.Parameters.AddWithValue("@problema_relatado", txtProblemas.Text);
+                cmd.Parameters.AddWithValue("@data_abertura", dataAtual);
+                
+                
+                cmd.ExecuteNonQuery();
+                con.CloseConnection();
+                MessageBox.Show("Pedido Cadastrado!", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.Close();
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                throw;
+            }
             
-            con.OpenConnection();
-            sql = "insert into pedidos (id_cliente , id_tecnico , id_equipamento , problema_relatado, data_abertura) values (@id_cliente, @id_tecnico, @id_equipamento, @problema_relatado, @data_abertura)";
-            cmd = new MySqlCommand(sql, con.con);
-            
-            cmd.Parameters.AddWithValue("@id_cliente", cbCliente.SelectedValue);            
-            cmd.Parameters.AddWithValue("@id_tecnico", cbTecnico.SelectedValue);
-            cmd.Parameters.AddWithValue("@id_equipamento", idEquipamento);
-            cmd.Parameters.AddWithValue("@problema_relatado", txtProblemas.Text);
-            cmd.Parameters.AddWithValue("@data_abertura", dataAtual);
-            
-            
-            cmd.ExecuteNonQuery();
-            con.CloseConnection();
-            this.Close();
         }
 
         private void btnLimpar_Click(object sender, EventArgs e)
