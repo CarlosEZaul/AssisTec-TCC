@@ -76,8 +76,8 @@ namespace AssisTec
             dgv.DefaultCellStyle.Font = new Font("Segoe UI", 9);
 
             // Agora o autosize é configurável
-            dgv.AutoSizeColumnsMode = autoSizeMode;
-
+            dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+           
             // Scroll automático (apenas vertical geralmente)
             dgv.ScrollBars = ScrollBars.Both;
         }

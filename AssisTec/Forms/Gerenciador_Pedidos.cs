@@ -128,7 +128,12 @@ namespace AssisTec
                 dgvPedidos.Columns[11].HeaderText = "VALOR_PEÇAS";
                 dgvPedidos.Columns[12].HeaderText = "VALOR_TOTAL";
                 dgvPedidos.Columns[13].HeaderText = "OBSERVAÇÕES";
-                
+
+                dgvPedidos.Columns[3].Visible = false;
+                dgvPedidos.Columns[4].Visible = false;
+                dgvPedidos.Columns[5].Visible = false;
+                dgvPedidos.Columns[13].Visible = false;
+
             }
         }
         
