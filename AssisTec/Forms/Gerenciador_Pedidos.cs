@@ -30,6 +30,7 @@ namespace AssisTec
         private int id;
         private string uf;
         private bool okCep;
+        private Pedido _pedido;
         
         public Gerenciador_Pedidos()
         {

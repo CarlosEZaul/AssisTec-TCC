@@ -25,14 +25,13 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
 {
     public partial class Editar_Pedido : Form
     {
+        private ucDetalhesPedidos detalhes; 
+        private Pedido _pedido;
         conexao con = new conexao();
         string sql;
         MySqlCommand cmd;
         private int id;
-        private string uf;
-        private bool okCep;
-        private Pedido _pedido;
-
+        
         public Editar_Pedido(Pedido pedido)
         {
             InitializeComponent();
@@ -42,8 +41,21 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
 
         private void Editar_Pedido_Load(object sender, EventArgs e)
         {
-            txtId.Text = _pedido.id_pedido.ToString();
-            CarregarDadosPedido();
+            detalhes = new ucDetalhesPedidos(_pedido);
+            
+            detalhes.Dock = DockStyle.Fill;
+            panelConteudo.Controls.Add(detalhes);
+            
+            MostrarTela(detalhes);
+        }
+        
+        private void MostrarTela(UserControl tela)
+        {
+            foreach (Control ctrl in panelConteudo.Controls)
+                ctrl.Visible = false;
+
+            tela.Visible = true;
+            tela.BringToFront();
         }
 
         #region Desing Moderno
@@ -66,10 +78,6 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
                 // Estilo das labels: Usando o método estático
                 DesingComponentes.ApplyLabelStyles(this);
 
-                // Estilo dos cabeçalhos de seção (específicos deste form)
-                label1.Font = new Font("Segoe UI Semibold", 14F);
-                label1.ForeColor = Color.White;
-
                 // Estilo das caixas de texto com máscara: Usando o método estático para cada controle
 
 
@@ -90,76 +98,6 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
         }
 
         #endregion
-
-        #region Metodos de Manipulação de Dados
-
-        private void CarregarDadosPedido()
-        {
-            try
-            {
-                con.OpenConnection();
-
-                string sql = @"
-                    SELECT 
-                        p.id_pedido,
-                        c.nome AS cliente,
-                        u.nome AS tecnico,
-                        e.descricao AS equipamento,
-                        p.status,
-                        p.data_abertura,
-                        p.data_atualizacao,
-                        p.data_fechamento,
-                        p.valor_mao_obra,
-                        p.valor_pecas,
-                        p.valor_total,
-                        p.problema_relatado,
-                        p.diagnostico,
-                        p.observacoes
-                    FROM pedidos p
-                    LEFT JOIN clientes c ON p.id_cliente = c.id_cliente
-                    LEFT JOIN usuarios u ON p.id_tecnico = u.id_usuario
-                    LEFT JOIN equipamentos e ON p.id_equipamento = e.id_equipamento
-                    WHERE p.id_pedido = @id";
-
-                using (MySqlCommand cmd = new MySqlCommand(sql, con.con))
-                {
-                    cmd.Parameters.AddWithValue("@id", _pedido.id_pedido);
-
-                    using (MySqlDataReader dr = cmd.ExecuteReader())
-                    {
-                        if (dr.Read())
-                        {
-                            txtCliente.Text = dr["cliente"]?.ToString();
-                            txtTecnico.Text = dr["tecnico"]?.ToString();
-                            txtEquipamento.Text = dr["equipamento"]?.ToString();
-                            txtStatus.Text = dr["status"]?.ToString();
-
-                            txtDataAbertura.Text = dr["data_abertura"] == DBNull.Value
-                                ? ""
-                                : Convert.ToDateTime(dr["data_abertura"]).ToString("dd/MM/yyyy");
-
-                            txtUltimaAtualizacao.Text = dr["data_atualizacao"] == DBNull.Value
-                                ? ""
-                                : Convert.ToDateTime(dr["data_atualizacao"]).ToString("dd/MM/yyyy");
-
-                            txtValorMaoObra.Text = dr["valor_mao_obra"]?.ToString();
-                            txtValorPecas.Text = dr["valor_pecas"]?.ToString();
-                            txtValorTotal.Text = dr["valor_total"]?.ToString();
-
-                            txtProblema.Text = dr["problema_relatado"]?.ToString();
-                            txtDiagnostico.Text = dr["diagnostico"]?.ToString();
-                            txtObservacoes.Text = dr["observacoes"]?.ToString();
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Erro ao carregar dados do pedido:\n" + ex.Message, "Erro", MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
-            }
-        }
-
         private void ImprimirPedidoPDF()
         {
             try
@@ -310,9 +248,6 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
                 con.CloseConnection();
             }
         }
-
-            #endregion
-            
         private void btnFechar_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -324,6 +259,16 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
         }
 
         private void btnSalvar_Click(object sender, EventArgs e)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        private void btnDetalhes_Click(object sender, EventArgs e)
+        {
+            MostrarTela(detalhes);
+        }
+
+        private void button2_Click(object sender, EventArgs e)
         {
             throw new System.NotImplementedException();
         }

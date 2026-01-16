@@ -5,7 +5,11 @@
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=AssisTec_002FForms_002FGerenciador_005FUsuario/@EntryIndexRemoved">True</s:Boolean>
 	
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=AssisTec_002FForms_002FGerenciador_005FUsuarios/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=AssisTec_002FForms_002FSubForms_0020do_0020Gerenciador_0020de_0020Pedidos_002FForm1/@EntryIndexedValue">False</s:Boolean>
+	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=AssisTec_002FForms_002FSubForms_0020do_0020Gerenciador_0020de_0020Pedidos_002FForm1/@EntryIndexRemoved">True</s:Boolean>
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=AssisTec_002FForms_002FSubForms_0020do_0020Gerenciador_0020de_0020Pedidos_002FNovo_005FPedido/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=AssisTec_002FForms_002FSubForms_0020do_0020Gerenciador_0020de_0020Pedidos_002FuserControls_002FucDetalhesPedidos/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=AssisTec_002FForms_002FSubForms_0020do_0020Gerenciador_0020de_0020Pedidos_002FuserControls_002FucProdutosUtilizados/@EntryIndexedValue">True</s:Boolean>
 	
 	
 	
