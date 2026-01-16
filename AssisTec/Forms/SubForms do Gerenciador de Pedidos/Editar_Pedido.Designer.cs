@@ -153,7 +153,6 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             // 
             this.btnSalvar.BackColor = System.Drawing.Color.RoyalBlue;
             this.btnSalvar.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnSalvar.Enabled = false;
             this.btnSalvar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSalvar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.btnSalvar.ForeColor = System.Drawing.SystemColors.Control;
@@ -163,6 +162,7 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             this.btnSalvar.TabIndex = 45;
             this.btnSalvar.Text = "Salvar";
             this.btnSalvar.UseVisualStyleBackColor = false;
+            this.btnSalvar.Click += new System.EventHandler(this.btnSalvar_Click);
             // 
             // txtId
             // 

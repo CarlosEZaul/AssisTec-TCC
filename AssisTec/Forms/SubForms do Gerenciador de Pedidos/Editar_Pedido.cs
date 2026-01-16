@@ -322,5 +322,10 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
         {
             ImprimirPedidoPDF();
         }
+
+        private void btnSalvar_Click(object sender, EventArgs e)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
