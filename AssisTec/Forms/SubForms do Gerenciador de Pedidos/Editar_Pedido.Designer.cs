@@ -32,8 +32,8 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
         private void InitializeComponent()
         {
             this.panel2 = new System.Windows.Forms.Panel();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.btnServiços = new System.Windows.Forms.Button();
+            this.btnProdutos = new System.Windows.Forms.Button();
             this.btnDetalhes = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
             this.btnFechar = new System.Windows.Forms.Button();
@@ -49,8 +49,8 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(55)))), ((int)(((byte)(76)))));
-            this.panel2.Controls.Add(this.button3);
-            this.panel2.Controls.Add(this.button2);
+            this.panel2.Controls.Add(this.btnServiços);
+            this.panel2.Controls.Add(this.btnProdutos);
             this.panel2.Controls.Add(this.btnDetalhes);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel2.Location = new System.Drawing.Point(0, 0);
@@ -58,26 +58,27 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             this.panel2.Size = new System.Drawing.Size(691, 46);
             this.panel2.TabIndex = 41;
             // 
-            // button3
+            // btnServiços
             // 
-            this.button3.Dock = System.Windows.Forms.DockStyle.Left;
-            this.button3.Location = new System.Drawing.Point(460, 0);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(231, 46);
-            this.button3.TabIndex = 3;
-            this.button3.Text = "Ações";
-            this.button3.UseVisualStyleBackColor = true;
+            this.btnServiços.Dock = System.Windows.Forms.DockStyle.Left;
+            this.btnServiços.Location = new System.Drawing.Point(460, 0);
+            this.btnServiços.Name = "btnServiços";
+            this.btnServiços.Size = new System.Drawing.Size(231, 46);
+            this.btnServiços.TabIndex = 3;
+            this.btnServiços.Text = "Serviços";
+            this.btnServiços.UseVisualStyleBackColor = true;
+            this.btnServiços.Click += new System.EventHandler(this.btnServiços_Click);
             // 
-            // button2
+            // btnProdutos
             // 
-            this.button2.Dock = System.Windows.Forms.DockStyle.Left;
-            this.button2.Location = new System.Drawing.Point(230, 0);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(230, 46);
-            this.button2.TabIndex = 2;
-            this.button2.Text = "Produtos Utilizados";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.btnProdutos.Dock = System.Windows.Forms.DockStyle.Left;
+            this.btnProdutos.Location = new System.Drawing.Point(230, 0);
+            this.btnProdutos.Name = "btnProdutos";
+            this.btnProdutos.Size = new System.Drawing.Size(230, 46);
+            this.btnProdutos.TabIndex = 2;
+            this.btnProdutos.Text = "Produtos Utilizados";
+            this.btnProdutos.UseVisualStyleBackColor = true;
+            this.btnProdutos.Click += new System.EventHandler(this.btnProdutos_Click);
             // 
             // btnDetalhes
             // 
@@ -195,8 +196,8 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
 
         private System.Windows.Forms.Panel panel3;
 
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button btnProdutos;
+        private System.Windows.Forms.Button btnServiços;
 
         private System.Windows.Forms.Button btnDetalhes;
 

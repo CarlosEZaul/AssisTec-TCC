@@ -479,3 +479,4 @@ C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\obj\Debug\AssisTec.exe
 C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\obj\Debug\AssisTec.pdb
 C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\obj\Debug\AssisTec.SubForms_do_Gerenciador_de_Pedidos.ucDetalhesPedidos.resources
 C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\obj\Debug\AssisTec.SubForms_do_Gerenciador_de_Pedidos.ucProdutosUtilizados.resources
+C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\obj\Debug\AssisTec.SubForms_do_Gerenciador_de_Pedidos.ucServicos.resources

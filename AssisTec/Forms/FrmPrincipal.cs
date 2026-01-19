@@ -21,7 +21,7 @@ namespace AssisTec
 
             // ======== BOTÃO GERENCIAR USUÁRIO ========
             Guna2Button btnUsuario = new Guna2Button();
-            btnUsuario.Text = "👤 Gerenciar Usuários";
+            btnUsuario.Text = "👤 Gerenciar Usuários/Técnicos";
             btnUsuario.Width = 160;
             btnUsuario.Height = 50;
             btnUsuario.Location = new System.Drawing.Point(0, 0);

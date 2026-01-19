@@ -26,6 +26,8 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
     public partial class Editar_Pedido : Form
     {
         private ucDetalhesPedidos detalhes; 
+        private ucProdutosUtilizados produtos;
+        private ucServicos servicos;
         private Pedido _pedido;
         conexao con = new conexao();
         string sql;
@@ -35,6 +37,7 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
         public Editar_Pedido(Pedido pedido)
         {
             InitializeComponent();
+            ApplyModernDesign();
             _pedido = pedido;
         }
 
@@ -42,10 +45,13 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
         private void Editar_Pedido_Load(object sender, EventArgs e)
         {
             detalhes = new ucDetalhesPedidos(_pedido);
-            
+            produtos = new ucProdutosUtilizados(_pedido);
+            servicos = new ucServicos(_pedido);
             detalhes.Dock = DockStyle.Fill;
+            produtos.Dock = DockStyle.Fill;
             panelConteudo.Controls.Add(detalhes);
-            
+            panelConteudo.Controls.Add(produtos);
+            panelConteudo.Controls.Add(servicos);
             MostrarTela(detalhes);
         }
         
@@ -268,9 +274,15 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             MostrarTela(detalhes);
         }
 
-        private void button2_Click(object sender, EventArgs e)
+
+        private void btnProdutos_Click(object sender, EventArgs e)
         {
-            throw new System.NotImplementedException();
+            MostrarTela(produtos);
+        }
+
+        private void btnServiços_Click(object sender, EventArgs e)
+        {
+            MostrarTela(servicos);
         }
     }
 }
