@@ -245,8 +245,8 @@ namespace AssisTec
             try
             {
                 con.OpenConnection();
-                sql = "update clientes set nome=@nome, cpf=@cpf, telefone=@telefone, datanasc=@datanasc, cep=@cep, rua=@rua, numero=@numero, cidade=@cidade, estado=@estado, bairro=@bairro, complemento=@complemento where id_cliente=@id";
-                
+                sql = "update clientes set nome=@nome, cpf=@cpf, telefone=@telefone, datanasc=@datanasc, cep=@cep, rua=@rua, numero=@numero, cidade=@cidade, estado=@estado, bairro=@bairro, complemento=@complemento where id_cliente=@id_cliente";
+
                 cmd = new MySqlCommand(sql, con.con);
                 cmd.Parameters.AddWithValue("@id_cliente", cliente.id);
                 cmd.Parameters.AddWithValue("@nome", cliente.nome);

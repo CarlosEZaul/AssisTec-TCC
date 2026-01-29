@@ -42,7 +42,7 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             
             con.OpenConnection();
 
-            string sql1 = "SELECT id_usuario, CONCAT(nome, ' - ', cpf) AS exibicao FROM usuarios ORDER BY nome";
+            string sql1 = "SELECT id_usuario, CONCAT(nome, ' - ', cpf) AS exibicao FROM usuarios WHERE nivel = 3 ORDER BY nome";
 
             MySqlCommand cmd1 = new MySqlCommand(sql1, con.con);
             MySqlDataAdapter da1 = new MySqlDataAdapter(cmd1);
@@ -98,7 +98,7 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
                 sql = "insert into equipamentos (id_cliente, descricao, tipo, marca, modelo, numero_serie, acessorios, estado_entrada, observacoes) values (@id_cliente, @descricao, @tipo, @marca, @modelo, @numero_serie, @acessorios, @estado_entrada, @observacoes)";
                 cmd = new MySqlCommand(sql, con.con);
                 
-                cmd.Parameters.AddWithValue("@id_cliente", cbCliente.SelectedValue);            
+                cmd.Parameters.AddWithValue("@id_cliente", cbCliente.SelectedValue);
                 cmd.Parameters.AddWithValue("@descricao", txtDescricao.Text);
                 cmd.Parameters.AddWithValue("@tipo", txtTipo.Text);
                 cmd.Parameters.AddWithValue("@marca", txtMarca.Text);
@@ -114,10 +114,9 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
                 con.CloseConnection();
                 
                 con.OpenConnection();
-                sql = "insert into pedidos (id_cliente , id_tecnico , id_equipamento , problema_relatado, data_abertura) values (@id_cliente, @id_tecnico, @id_equipamento, @problema_relatado, @data_abertura)";
+                sql = "insert into pedidos (id_tecnico , id_equipamento , problema_relatado, data_abertura) values (@id_tecnico, @id_equipamento, @problema_relatado, @data_abertura)";
                 cmd = new MySqlCommand(sql, con.con);
                 
-                cmd.Parameters.AddWithValue("@id_cliente", cbCliente.SelectedValue);            
                 cmd.Parameters.AddWithValue("@id_tecnico", cbTecnico.SelectedValue);
                 cmd.Parameters.AddWithValue("@id_equipamento", idEquipamento);
                 cmd.Parameters.AddWithValue("@problema_relatado", txtProblemas.Text);

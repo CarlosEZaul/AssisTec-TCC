@@ -35,17 +35,13 @@ namespace AssisTec
             this.lblNome = new System.Windows.Forms.Label();
             this.lblcpf = new System.Windows.Forms.Label();
             this.lbltel = new System.Windows.Forms.Label();
-            this.txtNome = new System.Windows.Forms.TextBox();
-            this.mtbCPF = new System.Windows.Forms.MaskedTextBox();
             this.txtRua = new System.Windows.Forms.TextBox();
             this.lblnum = new System.Windows.Forms.Label();
             this.txtNumber = new System.Windows.Forms.TextBox();
-            this.mtbTel = new System.Windows.Forms.MaskedTextBox();
             this.btnNew = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
-            this.label4 = new System.Windows.Forms.Label();
             this.lblrua = new System.Windows.Forms.Label();
             this.txtBairro = new System.Windows.Forms.TextBox();
             this.lblbairro = new System.Windows.Forms.Label();
@@ -58,22 +54,29 @@ namespace AssisTec
             this.mtbCep = new System.Windows.Forms.MaskedTextBox();
             this.lblcomplemento = new System.Windows.Forms.Label();
             this.btnEditar = new System.Windows.Forms.Button();
-            this.cbStatus = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.cbNivel = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.txtSenha = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.txtSenha = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.cbNivel = new System.Windows.Forms.ComboBox();
+            this.cbStatus = new System.Windows.Forms.ComboBox();
+            this.mtbTel = new System.Windows.Forms.MaskedTextBox();
+            this.mtbCPF = new System.Windows.Forms.MaskedTextBox();
+            this.txtNome = new System.Windows.Forms.TextBox();
             this.btnBuscar = new System.Windows.Forms.Button();
             this.lblEnd = new System.Windows.Forms.Label();
-            this.lblendereco = new System.Windows.Forms.Label();
             this.txtBusca = new System.Windows.Forms.TextBox();
             this.btnAtualizar = new System.Windows.Forms.PictureBox();
             this.dgvUsuarios = new System.Windows.Forms.DataGridView();
             this.panel2 = new System.Windows.Forms.Panel();
             this.label14 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
+            this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnAtualizar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvUsuarios)).BeginInit();
             this.panel2.SuspendLayout();
@@ -84,7 +87,7 @@ namespace AssisTec
             this.lblNome.AutoSize = true;
             this.lblNome.Font = new System.Drawing.Font("Comic Sans MS", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblNome.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.lblNome.Location = new System.Drawing.Point(4, 114);
+            this.lblNome.Location = new System.Drawing.Point(18, 76);
             this.lblNome.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblNome.Name = "lblNome";
             this.lblNome.Size = new System.Drawing.Size(45, 18);
@@ -96,7 +99,7 @@ namespace AssisTec
             this.lblcpf.AutoSize = true;
             this.lblcpf.Font = new System.Drawing.Font("Comic Sans MS", 9.75F);
             this.lblcpf.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.lblcpf.Location = new System.Drawing.Point(9, 153);
+            this.lblcpf.Location = new System.Drawing.Point(8, 114);
             this.lblcpf.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblcpf.Name = "lblcpf";
             this.lblcpf.Size = new System.Drawing.Size(35, 18);
@@ -108,37 +111,17 @@ namespace AssisTec
             this.lbltel.AutoSize = true;
             this.lbltel.Font = new System.Drawing.Font("Comic Sans MS", 9.75F);
             this.lbltel.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.lbltel.Location = new System.Drawing.Point(0, 246);
+            this.lbltel.Location = new System.Drawing.Point(5, 210);
             this.lbltel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbltel.Name = "lbltel";
             this.lbltel.Size = new System.Drawing.Size(67, 18);
             this.lbltel.TabIndex = 4;
             this.lbltel.Text = "Telefone:";
             // 
-            // txtNome
-            // 
-            this.txtNome.BackColor = System.Drawing.Color.White;
-            this.txtNome.Location = new System.Drawing.Point(73, 110);
-            this.txtNome.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.txtNome.Name = "txtNome";
-            this.txtNome.Size = new System.Drawing.Size(377, 20);
-            this.txtNome.TabIndex = 6;
-            // 
-            // mtbCPF
-            // 
-            this.mtbCPF.BackColor = System.Drawing.Color.White;
-            this.mtbCPF.Location = new System.Drawing.Point(53, 150);
-            this.mtbCPF.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.mtbCPF.Mask = "000.000.000-00";
-            this.mtbCPF.Name = "mtbCPF";
-            this.mtbCPF.Size = new System.Drawing.Size(131, 20);
-            this.mtbCPF.TabIndex = 7;
-            this.mtbCPF.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
             // txtRua
             // 
             this.txtRua.BackColor = System.Drawing.Color.White;
-            this.txtRua.Location = new System.Drawing.Point(71, 484);
+            this.txtRua.Location = new System.Drawing.Point(85, 515);
             this.txtRua.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtRua.Name = "txtRua";
             this.txtRua.ReadOnly = true;
@@ -150,7 +133,7 @@ namespace AssisTec
             this.lblnum.AutoSize = true;
             this.lblnum.Font = new System.Drawing.Font("Comic Sans MS", 9.75F);
             this.lblnum.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.lblnum.Location = new System.Drawing.Point(288, 486);
+            this.lblnum.Location = new System.Drawing.Point(302, 517);
             this.lblnum.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblnum.Name = "lblnum";
             this.lblnum.Size = new System.Drawing.Size(27, 18);
@@ -160,22 +143,11 @@ namespace AssisTec
             // txtNumber
             // 
             this.txtNumber.BackColor = System.Drawing.Color.White;
-            this.txtNumber.Location = new System.Drawing.Point(323, 486);
+            this.txtNumber.Location = new System.Drawing.Point(337, 517);
             this.txtNumber.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtNumber.Name = "txtNumber";
             this.txtNumber.Size = new System.Drawing.Size(73, 20);
             this.txtNumber.TabIndex = 11;
-            // 
-            // mtbTel
-            // 
-            this.mtbTel.BackColor = System.Drawing.Color.White;
-            this.mtbTel.Location = new System.Drawing.Point(69, 244);
-            this.mtbTel.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.mtbTel.Mask = "(00) 00000-0000";
-            this.mtbTel.Name = "mtbTel";
-            this.mtbTel.Size = new System.Drawing.Size(131, 20);
-            this.mtbTel.TabIndex = 12;
-            this.mtbTel.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // btnNew
             // 
@@ -184,7 +156,7 @@ namespace AssisTec
             this.btnNew.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnNew.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.btnNew.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnNew.Location = new System.Drawing.Point(49, 736);
+            this.btnNew.Location = new System.Drawing.Point(49, 841);
             this.btnNew.Name = "btnNew";
             this.btnNew.Size = new System.Drawing.Size(75, 23);
             this.btnNew.TabIndex = 14;
@@ -199,7 +171,7 @@ namespace AssisTec
             this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.btnSave.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnSave.Location = new System.Drawing.Point(211, 736);
+            this.btnSave.Location = new System.Drawing.Point(211, 841);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 23);
             this.btnSave.TabIndex = 15;
@@ -215,7 +187,7 @@ namespace AssisTec
             this.btnDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDelete.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.btnDelete.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnDelete.Location = new System.Drawing.Point(292, 736);
+            this.btnDelete.Location = new System.Drawing.Point(292, 841);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(75, 23);
             this.btnDelete.TabIndex = 16;
@@ -230,7 +202,7 @@ namespace AssisTec
             this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.btnCancel.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnCancel.Location = new System.Drawing.Point(373, 736);
+            this.btnCancel.Location = new System.Drawing.Point(373, 841);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 17;
@@ -238,24 +210,12 @@ namespace AssisTec
             this.btnCancel.UseVisualStyleBackColor = false;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label4.Location = new System.Drawing.Point(143, 75);
-            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(198, 23);
-            this.label4.TabIndex = 18;
-            this.label4.Text = "Gerenciador de Usuários";
-            // 
             // lblrua
             // 
             this.lblrua.AutoSize = true;
             this.lblrua.Font = new System.Drawing.Font("Comic Sans MS", 9.75F);
             this.lblrua.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.lblrua.Location = new System.Drawing.Point(18, 486);
+            this.lblrua.Location = new System.Drawing.Point(32, 519);
             this.lblrua.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblrua.Name = "lblrua";
             this.lblrua.Size = new System.Drawing.Size(34, 18);
@@ -265,7 +225,7 @@ namespace AssisTec
             // txtBairro
             // 
             this.txtBairro.BackColor = System.Drawing.Color.White;
-            this.txtBairro.Location = new System.Drawing.Point(67, 623);
+            this.txtBairro.Location = new System.Drawing.Point(81, 654);
             this.txtBairro.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtBairro.Name = "txtBairro";
             this.txtBairro.ReadOnly = true;
@@ -277,7 +237,7 @@ namespace AssisTec
             this.lblbairro.AutoSize = true;
             this.lblbairro.Font = new System.Drawing.Font("Comic Sans MS", 9.75F);
             this.lblbairro.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.lblbairro.Location = new System.Drawing.Point(9, 625);
+            this.lblbairro.Location = new System.Drawing.Point(27, 655);
             this.lblbairro.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblbairro.Name = "lblbairro";
             this.lblbairro.Size = new System.Drawing.Size(50, 18);
@@ -287,7 +247,7 @@ namespace AssisTec
             // txtCidade
             // 
             this.txtCidade.BackColor = System.Drawing.Color.White;
-            this.txtCidade.Location = new System.Drawing.Point(71, 532);
+            this.txtCidade.Location = new System.Drawing.Point(85, 563);
             this.txtCidade.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtCidade.Name = "txtCidade";
             this.txtCidade.ReadOnly = true;
@@ -299,7 +259,7 @@ namespace AssisTec
             this.lblcidade.AutoSize = true;
             this.lblcidade.Font = new System.Drawing.Font("Comic Sans MS", 9.75F);
             this.lblcidade.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.lblcidade.Location = new System.Drawing.Point(9, 532);
+            this.lblcidade.Location = new System.Drawing.Point(27, 562);
             this.lblcidade.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblcidade.Name = "lblcidade";
             this.lblcidade.Size = new System.Drawing.Size(54, 18);
@@ -309,7 +269,7 @@ namespace AssisTec
             // txtEstado
             // 
             this.txtEstado.BackColor = System.Drawing.Color.White;
-            this.txtEstado.Location = new System.Drawing.Point(68, 576);
+            this.txtEstado.Location = new System.Drawing.Point(82, 607);
             this.txtEstado.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtEstado.Name = "txtEstado";
             this.txtEstado.ReadOnly = true;
@@ -321,7 +281,7 @@ namespace AssisTec
             this.lblestado.AutoSize = true;
             this.lblestado.Font = new System.Drawing.Font("Comic Sans MS", 9.75F);
             this.lblestado.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.lblestado.Location = new System.Drawing.Point(7, 576);
+            this.lblestado.Location = new System.Drawing.Point(25, 606);
             this.lblestado.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblestado.Name = "lblestado";
             this.lblestado.Size = new System.Drawing.Size(53, 18);
@@ -331,7 +291,7 @@ namespace AssisTec
             // txtComp
             // 
             this.txtComp.BackColor = System.Drawing.Color.White;
-            this.txtComp.Location = new System.Drawing.Point(95, 665);
+            this.txtComp.Location = new System.Drawing.Point(109, 696);
             this.txtComp.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtComp.Name = "txtComp";
             this.txtComp.Size = new System.Drawing.Size(181, 20);
@@ -342,7 +302,7 @@ namespace AssisTec
             this.lblcep.AutoSize = true;
             this.lblcep.Font = new System.Drawing.Font("Comic Sans MS", 9.75F);
             this.lblcep.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.lblcep.Location = new System.Drawing.Point(130, 426);
+            this.lblcep.Location = new System.Drawing.Point(144, 457);
             this.lblcep.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblcep.Name = "lblcep";
             this.lblcep.Size = new System.Drawing.Size(35, 18);
@@ -353,7 +313,7 @@ namespace AssisTec
             // 
             this.mtbCep.BackColor = System.Drawing.Color.White;
             this.mtbCep.Font = new System.Drawing.Font("Comic Sans MS", 8.25F);
-            this.mtbCep.Location = new System.Drawing.Point(167, 426);
+            this.mtbCep.Location = new System.Drawing.Point(181, 457);
             this.mtbCep.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.mtbCep.Mask = "00000-000";
             this.mtbCep.Name = "mtbCep";
@@ -368,7 +328,7 @@ namespace AssisTec
             this.lblcomplemento.AutoSize = true;
             this.lblcomplemento.Font = new System.Drawing.Font("Comic Sans MS", 9.75F);
             this.lblcomplemento.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.lblcomplemento.Location = new System.Drawing.Point(3, 670);
+            this.lblcomplemento.Location = new System.Drawing.Point(21, 698);
             this.lblcomplemento.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblcomplemento.Name = "lblcomplemento";
             this.lblcomplemento.Size = new System.Drawing.Size(89, 18);
@@ -383,7 +343,7 @@ namespace AssisTec
             this.btnEditar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnEditar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.btnEditar.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnEditar.Location = new System.Drawing.Point(130, 736);
+            this.btnEditar.Location = new System.Drawing.Point(130, 841);
             this.btnEditar.Name = "btnEditar";
             this.btnEditar.Size = new System.Drawing.Size(75, 23);
             this.btnEditar.TabIndex = 30;
@@ -391,40 +351,24 @@ namespace AssisTec
             this.btnEditar.UseVisualStyleBackColor = false;
             this.btnEditar.Click += new System.EventHandler(this.btnEditar_Click);
             // 
-            // cbStatus
-            // 
-            this.cbStatus.FormattingEnabled = true;
-            this.cbStatus.Location = new System.Drawing.Point(67, 333);
-            this.cbStatus.Name = "cbStatus";
-            this.cbStatus.Size = new System.Drawing.Size(121, 21);
-            this.cbStatus.TabIndex = 32;
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Comic Sans MS", 9.75F);
             this.label1.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label1.Location = new System.Drawing.Point(9, 336);
+            this.label1.Location = new System.Drawing.Point(8, 297);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(51, 18);
             this.label1.TabIndex = 33;
             this.label1.Text = "Status:";
             // 
-            // cbNivel
-            // 
-            this.cbNivel.FormattingEnabled = true;
-            this.cbNivel.Location = new System.Drawing.Point(75, 290);
-            this.cbNivel.Name = "cbNivel";
-            this.cbNivel.Size = new System.Drawing.Size(121, 21);
-            this.cbNivel.TabIndex = 34;
-            // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Comic Sans MS", 9.75F);
             this.label2.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label2.Location = new System.Drawing.Point(9, 293);
+            this.label2.Location = new System.Drawing.Point(8, 254);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(43, 18);
@@ -436,72 +380,160 @@ namespace AssisTec
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Comic Sans MS", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label3.Location = new System.Drawing.Point(4, 201);
+            this.label3.Location = new System.Drawing.Point(9, 165);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(49, 18);
             this.label3.TabIndex = 36;
             this.label3.Text = "Senha:";
             // 
-            // txtSenha
-            // 
-            this.txtSenha.BackColor = System.Drawing.Color.White;
-            this.txtSenha.Location = new System.Drawing.Point(67, 198);
-            this.txtSenha.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.txtSenha.Name = "txtSenha";
-            this.txtSenha.Size = new System.Drawing.Size(152, 20);
-            this.txtSenha.TabIndex = 37;
-            // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(55)))), ((int)(((byte)(76)))));
-            this.panel1.Controls.Add(this.btnBuscar);
-            this.panel1.Controls.Add(this.lblEnd);
-            this.panel1.Controls.Add(this.txtSenha);
-            this.panel1.Controls.Add(this.label3);
-            this.panel1.Controls.Add(this.label2);
-            this.panel1.Controls.Add(this.cbNivel);
-            this.panel1.Controls.Add(this.label1);
-            this.panel1.Controls.Add(this.cbStatus);
-            this.panel1.Controls.Add(this.btnEditar);
-            this.panel1.Controls.Add(this.lblcomplemento);
-            this.panel1.Controls.Add(this.mtbCep);
-            this.panel1.Controls.Add(this.lblcep);
-            this.panel1.Controls.Add(this.txtComp);
-            this.panel1.Controls.Add(this.lblestado);
-            this.panel1.Controls.Add(this.txtEstado);
-            this.panel1.Controls.Add(this.lblcidade);
-            this.panel1.Controls.Add(this.txtCidade);
-            this.panel1.Controls.Add(this.lblbairro);
-            this.panel1.Controls.Add(this.txtBairro);
-            this.panel1.Controls.Add(this.lblrua);
-            this.panel1.Controls.Add(this.label4);
-            this.panel1.Controls.Add(this.btnCancel);
-            this.panel1.Controls.Add(this.btnDelete);
-            this.panel1.Controls.Add(this.btnSave);
-            this.panel1.Controls.Add(this.btnNew);
-            this.panel1.Controls.Add(this.mtbTel);
-            this.panel1.Controls.Add(this.txtNumber);
-            this.panel1.Controls.Add(this.lblnum);
-            this.panel1.Controls.Add(this.txtRua);
-            this.panel1.Controls.Add(this.lblendereco);
-            this.panel1.Controls.Add(this.mtbCPF);
-            this.panel1.Controls.Add(this.txtNome);
-            this.panel1.Controls.Add(this.lbltel);
-            this.panel1.Controls.Add(this.lblcpf);
-            this.panel1.Controls.Add(this.lblNome);
+            this.panel1.Controls.Add(this.panel3);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1888, 967);
             this.panel1.TabIndex = 39;
             // 
+            // panel3
+            // 
+            this.panel3.Controls.Add(this.txtSenha);
+            this.panel3.Controls.Add(this.label6);
+            this.panel3.Controls.Add(this.label4);
+            this.panel3.Controls.Add(this.label5);
+            this.panel3.Controls.Add(this.cbNivel);
+            this.panel3.Controls.Add(this.cbStatus);
+            this.panel3.Controls.Add(this.mtbTel);
+            this.panel3.Controls.Add(this.lblcomplemento);
+            this.panel3.Controls.Add(this.lblestado);
+            this.panel3.Controls.Add(this.label3);
+            this.panel3.Controls.Add(this.lblcidade);
+            this.panel3.Controls.Add(this.mtbCPF);
+            this.panel3.Controls.Add(this.lblbairro);
+            this.panel3.Controls.Add(this.txtNome);
+            this.panel3.Controls.Add(this.btnBuscar);
+            this.panel3.Controls.Add(this.lblEnd);
+            this.panel3.Controls.Add(this.label2);
+            this.panel3.Controls.Add(this.lbltel);
+            this.panel3.Controls.Add(this.label1);
+            this.panel3.Controls.Add(this.lblNome);
+            this.panel3.Controls.Add(this.btnEditar);
+            this.panel3.Controls.Add(this.mtbCep);
+            this.panel3.Controls.Add(this.lblcep);
+            this.panel3.Controls.Add(this.txtComp);
+            this.panel3.Controls.Add(this.txtEstado);
+            this.panel3.Controls.Add(this.txtCidade);
+            this.panel3.Controls.Add(this.txtBairro);
+            this.panel3.Controls.Add(this.lblrua);
+            this.panel3.Controls.Add(this.btnCancel);
+            this.panel3.Controls.Add(this.btnDelete);
+            this.panel3.Controls.Add(this.btnSave);
+            this.panel3.Controls.Add(this.btnNew);
+            this.panel3.Controls.Add(this.txtNumber);
+            this.panel3.Controls.Add(this.lblnum);
+            this.panel3.Controls.Add(this.txtRua);
+            this.panel3.Controls.Add(this.lblcpf);
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel3.Location = new System.Drawing.Point(0, 0);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(1888, 967);
+            this.panel3.TabIndex = 59;
+            // 
+            // txtSenha
+            // 
+            this.txtSenha.BackColor = System.Drawing.Color.White;
+            this.txtSenha.Location = new System.Drawing.Point(65, 162);
+            this.txtSenha.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.txtSenha.Name = "txtSenha";
+            this.txtSenha.Size = new System.Drawing.Size(152, 20);
+            this.txtSenha.TabIndex = 58;
+            // 
+            // label6
+            // 
+            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
+            this.label6.BackColor = System.Drawing.SystemColors.Window;
+            this.label6.ForeColor = System.Drawing.SystemColors.Window;
+            this.label6.Location = new System.Drawing.Point(-2, 755);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(1949, 1);
+            this.label6.TabIndex = 50;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.label4.Location = new System.Drawing.Point(156, 30);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(198, 23);
+            this.label4.TabIndex = 55;
+            this.label4.Text = "Gerenciador de Usuários";
+            // 
+            // label5
+            // 
+            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
+            this.label5.BackColor = System.Drawing.SystemColors.Window;
+            this.label5.ForeColor = System.Drawing.SystemColors.Window;
+            this.label5.Location = new System.Drawing.Point(-2, 373);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(1949, 1);
+            this.label5.TabIndex = 49;
+            // 
+            // cbNivel
+            // 
+            this.cbNivel.FormattingEnabled = true;
+            this.cbNivel.Location = new System.Drawing.Point(73, 254);
+            this.cbNivel.Name = "cbNivel";
+            this.cbNivel.Size = new System.Drawing.Size(121, 21);
+            this.cbNivel.TabIndex = 57;
+            // 
+            // cbStatus
+            // 
+            this.cbStatus.FormattingEnabled = true;
+            this.cbStatus.Location = new System.Drawing.Point(65, 297);
+            this.cbStatus.Name = "cbStatus";
+            this.cbStatus.Size = new System.Drawing.Size(121, 21);
+            this.cbStatus.TabIndex = 56;
+            // 
+            // mtbTel
+            // 
+            this.mtbTel.BackColor = System.Drawing.Color.White;
+            this.mtbTel.Location = new System.Drawing.Point(67, 208);
+            this.mtbTel.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.mtbTel.Mask = "(00) 00000-0000";
+            this.mtbTel.Name = "mtbTel";
+            this.mtbTel.Size = new System.Drawing.Size(131, 20);
+            this.mtbTel.TabIndex = 54;
+            this.mtbTel.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // mtbCPF
+            // 
+            this.mtbCPF.BackColor = System.Drawing.Color.White;
+            this.mtbCPF.Location = new System.Drawing.Point(51, 114);
+            this.mtbCPF.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.mtbCPF.Mask = "000.000.000-00";
+            this.mtbCPF.Name = "mtbCPF";
+            this.mtbCPF.Size = new System.Drawing.Size(131, 20);
+            this.mtbCPF.TabIndex = 53;
+            this.mtbCPF.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // txtNome
+            // 
+            this.txtNome.BackColor = System.Drawing.Color.White;
+            this.txtNome.Location = new System.Drawing.Point(71, 74);
+            this.txtNome.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.txtNome.Name = "txtNome";
+            this.txtNome.Size = new System.Drawing.Size(377, 20);
+            this.txtNome.TabIndex = 52;
+            // 
             // btnBuscar
             // 
             this.btnBuscar.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnBuscar.Enabled = false;
             this.btnBuscar.Font = new System.Drawing.Font("Comic Sans MS", 9F);
-            this.btnBuscar.Location = new System.Drawing.Point(305, 426);
+            this.btnBuscar.Location = new System.Drawing.Point(319, 457);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(75, 23);
             this.btnBuscar.TabIndex = 48;
@@ -514,23 +546,12 @@ namespace AssisTec
             this.lblEnd.AutoSize = true;
             this.lblEnd.Font = new System.Drawing.Font("Comic Sans MS", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblEnd.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.lblEnd.Location = new System.Drawing.Point(190, 372);
+            this.lblEnd.Location = new System.Drawing.Point(181, 404);
             this.lblEnd.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblEnd.Name = "lblEnd";
             this.lblEnd.Size = new System.Drawing.Size(96, 27);
             this.lblEnd.TabIndex = 47;
             this.lblEnd.Text = "Endereço";
-            // 
-            // lblendereco
-            // 
-            this.lblendereco.AutoSize = true;
-            this.lblendereco.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblendereco.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.lblendereco.Location = new System.Drawing.Point(216, 196);
-            this.lblendereco.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblendereco.Name = "lblendereco";
-            this.lblendereco.Size = new System.Drawing.Size(0, 23);
-            this.lblendereco.TabIndex = 8;
             // 
             // txtBusca
             // 
@@ -611,7 +632,8 @@ namespace AssisTec
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.Gerenciador_Usuarios_Load);
             this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnAtualizar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvUsuarios)).EndInit();
             this.panel2.ResumeLayout(false);
@@ -619,13 +641,17 @@ namespace AssisTec
             this.ResumeLayout(false);
         }
 
+        private System.Windows.Forms.Panel panel3;
+
+        private System.Windows.Forms.Label label6;
+
+        private System.Windows.Forms.Label label5;
+
         private System.Windows.Forms.Button btnBuscar;
 
         private System.Windows.Forms.Label lblEnd;
 
         private System.Windows.Forms.Label label14;
-
-        private System.Windows.Forms.Label lblendereco;
 
         private System.Windows.Forms.DataGridView dgvUsuarios;
 

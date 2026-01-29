@@ -109,33 +109,32 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             try
             {
                 con.OpenConnection();
-
-                // Query ajustada conforme as imagens das tabelas (PK de usuarios é id_usuario)
                 string sql = @"
-                    SELECT 
-                        p.id_pedido, 
-                        p.status, 
-                        p.data_abertura, 
-                        p.data_atualizacao, 
-                        p.data_fechamento,
-                        p.valor_mao_obra, 
-                        p.valor_pecas, 
-                        p.valor_total,
-                        p.problema_relatado, 
-                        p.diagnostico,
-                        p.observacoes,
-                        c.nome AS cliente_nome, 
-                        c.cpf AS cliente_cpf, 
-                        c.telefone AS cliente_telefone,
-                        u.nome AS tecnico_nome, 
-                        u.telefone AS tecnico_telefone,
-                        u.cpf AS tecnico_cpf,
-                        e.descricao AS equipamento
-                    FROM pedidos p
-                    LEFT JOIN clientes c ON p.id_cliente = c.id_cliente
-                    LEFT JOIN usuarios u ON p.id_tecnico = u.id_usuario
-                    LEFT JOIN equipamentos e ON p.id_equipamento = e.id_equipamento
-                    WHERE p.id_pedido = @id";
+                                SELECT 
+                                    p.id_pedido, 
+                                    p.status, 
+                                    p.data_abertura, 
+                                    p.data_atualizacao, 
+                                    p.data_fechamento,
+                                    p.valor_mao_obra, 
+                                    p.valor_pecas, 
+                                    p.valor_total,
+                                    p.problema_relatado, 
+                                    p.diagnostico,
+                                    p.observacoes,
+                                    c.nome AS cliente_nome, 
+                                    c.cpf AS cliente_cpf, 
+                                    c.telefone AS cliente_telefone,
+                                    u.nome AS tecnico_nome, 
+                                    u.telefone AS tecnico_telefone,
+                                    u.cpf AS tecnico_cpf,
+                                    e.descricao AS equipamento
+                                FROM pedidos p
+                                LEFT JOIN equipamentos e ON p.id_equipamento = e.id_equipamento
+                                LEFT JOIN clientes c     ON e.id_cliente = c.id_cliente
+                                LEFT JOIN usuarios u     ON p.id_tecnico = u.id_usuario
+                                WHERE p.id_pedido = @id
+                                ";
 
                 using (MySqlCommand cmd = new MySqlCommand(sql, con.con))
                 {

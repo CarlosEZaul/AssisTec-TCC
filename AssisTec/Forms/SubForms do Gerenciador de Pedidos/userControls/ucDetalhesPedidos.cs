@@ -43,26 +43,27 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
                 con.OpenConnection();
 
                 string sql = @"
-                    SELECT 
-                        p.id_pedido,
-                        c.nome AS cliente,
-                        u.nome AS tecnico,
-                        e.descricao AS equipamento,
-                        p.status,
-                        p.data_abertura,
-                        p.data_atualizacao,
-                        p.data_fechamento,
-                        p.valor_mao_obra,
-                        p.valor_pecas,
-                        p.valor_total,
-                        p.problema_relatado,
-                        p.diagnostico,
-                        p.observacoes
-                    FROM pedidos p
-                    LEFT JOIN clientes c ON p.id_cliente = c.id_cliente
-                    LEFT JOIN usuarios u ON p.id_tecnico = u.id_usuario
-                    LEFT JOIN equipamentos e ON p.id_equipamento = e.id_equipamento
-                    WHERE p.id_pedido = @id";
+                                SELECT 
+                                    p.id_pedido,
+                                    c.nome AS cliente,
+                                    u.nome AS tecnico,
+                                    e.descricao AS equipamento,
+                                    p.status,
+                                    p.data_abertura,
+                                    p.data_atualizacao,
+                                    p.data_fechamento,
+                                    p.valor_mao_obra,
+                                    p.valor_pecas,
+                                    p.valor_total,
+                                    p.problema_relatado,
+                                    p.diagnostico,
+                                    p.observacoes
+                                FROM pedidos p
+                                LEFT JOIN equipamentos e ON p.id_equipamento = e.id_equipamento
+                                LEFT JOIN clientes c ON e.id_cliente = c.id_cliente
+                                LEFT JOIN usuarios u ON p.id_tecnico = u.id_usuario
+                                WHERE p.id_pedido = @id";
+    
 
                 using (MySqlCommand cmd = new MySqlCommand(sql, con.con))
                 {

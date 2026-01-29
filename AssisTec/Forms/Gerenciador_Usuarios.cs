@@ -609,5 +609,10 @@ namespace AssisTec
                 Console.WriteLine("Erro na busca: " + ex.Message);
             }
         }
+
+        private void label5_Click(object sender, EventArgs e)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

@@ -390,7 +390,11 @@ namespace AssisTec
                     
                     id = Convert.ToInt32(dgvProdutos.Rows[e.RowIndex].Cells[0].Value);
                     txtDescricao.Text = dgvProdutos.Rows[e.RowIndex].Cells["descricao"].Value.ToString();
-                    cbUnidade.SelectedItem = dgvProdutos.Rows[e.RowIndex].Cells["unidade"];
+                    cbUnidade.SelectedItem = dgvProdutos.Rows[e.RowIndex].Cells["unidade"].Value.ToString();
+                    txtPrecoCompra.Text = dgvProdutos.Rows[e.RowIndex].Cells["preco_compra"].Value.ToString();
+                    txtPrecoVenda.Text = dgvProdutos.Rows[e.RowIndex].Cells["preco_venda"].Value.ToString();
+                    txtEstoque.Text = dgvProdutos.Rows[e.RowIndex].Cells["estoque"].Value.ToString();
+                    txtEstoqueMinimo.Text = dgvProdutos.Rows[e.RowIndex].Cells["estoque_minimo"].Value.ToString();
 
                 }
                 catch (Exception exception)

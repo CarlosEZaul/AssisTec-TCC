@@ -21,8 +21,8 @@ namespace AssisTec
 
             // ======== BOTÃO GERENCIAR USUÁRIO ========
             Guna2Button btnUsuario = new Guna2Button();
-            btnUsuario.Text = "👤 Gerenciar Usuários/Técnicos";
-            btnUsuario.Width = 160;
+            btnUsuario.Text = "👤 Gerenciar Usuários/Funcionários";
+            btnUsuario.Width = 190;
             btnUsuario.Height = 50;
             btnUsuario.Location = new System.Drawing.Point(0, 0);
             btnUsuario.FillColor = System.Drawing.Color.FromArgb(94, 148, 255);
@@ -35,7 +35,7 @@ namespace AssisTec
             btnCliente.Text = "👨‍👩‍👧‍👦 Gerenciar Clientes";
             btnCliente.Width = 160;
             btnCliente.Height = 50;
-            btnCliente.Location = new System.Drawing.Point(160, 0);
+            btnCliente.Location = new System.Drawing.Point(180, 0);
             btnCliente.FillColor = System.Drawing.Color.FromArgb(94, 148, 255);
             btnCliente.ForeColor = System.Drawing.Color.White;
             btnCliente.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
