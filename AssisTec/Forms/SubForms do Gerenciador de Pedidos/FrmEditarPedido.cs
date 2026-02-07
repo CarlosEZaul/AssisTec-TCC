@@ -20,10 +20,9 @@ using Exception = System.Exception;
 using Font = System.Drawing.Font;
 using Image = iTextSharp.text.Image;
 
-
 namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
 {
-    public partial class Editar_Pedido : Form
+    public partial class FrmEditarPedido : Form
     {
         private ucDetalhesPedidos detalhes; 
         private ucProdutosUtilizados produtos;
@@ -34,15 +33,14 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
         MySqlCommand cmd;
         private int id;
         
-        public Editar_Pedido(Pedido pedido)
+        public FrmEditarPedido(Pedido pedido)
         {
             InitializeComponent();
             ApplyModernDesign();
             _pedido = pedido;
         }
 
-
-        private void Editar_Pedido_Load(object sender, EventArgs e)
+        private void FrmEditarPedido_Load(object sender, EventArgs e)
         {
             detalhes = new ucDetalhesPedidos(_pedido);
             produtos = new ucProdutosUtilizados(_pedido);
@@ -54,7 +52,6 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             panelConteudo.Controls.Add(servicos);
             MostrarTela(detalhes);
         }
-        
         private void MostrarTela(UserControl tela)
         {
             foreach (Control ctrl in panelConteudo.Controls)
@@ -73,12 +70,10 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
                 // Propriedades do formulário (específicas deste form)
                 this.BackColor = Color.FromArgb(240, 240, 240);
                 this.Font = new Font("Segoe UI", 9F);
-                this.FormBorderStyle = FormBorderStyle.FixedSingle;
-                this.MaximizeBox = false;
-                this.StartPosition = FormStartPosition.CenterScreen;
+                
 
                 // Estilo dos painéis (específicos deste form)
-                panel1.BackColor = Color.FromArgb(39, 54, 77);
+                //panel1.BackColor = Color.FromArgb(39, 54, 77);
                 panel2.BackColor = Color.FromArgb(32, 45, 64);
 
                 // Estilo das labels: Usando o método estático

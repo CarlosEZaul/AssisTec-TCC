@@ -20,9 +20,9 @@ using Exception = System.Exception;
 using Font = System.Drawing.Font;
 using Image = iTextSharp.text.Image;
 
-namespace AssisTec
+namespace AssisTec.UserControls
 {
-    public partial class Gerenciador_Pedidos : Form
+    public partial class ucGerenciadorPedidos : UserControl
     {
         conexao con = new conexao();
         string sql;
@@ -32,14 +32,11 @@ namespace AssisTec
         private bool okCep;
         private Pedido _pedido;
         
-        public Gerenciador_Pedidos()
+        public ucGerenciadorPedidos()
         {
             InitializeComponent();
             ApplyModernDesign();
-            
-            
         }
-
         private void Gerenciador_Pedidos_Load(object sender, EventArgs e)
         {
             btnNew.Focus();
@@ -56,13 +53,10 @@ namespace AssisTec
                 this.Text = "Gerenciador de Clientes";
                 this.BackColor = Color.FromArgb(240, 240, 240);
                 this.Font = new Font("Segoe UI", 9F);
-                this.FormBorderStyle = FormBorderStyle.FixedSingle;
-                this.MaximizeBox = false;
-                this.StartPosition = FormStartPosition.CenterScreen;
 
                 // Estilo dos painéis (específicos deste form)
                 panel1.BackColor = Color.FromArgb(39, 54, 77);
-                panel2.BackColor = Color.FromArgb(32, 45, 64);
+                
         
                 // Estilo das labels: Usando o método estático
                 //DesingComponentes.ApplyLabelStyles(this);
@@ -78,7 +72,7 @@ namespace AssisTec
 
                 // Estilo dos botões: Usando o método estático para cada controle
                 DesingComponentes.StyleButton(btnNew, Color.FromArgb(0, 120, 215));
-                DesingComponentes.StyleButton(btnCancel, Color.FromArgb(0, 120, 215));
+                DesingComponentes.StyleButton(btnImprimir, Color.FromArgb(0, 120, 215));
                 DesingComponentes.StyleButton(btnImprimir, Color.FromArgb(0, 120, 215));
                 DesingComponentes.StyleButton(btnDelete, Color.FromArgb(209, 17, 65));
                 // ... (outros Buttons)
@@ -100,7 +94,7 @@ namespace AssisTec
         {
             btnDelete.Enabled = true;
             btnGerenciar.Enabled = true;
-            btnCancel.Enabled = true;
+            btnImprimir.Enabled = true;
             btnImprimir.Enabled = true;
         }
 
@@ -108,7 +102,7 @@ namespace AssisTec
         {
             btnDelete.Enabled = false;
             btnGerenciar.Enabled = false;
-            btnCancel.Enabled = false;
+            btnImprimir.Enabled = false;
             btnImprimir.Enabled = false;
         }
         
@@ -432,20 +426,21 @@ namespace AssisTec
         private void btnEditar_Click(object sender, EventArgs e)
         {
             Pedido pedido = formPedido();
-            Editar_Pedido editar_Pedido = new Editar_Pedido(pedido);
-            editar_Pedido.ShowDialog();
+            FrmEditarPedido editar_Pedido = new FrmEditarPedido(pedido);
+            editar_Pedido.Show();
         }
 
         private void dgvPedidos_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             Pedido pedido = formPedido();
-            Editar_Pedido editar_Pedido = new Editar_Pedido(pedido);
-            editar_Pedido.ShowDialog();
+            FrmEditarPedido editar_Pedido = new FrmEditarPedido(pedido);
+            editar_Pedido.Show();
         }
 
         private void btnImprimir_Click(object sender, EventArgs e)
         {
             ImprimirPedidoPDF();
         }
+
     }
 }

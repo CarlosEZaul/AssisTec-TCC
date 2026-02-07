@@ -464,9 +464,6 @@ C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\bin\Debug\System.ValueTuple.x
 C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\obj\Debug\AssisTec.csproj.AssemblyReference.cache
 C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\obj\Debug\AssisTec.FrmPrincipal.resources
 C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\obj\Debug\AssisTec.FrmLogin.resources
-C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\obj\Debug\AssisTec.Gerenciador_Pedidos.resources
-C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\obj\Debug\AssisTec.FrmProduto.resources
-C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\obj\Debug\AssisTec.SubForms_do_Gerenciador_de_Pedidos.Editar_Pedido.resources
 C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\obj\Debug\AssisTec.SubForms_do_Gerenciador_de_Pedidos.Novo_Pedido.resources
 C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\obj\Debug\AssisTec.Properties.Resources.resources
 C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\obj\Debug\AssisTec.csproj.GenerateResource.cache
@@ -481,3 +478,5 @@ C:\Users\carlo\RiderProjects\AssisTEC-TCC\AssisTec\obj\Debug\AssisTec.UserContro
 C:\Users\carlo\RiderProjects\AssisTEC-TCC\AssisTec\obj\Debug\AssisTec.UserControls.ucGerenciadorClientes.resources
 C:\Users\carlo\RiderProjects\AssisTEC-TCC\AssisTec\obj\Debug\RefitStubs.g.cs
 C:\Users\carlo\RiderProjects\AssisTEC-TCC\AssisTec\obj\Debug\AssisTec.UserControls.ucProdutos.resources
+C:\Users\carlo\RiderProjects\AssisTEC-TCC\AssisTec\obj\Debug\AssisTec.UserControls.ucGerenciadorPedidos.resources
+C:\Users\carlo\RiderProjects\AssisTEC-TCC\AssisTec\obj\Debug\AssisTec.SubForms_do_Gerenciador_de_Pedidos.FrmEditarPedido.resources
