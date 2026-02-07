@@ -466,13 +466,11 @@ C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\obj\Debug\AssisTec.FrmPrincip
 C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\obj\Debug\AssisTec.Gerenciador_Clientes.resources
 C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\obj\Debug\AssisTec.FrmLogin.resources
 C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\obj\Debug\AssisTec.Gerenciador_Pedidos.resources
-C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\obj\Debug\AssisTec.Gerenciador_Usuarios.resources
 C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\obj\Debug\AssisTec.FrmProduto.resources
 C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\obj\Debug\AssisTec.SubForms_do_Gerenciador_de_Pedidos.Editar_Pedido.resources
 C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\obj\Debug\AssisTec.SubForms_do_Gerenciador_de_Pedidos.Novo_Pedido.resources
 C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\obj\Debug\AssisTec.Properties.Resources.resources
 C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\obj\Debug\AssisTec.csproj.GenerateResource.cache
-C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\obj\Debug\RefitStubs.g.cs
 C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\obj\Debug\AssisTec.csproj.CoreCompileInputs.cache
 C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\obj\Debug\AssisTec.csproj.Up2Date
 C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\obj\Debug\AssisTec.exe
@@ -480,3 +478,6 @@ C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\obj\Debug\AssisTec.pdb
 C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\obj\Debug\AssisTec.SubForms_do_Gerenciador_de_Pedidos.ucDetalhesPedidos.resources
 C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\obj\Debug\AssisTec.SubForms_do_Gerenciador_de_Pedidos.ucProdutosUtilizados.resources
 C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\obj\Debug\AssisTec.SubForms_do_Gerenciador_de_Pedidos.ucServicos.resources
+C:\Users\carlo\RiderProjects\AssisTEC-TCC\AssisTec\obj\Debug\AssisTec.UserControls.ucGerenciador_Usuario.resources
+C:\Users\carlo\RiderProjects\AssisTEC-TCC\AssisTec\obj\Debug\AssisTec.UserControls.ucGerenciadorClientes.resources
+C:\Users\carlo\RiderProjects\AssisTEC-TCC\AssisTec\obj\Debug\RefitStubs.g.cs

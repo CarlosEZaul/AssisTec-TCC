@@ -65,7 +65,7 @@ namespace AssisTec
                 panel2.BackColor = Color.FromArgb(32, 45, 64);
         
                 // Estilo das labels: Usando o método estático
-                DesingComponentes.ApplyLabelStyles(this);
+                //DesingComponentes.ApplyLabelStyles(this);
 
                 // Estilo dos cabeçalhos de seção (específicos deste form)
                 label1.Font = new Font("Segoe UI Semibold", 14F);

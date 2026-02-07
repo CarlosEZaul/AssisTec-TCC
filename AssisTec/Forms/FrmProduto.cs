@@ -36,7 +36,7 @@ namespace AssisTec
                 this.BackColor = Color.FromArgb(240, 240, 240);
 
                 // Labels
-                DesingComponentes.ApplyLabelStyles(this);
+                //DesingComponentes.ApplyLabelStyles(this);
 
                 // TextBox
                 DesingComponentes.StyleTextBox(txtDescricao);

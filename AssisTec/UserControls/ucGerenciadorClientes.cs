@@ -12,9 +12,9 @@ using MySql.Data.MySqlClient;
 using Refit;
 using Exception = System.Exception;
 
-namespace AssisTec
+namespace AssisTec.UserControls
 {
-    public partial class Gerenciador_Clientes : Form
+    public partial class ucGerenciadorClientes : UserControl
     {
         conexao con = new conexao();
         string sql;
@@ -24,21 +24,19 @@ namespace AssisTec
         private string uf;
         private bool okCep;
 
-        public Gerenciador_Clientes()
+        public ucGerenciadorClientes()
         {
             InitializeComponent();
             disabletxt();
-            ApplyModernDesign(); // Aplicar design moderno
+            ApplyModernDesign();
         }
 
-        private void Gerenciador_ClientesLoad(object sender, EventArgs e)
+        private void ucGerenciadorClientes_Load(object sender, EventArgs e)
         {
-            
             disable();
             btnNew.Focus();
             listGrid();
         }
-
         #region Design Moderno
 
         private void ApplyModernDesign()
@@ -551,12 +549,6 @@ namespace AssisTec
         private void btnAtualizar_Click(object sender, EventArgs e)
         {
             listGrid();
-        }
-
-
-        private void label14_Click(object sender, EventArgs e)
-        {
-            throw new System.NotImplementedException();
         }
     }
 }

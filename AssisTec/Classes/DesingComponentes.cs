@@ -5,9 +5,9 @@ namespace AssisTec
 {
     public class DesingComponentes
     {
-        public static void ApplyLabelStyles(Form form)
+        public static void ApplyLabelStyles(UserControl userControl)
         {
-            foreach (Control control in form.Controls)
+            foreach (Control control in userControl.Controls)
             {
                 if (control is Label label)
                 {
@@ -75,11 +75,12 @@ namespace AssisTec
 
             dgv.DefaultCellStyle.Font = new Font("Segoe UI", 9);
 
-            // Agora o autosize é configurável
+            
             dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
            
-            // Scroll automático (apenas vertical geralmente)
+            
             dgv.ScrollBars = ScrollBars.Both;
+            dgv.ScrollBars = ScrollBars.Horizontal;
         }
     }
 }
