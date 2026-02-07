@@ -13,6 +13,7 @@ namespace AssisTec
         // Instância única do UserControl (evita recriação)
         private ucGerenciador_Usuario ucUsuarios = new ucGerenciador_Usuario();
         private ucGerenciadorClientes ucClientes = new ucGerenciadorClientes();
+        private ucProdutos ucProdutos = new ucProdutos();
 
         public FrmPrincipal()
         {
@@ -41,8 +42,15 @@ namespace AssisTec
                 "👤 Clientes",
                 (s, e) => AbrirUserControl(ucClientes, s)
             );
-
             panelNavegacao.Controls.Add(btnClientes);
+            
+            // Botão Produtos
+            Guna2Button btnProdutos = CriarBotaoMenu(
+                "👤 Produtos",
+                (s, e) => AbrirUserControl(ucProdutos, s)
+            );
+            
+            panelNavegacao.Controls.Add(btnProdutos);
             // Logo
             Label lblLogo = new Label
             {

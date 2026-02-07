@@ -647,7 +647,7 @@ namespace AssisTec.UserControls
             this.txtNome.Location = new System.Drawing.Point(18, 117);
             this.txtNome.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtNome.Name = "txtNome";
-            this.txtNome.Size = new System.Drawing.Size(377, 20);
+            this.txtNome.Size = new System.Drawing.Size(460, 20);
             this.txtNome.TabIndex = 6;
             // 
             // lbldatanasc

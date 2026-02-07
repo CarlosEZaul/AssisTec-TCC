@@ -4,17 +4,16 @@ using System.Drawing;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 
-namespace AssisTec
+namespace AssisTec.UserControls
 {
-    public partial class FrmProduto : Form
+    public partial class ucProdutos : UserControl
     {
         conexao con = new conexao();
         string sql;
         MySqlCommand cmd;
         private int modo;
         private int id;
-        
-        public FrmProduto()
+        public ucProdutos()
         {
             InitializeComponent();
             ApplyModernDesign();
@@ -25,7 +24,6 @@ namespace AssisTec
             txtPrecoCompra.Text = 0.ToString();
             txtPrecoVenda.Text = 0.ToString();
         }
-
         #region Design Moderno
 
         private void ApplyModernDesign()
@@ -197,7 +195,6 @@ namespace AssisTec
             btnCancel.Enabled = true;
             btnSave.Enabled = true;
         }
-        #endregion
         
         private void listGrid()
         {
@@ -363,6 +360,7 @@ namespace AssisTec
                     cmd.Parameters.AddWithValue("@id_produto", id);
                     cmd.ExecuteNonQuery();
                     con.CloseConnection();
+                    listGrid();
                 
                     MessageBox.Show("Produto deleteado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
@@ -471,6 +469,16 @@ namespace AssisTec
         private void btnAtualizar_Click(object sender, EventArgs e)
         {
             listGrid();
+        }
+        #endregion
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            deleteAll();
+            disable();
+            desableBtn();
+            btnNew.Enabled = true;
+            btnDelete.Enabled = false;
         }
     }
 }

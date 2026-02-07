@@ -463,7 +463,6 @@ C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\bin\Debug\System.Threading.Ta
 C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\bin\Debug\System.ValueTuple.xml
 C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\obj\Debug\AssisTec.csproj.AssemblyReference.cache
 C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\obj\Debug\AssisTec.FrmPrincipal.resources
-C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\obj\Debug\AssisTec.Gerenciador_Clientes.resources
 C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\obj\Debug\AssisTec.FrmLogin.resources
 C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\obj\Debug\AssisTec.Gerenciador_Pedidos.resources
 C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\obj\Debug\AssisTec.FrmProduto.resources
@@ -481,3 +480,4 @@ C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\obj\Debug\AssisTec.SubForms_d
 C:\Users\carlo\RiderProjects\AssisTEC-TCC\AssisTec\obj\Debug\AssisTec.UserControls.ucGerenciador_Usuario.resources
 C:\Users\carlo\RiderProjects\AssisTEC-TCC\AssisTec\obj\Debug\AssisTec.UserControls.ucGerenciadorClientes.resources
 C:\Users\carlo\RiderProjects\AssisTEC-TCC\AssisTec\obj\Debug\RefitStubs.g.cs
+C:\Users\carlo\RiderProjects\AssisTEC-TCC\AssisTec\obj\Debug\AssisTec.UserControls.ucProdutos.resources

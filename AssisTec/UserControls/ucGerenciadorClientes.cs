@@ -427,22 +427,25 @@ namespace AssisTec.UserControls
                 
                 Cursor = Cursors.WaitCursor;
                 
-                var cepBuscar = RestService.For<ICepApiService>("http://viacep.com.br");
-                var endereco = await cepBuscar.GetAdressAsync(cep);
+                Cursor = Cursors.WaitCursor;
                 
-                txtCidade.Text = endereco.cidade;
-                txtRua.Text = endereco.rua;
-                txtBairro.Text = endereco.bairro;
-                txtEstado.Text = endereco.estado + " - " + endereco.uf;
+                BuscaCEP buscaCep = new BuscaCEP();
+                buscaCep.cep = cep;
+                buscaCep.Consultar();
+                
+                txtCidade.Text = buscaCep.cidade;
+                txtRua.Text = buscaCep.rua;
+                txtBairro.Text = buscaCep.bairro;
+                txtEstado.Text = buscaCep.estado;
+                
                 okCep = true;
                 
-                if (endereco.cidade == null && endereco.rua == null && endereco.bairro == null)
+                if (buscaCep.cidade == null && buscaCep.rua == null && buscaCep.bairro == null)
                 {
                     MessageBox.Show("Falha ao localizar CEP!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     okCep = false;
                 }
-
-                uf = endereco.uf;
+                
             }
             catch (Exception ex)
             {

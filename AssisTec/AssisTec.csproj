@@ -148,11 +148,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\CepResponse.cs" />
+    <Compile Include="Classes\BuscaCEP.cs" />
     <Compile Include="Classes\Cliente.cs" />
     <Compile Include="Classes\conexao.cs" />
     <Compile Include="Classes\DesingComponentes.cs" />
-    <Compile Include="Classes\ICepApiService.cs" />
     <Compile Include="Classes\Pedido.cs" />
     <Compile Include="Classes\Pessoa.cs" />
     <Compile Include="Classes\Produto.cs" />
@@ -169,12 +168,6 @@
     <Compile Include="Forms\FrmPrincipal.Designer.cs">
       <DependentUpon>FrmPrincipal.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Gerenciador_Clientes.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\Gerenciador_Clientes.Designer.cs">
-      <DependentUpon>Gerenciador_Clientes.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\FrmLogin.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -187,40 +180,34 @@
     <Compile Include="Forms\Gerenciador_Pedidos.Designer.cs">
       <DependentUpon>Gerenciador_Pedidos.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\FrmProduto.cs">
+    <Compile Include="Forms\SubUserControls do Gerenciador de Pedidos\Editar_Pedido.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\FrmProduto.Designer.cs">
-      <DependentUpon>FrmProduto.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\SubForms do Gerenciador de Pedidos\Editar_Pedido.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\SubForms do Gerenciador de Pedidos\Editar_Pedido.Designer.cs">
+    <Compile Include="Forms\SubUserControls do Gerenciador de Pedidos\Editar_Pedido.Designer.cs">
       <DependentUpon>Editar_Pedido.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\SubForms do Gerenciador de Pedidos\Novo_Pedido.cs">
+    <Compile Include="Forms\SubUserControls do Gerenciador de Pedidos\Novo_Pedido.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\SubForms do Gerenciador de Pedidos\Novo_Pedido.Designer.cs">
+    <Compile Include="Forms\SubUserControls do Gerenciador de Pedidos\Novo_Pedido.Designer.cs">
       <DependentUpon>Novo_Pedido.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\SubForms do Gerenciador de Pedidos\userControls\ucDetalhesPedidos.cs">
+    <Compile Include="Forms\SubUserControls do Gerenciador de Pedidos\userControls\ucDetalhesPedidos.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Forms\SubForms do Gerenciador de Pedidos\userControls\ucDetalhesPedidos.Designer.cs">
+    <Compile Include="Forms\SubUserControls do Gerenciador de Pedidos\userControls\ucDetalhesPedidos.Designer.cs">
       <DependentUpon>ucDetalhesPedidos.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\SubForms do Gerenciador de Pedidos\userControls\ucProdutosUtilizados.cs">
+    <Compile Include="Forms\SubUserControls do Gerenciador de Pedidos\userControls\ucProdutosUtilizados.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Forms\SubForms do Gerenciador de Pedidos\userControls\ucProdutosUtilizados.Designer.cs">
+    <Compile Include="Forms\SubUserControls do Gerenciador de Pedidos\userControls\ucProdutosUtilizados.Designer.cs">
       <DependentUpon>ucProdutosUtilizados.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\SubForms do Gerenciador de Pedidos\userControls\ucServicos.cs">
+    <Compile Include="Forms\SubUserControls do Gerenciador de Pedidos\userControls\ucServicos.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Forms\SubForms do Gerenciador de Pedidos\userControls\ucServicos.Designer.cs">
+    <Compile Include="Forms\SubUserControls do Gerenciador de Pedidos\userControls\ucServicos.Designer.cs">
       <DependentUpon>ucServicos.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
@@ -237,11 +224,14 @@
     <Compile Include="UserControls\ucGerenciador_Usuario.Designer.cs">
       <DependentUpon>ucGerenciador_Usuario.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\ucProdutos.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\ucProdutos.Designer.cs">
+      <DependentUpon>ucProdutos.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Forms\FrmPrincipal.resx">
       <DependentUpon>FrmPrincipal.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Gerenciador_Clientes.resx">
-      <DependentUpon>Gerenciador_Clientes.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FrmLogin.resx">
       <DependentUpon>FrmLogin.cs</DependentUpon>
@@ -249,22 +239,19 @@
     <EmbeddedResource Include="Forms\Gerenciador_Pedidos.resx">
       <DependentUpon>Gerenciador_Pedidos.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\FrmProduto.resx">
-      <DependentUpon>FrmProduto.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\SubForms do Gerenciador de Pedidos\Editar_Pedido.resx">
+    <EmbeddedResource Include="Forms\SubUserControls do Gerenciador de Pedidos\Editar_Pedido.resx">
       <DependentUpon>Editar_Pedido.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\SubForms do Gerenciador de Pedidos\Novo_Pedido.resx">
+    <EmbeddedResource Include="Forms\SubUserControls do Gerenciador de Pedidos\Novo_Pedido.resx">
       <DependentUpon>Novo_Pedido.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\SubForms do Gerenciador de Pedidos\userControls\ucDetalhesPedidos.resx">
+    <EmbeddedResource Include="Forms\SubUserControls do Gerenciador de Pedidos\userControls\ucDetalhesPedidos.resx">
       <DependentUpon>ucDetalhesPedidos.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\SubForms do Gerenciador de Pedidos\userControls\ucProdutosUtilizados.resx">
+    <EmbeddedResource Include="Forms\SubUserControls do Gerenciador de Pedidos\userControls\ucProdutosUtilizados.resx">
       <DependentUpon>ucProdutosUtilizados.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\SubForms do Gerenciador de Pedidos\userControls\ucServicos.resx">
+    <EmbeddedResource Include="Forms\SubUserControls do Gerenciador de Pedidos\userControls\ucServicos.resx">
       <DependentUpon>ucServicos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -277,6 +264,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\ucGerenciador_Usuario.resx">
       <DependentUpon>ucGerenciador_Usuario.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\ucProdutos.resx">
+      <DependentUpon>ucProdutos.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Connected Services\wscep\wscep.svcmap">
       <Generator>WCF Proxy Generator</Generator>
