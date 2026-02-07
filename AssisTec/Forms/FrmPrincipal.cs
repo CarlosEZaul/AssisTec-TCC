@@ -65,11 +65,12 @@ namespace AssisTec
             // Logo
             Label lblLogo = new Label
             {
-                Text = "ASSISTEC",
+                Text = "ASSISTEC    ",
+                Anchor = AnchorStyles.Left  | AnchorStyles.Top,
                 Dock = DockStyle.Top,
                 Height = 80,
                 ForeColor = Color.White,
-                Font = new Font("Segoe UI", 16, FontStyle.Bold),
+                Font = new Font("Segoe UI", 22, FontStyle.Bold),
                 TextAlign = ContentAlignment.MiddleCenter
             };
 

@@ -424,7 +424,6 @@ C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\bin\Debug\K4os.Hash.xxHash.dl
 C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\bin\Debug\Microsoft.Bcl.AsyncInterfaces.dll
 C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\bin\Debug\MySql.Data.dll
 C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\bin\Debug\Newtonsoft.Json.dll
-C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\bin\Debug\Refit.dll
 C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\bin\Debug\System.Buffers.dll
 C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\bin\Debug\System.Configuration.ConfigurationManager.dll
 C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\bin\Debug\System.Diagnostics.DiagnosticSource.dll
@@ -448,7 +447,6 @@ C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\bin\Debug\K4os.Hash.xxHash.xm
 C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\bin\Debug\Microsoft.Bcl.AsyncInterfaces.xml
 C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\bin\Debug\MySql.Data.xml
 C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\bin\Debug\Newtonsoft.Json.xml
-C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\bin\Debug\Refit.xml
 C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\bin\Debug\System.Buffers.xml
 C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\bin\Debug\System.Configuration.ConfigurationManager.xml
 C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\bin\Debug\System.Diagnostics.DiagnosticSource.xml
@@ -476,7 +474,6 @@ C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\obj\Debug\AssisTec.SubForms_d
 C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\obj\Debug\AssisTec.SubForms_do_Gerenciador_de_Pedidos.ucServicos.resources
 C:\Users\carlo\RiderProjects\AssisTEC-TCC\AssisTec\obj\Debug\AssisTec.UserControls.ucGerenciador_Usuario.resources
 C:\Users\carlo\RiderProjects\AssisTEC-TCC\AssisTec\obj\Debug\AssisTec.UserControls.ucGerenciadorClientes.resources
-C:\Users\carlo\RiderProjects\AssisTEC-TCC\AssisTec\obj\Debug\RefitStubs.g.cs
 C:\Users\carlo\RiderProjects\AssisTEC-TCC\AssisTec\obj\Debug\AssisTec.UserControls.ucProdutos.resources
 C:\Users\carlo\RiderProjects\AssisTEC-TCC\AssisTec\obj\Debug\AssisTec.UserControls.ucGerenciadorPedidos.resources
 C:\Users\carlo\RiderProjects\AssisTEC-TCC\AssisTec\obj\Debug\AssisTec.SubForms_do_Gerenciador_de_Pedidos.FrmEditarPedido.resources
