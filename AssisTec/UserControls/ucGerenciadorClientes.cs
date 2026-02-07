@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using AssisTec.AtendeClienteService;
 using MySql.Data.MySqlClient;
-using Refit;
 using Exception = System.Exception;
 
 namespace AssisTec.UserControls

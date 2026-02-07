@@ -11,7 +11,6 @@ using System.Windows.Forms;
 using AssisTec.AtendeClienteService;
 using AssisTec.SubForms_do_Gerenciador_de_Pedidos;
 using MySql.Data.MySqlClient;
-using Refit;
 using iTextSharp.text.pdf;
 using iTextSharp.text;
 using System.Diagnostics;
