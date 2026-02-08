@@ -56,6 +56,11 @@ namespace AssisTec.UserControls
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.txtDescricao = new System.Windows.Forms.TextBox();
+            this.btnEntrada = new System.Windows.Forms.Button();
+            this.btnSaida = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.label8 = new System.Windows.Forms.Label();
+            this.txtFornecedor = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnAtualizar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProdutos)).BeginInit();
@@ -65,6 +70,8 @@ namespace AssisTec.UserControls
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(55)))), ((int)(((byte)(76)))));
+            this.panel1.Controls.Add(this.label8);
+            this.panel1.Controls.Add(this.txtFornecedor);
             this.panel1.Controls.Add(this.btnAtualizar);
             this.panel1.Controls.Add(this.dgvProdutos);
             this.panel1.Controls.Add(this.label14);
@@ -145,14 +152,17 @@ namespace AssisTec.UserControls
             // panel2
             // 
             this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel2.Controls.Add(this.button1);
+            this.panel2.Controls.Add(this.btnSaida);
+            this.panel2.Controls.Add(this.btnEntrada);
             this.panel2.Controls.Add(this.btnCancel);
             this.panel2.Controls.Add(this.btnNew);
             this.panel2.Controls.Add(this.btnSave);
             this.panel2.Controls.Add(this.btnDelete);
             this.panel2.Controls.Add(this.btnEditar);
-            this.panel2.Location = new System.Drawing.Point(29, 685);
+            this.panel2.Location = new System.Drawing.Point(29, 639);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(471, 61);
+            this.panel2.Size = new System.Drawing.Size(471, 107);
             this.panel2.TabIndex = 138;
             // 
             // btnCancel
@@ -315,6 +325,7 @@ namespace AssisTec.UserControls
             this.txtEstoque.Name = "txtEstoque";
             this.txtEstoque.Size = new System.Drawing.Size(390, 20);
             this.txtEstoque.TabIndex = 60;
+            this.txtEstoque.TextChanged += new System.EventHandler(this.txtEstoque_TextChanged);
             this.txtEstoque.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtEstoque_KeyPress);
             // 
             // label4
@@ -374,6 +385,69 @@ namespace AssisTec.UserControls
             this.txtDescricao.Size = new System.Drawing.Size(377, 20);
             this.txtDescricao.TabIndex = 55;
             // 
+            // btnEntrada
+            // 
+            this.btnEntrada.BackColor = System.Drawing.Color.RoyalBlue;
+            this.btnEntrada.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnEntrada.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnEntrada.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.btnEntrada.ForeColor = System.Drawing.SystemColors.Control;
+            this.btnEntrada.Location = new System.Drawing.Point(50, 61);
+            this.btnEntrada.Name = "btnEntrada";
+            this.btnEntrada.Size = new System.Drawing.Size(94, 33);
+            this.btnEntrada.TabIndex = 104;
+            this.btnEntrada.Text = "Registrar Saída";
+            this.btnEntrada.UseVisualStyleBackColor = false;
+            // 
+            // btnSaida
+            // 
+            this.btnSaida.BackColor = System.Drawing.Color.RoyalBlue;
+            this.btnSaida.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnSaida.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSaida.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.btnSaida.ForeColor = System.Drawing.SystemColors.Control;
+            this.btnSaida.Location = new System.Drawing.Point(150, 61);
+            this.btnSaida.Name = "btnSaida";
+            this.btnSaida.Size = new System.Drawing.Size(90, 33);
+            this.btnSaida.TabIndex = 105;
+            this.btnSaida.Text = "Registrar Saida";
+            this.btnSaida.UseVisualStyleBackColor = false;
+            // 
+            // button1
+            // 
+            this.button1.BackColor = System.Drawing.Color.RoyalBlue;
+            this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.button1.ForeColor = System.Drawing.SystemColors.Control;
+            this.button1.Location = new System.Drawing.Point(246, 61);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(147, 33);
+            this.button1.TabIndex = 106;
+            this.button1.Text = "Visualizar Movimentações";
+            this.button1.UseVisualStyleBackColor = false;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Comic Sans MS", 9.75F);
+            this.label8.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.label8.Location = new System.Drawing.Point(13, 414);
+            this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(82, 18);
+            this.label8.TabIndex = 146;
+            this.label8.Text = "Fornecedor:";
+            // 
+            // txtFornecedor
+            // 
+            this.txtFornecedor.BackColor = System.Drawing.Color.White;
+            this.txtFornecedor.Location = new System.Drawing.Point(120, 412);
+            this.txtFornecedor.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.txtFornecedor.Name = "txtFornecedor";
+            this.txtFornecedor.Size = new System.Drawing.Size(350, 20);
+            this.txtFornecedor.TabIndex = 145;
+            // 
             // ucProdutos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -388,6 +462,12 @@ namespace AssisTec.UserControls
             this.panel2.ResumeLayout(false);
             this.ResumeLayout(false);
         }
+
+        private System.Windows.Forms.Button btnEntrada;
+        private System.Windows.Forms.Button btnSaida;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.TextBox txtFornecedor;
 
         private System.Windows.Forms.PictureBox btnAtualizar;
 

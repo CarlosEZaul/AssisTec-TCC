@@ -9,12 +9,11 @@ namespace AssisTec
     public partial class FrmPrincipal : Form
     {
         private Guna2Button botaoAtivo;
-
-        // Instância única do UserControl (evita recriação)
-        private ucGerenciador_Usuario ucUsuarios = new ucGerenciador_Usuario();
-        private ucGerenciadorClientes ucClientes = new ucGerenciadorClientes();
-        private ucProdutos ucProdutos = new ucProdutos();
-        private ucGerenciadorPedidos ucPedidos = new ucGerenciadorPedidos();
+        
+        ucGerenciador_Usuario ucUsuarios = new ucGerenciador_Usuario();
+        ucGerenciadorClientes ucClientes = new ucGerenciadorClientes();
+        ucProdutos ucProdutos = new ucProdutos();
+        ucGerenciadorPedidos ucPedidos = new ucGerenciadorPedidos();
 
         public FrmPrincipal()
         {
@@ -134,5 +133,6 @@ namespace AssisTec
                 }
             }
         }
+        
     }
 }

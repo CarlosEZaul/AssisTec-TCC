@@ -69,8 +69,9 @@ namespace AssisTec.UserControls
             prod.unidade = cbUnidade.SelectedItem?.ToString() ?? "";
             prod.precoCompra = double.Parse(txtPrecoCompra.Text.Replace("R$", "").Trim());
             prod.precoVenda = double.Parse(txtPrecoVenda.Text.Replace("R$", "").Trim());
-            prod.estoque = Convert.ToInt32(txtEstoque.Text);
-            prod.estoqueMinimo = Convert.ToInt32(txtEstoqueMinimo.Text);
+            prod.estoque = Convert.ToDouble(txtEstoque.Text);
+            prod.estoqueMinimo = Convert.ToDouble(txtEstoqueMinimo.Text);
+            prod.fornecedor = txtFornecedor.Text;
             return prod;
         }
         
@@ -78,12 +79,8 @@ namespace AssisTec.UserControls
         {
             cbUnidade.Items.Clear();
             cbUnidade.Items.Add("Unidade/Peça");
-            cbUnidade.Items.Add("Kg");
-            cbUnidade.Items.Add("Litros");
             cbUnidade.Items.Add("Metros");
             cbUnidade.DropDownStyle = ComboBoxStyle.DropDownList;
-
-            
         }
 
         private void textBoxPrecoCompra_TextChanged(object sender, EventArgs e)
@@ -130,6 +127,8 @@ namespace AssisTec.UserControls
                 dgvProdutos.Columns[4].HeaderText = "Preço de Venda";
                 dgvProdutos.Columns[5].HeaderText = "Estoque";
                 dgvProdutos.Columns[6].HeaderText = "Estoque Minimo";
+                dgvProdutos.Columns[7].HeaderText = "Fornecedor";
+                
             }
         }
         
@@ -232,7 +231,7 @@ namespace AssisTec.UserControls
                 con.OpenConnection();
                 disable();
                 btnNew.Enabled = true;
-                sql = "insert into produtos (descricao, unidade, preco_compra, preco_venda, estoque, estoque_minimo) values (@descricao, @unidade, @preco_compra, @preco_venda, @estoque, @estoque_minimo)";
+                sql = "insert into produtos (descricao, unidade, preco_compra, preco_venda, estoque, estoque_minimo, fornecedor) values (@descricao, @unidade, @preco_compra, @preco_venda, @estoque, @estoque_minimo, @fornecedor)";
                 cmd = new MySqlCommand(sql, con.con);
                 cmd.Parameters.AddWithValue(@"descricao", produto.descricao);
                 cmd.Parameters.AddWithValue(@"unidade", produto.unidade);
@@ -240,6 +239,7 @@ namespace AssisTec.UserControls
                 cmd.Parameters.AddWithValue(@"preco_venda", produto.precoVenda);
                 cmd.Parameters.AddWithValue(@"estoque", produto.estoque);
                 cmd.Parameters.AddWithValue(@"estoque_minimo", produto.estoqueMinimo);
+                cmd.Parameters.AddWithValue(@"fornecedor", produto.fornecedor);
                 cmd.ExecuteNonQuery();
                 con.CloseConnection();
 
@@ -265,7 +265,7 @@ namespace AssisTec.UserControls
             try
             {
                 con.OpenConnection();
-                sql = "update produtos set descricao=@descricao, unidade=@unidade, preco_compra=@preco_compra, preco_venda=@preco_venda, estoque=@estoque, estoque_minimo=@estoque_minimo where id_produto=@id_produto";
+                sql = "update produtos set descricao=@descricao, unidade=@unidade, preco_compra=@preco_compra, preco_venda=@preco_venda, estoque=@estoque, estoque_minimo=@estoque_minimo, fornecedor=@fornecedor where id_produto=@id_produto";
                 
                 cmd = new MySqlCommand(sql, con.con);
                 cmd.Parameters.AddWithValue("@id_produto", produto.id);
@@ -275,6 +275,7 @@ namespace AssisTec.UserControls
                 cmd.Parameters.AddWithValue("@preco_venda", produto.precoVenda);
                 cmd.Parameters.AddWithValue("@estoque", produto.estoque);
                 cmd.Parameters.AddWithValue("@estoque_minimo", produto.estoqueMinimo);
+                cmd.Parameters.AddWithValue("@fornecedor", produto.fornecedor);
                 
 
                 cmd.ExecuteNonQuery();
@@ -313,6 +314,8 @@ namespace AssisTec.UserControls
         private void btnEditar_Click(object sender, EventArgs e)
         {
             enableTxt();
+            txtEstoque.Enabled = false;
+            cbUnidade.Enabled = false;
             btnCancel.Enabled = true;
             btnNew.Enabled = false;
             btnDelete.Enabled = false;
@@ -328,9 +331,22 @@ namespace AssisTec.UserControls
                 string.IsNullOrWhiteSpace(txtPrecoVenda.Text) ||
                 string.IsNullOrWhiteSpace(txtEstoque.Text) ||
                 string.IsNullOrWhiteSpace(txtEstoqueMinimo.Text) ||
-                string.IsNullOrWhiteSpace(cbUnidade.Text))
+                string.IsNullOrWhiteSpace(cbUnidade.Text) ||
+                string.IsNullOrWhiteSpace(txtFornecedor.Text))
             {
                 MessageBox.Show("Preencha todos os campos obrigatórios corretamente!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtDescricao.Focus();
+                return;
+            }
+            if (Convert.ToDouble(txtEstoque.Text) < Convert.ToDouble(txtEstoqueMinimo.Text))
+            {
+                MessageBox.Show("O estoque é menor que o mínimo", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtDescricao.Focus();
+                return;
+            }
+            if (Convert.ToDouble(txtEstoque.Text) ==0 || Convert.ToDouble(txtEstoqueMinimo.Text)==0)
+            {
+                MessageBox.Show("O estoque não pode ser 0", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtDescricao.Focus();
                 return;
             }
@@ -393,6 +409,7 @@ namespace AssisTec.UserControls
                     txtPrecoVenda.Text = dgvProdutos.Rows[e.RowIndex].Cells["preco_venda"].Value.ToString();
                     txtEstoque.Text = dgvProdutos.Rows[e.RowIndex].Cells["estoque"].Value.ToString();
                     txtEstoqueMinimo.Text = dgvProdutos.Rows[e.RowIndex].Cells["estoque_minimo"].Value.ToString();
+                    txtFornecedor.Text = dgvProdutos.Rows[e.RowIndex].Cells["fornecedor"].Value.ToString();
 
                 }
                 catch (Exception exception)
@@ -479,6 +496,11 @@ namespace AssisTec.UserControls
             desableBtn();
             btnNew.Enabled = true;
             btnDelete.Enabled = false;
+        }
+
+        private void txtEstoque_TextChanged(object sender, EventArgs e)
+        {
+            
         }
     }
 }
