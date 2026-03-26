@@ -46,6 +46,8 @@
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=AssisTec_002FGerenciador_005FUsuario/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=AssisTec_002FGerenciador_005FUsuarios/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=AssisTec_002FProperties_002FResources/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=AssisTec_002FUserControls_002FGerenciador_005FClientes/@EntryIndexedValue">False</s:Boolean>
+	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=AssisTec_002FUserControls_002FGerenciador_005FClientes/@EntryIndexRemoved">True</s:Boolean>
 	
 	
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=AssisTec_002FUserControls_002FSubUserControls_0020do_0020Gerenciador_0020de_0020Pedidos_002FucDetalhesPedidos/@EntryIndexedValue">True</s:Boolean>
@@ -70,7 +72,9 @@
 	
 	
 	
-	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=AssisTec_002FUserControls_002FucGerenciadorClientes/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=AssisTec_002FUserControls_002FucGerenciadorClientes/@EntryIndexedValue">False</s:Boolean>
+	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=AssisTec_002FUserControls_002FucGerenciadorClientes/@EntryIndexRemoved">True</s:Boolean>
+	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=AssisTec_002FUserControls_002FucGerenciador_005FClientes/@EntryIndexedValue">True</s:Boolean>
 	
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=AssisTec_002FUserControls_002FucGerenciador_005Fde_005FUsuarios/@EntryIndexedValue">False</s:Boolean>
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=AssisTec_002FUserControls_002FucGerenciador_005Fde_005FUsuarios/@EntryIndexRemoved">True</s:Boolean>

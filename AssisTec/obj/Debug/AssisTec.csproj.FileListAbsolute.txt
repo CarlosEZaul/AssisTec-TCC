@@ -526,7 +526,6 @@ C:\Users\Pc do estagiario\RiderProjects\AssisTec-TCC\tcc\AssisTec\bin\Debug\Syst
 C:\Users\Pc do estagiario\RiderProjects\AssisTec-TCC\tcc\AssisTec\bin\Debug\System.Threading.Tasks.Extensions.xml
 C:\Users\Pc do estagiario\RiderProjects\AssisTec-TCC\tcc\AssisTec\bin\Debug\System.ValueTuple.xml
 C:\Users\Pc do estagiario\RiderProjects\AssisTec-TCC\tcc\AssisTec\obj\Debug\AssisTec.csproj.AssemblyReference.cache
-C:\Users\Pc do estagiario\RiderProjects\AssisTec-TCC\tcc\AssisTec\obj\Debug\AssisTec.exe.config
 C:\Users\Pc do estagiario\RiderProjects\AssisTec-TCC\tcc\AssisTec\obj\Debug\AssisTec.formSubs.resources
 C:\Users\Pc do estagiario\RiderProjects\AssisTec-TCC\tcc\AssisTec\obj\Debug\AssisTec.FrmPrincipal.resources
 C:\Users\Pc do estagiario\RiderProjects\AssisTec-TCC\tcc\AssisTec\obj\Debug\AssisTec.FrmLogin.resources
@@ -536,7 +535,6 @@ C:\Users\Pc do estagiario\RiderProjects\AssisTec-TCC\tcc\AssisTec\obj\Debug\Assi
 C:\Users\Pc do estagiario\RiderProjects\AssisTec-TCC\tcc\AssisTec\obj\Debug\AssisTec.SubForms_do_Gerenciador_de_Pedidos.ucDetalhesPedidos.resources
 C:\Users\Pc do estagiario\RiderProjects\AssisTec-TCC\tcc\AssisTec\obj\Debug\AssisTec.SubForms_do_Gerenciador_de_Pedidos.ucProdutosUtilizados.resources
 C:\Users\Pc do estagiario\RiderProjects\AssisTec-TCC\tcc\AssisTec\obj\Debug\AssisTec.SubForms_do_Gerenciador_de_Pedidos.ucServicos.resources
-C:\Users\Pc do estagiario\RiderProjects\AssisTec-TCC\tcc\AssisTec\obj\Debug\AssisTec.UserControls.ucGerenciadorClientes.resources
 C:\Users\Pc do estagiario\RiderProjects\AssisTec-TCC\tcc\AssisTec\obj\Debug\AssisTec.UserControls.ucGerenciador_Usuario.resources
 C:\Users\Pc do estagiario\RiderProjects\AssisTec-TCC\tcc\AssisTec\obj\Debug\AssisTec.csproj.GenerateResource.cache
 C:\Users\Pc do estagiario\RiderProjects\AssisTec-TCC\tcc\AssisTec\obj\Debug\AssisTec.csproj.CoreCompileInputs.cache
@@ -544,3 +542,5 @@ C:\Users\Pc do estagiario\RiderProjects\AssisTec-TCC\tcc\AssisTec\obj\Debug\Assi
 C:\Users\Pc do estagiario\RiderProjects\AssisTec-TCC\tcc\AssisTec\obj\Debug\AssisTec.exe
 C:\Users\Pc do estagiario\RiderProjects\AssisTec-TCC\tcc\AssisTec\obj\Debug\AssisTec.pdb
 C:\Users\Pc do estagiario\RiderProjects\AssisTec-TCC\tcc\AssisTec\obj\Debug\AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios.ucFormularioUsuarios.resources
+C:\Users\Pc do estagiario\RiderProjects\AssisTec-TCC\tcc\AssisTec\obj\Debug\AssisTec.UserControls.ucGerenciador_Clientes.resources
+C:\Users\Pc do estagiario\RiderProjects\AssisTec-TCC\tcc\AssisTec\obj\Debug\AssisTec.UserControls.ucFormulario_Clientes.ucFormulario_Clientes.resources

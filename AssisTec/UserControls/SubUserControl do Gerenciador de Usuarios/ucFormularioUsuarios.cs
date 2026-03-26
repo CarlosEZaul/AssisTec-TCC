@@ -116,15 +116,21 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios
             user.cpf = mtbCPF.Text;
             user.telefone = mtbTel.Text;
             user.Senha = txtSenha.Text;
-
+            
             if (cbNivel.SelectedItem != null)
             {
                 string texto = cbNivel.SelectedItem.ToString();
                 user.Nivel = int.Parse(texto.Split('-')[0].Trim());
             }
+            
+            if (cbStatus.SelectedItem != null)
+            {
+                string texto = cbStatus.SelectedItem.ToString();
+                user.Status = texto;
+            }
 
-            user.Senha = cbStatus.SelectedItem?.ToString() ?? "";
-
+            user.Senha = txtSenha.Text;
+            
             
             user.cep = mtbCep.Text;
             user.rua = txtRua.Text;
@@ -161,7 +167,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios
 
         private void fechar()
         {
-            this.Hide();
+            
         }
         
         async Task BuscarCep(string cep)

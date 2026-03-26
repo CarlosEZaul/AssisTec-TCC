@@ -146,6 +146,7 @@ namespace AssisTec.UserControls
             ucFormularioUsuarios.Left = (this.ClientSize.Width - ucFormularioUsuarios.Width)/2;
             ucFormularioUsuarios.Top = (this.ClientSize.Height - ucFormularioUsuarios.Height)/2;
             ucFormularioUsuarios.Show();
+            
         }
         
         
@@ -266,6 +267,7 @@ namespace AssisTec.UserControls
         {
             throw new System.NotImplementedException();
         }
+
 
         
     }

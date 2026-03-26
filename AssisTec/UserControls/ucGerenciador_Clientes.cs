@@ -13,7 +13,7 @@ using Exception = System.Exception;
 
 namespace AssisTec.UserControls
 {
-    public partial class ucGerenciadorClientes : UserControl
+    public partial class ucGerenciador_Clientes : UserControl
     {
         conexao con = new conexao();
         string sql;
@@ -23,7 +23,7 @@ namespace AssisTec.UserControls
         private string uf;
         private bool okCep;
 
-        public ucGerenciadorClientes()
+        public ucGerenciador_Clientes()
         {
             InitializeComponent();
             

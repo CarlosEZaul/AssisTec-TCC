@@ -11,7 +11,7 @@ namespace AssisTec
         private Guna2Button botaoAtivo;
         
         ucGerenciador_Usuario ucUsuarios = new ucGerenciador_Usuario();
-        ucGerenciadorClientes ucClientes = new ucGerenciadorClientes();
+        ucGerenciador_Clientes ucClientes = new ucGerenciador_Clientes();
         //ucProdutos ucProdutos = new ucProdutos();
         //ucGerenciadorPedidos ucPedidos = new ucGerenciadorPedidos();
 
