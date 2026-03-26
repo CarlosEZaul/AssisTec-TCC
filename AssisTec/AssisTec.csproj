@@ -159,6 +159,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>wscep.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="Forms\formSubs.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\formSubs.Designer.cs">
+      <DependentUpon>formSubs.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\FrmPrincipal.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -185,6 +191,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserControls\SubUserControl do Gerenciador de Usuarios\ucFormularioUsuarios.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\SubUserControl do Gerenciador de Usuarios\ucFormularioUsuarios.Designer.cs">
+      <DependentUpon>ucFormularioUsuarios.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\SubUserControls do Gerenciador de Pedidos\ucDetalhesPedidos.cs" />
     <Compile Include="UserControls\SubUserControls do Gerenciador de Pedidos\ucDetalhesPedidos.Designer.cs">
       <DependentUpon>ucDetalhesPedidos.cs</DependentUpon>
@@ -197,17 +209,17 @@
     <Compile Include="UserControls\SubUserControls do Gerenciador de Pedidos\ucServicos.Designer.cs">
       <DependentUpon>ucServicos.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\ucFormulario_Clientes\ucFormulario_Clientes.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\ucFormulario_Clientes\ucFormulario_Clientes.Designer.cs">
+      <DependentUpon>ucFormulario_Clientes.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\ucGerenciadorClientes.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="UserControls\ucGerenciadorClientes.Designer.cs">
       <DependentUpon>ucGerenciadorClientes.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\ucGerenciadorPedidos.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UserControls\ucGerenciadorPedidos.Designer.cs">
-      <DependentUpon>ucGerenciadorPedidos.cs</DependentUpon>
     </Compile>
     <Compile Include="UserControls\ucGerenciador_Usuario.cs">
       <SubType>UserControl</SubType>
@@ -215,12 +227,9 @@
     <Compile Include="UserControls\ucGerenciador_Usuario.Designer.cs">
       <DependentUpon>ucGerenciador_Usuario.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\ucProdutos.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UserControls\ucProdutos.Designer.cs">
-      <DependentUpon>ucProdutos.cs</DependentUpon>
-    </Compile>
+    <EmbeddedResource Include="Forms\formSubs.resx">
+      <DependentUpon>formSubs.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\FrmPrincipal.resx">
       <DependentUpon>FrmPrincipal.cs</DependentUpon>
     </EmbeddedResource>
@@ -238,6 +247,9 @@
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\SubUserControl do Gerenciador de Usuarios\ucFormularioUsuarios.resx">
+      <DependentUpon>ucFormularioUsuarios.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UserControls\SubUserControls do Gerenciador de Pedidos\ucDetalhesPedidos.resx">
       <DependentUpon>ucDetalhesPedidos.cs</DependentUpon>
     </EmbeddedResource>
@@ -247,17 +259,14 @@
     <EmbeddedResource Include="UserControls\SubUserControls do Gerenciador de Pedidos\ucServicos.resx">
       <DependentUpon>ucServicos.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\ucFormulario_Clientes\ucFormulario_Clientes.resx">
+      <DependentUpon>ucFormulario_Clientes.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UserControls\ucGerenciadorClientes.resx">
       <DependentUpon>ucGerenciadorClientes.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\ucGerenciadorPedidos.resx">
-      <DependentUpon>ucGerenciadorPedidos.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="UserControls\ucGerenciador_Usuario.resx">
       <DependentUpon>ucGerenciador_Usuario.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\ucProdutos.resx">
-      <DependentUpon>ucProdutos.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Connected Services\wscep\wscep.svcmap">
       <Generator>WCF Proxy Generator</Generator>

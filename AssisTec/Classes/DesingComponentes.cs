@@ -82,5 +82,14 @@ namespace AssisTec
             dgv.ScrollBars = ScrollBars.Both;
             dgv.ScrollBars = ScrollBars.Horizontal;
         }
+        
+        // ============================================================
+        //  ESTILO PARA CHECKBOX
+        // ============================================================
+        public static void StyleComboBox(ComboBox comboBox)
+        {
+            comboBox.ForeColor = Color.White;
+        }
+        
     }
 }

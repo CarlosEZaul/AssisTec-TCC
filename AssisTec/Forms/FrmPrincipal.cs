@@ -12,8 +12,8 @@ namespace AssisTec
         
         ucGerenciador_Usuario ucUsuarios = new ucGerenciador_Usuario();
         ucGerenciadorClientes ucClientes = new ucGerenciadorClientes();
-        ucProdutos ucProdutos = new ucProdutos();
-        ucGerenciadorPedidos ucPedidos = new ucGerenciadorPedidos();
+        //ucProdutos ucProdutos = new ucProdutos();
+        //ucGerenciadorPedidos ucPedidos = new ucGerenciadorPedidos();
 
         public FrmPrincipal()
         {
@@ -45,26 +45,26 @@ namespace AssisTec
             panelNavegacao.Controls.Add(btnClientes);
             
             // Botão Produtos
-            Guna2Button btnProdutos = CriarBotaoMenu(
+            /*Guna2Button btnProdutos = CriarBotaoMenu(
                 "📦 Produtos",
                 (s, e) => AbrirUserControl(ucProdutos, s)
-            );
+            );*/
             
-            panelNavegacao.Controls.Add(btnProdutos);
+            //panelNavegacao.Controls.Add(btnProdutos);
             
             //Botão Pedidos
-            Guna2Button btnPedidos = CriarBotaoMenu(
+            /*Guna2Button btnPedidos = CriarBotaoMenu(
                 "📨 Pedidos",
                 (s, e) => AbrirUserControl(ucPedidos, s)
             );
             
-            panelNavegacao.Controls.Add(btnPedidos);
+            panelNavegacao.Controls.Add(btnPedidos);*/
             
             
             // Logo
             Label lblLogo = new Label
             {
-                Text = "ASSISTEC    ",
+                Text = "ASSISTEC",
                 Anchor = AnchorStyles.Left  | AnchorStyles.Top,
                 Dock = DockStyle.Top,
                 Height = 80,

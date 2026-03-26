@@ -1,7 +1,153 @@
-﻿namespace AssisTec
+﻿using System;
+using System.Windows.Forms;
+using MySql.Data.MySqlClient;
+
+namespace AssisTec
 {
-    public class Cliente:Pessoa
+    public class Cliente : Pessoa
     {
+        private conexao con = new conexao();
+        private MySqlCommand cmd;
+        private string sql;
         
+        
+
+        public void novoCliente(Cliente cliente)
+        {
+
+            if (cliente == null)
+            {
+                MessageBox.Show("Cadastro com um campo inválido!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            }
+
+            try
+            {
+
+                con.OpenConnection();
+                sql = "SELECT COUNT(*) FROM clientes WHERE cpf=@cpf";
+                cmd = new MySqlCommand(sql, con.con);
+                cmd.Parameters.AddWithValue("@cpf", cliente.cpf);
+                int count = Convert.ToInt32(cmd.ExecuteScalar());
+                if (count > 0)
+                {
+                    MessageBox.Show("Cliente já cadastrado!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    con.CloseConnection();
+                }
+                else
+                {
+
+                    con.OpenConnection();
+                    sql =
+                        "insert into clientes (nome, cpf, telefone, datanasc, cep, rua, numero, cidade, estado, bairro, complemento) values (@nome, @cpf, @telefone, @datanasc, @cep, @rua, @numero, @cidade, @estado, @bairro, @complemento)";
+                    cmd = new MySqlCommand(sql, con.con);
+
+                    cmd.Parameters.AddWithValue("@nome", cliente.nome);
+                    cmd.Parameters.AddWithValue("@cpf", cliente.cpf);
+                    cmd.Parameters.AddWithValue("@telefone", cliente.telefone);
+                    cmd.Parameters.AddWithValue("@datanasc", cliente.dataNascimentoFormatada);
+                    cmd.Parameters.AddWithValue("@cep", cliente.cep);
+                    cmd.Parameters.AddWithValue("@rua", cliente.rua);
+                    cmd.Parameters.AddWithValue("@numero", cliente.numero);
+                    cmd.Parameters.AddWithValue("@cidade", cliente.cidade);
+                    cmd.Parameters.AddWithValue("@estado", cliente.estado);
+                    cmd.Parameters.AddWithValue("@bairro", cliente.bairro);
+                    cmd.Parameters.AddWithValue("@complemento", cliente.complemento);
+
+                    cmd.ExecuteNonQuery();
+                    con.CloseConnection();
+
+
+                    MessageBox.Show("Cadastrado com sucesso!", "Sucesso", MessageBoxButtons.OK,
+                        MessageBoxIcon.Information);
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao cadastrar cliente\n" + ex.Message, "Erro", MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
+
+
+
+        }
+
+        public void editarCliente(Cliente cliente)
+        {
+
+            if (cliente == null)
+            {
+                MessageBox.Show("Tentativa de cadastro com campo inválido!", "Erro", MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+                return;
+            }
+
+            try
+            {
+                con.OpenConnection();
+                sql =
+                    "update clientes set nome=@nome, cpf=@cpf, telefone=@telefone, datanasc=@datanasc, cep=@cep, rua=@rua, numero=@numero, cidade=@cidade, estado=@estado, bairro=@bairro, complemento=@complemento where id_cliente=@id_cliente";
+
+                cmd = new MySqlCommand(sql, con.con);
+                cmd.Parameters.AddWithValue("@id_cliente", cliente.id);
+                cmd.Parameters.AddWithValue("@nome", cliente.nome);
+                cmd.Parameters.AddWithValue("@cpf", cliente.cpf);
+                cmd.Parameters.AddWithValue("@telefone", cliente.telefone);
+                cmd.Parameters.AddWithValue("@datanasc", cliente.dataNascimentoFormatada);
+                cmd.Parameters.AddWithValue("@cep", cliente.cep);
+                cmd.Parameters.AddWithValue("@rua", cliente.rua);
+                cmd.Parameters.AddWithValue("@numero", cliente.numero);
+                cmd.Parameters.AddWithValue("@cidade", cliente.cidade);
+                cmd.Parameters.AddWithValue("@estado", cliente.estado);
+                cmd.Parameters.AddWithValue("@bairro", cliente.bairro);
+                cmd.Parameters.AddWithValue("@complemento", cliente.complemento);
+
+                cmd.ExecuteNonQuery();
+                con.CloseConnection();
+
+
+
+                MessageBox.Show("Cliente editado com sucesso!", "Sucesso", MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show("Erro ao editar!\n" + exception.Message, "Erro", MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
+        }
+
+        public void deletarCLiente(int id)
+        {
+            DialogResult result = MessageBox.Show("Deseja excluir cliente?", "Confirmar Exclusão", 
+                MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                
+            if (result == DialogResult.Yes)
+            {
+                try
+                {
+                    con.OpenConnection();
+                    sql = "DELETE FROM clientes WHERE id_cliente = @id";
+                    cmd = new MySqlCommand(sql, con.con);
+                    cmd.Parameters.AddWithValue("@id", id);
+                    cmd.ExecuteNonQuery();
+                    con.CloseConnection();
+                    
+                    
+                    MessageBox.Show("Cliente excluído com sucesso!", "Sucesso", 
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch (Exception exception)
+                {
+                    MessageBox.Show("Erro ao excluir cliente!\n" + exception.Message, "Erro", 
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+
+            
+        }
     }
 }
+    

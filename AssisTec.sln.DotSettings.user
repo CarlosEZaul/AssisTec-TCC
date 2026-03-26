@@ -1,8 +1,16 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=7020124F_002D9FFC_002D4AC3_002D8F3D_002DAAB8E0240759_002Ff_003AArrayList_002Ecs_002Fl_003A_002E_002E_003F_002E_002E_003F_002E_002E_003FAppData_003FRoaming_003FJetBrains_003FRider2025_002E2_003Fresharper_002Dhost_003FDecompilerCache_003Fdecompiler_003Fb6a0e6615ee04ea7ad535b38f9316104568788_003F6b_003F00ed5382_003FArrayList_002Ecs/@EntryIndexedValue">ForceIncluded</s:String>
 	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=7020124F_002D9FFC_002D4AC3_002D8F3D_002DAAB8E0240759_002Ff_003ATaskAwaiter_002Ecs_002Fl_003A_002E_002E_003F_002E_002E_003F_002E_002E_003FAppData_003FRoaming_003FJetBrains_003FRider2024_002E3_003Fresharper_002Dhost_003FDecompilerCache_003Fdecompiler_003Fb18a8b3398e74bca86895881dd02956c573648_003F45_003F0f4af254_003FTaskAwaiter_002Ecs/@EntryIndexedValue">ForceIncluded</s:String>
+	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=AssisTec_002FForms_002FformSubs/@EntryIndexedValue">True</s:Boolean>
+	
+	
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=AssisTec_002FForms_002FFrmLogin/@EntryIndexedValue">True</s:Boolean>
 	
+	
+	
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=AssisTec_002FForms_002FFrmPrincipal/@EntryIndexedValue">True</s:Boolean>
+	
+	
 	
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=AssisTec_002FForms_002FFrmProduto/@EntryIndexedValue">True</s:Boolean>
 	
@@ -19,7 +27,12 @@
 	
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=AssisTec_002FForms_002FSubForms_0020do_0020Gerenciador_0020de_0020Pedidos_002FForm1/@EntryIndexedValue">False</s:Boolean>
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=AssisTec_002FForms_002FSubForms_0020do_0020Gerenciador_0020de_0020Pedidos_002FForm1/@EntryIndexRemoved">True</s:Boolean>
+	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=AssisTec_002FForms_002FSubForms_0020do_0020Gerenciador_0020de_0020Pedidos_002FFrmEditarPedido/@EntryIndexedValue">True</s:Boolean>
+	
+	
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=AssisTec_002FForms_002FSubForms_0020do_0020Gerenciador_0020de_0020Pedidos_002FNovo_005FPedido/@EntryIndexedValue">True</s:Boolean>
+	
+	
 	
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=AssisTec_002FForms_002FSubForms_0020do_0020Gerenciador_0020de_0020Pedidos_002FuserControls_002FucDetalhesPedidos/@EntryIndexedValue">True</s:Boolean>
 	
@@ -34,13 +47,45 @@
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=AssisTec_002FGerenciador_005FUsuarios/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=AssisTec_002FProperties_002FResources/@EntryIndexedValue">True</s:Boolean>
 	
+	
+	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=AssisTec_002FUserControls_002FSubUserControls_0020do_0020Gerenciador_0020de_0020Pedidos_002FucDetalhesPedidos/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=AssisTec_002FUserControls_002FSubUserControls_0020do_0020Gerenciador_0020de_0020Pedidos_002FucProdutosUtilizados/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=AssisTec_002FUserControls_002FSubUserControls_0020do_0020Gerenciador_0020de_0020Pedidos_002FucServicos/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=AssisTec_002FUserControls_002FSubUserControl_0020do_0020Gerenciador_0020de_0020Usuarios_002FFormularioUsuarios/@EntryIndexedValue">False</s:Boolean>
+	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=AssisTec_002FUserControls_002FSubUserControl_0020do_0020Gerenciador_0020de_0020Usuarios_002FFormularioUsuarios/@EntryIndexRemoved">True</s:Boolean>
+	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=AssisTec_002FUserControls_002FSubUserControl_0020do_0020Gerenciador_0020de_0020Usuarios_002FucFormularioUsuarios/@EntryIndexedValue">True</s:Boolean>
+	
+	
+	
+	
+	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=AssisTec_002FUserControls_002FucFormulario_005FClientes_002FFormulario_005FClientes/@EntryIndexedValue">False</s:Boolean>
+	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=AssisTec_002FUserControls_002FucFormulario_005FClientes_002FFormulario_005FClientes/@EntryIndexRemoved">True</s:Boolean>
+	
+	
+	
+	
+	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=AssisTec_002FUserControls_002FucFormulario_005FClientes_002FucFormulario_005FClientes/@EntryIndexedValue">True</s:Boolean>
+	
+	
+	
+	
+	
+	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=AssisTec_002FUserControls_002FucGerenciadorClientes/@EntryIndexedValue">True</s:Boolean>
+	
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=AssisTec_002FUserControls_002FucGerenciador_005Fde_005FUsuarios/@EntryIndexedValue">False</s:Boolean>
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=AssisTec_002FUserControls_002FucGerenciador_005Fde_005FUsuarios/@EntryIndexRemoved">True</s:Boolean>
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=AssisTec_002FUserControls_002FucGerenciador_005FUsuario/@EntryIndexedValue">True</s:Boolean>
 	
 	
 	
+	
+	
+	
+	
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/Initialized/@EntryValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/ShowOnlyErrors/@EntryValue">False</s:Boolean>
+	
+	
+	
 	
 	</wpf:ResourceDictionary>
