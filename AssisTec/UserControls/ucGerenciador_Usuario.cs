@@ -43,7 +43,7 @@ namespace AssisTec.UserControls
              try
              {
                  this.Text = "Gerenciador de Usuários";
-                 this.BackColor = Color.FromArgb(240, 240, 240);
+                 this.BackColor = Color.FromArgb(39, 55, 76);
 
                  // Labels
                 // DesingComponentes.ApplyLabelStyles(this);
@@ -77,7 +77,7 @@ namespace AssisTec.UserControls
         {
             cbNivel.Items.Clear();
             cbNivel.Items.Add("1- Gerente");
-            cbNivel.Items.Add("2- Gestor/Funcionário");
+            cbNivel.Items.Add("2- Atendente");
             cbNivel.Items.Add("3 - Técnico de TI");
             cbNivel.DropDownStyle = ComboBoxStyle.DropDownList;
         }

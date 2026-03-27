@@ -105,13 +105,12 @@ namespace AssisTec.UserControls.ucFormulario_Clientes
             this.btnSave.TabIndex = 100;
             this.btnSave.Text = "Salvar";
             this.btnSave.UseVisualStyleBackColor = false;
-            this.btnSave.Click += new System.EventHandler(this.btnSave_Click_1);
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // btnLimpar
             // 
             this.btnLimpar.BackColor = System.Drawing.Color.RoyalBlue;
             this.btnLimpar.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnLimpar.Enabled = false;
             this.btnLimpar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnLimpar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.btnLimpar.ForeColor = System.Drawing.SystemColors.Control;
@@ -121,6 +120,7 @@ namespace AssisTec.UserControls.ucFormulario_Clientes
             this.btnLimpar.TabIndex = 101;
             this.btnLimpar.Text = "Limpar";
             this.btnLimpar.UseVisualStyleBackColor = false;
+            this.btnLimpar.Click += new System.EventHandler(this.btnLimpar_Click);
             // 
             // label1
             // 
@@ -289,6 +289,7 @@ namespace AssisTec.UserControls.ucFormulario_Clientes
             this.btnBuscar.TabIndex = 176;
             this.btnBuscar.Text = "Buscar";
             this.btnBuscar.UseVisualStyleBackColor = true;
+            this.btnBuscar.Click += new System.EventHandler(this.mtbCep_Leave);
             // 
             // mtbCep
             // 
@@ -301,6 +302,7 @@ namespace AssisTec.UserControls.ucFormulario_Clientes
             this.mtbCep.Size = new System.Drawing.Size(131, 23);
             this.mtbCep.TabIndex = 174;
             this.mtbCep.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.mtbCep.Leave += new System.EventHandler(this.mtbCep_Leave);
             // 
             // txtComp
             // 

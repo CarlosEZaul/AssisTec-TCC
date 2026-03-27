@@ -10,12 +10,17 @@ namespace AssisTec.UserControls.ucFormulario_Clientes
         private int modo;
         private string uf;
         private bool okCep;
-        public ucFormulario_Clientes()
+        public ucFormulario_Clientes(int id, int modo, DataGridView dgv)
         {
             InitializeComponent();
         }
 
         #region Métodos e funções
+
+        private void fechar()
+        {
+            this.Hide();
+        }
         private void deleteAll()
         {
             txtNome.Text = "";
@@ -62,32 +67,40 @@ namespace AssisTec.UserControls.ucFormulario_Clientes
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            Cliente cliente = formCliente();
-            if (string.IsNullOrWhiteSpace(txtNome.Text) ||
-                !mtbCPF.MaskFull ||
-                !mtbTel.MaskFull ||
-                !mtbCep.MaskFull ||
-                string.IsNullOrWhiteSpace(txtNumber.Text) ||
-                !DateTime.TryParseExact(mtbNasc.Text, "dd/MM/yyyy", null, System.Globalization.DateTimeStyles.None, out _))
+            try
             {
-                MessageBox.Show("Preencha todos os campos obrigatórios corretamente!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txtNome.Focus();
-                return;
-            }
+                Cliente cliente = formCliente();
+                if (string.IsNullOrWhiteSpace(txtNome.Text) ||
+                    !mtbCPF.MaskFull ||
+                    !mtbTel.MaskFull ||
+                    !mtbCep.MaskFull ||
+                    string.IsNullOrWhiteSpace(txtNumber.Text) ||
+                    !DateTime.TryParseExact(mtbNasc.Text, "dd/MM/yyyy", null, System.Globalization.DateTimeStyles.None, out _))
+                {
+                    MessageBox.Show("Preencha todos os campos obrigatórios corretamente!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtNome.Focus();
+                    return;
+                }
             
-            if (modo == 1 && okCep == true) 
-            {
-                cliente.novoCliente(cliente);
+                if (modo == 1 && okCep == true) 
+                {
+                    cliente.novoCliente(cliente);
                 
+                }
+                else if (modo == 2 && okCep == true) 
+                {
+                    cliente.editarCliente(cliente);
+                }
+                else if (!okCep)
+                {
+                    MessageBox.Show("Por favor, verifique o CEP informado.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
             }
-            else if (modo == 2 && okCep == true) 
+            catch (Exception ex)
             {
-                cliente.editarCliente(cliente);
+                MessageBox.Show(ex.Message, "Erro ao gerenciar clientes", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            else if (!okCep)
-            {
-                MessageBox.Show("Por favor, verifique o CEP informado.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
+           
         }
         
         async Task BuscarCep(string cep)
@@ -155,12 +168,9 @@ namespace AssisTec.UserControls.ucFormulario_Clientes
 
         private void btnFechar_Click(object sender, EventArgs e)
         {
-            throw new System.NotImplementedException();
+            fechar();
         }
 
-        private void btnSave_Click_1(object sender, EventArgs e)
-        {
-            throw new System.NotImplementedException();
-        }
+        
     }
 }

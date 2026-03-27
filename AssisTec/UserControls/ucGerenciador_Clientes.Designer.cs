@@ -50,7 +50,7 @@ namespace AssisTec.UserControls
             // 
             // panel2
             // 
-            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel2.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.panel2.Controls.Add(this.btnImprimir);
             this.panel2.Controls.Add(this.btnOS);
             this.panel2.Controls.Add(this.btnEditar);
@@ -60,6 +60,7 @@ namespace AssisTec.UserControls
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(504, 61);
             this.panel2.TabIndex = 146;
+            this.panel2.Click += new System.EventHandler(this.btnNew_Click);
             // 
             // btnImprimir
             // 
@@ -102,6 +103,7 @@ namespace AssisTec.UserControls
             this.btnEditar.TabIndex = 102;
             this.btnEditar.Text = "Editar";
             this.btnEditar.UseVisualStyleBackColor = false;
+            this.btnEditar.Click += new System.EventHandler(this.btnEditar_Click);
             // 
             // btnNew
             // 
@@ -116,6 +118,7 @@ namespace AssisTec.UserControls
             this.btnNew.TabIndex = 99;
             this.btnNew.Text = "Novo";
             this.btnNew.UseVisualStyleBackColor = false;
+            this.btnNew.Click += new System.EventHandler(this.btnNew_Click);
             // 
             // btnDelete
             // 
@@ -131,18 +134,20 @@ namespace AssisTec.UserControls
             this.btnDelete.TabIndex = 101;
             this.btnDelete.Text = "Excluir";
             this.btnDelete.UseVisualStyleBackColor = false;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // label4
             // 
-            this.label4.AutoSize = true;
             this.label4.BackColor = System.Drawing.Color.Transparent;
+            this.label4.Dock = System.Windows.Forms.DockStyle.Top;
             this.label4.Font = new System.Drawing.Font("Comic Sans MS", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.Color.White;
-            this.label4.Location = new System.Drawing.Point(436, 22);
+            this.label4.Location = new System.Drawing.Point(0, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(329, 38);
+            this.label4.Size = new System.Drawing.Size(1175, 38);
             this.label4.TabIndex = 145;
             this.label4.Text = "Gerenciador de Clientes";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // dgvClientes
             // 
@@ -154,11 +159,11 @@ namespace AssisTec.UserControls
             this.dgvClientes.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Sunken;
             this.dgvClientes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvClientes.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.dgvClientes.Location = new System.Drawing.Point(73, 133);
+            this.dgvClientes.Location = new System.Drawing.Point(81, 85);
             this.dgvClientes.MultiSelect = false;
             this.dgvClientes.Name = "dgvClientes";
             this.dgvClientes.ReadOnly = true;
-            this.dgvClientes.Size = new System.Drawing.Size(1050, 537);
+            this.dgvClientes.Size = new System.Drawing.Size(1050, 586);
             this.dgvClientes.TabIndex = 144;
             // 
             // label14
@@ -166,7 +171,7 @@ namespace AssisTec.UserControls
             this.label14.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label14.Font = new System.Drawing.Font("Comic Sans MS", 9.75F);
             this.label14.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label14.Location = new System.Drawing.Point(306, 106);
+            this.label14.Location = new System.Drawing.Point(301, 61);
             this.label14.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(53, 18);
@@ -178,7 +183,7 @@ namespace AssisTec.UserControls
             this.btnAtualizar.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.btnAtualizar.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnAtualizar.BackgroundImage")));
             this.btnAtualizar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnAtualizar.Location = new System.Drawing.Point(1085, 88);
+            this.btnAtualizar.Location = new System.Drawing.Point(1093, 41);
             this.btnAtualizar.Name = "btnAtualizar";
             this.btnAtualizar.Size = new System.Drawing.Size(38, 38);
             this.btnAtualizar.TabIndex = 141;
@@ -188,13 +193,13 @@ namespace AssisTec.UserControls
             // 
             this.txtBusca.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.txtBusca.BackColor = System.Drawing.Color.White;
-            this.txtBusca.Location = new System.Drawing.Point(367, 106);
+            this.txtBusca.Location = new System.Drawing.Point(377, 59);
             this.txtBusca.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtBusca.Name = "txtBusca";
             this.txtBusca.Size = new System.Drawing.Size(471, 20);
             this.txtBusca.TabIndex = 142;
             // 
-            // Gerenciador_Clientes
+            // ucGerenciador_Clientes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -207,6 +212,7 @@ namespace AssisTec.UserControls
             this.Controls.Add(this.txtBusca);
             this.Name = "ucGerenciador_Clientes";
             this.Size = new System.Drawing.Size(1175, 749);
+            this.Load += new System.EventHandler(this.ucGerenciadorClientes_Load);
             this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvClientes)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnAtualizar)).EndInit();

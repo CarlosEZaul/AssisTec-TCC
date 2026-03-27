@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using AssisTec.AtendeClienteService;
+using AssisTec.UserControls.ucFormulario_Clientes;
 using MySql.Data.MySqlClient;
 using Exception = System.Exception;
 
@@ -43,7 +44,7 @@ namespace AssisTec.UserControls
             try
             {
                 this.Text = "Gerenciador de Clientes";
-                this.BackColor = Color.FromArgb(240, 240, 240);
+                this.BackColor = Color.FromArgb(39, 55, 76);
 
                 // Labels
                 //DesingComponentes.ApplyLabelStyles(this);
@@ -164,14 +165,21 @@ namespace AssisTec.UserControls
             }
         }
 
+
         private void btnNew_Click(object sender, EventArgs e)
         {
-            throw new System.NotImplementedException();
+            
+            
         }
 
         private void btnEditar_Click(object sender, EventArgs e)
         {
-            throw new System.NotImplementedException();
+            ucFormulario_Clientes.ucFormulario_Clientes ucFormularioClientes = new ucFormulario_Clientes.ucFormulario_Clientes(id, 2, dgvClientes);
+            this.Controls.Add(ucFormularioClientes);
+            ucFormularioClientes.BringToFront();
+            ucFormularioClientes.Left = (this.ClientSize.Width - ucFormularioClientes.Width)/2;
+            ucFormularioClientes.Top = (this.ClientSize.Height - ucFormularioClientes.Height)/2;
+            ucFormularioClientes.Show();
         }
     }
         #endregion

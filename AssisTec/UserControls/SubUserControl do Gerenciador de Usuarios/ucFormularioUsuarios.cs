@@ -92,9 +92,9 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios
 
             cbNivel.Items.Clear();
             
-            cbNivel.Items.Add("1 - Técnico de TI");
-            cbNivel.Items.Add("2- Gestor/Funcionário");
-            cbNivel.Items.Add("3 - Gerente");
+            cbNivel.Items.Add("1 - Gerente");
+            cbNivel.Items.Add("2- Atendente");
+            cbNivel.Items.Add("3 - Técnico de TI");
             
             cbNivel.DropDownStyle = ComboBoxStyle.DropDownList;
         }
@@ -120,6 +120,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios
         
         public void carregarDados()
         {
+            int indexNivel;
             try
             {
                 con.OpenConnection();
@@ -134,7 +135,21 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios
                     mtbCPF.Text = reader["cpf"].ToString();
                     txtSenha.Text = reader["senha"].ToString();
                     mtbTel.Text = reader["telefone"].ToString();
-                    cbNivel.Text= reader["nivel"].ToString();
+
+                    if (Convert.ToInt32(reader["nivel"]) == 1)
+                    {
+                        indexNivel = 0;
+                    }
+                    else if (Convert.ToInt32(reader["nivel"]) == 2)
+                    {
+                        indexNivel = 1;
+                    }
+                    else
+                    {
+                        indexNivel = 2;
+                    }
+
+                    cbNivel.SelectedIndex = indexNivel;
                     cbStatus.Text = reader["status"].ToString();
                     mtbCep.Text = reader["cep"].ToString();
                     txtRua.Text = reader["rua"].ToString();
