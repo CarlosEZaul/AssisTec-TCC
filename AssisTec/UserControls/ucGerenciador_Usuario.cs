@@ -149,12 +149,11 @@ namespace AssisTec.UserControls
         }
         
         
-        
+        //
         #endregion
 
         private void btnEditar_Click(object sender, EventArgs e)
         {
-            Usuario usuario = new Usuario();
             ucFormularioUsuarios ucFormularioUsuarios = new ucFormularioUsuarios(id, modo = 2, dgvUsuarios);
             this.Controls.Add(ucFormularioUsuarios);
             ucFormularioUsuarios.BringToFront();
