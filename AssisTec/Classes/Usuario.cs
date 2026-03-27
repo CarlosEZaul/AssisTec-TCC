@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 namespace AssisTec
@@ -8,6 +9,9 @@ namespace AssisTec
         private string senha;
         private int nivel;
         private string status;
+        conexao con = new conexao();
+        string sql;
+        MySqlCommand cmd;
 
         public string Senha
         {
@@ -27,9 +31,8 @@ namespace AssisTec
             set { status = value; }
         }
         
-        conexao con = new conexao();
-        string sql;
-        MySqlCommand cmd;
+        
+        
 
         private bool usuarioExiste(string cpf, int? ignorarId = null)
         {
@@ -94,6 +97,7 @@ namespace AssisTec
                 con.CloseConnection();
 
                 MessageBox.Show("Usuário cadastrado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                
                 return true;
             }
             catch (Exception ex)
@@ -155,7 +159,28 @@ namespace AssisTec
                 return false;
             }
         }
-        
+
+        public void atualizarDados(DataGridView dgvUsuarios)
+        {
+            try
+            {
+                con.OpenConnection();
+                sql = "SELECT * FROM usuarios ORDER BY NOME ASC";
+                cmd = new MySqlCommand(sql, con.con);
+                MySqlDataAdapter da = new MySqlDataAdapter();
+                da.SelectCommand = cmd;
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+                dgvUsuarios.DataSource = dt;
+                con.CloseConnection();
+                
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
     }
     
 }

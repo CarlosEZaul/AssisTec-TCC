@@ -76,10 +76,9 @@ namespace AssisTec.UserControls
         private void ConfigurarComboBox()
         {
             cbNivel.Items.Clear();
-            cbNivel.Items.Add("1- Apenas Visualização");
+            cbNivel.Items.Add("1- Gerente");
             cbNivel.Items.Add("2- Gestor/Funcionário");
             cbNivel.Items.Add("3 - Técnico de TI");
-            cbNivel.Items.Add("4 - Gerente");
             cbNivel.DropDownStyle = ComboBoxStyle.DropDownList;
         }
         
@@ -90,7 +89,8 @@ namespace AssisTec.UserControls
             btnEditar.Enabled = true;
             
         }
-        private void listGrid()
+        
+        public void listGrid()
         {
             try
             {
@@ -140,13 +140,12 @@ namespace AssisTec.UserControls
         
         private void btnNew_Click(object sender, EventArgs e)
         {
-            ucFormularioUsuarios ucFormularioUsuarios = new ucFormularioUsuarios(id, modo = 1);
+            ucFormularioUsuarios ucFormularioUsuarios = new ucFormularioUsuarios(id, modo = 1, dgvUsuarios);
             this.Controls.Add(ucFormularioUsuarios);
             ucFormularioUsuarios.BringToFront();
             ucFormularioUsuarios.Left = (this.ClientSize.Width - ucFormularioUsuarios.Width)/2;
             ucFormularioUsuarios.Top = (this.ClientSize.Height - ucFormularioUsuarios.Height)/2;
             ucFormularioUsuarios.Show();
-            
         }
         
         
@@ -155,7 +154,8 @@ namespace AssisTec.UserControls
 
         private void btnEditar_Click(object sender, EventArgs e)
         {
-            ucFormularioUsuarios ucFormularioUsuarios = new ucFormularioUsuarios(id, modo = 1);
+            Usuario usuario = new Usuario();
+            ucFormularioUsuarios ucFormularioUsuarios = new ucFormularioUsuarios(id, modo = 2, dgvUsuarios);
             this.Controls.Add(ucFormularioUsuarios);
             ucFormularioUsuarios.BringToFront();
             ucFormularioUsuarios.Left = (this.ClientSize.Width - ucFormularioUsuarios.Width)/2;
@@ -171,12 +171,12 @@ namespace AssisTec.UserControls
                 try
                 {
                     enableBtn();
-                    btnEditar.Enabled = false;
-                    btnNew.Enabled = true;
+                    btnEditar.Enabled = true;
+                    
 
                     id = Convert.ToInt32(dgvUsuarios.Rows[e.RowIndex].Cells[0].Value);
 
-                    int nivel = Convert.ToInt32(dgvUsuarios.Rows[e.RowIndex].Cells["nivel"].Value);
+                    /*int nivel = Convert.ToInt32(dgvUsuarios.Rows[e.RowIndex].Cells["nivel"].Value);
                     foreach (var item in cbNivel.Items)
                     {
                         if (item.ToString().StartsWith(nivel.ToString()))
@@ -184,7 +184,7 @@ namespace AssisTec.UserControls
                             cbNivel.SelectedItem = item;
                             break;
                         }
-                    }
+                    }*/
                 }
                 catch (Exception ex)
                 {

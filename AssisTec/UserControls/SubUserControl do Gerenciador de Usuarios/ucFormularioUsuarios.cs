@@ -3,7 +3,9 @@ using System.Drawing;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 using System.Drawing;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using Mysqlx.Session;
 
 namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios
 {
@@ -17,11 +19,14 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios
         private string uf;
         private bool okCep;
         private int modo;
+        private DataGridView dgv;
+        private Usuario usuario;
         
-        public ucFormularioUsuarios(int _id, int _modo)
+        public ucFormularioUsuarios(int _id, int _modo,  DataGridView _dgv)
         {
             id = _id;
             modo = _modo;
+            dgv = _dgv;
             InitializeComponent();
         }
         
@@ -29,6 +34,11 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios
         {
             ApplyModernDesign();
             ConfigurarComboBox();
+            if (modo ==2)
+            {
+                carregarDados();
+            }
+            
         }
         
         # region Desing Moderno
@@ -108,6 +118,43 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios
             
         }
         
+        public void carregarDados()
+        {
+            try
+            {
+                con.OpenConnection();
+                sql = "SELECT * FROM usuarios WHERE id_usuario = @id";
+                cmd = new MySqlCommand(sql, con.con);
+                cmd.Parameters.AddWithValue("@id", id);
+                MySqlDataReader reader  = cmd.ExecuteReader();
+                if (reader.Read())
+                {
+                    id = reader.GetInt32("id_usuario");
+                    txtNome.Text = reader["nome"].ToString();
+                    mtbCPF.Text = reader["cpf"].ToString();
+                    txtSenha.Text = reader["senha"].ToString();
+                    mtbTel.Text = reader["telefone"].ToString();
+                    cbNivel.Text= reader["nivel"].ToString();
+                    cbStatus.Text = reader["status"].ToString();
+                    mtbCep.Text = reader["cep"].ToString();
+                    txtRua.Text = reader["rua"].ToString();
+                    txtNumber.Text = reader["numero"].ToString();
+                    txtCidade.Text = reader["cidade"].ToString();
+                    txtBairro.Text = reader["bairro"].ToString();
+                    txtEstado.Text = reader["estado"].ToString();
+                    txtComp.Text = reader["complemento"].ToString();
+                }
+                
+                con.CloseConnection();
+                
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao carregar dados: " + ex.Message);
+            }
+            
+        }
+        
         Usuario formUsuario()
         {
             Usuario user = new Usuario();
@@ -142,6 +189,9 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios
 
             return user;
         }
+
+        
+        
         /*private bool usuarioExiste(string cpf, int? ignorarId = null)
         {
             con.OpenConnection();
@@ -165,9 +215,10 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios
             }
         }*/
 
+        
         private void fechar()
         {
-            
+            this.Dispose();
         }
         
         async Task BuscarCep(string cep)
@@ -221,9 +272,12 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios
                 BuscarCep(mtbCep.Text);
             }
         }
+        
+        
 
         private void btnSave_Click(object sender, EventArgs e)
         {
+            
             if(string.IsNullOrEmpty(txtNome.Text)|| string.IsNullOrEmpty(txtSenha.Text)|| !mtbCPF.MaskFull|| !mtbTel.MaskFull ||
                string.IsNullOrEmpty(cbNivel.Text)|| string.IsNullOrEmpty(cbStatus.Text))
             {
@@ -235,17 +289,21 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios
 
             try
             {
-                Usuario user = formUsuario();
                 
+                Usuario user = formUsuario();
                 if (modo == 1)
                 {
+                    
                     user.novoUsuario(user);
+                    user.atualizarDados(dgv);
                     deleteAll();
                 }
 
                 if (modo == 2) 
                 {
+                    
                     user.editarUsuario(user);
+                    user.atualizarDados(dgv);
                     deleteAll();
                     fechar();
                 }

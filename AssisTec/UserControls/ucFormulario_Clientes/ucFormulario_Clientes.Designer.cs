@@ -90,6 +90,7 @@ namespace AssisTec.UserControls.ucFormulario_Clientes
             this.btnFechar.TabIndex = 102;
             this.btnFechar.Text = "Fechar";
             this.btnFechar.UseVisualStyleBackColor = false;
+            this.btnFechar.Click += new System.EventHandler(this.btnFechar_Click);
             // 
             // btnSave
             // 
@@ -104,6 +105,7 @@ namespace AssisTec.UserControls.ucFormulario_Clientes
             this.btnSave.TabIndex = 100;
             this.btnSave.Text = "Salvar";
             this.btnSave.UseVisualStyleBackColor = false;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click_1);
             // 
             // btnLimpar
             // 
@@ -434,7 +436,7 @@ namespace AssisTec.UserControls.ucFormulario_Clientes
             this.txtNome.Size = new System.Drawing.Size(460, 20);
             this.txtNome.TabIndex = 162;
             // 
-            // Formulario_Clientes
+            // ucFormulario_Clientes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;

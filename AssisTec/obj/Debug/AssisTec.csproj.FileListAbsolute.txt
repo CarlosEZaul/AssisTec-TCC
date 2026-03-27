@@ -293,7 +293,6 @@ C:\Users\carlo\OneDrive\Área de Trabalho\AssisTec\AssisTec\bin\Debug\K4os.Hash.
 C:\Users\carlo\OneDrive\Área de Trabalho\AssisTec\AssisTec\bin\Debug\Microsoft.Bcl.AsyncInterfaces.dll
 C:\Users\carlo\OneDrive\Área de Trabalho\AssisTec\AssisTec\bin\Debug\MySql.Data.dll
 C:\Users\carlo\OneDrive\Área de Trabalho\AssisTec\AssisTec\bin\Debug\Newtonsoft.Json.dll
-C:\Users\carlo\OneDrive\Área de Trabalho\AssisTec\AssisTec\bin\Debug\Refit.dll
 C:\Users\carlo\OneDrive\Área de Trabalho\AssisTec\AssisTec\bin\Debug\System.Buffers.dll
 C:\Users\carlo\OneDrive\Área de Trabalho\AssisTec\AssisTec\bin\Debug\System.Configuration.ConfigurationManager.dll
 C:\Users\carlo\OneDrive\Área de Trabalho\AssisTec\AssisTec\bin\Debug\System.Diagnostics.DiagnosticSource.dll
@@ -317,7 +316,6 @@ C:\Users\carlo\OneDrive\Área de Trabalho\AssisTec\AssisTec\bin\Debug\K4os.Hash.
 C:\Users\carlo\OneDrive\Área de Trabalho\AssisTec\AssisTec\bin\Debug\Microsoft.Bcl.AsyncInterfaces.xml
 C:\Users\carlo\OneDrive\Área de Trabalho\AssisTec\AssisTec\bin\Debug\MySql.Data.xml
 C:\Users\carlo\OneDrive\Área de Trabalho\AssisTec\AssisTec\bin\Debug\Newtonsoft.Json.xml
-C:\Users\carlo\OneDrive\Área de Trabalho\AssisTec\AssisTec\bin\Debug\Refit.xml
 C:\Users\carlo\OneDrive\Área de Trabalho\AssisTec\AssisTec\bin\Debug\System.Buffers.xml
 C:\Users\carlo\OneDrive\Área de Trabalho\AssisTec\AssisTec\bin\Debug\System.Configuration.ConfigurationManager.xml
 C:\Users\carlo\OneDrive\Área de Trabalho\AssisTec\AssisTec\bin\Debug\System.Diagnostics.DiagnosticSource.xml
@@ -331,12 +329,8 @@ C:\Users\carlo\OneDrive\Área de Trabalho\AssisTec\AssisTec\bin\Debug\System.Tex
 C:\Users\carlo\OneDrive\Área de Trabalho\AssisTec\AssisTec\bin\Debug\System.Threading.Tasks.Extensions.xml
 C:\Users\carlo\OneDrive\Área de Trabalho\AssisTec\AssisTec\bin\Debug\System.ValueTuple.xml
 C:\Users\carlo\OneDrive\Área de Trabalho\AssisTec\AssisTec\obj\Debug\AssisTec.csproj.AssemblyReference.cache
-C:\Users\carlo\OneDrive\Área de Trabalho\AssisTec\AssisTec\obj\Debug\AssisTec.exe.config
-C:\Users\carlo\OneDrive\Área de Trabalho\AssisTec\AssisTec\obj\Debug\AssisTec.Gerenciador_Clientes.resources
-C:\Users\carlo\OneDrive\Área de Trabalho\AssisTec\AssisTec\obj\Debug\AssisTec.Gerenciador_Usuarios.resources
 C:\Users\carlo\OneDrive\Área de Trabalho\AssisTec\AssisTec\obj\Debug\AssisTec.Properties.Resources.resources
 C:\Users\carlo\OneDrive\Área de Trabalho\AssisTec\AssisTec\obj\Debug\AssisTec.csproj.GenerateResource.cache
-C:\Users\carlo\OneDrive\Área de Trabalho\AssisTec\AssisTec\obj\Debug\RefitStubs.g.cs
 C:\Users\carlo\OneDrive\Área de Trabalho\AssisTec\AssisTec\obj\Debug\AssisTec.csproj.CoreCompileInputs.cache
 C:\Users\carlo\OneDrive\Área de Trabalho\AssisTec\AssisTec\obj\Debug\AssisTec.csproj.Up2Date
 C:\Users\carlo\OneDrive\Área de Trabalho\AssisTec\AssisTec\obj\Debug\AssisTec.exe
@@ -544,3 +538,13 @@ C:\Users\Pc do estagiario\RiderProjects\AssisTec-TCC\tcc\AssisTec\obj\Debug\Assi
 C:\Users\Pc do estagiario\RiderProjects\AssisTec-TCC\tcc\AssisTec\obj\Debug\AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios.ucFormularioUsuarios.resources
 C:\Users\Pc do estagiario\RiderProjects\AssisTec-TCC\tcc\AssisTec\obj\Debug\AssisTec.UserControls.ucGerenciador_Clientes.resources
 C:\Users\Pc do estagiario\RiderProjects\AssisTec-TCC\tcc\AssisTec\obj\Debug\AssisTec.UserControls.ucFormulario_Clientes.ucFormulario_Clientes.resources
+C:\Users\carlo\OneDrive\Área de Trabalho\AssisTEC\AssisTec\obj\Debug\AssisTec.formSubs.resources
+C:\Users\carlo\OneDrive\Área de Trabalho\AssisTEC\AssisTec\obj\Debug\AssisTec.SubForms_do_Gerenciador_de_Pedidos.FrmEditarPedido.resources
+C:\Users\carlo\OneDrive\Área de Trabalho\AssisTEC\AssisTec\obj\Debug\AssisTec.SubForms_do_Gerenciador_de_Pedidos.Novo_Pedido.resources
+C:\Users\carlo\OneDrive\Área de Trabalho\AssisTEC\AssisTec\obj\Debug\AssisTec.UserControls.ucGerenciador_Clientes.resources
+C:\Users\carlo\OneDrive\Área de Trabalho\AssisTEC\AssisTec\obj\Debug\AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios.ucFormularioUsuarios.resources
+C:\Users\carlo\OneDrive\Área de Trabalho\AssisTEC\AssisTec\obj\Debug\AssisTec.SubForms_do_Gerenciador_de_Pedidos.ucDetalhesPedidos.resources
+C:\Users\carlo\OneDrive\Área de Trabalho\AssisTEC\AssisTec\obj\Debug\AssisTec.SubForms_do_Gerenciador_de_Pedidos.ucProdutosUtilizados.resources
+C:\Users\carlo\OneDrive\Área de Trabalho\AssisTEC\AssisTec\obj\Debug\AssisTec.SubForms_do_Gerenciador_de_Pedidos.ucServicos.resources
+C:\Users\carlo\OneDrive\Área de Trabalho\AssisTEC\AssisTec\obj\Debug\AssisTec.UserControls.ucFormulario_Clientes.ucFormulario_Clientes.resources
+C:\Users\carlo\OneDrive\Área de Trabalho\AssisTEC\AssisTec\obj\Debug\AssisTec.UserControls.ucGerenciador_Usuario.resources
