@@ -608,10 +608,10 @@ C:\Users\Pc do estagiario\RiderProjects\AssisTec-TCC\AssisTec\obj\Debug\AssisTec
 C:\Users\Pc do estagiario\RiderProjects\AssisTec-TCC\AssisTec\obj\Debug\AssisTec.SubForms_do_Gerenciador_de_Pedidos.ucDetalhesPedidos.resources
 C:\Users\Pc do estagiario\RiderProjects\AssisTec-TCC\AssisTec\obj\Debug\AssisTec.SubForms_do_Gerenciador_de_Pedidos.ucProdutosUtilizados.resources
 C:\Users\Pc do estagiario\RiderProjects\AssisTec-TCC\AssisTec\obj\Debug\AssisTec.SubForms_do_Gerenciador_de_Pedidos.ucServicos.resources
-C:\Users\Pc do estagiario\RiderProjects\AssisTec-TCC\AssisTec\obj\Debug\AssisTec.UserControls.ucFormulario_Clientes.ucFormulario_Clientes.resources
 C:\Users\Pc do estagiario\RiderProjects\AssisTec-TCC\AssisTec\obj\Debug\AssisTec.UserControls.ucGerenciador_Usuario.resources
 C:\Users\Pc do estagiario\RiderProjects\AssisTec-TCC\AssisTec\obj\Debug\AssisTec.csproj.GenerateResource.cache
 C:\Users\Pc do estagiario\RiderProjects\AssisTec-TCC\AssisTec\obj\Debug\AssisTec.csproj.CoreCompileInputs.cache
 C:\Users\Pc do estagiario\RiderProjects\AssisTec-TCC\AssisTec\obj\Debug\AssisTec.csproj.Up2Date
 C:\Users\Pc do estagiario\RiderProjects\AssisTec-TCC\AssisTec\obj\Debug\AssisTec.exe
 C:\Users\Pc do estagiario\RiderProjects\AssisTec-TCC\AssisTec\obj\Debug\AssisTec.pdb
+C:\Users\Pc do estagiario\RiderProjects\AssisTec-TCC\AssisTec\obj\Debug\AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Clientes.ucFormulario_Clientes.ucFormulario_Clientes.resources

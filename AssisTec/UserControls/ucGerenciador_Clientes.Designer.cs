@@ -60,7 +60,6 @@ namespace AssisTec.UserControls
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(504, 61);
             this.panel2.TabIndex = 146;
-            this.panel2.Click += new System.EventHandler(this.btnNew_Click);
             // 
             // btnImprimir
             // 
@@ -94,6 +93,7 @@ namespace AssisTec.UserControls
             // 
             this.btnEditar.BackColor = System.Drawing.Color.RoyalBlue;
             this.btnEditar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnEditar.Enabled = false;
             this.btnEditar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnEditar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.btnEditar.ForeColor = System.Drawing.SystemColors.Control;
@@ -165,6 +165,7 @@ namespace AssisTec.UserControls
             this.dgvClientes.ReadOnly = true;
             this.dgvClientes.Size = new System.Drawing.Size(1050, 586);
             this.dgvClientes.TabIndex = 144;
+            this.dgvClientes.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvClientes_CellClick);
             // 
             // label14
             // 
@@ -188,6 +189,7 @@ namespace AssisTec.UserControls
             this.btnAtualizar.Size = new System.Drawing.Size(38, 38);
             this.btnAtualizar.TabIndex = 141;
             this.btnAtualizar.TabStop = false;
+            this.btnAtualizar.Click += new System.EventHandler(this.btnAtualizar_Click);
             // 
             // txtBusca
             // 
@@ -198,6 +200,7 @@ namespace AssisTec.UserControls
             this.txtBusca.Name = "txtBusca";
             this.txtBusca.Size = new System.Drawing.Size(471, 20);
             this.txtBusca.TabIndex = 142;
+            this.txtBusca.TextChanged += new System.EventHandler(this.txtBusca_TextChanged);
             // 
             // ucGerenciador_Clientes
             // 

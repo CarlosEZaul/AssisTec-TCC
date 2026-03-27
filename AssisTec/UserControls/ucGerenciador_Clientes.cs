@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using AssisTec.AtendeClienteService;
-using AssisTec.UserControls.ucFormulario_Clientes;
+using AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Clientes.ucFormulario_Clientes;
 using MySql.Data.MySqlClient;
 using Exception = System.Exception;
 
@@ -23,6 +23,7 @@ namespace AssisTec.UserControls
         private int id;
         private string uf;
         private bool okCep;
+        
 
         public ucGerenciador_Clientes()
         {
@@ -93,6 +94,18 @@ namespace AssisTec.UserControls
             
             
         }
+
+        private void enableBtn()
+        {
+            btnEditar.Enabled = true;
+            btnDelete.Enabled = true;
+        }
+
+        private void disableBtn()
+        {
+            btnEditar.Enabled = false;
+            btnDelete.Enabled = false;
+        }
         
         private void listGrid()
         {
@@ -119,7 +132,9 @@ namespace AssisTec.UserControls
         {
             Cliente cliente =  new Cliente();
             cliente.id = id;
-            cliente.deletarCLiente(id);
+            cliente.deletarCLiente(id, dgvClientes);
+            disableBtn();
+            
         }
 
         private void btnAtualizar_Click(object sender, EventArgs e)
@@ -133,6 +148,8 @@ namespace AssisTec.UserControls
             {
                 try
                 {
+                    enableBtn();
+                    btnEditar.Enabled = true;
                     id = Convert.ToInt32(dgvClientes.Rows[e.RowIndex].Cells[0].Value);
                     
                 }
@@ -168,13 +185,19 @@ namespace AssisTec.UserControls
 
         private void btnNew_Click(object sender, EventArgs e)
         {
+            ucFormulario_Clientes ucFormularioClientes = new ucFormulario_Clientes(id, 1, dgvClientes);
             
-            
+            this.Controls.Add(ucFormularioClientes);
+            ucFormularioClientes.BringToFront();
+            ucFormularioClientes.Left = (this.ClientSize.Width - ucFormularioClientes.Width)/2;
+            ucFormularioClientes.Top = (this.ClientSize.Height - ucFormularioClientes.Height)/2;
+            ucFormularioClientes.Show();
         }
 
         private void btnEditar_Click(object sender, EventArgs e)
         {
-            ucFormulario_Clientes.ucFormulario_Clientes ucFormularioClientes = new ucFormulario_Clientes.ucFormulario_Clientes(id, 2, dgvClientes);
+            ucFormulario_Clientes ucFormularioClientes = new ucFormulario_Clientes(id, 2, dgvClientes);
+            
             this.Controls.Add(ucFormularioClientes);
             ucFormularioClientes.BringToFront();
             ucFormularioClientes.Left = (this.ClientSize.Width - ucFormularioClientes.Width)/2;

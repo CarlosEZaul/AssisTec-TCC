@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 
@@ -119,7 +120,7 @@ namespace AssisTec
             }
         }
 
-        public void deletarCLiente(int id)
+        public void deletarCLiente(int id, DataGridView dgvClientes)
         {
             DialogResult result = MessageBox.Show("Deseja excluir cliente?", "Confirmar Exclusão", 
                 MessageBoxButtons.YesNo, MessageBoxIcon.Question);
@@ -138,6 +139,7 @@ namespace AssisTec
                     
                     MessageBox.Show("Cliente excluído com sucesso!", "Sucesso", 
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    atualizarDados(dgvClientes);
                 }
                 catch (Exception exception)
                 {
@@ -145,8 +147,28 @@ namespace AssisTec
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-
-            
+        }
+        
+        public void atualizarDados(DataGridView dgvUsuarios)
+        {
+            try
+            {
+                con.OpenConnection();
+                sql = "SELECT * FROM clientes ORDER BY NOME ASC";
+                cmd = new MySqlCommand(sql, con.con);
+                MySqlDataAdapter da = new MySqlDataAdapter();
+                da.SelectCommand = cmd;
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+                dgvUsuarios.DataSource = dt;
+                con.CloseConnection();
+                
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
         }
     }
 }

@@ -1,21 +1,35 @@
 ﻿using System;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MySql.Data.MySqlClient;
 
-namespace AssisTec.UserControls.ucFormulario_Clientes
+namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Clientes.ucFormulario_Clientes
 {
     public partial class ucFormulario_Clientes : UserControl
     {
+        conexao con = new conexao();
+        MySqlCommand cmd;
+        private string sql;
         private int id;
         private int modo;
         private string uf;
+        private DataGridView dgvClientes;
         private bool okCep;
-        public ucFormulario_Clientes(int id, int modo, DataGridView dgv)
+        public ucFormulario_Clientes(int _id, int _modo, DataGridView _dgv)
         {
+            modo =  _modo;
+            id = _id;
+            dgvClientes =  _dgv;
             InitializeComponent();
         }
-
         #region Métodos e funções
+        private void ucFormulario_Clientes_Load(object sender, EventArgs e)
+        {
+            if (modo == 2)
+            {
+                carregarDados();
+            }
+        }
 
         private void fechar()
         {
@@ -36,6 +50,40 @@ namespace AssisTec.UserControls.ucFormulario_Clientes
             txtComp.Text = "";
             
         }
+
+        public void carregarDados()
+        {
+            try
+            {
+                con.OpenConnection();
+                sql = "SELECT * FROM clientes WHERE id_cliente = @id";
+                cmd = new MySqlCommand(sql, con.con);
+                cmd.Parameters.AddWithValue("@id", id);
+                MySqlDataReader reader  = cmd.ExecuteReader();
+                if (reader.Read())
+                {
+                    id = reader.GetInt32("id_cliente");
+                    txtNome.Text = reader["nome"].ToString();
+                    mtbCPF.Text = reader["cpf"].ToString();
+                    mtbTel.Text = reader["telefone"].ToString();
+                    mtbNasc.Text =  reader["datanasc"].ToString();
+                    mtbCep.Text = reader["cep"].ToString();
+                    txtRua.Text = reader["rua"].ToString();
+                    txtNumber.Text = reader["numero"].ToString();
+                    txtCidade.Text = reader["cidade"].ToString();
+                    txtBairro.Text = reader["bairro"].ToString();
+                    txtEstado.Text = reader["estado"].ToString();
+                    txtComp.Text = reader["complemento"].ToString();
+                }
+                
+                con.CloseConnection();
+                
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao carregar dados: " + ex.Message);
+            }
+        }
         
         private Cliente formCliente()
         {
@@ -43,6 +91,7 @@ namespace AssisTec.UserControls.ucFormulario_Clientes
             cliente.id = id;
             cliente.nome = txtNome.Text;
             cliente.cpf = mtbCPF.Text;
+            cliente.dataNascimento = mtbNasc.Text;
             cliente.telefone = mtbTel.Text;
             cliente.dataNascimento = mtbNasc.Text;
             string dataFormatada = cliente.dataNascimentoFormatada;
@@ -69,7 +118,9 @@ namespace AssisTec.UserControls.ucFormulario_Clientes
         {
             try
             {
+                
                 Cliente cliente = formCliente();
+                BuscarCep(cliente.cep);
                 if (string.IsNullOrWhiteSpace(txtNome.Text) ||
                     !mtbCPF.MaskFull ||
                     !mtbTel.MaskFull ||
@@ -85,11 +136,15 @@ namespace AssisTec.UserControls.ucFormulario_Clientes
                 if (modo == 1 && okCep == true) 
                 {
                     cliente.novoCliente(cliente);
+                    cliente.atualizarDados(dgvClientes);
+                    deleteAll();
                 
                 }
                 else if (modo == 2 && okCep == true) 
                 {
                     cliente.editarCliente(cliente);
+                    cliente.atualizarDados(dgvClientes);
+                    fechar();
                 }
                 else if (!okCep)
                 {
@@ -123,7 +178,7 @@ namespace AssisTec.UserControls.ucFormulario_Clientes
                 
                 okCep = true;
                 
-                if (buscaCep.cidade == null && buscaCep.rua == null && buscaCep.bairro == null)
+                if (buscaCep.rua == null || txtRua.Text == null || txtBairro.Text == null|| txtEstado.Text == null)
                 {
                     MessageBox.Show("Falha ao localizar CEP!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     okCep = false;

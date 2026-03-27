@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace AssisTec.UserControls.ucFormulario_Clientes
+namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Clientes.ucFormulario_Clientes
 {
     partial class ucFormulario_Clientes
     {
@@ -75,7 +75,7 @@ namespace AssisTec.UserControls.ucFormulario_Clientes
             this.panel2.Location = new System.Drawing.Point(203, 522);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(266, 61);
-            this.panel2.TabIndex = 190;
+            this.panel2.TabIndex = 219;
             // 
             // btnFechar
             // 
@@ -130,7 +130,7 @@ namespace AssisTec.UserControls.ucFormulario_Clientes
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(112, 18);
-            this.label1.TabIndex = 189;
+            this.label1.TabIndex = 218;
             this.label1.Text = "ENDEREÇO:";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -142,7 +142,7 @@ namespace AssisTec.UserControls.ucFormulario_Clientes
             this.label33.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label33.Name = "label33";
             this.label33.Size = new System.Drawing.Size(202, 18);
-            this.label33.TabIndex = 188;
+            this.label33.TabIndex = 217;
             this.label33.Text = "DADOS DO CLIENTE";
             this.label33.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -155,7 +155,7 @@ namespace AssisTec.UserControls.ucFormulario_Clientes
             this.label13.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(89, 18);
-            this.label13.TabIndex = 187;
+            this.label13.TabIndex = 216;
             this.label13.Text = "Complemento:";
             // 
             // label12
@@ -167,7 +167,7 @@ namespace AssisTec.UserControls.ucFormulario_Clientes
             this.label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(53, 18);
-            this.label12.TabIndex = 186;
+            this.label12.TabIndex = 215;
             this.label12.Text = "Estado:";
             // 
             // label11
@@ -179,7 +179,7 @@ namespace AssisTec.UserControls.ucFormulario_Clientes
             this.label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(54, 18);
-            this.label11.TabIndex = 185;
+            this.label11.TabIndex = 214;
             this.label11.Text = "Cidade:";
             // 
             // label10
@@ -191,7 +191,7 @@ namespace AssisTec.UserControls.ucFormulario_Clientes
             this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(50, 18);
-            this.label10.TabIndex = 184;
+            this.label10.TabIndex = 213;
             this.label10.Text = "Bairro:";
             // 
             // label9
@@ -203,7 +203,7 @@ namespace AssisTec.UserControls.ucFormulario_Clientes
             this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(27, 18);
-            this.label9.TabIndex = 183;
+            this.label9.TabIndex = 212;
             this.label9.Text = "N°:";
             // 
             // label8
@@ -215,7 +215,7 @@ namespace AssisTec.UserControls.ucFormulario_Clientes
             this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(34, 18);
-            this.label8.TabIndex = 182;
+            this.label8.TabIndex = 211;
             this.label8.Text = "Rua:";
             // 
             // label7
@@ -227,7 +227,7 @@ namespace AssisTec.UserControls.ucFormulario_Clientes
             this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(35, 18);
-            this.label7.TabIndex = 181;
+            this.label7.TabIndex = 210;
             this.label7.Text = "CEP:";
             // 
             // label6
@@ -239,7 +239,7 @@ namespace AssisTec.UserControls.ucFormulario_Clientes
             this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(67, 18);
-            this.label6.TabIndex = 180;
+            this.label6.TabIndex = 209;
             this.label6.Text = "Telefone:";
             // 
             // label5
@@ -251,7 +251,7 @@ namespace AssisTec.UserControls.ucFormulario_Clientes
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(132, 18);
-            this.label5.TabIndex = 179;
+            this.label5.TabIndex = 208;
             this.label5.Text = "Data de Nascimento:";
             // 
             // label3
@@ -263,7 +263,7 @@ namespace AssisTec.UserControls.ucFormulario_Clientes
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(35, 18);
-            this.label3.TabIndex = 178;
+            this.label3.TabIndex = 207;
             this.label3.Text = "CPF:";
             // 
             // label2
@@ -275,18 +275,17 @@ namespace AssisTec.UserControls.ucFormulario_Clientes
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(45, 18);
-            this.label2.TabIndex = 177;
+            this.label2.TabIndex = 206;
             this.label2.Text = "Nome:";
             // 
             // btnBuscar
             // 
             this.btnBuscar.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnBuscar.Enabled = false;
             this.btnBuscar.Font = new System.Drawing.Font("Comic Sans MS", 9F);
             this.btnBuscar.Location = new System.Drawing.Point(375, 303);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(75, 23);
-            this.btnBuscar.TabIndex = 176;
+            this.btnBuscar.TabIndex = 205;
             this.btnBuscar.Text = "Buscar";
             this.btnBuscar.UseVisualStyleBackColor = true;
             this.btnBuscar.Click += new System.EventHandler(this.mtbCep_Leave);
@@ -300,7 +299,7 @@ namespace AssisTec.UserControls.ucFormulario_Clientes
             this.mtbCep.Mask = "00000-000";
             this.mtbCep.Name = "mtbCep";
             this.mtbCep.Size = new System.Drawing.Size(131, 23);
-            this.mtbCep.TabIndex = 174;
+            this.mtbCep.TabIndex = 203;
             this.mtbCep.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.mtbCep.Leave += new System.EventHandler(this.mtbCep_Leave);
             // 
@@ -311,7 +310,7 @@ namespace AssisTec.UserControls.ucFormulario_Clientes
             this.txtComp.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtComp.Name = "txtComp";
             this.txtComp.Size = new System.Drawing.Size(181, 20);
-            this.txtComp.TabIndex = 175;
+            this.txtComp.TabIndex = 204;
             // 
             // txtEstado
             // 
@@ -321,7 +320,7 @@ namespace AssisTec.UserControls.ucFormulario_Clientes
             this.txtEstado.Name = "txtEstado";
             this.txtEstado.ReadOnly = true;
             this.txtEstado.Size = new System.Drawing.Size(199, 20);
-            this.txtEstado.TabIndex = 173;
+            this.txtEstado.TabIndex = 202;
             // 
             // txtCidade
             // 
@@ -331,7 +330,7 @@ namespace AssisTec.UserControls.ucFormulario_Clientes
             this.txtCidade.Name = "txtCidade";
             this.txtCidade.ReadOnly = true;
             this.txtCidade.Size = new System.Drawing.Size(199, 20);
-            this.txtCidade.TabIndex = 172;
+            this.txtCidade.TabIndex = 201;
             // 
             // txtBairro
             // 
@@ -341,7 +340,7 @@ namespace AssisTec.UserControls.ucFormulario_Clientes
             this.txtBairro.Name = "txtBairro";
             this.txtBairro.ReadOnly = true;
             this.txtBairro.Size = new System.Drawing.Size(202, 20);
-            this.txtBairro.TabIndex = 171;
+            this.txtBairro.TabIndex = 200;
             // 
             // label4
             // 
@@ -352,7 +351,7 @@ namespace AssisTec.UserControls.ucFormulario_Clientes
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(0, 23);
-            this.label4.TabIndex = 170;
+            this.label4.TabIndex = 199;
             // 
             // mtbNasc
             // 
@@ -362,7 +361,7 @@ namespace AssisTec.UserControls.ucFormulario_Clientes
             this.mtbNasc.Mask = "00/00/0000";
             this.mtbNasc.Name = "mtbNasc";
             this.mtbNasc.Size = new System.Drawing.Size(116, 20);
-            this.mtbNasc.TabIndex = 169;
+            this.mtbNasc.TabIndex = 198;
             this.mtbNasc.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.mtbNasc.ValidatingType = typeof(System.DateTime);
             // 
@@ -374,7 +373,7 @@ namespace AssisTec.UserControls.ucFormulario_Clientes
             this.mtbTel.Mask = "(00) 00000-0000";
             this.mtbTel.Name = "mtbTel";
             this.mtbTel.Size = new System.Drawing.Size(131, 20);
-            this.mtbTel.TabIndex = 168;
+            this.mtbTel.TabIndex = 197;
             this.mtbTel.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // txtNumber
@@ -384,7 +383,7 @@ namespace AssisTec.UserControls.ucFormulario_Clientes
             this.txtNumber.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtNumber.Name = "txtNumber";
             this.txtNumber.Size = new System.Drawing.Size(109, 20);
-            this.txtNumber.TabIndex = 167;
+            this.txtNumber.TabIndex = 196;
             // 
             // lblnum
             // 
@@ -395,7 +394,7 @@ namespace AssisTec.UserControls.ucFormulario_Clientes
             this.lblnum.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblnum.Name = "lblnum";
             this.lblnum.Size = new System.Drawing.Size(0, 18);
-            this.lblnum.TabIndex = 166;
+            this.lblnum.TabIndex = 195;
             // 
             // txtRua
             // 
@@ -405,7 +404,7 @@ namespace AssisTec.UserControls.ucFormulario_Clientes
             this.txtRua.Name = "txtRua";
             this.txtRua.ReadOnly = true;
             this.txtRua.Size = new System.Drawing.Size(199, 20);
-            this.txtRua.TabIndex = 165;
+            this.txtRua.TabIndex = 194;
             // 
             // lblendereco
             // 
@@ -416,7 +415,7 @@ namespace AssisTec.UserControls.ucFormulario_Clientes
             this.lblendereco.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblendereco.Name = "lblendereco";
             this.lblendereco.Size = new System.Drawing.Size(0, 23);
-            this.lblendereco.TabIndex = 164;
+            this.lblendereco.TabIndex = 193;
             // 
             // mtbCPF
             // 
@@ -426,7 +425,7 @@ namespace AssisTec.UserControls.ucFormulario_Clientes
             this.mtbCPF.Mask = "000.000.000-00";
             this.mtbCPF.Name = "mtbCPF";
             this.mtbCPF.Size = new System.Drawing.Size(131, 20);
-            this.mtbCPF.TabIndex = 163;
+            this.mtbCPF.TabIndex = 192;
             this.mtbCPF.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // txtNome
@@ -436,7 +435,7 @@ namespace AssisTec.UserControls.ucFormulario_Clientes
             this.txtNome.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtNome.Name = "txtNome";
             this.txtNome.Size = new System.Drawing.Size(460, 20);
-            this.txtNome.TabIndex = 162;
+            this.txtNome.TabIndex = 191;
             // 
             // ucFormulario_Clientes
             // 
@@ -474,6 +473,7 @@ namespace AssisTec.UserControls.ucFormulario_Clientes
             this.Controls.Add(this.txtNome);
             this.Name = "ucFormulario_Clientes";
             this.Size = new System.Drawing.Size(684, 593);
+            this.Load += new System.EventHandler(this.ucFormulario_Clientes_Load);
             this.panel2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
