@@ -12,6 +12,7 @@ namespace AssisTec
         
         ucGerenciador_Usuario ucUsuarios = new ucGerenciador_Usuario();
         ucGerenciador_Clientes ucClientes = new ucGerenciador_Clientes();
+        ucGerenciadorEstoque ucEstoque = new ucGerenciadorEstoque();
         //ucProdutos ucProdutos = new ucProdutos();
         //ucGerenciadorPedidos ucPedidos = new ucGerenciadorPedidos();
 
@@ -35,30 +36,30 @@ namespace AssisTec
                 (s, e) => AbrirUserControl(ucUsuarios, s)
             );
 
-            panelNavegacao.Controls.Add(btnUsuario);
+            
             
             // Botão Clientes
             Guna2Button btnClientes = CriarBotaoMenu(
                 "👥 Clientes",
                 (s, e) => AbrirUserControl(ucClientes, s)
             );
-            panelNavegacao.Controls.Add(btnClientes);
             
-            // Botão Produtos
-            /*Guna2Button btnProdutos = CriarBotaoMenu(
-                "📦 Produtos",
-                (s, e) => AbrirUserControl(ucProdutos, s)
-            );*/
+            
+            // Botão Estoque
+            Guna2Button btnEstoque = CriarBotaoMenu(
+                "📦 Estoque",
+                (s, e) => AbrirUserControl(ucEstoque, s)
+            );
             
             //panelNavegacao.Controls.Add(btnProdutos);
             
-            //Botão Pedidos
-            /*Guna2Button btnPedidos = CriarBotaoMenu(
-                "📨 Pedidos",
-                (s, e) => AbrirUserControl(ucPedidos, s)
+            //Botão OS
+            Guna2Button btnPedidos = CriarBotaoMenu(
+                "📨 Ordens de Serviço",
+                (s, e) => AbrirUserControl(new ucGerenciadorOS(), s)
             );
             
-            panelNavegacao.Controls.Add(btnPedidos);*/
+            
             
             
             // Logo
@@ -72,7 +73,10 @@ namespace AssisTec
                 Font = new Font("Segoe UI", 22, FontStyle.Bold),
                 TextAlign = ContentAlignment.MiddleCenter
             };
-
+            panelNavegacao.Controls.Add(btnEstoque);
+            panelNavegacao.Controls.Add(btnPedidos);
+            panelNavegacao.Controls.Add(btnClientes);
+            panelNavegacao.Controls.Add(btnUsuario);
             panelNavegacao.Controls.Add(lblLogo);
         }
 

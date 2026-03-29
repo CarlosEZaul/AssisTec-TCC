@@ -74,6 +74,7 @@ namespace AssisTec
                     MessageBox.Show("Usuário com este CPF já existe", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return false;
                 }
+                string senhaHash = BCrypt.Net.BCrypt.HashPassword(user.Senha);
                 
                 con.OpenConnection();
                 sql = "INSERT INTO usuarios (nome, cpf, telefone, senha, nivel, status, cep, rua, numero, cidade, bairro, estado, complemento) " +
@@ -82,7 +83,7 @@ namespace AssisTec
                 cmd.Parameters.AddWithValue("@nome", user.nome);
                 cmd.Parameters.AddWithValue("@cpf", user.cpf);
                 cmd.Parameters.AddWithValue("@telefone", user.telefone);
-                cmd.Parameters.AddWithValue("@senha", user.senha);
+                cmd.Parameters.AddWithValue("@senha", senhaHash);
                 cmd.Parameters.AddWithValue("@nivel", user.nivel);
                 cmd.Parameters.AddWithValue("@status", user.status);
                 cmd.Parameters.AddWithValue("@cep", user.cep);
@@ -111,53 +112,73 @@ namespace AssisTec
         public bool editarUsuario(Usuario user)
         {
             if (user == null)
-            {
-                MessageBox.Show("Tentativa de cadastro com campo inválido", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
+    {
+        MessageBox.Show("Tentativa de cadastro com campo inválido", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        return false;
+    }
 
-            try
-            {
-                if (usuarioExiste(user.cpf, user.id))
-                {
-                    MessageBox.Show("Usuário já existe", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return false;
-                }
-                
-                con.OpenConnection();
-                sql = @"UPDATE usuarios 
-                SET nome=@nome, cpf=@cpf, telefone=@tel, nivel=@nivel, senha=@senha, status=@status, 
-                    cep=@cep, rua=@rua, numero=@numero, cidade=@cidade, bairro=@bairro, estado=@estado, complemento=@complemento
-                WHERE id_usuario=@id";
-                cmd = new MySqlCommand(sql, con.con);
-                cmd.Parameters.AddWithValue("@nome", user.nome);
-                cmd.Parameters.AddWithValue("@cpf", user.cpf);
-                cmd.Parameters.AddWithValue("@tel", user.telefone);
-                cmd.Parameters.AddWithValue("@nivel", user.nivel);
-                cmd.Parameters.AddWithValue("@senha", user.senha);
-                cmd.Parameters.AddWithValue("@status", user.status);
-                cmd.Parameters.AddWithValue("@cep", user.cep);
-                cmd.Parameters.AddWithValue("@rua", user.rua);
-                cmd.Parameters.AddWithValue("@numero", user.numero);
-                cmd.Parameters.AddWithValue("@cidade", user.cidade);
-                cmd.Parameters.AddWithValue("@bairro", user.bairro);
-                cmd.Parameters.AddWithValue("@estado", user.estado);
-                cmd.Parameters.AddWithValue("@complemento", user.complemento);
-                cmd.Parameters.AddWithValue("@id", user.id);
+    try
+    {
+        if (usuarioExiste(user.cpf, user.id))
+        {
+            MessageBox.Show("Usuário já existe", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            return false;
+        }
 
-                cmd.ExecuteNonQuery();
-                con.CloseConnection();
+        con.OpenConnection();
 
-                MessageBox.Show("Usuário editado com sucesso", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return true;
-                
-                
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
+        // 🔐 Verifica se vai atualizar senha
+        bool alterarSenha = !string.IsNullOrEmpty(user.senha);
+
+        if (alterarSenha)
+        {
+            string senhaHash = BCrypt.Net.BCrypt.HashPassword(user.senha);
+
+            sql = @"UPDATE usuarios 
+            SET nome=@nome, cpf=@cpf, telefone=@tel, nivel=@nivel, senha=@senha, status=@status, 
+                cep=@cep, rua=@rua, numero=@numero, cidade=@cidade, bairro=@bairro, estado=@estado, complemento=@complemento
+            WHERE id_usuario=@id";
+
+            cmd = new MySqlCommand(sql, con.con);
+
+            cmd.Parameters.AddWithValue("@senha", senhaHash); // 🔐 hash
+        }
+        else
+        {
+            sql = @"UPDATE usuarios 
+            SET nome=@nome, cpf=@cpf, telefone=@tel, nivel=@nivel, status=@status, 
+                cep=@cep, rua=@rua, numero=@numero, cidade=@cidade, bairro=@bairro, estado=@estado, complemento=@complemento
+            WHERE id_usuario=@id";
+
+            cmd = new MySqlCommand(sql, con.con);
+        }
+
+        // parâmetros comuns
+        cmd.Parameters.AddWithValue("@nome", user.nome);
+        cmd.Parameters.AddWithValue("@cpf", user.cpf);
+        cmd.Parameters.AddWithValue("@tel", user.telefone);
+        cmd.Parameters.AddWithValue("@nivel", user.nivel);
+        cmd.Parameters.AddWithValue("@status", user.status);
+        cmd.Parameters.AddWithValue("@cep", user.cep);
+        cmd.Parameters.AddWithValue("@rua", user.rua);
+        cmd.Parameters.AddWithValue("@numero", user.numero);
+        cmd.Parameters.AddWithValue("@cidade", user.cidade);
+        cmd.Parameters.AddWithValue("@bairro", user.bairro);
+        cmd.Parameters.AddWithValue("@estado", user.estado);
+        cmd.Parameters.AddWithValue("@complemento", user.complemento);
+        cmd.Parameters.AddWithValue("@id", user.id);
+
+        cmd.ExecuteNonQuery();
+        con.CloseConnection();
+
+        MessageBox.Show("Usuário editado com sucesso", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        return true;
+    }
+    catch (Exception ex)
+    {
+        MessageBox.Show(ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        return false;
+    }
         }
 
         public void atualizarDados(DataGridView dgvUsuarios)

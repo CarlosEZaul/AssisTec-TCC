@@ -63,37 +63,49 @@ namespace AssisTec
             try
             {
                 con.OpenConnection();
-                string cpf = mtbCPF.Text.Replace(".", "").Replace("-", "").Replace(",", "").Trim();
+                string cpf = mtbCPF.Text
+                    .Replace(".", "")
+                    .Replace("-", "")
+                    .Replace(",", "")
+                    .Trim();
                 
-                sql = @"SELECT nome FROM usuarios 
-                            WHERE REPLACE(REPLACE(REPLACE(cpf, '.', ''), '-', ''), ',', '') = @cpf 
-                            AND TRIM(senha) = @senha";
+                sql = @"SELECT nome, senha FROM usuarios 
+                            WHERE REPLACE(REPLACE(REPLACE(cpf, '.', ''), '-', ''), ',', '') = @cpf";
+
                 cmd = new MySqlCommand(sql, con.con);
-    
                 cmd.Parameters.AddWithValue("@cpf", cpf);
-                cmd.Parameters.AddWithValue("@senha", txtPassword.Text.Trim());
 
                 MySqlDataReader reader = cmd.ExecuteReader();
 
                 if (reader.Read())
                 {
                     string nome = reader.GetString("nome");
-                    
+                    string hashSenha = reader.GetString("senha");
 
                     reader.Close();
                     con.CloseConnection();
 
-                    MessageBox.Show($"Bem-vindo, {nome}!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    FrmPrincipal form =  new FrmPrincipal();
-                    form.Show();
-                    this.Hide();
-                    
-                    
+                    // 🔐 Verifica senha com bcrypt
+                    bool senhaValida = BCrypt.Net.BCrypt.Verify(txtPassword.Text.Trim(), hashSenha);
+
+                    if (senhaValida)
+                    {
+                        MessageBox.Show($"Bem-vindo, {nome}!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                        FrmPrincipal form = new FrmPrincipal();
+                        form.Show();
+                        this.Hide();
+                    }
+                    else
+                    {
+                        MessageBox.Show("CPF ou senha inválidos.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
                 else
                 {
                     reader.Close();
                     con.CloseConnection();
+
                     MessageBox.Show("CPF ou senha inválidos.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
