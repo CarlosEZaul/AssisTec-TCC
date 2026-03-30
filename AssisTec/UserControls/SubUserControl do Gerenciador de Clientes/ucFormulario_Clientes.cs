@@ -55,33 +55,29 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Clientes.ucForm
         {
             try
             {
-                con.OpenConnection();
-                sql = "SELECT * FROM clientes WHERE id_cliente = @id";
-                cmd = new MySqlCommand(sql, con.con);
-                cmd.Parameters.AddWithValue("@id", id);
-                MySqlDataReader reader  = cmd.ExecuteReader();
-                if (reader.Read())
-                {
-                    id = reader.GetInt32("id_cliente");
-                    txtNome.Text = reader["nome"].ToString();
-                    mtbCPF.Text = reader["cpf"].ToString();
-                    mtbTel.Text = reader["telefone"].ToString();
-                    mtbNasc.Text =  reader["datanasc"].ToString();
-                    mtbCep.Text = reader["cep"].ToString();
-                    txtRua.Text = reader["rua"].ToString();
-                    txtNumber.Text = reader["numero"].ToString();
-                    txtCidade.Text = reader["cidade"].ToString();
-                    txtBairro.Text = reader["bairro"].ToString();
-                    txtEstado.Text = reader["estado"].ToString();
-                    txtComp.Text = reader["complemento"].ToString();
-                }
+                Cliente cliente = new Cliente();
+                cliente = cliente.carregarDados(id);
+
+
+                id = cliente.id;
+                txtNome.Text = cliente.nome;
+                mtbCPF.Text = cliente.cpf;
+                mtbTel.Text = cliente.telefone;
+                mtbNasc.Text = cliente.dataNascimento;
+                mtbCep.Text = cliente.cep;
+                txtRua.Text = cliente.rua;
+                txtNumber.Text = cliente.numero.ToString();
+                txtCidade.Text = cliente.cidade;
+                txtBairro.Text = cliente.bairro;
+                txtEstado.Text = cliente.estado;
+                txtComp.Text = cliente.complemento;
                 
                 con.CloseConnection();
                 
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Erro ao carregar dados: " + ex.Message);
+                MessageBox.Show("Erro ao carregar dados form: " + ex.Message);
             }
         }
         

@@ -31,7 +31,52 @@ namespace AssisTec
             set { status = value; }
         }
         
-        
+        public Usuario carregarDados(int id)
+        {
+            try
+            {
+                Usuario usuario = new Usuario();
+
+                con.OpenConnection();
+
+                sql = "SELECT * FROM usuarios WHERE id_usuario  = @id_usuario";
+                cmd = new MySqlCommand(sql, con.con);
+                cmd.Parameters.AddWithValue("@id_usuario", id);
+
+                MySqlDataReader rs = cmd.ExecuteReader();
+
+                if (rs.Read())
+                {
+                    usuario.id = rs.GetInt32("id_usuario");
+                    usuario.nome = rs.GetString("nome");
+                    usuario.cpf = rs.GetString("cpf");
+                    usuario.telefone = rs.GetString("telefone");
+                    usuario.status = rs.GetString("status");
+                    usuario.nivel = Convert.ToInt32(rs["nivel"]);
+                    usuario.senha = rs.GetString("senha");
+                    usuario.cep = rs.GetString("cep");
+                    usuario.rua = rs.GetString("rua");
+                    usuario.numero = Convert.ToInt32(rs.GetString("numero"));
+                    usuario.cidade = rs.GetString("cidade");
+                    usuario.estado = rs.GetString("estado");
+                    usuario.bairro = rs.GetString("bairro");
+                    usuario.complemento = rs.GetString("complemento");
+                    
+                }
+
+                rs.Close();
+                con.CloseConnection();
+                return usuario;
+
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao carregar usuário!" + ex, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            return new Usuario();
+        }
         
 
         private bool usuarioExiste(string cpf, int? ignorarId = null)
@@ -112,73 +157,84 @@ namespace AssisTec
         public bool editarUsuario(Usuario user)
         {
             if (user == null)
-    {
-        MessageBox.Show("Tentativa de cadastro com campo inválido", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        return false;
-    }
+            {
+                MessageBox.Show("Dados inválidos", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
 
-    try
-    {
-        if (usuarioExiste(user.cpf, user.id))
-        {
-            MessageBox.Show("Usuário já existe", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            return false;
-        }
+            try
+            {
+                if (usuarioExiste(user.cpf, user.id))
+                {
+                    MessageBox.Show("Usuário já existe", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
+                }
 
-        con.OpenConnection();
+                con.OpenConnection();
 
-        // 🔐 Verifica se vai atualizar senha
-        bool alterarSenha = !string.IsNullOrEmpty(user.senha);
+                // 🔐 NÃO altera senha se for placeholder
+                bool alterarSenha = 
+                    !string.IsNullOrWhiteSpace(user.senha) && 
+                    user.senha != "********";
 
-        if (alterarSenha)
-        {
-            string senhaHash = BCrypt.Net.BCrypt.HashPassword(user.senha);
+                string sql = @"UPDATE usuarios SET 
+                                nome=@nome, 
+                                cpf=@cpf, 
+                                telefone=@tel, 
+                                nivel=@nivel, 
+                                status=@status,
+                                cep=@cep, 
+                                rua=@rua, 
+                                numero=@numero, 
+                                cidade=@cidade, 
+                                bairro=@bairro, 
+                                estado=@estado, 
+                                complemento=@complemento";
 
-            sql = @"UPDATE usuarios 
-            SET nome=@nome, cpf=@cpf, telefone=@tel, nivel=@nivel, senha=@senha, status=@status, 
-                cep=@cep, rua=@rua, numero=@numero, cidade=@cidade, bairro=@bairro, estado=@estado, complemento=@complemento
-            WHERE id_usuario=@id";
+                if (alterarSenha)
+                {
+                    sql += ", senha=@senha";
+                }
 
-            cmd = new MySqlCommand(sql, con.con);
+                sql += " WHERE id_usuario=@id";
 
-            cmd.Parameters.AddWithValue("@senha", senhaHash); // 🔐 hash
-        }
-        else
-        {
-            sql = @"UPDATE usuarios 
-            SET nome=@nome, cpf=@cpf, telefone=@tel, nivel=@nivel, status=@status, 
-                cep=@cep, rua=@rua, numero=@numero, cidade=@cidade, bairro=@bairro, estado=@estado, complemento=@complemento
-            WHERE id_usuario=@id";
+                using (MySqlCommand cmd = new MySqlCommand(sql, con.con))
+                {
+                    cmd.Parameters.AddWithValue("@nome", user.nome);
+                    cmd.Parameters.AddWithValue("@cpf", user.cpf);
+                    cmd.Parameters.AddWithValue("@tel", user.telefone);
+                    cmd.Parameters.AddWithValue("@nivel", user.nivel);
+                    cmd.Parameters.AddWithValue("@status", user.status);
+                    cmd.Parameters.AddWithValue("@cep", user.cep);
+                    cmd.Parameters.AddWithValue("@rua", user.rua);
+                    cmd.Parameters.AddWithValue("@numero", user.numero);
+                    cmd.Parameters.AddWithValue("@cidade", user.cidade);
+                    cmd.Parameters.AddWithValue("@bairro", user.bairro);
+                    cmd.Parameters.AddWithValue("@estado", user.estado);
+                    cmd.Parameters.AddWithValue("@complemento", user.complemento);
+                    cmd.Parameters.AddWithValue("@id", user.id);
 
-            cmd = new MySqlCommand(sql, con.con);
-        }
+                    // 🔐 Só atualiza senha se for realmente nova
+                    if (alterarSenha)
+                    {
+                        string senhaHash = BCrypt.Net.BCrypt.HashPassword(user.senha);
+                        cmd.Parameters.AddWithValue("@senha", senhaHash);
+                    }
 
-        // parâmetros comuns
-        cmd.Parameters.AddWithValue("@nome", user.nome);
-        cmd.Parameters.AddWithValue("@cpf", user.cpf);
-        cmd.Parameters.AddWithValue("@tel", user.telefone);
-        cmd.Parameters.AddWithValue("@nivel", user.nivel);
-        cmd.Parameters.AddWithValue("@status", user.status);
-        cmd.Parameters.AddWithValue("@cep", user.cep);
-        cmd.Parameters.AddWithValue("@rua", user.rua);
-        cmd.Parameters.AddWithValue("@numero", user.numero);
-        cmd.Parameters.AddWithValue("@cidade", user.cidade);
-        cmd.Parameters.AddWithValue("@bairro", user.bairro);
-        cmd.Parameters.AddWithValue("@estado", user.estado);
-        cmd.Parameters.AddWithValue("@complemento", user.complemento);
-        cmd.Parameters.AddWithValue("@id", user.id);
+                    cmd.ExecuteNonQuery();
+                }
 
-        cmd.ExecuteNonQuery();
-        con.CloseConnection();
+                con.CloseConnection();
 
-        MessageBox.Show("Usuário editado com sucesso", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        return true;
-    }
-    catch (Exception ex)
-    {
-        MessageBox.Show(ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        return false;
-    }
+                MessageBox.Show("Usuário editado com sucesso", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                con.CloseConnection();
+                MessageBox.Show(ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
         }
 
         public void atualizarDados(DataGridView dgvUsuarios)

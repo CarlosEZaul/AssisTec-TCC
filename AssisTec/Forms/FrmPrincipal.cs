@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Windows.Forms;
 using AssisTec.UserControls;
+using AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Clientes.ucFormulario_Clientes;
 using Guna.UI2.WinForms;
 
 namespace AssisTec
@@ -9,17 +10,13 @@ namespace AssisTec
     public partial class FrmPrincipal : Form
     {
         private Guna2Button botaoAtivo;
-        
-        ucGerenciador_Usuario ucUsuarios = new ucGerenciador_Usuario();
-        ucGerenciador_Clientes ucClientes = new ucGerenciador_Clientes();
-        ucGerenciadorEstoque ucEstoque = new ucGerenciadorEstoque();
-        //ucProdutos ucProdutos = new ucProdutos();
-        //ucGerenciadorPedidos ucPedidos = new ucGerenciadorPedidos();
 
         public FrmPrincipal()
         {
             InitializeComponent();
             ConfigurarNavbar();
+            
+            
         }
 
         private void ConfigurarNavbar()
@@ -33,7 +30,7 @@ namespace AssisTec
             // Botão Usuários
             Guna2Button btnUsuario = CriarBotaoMenu(
                 "👤 Usuários",
-                (s, e) => AbrirUserControl(ucUsuarios, s)
+                (s, e) => AbrirUserControl(new ucGerenciador_Usuario(), s)
             );
 
             
@@ -41,14 +38,14 @@ namespace AssisTec
             // Botão Clientes
             Guna2Button btnClientes = CriarBotaoMenu(
                 "👥 Clientes",
-                (s, e) => AbrirUserControl(ucClientes, s)
+                (s, e) => AbrirUserControl(new ucGerenciador_Clientes(), s)
             );
             
             
             // Botão Estoque
             Guna2Button btnEstoque = CriarBotaoMenu(
                 "📦 Estoque",
-                (s, e) => AbrirUserControl(ucEstoque, s)
+                (s, e) => AbrirUserControl(new ucGerenciadorEstoque() ,s)
             );
             
             //panelNavegacao.Controls.Add(btnProdutos);
@@ -58,8 +55,19 @@ namespace AssisTec
                 "📨 Ordens de Serviço",
                 (s, e) => AbrirUserControl(new ucGerenciadorOS(), s)
             );
+            Guna2Button btnContasReceber = CriarBotaoMenu(
+                "💰 Contas a receber",
+                (s, e) => AbrirUserControl(new ucContasReceber(), s)
+            );
             
-            
+            Guna2Button btnContasPagar = CriarBotaoMenu(
+                "🧾 Contas a pagar",
+                (s, e) => AbrirUserControl(new ucContasPagar(), s)
+            );
+            Guna2Button btnBackupImportar = CriarBotaoMenu(
+                "☁︎Backup/Importar",
+                (s, e) => AbrirUserControl(new ucBackupImportar(), s)
+            );
             
             
             // Logo
@@ -71,8 +79,11 @@ namespace AssisTec
                 Height = 80,
                 ForeColor = Color.White,
                 Font = new Font("Segoe UI", 22, FontStyle.Bold),
-                TextAlign = ContentAlignment.MiddleCenter
+                TextAlign = ContentAlignment.TopLeft
             };
+            panelNavegacao.Controls.Add(btnBackupImportar);
+            panelNavegacao.Controls.Add(btnContasPagar);
+            panelNavegacao.Controls.Add(btnContasReceber);
             panelNavegacao.Controls.Add(btnEstoque);
             panelNavegacao.Controls.Add(btnPedidos);
             panelNavegacao.Controls.Add(btnClientes);

@@ -353,7 +353,6 @@ C:\Users\Pc do estagiario\Desktop\AssisTEC\AssisTec\bin\Debug\K4os.Hash.xxHash.d
 C:\Users\Pc do estagiario\Desktop\AssisTEC\AssisTec\bin\Debug\Microsoft.Bcl.AsyncInterfaces.dll
 C:\Users\Pc do estagiario\Desktop\AssisTEC\AssisTec\bin\Debug\MySql.Data.dll
 C:\Users\Pc do estagiario\Desktop\AssisTEC\AssisTec\bin\Debug\Newtonsoft.Json.dll
-C:\Users\Pc do estagiario\Desktop\AssisTEC\AssisTec\bin\Debug\Refit.dll
 C:\Users\Pc do estagiario\Desktop\AssisTEC\AssisTec\bin\Debug\System.Buffers.dll
 C:\Users\Pc do estagiario\Desktop\AssisTEC\AssisTec\bin\Debug\System.Configuration.ConfigurationManager.dll
 C:\Users\Pc do estagiario\Desktop\AssisTEC\AssisTec\bin\Debug\System.Diagnostics.DiagnosticSource.dll
@@ -377,7 +376,6 @@ C:\Users\Pc do estagiario\Desktop\AssisTEC\AssisTec\bin\Debug\K4os.Hash.xxHash.x
 C:\Users\Pc do estagiario\Desktop\AssisTEC\AssisTec\bin\Debug\Microsoft.Bcl.AsyncInterfaces.xml
 C:\Users\Pc do estagiario\Desktop\AssisTEC\AssisTec\bin\Debug\MySql.Data.xml
 C:\Users\Pc do estagiario\Desktop\AssisTEC\AssisTec\bin\Debug\Newtonsoft.Json.xml
-C:\Users\Pc do estagiario\Desktop\AssisTEC\AssisTec\bin\Debug\Refit.xml
 C:\Users\Pc do estagiario\Desktop\AssisTEC\AssisTec\bin\Debug\System.Buffers.xml
 C:\Users\Pc do estagiario\Desktop\AssisTEC\AssisTec\bin\Debug\System.Configuration.ConfigurationManager.xml
 C:\Users\Pc do estagiario\Desktop\AssisTEC\AssisTec\bin\Debug\System.Diagnostics.DiagnosticSource.xml
@@ -391,20 +389,12 @@ C:\Users\Pc do estagiario\Desktop\AssisTEC\AssisTec\bin\Debug\System.Text.Json.x
 C:\Users\Pc do estagiario\Desktop\AssisTEC\AssisTec\bin\Debug\System.Threading.Tasks.Extensions.xml
 C:\Users\Pc do estagiario\Desktop\AssisTEC\AssisTec\bin\Debug\System.ValueTuple.xml
 C:\Users\Pc do estagiario\Desktop\AssisTEC\AssisTec\obj\Debug\AssisTec.csproj.AssemblyReference.cache
-C:\Users\Pc do estagiario\Desktop\AssisTEC\AssisTec\obj\Debug\AssisTec.exe.config
 C:\Users\Pc do estagiario\Desktop\AssisTEC\AssisTec\obj\Debug\AssisTec.FrmPrincipal.resources
-C:\Users\Pc do estagiario\Desktop\AssisTEC\AssisTec\obj\Debug\AssisTec.Gerenciador_Clientes.resources
-C:\Users\Pc do estagiario\Desktop\AssisTEC\AssisTec\obj\Debug\AssisTec.Gerenciador_Usuarios.resources
 C:\Users\Pc do estagiario\Desktop\AssisTEC\AssisTec\obj\Debug\AssisTec.FrmLogin.resources
 C:\Users\Pc do estagiario\Desktop\AssisTEC\AssisTec\obj\Debug\AssisTec.Properties.Resources.resources
 C:\Users\Pc do estagiario\Desktop\AssisTEC\AssisTec\obj\Debug\AssisTec.csproj.GenerateResource.cache
-C:\Users\Pc do estagiario\Desktop\AssisTEC\AssisTec\obj\Debug\RefitStubs.g.cs
 C:\Users\Pc do estagiario\Desktop\AssisTEC\AssisTec\obj\Debug\AssisTec.csproj.CoreCompileInputs.cache
 C:\Users\Pc do estagiario\Desktop\AssisTEC\AssisTec\obj\Debug\AssisTec.csproj.Up2Date
-C:\Users\Pc do estagiario\Desktop\AssisTEC\AssisTec\obj\Debug\AssisTec.Gerenciador_Pedidos.resources
-C:\Users\Pc do estagiario\Desktop\AssisTEC\AssisTec\obj\Debug\AssisTec.SubForms_do_Gerenciador_de_Pedidos.Novo_Pedido.resources
-C:\Users\Pc do estagiario\Desktop\AssisTEC\AssisTec\obj\Debug\AssisTec.SubForms_do_Gerenciador_de_Pedidos.Editar_Pedido.resources
-C:\Users\Pc do estagiario\Desktop\AssisTEC\AssisTec\obj\Debug\AssisTec.FrmProduto.resources
 C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\bin\Debug\AssisTec.exe.config
 C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\bin\Debug\AssisTec.exe
 C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\bin\Debug\AssisTec.pdb
@@ -620,3 +610,20 @@ C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\obj\Debug\AssisTec.UserContro
 C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\obj\Debug\AssisTec.UserControls.ucGerenciadorEstoque.resources
 C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\bin\Debug\BCrypt.Net-Next.dll
 C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\bin\Debug\BCrypt.Net-Next.xml
+C:\Users\Pc do estagiario\Desktop\assistec\AssisTec\bin\Debug\BCrypt.Net-Next.dll
+C:\Users\Pc do estagiario\Desktop\assistec\AssisTec\bin\Debug\BCrypt.Net-Next.xml
+C:\Users\Pc do estagiario\Desktop\assistec\AssisTec\obj\Debug\AssisTec.formSubs.resources
+C:\Users\Pc do estagiario\Desktop\assistec\AssisTec\obj\Debug\AssisTec.SubForms_do_Gerenciador_de_Pedidos.FrmEditarPedido.resources
+C:\Users\Pc do estagiario\Desktop\assistec\AssisTec\obj\Debug\AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Clientes.ucFormulario_Clientes.ucFormulario_Clientes.resources
+C:\Users\Pc do estagiario\Desktop\assistec\AssisTec\obj\Debug\AssisTec.UserControls.ucContasReceber.resources
+C:\Users\Pc do estagiario\Desktop\assistec\AssisTec\obj\Debug\AssisTec.UserControls.ucGerenciadorEstoque.resources
+C:\Users\Pc do estagiario\Desktop\assistec\AssisTec\obj\Debug\AssisTec.UserControls.ucGerenciadorOS.resources
+C:\Users\Pc do estagiario\Desktop\assistec\AssisTec\obj\Debug\AssisTec.UserControls.ucGerenciador_Clientes.resources
+C:\Users\Pc do estagiario\Desktop\assistec\AssisTec\obj\Debug\AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios.ucFormularioUsuarios.resources
+C:\Users\Pc do estagiario\Desktop\assistec\AssisTec\obj\Debug\AssisTec.SubForms_do_Gerenciador_de_Pedidos.ucDetalhesPedidos.resources
+C:\Users\Pc do estagiario\Desktop\assistec\AssisTec\obj\Debug\AssisTec.SubForms_do_Gerenciador_de_Pedidos.ucProdutosUtilizados.resources
+C:\Users\Pc do estagiario\Desktop\assistec\AssisTec\obj\Debug\AssisTec.SubForms_do_Gerenciador_de_Pedidos.ucServicos.resources
+C:\Users\Pc do estagiario\Desktop\assistec\AssisTec\obj\Debug\AssisTec.UserControls.ucGerenciador_Usuario.resources
+C:\Users\Pc do estagiario\Desktop\assistec\AssisTec\obj\Debug\AssisTec.UserControls.ucContasPagar.resources
+C:\Users\Pc do estagiario\Desktop\assistec\AssisTec\obj\Debug\AssisTec.UserControls.ucBackupImportar.resources
+C:\Users\Pc do estagiario\Desktop\assistec\AssisTec\obj\Debug\AssisTec.SubForms_do_Gerenciador_de_Pedidos.ucFormularioOS.resources

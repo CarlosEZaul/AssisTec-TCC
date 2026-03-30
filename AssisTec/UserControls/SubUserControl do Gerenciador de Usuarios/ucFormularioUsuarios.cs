@@ -123,50 +123,44 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios
             int indexNivel;
             try
             {
-                con.OpenConnection();
-                sql = "SELECT * FROM usuarios WHERE id_usuario = @id";
-                cmd = new MySqlCommand(sql, con.con);
-                cmd.Parameters.AddWithValue("@id", id);
-                MySqlDataReader reader  = cmd.ExecuteReader();
-                if (reader.Read())
+                Usuario usuario = new Usuario();
+                usuario = usuario.carregarDados(id);
+                id = usuario.id;
+                txtNome.Text = usuario.nome;
+                mtbCPF.Text = usuario.cpf;
+                txtSenha.Text = "********";
+                mtbTel.Text = usuario.telefone;
+
+                if (usuario.Nivel == 1)
                 {
-                    id = reader.GetInt32("id_usuario");
-                    txtNome.Text = reader["nome"].ToString();
-                    mtbCPF.Text = reader["cpf"].ToString();
-                    txtSenha.Text = reader["senha"].ToString();
-                    mtbTel.Text = reader["telefone"].ToString();
-
-                    if (Convert.ToInt32(reader["nivel"]) == 1)
-                    {
-                        indexNivel = 0;
-                    }
-                    else if (Convert.ToInt32(reader["nivel"]) == 2)
-                    {
-                        indexNivel = 1;
-                    }
-                    else
-                    {
-                        indexNivel = 2;
-                    }
-
-                    cbNivel.SelectedIndex = indexNivel;
-                    cbStatus.Text = reader["status"].ToString();
-                    mtbCep.Text = reader["cep"].ToString();
-                    txtRua.Text = reader["rua"].ToString();
-                    txtNumber.Text = reader["numero"].ToString();
-                    txtCidade.Text = reader["cidade"].ToString();
-                    txtBairro.Text = reader["bairro"].ToString();
-                    txtEstado.Text = reader["estado"].ToString();
-                    txtComp.Text = reader["complemento"].ToString();
+                    indexNivel = 0;
                 }
-                
-                con.CloseConnection();
-                
+                else if (usuario.Nivel == 2)
+                {
+                    indexNivel = 1;
+                }
+                else
+                {
+                    indexNivel = 2;
+                }
+
+                cbNivel.SelectedIndex = indexNivel;
+                cbStatus.Text = usuario.Status;
+                mtbCep.Text = usuario.cep;
+                txtRua.Text = usuario.rua;
+                txtNumber.Text = usuario.numero.ToString();
+                txtCidade.Text = usuario.cidade;
+                txtBairro.Text = usuario.bairro;
+                txtEstado.Text = usuario.estado;
+                txtComp.Text = usuario.complemento;
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
-                MessageBox.Show("Erro ao carregar dados: " + ex.Message);
+                MessageBox.Show("Erro ao carregar dados do usuário: " + ex.Message);
             }
+
+            con.CloseConnection();
+            
             
         }
         

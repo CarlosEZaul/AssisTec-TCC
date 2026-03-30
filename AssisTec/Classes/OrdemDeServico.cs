@@ -8,7 +8,7 @@ namespace AssisTec
         private int Id_pedido;
         private Cliente cliente;
         private Equipamento Id_equipamento;
-        private Tecnico tecnico;
+        private Usuario tecnico;
         
         private string Problema_relatado;
         private string Diagnostico;
@@ -65,7 +65,7 @@ namespace AssisTec
             set { Equipamento = value; }
         }
 
-        public Tecnico Tecnico
+        public Usuario Tecnico
         {
             get { return Tecnico; }
             set { Tecnico = value; }
@@ -131,6 +131,11 @@ namespace AssisTec
         {
             get { return Observacoes; }
             set { Observacoes = value; }
+        }
+
+        public void salvarOS()
+        {
+            
         }
     }
 }

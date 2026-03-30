@@ -162,7 +162,6 @@
     <Compile Include="Classes\Pedido.cs" />
     <Compile Include="Classes\Pessoa.cs" />
     <Compile Include="Classes\Produto.cs" />
-    <Compile Include="Classes\Tecnico.cs" />
     <Compile Include="Classes\Usuario.cs" />
     <Compile Include="Connected Services\wscep\wscep.cs">
       <AutoGen>True</AutoGen>
@@ -193,12 +192,6 @@
     <Compile Include="Forms\SubForms do Gerenciador de Pedidos\FrmEditarPedido.Designer.cs">
       <DependentUpon>FrmEditarPedido.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\SubForms do Gerenciador de Pedidos\Novo_Pedido.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\SubForms do Gerenciador de Pedidos\Novo_Pedido.Designer.cs">
-      <DependentUpon>Novo_Pedido.cs</DependentUpon>
-    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserControls\SubUserControl do Gerenciador de Clientes\ucFormulario_Clientes.cs">
@@ -207,11 +200,29 @@
     <Compile Include="UserControls\SubUserControl do Gerenciador de Clientes\ucFormulario_Clientes.Designer.cs">
       <DependentUpon>ucFormulario_Clientes.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\SubUserControl do Gerenciador de Pedidos\ucFormularioOS.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\SubUserControl do Gerenciador de Pedidos\ucFormularioOS.Designer.cs">
+      <DependentUpon>ucFormularioOS.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\SubUserControl do Gerenciador de Usuarios\ucHistoricoOS.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="UserControls\SubUserControl do Gerenciador de Usuarios\ucHistoricoOS.Designer.cs">
       <DependentUpon>ucHistoricoOS.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ucBackupImportar.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\ucBackupImportar.Designer.cs">
+      <DependentUpon>ucBackupImportar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ucContasPagar.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\ucContasPagar.Designer.cs">
+      <DependentUpon>ucContasPagar.cs</DependentUpon>
     </Compile>
     <Compile Include="UserControls\ucContasReceber.cs">
       <SubType>UserControl</SubType>
@@ -273,9 +284,6 @@
     <EmbeddedResource Include="Forms\SubForms do Gerenciador de Pedidos\FrmEditarPedido.resx">
       <DependentUpon>FrmEditarPedido.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\SubForms do Gerenciador de Pedidos\Novo_Pedido.resx">
-      <DependentUpon>Novo_Pedido.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
@@ -283,6 +291,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\SubUserControl do Gerenciador de Clientes\ucFormulario_Clientes.resx">
       <DependentUpon>ucFormulario_Clientes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\SubUserControl do Gerenciador de Pedidos\ucFormularioOS.resx">
+      <DependentUpon>ucFormularioOS.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\ucBackupImportar.resx">
+      <DependentUpon>ucBackupImportar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\ucContasPagar.resx">
+      <DependentUpon>ucContasPagar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\ucContasReceber.resx">
+      <DependentUpon>ucContasReceber.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\ucGerenciadorEstoque.resx">
       <DependentUpon>ucGerenciadorEstoque.cs</DependentUpon>

@@ -5,12 +5,12 @@ using MySql.Data.MySqlClient;
 
 namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
 {
-    public partial class Novo_Pedido : Form
+    public partial class ucFormularioOS : UserControl
     {
         conexao con = new conexao();
         string sql;
         MySqlCommand cmd;
-        public Novo_Pedido()
+        public ucFormularioOS()
         {
             InitializeComponent();
             ConfigurarComboBox();
@@ -78,6 +78,21 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             txtObservacoes.Text = "";
             txtProblemas.Text="";
         }
+
+        private void CarregarOS()
+        {
+            Cliente cliente = new Cliente();
+            cliente = cliente.carregarDados(Convert.ToInt32(cbCliente.SelectedValue));
+            Usuario tecnico = new Usuario();
+            tecnico = tecnico.carregarDados(Convert.ToInt32(cbTecnico.SelectedValue));
+            Equipamento equipamento = new Equipamento();
+            
+            OrdemDeServico os = new OrdemDeServico();
+            
+            
+
+           
+        }
         
         private void btnSalvar_Click(object sender, EventArgs e)
         {
@@ -126,7 +141,7 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
                 cmd.ExecuteNonQuery();
                 con.CloseConnection();
                 MessageBox.Show("Pedido Cadastrado!", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                this.Close();
+                this.Hide();
             }
             catch (Exception exception)
             {
@@ -143,7 +158,7 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
 
         private void btnFechar_Click(object sender, EventArgs e)
         {
-            this.Close();
+            this.Hide();
         }
     }
 }

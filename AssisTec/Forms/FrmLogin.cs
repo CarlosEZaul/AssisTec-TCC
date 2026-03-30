@@ -35,7 +35,7 @@ namespace AssisTec
             button.FlatAppearance.BorderSize = 0;
             button.BackColor = backgroundColor;
             button.ForeColor = Color.White;
-            button.Font = new Font("Comic Sans MS", 12, FontStyle.Bold);
+            button.Font = new Font("Engravers MT", 12, FontStyle.Bold);
             
             button.Cursor = Cursors.Hand;
                 // Não alterar o tamanho para evitar problemas de layout
@@ -92,8 +92,7 @@ namespace AssisTec
                     {
                         MessageBox.Show($"Bem-vindo, {nome}!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                        FrmPrincipal form = new FrmPrincipal();
-                        form.Show();
+                        this.DialogResult = DialogResult.OK;
                         this.Hide();
                     }
                     else

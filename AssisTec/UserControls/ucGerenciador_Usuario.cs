@@ -122,6 +122,7 @@ namespace AssisTec.UserControls
             dgvUsuarios.Columns[1].HeaderText = "Nome";
             dgvUsuarios.Columns[2].HeaderText = "CPF";
             dgvUsuarios.Columns[3].HeaderText = "Senha";
+            dgvUsuarios.Columns[3].Visible = false;
             dgvUsuarios.Columns[4].HeaderText = "Telefone";
             dgvUsuarios.Columns[5].HeaderText = "Nível";
             dgvUsuarios.Columns[6].HeaderText = "Status";

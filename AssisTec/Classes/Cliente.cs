@@ -10,8 +10,49 @@ namespace AssisTec
         private conexao con = new conexao();
         private MySqlCommand cmd;
         private string sql;
-        
-        
+
+        public Cliente carregarDados(int id)
+        {
+            try
+            {
+                Cliente cliente = new Cliente();
+
+                con.OpenConnection();
+
+                sql = "SELECT * FROM clientes WHERE id_cliente = @id_cliente";
+                cmd = new MySqlCommand(sql, con.con);
+                cmd.Parameters.AddWithValue("@id_cliente", id);
+
+                MySqlDataReader rs = cmd.ExecuteReader();
+
+                if (rs.Read())
+                {
+                    cliente.id = rs.GetInt32("id_cliente");
+                    cliente.nome = rs.GetString("nome");
+                    cliente.cpf = rs.GetString("cpf");
+                    cliente.telefone = rs.GetString("telefone");
+                    cliente.dataNascimento = rs.GetDateTime("datanasc").ToString("dd/MM/yyyy");
+                    cliente.cep = rs.GetString("cep");
+                    cliente.rua = rs.GetString("rua");
+                    cliente.numero = Convert.ToInt32(rs.GetString("numero"));
+                    cliente.cidade = rs.GetString("cidade");
+                    cliente.estado = rs.GetString("estado");
+                    cliente.bairro = rs.GetString("bairro");
+                    cliente.complemento = rs.GetString("complemento");
+                    
+                }
+
+                rs.Close();
+                con.CloseConnection();
+                return cliente;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao carregar cliente!" + ex, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            return new Cliente();
+        }
 
         public void novoCliente(Cliente cliente)
         {

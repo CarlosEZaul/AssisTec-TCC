@@ -242,7 +242,7 @@ namespace AssisTec.UserControls
             // 
             this.label4.BackColor = System.Drawing.Color.Transparent;
             this.label4.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label4.Font = new System.Drawing.Font("Comic Sans MS", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Font = new System.Drawing.Font("Engravers MT", 20.25F, System.Drawing.FontStyle.Bold);
             this.label4.ForeColor = System.Drawing.Color.White;
             this.label4.Location = new System.Drawing.Point(0, 0);
             this.label4.Name = "label4";
@@ -253,6 +253,7 @@ namespace AssisTec.UserControls
             // 
             // checkBox1
             // 
+            this.checkBox1.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.checkBox1.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.checkBox1.Location = new System.Drawing.Point(939, 74);
             this.checkBox1.Name = "checkBox1";
@@ -263,6 +264,7 @@ namespace AssisTec.UserControls
             // 
             // cbNivel
             // 
+            this.cbNivel.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.cbNivel.FormattingEnabled = true;
             this.cbNivel.Location = new System.Drawing.Point(734, 73);
             this.cbNivel.Name = "cbNivel";
@@ -271,6 +273,7 @@ namespace AssisTec.UserControls
             // 
             // label2
             // 
+            this.label2.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label2.Font = new System.Drawing.Font("Comic Sans MS", 9.75F);
             this.label2.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.label2.Location = new System.Drawing.Point(612, 74);
@@ -282,6 +285,7 @@ namespace AssisTec.UserControls
             // 
             // label1
             // 
+            this.label1.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label1.Font = new System.Drawing.Font("Comic Sans MS", 9.75F);
             this.label1.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.label1.Location = new System.Drawing.Point(28, 74);
@@ -368,6 +372,7 @@ namespace AssisTec.UserControls
             // 
             // txtBusca
             // 
+            this.txtBusca.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.txtBusca.BackColor = System.Drawing.Color.White;
             this.txtBusca.Location = new System.Drawing.Point(89, 74);
             this.txtBusca.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);

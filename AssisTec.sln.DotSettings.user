@@ -30,7 +30,8 @@
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=AssisTec_002FForms_002FSubForms_0020do_0020Gerenciador_0020de_0020Pedidos_002FFrmEditarPedido/@EntryIndexedValue">True</s:Boolean>
 	
 	
-	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=AssisTec_002FForms_002FSubForms_0020do_0020Gerenciador_0020de_0020Pedidos_002FNovo_005FPedido/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=AssisTec_002FForms_002FSubForms_0020do_0020Gerenciador_0020de_0020Pedidos_002FNovo_005FPedido/@EntryIndexedValue">False</s:Boolean>
+	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=AssisTec_002FForms_002FSubForms_0020do_0020Gerenciador_0020de_0020Pedidos_002FNovo_005FPedido/@EntryIndexRemoved">True</s:Boolean>
 	
 	
 	
@@ -53,9 +54,12 @@
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=AssisTec_002FUserControls_002FSubUserControls_0020do_0020Gerenciador_0020de_0020Pedidos_002FucDetalhesPedidos/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=AssisTec_002FUserControls_002FSubUserControls_0020do_0020Gerenciador_0020de_0020Pedidos_002FucProdutosUtilizados/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=AssisTec_002FUserControls_002FSubUserControls_0020do_0020Gerenciador_0020de_0020Pedidos_002FucServicos/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=AssisTec_002FUserControls_002FSubUserControl_0020do_0020Gerenciador_0020de_0020Pedidos_002FucFormularioOS/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=AssisTec_002FUserControls_002FSubUserControl_0020do_0020Gerenciador_0020de_0020Usuarios_002FFormularioUsuarios/@EntryIndexedValue">False</s:Boolean>
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=AssisTec_002FUserControls_002FSubUserControl_0020do_0020Gerenciador_0020de_0020Usuarios_002FFormularioUsuarios/@EntryIndexRemoved">True</s:Boolean>
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=AssisTec_002FUserControls_002FSubUserControl_0020do_0020Gerenciador_0020de_0020Usuarios_002FucFormularioUsuarios/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=AssisTec_002FUserControls_002FucBackupImportar/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=AssisTec_002FUserControls_002FucContasPagar/@EntryIndexedValue">True</s:Boolean>
 	
 	
 	

@@ -72,7 +72,7 @@ namespace AssisTec.UserControls
             // 
             this.label4.BackColor = System.Drawing.Color.Transparent;
             this.label4.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label4.Font = new System.Drawing.Font("Comic Sans MS", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Font = new System.Drawing.Font("Engravers MT", 20.25F, System.Drawing.FontStyle.Bold);
             this.label4.ForeColor = System.Drawing.Color.White;
             this.label4.Location = new System.Drawing.Point(0, 0);
             this.label4.Name = "label4";
@@ -90,9 +90,9 @@ namespace AssisTec.UserControls
             this.panel2.Controls.Add(this.btnNew);
             this.panel2.Controls.Add(this.btnDelete);
             this.panel2.Controls.Add(this.btnGerenciar);
-            this.panel2.Location = new System.Drawing.Point(301, 688);
+            this.panel2.Location = new System.Drawing.Point(229, 688);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(730, 61);
+            this.panel2.Size = new System.Drawing.Size(692, 61);
             this.panel2.TabIndex = 148;
             // 
             // btnRelatorio
@@ -157,6 +157,7 @@ namespace AssisTec.UserControls
             this.btnNew.TabIndex = 99;
             this.btnNew.Text = "Novo";
             this.btnNew.UseVisualStyleBackColor = false;
+            this.btnNew.Click += new System.EventHandler(this.btnNew_Click);
             // 
             // btnDelete
             // 
@@ -192,9 +193,10 @@ namespace AssisTec.UserControls
             // 
             // label1
             // 
+            this.label1.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label1.Font = new System.Drawing.Font("Comic Sans MS", 9.75F);
             this.label1.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label1.Location = new System.Drawing.Point(18, 64);
+            this.label1.Location = new System.Drawing.Point(301, 58);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(53, 18);
@@ -203,8 +205,9 @@ namespace AssisTec.UserControls
             // 
             // txtBusca
             // 
+            this.txtBusca.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.txtBusca.BackColor = System.Drawing.Color.White;
-            this.txtBusca.Location = new System.Drawing.Point(79, 64);
+            this.txtBusca.Location = new System.Drawing.Point(362, 58);
             this.txtBusca.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtBusca.Name = "txtBusca";
             this.txtBusca.Size = new System.Drawing.Size(471, 20);
@@ -225,7 +228,7 @@ namespace AssisTec.UserControls
             // 
             this.cbRetirada.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cbRetirada.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.cbRetirada.Location = new System.Drawing.Point(874, 28);
+            this.cbRetirada.Location = new System.Drawing.Point(874, 41);
             this.cbRetirada.Name = "cbRetirada";
             this.cbRetirada.Size = new System.Drawing.Size(178, 24);
             this.cbRetirada.TabIndex = 152;
