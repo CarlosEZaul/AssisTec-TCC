@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Data;
+using System.Drawing;
 using System.Windows.Forms;
+using AssisTec.SubForms_do_Gerenciador_de_Pedidos;
 using MySql.Data.MySqlClient;
 
 namespace AssisTec.UserControls
@@ -13,7 +15,41 @@ namespace AssisTec.UserControls
         public ucGerenciadorOS()
         {
             InitializeComponent();
+            ApplyModernDesign();
+            listGrid();
         }
+
+        #region DesingModerno
+
+        private void ApplyModernDesign()
+        {
+            try
+            {
+                this.Text = "Gerenciador de Ordens de Serviço";
+                this.BackColor = Color.FromArgb(39, 55, 76);
+
+                // Labels
+                // DesingComponentes.ApplyLabelStyles(this);
+
+                // TextBox
+                DesingComponentes.StyleTextBox(txtBusca);
+                 
+
+                // Botões
+                DesingComponentes.StyleButton(btnNew, Color.FromArgb(0, 120, 215));
+                DesingComponentes.StyleButton(btnDelete, Color.FromArgb(209, 17, 65));
+
+                // DataGridView
+                DesingComponentes.StyleDataGridView(dgvOS, DataGridViewAutoSizeColumnsMode.Fill);
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao aplicar design: " + ex.Message);
+            }
+        }
+
+        #endregion
         private void formartGrid()
         {
             if (dgvOS.Columns.Count <= 0) return;
@@ -33,12 +69,13 @@ namespace AssisTec.UserControls
             dgvOS.Columns[12].HeaderText = "Diagnóstico";
             dgvOS.Columns[13].HeaderText = "Observações";
         }
-        public void listGrid()
+
+        private void listGrid()
         {
             try
             {
                 con.OpenConnection();
-                sql = "SELECT * FROM usuarios ORDER BY NOME ASC";
+                sql = "SELECT * FROM ordem_servico";
                 cmd = new MySqlCommand(sql, con.con);
                 MySqlDataAdapter da = new MySqlDataAdapter();
                 da.SelectCommand = cmd;
@@ -57,7 +94,17 @@ namespace AssisTec.UserControls
 
         private void btnNew_Click(object sender, EventArgs e)
         {
-            throw new System.NotImplementedException();
+            ucFormularioOS ucFormularioOs = new ucFormularioOS();
+            this.Controls.Add(ucFormularioOs);
+            ucFormularioOs.BringToFront();
+            ucFormularioOs.Left = (this.ClientSize.Width - ucFormularioOs.Width)/2;
+            ucFormularioOs.Top = (this.ClientSize.Height - ucFormularioOs.Height)/2;
+            ucFormularioOs.Show();
+        }
+
+        private void btnAtualizar_Click(object sender, EventArgs e)
+        {
+            listGrid();
         }
     }
 }

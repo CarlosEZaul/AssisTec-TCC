@@ -2,14 +2,13 @@
 {
     public class Equipamento
     {
-        private int Id_equipamento { get; set; }
-        private string Descricao { get; set; }
-        private string Marca { get; set; }
-        private string NumeroSerie { get; set; }
-        private string Acessorio { get; set; }
-        private string EstadoEntrada { get; set; }
-        private string Observacoes { get; set; }
-       
-        
+        public int IdEquipamento { get; set; }
+        public string Descricao { get; set; }
+        public string Marca { get; set; }
+        public string Modelo { get; set; }
+        public string NumeroSerie { get; set; }
+        public string Acessorio { get; set; }
+        public string EstadoEntrada { get; set; }
+        public string Observacoes { get; set; }
     }
 }

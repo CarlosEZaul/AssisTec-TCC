@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using MySql.Data.MySqlClient;
 
 namespace AssisTec
 {
@@ -7,7 +8,7 @@ namespace AssisTec
     {
         private int Id_pedido;
         private Cliente cliente;
-        private Equipamento Id_equipamento;
+        private Equipamento equipamento;
         private Usuario tecnico;
         
         private string Problema_relatado;
@@ -23,9 +24,11 @@ namespace AssisTec
         private decimal Valor_total;
 
         private string Observacoes;
-        
-       
-        
+
+
+        private conexao con;
+        private MySqlCommand cmd;
+        private string sql;
         public string dataFormatada(string data)
         {
             if (string.IsNullOrWhiteSpace(data))
@@ -133,9 +136,47 @@ namespace AssisTec
             set { Observacoes = value; }
         }
 
-        public void salvarOS()
+        public void salvarOS(OrdemDeServico ordemDeServico)
         {
-            
+            try
+            {
+                con.OpenConnection();
+                sql = "insert into equipamentos (descricao, marca, modelo, numero_serie, acessorios, estado_entrada, observacoes) values (@descricao, @marca, @modelo, @numero_serie, @acessorios, @estado_entrada, @observacoes)";
+                cmd = new MySqlCommand(sql, con.con);
+                
+                cmd.Parameters.AddWithValue("@descricao", equipamento.Descricao);
+                cmd.Parameters.AddWithValue("@marca", equipamento.Marca);
+                cmd.Parameters.AddWithValue("@modelo", equipamento.Modelo);
+                cmd.Parameters.AddWithValue("@numero_serie", equipamento.NumeroSerie);
+                cmd.Parameters.AddWithValue("@estado_entrada", equipamento.EstadoEntrada);
+                cmd.Parameters.AddWithValue("@acessorios", equipamento.Acessorio);
+                cmd.Parameters.AddWithValue("@observacoes",equipamento.Observacoes);
+                cmd.ExecuteNonQuery();
+
+                int idEquipamento = (int)cmd.LastInsertedId;
+                var dataAtual = DateTime.Now;
+                con.CloseConnection();
+                
+                con.OpenConnection();
+                sql = "insert into ordem_servico (id_tecnico, id_cliente , id_equipamento , problema_relatado, data_abertura) values (@id_tecnico,@id_cliente, @id_equipamento, @problema_relatado, @data_abertura)";
+                cmd = new MySqlCommand(sql, con.con);
+                cmd.Parameters.AddWithValue("@id_cliente", ordemDeServico.cliente.id);
+                cmd.Parameters.AddWithValue("@id_tecnico", ordemDeServico.tecnico.id);
+                cmd.Parameters.AddWithValue("@id_equipamento", idEquipamento);
+                cmd.Parameters.AddWithValue("@problema_relatado", ordemDeServico.problema_relatado);
+                cmd.Parameters.AddWithValue("@data_abertura", dataAtual);
+                
+                
+                cmd.ExecuteNonQuery();
+                con.CloseConnection();
+                MessageBox.Show("Pedido Cadastrado!", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                throw;
+            }
         }
     }
 }

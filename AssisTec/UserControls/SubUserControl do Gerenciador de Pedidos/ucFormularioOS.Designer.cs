@@ -43,7 +43,6 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             this.label20 = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
-            this.label17 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
@@ -61,7 +60,6 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             this.label4 = new System.Windows.Forms.Label();
             this.txtMarca = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.txtTipo = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.txtDescricao = new System.Windows.Forms.TextBox();
             this.lblEnd = new System.Windows.Forms.Label();
@@ -143,7 +141,6 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             this.panel2.Controls.Add(this.label20);
             this.panel2.Controls.Add(this.label19);
             this.panel2.Controls.Add(this.label18);
-            this.panel2.Controls.Add(this.label17);
             this.panel2.Controls.Add(this.label16);
             this.panel2.Controls.Add(this.label15);
             this.panel2.Controls.Add(this.panel3);
@@ -162,7 +159,6 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             this.panel2.Controls.Add(this.label4);
             this.panel2.Controls.Add(this.txtMarca);
             this.panel2.Controls.Add(this.label3);
-            this.panel2.Controls.Add(this.txtTipo);
             this.panel2.Controls.Add(this.label2);
             this.panel2.Controls.Add(this.txtDescricao);
             this.panel2.Controls.Add(this.lblEnd);
@@ -190,7 +186,7 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             this.label23.AutoSize = true;
             this.label23.Font = new System.Drawing.Font("Comic Sans MS", 9.75F);
             this.label23.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label23.Location = new System.Drawing.Point(314, 120);
+            this.label23.Location = new System.Drawing.Point(0, 122);
             this.label23.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label23.Name = "label23";
             this.label23.Size = new System.Drawing.Size(89, 18);
@@ -203,7 +199,7 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             this.label22.AutoSize = true;
             this.label22.Font = new System.Drawing.Font("Comic Sans MS", 9.75F);
             this.label22.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label22.Location = new System.Drawing.Point(6, 123);
+            this.label22.Location = new System.Drawing.Point(6, 90);
             this.label22.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(53, 18);
@@ -241,7 +237,7 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             this.label19.AutoSize = true;
             this.label19.Font = new System.Drawing.Font("Comic Sans MS", 9.75F);
             this.label19.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label19.Location = new System.Drawing.Point(4, 87);
+            this.label19.Location = new System.Drawing.Point(585, 52);
             this.label19.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(56, 18);
@@ -253,24 +249,12 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             this.label18.AutoSize = true;
             this.label18.Font = new System.Drawing.Font("Comic Sans MS", 9.75F);
             this.label18.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label18.Location = new System.Drawing.Point(615, 54);
+            this.label18.Location = new System.Drawing.Point(317, 52);
             this.label18.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(50, 18);
             this.label18.TabIndex = 70;
             this.label18.Text = "Marca:";
-            // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.Font = new System.Drawing.Font("Comic Sans MS", 9.75F);
-            this.label17.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label17.Location = new System.Drawing.Point(354, 56);
-            this.label17.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(39, 18);
-            this.label17.TabIndex = 69;
-            this.label17.Text = "Tipo:";
             // 
             // label16
             // 
@@ -331,16 +315,16 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             // txtObservacoes
             // 
             this.txtObservacoes.BackColor = System.Drawing.Color.White;
-            this.txtObservacoes.Location = new System.Drawing.Point(418, 120);
+            this.txtObservacoes.Location = new System.Drawing.Point(97, 120);
             this.txtObservacoes.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtObservacoes.Name = "txtObservacoes";
-            this.txtObservacoes.Size = new System.Drawing.Size(454, 20);
+            this.txtObservacoes.Size = new System.Drawing.Size(775, 20);
             this.txtObservacoes.TabIndex = 62;
             // 
             // cbEstado
             // 
             this.cbEstado.FormattingEnabled = true;
-            this.cbEstado.Location = new System.Drawing.Point(84, 120);
+            this.cbEstado.Location = new System.Drawing.Point(84, 87);
             this.cbEstado.Name = "cbEstado";
             this.cbEstado.Size = new System.Drawing.Size(222, 21);
             this.cbEstado.TabIndex = 38;
@@ -410,10 +394,10 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             // txtModelo
             // 
             this.txtModelo.BackColor = System.Drawing.Color.White;
-            this.txtModelo.Location = new System.Drawing.Point(84, 85);
+            this.txtModelo.Location = new System.Drawing.Point(649, 52);
             this.txtModelo.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtModelo.Name = "txtModelo";
-            this.txtModelo.Size = new System.Drawing.Size(222, 20);
+            this.txtModelo.Size = new System.Drawing.Size(223, 20);
             this.txtModelo.TabIndex = 54;
             // 
             // label4
@@ -430,7 +414,7 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             // txtMarca
             // 
             this.txtMarca.BackColor = System.Drawing.Color.White;
-            this.txtMarca.Location = new System.Drawing.Point(666, 54);
+            this.txtMarca.Location = new System.Drawing.Point(368, 52);
             this.txtMarca.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtMarca.Name = "txtMarca";
             this.txtMarca.Size = new System.Drawing.Size(206, 20);
@@ -446,15 +430,6 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(0, 18);
             this.label3.TabIndex = 51;
-            // 
-            // txtTipo
-            // 
-            this.txtTipo.BackColor = System.Drawing.Color.White;
-            this.txtTipo.Location = new System.Drawing.Point(401, 54);
-            this.txtTipo.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.txtTipo.Name = "txtTipo";
-            this.txtTipo.Size = new System.Drawing.Size(206, 20);
-            this.txtTipo.TabIndex = 50;
             // 
             // label2
             // 
@@ -592,7 +567,6 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.Label label18;
-        private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label label10;
@@ -610,7 +584,6 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox txtMarca;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox txtTipo;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtDescricao;
         private System.Windows.Forms.Label lblEnd;

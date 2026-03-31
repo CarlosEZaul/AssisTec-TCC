@@ -33,7 +33,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Clientes.ucForm
 
         private void fechar()
         {
-            this.Hide();
+            this.Dispose();
         }
         private void deleteAll()
         {

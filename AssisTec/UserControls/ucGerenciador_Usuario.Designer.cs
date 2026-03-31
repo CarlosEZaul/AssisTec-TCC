@@ -52,8 +52,7 @@ namespace AssisTec.UserControls
             this.label1 = new System.Windows.Forms.Label();
             this.dgvUsuarios = new System.Windows.Forms.DataGridView();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnHistorico = new System.Windows.Forms.Button();
             this.btnAtualizar = new System.Windows.Forms.PictureBox();
             this.txtBusca = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
@@ -320,47 +319,31 @@ namespace AssisTec.UserControls
             // panel2
             // 
             this.panel2.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.panel2.Controls.Add(this.button2);
-            this.panel2.Controls.Add(this.button1);
+            this.panel2.Controls.Add(this.btnHistorico);
             this.panel2.Controls.Add(this.btnNew);
             this.panel2.Controls.Add(this.btnDelete);
             this.panel2.Controls.Add(this.btnEditar);
             this.panel2.Location = new System.Drawing.Point(348, 685);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(555, 61);
+            this.panel2.Size = new System.Drawing.Size(422, 61);
             this.panel2.TabIndex = 132;
             // 
-            // button2
+            // btnHistorico
             // 
-            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button2.BackColor = System.Drawing.Color.RoyalBlue;
-            this.button2.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button2.Enabled = false;
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.button2.ForeColor = System.Drawing.SystemColors.Control;
-            this.button2.Location = new System.Drawing.Point(408, 15);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(133, 33);
-            this.button2.TabIndex = 105;
-            this.button2.Text = "Imprimir relatório de OS’s";
-            this.button2.UseVisualStyleBackColor = false;
-            // 
-            // button1
-            // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button1.BackColor = System.Drawing.Color.RoyalBlue;
-            this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button1.Enabled = false;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.ForeColor = System.Drawing.SystemColors.Control;
-            this.button1.Location = new System.Drawing.Point(266, 15);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(136, 33);
-            this.button1.TabIndex = 104;
-            this.button1.Text = "Visualizar histórico de OS";
-            this.button1.UseVisualStyleBackColor = false;
+            this.btnHistorico.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnHistorico.BackColor = System.Drawing.Color.RoyalBlue;
+            this.btnHistorico.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnHistorico.Enabled = false;
+            this.btnHistorico.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnHistorico.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnHistorico.ForeColor = System.Drawing.SystemColors.Control;
+            this.btnHistorico.Location = new System.Drawing.Point(266, 15);
+            this.btnHistorico.Name = "btnHistorico";
+            this.btnHistorico.Size = new System.Drawing.Size(136, 33);
+            this.btnHistorico.TabIndex = 104;
+            this.btnHistorico.Text = "Visualizar histórico de OS";
+            this.btnHistorico.UseVisualStyleBackColor = false;
+            this.btnHistorico.Click += new System.EventHandler(this.btnHistorico_Click);
             // 
             // btnAtualizar
             // 
@@ -405,8 +388,7 @@ namespace AssisTec.UserControls
 
         private System.Windows.Forms.Label label4;
 
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button btnHistorico;
 
         private System.Windows.Forms.ComboBox cbNivel;
         private System.Windows.Forms.CheckBox cbInativo;

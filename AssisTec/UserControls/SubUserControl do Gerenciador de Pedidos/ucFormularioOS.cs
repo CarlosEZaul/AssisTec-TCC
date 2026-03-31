@@ -69,7 +69,6 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
         private void LimparTxt()
         {
             txtDescricao.Text = "";
-            txtTipo.Text = "";
             txtMarca.Text = "";
             txtModelo.Text = "";
             txtNdeSerie.Text = "";
@@ -98,7 +97,6 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
         {
             if (string.IsNullOrWhiteSpace(cbCliente.Text) || string.IsNullOrWhiteSpace(cbTecnico.Text) ||
                 string.IsNullOrWhiteSpace(txtDescricao.Text) ||
-                string.IsNullOrWhiteSpace(txtTipo.Text) || string.IsNullOrWhiteSpace(txtMarca.Text) ||
                 string.IsNullOrWhiteSpace(txtModelo.Text) ||
                 string.IsNullOrWhiteSpace(txtNdeSerie.Text) || string.IsNullOrWhiteSpace(txtAcessorio.Text) ||
                 string.IsNullOrWhiteSpace(cbEstado.Text) ||
@@ -107,48 +105,18 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
                 MessageBox.Show("Preencha todos os campos", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
 
-            try
-            {
-                con.OpenConnection();
-                sql = "insert into equipamentos (id_cliente, descricao, tipo, marca, modelo, numero_serie, acessorios, estado_entrada, observacoes) values (@id_cliente, @descricao, @tipo, @marca, @modelo, @numero_serie, @acessorios, @estado_entrada, @observacoes)";
-                cmd = new MySqlCommand(sql, con.con);
-                
-                cmd.Parameters.AddWithValue("@id_cliente", cbCliente.SelectedValue);
-                cmd.Parameters.AddWithValue("@descricao", txtDescricao.Text);
-                cmd.Parameters.AddWithValue("@tipo", txtTipo.Text);
-                cmd.Parameters.AddWithValue("@marca", txtMarca.Text);
-                cmd.Parameters.AddWithValue("@modelo", txtModelo.Text);
-                cmd.Parameters.AddWithValue("@numero_serie", txtNdeSerie.Text);
-                cmd.Parameters.AddWithValue("@estado_entrada", cbEstado.SelectedText);
-                cmd.Parameters.AddWithValue("@acessorios", txtAcessorio.Text);
-                cmd.Parameters.AddWithValue("@observacoes", txtObservacoes.Text);
-                cmd.ExecuteNonQuery();
+            OrdemDeServico  os = new OrdemDeServico();
+            os.Cliente.id = Convert.ToInt32(cbCliente.SelectedValue);
+            os.Tecnico.id = Convert.ToInt32(cbTecnico.SelectedValue);
+            os.Equipamento.Descricao = txtDescricao.Text;
+            os.Equipamento.Marca = txtMarca.Text;
+            os.Equipamento.Modelo = txtMarca.Text;
+            os.Equipamento.EstadoEntrada = cbEstado.Text;
+            os.Equipamento.NumeroSerie = txtNdeSerie.Text;
+            os.Equipamento.Acessorio = txtAcessorio.Text;
+            os.problema_relatado = txtProblemas.Text;
+            os.salvarOS(os);
 
-                int idEquipamento = (int)cmd.LastInsertedId;
-                var dataAtual = DateTime.Now;
-                con.CloseConnection();
-                
-                con.OpenConnection();
-                sql = "insert into pedidos (id_tecnico , id_equipamento , problema_relatado, data_abertura) values (@id_tecnico, @id_equipamento, @problema_relatado, @data_abertura)";
-                cmd = new MySqlCommand(sql, con.con);
-                
-                cmd.Parameters.AddWithValue("@id_tecnico", cbTecnico.SelectedValue);
-                cmd.Parameters.AddWithValue("@id_equipamento", idEquipamento);
-                cmd.Parameters.AddWithValue("@problema_relatado", txtProblemas.Text);
-                cmd.Parameters.AddWithValue("@data_abertura", dataAtual);
-                
-                
-                cmd.ExecuteNonQuery();
-                con.CloseConnection();
-                MessageBox.Show("Pedido Cadastrado!", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                this.Hide();
-            }
-            catch (Exception exception)
-            {
-                MessageBox.Show(exception.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                throw;
-            }
-            
         }
 
         private void btnLimpar_Click(object sender, EventArgs e)

@@ -57,15 +57,20 @@ namespace AssisTec
                 "📨 Ordens de Serviço",
                 (s, e) => AbrirUserControl(new ucGerenciadorOS(), s)
             );
+            
+            //Botão Contas a receber
             Guna2Button btnContasReceber = CriarBotaoMenu(
                 "💰 Contas a receber",
                 (s, e) => AbrirUserControl(new ucContasReceber(), s)
             );
             
+            //Botão contas a pagar
             Guna2Button btnContasPagar = CriarBotaoMenu(
                 "🧾 Contas a pagar",
                 (s, e) => AbrirUserControl(new ucContasPagar(), s)
             );
+            
+            //botão backup/importar
             Guna2Button btnBackupImportar = CriarBotaoMenu(
                 "☁︎Backup/Importar",
                 (s, e) => AbrirUserControl(new ucBackupImportar(), s)

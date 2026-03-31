@@ -98,7 +98,8 @@ namespace AssisTec.UserControls
             btnNew.Enabled = true;
             btnDelete.Enabled = true;
             btnEditar.Enabled = true;
-            
+            btnHistorico.Enabled = true;
+
         }
         
         public void listGrid()
@@ -176,7 +177,7 @@ namespace AssisTec.UserControls
                 if (cbNivel.SelectedValue != null &&
                     int.TryParse(cbNivel.SelectedValue.ToString(), out nivelSelecionado))
                 {
-                    if (nivelSelecionado != 0) // 0 = Todos
+                    if (nivelSelecionado != 0)
                     {
                         sql += " AND nivel = @nivel";
                     }
@@ -333,6 +334,14 @@ namespace AssisTec.UserControls
         private void cbNivel_SelectionChangeCommitted(object sender, EventArgs e)
         {
             Filtro();
+        }
+
+
+        private void btnHistorico_Click(object sender, EventArgs e)
+        {
+            ucHistoricoOS ucHistorico = new ucHistoricoOS(id);
+            this.Controls.Add(ucHistorico);
+            ucHistorico.BringToFront();
         }
     }
 }

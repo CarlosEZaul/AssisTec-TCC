@@ -272,6 +272,12 @@
     <Compile Include="UserControls\ucGerenciador_Usuario.Designer.cs">
       <DependentUpon>ucGerenciador_Usuario.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\ucHistoricoOS.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\ucHistoricoOS.Designer.cs">
+      <DependentUpon>ucHistoricoOS.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Forms\formSubs.resx">
       <DependentUpon>formSubs.cs</DependentUpon>
     </EmbeddedResource>
@@ -327,6 +333,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\ucGerenciador_Usuario.resx">
       <DependentUpon>ucGerenciador_Usuario.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\ucHistoricoOS.resx">
+      <DependentUpon>ucHistoricoOS.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Connected Services\wscep\wscep.svcmap">
       <Generator>WCF Proxy Generator</Generator>

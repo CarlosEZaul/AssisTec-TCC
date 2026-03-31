@@ -627,3 +627,4 @@ C:\Users\Pc do estagiario\Desktop\assistec\AssisTec\obj\Debug\AssisTec.UserContr
 C:\Users\Pc do estagiario\Desktop\assistec\AssisTec\obj\Debug\AssisTec.UserControls.ucContasPagar.resources
 C:\Users\Pc do estagiario\Desktop\assistec\AssisTec\obj\Debug\AssisTec.UserControls.ucBackupImportar.resources
 C:\Users\Pc do estagiario\Desktop\assistec\AssisTec\obj\Debug\AssisTec.SubForms_do_Gerenciador_de_Pedidos.ucFormularioOS.resources
+C:\Users\Pc do estagiario\Desktop\assistec\AssisTec\obj\Debug\AssisTec.UserControls.ucHistoricoOS.resources
