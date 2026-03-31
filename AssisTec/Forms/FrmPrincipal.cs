@@ -26,6 +26,8 @@ namespace AssisTec
             panelNavegacao.BackColor = Color.FromArgb(45, 45, 48);
 
             panelNavegacao.Controls.Clear();
+            
+            
 
             // Botão Usuários
             Guna2Button btnUsuario = CriarBotaoMenu(
@@ -74,12 +76,13 @@ namespace AssisTec
             Label lblLogo = new Label
             {
                 Text = "ASSISTEC",
-                Anchor = AnchorStyles.Left  | AnchorStyles.Top,
+                Anchor =AnchorStyles.Top,
                 Dock = DockStyle.Top,
                 Height = 80,
                 ForeColor = Color.White,
                 Font = new Font("Segoe UI", 22, FontStyle.Bold),
-                TextAlign = ContentAlignment.TopLeft
+                TextAlign = ContentAlignment.TopLeft,
+                Padding = new Padding(20,0,0,0),
             };
             panelNavegacao.Controls.Add(btnBackupImportar);
             panelNavegacao.Controls.Add(btnContasPagar);
@@ -148,6 +151,7 @@ namespace AssisTec
                 }
             }
         }
+
         
     }
 }

@@ -172,7 +172,7 @@ namespace AssisTec
 
                 con.OpenConnection();
 
-                // 🔐 NÃO altera senha se for placeholder
+                // NÃO altera senha se for *******
                 bool alterarSenha = 
                     !string.IsNullOrWhiteSpace(user.senha) && 
                     user.senha != "********";
@@ -214,7 +214,7 @@ namespace AssisTec
                     cmd.Parameters.AddWithValue("@complemento", user.complemento);
                     cmd.Parameters.AddWithValue("@id", user.id);
 
-                    // 🔐 Só atualiza senha se for realmente nova
+                    // Só atualiza senha se for nova
                     if (alterarSenha)
                     {
                         string senhaHash = BCrypt.Net.BCrypt.HashPassword(user.senha);
@@ -236,7 +236,8 @@ namespace AssisTec
                 return false;
             }
         }
-
+        
+        //Atualiza os dados do datagridview
         public void atualizarDados(DataGridView dgvUsuarios)
         {
             try

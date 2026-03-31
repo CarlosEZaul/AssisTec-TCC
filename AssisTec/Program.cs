@@ -16,6 +16,7 @@ namespace AssisTec
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            //Application.Run(new FrmPrincipal());
             FrmLogin f = new FrmLogin();
             if (f.ShowDialog() == DialogResult.OK)
             {

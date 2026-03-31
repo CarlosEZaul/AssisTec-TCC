@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
@@ -21,7 +22,7 @@ namespace AssisTec.UserControls
         private int id;
         private string uf;
         private bool okCep;
-        int nivel = 0;
+        
         
         
         
@@ -76,9 +77,19 @@ namespace AssisTec.UserControls
         private void ConfigurarComboBox()
         {
             cbNivel.Items.Clear();
-            cbNivel.Items.Add("1- Gerente");
-            cbNivel.Items.Add("2- Atendente");
-            cbNivel.Items.Add("3 - Técnico de TI");
+            var lista = new List<dynamic>()
+            {
+                new { Id = 0, Nome = "Todos" },
+                new { Id = 1, Nome = "1- Gerente" },
+                new { Id = 2, Nome = "2- Atendente" },
+                new { Id = 3, Nome = "3- Técnico" }
+            };
+            cbNivel.DataSource = lista;
+            cbNivel.DisplayMember = "Nome";
+            cbNivel.ValueMember = "Id";
+            
+            
+            
             cbNivel.DropDownStyle = ComboBoxStyle.DropDownList;
         }
         
@@ -104,6 +115,9 @@ namespace AssisTec.UserControls
                 dgvUsuarios.DataSource = dt;
                 con.CloseConnection();
                 formartGrid();
+                txtBusca.Text = null;
+                cbNivel.SelectedValue = 0;
+                cbInativo.Checked = false;
             }
             catch (Exception ex)
             {
@@ -135,8 +149,70 @@ namespace AssisTec.UserControls
             dgvUsuarios.Columns[13].HeaderText = "Complemento";
             
         }
-        
 
+        private void Filtro()
+        {
+            try
+            {
+                con.OpenConnection();
+
+                string sql = "SELECT * FROM usuarios WHERE 1=1";
+
+                // 🔍 Filtro nome (só aplica se tiver texto)
+                if (!string.IsNullOrWhiteSpace(txtBusca.Text))
+                {
+                    sql += " AND nome LIKE @nome";
+                }
+
+                // ☑ Filtro status
+                if (cbInativo.Checked)
+                {
+                    sql += " AND status = 'Desativado'";
+                }
+
+                // 👤 Filtro nível
+                int nivelSelecionado = 0;
+
+                if (cbNivel.SelectedValue != null &&
+                    int.TryParse(cbNivel.SelectedValue.ToString(), out nivelSelecionado))
+                {
+                    if (nivelSelecionado != 0) // 0 = Todos
+                    {
+                        sql += " AND nivel = @nivel";
+                    }
+                }
+
+                sql += " ORDER BY nome ASC";
+
+                cmd = new MySqlCommand(sql, con.con);
+
+                // Parâmetros
+                if (!string.IsNullOrWhiteSpace(txtBusca.Text))
+                {
+                    cmd.Parameters.AddWithValue("@nome", txtBusca.Text + "%");
+                }
+
+                if (nivelSelecionado != 0)
+                {
+                    cmd.Parameters.AddWithValue("@nivel", nivelSelecionado);
+                }
+
+                DataTable dt = new DataTable();
+                MySqlDataAdapter da = new MySqlDataAdapter(cmd);
+                da.Fill(dt);
+
+                dgvUsuarios.DataSource = dt;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro: " + ex.Message);
+            }
+            finally
+            {
+                con.CloseConnection();
+                formartGrid();
+            }
+        }
         
         
         private void btnNew_Click(object sender, EventArgs e)
@@ -176,15 +252,7 @@ namespace AssisTec.UserControls
 
                     id = Convert.ToInt32(dgvUsuarios.Rows[e.RowIndex].Cells[0].Value);
 
-                    /*int nivel = Convert.ToInt32(dgvUsuarios.Rows[e.RowIndex].Cells["nivel"].Value);
-                    foreach (var item in cbNivel.Items)
-                    {
-                        if (item.ToString().StartsWith(nivel.ToString()))
-                        {
-                            cbNivel.SelectedItem = item;
-                            break;
-                        }
-                    }*/
+                    
                 }
                 catch (Exception ex)
                 {
@@ -243,24 +311,7 @@ namespace AssisTec.UserControls
 
         private void txtBusca_TextChanged(object sender, EventArgs e)
         {
-            try
-            {
-                con.OpenConnection();
-                sql = "SELECT * FROM usuarios WHERE nome LIKE @nome ORDER BY NOME ASC";  
-                cmd = new MySqlCommand(sql, con.con);
-                cmd.Parameters.AddWithValue("@nome", txtBusca.Text + "%");
-                DataTable dt = new DataTable();
-                MySqlDataAdapter da = new MySqlDataAdapter(cmd);
-                da.Fill(dt);
-                dgvUsuarios.DataSource = dt;
-                con.CloseConnection();
-                formartGrid();
-            }
-            catch (Exception ex)
-            {
-                
-                Console.WriteLine("Erro na busca: " + ex.Message);
-            }
+            Filtro();
         }
 
         private void label5_Click(object sender, EventArgs e)
@@ -269,7 +320,20 @@ namespace AssisTec.UserControls
         }
 
 
-        
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            Filtro();
+        }
+
+        private void cbNivel_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Filtro();
+        }
+
+        private void cbNivel_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            Filtro();
+        }
     }
 }
     

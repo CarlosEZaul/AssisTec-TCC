@@ -90,6 +90,8 @@ namespace AssisTec
         {
             comboBox.ForeColor = Color.White;
         }
+
+        
         
     }
 }

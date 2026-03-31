@@ -46,7 +46,7 @@ namespace AssisTec.UserControls
             this.label15 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label4 = new System.Windows.Forms.Label();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.cbInativo = new System.Windows.Forms.CheckBox();
             this.cbNivel = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -216,7 +216,7 @@ namespace AssisTec.UserControls
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(55)))), ((int)(((byte)(76)))));
             this.panel1.Controls.Add(this.label4);
-            this.panel1.Controls.Add(this.checkBox1);
+            this.panel1.Controls.Add(this.cbInativo);
             this.panel1.Controls.Add(this.cbNivel);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.label1);
@@ -251,16 +251,18 @@ namespace AssisTec.UserControls
             this.label4.Text = "Gerenciador de Usuários";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // checkBox1
+            // cbInativo
             // 
-            this.checkBox1.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.checkBox1.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.checkBox1.Location = new System.Drawing.Point(939, 74);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(104, 24);
-            this.checkBox1.TabIndex = 136;
-            this.checkBox1.Text = "Exibir Inativos";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.cbInativo.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.cbInativo.Font = new System.Drawing.Font("Ebrima", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbInativo.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.cbInativo.Location = new System.Drawing.Point(967, 70);
+            this.cbInativo.Name = "cbInativo";
+            this.cbInativo.Size = new System.Drawing.Size(104, 24);
+            this.cbInativo.TabIndex = 136;
+            this.cbInativo.Text = "Exibir Inativos";
+            this.cbInativo.UseVisualStyleBackColor = true;
+            this.cbInativo.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
             // cbNivel
             // 
@@ -270,28 +272,30 @@ namespace AssisTec.UserControls
             this.cbNivel.Name = "cbNivel";
             this.cbNivel.Size = new System.Drawing.Size(158, 21);
             this.cbNivel.TabIndex = 135;
+            this.cbNivel.SelectedIndexChanged += new System.EventHandler(this.cbNivel_SelectedIndexChanged);
+            this.cbNivel.SelectionChangeCommitted += new System.EventHandler(this.cbNivel_SelectionChangeCommitted);
             // 
             // label2
             // 
             this.label2.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.label2.Font = new System.Drawing.Font("Comic Sans MS", 9.75F);
+            this.label2.Font = new System.Drawing.Font("Ebrima", 8.25F);
             this.label2.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label2.Location = new System.Drawing.Point(612, 74);
+            this.label2.Location = new System.Drawing.Point(633, 76);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(115, 18);
+            this.label2.Size = new System.Drawing.Size(94, 18);
             this.label2.TabIndex = 134;
             this.label2.Text = "Nível de Usuário:";
             // 
             // label1
             // 
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.label1.Font = new System.Drawing.Font("Comic Sans MS", 9.75F);
+            this.label1.Font = new System.Drawing.Font("Ebrima", 8.25F);
             this.label1.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label1.Location = new System.Drawing.Point(28, 74);
+            this.label1.Location = new System.Drawing.Point(40, 76);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(53, 18);
+            this.label1.Size = new System.Drawing.Size(41, 18);
             this.label1.TabIndex = 54;
             this.label1.Text = "Buscar:";
             // 
@@ -405,7 +409,7 @@ namespace AssisTec.UserControls
         private System.Windows.Forms.Button button2;
 
         private System.Windows.Forms.ComboBox cbNivel;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox cbInativo;
 
         private System.Windows.Forms.Label label2;
 
