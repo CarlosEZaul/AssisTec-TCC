@@ -211,6 +211,21 @@ namespace AssisTec
                 throw;
             }
         }
+
+        public void gerarRelatorioCliente(int id)
+        {
+            try
+            {
+                Cliente cliente = carregarDados(id);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+            
+            
+        }
     }
 }
     

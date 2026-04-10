@@ -206,12 +206,6 @@
     <Compile Include="UserControls\SubUserControl do Gerenciador de Pedidos\ucFormularioOS.Designer.cs">
       <DependentUpon>ucFormularioOS.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\SubUserControl do Gerenciador de Usuarios\ucHistoricoOS.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UserControls\SubUserControl do Gerenciador de Usuarios\ucHistoricoOS.Designer.cs">
-      <DependentUpon>ucHistoricoOS.cs</DependentUpon>
-    </Compile>
     <Compile Include="UserControls\ucBackupImportar.cs">
       <SubType>UserControl</SubType>
     </Compile>

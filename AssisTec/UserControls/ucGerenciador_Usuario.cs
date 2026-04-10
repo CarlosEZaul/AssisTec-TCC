@@ -340,7 +340,10 @@ namespace AssisTec.UserControls
         private void btnHistorico_Click(object sender, EventArgs e)
         {
             ucHistoricoOS ucHistorico = new ucHistoricoOS(id);
+            ucHistorico.Left = (this.ClientSize.Width - ucHistorico.Width)/2;
+            ucHistorico.Top = (this.ClientSize.Height - ucHistorico.Height)/2;
             this.Controls.Add(ucHistorico);
+            
             ucHistorico.BringToFront();
         }
     }

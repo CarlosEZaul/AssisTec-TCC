@@ -6,54 +6,45 @@ namespace AssisTec
 {
     public class OrdemDeServico
     {
-        private int Id_pedido;
+        // ================= ATRIBUTOS =================
+        private int id_pedido;
+
         private Cliente cliente;
         private Equipamento equipamento;
         private Usuario tecnico;
-        
-        private string Problema_relatado;
-        private string Diagnostico;
-        private string Status;
 
-        private string Data_abertura;
-        private string Data_atualizacao;
-        private string Data_fechamento;
+        private string problemaRelatado;
+        private string diagnostico;
+        private string status;
 
-        private decimal Valor_mao_obra;
-        private decimal Valor_peças;
-        private decimal Valor_total;
+        private DateTime dataAbertura;
+        private DateTime dataAtualizacao;
+        private DateTime dataFechamento;
 
-        private string Observacoes;
+        private decimal valorMaoObra;
+        private decimal valorPecas;
+        private decimal valorTotal;
 
+        private string observacoes;
 
         private conexao con;
-        private MySqlCommand cmd;
-        private string sql;
-        public string dataFormatada(string data)
-        {
-            if (string.IsNullOrWhiteSpace(data))
-            {
-                MessageBox.Show("Data vazia!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return null;
-            }
 
-            try
-            {
-                DateTime dataConvertida = DateTime.ParseExact(data, "dd/MM/yyyy", null);
-                return dataConvertida.ToString("yyyy-MM-dd");
-            }
-            catch
-            {
-                MessageBox.Show("Data inválida!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return null;
-            }
+        // ================= CONSTRUTOR =================
+        public OrdemDeServico()
+        {
+            cliente = new Cliente();
+            equipamento = new Equipamento();
+            tecnico = new Usuario();
+            con = new conexao();
+
+            dataAbertura = DateTime.Now;
         }
-        
 
-        public int id_pedido
+        // ================= PROPRIEDADES =================
+        public int IdPedido
         {
-            get { return Id_pedido; }
-            set { Id_pedido = value; }
+            get { return id_pedido; }
+            set { id_pedido = value; }
         }
 
         public Cliente Cliente
@@ -64,118 +55,131 @@ namespace AssisTec
 
         public Equipamento Equipamento
         {
-            get { return Equipamento; }
-            set { Equipamento = value; }
+            get { return equipamento; }
+            set { equipamento = value; }
         }
 
         public Usuario Tecnico
         {
-            get { return Tecnico; }
-            set { Tecnico = value; }
-        }
-        
-        public string problema_relatado
-        {
-            get { return Problema_relatado; }
-            set { Problema_relatado = value; }
+            get { return tecnico; }
+            set { tecnico = value; }
         }
 
-        public string diagnostico
+        public string ProblemaRelatado
         {
-            get { return Diagnostico; }
-            set { Diagnostico = value; }
+            get { return problemaRelatado; }
+            set { problemaRelatado = value; }
         }
 
-        public string status
+        public string Diagnostico
         {
-            get { return Status; }
-            set { Status = value; }
+            get { return diagnostico; }
+            set { diagnostico = value; }
         }
 
-        public string data_abertura
+        public string Status
         {
-            get { return dataFormatada(Data_abertura); }
-            set { Data_abertura = value; }
+            get { return status; }
+            set { status = value; }
         }
 
-        public string data_atualizacao
+        public DateTime DataAbertura
         {
-            get { return dataFormatada(Data_atualizacao); }
-            set { Data_atualizacao = value; }
+            get { return dataAbertura; }
+            set { dataAbertura = value; }
         }
 
-        public string data_fechamento
+        public DateTime DataAtualizacao
         {
-            get { return dataFormatada(Data_fechamento); }
-            set { Data_fechamento = value; }
-        }
-        
-
-        public decimal valor_mao_obra
-        {
-            get { return Valor_mao_obra; }
-            set { Valor_mao_obra = value; }
+            get { return dataAtualizacao; }
+            set { dataAtualizacao = value; }
         }
 
-        public decimal valor_peças
+        public DateTime DataFechamento
         {
-            get { return Valor_peças; }
-            set { Valor_peças = value; }
+            get { return dataFechamento; }
+            set { dataFechamento = value; }
         }
 
-        public decimal valor_total
+        public decimal ValorMaoObra
         {
-            get { return Valor_total; }
-            set { Valor_total = value; }
-        }
-        
-
-        public string observacoes
-        {
-            get { return Observacoes; }
-            set { Observacoes = value; }
+            get { return valorMaoObra; }
+            set { valorMaoObra = value; }
         }
 
-        public void salvarOS(OrdemDeServico ordemDeServico)
+        public decimal ValorPecas
+        {
+            get { return valorPecas; }
+            set { valorPecas = value; }
+        }
+
+        public decimal ValorTotal
+        {
+            get { return valorTotal; }
+            set { valorTotal = value; }
+        }
+
+        public string Observacoes
+        {
+            get { return observacoes; }
+            set { observacoes = value; }
+        }
+
+        // ================= MÉTODO SALVAR =================
+        public void salvarOS()
         {
             try
             {
                 con.OpenConnection();
-                sql = "insert into equipamentos (descricao, marca, modelo, numero_serie, acessorios, estado_entrada, observacoes) values (@descricao, @marca, @modelo, @numero_serie, @acessorios, @estado_entrada, @observacoes)";
-                cmd = new MySqlCommand(sql, con.con);
-                
+
+                // Inserir equipamento
+                string sqlEquip = @"INSERT INTO equipamentos 
+                (descricao, marca, modelo, numero_serie, acessorios, estado_entrada, observacoes) 
+                VALUES (@descricao, @marca, @modelo, @numero_serie, @acessorios, @estado_entrada, @observacoes)";
+
+                MySqlCommand cmd = new MySqlCommand(sqlEquip, con.con);
+
                 cmd.Parameters.AddWithValue("@descricao", equipamento.Descricao);
                 cmd.Parameters.AddWithValue("@marca", equipamento.Marca);
                 cmd.Parameters.AddWithValue("@modelo", equipamento.Modelo);
                 cmd.Parameters.AddWithValue("@numero_serie", equipamento.NumeroSerie);
-                cmd.Parameters.AddWithValue("@estado_entrada", equipamento.EstadoEntrada);
                 cmd.Parameters.AddWithValue("@acessorios", equipamento.Acessorio);
-                cmd.Parameters.AddWithValue("@observacoes",equipamento.Observacoes);
+                cmd.Parameters.AddWithValue("@estado_entrada", equipamento.EstadoEntrada);
+                cmd.Parameters.AddWithValue("@observacoes", equipamento.Observacoes);
+
                 cmd.ExecuteNonQuery();
 
                 int idEquipamento = (int)cmd.LastInsertedId;
-                var dataAtual = DateTime.Now;
+
                 con.CloseConnection();
-                
                 con.OpenConnection();
-                sql = "insert into ordem_servico (id_tecnico, id_cliente , id_equipamento , problema_relatado, data_abertura) values (@id_tecnico,@id_cliente, @id_equipamento, @problema_relatado, @data_abertura)";
-                cmd = new MySqlCommand(sql, con.con);
-                cmd.Parameters.AddWithValue("@id_cliente", ordemDeServico.cliente.id);
-                cmd.Parameters.AddWithValue("@id_tecnico", ordemDeServico.tecnico.id);
+
+                // Inserir ordem de serviço
+                string sqlOS = @"INSERT INTO ordem_servico 
+                (id_tecnico, id_cliente, id_equipamento, problema_relatado, data_abertura) 
+                VALUES (@id_tecnico, @id_cliente, @id_equipamento, @problema_relatado, @data_abertura)";
+
+                cmd = new MySqlCommand(sqlOS, con.con);
+
+                cmd.Parameters.AddWithValue("@id_cliente", cliente.id);
+                cmd.Parameters.AddWithValue("@id_tecnico", tecnico.id);
                 cmd.Parameters.AddWithValue("@id_equipamento", idEquipamento);
-                cmd.Parameters.AddWithValue("@problema_relatado", ordemDeServico.problema_relatado);
-                cmd.Parameters.AddWithValue("@data_abertura", dataAtual);
-                
-                
+                cmd.Parameters.AddWithValue("@problema_relatado", problemaRelatado);
+                cmd.Parameters.AddWithValue("@data_abertura", dataAbertura);
+
                 cmd.ExecuteNonQuery();
-                con.CloseConnection();
-                MessageBox.Show("Pedido Cadastrado!", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                
+
+                MessageBox.Show("Ordem de Serviço cadastrada com sucesso!", "Sucesso",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-            catch (Exception exception)
+            catch (Exception ex)
             {
-                MessageBox.Show(exception.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                throw;
+                MessageBox.Show(ex.Message, "Erro",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                con.CloseConnection();
             }
         }
     }

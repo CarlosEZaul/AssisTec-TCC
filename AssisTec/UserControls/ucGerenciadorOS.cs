@@ -60,14 +60,9 @@ namespace AssisTec.UserControls
             dgvOS.Columns[3].HeaderText = "Equipamento";
             dgvOS.Columns[4].HeaderText = "Status";
             dgvOS.Columns[5].HeaderText = "Data de abertura";
-            dgvOS.Columns[6].HeaderText = "Ultima Atualização";
-            dgvOS.Columns[7].HeaderText = "Data de fechamento";
-            dgvOS.Columns[8].HeaderText = "Valor Mão de Obra";
-            dgvOS.Columns[9].HeaderText = "Valor p/ peça";
-            dgvOS.Columns[10].HeaderText = "Valor total";
-            dgvOS.Columns[11].HeaderText = "Problema relatado";
-            dgvOS.Columns[12].HeaderText = "Diagnóstico";
-            dgvOS.Columns[13].HeaderText = "Observações";
+            dgvOS.Columns[6].HeaderText = "Última Atualização";
+            dgvOS.Columns[7].HeaderText = "Valor total";
+            dgvOS.Columns[8].HeaderText = "Problema relatado";
         }
 
         private void listGrid()
@@ -75,7 +70,21 @@ namespace AssisTec.UserControls
             try
             {
                 con.OpenConnection();
-                sql = "SELECT * FROM ordem_servico";
+                sql = @"SELECT 
+                            os.id_os,
+                            c.nome as cliente,
+                            us.nome as usuario,
+                            e.descricao as equipamento,
+                            os.status,
+                            os.data_abertura,
+                            os.data_atualizacao,
+                            os.valor_total,
+                            os.problema_relatado
+                        FROM ordem_servico os
+                        INNER JOIN clientes c ON os.id_cliente = c.id_cliente
+                        INNER JOIN usuarios us ON os.id_tecnico  = us.id_usuario
+                        INNER JOIN equipamentos e ON os.id_equipamento = e.id_equipamento
+                        ORDER BY os.id_os DESC";
                 cmd = new MySqlCommand(sql, con.con);
                 MySqlDataAdapter da = new MySqlDataAdapter();
                 da.SelectCommand = cmd;

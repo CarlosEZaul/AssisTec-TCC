@@ -24,7 +24,7 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             cbEstado.DropDownStyle = ComboBoxStyle.DropDownList;
             
             con.OpenConnection();
-            string sql = "SELECT id_cliente, CONCAT(nome, ' - ', cpf) AS exibicao FROM clientes ORDER BY nome";
+            string sql = "SELECT id_cliente , CONCAT(nome, ' - ', cpf) AS exibicao FROM clientes ORDER BY nome";
 
             MySqlCommand cmd = new MySqlCommand(sql, con.con);
             MySqlDataAdapter da = new MySqlDataAdapter(cmd);
@@ -42,7 +42,7 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             
             con.OpenConnection();
 
-            string sql1 = "SELECT id_usuario, CONCAT(nome, ' - ', cpf) AS exibicao FROM usuarios WHERE nivel = 3 ORDER BY nome";
+            string sql1 = "SELECT id_usuario, CONCAT(nome, ' - ', cpf) AS exibicao FROM usuarios WHERE nivel = 3 ||  nivel = 1  ORDER BY nome";
 
             MySqlCommand cmd1 = new MySqlCommand(sql1, con.con);
             MySqlDataAdapter da1 = new MySqlDataAdapter(cmd1);
@@ -95,27 +95,47 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
         
         private void btnSalvar_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(cbCliente.Text) || string.IsNullOrWhiteSpace(cbTecnico.Text) ||
-                string.IsNullOrWhiteSpace(txtDescricao.Text) ||
-                string.IsNullOrWhiteSpace(txtModelo.Text) ||
-                string.IsNullOrWhiteSpace(txtNdeSerie.Text) || string.IsNullOrWhiteSpace(txtAcessorio.Text) ||
-                string.IsNullOrWhiteSpace(cbEstado.Text) ||
-                string.IsNullOrWhiteSpace(txtObservacoes.Text) || string.IsNullOrWhiteSpace(txtProblemas.Text))
+            try
             {
-                MessageBox.Show("Preencha todos os campos", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
+                if (string.IsNullOrWhiteSpace(cbCliente.Text) || string.IsNullOrWhiteSpace(cbTecnico.Text) ||
+                    string.IsNullOrWhiteSpace(txtDescricao.Text) ||
+                    string.IsNullOrWhiteSpace(txtModelo.Text) ||
+                    string.IsNullOrWhiteSpace(txtNdeSerie.Text) || string.IsNullOrWhiteSpace(txtAcessorio.Text) ||
+                    string.IsNullOrWhiteSpace(cbEstado.Text) ||
+                    string.IsNullOrWhiteSpace(txtObservacoes.Text) || string.IsNullOrWhiteSpace(txtProblemas.Text))
+                {
+                    MessageBox.Show("Preencha todos os campos", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
 
-            OrdemDeServico  os = new OrdemDeServico();
-            os.Cliente.id = Convert.ToInt32(cbCliente.SelectedValue);
-            os.Tecnico.id = Convert.ToInt32(cbTecnico.SelectedValue);
-            os.Equipamento.Descricao = txtDescricao.Text;
-            os.Equipamento.Marca = txtMarca.Text;
-            os.Equipamento.Modelo = txtMarca.Text;
-            os.Equipamento.EstadoEntrada = cbEstado.Text;
-            os.Equipamento.NumeroSerie = txtNdeSerie.Text;
-            os.Equipamento.Acessorio = txtAcessorio.Text;
-            os.problema_relatado = txtProblemas.Text;
-            os.salvarOS(os);
+                OrdemDeServico  os = new OrdemDeServico();
+                if (cbCliente.SelectedValue == null)
+                {
+                    MessageBox.Show("Cliente não selecionado", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+                
+                if (cbTecnico.SelectedValue == null)
+                {
+                    MessageBox.Show("Técnico não selecionado", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+                
+                os.Cliente.id = Convert.ToInt32(cbCliente.SelectedValue);
+                os.Tecnico.id = Convert.ToInt32(cbTecnico.SelectedValue);
+                os.Equipamento.Descricao = txtDescricao.Text;
+                os.Equipamento.Marca = txtMarca.Text;
+                os.Equipamento.Modelo = txtMarca.Text;
+                os.Equipamento.EstadoEntrada = cbEstado.Text;
+                os.Equipamento.NumeroSerie = txtNdeSerie.Text;
+                os.Equipamento.Acessorio = txtAcessorio.Text;
+                os.ProblemaRelatado = txtProblemas.Text;
+                os.salvarOS();
+            }
+            catch (MySqlException ex)
+            {
+                MessageBox.Show(ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            
 
         }
 
