@@ -10,8 +10,10 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
         conexao con = new conexao();
         string sql;
         MySqlCommand cmd;
-        public ucFormularioOS()
+        private DataGridView dgvOS;
+        public ucFormularioOS(DataGridView _dgvOS)
         {
+            dgvOS = _dgvOS;
             InitializeComponent();
             ConfigurarComboBox();
         }
@@ -130,6 +132,7 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
                 os.Equipamento.Acessorio = txtAcessorio.Text;
                 os.ProblemaRelatado = txtProblemas.Text;
                 os.salvarOS();
+                os.atualizarDados(dgvOS);
             }
             catch (MySqlException ex)
             {

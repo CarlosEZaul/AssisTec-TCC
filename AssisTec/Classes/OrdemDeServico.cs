@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 
@@ -28,6 +29,8 @@ namespace AssisTec
         private string observacoes;
 
         private conexao con;
+        private string sql;
+        private MySqlCommand cmd;
 
         // ================= CONSTRUTOR =================
         public OrdemDeServico()
@@ -40,7 +43,6 @@ namespace AssisTec
             dataAbertura = DateTime.Now;
         }
 
-        // ================= PROPRIEDADES =================
         public int IdPedido
         {
             get { return id_pedido; }
@@ -125,6 +127,41 @@ namespace AssisTec
             set { observacoes = value; }
         }
 
+        public void atualizarDados(DataGridView dgvOS)
+        {
+            try
+            {
+                con.OpenConnection();
+                sql = @"SELECT 
+                            os.id_os,
+                            c.nome as cliente,
+                            us.nome as usuario,
+                            e.descricao as equipamento,
+                            os.status,
+                            os.data_abertura,
+                            os.data_atualizacao,
+                            os.valor_total,
+                            os.problema_relatado
+                        FROM ordem_servico os
+                        INNER JOIN clientes c ON os.id_cliente = c.id_cliente
+                        INNER JOIN usuarios us ON os.id_tecnico  = us.id_usuario
+                        INNER JOIN equipamentos e ON os.id_equipamento = e.id_equipamento
+                        ORDER BY os.id_os DESC";
+                cmd = new MySqlCommand(sql, con.con);
+                MySqlDataAdapter da = new MySqlDataAdapter();
+                da.SelectCommand = cmd;
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+                dgvOS.DataSource = dt;
+                con.CloseConnection();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao carregar dados: " + ex.Message, "Erro", MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
+        }
+
         // ================= MÉTODO SALVAR =================
         public void salvarOS()
         {
@@ -171,6 +208,7 @@ namespace AssisTec
 
                 MessageBox.Show("Ordem de Serviço cadastrada com sucesso!", "Sucesso",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
+                
             }
             catch (Exception ex)
             {

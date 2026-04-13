@@ -2,7 +2,7 @@
 {
     public class Pagamento
     {
-        private int id_pagamento{get;set;}
-        private string forma_pagamento{get;set;}
+        public int id_pagamento{get;set;}
+        public string forma_pagamento{get;set;}
     }
 }

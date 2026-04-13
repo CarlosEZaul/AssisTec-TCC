@@ -103,7 +103,7 @@ namespace AssisTec.UserControls
 
         private void btnNew_Click(object sender, EventArgs e)
         {
-            ucFormularioOS ucFormularioOs = new ucFormularioOS();
+            ucFormularioOS ucFormularioOs = new ucFormularioOS(dgvOS);
             this.Controls.Add(ucFormularioOs);
             ucFormularioOs.BringToFront();
             ucFormularioOs.Left = (this.ClientSize.Width - ucFormularioOs.Width)/2;

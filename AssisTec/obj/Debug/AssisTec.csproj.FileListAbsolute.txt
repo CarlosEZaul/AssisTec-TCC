@@ -527,7 +527,6 @@ C:\Users\Pc do estagiario\RiderProjects\AssisTec-TCC\tcc\AssisTec\obj\Debug\Assi
 C:\Users\Pc do estagiario\RiderProjects\AssisTec-TCC\tcc\AssisTec\obj\Debug\AssisTec.UserControls.ucFormulario_Clientes.ucFormulario_Clientes.resources
 C:\Users\carlo\OneDrive\Área de Trabalho\AssisTEC\AssisTec\obj\Debug\AssisTec.formSubs.resources
 C:\Users\carlo\OneDrive\Área de Trabalho\AssisTEC\AssisTec\obj\Debug\AssisTec.SubForms_do_Gerenciador_de_Pedidos.FrmEditarPedido.resources
-C:\Users\carlo\OneDrive\Área de Trabalho\AssisTEC\AssisTec\obj\Debug\AssisTec.SubForms_do_Gerenciador_de_Pedidos.Novo_Pedido.resources
 C:\Users\carlo\OneDrive\Área de Trabalho\AssisTEC\AssisTec\obj\Debug\AssisTec.UserControls.ucGerenciador_Clientes.resources
 C:\Users\carlo\OneDrive\Área de Trabalho\AssisTEC\AssisTec\obj\Debug\AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios.ucFormularioUsuarios.resources
 C:\Users\carlo\OneDrive\Área de Trabalho\AssisTEC\AssisTec\obj\Debug\AssisTec.SubForms_do_Gerenciador_de_Pedidos.ucDetalhesPedidos.resources
@@ -628,3 +627,12 @@ C:\Users\Pc do estagiario\Desktop\assistec\AssisTec\obj\Debug\AssisTec.UserContr
 C:\Users\Pc do estagiario\Desktop\assistec\AssisTec\obj\Debug\AssisTec.UserControls.ucBackupImportar.resources
 C:\Users\Pc do estagiario\Desktop\assistec\AssisTec\obj\Debug\AssisTec.SubForms_do_Gerenciador_de_Pedidos.ucFormularioOS.resources
 C:\Users\Pc do estagiario\Desktop\assistec\AssisTec\obj\Debug\AssisTec.UserControls.ucHistoricoOS.resources
+C:\Users\carlo\OneDrive\Área de Trabalho\AssisTEC\AssisTec\bin\Debug\BCrypt.Net-Next.dll
+C:\Users\carlo\OneDrive\Área de Trabalho\AssisTEC\AssisTec\bin\Debug\BCrypt.Net-Next.xml
+C:\Users\carlo\OneDrive\Área de Trabalho\AssisTEC\AssisTec\obj\Debug\AssisTec.SubForms_do_Gerenciador_de_Pedidos.ucFormularioOS.resources
+C:\Users\carlo\OneDrive\Área de Trabalho\AssisTEC\AssisTec\obj\Debug\AssisTec.UserControls.ucBackupImportar.resources
+C:\Users\carlo\OneDrive\Área de Trabalho\AssisTEC\AssisTec\obj\Debug\AssisTec.UserControls.ucContasPagar.resources
+C:\Users\carlo\OneDrive\Área de Trabalho\AssisTEC\AssisTec\obj\Debug\AssisTec.UserControls.ucContasReceber.resources
+C:\Users\carlo\OneDrive\Área de Trabalho\AssisTEC\AssisTec\obj\Debug\AssisTec.UserControls.ucGerenciadorEstoque.resources
+C:\Users\carlo\OneDrive\Área de Trabalho\AssisTEC\AssisTec\obj\Debug\AssisTec.UserControls.ucGerenciadorOS.resources
+C:\Users\carlo\OneDrive\Área de Trabalho\AssisTEC\AssisTec\obj\Debug\AssisTec.UserControls.ucHistoricoOS.resources
