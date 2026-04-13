@@ -21,31 +21,42 @@ namespace AssisTec
         private string sql;
         private MySqlCommand cmd;
         private conexao con = new conexao();
+
+        private void carregarContasReeber()
+        {
+            try
+            {
+            
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
         
         
-        public string DataFormatada(string DataFornecida)
+        public string DataFormatada(string DataFornecida, bool obrigatoria = true)
         {
             if (string.IsNullOrWhiteSpace(DataFornecida))
             {
-                MessageBox.Show("Data de nascimento vazia!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if (obrigatoria)
+                {
+                    MessageBox.Show("Data vazia!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
                 return null;
             }
 
             try
             {
                 DateTime dataConvertida = DateTime.ParseExact(DataFornecida, "dd/MM/yyyy", null);
-
-                if (dataConvertida > DateTime.Today)
-                {
-                    MessageBox.Show("Data não pode ser no futuro!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return null;
-                }
-
                 return dataConvertida.ToString("yyyy-MM-dd");
             }
             catch
             {
-                MessageBox.Show("Data inválida!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if (obrigatoria)
+                {
+                    MessageBox.Show("Data inválida!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
                 return null;
             }
         }
@@ -54,22 +65,37 @@ namespace AssisTec
         {
             if (tipo == 1)
             {
+                if (status == "PAGA" && string.IsNullOrWhiteSpace(dataPagamento))
+                {
+                    MessageBox.Show("Data de pagamento é obrigatória para status PAGA!", 
+                        "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
                 try
                 {
                     con.OpenConnection();
                     sql = @"INSERT INTO contas_receber 
-                        (DESCRICAO, VALOR, DATA_EMISSAO, DATA_PAGAMENTO, DATA_VENCIMENTO, ID_FORMA_PAGAMENTO_FK, OBSERVACOES)
+                        (DESCRICAO, VALOR, DATA_EMISSAO, DATA_PAGAMENTO, DATA_VENCIMENTO,STATUS, ID_FORMA_PAGAMENTO_FK, OBSERVACOES)
                     VALUES 
-                        (@descricao, @valor, @data_emissao, @data_pagamento, @data_vencimento, @id_pagamento_fk, @observacoes)";
+                        (@descricao, @valor, @data_emissao, @data_pagamento, @data_vencimento,@status, @id_pagamento_fk, @observacoes)";
             
                     cmd = new MySqlCommand(sql, con.con);
                 
                     cmd.Parameters.AddWithValue("@descricao", descricao);
                     cmd.Parameters.AddWithValue("@valor", valor);
                     cmd.Parameters.AddWithValue("@data_emissao", DataFormatada(dataEmissao));
-                    cmd.Parameters.AddWithValue("@data_pagamento", DataFormatada(dataPagamento));
+                    
+                    if (string.IsNullOrWhiteSpace(dataPagamento))
+                    {
+                        cmd.Parameters.AddWithValue("@data_pagamento", DBNull.Value);
+                    }
+                    else
+                    {
+                        cmd.Parameters.AddWithValue("@data_pagamento", DataFormatada(dataPagamento, false));
+                    }
+
                     cmd.Parameters.AddWithValue("@data_vencimento", DataFormatada(dataVencimento));
-                    //cmd.Parameters.AddWithValue("@status", status);
+                    cmd.Parameters.AddWithValue("@status", status);
                     cmd.Parameters.AddWithValue("@id_pagamento_fk", pagamento.id_pagamento);
                     cmd.Parameters.AddWithValue("@observacoes", obervacoes);
                     cmd.ExecuteNonQuery();

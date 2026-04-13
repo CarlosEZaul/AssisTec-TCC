@@ -51,6 +51,8 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
             this.mtbDataEmissao = new System.Windows.Forms.MaskedTextBox();
             this.mtbDataPagamento = new System.Windows.Forms.MaskedTextBox();
             this.mtbDataVencimento = new System.Windows.Forms.MaskedTextBox();
+            this.cbStatus = new System.Windows.Forms.ComboBox();
+            this.label9 = new System.Windows.Forms.Label();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -137,7 +139,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Comic Sans MS", 9.75F);
             this.label5.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label5.Location = new System.Drawing.Point(64, 209);
+            this.label5.Location = new System.Drawing.Point(64, 320);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(126, 18);
@@ -149,7 +151,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Comic Sans MS", 9.75F);
             this.label6.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label6.Location = new System.Drawing.Point(64, 264);
+            this.label6.Location = new System.Drawing.Point(64, 212);
             this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(131, 18);
@@ -161,7 +163,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Comic Sans MS", 9.75F);
             this.label7.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label7.Location = new System.Drawing.Point(64, 315);
+            this.label7.Location = new System.Drawing.Point(64, 372);
             this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(135, 18);
@@ -173,7 +175,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Comic Sans MS", 9.75F);
             this.label8.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label8.Location = new System.Drawing.Point(64, 372);
+            this.label8.Location = new System.Drawing.Point(64, 426);
             this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(89, 18);
@@ -183,7 +185,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
             // txtObservacoes
             // 
             this.txtObservacoes.BackColor = System.Drawing.Color.White;
-            this.txtObservacoes.Location = new System.Drawing.Point(64, 390);
+            this.txtObservacoes.Location = new System.Drawing.Point(64, 444);
             this.txtObservacoes.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtObservacoes.Name = "txtObservacoes";
             this.txtObservacoes.Size = new System.Drawing.Size(460, 20);
@@ -195,7 +197,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
             this.panel2.Controls.Add(this.btnFechar);
             this.panel2.Controls.Add(this.btnSave);
             this.panel2.Controls.Add(this.btnLimpar);
-            this.panel2.Location = new System.Drawing.Point(133, 428);
+            this.panel2.Location = new System.Drawing.Point(133, 494);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(279, 61);
             this.panel2.TabIndex = 234;
@@ -247,7 +249,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
             // cbFormaPagamento
             // 
             this.cbFormaPagamento.FormattingEnabled = true;
-            this.cbFormaPagamento.Location = new System.Drawing.Point(64, 339);
+            this.cbFormaPagamento.Location = new System.Drawing.Point(64, 396);
             this.cbFormaPagamento.Name = "cbFormaPagamento";
             this.cbFormaPagamento.Size = new System.Drawing.Size(460, 21);
             this.cbFormaPagamento.TabIndex = 235;
@@ -264,7 +266,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
             // 
             // mtbDataPagamento
             // 
-            this.mtbDataPagamento.Location = new System.Drawing.Point(64, 233);
+            this.mtbDataPagamento.Location = new System.Drawing.Point(64, 344);
             this.mtbDataPagamento.Mask = "00/00/0000";
             this.mtbDataPagamento.Name = "mtbDataPagamento";
             this.mtbDataPagamento.Size = new System.Drawing.Size(460, 20);
@@ -273,18 +275,41 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
             // 
             // mtbDataVencimento
             // 
-            this.mtbDataVencimento.Location = new System.Drawing.Point(64, 288);
+            this.mtbDataVencimento.Location = new System.Drawing.Point(64, 236);
             this.mtbDataVencimento.Mask = "00/00/0000";
             this.mtbDataVencimento.Name = "mtbDataVencimento";
             this.mtbDataVencimento.Size = new System.Drawing.Size(460, 20);
             this.mtbDataVencimento.TabIndex = 238;
             this.mtbDataVencimento.ValidatingType = typeof(System.DateTime);
             // 
+            // cbStatus
+            // 
+            this.cbStatus.FormattingEnabled = true;
+            this.cbStatus.Location = new System.Drawing.Point(64, 295);
+            this.cbStatus.Name = "cbStatus";
+            this.cbStatus.Size = new System.Drawing.Size(460, 21);
+            this.cbStatus.TabIndex = 240;
+            this.cbStatus.SelectedIndexChanged += new System.EventHandler(this.cbStatus_SelectedIndexChanged);
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Comic Sans MS", 9.75F);
+            this.label9.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.label9.Location = new System.Drawing.Point(64, 271);
+            this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(51, 18);
+            this.label9.TabIndex = 239;
+            this.label9.Text = "Status:";
+            // 
             // ucRegistrarEntradaFinanceiro
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(55)))), ((int)(((byte)(76)))));
+            this.Controls.Add(this.cbStatus);
+            this.Controls.Add(this.label9);
             this.Controls.Add(this.mtbDataVencimento);
             this.Controls.Add(this.mtbDataPagamento);
             this.Controls.Add(this.mtbDataEmissao);
@@ -303,12 +328,15 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
             this.Controls.Add(this.label4);
             this.Controls.Add(this.txtDescricao);
             this.Name = "ucRegistrarEntradaFinanceiro";
-            this.Size = new System.Drawing.Size(543, 503);
+            this.Size = new System.Drawing.Size(543, 569);
             this.Load += new System.EventHandler(this.ucRegistrarEntradaFinanceiro_Load);
             this.panel2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
         }
+
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.ComboBox cbStatus;
 
         private System.Windows.Forms.MaskedTextBox mtbDataPagamento;
         private System.Windows.Forms.MaskedTextBox mtbDataVencimento;

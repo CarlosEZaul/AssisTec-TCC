@@ -23,8 +23,11 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
         {
             cbFormaPagamento.Items.Clear();
             con.OpenConnection();
-            
-            sql = @"SELECT id_forma_pagamento, CONCAT(descricao) AS exibicao FROM forma_pagamento ORDER BY descricao;";
+
+            sql = @"SELECT id_forma_pagamento, CONCAT(descricao) AS exibicao 
+                    FROM forma_pagamento 
+                    ORDER BY descricao;";
+
             cmd = new MySqlCommand(sql, con.con);
             MySqlDataAdapter da = new MySqlDataAdapter(cmd);
             DataTable dt = new DataTable();
@@ -33,10 +36,16 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
             cbFormaPagamento.DataSource = dt;
             cbFormaPagamento.DisplayMember = "exibicao";
             cbFormaPagamento.ValueMember = "id_forma_pagamento";
-            
+
             cbFormaPagamento.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
             cbFormaPagamento.AutoCompleteSource = AutoCompleteSource.ListItems;
             
+            con.CloseConnection();
+            
+            cbStatus.Items.Clear();
+            cbStatus.Items.Add("PENDENTE");
+            cbStatus.Items.Add("PAGA");
+
         }
 
         private void fechar()
@@ -47,32 +56,39 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
 
         private void btnSave_Click(object sender, EventArgs e)
         {
+            
             try
             {
-
+                if (string.IsNullOrWhiteSpace(txtValor.Text) || string.IsNullOrWhiteSpace(txtDescricao.Text) ||
+                    string.IsNullOrWhiteSpace(txtDescricao.Text) ||
+                    string.IsNullOrWhiteSpace(mtbDataEmissao.Text) ||
+                    string.IsNullOrWhiteSpace(mtbDataVencimento.Text) || string.IsNullOrWhiteSpace(mtbDataPagamento.Text) ||
+                    string.IsNullOrWhiteSpace(cbStatus.Text) ||
+                    string.IsNullOrWhiteSpace(txtObservacoes.Text) || string.IsNullOrWhiteSpace(cbFormaPagamento.Text))
+                {
+                    MessageBox.Show("Preencha todos os campos", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                
+                LancamentoFinanceiro lf = new LancamentoFinanceiro();
+                lf.pagamento = new Pagamento();
+                lf.tipo = 1;
+                lf.valor = Convert.ToDecimal(txtValor.Text);
+                lf.descricao = txtDescricao.Text;
+                lf.dataEmissao = DateTime.Now.ToShortDateString();
+                lf.dataVencimento = mtbDataVencimento.Text;
+                lf.dataPagamento = mtbDataPagamento.Text;
+                lf.status = cbStatus.Text;
+                lf.obervacoes = txtObservacoes.Text;
+                lf.pagamento.id_pagamento = Convert.ToInt32(cbFormaPagamento.SelectedValue);
+            
+            
+                lf.SalvarLancamentoFinanceiro();
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Erro ao registrar", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            LancamentoFinanceiro lf = new LancamentoFinanceiro();
-            lf.pagamento = new Pagamento();
-            lf.tipo = 1;
-            lf.valor = Convert.ToDecimal(txtValor.Text);
-            lf.descricao = txtDescricao.Text;
-            lf.dataEmissao = DateTime.Now.ToShortTimeString();
-            lf.dataVencimento = mtbDataVencimento.Text;
-            lf.dataPagamento = mtbDataPagamento.Text;
-            lf.obervacoes = txtObservacoes.Text;
-            if (cbFormaPagamento.SelectedValue == null)
-            {
-                MessageBox.Show("Selecione uma forma de pagamento");
-                return;
-            }
-            lf.pagamento.id_pagamento = Convert.ToInt32(cbFormaPagamento.SelectedValue);
             
-            
-            lf.SalvarLancamentoFinanceiro();
         }
 
         private void btnFechar_Click(object sender, EventArgs e)
@@ -121,6 +137,23 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
                         }
                     }
                 }
+            }
+        }
+
+        private void cbStatus_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cbStatus.SelectedIndex == 0)
+            {
+                cbFormaPagamento.SelectedValue = 4;
+                cbFormaPagamento.Enabled = false;
+
+                mtbDataPagamento.Text = null;
+                mtbDataPagamento.Enabled = false;
+            }
+            else
+            {
+                mtbDataPagamento.Enabled = true;
+                cbFormaPagamento.Enabled = true;
             }
         }
     }
