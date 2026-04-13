@@ -34,23 +34,23 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
             this.label33 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.txtNome = new System.Windows.Forms.TextBox();
+            this.txtDescricao = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txtValor = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.textBox3 = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.textBox4 = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.textBox5 = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
-            this.textBox6 = new System.Windows.Forms.TextBox();
+            this.txtObservacoes = new System.Windows.Forms.TextBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.btnFechar = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnLimpar = new System.Windows.Forms.Button();
+            this.cbFormaPagamento = new System.Windows.Forms.ComboBox();
+            this.mtbDataEmissao = new System.Windows.Forms.MaskedTextBox();
+            this.mtbDataPagamento = new System.Windows.Forms.MaskedTextBox();
+            this.mtbDataVencimento = new System.Windows.Forms.MaskedTextBox();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -89,14 +89,14 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
             this.label4.Size = new System.Drawing.Size(0, 23);
             this.label4.TabIndex = 219;
             // 
-            // txtNome
+            // txtDescricao
             // 
-            this.txtNome.BackColor = System.Drawing.Color.White;
-            this.txtNome.Location = new System.Drawing.Point(64, 74);
-            this.txtNome.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.txtNome.Name = "txtNome";
-            this.txtNome.Size = new System.Drawing.Size(460, 20);
-            this.txtNome.TabIndex = 218;
+            this.txtDescricao.BackColor = System.Drawing.Color.White;
+            this.txtDescricao.Location = new System.Drawing.Point(64, 74);
+            this.txtDescricao.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.txtDescricao.Name = "txtDescricao";
+            this.txtDescricao.Size = new System.Drawing.Size(460, 20);
+            this.txtDescricao.TabIndex = 218;
             // 
             // label1
             // 
@@ -110,14 +110,15 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
             this.label1.TabIndex = 223;
             this.label1.Text = "Valor:";
             // 
-            // textBox1
+            // txtValor
             // 
-            this.textBox1.BackColor = System.Drawing.Color.White;
-            this.textBox1.Location = new System.Drawing.Point(64, 122);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(460, 20);
-            this.textBox1.TabIndex = 222;
+            this.txtValor.BackColor = System.Drawing.Color.White;
+            this.txtValor.Location = new System.Drawing.Point(64, 122);
+            this.txtValor.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.txtValor.Name = "txtValor";
+            this.txtValor.Size = new System.Drawing.Size(460, 20);
+            this.txtValor.TabIndex = 222;
+            this.txtValor.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtValor_KeyPress);
             // 
             // label3
             // 
@@ -131,15 +132,6 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
             this.label3.TabIndex = 225;
             this.label3.Text = "Data de Emissão:";
             // 
-            // textBox2
-            // 
-            this.textBox2.BackColor = System.Drawing.Color.White;
-            this.textBox2.Location = new System.Drawing.Point(64, 174);
-            this.textBox2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(460, 20);
-            this.textBox2.TabIndex = 224;
-            // 
             // label5
             // 
             this.label5.AutoSize = true;
@@ -151,15 +143,6 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
             this.label5.Size = new System.Drawing.Size(126, 18);
             this.label5.TabIndex = 227;
             this.label5.Text = "Data de Pagamento:";
-            // 
-            // textBox3
-            // 
-            this.textBox3.BackColor = System.Drawing.Color.White;
-            this.textBox3.Location = new System.Drawing.Point(64, 227);
-            this.textBox3.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(460, 20);
-            this.textBox3.TabIndex = 226;
             // 
             // label6
             // 
@@ -173,15 +156,6 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
             this.label6.TabIndex = 229;
             this.label6.Text = "Data de Vencimento:";
             // 
-            // textBox4
-            // 
-            this.textBox4.BackColor = System.Drawing.Color.White;
-            this.textBox4.Location = new System.Drawing.Point(64, 282);
-            this.textBox4.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(460, 20);
-            this.textBox4.TabIndex = 228;
-            // 
             // label7
             // 
             this.label7.AutoSize = true;
@@ -193,15 +167,6 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
             this.label7.Size = new System.Drawing.Size(135, 18);
             this.label7.TabIndex = 231;
             this.label7.Text = "Forma de Pagamento:";
-            // 
-            // textBox5
-            // 
-            this.textBox5.BackColor = System.Drawing.Color.White;
-            this.textBox5.Location = new System.Drawing.Point(64, 333);
-            this.textBox5.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(460, 20);
-            this.textBox5.TabIndex = 230;
             // 
             // label8
             // 
@@ -215,14 +180,14 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
             this.label8.TabIndex = 233;
             this.label8.Text = "Observações:";
             // 
-            // textBox6
+            // txtObservacoes
             // 
-            this.textBox6.BackColor = System.Drawing.Color.White;
-            this.textBox6.Location = new System.Drawing.Point(64, 390);
-            this.textBox6.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(460, 20);
-            this.textBox6.TabIndex = 232;
+            this.txtObservacoes.BackColor = System.Drawing.Color.White;
+            this.txtObservacoes.Location = new System.Drawing.Point(64, 390);
+            this.txtObservacoes.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.txtObservacoes.Name = "txtObservacoes";
+            this.txtObservacoes.Size = new System.Drawing.Size(460, 20);
+            this.txtObservacoes.TabIndex = 232;
             // 
             // panel2
             // 
@@ -248,6 +213,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
             this.btnFechar.TabIndex = 102;
             this.btnFechar.Text = "Fechar";
             this.btnFechar.UseVisualStyleBackColor = false;
+            this.btnFechar.Click += new System.EventHandler(this.btnFechar_Click);
             // 
             // btnSave
             // 
@@ -262,6 +228,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
             this.btnSave.TabIndex = 100;
             this.btnSave.Text = "Salvar";
             this.btnSave.UseVisualStyleBackColor = false;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // btnLimpar
             // 
@@ -277,34 +244,77 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
             this.btnLimpar.Text = "Limpar";
             this.btnLimpar.UseVisualStyleBackColor = false;
             // 
+            // cbFormaPagamento
+            // 
+            this.cbFormaPagamento.FormattingEnabled = true;
+            this.cbFormaPagamento.Location = new System.Drawing.Point(64, 339);
+            this.cbFormaPagamento.Name = "cbFormaPagamento";
+            this.cbFormaPagamento.Size = new System.Drawing.Size(460, 21);
+            this.cbFormaPagamento.TabIndex = 235;
+            // 
+            // mtbDataEmissao
+            // 
+            this.mtbDataEmissao.Enabled = false;
+            this.mtbDataEmissao.Location = new System.Drawing.Point(64, 179);
+            this.mtbDataEmissao.Mask = "00/00/0000";
+            this.mtbDataEmissao.Name = "mtbDataEmissao";
+            this.mtbDataEmissao.Size = new System.Drawing.Size(460, 20);
+            this.mtbDataEmissao.TabIndex = 236;
+            this.mtbDataEmissao.ValidatingType = typeof(System.DateTime);
+            // 
+            // mtbDataPagamento
+            // 
+            this.mtbDataPagamento.Location = new System.Drawing.Point(64, 233);
+            this.mtbDataPagamento.Mask = "00/00/0000";
+            this.mtbDataPagamento.Name = "mtbDataPagamento";
+            this.mtbDataPagamento.Size = new System.Drawing.Size(460, 20);
+            this.mtbDataPagamento.TabIndex = 237;
+            this.mtbDataPagamento.ValidatingType = typeof(System.DateTime);
+            // 
+            // mtbDataVencimento
+            // 
+            this.mtbDataVencimento.Location = new System.Drawing.Point(64, 288);
+            this.mtbDataVencimento.Mask = "00/00/0000";
+            this.mtbDataVencimento.Name = "mtbDataVencimento";
+            this.mtbDataVencimento.Size = new System.Drawing.Size(460, 20);
+            this.mtbDataVencimento.TabIndex = 238;
+            this.mtbDataVencimento.ValidatingType = typeof(System.DateTime);
+            // 
             // ucRegistrarEntradaFinanceiro
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(55)))), ((int)(((byte)(76)))));
+            this.Controls.Add(this.mtbDataVencimento);
+            this.Controls.Add(this.mtbDataPagamento);
+            this.Controls.Add(this.mtbDataEmissao);
+            this.Controls.Add(this.cbFormaPagamento);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.label8);
-            this.Controls.Add(this.textBox6);
+            this.Controls.Add(this.txtObservacoes);
             this.Controls.Add(this.label7);
-            this.Controls.Add(this.textBox5);
             this.Controls.Add(this.label6);
-            this.Controls.Add(this.textBox4);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.textBox3);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.textBox2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.txtValor);
             this.Controls.Add(this.label33);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.txtNome);
+            this.Controls.Add(this.txtDescricao);
             this.Name = "ucRegistrarEntradaFinanceiro";
             this.Size = new System.Drawing.Size(543, 503);
+            this.Load += new System.EventHandler(this.ucRegistrarEntradaFinanceiro_Load);
             this.panel2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
         }
+
+        private System.Windows.Forms.MaskedTextBox mtbDataPagamento;
+        private System.Windows.Forms.MaskedTextBox mtbDataVencimento;
+
+        private System.Windows.Forms.ComboBox cbFormaPagamento;
+        private System.Windows.Forms.MaskedTextBox mtbDataEmissao;
 
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Button btnFechar;
@@ -312,22 +322,19 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
         private System.Windows.Forms.Button btnLimpar;
 
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TextBox textBox4;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox textBox5;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.TextBox textBox6;
+        private System.Windows.Forms.TextBox txtObservacoes;
 
         private System.Windows.Forms.Label label33;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox txtNome;
+        private System.Windows.Forms.TextBox txtDescricao;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtValor;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox txt;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox textBox3;
 
         #endregion
     }
