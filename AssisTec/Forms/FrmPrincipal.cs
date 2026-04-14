@@ -16,7 +16,6 @@ namespace AssisTec
             InitializeComponent();
             ConfigurarNavbar();
             
-            
         }
 
         private void ConfigurarNavbar()
@@ -28,6 +27,10 @@ namespace AssisTec
             panelNavegacao.Controls.Clear();
             
             
+            //Botão Home
+            Guna2Button btnHome = CriarBotaoMenu(
+                "🏠 Home",
+                (s, e) => AbrirUserControl(new ucHome(),s));
 
             // Botão Usuários
             Guna2Button btnUsuario = CriarBotaoMenu(
@@ -96,6 +99,7 @@ namespace AssisTec
             panelNavegacao.Controls.Add(btnPedidos);
             panelNavegacao.Controls.Add(btnClientes);
             panelNavegacao.Controls.Add(btnUsuario);
+            panelNavegacao.Controls.Add(btnHome);
             panelNavegacao.Controls.Add(lblLogo);
         }
 

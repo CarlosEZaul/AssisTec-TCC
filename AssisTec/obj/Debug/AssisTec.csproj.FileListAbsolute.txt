@@ -712,3 +712,6 @@ C:\Users\Pc do estagiario\RiderProjects\AssisTec-TCC\Assistec1\AssisTec\obj\Debu
 C:\Users\Pc do estagiario\RiderProjects\AssisTec-TCC\Assistec1\AssisTec\obj\Debug\AssisTec.csproj.Up2Date
 C:\Users\Pc do estagiario\RiderProjects\AssisTec-TCC\Assistec1\AssisTec\obj\Debug\AssisTec.exe
 C:\Users\Pc do estagiario\RiderProjects\AssisTec-TCC\Assistec1\AssisTec\obj\Debug\AssisTec.pdb
+C:\Users\carlo\OneDrive\Área de Trabalho\AssisTEC\AssisTec\obj\Debug\AssisTec.UserControls.SubUserControl_do_Financeiro.ucRegistrarEntradaFinanceiro.resources
+C:\Users\carlo\OneDrive\Área de Trabalho\AssisTEC\AssisTec\bin\Debug\MySqlBackup.dll
+C:\Users\carlo\OneDrive\Área de Trabalho\AssisTEC\AssisTec\obj\Debug\AssisTec.UserControls.ucHome.resources

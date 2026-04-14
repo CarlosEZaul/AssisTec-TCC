@@ -62,9 +62,8 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
                 if (string.IsNullOrWhiteSpace(txtValor.Text) || string.IsNullOrWhiteSpace(txtDescricao.Text) ||
                     string.IsNullOrWhiteSpace(txtDescricao.Text) ||
                     string.IsNullOrWhiteSpace(mtbDataEmissao.Text) ||
-                    string.IsNullOrWhiteSpace(mtbDataVencimento.Text) || string.IsNullOrWhiteSpace(mtbDataPagamento.Text) ||
-                    string.IsNullOrWhiteSpace(cbStatus.Text) ||
-                    string.IsNullOrWhiteSpace(txtObservacoes.Text) || string.IsNullOrWhiteSpace(cbFormaPagamento.Text))
+                    string.IsNullOrWhiteSpace(mtbDataVencimento.Text)||
+                    string.IsNullOrWhiteSpace(cbStatus.Text))
                 {
                     MessageBox.Show("Preencha todos os campos", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
