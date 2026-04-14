@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Windows.Forms;
+using Guna.UI2.WinForms;
 
 namespace AssisTec.UserControls
 {
@@ -9,14 +11,18 @@ namespace AssisTec.UserControls
         public ucBackupImportar()
         {
             InitializeComponent();
-            
+            DesingModerno();
         }
         conexao con = new conexao();
-       
-        private void label1_Click(object sender, EventArgs e)
+
+        private void DesingModerno()
         {
-            throw new System.NotImplementedException();
+            this.Text = "Backup e Importar";
+            this.BackColor = Color.FromArgb(39, 55, 76);
+
+            
         }
+        
 
         private void btnBackup_Click(object sender, EventArgs e)
         {
@@ -26,6 +32,18 @@ namespace AssisTec.UserControls
         private void btnImportar_Click(object sender, EventArgs e)
         {
             con.importarBackup();
+        }
+
+
+        private void btnBackup_MouseEnter(object sender, EventArgs e)
+        {
+            btnBackup.BorderStyle = DashStyle.DashDotDot;
+            btnBackup.BorderColor = Color.White;
+        }
+
+        private void btnBackup_Click_1(object sender, EventArgs e)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }
