@@ -13,6 +13,7 @@ namespace AssisTec
 
         public FrmPrincipal()
         {
+            this.WindowState = FormWindowState.Maximized;
             InitializeComponent();
             ConfigurarNavbar();
             

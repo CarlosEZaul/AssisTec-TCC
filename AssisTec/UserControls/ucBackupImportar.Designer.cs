@@ -45,14 +45,14 @@ namespace AssisTec.UserControls
             this.label2 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.panelImportar = new System.Windows.Forms.Panel();
             this.guna2Button1 = new Guna.UI2.WinForms.Guna2Button();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.panelBackup.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            this.panel1.SuspendLayout();
+            this.panelImportar.SuspendLayout();
             this.SuspendLayout();
             // 
             // label4
@@ -74,7 +74,7 @@ namespace AssisTec.UserControls
             this.label1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label1.Location = new System.Drawing.Point(0, 317);
+            this.label1.Location = new System.Drawing.Point(0, 280);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(1175, 97);
             this.label1.TabIndex = 149;
@@ -83,15 +83,15 @@ namespace AssisTec.UserControls
             // 
             // panelBackup
             // 
-            this.panelBackup.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.panelBackup.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.panelBackup.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelBackup.Controls.Add(this.btnBackup);
             this.panelBackup.Controls.Add(this.label5);
             this.panelBackup.Controls.Add(this.label3);
             this.panelBackup.Controls.Add(this.label2);
-            this.panelBackup.Location = new System.Drawing.Point(101, 467);
+            this.panelBackup.Location = new System.Drawing.Point(99, 401);
             this.panelBackup.Name = "panelBackup";
-            this.panelBackup.Size = new System.Drawing.Size(413, 270);
+            this.panelBackup.Size = new System.Drawing.Size(413, 246);
             this.panelBackup.TabIndex = 160;
             // 
             // btnBackup
@@ -124,7 +124,7 @@ namespace AssisTec.UserControls
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(318, 45);
             this.label5.TabIndex = 2;
-            this.label5.Text = "Exporte seus dados em um arquivo .SQL para cópia de segurança";
+            this.label5.Text = "Exporte seus dados em um arquivo criptografado para cópia de segurança";
             // 
             // label3
             // 
@@ -161,25 +161,25 @@ namespace AssisTec.UserControls
             this.label6.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label6.Location = new System.Drawing.Point(0, 226);
+            this.label6.Location = new System.Drawing.Point(0, 215);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(1172, 65);
             this.label6.TabIndex = 162;
             this.label6.Text = "Gerencie seus dados com segurança. Faça backup ou importe informações de forma si" + "mples e rápida.";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // panel1
+            // panelImportar
             // 
-            this.panel1.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel1.Controls.Add(this.guna2Button1);
-            this.panel1.Controls.Add(this.label7);
-            this.panel1.Controls.Add(this.label8);
-            this.panel1.Controls.Add(this.label9);
-            this.panel1.Location = new System.Drawing.Point(682, 467);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(413, 270);
-            this.panel1.TabIndex = 164;
+            this.panelImportar.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.panelImportar.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelImportar.Controls.Add(this.guna2Button1);
+            this.panelImportar.Controls.Add(this.label7);
+            this.panelImportar.Controls.Add(this.label8);
+            this.panelImportar.Controls.Add(this.label9);
+            this.panelImportar.Location = new System.Drawing.Point(680, 401);
+            this.panelImportar.Name = "panelImportar";
+            this.panelImportar.Size = new System.Drawing.Size(413, 246);
+            this.panelImportar.TabIndex = 164;
             // 
             // guna2Button1
             // 
@@ -236,7 +236,7 @@ namespace AssisTec.UserControls
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(55)))), ((int)(((byte)(76)))));
-            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.panelImportar);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.panelBackup);
@@ -246,11 +246,11 @@ namespace AssisTec.UserControls
             this.Size = new System.Drawing.Size(1175, 749);
             this.panelBackup.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            this.panel1.ResumeLayout(false);
+            this.panelImportar.ResumeLayout(false);
             this.ResumeLayout(false);
         }
 
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel panelImportar;
         private Guna.UI2.WinForms.Guna2Button guna2Button1;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;

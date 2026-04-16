@@ -41,9 +41,6 @@ namespace AssisTec.UserControls
             btnBackup.BorderColor = Color.White;
         }
 
-        private void btnBackup_Click_1(object sender, EventArgs e)
-        {
-            throw new System.NotImplementedException();
-        }
+        
     }
 }

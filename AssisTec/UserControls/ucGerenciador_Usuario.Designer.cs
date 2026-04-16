@@ -241,7 +241,7 @@ namespace AssisTec.UserControls
             // 
             this.label4.BackColor = System.Drawing.Color.Transparent;
             this.label4.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label4.Font = new System.Drawing.Font("Engravers MT", 20.25F, System.Drawing.FontStyle.Bold);
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold);
             this.label4.ForeColor = System.Drawing.Color.White;
             this.label4.Location = new System.Drawing.Point(0, 0);
             this.label4.Name = "label4";
@@ -255,7 +255,7 @@ namespace AssisTec.UserControls
             this.cbInativo.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.cbInativo.Font = new System.Drawing.Font("Ebrima", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbInativo.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.cbInativo.Location = new System.Drawing.Point(967, 70);
+            this.cbInativo.Location = new System.Drawing.Point(967, 76);
             this.cbInativo.Name = "cbInativo";
             this.cbInativo.Size = new System.Drawing.Size(104, 24);
             this.cbInativo.TabIndex = 136;

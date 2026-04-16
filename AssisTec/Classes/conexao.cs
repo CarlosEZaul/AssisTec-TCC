@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 using MySql.Data;
-
+using System.Security.Cryptography;
+using System.IO;
+using Microsoft.VisualBasic;
 namespace AssisTec
 {
     internal class conexao
@@ -46,27 +48,38 @@ namespace AssisTec
         public void backupBanco()
         {
             SaveFileDialog saveFileDialog1 = new SaveFileDialog();
-            saveFileDialog1.Filter = "SQL FILE|*.sql";
+            saveFileDialog1.Filter = "Encrypted Backup|*.bak"; // Extenção .bak 
+            string senha = Interaction.InputBox("Digite uma senha para criptografar o arquivo", "Segurança", ""); //Senha para o arquivo criptografado
 
+            if (String.IsNullOrEmpty(senha))
+            {
+                MessageBox.Show("Operação cancelada pela senha ser nula", "", MessageBoxButtons.OK);
+                return;
+            }    
+            
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                string caminho = saveFileDialog1.FileName;
+                string caminhoFinal = saveFileDialog1.FileName;
+                string caminhoTemporario = caminhoFinal + ".tmp";
                 try
                 {
                     using (MySqlConnection conn = new MySqlConnection(connection))
                     {
                         using (MySqlCommand cmd = new MySqlCommand())
                         {
-                            using (MySqlBackup backup = new MySqlBackup(cmd))
+                            using (MySqlBackup backup = new MySqlBackup(cmd)) //Cria o arquivo temporario
                             {
                                 cmd.Connection = conn;
                                 conn.Open();
-                                backup.ExportToFile(caminho);
+                                backup.ExportToFile(caminhoTemporario);
                                 conn.Close();
                             }
                         }
                     }
-                    MessageBox.Show("Backup realizado com sucesso!");
+                    Encriptar(caminhoTemporario, caminhoFinal, senha); //Criptografa
+                    File.Delete(caminhoTemporario);
+                    
+                    MessageBox.Show("Backup criptografado realizado com sucesso!");
                 }
                 catch (Exception ex)
                 {
@@ -75,48 +88,107 @@ namespace AssisTec
             }
         }
 
-        public void importarBackup()
+        private void Encriptar(string inputFile, string outputFile, string senha)
         {
-            
-            DialogResult dialogResult = MessageBox.Show("Deseja realizar importação do backup?", "Atenção",  MessageBoxButtons.YesNo);
-            if (dialogResult == DialogResult.Yes)
+            byte[] salt =  new byte[] {0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08};
+
+            using (Aes aes = Aes.Create())
             {
-                using (OpenFileDialog openFileDialog1 = new OpenFileDialog())
+                var key = new Rfc2898DeriveBytes(senha, salt, 1000); //Embaralha a senha 
+                aes.Key = key.GetBytes(aes.KeySize / 8);
+                aes.IV = key.GetBytes(aes.BlockSize / 8);
+
+                using (FileStream fs = new FileStream(outputFile, FileMode.Create))
                 {
-                    openFileDialog1.Filter = "SQL FILE|*.sql";
-                    if (openFileDialog1.ShowDialog() == DialogResult.OK)
+                    using (CryptoStream cs = new CryptoStream(fs, aes.CreateEncryptor(), CryptoStreamMode.Write))
                     {
-                        try
+                        using (FileStream fs2 = new FileStream(inputFile, FileMode.Open))
                         {
-                            using (MySqlConnection conn = new MySqlConnection(connection))
-                            {
-                                using (MySqlCommand cmd = new MySqlCommand())
-                                {
-                                    using (MySqlBackup backup = new MySqlBackup(cmd))
-                                    {
-                                        cmd.Connection = conn;
-                                        conn.Open();
-                                        backup.ImportFromFile(openFileDialog1.FileName);
-                                        conn.Close();
-                                        MessageBox.Show("Importação do Backup realizado com sucesso!");
-                                    }
-                                }
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show("Erro ao importar Backup", ex.Message, MessageBoxButtons.OK);
+                            fs2.CopyTo(cs);
                         }
                     }
                 }
             }
-            else
+        }
+
+        public void importarBackup()
+        {
+            OpenFileDialog openFileDialog1 = new OpenFileDialog();
+            openFileDialog1.Filter = "Backup File|*.bak";
+            openFileDialog1.Title = "Import Backup";
+
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                MessageBox.Show("Operação cancelada!");
+                string caminhoCriptografado = openFileDialog1.FileName;
+                string caminhoTemporario= caminhoCriptografado + ".tmp";
+
+                string senha = Interaction.InputBox("Digite a senha usada no arquivo");
+                if (String.IsNullOrEmpty(senha))
+                {
+                    MessageBox.Show("Operação cancelada pela senha ser nula", "", MessageBoxButtons.OK);
+                    return;
+                }
+
+                try
+                {
+                    Descriptografar(caminhoCriptografado, caminhoTemporario, senha);
+                    using (MySqlConnection conn = new MySqlConnection(connection))
+                    {
+                        using (MySqlCommand cmd = new MySqlCommand())
+                        {
+                            using (MySqlBackup restore = new MySqlBackup(cmd))
+                            {
+                                cmd.Connection = conn;
+                                conn.Open();
+                                restore.ImportFromFile(caminhoTemporario);
+                                conn.Close();
+                            }
+                        }
+                    }
+
+                    MessageBox.Show("Importação realizado realizado com sucesso!");
+                }
+                catch (CryptographicException)
+                {
+                    MessageBox.Show("Senha incorreta", "Erro", MessageBoxButtons.OK);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Erro ao importar Backup", ex.Message, MessageBoxButtons.OK);
+                }
+                finally
+                {
+                    if (File.Exists(caminhoTemporario))
+                    {
+                        File.Delete(caminhoTemporario);
+                    }
+                }
             }
-            
-            
-            
+        }
+
+        private void Descriptografar(string inputFile, string outputFile, string senha)
+        {
+            byte[] salt = new byte[] { 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08 };
+
+            using (Aes aes = Aes.Create())
+            {
+                // Gera a chave a partir da senha e do salt
+                var key = new Rfc2898DeriveBytes(senha, salt, 1000);
+                aes.Key = key.GetBytes(aes.KeySize / 8);
+                aes.IV = key.GetBytes(aes.BlockSize / 8);
+
+                using (FileStream fsIn = new FileStream(inputFile, FileMode.Open, FileAccess.Read))
+                {
+                    using (FileStream fsOut = new FileStream(outputFile, FileMode.Create, FileAccess.Write))
+                    {
+                        // Decryptor transforma os dados embaralhados em texto legível
+                        using (CryptoStream cs = new CryptoStream(fsIn, aes.CreateDecryptor(), CryptoStreamMode.Read))
+                        {
+                            cs.CopyTo(fsOut);
+                        }
+                    }
+                }
+            }
         }
     }
 }

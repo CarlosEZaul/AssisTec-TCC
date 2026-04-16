@@ -67,6 +67,7 @@ namespace AssisTec
             this.Location = new System.Drawing.Point(15, 15);
             this.Name = "FrmPrincipal";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.ResumeLayout(false);
             this.PerformLayout();
         }
