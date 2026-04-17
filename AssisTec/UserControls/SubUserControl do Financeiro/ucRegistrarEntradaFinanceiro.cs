@@ -10,6 +10,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
         private conexao con  = new conexao();
         private string sql;
         private MySqlCommand cmd;
+        DataTable dtFormaPagamento;
         
         public ucRegistrarEntradaFinanceiro()
         {
@@ -30,10 +31,10 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
 
             cmd = new MySqlCommand(sql, con.con);
             MySqlDataAdapter da = new MySqlDataAdapter(cmd);
-            DataTable dt = new DataTable();
-            da.Fill(dt);
+            dtFormaPagamento = new DataTable();
+            da.Fill(dtFormaPagamento);
 
-            cbFormaPagamento.DataSource = dt;
+            cbFormaPagamento.DataSource = dtFormaPagamento;
             cbFormaPagamento.DisplayMember = "exibicao";
             cbFormaPagamento.ValueMember = "id_forma_pagamento";
 
@@ -54,6 +55,11 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
         }
         #endregion
 
+        #region Função dos componentes
+
+        
+
+        
         private void btnSave_Click(object sender, EventArgs e)
         {
             
@@ -141,19 +147,31 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
 
         private void cbStatus_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cbStatus.SelectedIndex == 0)
+            if (cbStatus.SelectedItem.ToString() == "PENDENTE")
             {
+                // Mostra tudo (inclusive vazio)
+                dtFormaPagamento.DefaultView.RowFilter = "";
+
                 cbFormaPagamento.SelectedValue = 4;
                 cbFormaPagamento.Enabled = false;
 
                 mtbDataPagamento.Text = null;
                 mtbDataPagamento.Enabled = false;
             }
-            else
+            else // PAGA
             {
-                mtbDataPagamento.Enabled = true;
+                // Oculta o "___"
+                dtFormaPagamento.DefaultView.RowFilter = 
+                    "exibicao IS NOT NULL AND exibicao <> '' AND exibicao <> '---'";
+
                 cbFormaPagamento.Enabled = true;
+                mtbDataPagamento.Enabled = true;
+
+                // Garante seleção válida
+                if (cbFormaPagamento.SelectedIndex == -1)
+                    cbFormaPagamento.SelectedIndex = 0;
             }
         }
+        #endregion
     }
 }

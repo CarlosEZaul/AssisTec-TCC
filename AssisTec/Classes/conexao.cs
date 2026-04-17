@@ -50,12 +50,14 @@ namespace AssisTec
             SaveFileDialog saveFileDialog1 = new SaveFileDialog();
             saveFileDialog1.Filter = "Encrypted Backup|*.bak"; // Extenção .bak 
             string senha = Interaction.InputBox("Digite uma senha para criptografar o arquivo", "Segurança", ""); //Senha para o arquivo criptografado
-
+            
+            
             if (String.IsNullOrEmpty(senha))
             {
-                MessageBox.Show("Operação cancelada pela senha ser nula", "", MessageBoxButtons.OK);
+                MessageBox.Show("Operação cancelada ou senha não informada", "", MessageBoxButtons.OK);
                 return;
-            }    
+            }
+            
             
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
             {
