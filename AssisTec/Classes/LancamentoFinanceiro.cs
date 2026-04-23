@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 
@@ -22,15 +23,43 @@ namespace AssisTec
         private MySqlCommand cmd;
         private conexao con = new conexao();
 
-        private void carregarContasReeber()
+        public void atualizarContasReceber(DataGridView dgv)
         {
             try
             {
-            
+                con.OpenConnection();
+                        sql = @"SELECT 
+                            cr.id_conta_receber,
+                            os.id_os,
+                            cr.descricao,
+                            cr.valor,
+                            cr.data_emissao,
+                            cr.data_pagamento,
+                            cr.data_vencimento,
+                            cr.status,
+                            cr.observacoes,
+                            
+                            fp.descricao AS forma_pagamento
+                        FROM contas_receber cr
+                        
+                        LEFT JOIN forma_pagamento fp
+                            ON cr.id_forma_pagamento_fk = fp.id_forma_pagamento
+                            
+                        LEFT JOIN ordem_servico os
+                            ON cr.id_os_fk = os.id_os;";
+                cmd = new MySqlCommand(sql, con.con);
+                MySqlDataAdapter  da = new MySqlDataAdapter(cmd);
+                da.SelectCommand = cmd;
+                DataTable dt  = new DataTable();
+                da.Fill(dt);
+                dgv.DataSource = dt;
+                con.CloseConnection();
+
+
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Erro ao carregar contas a receber \n"+ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         

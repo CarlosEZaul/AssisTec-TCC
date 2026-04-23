@@ -272,26 +272,8 @@ namespace AssisTec.UserControls
                 
             if (result == DialogResult.Yes)
             {
-                try
-                {
-                    con.OpenConnection();
-                    sql = "DELETE FROM usuarios WHERE id_usuario = @id";
-                    cmd = new MySqlCommand(sql, con.con);
-                    cmd.Parameters.AddWithValue("@id", id);
-                    cmd.ExecuteNonQuery();
-                    con.CloseConnection();
-                    listGrid();
-                    
-                    
-                    MessageBox.Show("Cliente excluído com sucesso!", "Sucesso", 
-                        MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    listGrid();
-                }
-                catch (Exception exception)
-                {
-                    MessageBox.Show("Erro ao excluir cliente!\n" + exception.Message, "Erro", 
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                Usuario user = new Usuario();
+                user.deletarUsuario(id, dgvUsuarios);
             }
 
             btnDelete.Enabled = false;

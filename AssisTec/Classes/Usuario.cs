@@ -236,6 +236,32 @@ namespace AssisTec
                 return false;
             }
         }
+
+        public bool deletarUsuario(int id, DataGridView dgv)
+        {
+            try
+            {
+                con.OpenConnection();
+                sql = "DELETE FROM usuarios WHERE id_usuario = @id";
+                cmd = new MySqlCommand(sql, con.con);
+                cmd.Parameters.AddWithValue("@id", id);
+                cmd.ExecuteNonQuery();
+                con.CloseConnection();
+                
+                    
+                    
+                MessageBox.Show("Cliente excluído com sucesso!", "Sucesso", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                atualizarDados(dgv);
+                return true;
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show("Erro ao excluir cliente!\n" + exception.Message, "Erro", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+        }
         
         //Atualiza os dados do datagridview
         public void atualizarDados(DataGridView dgvUsuarios)
