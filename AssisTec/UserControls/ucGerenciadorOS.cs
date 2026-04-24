@@ -34,7 +34,7 @@ namespace AssisTec.UserControls
                 // TextBox
                 DesingComponentes.StyleTextBox(txtBusca);
                  
-
+                DesingComponentes.centralizarPanelBotoes(panelBotoes, this.Width);
                 // Botões
                 DesingComponentes.StyleButton(btnNew, Color.FromArgb(0, 120, 215));
                 DesingComponentes.StyleButton(btnDelete, Color.FromArgb(209, 17, 65));

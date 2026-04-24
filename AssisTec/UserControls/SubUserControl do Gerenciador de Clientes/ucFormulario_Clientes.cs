@@ -132,14 +132,14 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Clientes.ucForm
                 if (modo == 1 && okCep == true) 
                 {
                     cliente.novoCliente(cliente);
-                    cliente.atualizarDados(dgvClientes);
+                    dgvClientes.DataSource = cliente.atualizarDados();
                     deleteAll();
                 
                 }
                 else if (modo == 2 && okCep == true) 
                 {
                     cliente.editarCliente(cliente);
-                    cliente.atualizarDados(dgvClientes);
+                    dgvClientes.DataSource = cliente.atualizarDados();;
                     fechar();
                 }
                 else if (!okCep)

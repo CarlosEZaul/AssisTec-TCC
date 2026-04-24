@@ -32,7 +32,7 @@ namespace AssisTec.UserControls
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ucGerenciador_Clientes));
-            this.panel2 = new System.Windows.Forms.Panel();
+            this.panelBotoes = new System.Windows.Forms.Panel();
             this.btnImprimir = new System.Windows.Forms.Button();
             this.btnOS = new System.Windows.Forms.Button();
             this.btnEditar = new System.Windows.Forms.Button();
@@ -43,23 +43,23 @@ namespace AssisTec.UserControls
             this.label14 = new System.Windows.Forms.Label();
             this.btnAtualizar = new System.Windows.Forms.PictureBox();
             this.txtBusca = new System.Windows.Forms.TextBox();
-            this.panel2.SuspendLayout();
+            this.panelBotoes.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvClientes)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnAtualizar)).BeginInit();
             this.SuspendLayout();
             // 
-            // panel2
+            // panelBotoes
             // 
-            this.panel2.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.panel2.Controls.Add(this.btnImprimir);
-            this.panel2.Controls.Add(this.btnOS);
-            this.panel2.Controls.Add(this.btnEditar);
-            this.panel2.Controls.Add(this.btnNew);
-            this.panel2.Controls.Add(this.btnDelete);
-            this.panel2.Location = new System.Drawing.Point(334, 685);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(504, 61);
-            this.panel2.TabIndex = 146;
+            this.panelBotoes.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.panelBotoes.Controls.Add(this.btnImprimir);
+            this.panelBotoes.Controls.Add(this.btnOS);
+            this.panelBotoes.Controls.Add(this.btnEditar);
+            this.panelBotoes.Controls.Add(this.btnNew);
+            this.panelBotoes.Controls.Add(this.btnDelete);
+            this.panelBotoes.Location = new System.Drawing.Point(334, 685);
+            this.panelBotoes.Name = "panelBotoes";
+            this.panelBotoes.Size = new System.Drawing.Size(504, 61);
+            this.panelBotoes.TabIndex = 146;
             // 
             // btnImprimir
             // 
@@ -140,7 +140,7 @@ namespace AssisTec.UserControls
             // 
             this.label4.BackColor = System.Drawing.Color.Transparent;
             this.label4.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label4.Font = new System.Drawing.Font("Engravers MT", 20.25F, System.Drawing.FontStyle.Bold);
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold);
             this.label4.ForeColor = System.Drawing.Color.White;
             this.label4.Location = new System.Drawing.Point(0, 0);
             this.label4.Name = "label4";
@@ -207,7 +207,7 @@ namespace AssisTec.UserControls
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(55)))), ((int)(((byte)(76)))));
-            this.Controls.Add(this.panel2);
+            this.Controls.Add(this.panelBotoes);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.dgvClientes);
             this.Controls.Add(this.label14);
@@ -216,14 +216,14 @@ namespace AssisTec.UserControls
             this.Name = "ucGerenciador_Clientes";
             this.Size = new System.Drawing.Size(1175, 749);
             this.Load += new System.EventHandler(this.ucGerenciadorClientes_Load);
-            this.panel2.ResumeLayout(false);
+            this.panelBotoes.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvClientes)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnAtualizar)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
         }
 
-        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Panel panelBotoes;
         private System.Windows.Forms.Button btnImprimir;
         private System.Windows.Forms.Button btnOS;
         private System.Windows.Forms.Button btnEditar;

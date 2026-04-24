@@ -38,7 +38,7 @@ namespace AssisTec.UserControls
             this.txtBusca = new System.Windows.Forms.TextBox();
             this.cbConcluidas = new System.Windows.Forms.CheckBox();
             this.btnAtualizar = new System.Windows.Forms.PictureBox();
-            this.panel2 = new System.Windows.Forms.Panel();
+            this.panelBotoes = new System.Windows.Forms.Panel();
             this.btnSaida = new System.Windows.Forms.Button();
             this.btnVisualizacoes = new System.Windows.Forms.Button();
             this.btnEntrada = new System.Windows.Forms.Button();
@@ -47,14 +47,14 @@ namespace AssisTec.UserControls
             this.btnEditar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvEstoque)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnAtualizar)).BeginInit();
-            this.panel2.SuspendLayout();
+            this.panelBotoes.SuspendLayout();
             this.SuspendLayout();
             // 
             // label4
             // 
             this.label4.BackColor = System.Drawing.Color.Transparent;
             this.label4.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label4.Font = new System.Drawing.Font("Engravers MT", 20.25F, System.Drawing.FontStyle.Bold);
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold);
             this.label4.ForeColor = System.Drawing.Color.White;
             this.label4.Location = new System.Drawing.Point(0, 0);
             this.label4.Name = "label4";
@@ -124,19 +124,19 @@ namespace AssisTec.UserControls
             this.btnAtualizar.TabIndex = 154;
             this.btnAtualizar.TabStop = false;
             // 
-            // panel2
+            // panelBotoes
             // 
-            this.panel2.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.panel2.Controls.Add(this.btnSaida);
-            this.panel2.Controls.Add(this.btnVisualizacoes);
-            this.panel2.Controls.Add(this.btnEntrada);
-            this.panel2.Controls.Add(this.btnNew);
-            this.panel2.Controls.Add(this.btnDelete);
-            this.panel2.Controls.Add(this.btnEditar);
-            this.panel2.Location = new System.Drawing.Point(240, 688);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(698, 61);
-            this.panel2.TabIndex = 156;
+            this.panelBotoes.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.panelBotoes.Controls.Add(this.btnSaida);
+            this.panelBotoes.Controls.Add(this.btnVisualizacoes);
+            this.panelBotoes.Controls.Add(this.btnEntrada);
+            this.panelBotoes.Controls.Add(this.btnNew);
+            this.panelBotoes.Controls.Add(this.btnDelete);
+            this.panelBotoes.Controls.Add(this.btnEditar);
+            this.panelBotoes.Location = new System.Drawing.Point(240, 688);
+            this.panelBotoes.Name = "panelBotoes";
+            this.panelBotoes.Size = new System.Drawing.Size(698, 61);
+            this.panelBotoes.TabIndex = 156;
             // 
             // btnSaida
             // 
@@ -238,7 +238,7 @@ namespace AssisTec.UserControls
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(55)))), ((int)(((byte)(76)))));
-            this.Controls.Add(this.panel2);
+            this.Controls.Add(this.panelBotoes);
             this.Controls.Add(this.cbConcluidas);
             this.Controls.Add(this.btnAtualizar);
             this.Controls.Add(this.label1);
@@ -249,12 +249,12 @@ namespace AssisTec.UserControls
             this.Size = new System.Drawing.Size(1175, 749);
             ((System.ComponentModel.ISupportInitialize)(this.dgvEstoque)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnAtualizar)).EndInit();
-            this.panel2.ResumeLayout(false);
+            this.panelBotoes.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
         }
 
-        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Panel panelBotoes;
         private System.Windows.Forms.Button btnSaida;
         private System.Windows.Forms.Button btnVisualizacoes;
         private System.Windows.Forms.Button btnEntrada;

@@ -7,6 +7,17 @@ namespace AssisTec.UserControls
         public ucGerenciadorEstoque()
         {
             InitializeComponent();
+            DesingModerno();
         }
+
+        #region DesingModerno
+
+        private void DesingModerno()
+        {
+            DesingComponentes.centralizarPanelBotoes(panelBotoes, this.Width);
+        }
+        
+
+        #endregion
     }
 }

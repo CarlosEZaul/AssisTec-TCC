@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+using System.Drawing;
 using System.Windows.Forms;
 using AssisTec.UserControls.SubUserControl_do_Financeiro;
 using MySql.Data.MySqlClient;
@@ -20,13 +21,16 @@ namespace AssisTec.UserControls
         private string sql;
         private MySqlCommand cmd;
         conexao con = new conexao();
-        
+        LancamentoFinanceiro lancamentoFinanceiro = new LancamentoFinanceiro();
         
         #region DesingModerno
 
         private void apllyDesingModerno()
         {
+            this.Text = "Contas a Receber";
+            this.BackColor = Color.FromArgb(39, 55, 76);
             DesingComponentes.StyleDataGridView(dgvContasReceber, DataGridViewAutoSizeColumnsMode.Fill);
+            DesingComponentes.centralizarPanelBotoes(panelBotoes, this.Width);
         }
         
         
@@ -38,8 +42,8 @@ namespace AssisTec.UserControls
             try
             {
                 LancamentoFinanceiro lancamentoFinanceiro = new LancamentoFinanceiro();
-                lancamentoFinanceiro.atualizarContasReceber(dgvContasReceber);
-                
+                dgvContasReceber.DataSource = lancamentoFinanceiro.atualizarContasReceber();
+
             }
             catch (Exception ex)
             {
@@ -80,6 +84,11 @@ namespace AssisTec.UserControls
             ucRegistrarEntrada.Left = (this.ClientSize.Width - ucRegistrarEntrada.Width)/2;
             ucRegistrarEntrada.Top = (this.ClientSize.Height - ucRegistrarEntrada.Height)/2;
             ucRegistrarEntrada.Show();
+        }
+
+        private void btnAtualizar_Click(object sender, EventArgs e)
+        {
+            listgrid();
         }
     }
 }

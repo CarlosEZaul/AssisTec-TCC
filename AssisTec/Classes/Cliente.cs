@@ -161,7 +161,7 @@ namespace AssisTec
             }
         }
 
-        public void deletarCLiente(int id, DataGridView dgvClientes)
+        public void deletarCLiente(int id)
         {
             DialogResult result = MessageBox.Show("Deseja excluir cliente?", "Confirmar Exclusão", 
                 MessageBoxButtons.YesNo, MessageBoxIcon.Question);
@@ -180,7 +180,7 @@ namespace AssisTec
                     
                     MessageBox.Show("Cliente excluído com sucesso!", "Sucesso", 
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    atualizarDados(dgvClientes);
+                    atualizarDados();
                 }
                 catch (Exception exception)
                 {
@@ -190,8 +190,9 @@ namespace AssisTec
             }
         }
         
-        public void atualizarDados(DataGridView dgvUsuarios)
+        public DataTable atualizarDados()
         {
+            DataTable dt =  new DataTable();
             try
             {
                 con.OpenConnection();
@@ -199,9 +200,7 @@ namespace AssisTec
                 cmd = new MySqlCommand(sql, con.con);
                 MySqlDataAdapter da = new MySqlDataAdapter();
                 da.SelectCommand = cmd;
-                DataTable dt = new DataTable();
                 da.Fill(dt);
-                dgvUsuarios.DataSource = dt;
                 con.CloseConnection();
                 
             }
@@ -210,6 +209,8 @@ namespace AssisTec
                 Console.WriteLine(e);
                 throw;
             }
+
+            return dt;
         }
 
         public void gerarRelatorioCliente(int id)

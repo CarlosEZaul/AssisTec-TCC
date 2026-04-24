@@ -34,7 +34,7 @@ namespace AssisTec.UserControls
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ucGerenciadorOS));
             this.dgvOS = new System.Windows.Forms.DataGridView();
             this.label4 = new System.Windows.Forms.Label();
-            this.panel2 = new System.Windows.Forms.Panel();
+            this.panelBotoes = new System.Windows.Forms.Panel();
             this.btnRelatorio = new System.Windows.Forms.Button();
             this.btnRecibo = new System.Windows.Forms.Button();
             this.btnPagamento = new System.Windows.Forms.Button();
@@ -47,7 +47,7 @@ namespace AssisTec.UserControls
             this.cbRetirada = new System.Windows.Forms.CheckBox();
             this.cbConcluidas = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvOS)).BeginInit();
-            this.panel2.SuspendLayout();
+            this.panelBotoes.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnAtualizar)).BeginInit();
             this.SuspendLayout();
             // 
@@ -72,7 +72,7 @@ namespace AssisTec.UserControls
             // 
             this.label4.BackColor = System.Drawing.Color.Transparent;
             this.label4.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label4.Font = new System.Drawing.Font("Engravers MT", 20.25F, System.Drawing.FontStyle.Bold);
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold);
             this.label4.ForeColor = System.Drawing.Color.White;
             this.label4.Location = new System.Drawing.Point(0, 0);
             this.label4.Name = "label4";
@@ -81,19 +81,19 @@ namespace AssisTec.UserControls
             this.label4.Text = "Gerenciador de Ordens de Serviço";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // panel2
+            // panelBotoes
             // 
-            this.panel2.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.panel2.Controls.Add(this.btnRelatorio);
-            this.panel2.Controls.Add(this.btnRecibo);
-            this.panel2.Controls.Add(this.btnPagamento);
-            this.panel2.Controls.Add(this.btnNew);
-            this.panel2.Controls.Add(this.btnDelete);
-            this.panel2.Controls.Add(this.btnGerenciar);
-            this.panel2.Location = new System.Drawing.Point(229, 688);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(692, 61);
-            this.panel2.TabIndex = 148;
+            this.panelBotoes.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.panelBotoes.Controls.Add(this.btnRelatorio);
+            this.panelBotoes.Controls.Add(this.btnRecibo);
+            this.panelBotoes.Controls.Add(this.btnPagamento);
+            this.panelBotoes.Controls.Add(this.btnNew);
+            this.panelBotoes.Controls.Add(this.btnDelete);
+            this.panelBotoes.Controls.Add(this.btnGerenciar);
+            this.panelBotoes.Location = new System.Drawing.Point(229, 688);
+            this.panelBotoes.Name = "panelBotoes";
+            this.panelBotoes.Size = new System.Drawing.Size(692, 61);
+            this.panelBotoes.TabIndex = 148;
             // 
             // btnRelatorio
             // 
@@ -257,14 +257,14 @@ namespace AssisTec.UserControls
             this.Controls.Add(this.btnAtualizar);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtBusca);
-            this.Controls.Add(this.panel2);
+            this.Controls.Add(this.panelBotoes);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.dgvOS);
             this.Location = new System.Drawing.Point(15, 15);
             this.Name = "ucGerenciadorOS";
             this.Size = new System.Drawing.Size(1175, 749);
             ((System.ComponentModel.ISupportInitialize)(this.dgvOS)).EndInit();
-            this.panel2.ResumeLayout(false);
+            this.panelBotoes.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.btnAtualizar)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -278,7 +278,7 @@ namespace AssisTec.UserControls
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtBusca;
 
-        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Panel panelBotoes;
         private System.Windows.Forms.Button btnRecibo;
         private System.Windows.Forms.Button btnPagamento;
         private System.Windows.Forms.Button btnNew;

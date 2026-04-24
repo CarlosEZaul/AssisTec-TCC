@@ -304,7 +304,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios
                 {
                     
                     user.novoUsuario(user);
-                    user.atualizarDados(dgv);
+                    dgv.DataSource = user.atualizarDados();
                     deleteAll();
                 }
 
@@ -312,7 +312,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios
                 {
                     
                     user.editarUsuario(user);
-                    user.atualizarDados(dgv);
+                    dgv.DataSource = user.atualizarDados();
                     deleteAll();
                     fechar();
                 }

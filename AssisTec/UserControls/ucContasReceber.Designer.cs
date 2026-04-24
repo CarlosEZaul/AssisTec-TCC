@@ -44,13 +44,13 @@ namespace AssisTec.UserControls
             this.txtBusca = new System.Windows.Forms.TextBox();
             this.btnBuscar = new System.Windows.Forms.Button();
             this.btnAtualizar = new System.Windows.Forms.PictureBox();
-            this.panel2 = new System.Windows.Forms.Panel();
+            this.panelBotoes = new System.Windows.Forms.Panel();
             this.btnRegistrar = new System.Windows.Forms.Button();
             this.btnRecibo = new System.Windows.Forms.Button();
             this.btnRelatorio = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvContasReceber)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnAtualizar)).BeginInit();
-            this.panel2.SuspendLayout();
+            this.panelBotoes.SuspendLayout();
             this.SuspendLayout();
             // 
             // dgvContasReceber
@@ -74,7 +74,7 @@ namespace AssisTec.UserControls
             // 
             this.label4.BackColor = System.Drawing.Color.Transparent;
             this.label4.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label4.Font = new System.Drawing.Font("Engravers MT", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.Color.White;
             this.label4.Location = new System.Drawing.Point(0, 0);
             this.label4.Name = "label4";
@@ -195,17 +195,18 @@ namespace AssisTec.UserControls
             this.btnAtualizar.Size = new System.Drawing.Size(38, 38);
             this.btnAtualizar.TabIndex = 158;
             this.btnAtualizar.TabStop = false;
+            this.btnAtualizar.Click += new System.EventHandler(this.btnAtualizar_Click);
             // 
-            // panel2
+            // panelBotoes
             // 
-            this.panel2.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.panel2.Controls.Add(this.btnRegistrar);
-            this.panel2.Controls.Add(this.btnRecibo);
-            this.panel2.Controls.Add(this.btnRelatorio);
-            this.panel2.Location = new System.Drawing.Point(453, 688);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(317, 61);
-            this.panel2.TabIndex = 159;
+            this.panelBotoes.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.panelBotoes.Controls.Add(this.btnRegistrar);
+            this.panelBotoes.Controls.Add(this.btnRecibo);
+            this.panelBotoes.Controls.Add(this.btnRelatorio);
+            this.panelBotoes.Location = new System.Drawing.Point(453, 688);
+            this.panelBotoes.Name = "panelBotoes";
+            this.panelBotoes.Size = new System.Drawing.Size(317, 61);
+            this.panelBotoes.TabIndex = 159;
             // 
             // btnRegistrar
             // 
@@ -260,7 +261,7 @@ namespace AssisTec.UserControls
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(55)))), ((int)(((byte)(76)))));
-            this.Controls.Add(this.panel2);
+            this.Controls.Add(this.panelBotoes);
             this.Controls.Add(this.btnAtualizar);
             this.Controls.Add(this.btnBuscar);
             this.Controls.Add(this.label5);
@@ -277,12 +278,12 @@ namespace AssisTec.UserControls
             this.Size = new System.Drawing.Size(1175, 749);
             ((System.ComponentModel.ISupportInitialize)(this.dgvContasReceber)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnAtualizar)).EndInit();
-            this.panel2.ResumeLayout(false);
+            this.panelBotoes.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
         }
 
-        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Panel panelBotoes;
         private System.Windows.Forms.Button btnRegistrar;
         private System.Windows.Forms.Button btnRecibo;
         private System.Windows.Forms.Button btnRelatorio;

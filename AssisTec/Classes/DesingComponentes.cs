@@ -91,6 +91,11 @@ namespace AssisTec
             comboBox.ForeColor = Color.White;
         }
 
+        public static void centralizarPanelBotoes(Panel panel, int w)
+        {
+            panel.Left = (w - panel.Width) / 2;
+        }
+
         
         
     }

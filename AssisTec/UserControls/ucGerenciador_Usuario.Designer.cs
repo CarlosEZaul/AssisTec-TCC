@@ -51,13 +51,13 @@ namespace AssisTec.UserControls
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.dgvUsuarios = new System.Windows.Forms.DataGridView();
-            this.panel2 = new System.Windows.Forms.Panel();
+            this.panelBotoes = new System.Windows.Forms.Panel();
             this.btnHistorico = new System.Windows.Forms.Button();
             this.btnAtualizar = new System.Windows.Forms.PictureBox();
             this.txtBusca = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvUsuarios)).BeginInit();
-            this.panel2.SuspendLayout();
+            this.panelBotoes.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnAtualizar)).BeginInit();
             this.SuspendLayout();
             // 
@@ -220,7 +220,7 @@ namespace AssisTec.UserControls
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.dgvUsuarios);
-            this.panel1.Controls.Add(this.panel2);
+            this.panel1.Controls.Add(this.panelBotoes);
             this.panel1.Controls.Add(this.btnAtualizar);
             this.panel1.Controls.Add(this.txtBusca);
             this.panel1.Controls.Add(this.label15);
@@ -316,17 +316,17 @@ namespace AssisTec.UserControls
             this.dgvUsuarios.TabIndex = 52;
             this.dgvUsuarios.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvUsuarios_CellClick);
             // 
-            // panel2
+            // panelBotoes
             // 
-            this.panel2.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.panel2.Controls.Add(this.btnHistorico);
-            this.panel2.Controls.Add(this.btnNew);
-            this.panel2.Controls.Add(this.btnDelete);
-            this.panel2.Controls.Add(this.btnEditar);
-            this.panel2.Location = new System.Drawing.Point(348, 685);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(422, 61);
-            this.panel2.TabIndex = 132;
+            this.panelBotoes.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.panelBotoes.Controls.Add(this.btnHistorico);
+            this.panelBotoes.Controls.Add(this.btnNew);
+            this.panelBotoes.Controls.Add(this.btnDelete);
+            this.panelBotoes.Controls.Add(this.btnEditar);
+            this.panelBotoes.Location = new System.Drawing.Point(348, 685);
+            this.panelBotoes.Name = "panelBotoes";
+            this.panelBotoes.Size = new System.Drawing.Size(422, 61);
+            this.panelBotoes.TabIndex = 132;
             // 
             // btnHistorico
             // 
@@ -381,7 +381,7 @@ namespace AssisTec.UserControls
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvUsuarios)).EndInit();
-            this.panel2.ResumeLayout(false);
+            this.panelBotoes.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.btnAtualizar)).EndInit();
             this.ResumeLayout(false);
         }
@@ -395,7 +395,7 @@ namespace AssisTec.UserControls
 
         private System.Windows.Forms.Label label2;
 
-        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Panel panelBotoes;
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtBusca;

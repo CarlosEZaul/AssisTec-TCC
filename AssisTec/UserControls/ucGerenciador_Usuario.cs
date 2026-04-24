@@ -46,14 +46,12 @@ namespace AssisTec.UserControls
                  this.Text = "Gerenciador de Usuários";
                  this.BackColor = Color.FromArgb(39, 55, 76);
 
-                 // Labels
-                // DesingComponentes.ApplyLabelStyles(this);
-
                  // TextBox
                  DesingComponentes.StyleTextBox(txtBusca);
                  
 
                  // Botões
+                 DesingComponentes.centralizarPanelBotoes(panelBotoes, this.Width);
                  DesingComponentes.StyleButton(btnNew, Color.FromArgb(0, 120, 215));
                  DesingComponentes.StyleButton(btnDelete, Color.FromArgb(209, 17, 65));
 
@@ -106,19 +104,8 @@ namespace AssisTec.UserControls
         {
             try
             {
-                con.OpenConnection();
-                sql = "SELECT * FROM usuarios ORDER BY NOME ASC";
-                cmd = new MySqlCommand(sql, con.con);
-                MySqlDataAdapter da = new MySqlDataAdapter();
-                da.SelectCommand = cmd;
-                DataTable dt = new DataTable();
-                da.Fill(dt);
-                dgvUsuarios.DataSource = dt;
-                con.CloseConnection();
-                formartGrid();
-                txtBusca.Text = null;
-                cbNivel.SelectedValue = 0;
-                cbInativo.Checked = false;
+                Usuario user = new Usuario();
+                dgvUsuarios.DataSource = user.atualizarDados();
             }
             catch (Exception ex)
             {

@@ -225,6 +225,7 @@ namespace AssisTec
                 }
 
                 con.CloseConnection();
+                
 
                 MessageBox.Show("Usuário editado com sucesso", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return true;
@@ -252,7 +253,6 @@ namespace AssisTec
                     
                 MessageBox.Show("Cliente excluído com sucesso!", "Sucesso", 
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
-                atualizarDados(dgv);
                 return true;
             }
             catch (Exception exception)
@@ -264,8 +264,9 @@ namespace AssisTec
         }
         
         //Atualiza os dados do datagridview
-        public void atualizarDados(DataGridView dgvUsuarios)
+        public DataTable atualizarDados()
         {
+            DataTable dt = new DataTable();
             try
             {
                 con.OpenConnection();
@@ -273,9 +274,7 @@ namespace AssisTec
                 cmd = new MySqlCommand(sql, con.con);
                 MySqlDataAdapter da = new MySqlDataAdapter();
                 da.SelectCommand = cmd;
-                DataTable dt = new DataTable();
                 da.Fill(dt);
-                dgvUsuarios.DataSource = dt;
                 con.CloseConnection();
                 
             }
@@ -284,6 +283,8 @@ namespace AssisTec
                 Console.WriteLine(e);
                 throw;
             }
+
+            return dt;
         }
     }
     
