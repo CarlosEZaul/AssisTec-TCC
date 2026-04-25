@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Data;
+using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 using MySql.Data.MySqlClient;
+using Font = iTextSharp.text.Font;
+using Rectangle = iTextSharp.text.Rectangle;
+
 namespace AssisTec
 {
     public class Usuario:Pessoa
@@ -383,14 +387,15 @@ namespace AssisTec
                 BaseColor corLinha1   = new BaseColor(245, 248, 250);
                 BaseColor corLinha2   = BaseColor.WHITE;
 
-                string caminhoLogo = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "img", "logopng.png");
+                byte[] logoBytes = (byte[])new ImageConverter().ConvertTo(Properties.Resources.logopng, typeof(byte[]));
+                
 
                 PdfPTable headerTable = new PdfPTable(new float[] { 1, 3 });
                 headerTable.WidthPercentage = 100;
 
                 try
                 {
-                    iTextSharp.text.Image logo = iTextSharp.text.Image.GetInstance(caminhoLogo);
+                    iTextSharp.text.Image logo = iTextSharp.text.Image.GetInstance(logoBytes);
                     logo.ScaleToFit(80f, 80f);
                     PdfPCell logoCell = new PdfPCell(logo);
                     logoCell.BackgroundColor     = corPrimaria;
@@ -547,14 +552,14 @@ namespace AssisTec
                 BaseColor corLinha1   = new BaseColor(245, 248, 250);
                 BaseColor corLinha2   = BaseColor.WHITE;
 
-                string caminhoLogo = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "img", "logopng.png");
-
+                byte[] logoBytes = (byte[])new ImageConverter().ConvertTo(Properties.Resources.logopng, typeof(byte[]));
+                
                 PdfPTable headerTable = new PdfPTable(new float[] { 1, 3 });
                 headerTable.WidthPercentage = 100;
 
                 try
                 {
-                    iTextSharp.text.Image logo = iTextSharp.text.Image.GetInstance(caminhoLogo);
+                    iTextSharp.text.Image logo = iTextSharp.text.Image.GetInstance(logoBytes);
                     logo.ScaleToFit(80f, 80f);
                     PdfPCell logoCell = new PdfPCell(logo);
                     logoCell.BackgroundColor     = corPrimaria;

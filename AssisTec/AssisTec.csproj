@@ -258,15 +258,21 @@
     <Compile Include="UserControls\SubUserControl do Gerenciador de Usuarios\ucFormularioUsuarios.Designer.cs">
       <DependentUpon>ucFormularioUsuarios.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\SubUserControl do Gerenciador de Pedidos\ucDetalhesPedidos.cs" />
+    <Compile Include="UserControls\SubUserControl do Gerenciador de Pedidos\ucDetalhesPedidos.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="UserControls\SubUserControl do Gerenciador de Pedidos\ucDetalhesPedidos.Designer.cs">
       <DependentUpon>ucDetalhesPedidos.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\SubUserControl do Gerenciador de Pedidos\ucProdutosUtilizados.cs" />
+    <Compile Include="UserControls\SubUserControl do Gerenciador de Pedidos\ucProdutosUtilizados.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="UserControls\SubUserControl do Gerenciador de Pedidos\ucProdutosUtilizados.Designer.cs">
       <DependentUpon>ucProdutosUtilizados.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\SubUserControl do Gerenciador de Pedidos\ucServicos.cs" />
+    <Compile Include="UserControls\SubUserControl do Gerenciador de Pedidos\ucServicos.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="UserControls\SubUserControl do Gerenciador de Pedidos\ucServicos.Designer.cs">
       <DependentUpon>ucServicos.cs</DependentUpon>
     </Compile>
