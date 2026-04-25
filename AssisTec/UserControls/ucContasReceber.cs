@@ -78,7 +78,7 @@ namespace AssisTec.UserControls
 
         private void btnRegistrar_Click(object sender, EventArgs e)
         {
-            ucRegistrarEntradaFinanceiro ucRegistrarEntrada = new ucRegistrarEntradaFinanceiro();
+            ucRegistrarEntradaFinanceiro ucRegistrarEntrada = new ucRegistrarEntradaFinanceiro(dgvContasReceber);
             this.Controls.Add(ucRegistrarEntrada);
             ucRegistrarEntrada.BringToFront();
             ucRegistrarEntrada.Left = (this.ClientSize.Width - ucRegistrarEntrada.Width)/2;

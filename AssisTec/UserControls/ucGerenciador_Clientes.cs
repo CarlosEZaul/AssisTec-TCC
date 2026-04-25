@@ -35,7 +35,7 @@ namespace AssisTec.UserControls
         private void ucGerenciadorClientes_Load(object sender, EventArgs e)
         {
             btnNew.Focus();
-            listGrid();
+            listGrid(); 
         }
         
         #region Design Moderno
@@ -100,12 +100,16 @@ namespace AssisTec.UserControls
         {
             btnEditar.Enabled = true;
             btnDelete.Enabled = true;
+            btnImprimir.Enabled = true;
+            btnOS.Enabled = true;
         }
 
         private void disableBtn()
         {
             btnEditar.Enabled = false;
             btnDelete.Enabled = false;
+            btnImprimir.Enabled = false;
+            btnOS.Enabled = false;
         }
         
         private void listGrid()
@@ -216,6 +220,18 @@ namespace AssisTec.UserControls
             this.Controls.Add(ucHistorico);
             
             ucHistorico.BringToFront();
+        }
+
+        private void btnImprimir_Click(object sender, EventArgs e)
+        {
+            Cliente cliente = new Cliente();
+            cliente.ImprimirCliente(id);
+        }
+
+        private void btnRelatorio_Click(object sender, EventArgs e)
+        {
+            Cliente cliente = new Cliente();
+            cliente.gerarRelatorioTodosClientes();
         }
     }
         #endregion

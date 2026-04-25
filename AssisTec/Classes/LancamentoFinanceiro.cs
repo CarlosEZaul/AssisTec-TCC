@@ -98,7 +98,13 @@ namespace AssisTec
                 if (status == "PAGA" && string.IsNullOrWhiteSpace(dataPagamento))
                 {
                     MessageBox.Show("Data de pagamento é obrigatória para status PAGA!", 
-                        "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        "Atenção!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                if (Convert.ToDateTime(dataVencimento) < DateTime.Now)
+                {
+                    MessageBox.Show("A data de vencimento não pode ser uma data passada.", "Atenção!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
                 try

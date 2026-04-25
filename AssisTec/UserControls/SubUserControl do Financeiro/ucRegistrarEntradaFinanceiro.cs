@@ -11,11 +11,13 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
         private string sql;
         private MySqlCommand cmd;
         DataTable dtFormaPagamento;
-        
-        public ucRegistrarEntradaFinanceiro()
+        private DataGridView dgv;
+        public ucRegistrarEntradaFinanceiro(DataGridView _dgv)
         {
             InitializeComponent();
             ConfigurarCombobox();
+            dgv = _dgv;
+            
         }
         
         #region metodos ou funcoes
@@ -88,6 +90,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
             
             
                 lf.SalvarLancamentoFinanceiro();
+                dgv.DataSource = lf.atualizarContasReceber();
             }
             catch (Exception ex)
             {

@@ -98,6 +98,7 @@ namespace AssisTec.UserControls
             btnDelete.Enabled = true;
             btnEditar.Enabled = true;
             btnHistorico.Enabled = true;
+            btnImprimir.Enabled = true;
 
         }
         
@@ -250,20 +251,10 @@ namespace AssisTec.UserControls
             }
         }
 
-
-        
-
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            DialogResult result = MessageBox.Show("Deseja excluir usuário?", "Confirmar Exclusão", 
-                MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                
-            if (result == DialogResult.Yes)
-            {
-                Usuario user = new Usuario();
-                user.deletarUsuario(id, dgvUsuarios);
-            }
-
+            Usuario user = new Usuario();
+            user.deletarUsuario(id, dgvUsuarios);
             btnDelete.Enabled = false;
             btnEditar.Enabled = false;
         }
@@ -310,6 +301,20 @@ namespace AssisTec.UserControls
             this.Controls.Add(ucHistorico);
             
             ucHistorico.BringToFront();
+        }
+
+        private void btnRelatorio_Click(object sender, EventArgs e)
+        {
+            Usuario usuario = new Usuario();
+            usuario.gerarRelatorioTodosUsuarios(txtBusca.Text, cbInativo.Checked, int.TryParse(cbNivel.SelectedValue?.ToString(), out int n) ? n:0);
+        }
+
+        
+
+        private void btnImprimir_Click(object sender, EventArgs e)
+        {
+            Usuario usuario = new Usuario();
+            usuario.ImprimirTecnico(id);
         }
     }
 }

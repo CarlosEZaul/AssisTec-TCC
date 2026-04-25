@@ -33,6 +33,7 @@ namespace AssisTec.UserControls
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ucGerenciador_Clientes));
             this.panelBotoes = new System.Windows.Forms.Panel();
+            this.btnRelatorio = new System.Windows.Forms.Button();
             this.btnImprimir = new System.Windows.Forms.Button();
             this.btnOS = new System.Windows.Forms.Button();
             this.btnEditar = new System.Windows.Forms.Button();
@@ -51,6 +52,7 @@ namespace AssisTec.UserControls
             // panelBotoes
             // 
             this.panelBotoes.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.panelBotoes.Controls.Add(this.btnRelatorio);
             this.panelBotoes.Controls.Add(this.btnImprimir);
             this.panelBotoes.Controls.Add(this.btnOS);
             this.panelBotoes.Controls.Add(this.btnEditar);
@@ -58,27 +60,45 @@ namespace AssisTec.UserControls
             this.panelBotoes.Controls.Add(this.btnDelete);
             this.panelBotoes.Location = new System.Drawing.Point(334, 685);
             this.panelBotoes.Name = "panelBotoes";
-            this.panelBotoes.Size = new System.Drawing.Size(504, 61);
+            this.panelBotoes.Size = new System.Drawing.Size(609, 61);
             this.panelBotoes.TabIndex = 146;
+            // 
+            // btnRelatorio
+            // 
+            this.btnRelatorio.BackColor = System.Drawing.Color.RoyalBlue;
+            this.btnRelatorio.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnRelatorio.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRelatorio.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.btnRelatorio.ForeColor = System.Drawing.SystemColors.Control;
+            this.btnRelatorio.Location = new System.Drawing.Point(509, 15);
+            this.btnRelatorio.Name = "btnRelatorio";
+            this.btnRelatorio.Size = new System.Drawing.Size(90, 33);
+            this.btnRelatorio.TabIndex = 105;
+            this.btnRelatorio.Text = "Gerar Relatório";
+            this.btnRelatorio.UseVisualStyleBackColor = false;
+            this.btnRelatorio.Click += new System.EventHandler(this.btnRelatorio_Click);
             // 
             // btnImprimir
             // 
             this.btnImprimir.BackColor = System.Drawing.Color.RoyalBlue;
             this.btnImprimir.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnImprimir.Enabled = false;
             this.btnImprimir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnImprimir.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.btnImprimir.ForeColor = System.Drawing.SystemColors.Control;
             this.btnImprimir.Location = new System.Drawing.Point(413, 15);
             this.btnImprimir.Name = "btnImprimir";
-            this.btnImprimir.Size = new System.Drawing.Size(79, 33);
+            this.btnImprimir.Size = new System.Drawing.Size(90, 33);
             this.btnImprimir.TabIndex = 104;
-            this.btnImprimir.Text = "Imprimir";
+            this.btnImprimir.Text = "Imprimir Cliente";
             this.btnImprimir.UseVisualStyleBackColor = false;
+            this.btnImprimir.Click += new System.EventHandler(this.btnImprimir_Click);
             // 
             // btnOS
             // 
             this.btnOS.BackColor = System.Drawing.Color.RoyalBlue;
             this.btnOS.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnOS.Enabled = false;
             this.btnOS.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnOS.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.btnOS.ForeColor = System.Drawing.SystemColors.Control;
@@ -223,6 +243,8 @@ namespace AssisTec.UserControls
             this.ResumeLayout(false);
             this.PerformLayout();
         }
+
+        private System.Windows.Forms.Button btnRelatorio;
 
         private System.Windows.Forms.Panel panelBotoes;
         private System.Windows.Forms.Button btnImprimir;
