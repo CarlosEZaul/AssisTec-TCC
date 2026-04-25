@@ -243,22 +243,31 @@ namespace AssisTec
             try
             {
                 con.OpenConnection();
+                sql = "SELECT COUNT(*) FROM ordem_servico where id_tecnico = @id AND status = 'EM ANDAMENTO'";
+                cmd = new MySqlCommand(sql, con.con);
+                cmd.Parameters.AddWithValue("@id", id);
+                int osEmAndamento = Convert.ToInt32(cmd.ExecuteScalar());
+                con.CloseConnection();
+
+                if (osEmAndamento >0)
+                {
+                    MessageBox.Show("Não é possivel excluir usuário com um Ordem de Serviço em andamento", "Exclusão bloqueada", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
+                }
+                
+                con.OpenConnection();
                 sql = "DELETE FROM usuarios WHERE id_usuario = @id";
                 cmd = new MySqlCommand(sql, con.con);
                 cmd.Parameters.AddWithValue("@id", id);
                 cmd.ExecuteNonQuery();
                 con.CloseConnection();
-                
-                    
-                    
-                MessageBox.Show("Cliente excluído com sucesso!", "Sucesso", 
-                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                dgv.DataSource = atualizarDados();
                 return true;
+                
             }
-            catch (Exception exception)
+            catch (Exception ex)
             {
-                MessageBox.Show("Erro ao excluir cliente!\n" + exception.Message, "Erro", 
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
         }
@@ -284,6 +293,38 @@ namespace AssisTec
                 throw;
             }
 
+            return dt;
+        }
+
+        public DataTable historicoOs(int id_tecnico)
+        {
+            DataTable dt = new DataTable();
+            
+            con.OpenConnection();
+            sql = @"SELECT 
+                os.id_os,
+                c.nome          AS nome_cliente,
+                u.nome          AS nome_tecnico,
+                e.descricao     AS descricao_equipamento,
+                os.status,
+                os.data_abertura,
+                os.data_fechamento,
+                os.valor_mao_obra,
+                os.valor_pecas,
+                os.valor_total,
+                os.problema_relatado,
+                os.diagnostico,
+                os.observacoes
+            FROM ordem_servico os
+            LEFT JOIN clientes    c ON c.id_cliente    = os.id_cliente
+            LEFT JOIN usuarios    u ON u.id_usuario    = os.id_tecnico
+            LEFT JOIN equipamentos e ON e.id_equipamento = os.id_equipamento
+            WHERE os.id_tecnico = @id";
+            cmd = new MySqlCommand(sql, con.con);
+            cmd.Parameters.AddWithValue("@id", id_tecnico);
+            MySqlDataAdapter da = new MySqlDataAdapter(cmd);
+            da.Fill(dt);
+            con.CloseConnection();
             return dt;
         }
     }

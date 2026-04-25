@@ -63,7 +63,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios
                 DesingComponentes.StyleTextBox(txtEstado);
                 DesingComponentes.StyleTextBox(txtRua);
                 
-                     
+                
 
                 // MaskedTextBox
                 DesingComponentes.StyleMaskedTextBox(mtbCPF);

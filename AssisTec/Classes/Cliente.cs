@@ -212,6 +212,38 @@ namespace AssisTec
 
             return dt;
         }
+        
+        public DataTable historicoOs(int id_cliente)
+        {
+            DataTable dt = new DataTable();
+            
+            con.OpenConnection();
+            sql = @"SELECT 
+                os.id_os,
+                c.nome          AS nome_cliente,
+                u.nome          AS nome_tecnico,
+                e.descricao     AS descricao_equipamento,
+                os.status,
+                os.data_abertura,
+                os.data_fechamento,
+                os.valor_mao_obra,
+                os.valor_pecas,
+                os.valor_total,
+                os.problema_relatado,
+                os.diagnostico,
+                os.observacoes
+            FROM ordem_servico os
+            LEFT JOIN clientes    c ON c.id_cliente    = os.id_cliente
+            LEFT JOIN usuarios    u ON u.id_usuario    = os.id_tecnico
+            LEFT JOIN equipamentos e ON e.id_equipamento = os.id_equipamento
+            WHERE os.id_cliente = @id";
+            cmd = new MySqlCommand(sql, con.con);
+            cmd.Parameters.AddWithValue("@id", id_cliente);
+            MySqlDataAdapter da = new MySqlDataAdapter(cmd);
+            da.Fill(dt);
+            con.CloseConnection();
+            return dt;
+        }
 
         public void gerarRelatorioCliente(int id)
         {

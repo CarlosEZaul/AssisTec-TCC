@@ -88,6 +88,7 @@ namespace AssisTec.UserControls
             this.btnOS.TabIndex = 103;
             this.btnOS.Text = "Visualizar histórico de OS";
             this.btnOS.UseVisualStyleBackColor = false;
+            this.btnOS.Click += new System.EventHandler(this.btnOS_Click);
             // 
             // btnEditar
             // 

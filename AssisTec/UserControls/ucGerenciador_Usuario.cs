@@ -22,6 +22,7 @@ namespace AssisTec.UserControls
         private int id;
         private string uf;
         private bool okCep;
+        private Usuario user = new Usuario();
         
         
         
@@ -274,20 +275,14 @@ namespace AssisTec.UserControls
             listGrid();
         }
 
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
-            throw new System.NotImplementedException();
-        }
+        
 
         private void txtBusca_TextChanged(object sender, EventArgs e)
         {
             Filtro();
         }
 
-        private void label5_Click(object sender, EventArgs e)
-        {
-            throw new System.NotImplementedException();
-        }
+        
 
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
@@ -308,7 +303,8 @@ namespace AssisTec.UserControls
 
         private void btnHistorico_Click(object sender, EventArgs e)
         {
-            ucHistoricoOS ucHistorico = new ucHistoricoOS(id);
+            Pessoa pessoa = new Usuario();
+            ucHistoricoOS ucHistorico = new ucHistoricoOS(pessoa,id);
             ucHistorico.Left = (this.ClientSize.Width - ucHistorico.Width)/2;
             ucHistorico.Top = (this.ClientSize.Height - ucHistorico.Height)/2;
             this.Controls.Add(ucHistorico);
