@@ -26,24 +26,24 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
         private ucDetalhesPedidos detalhes; 
         private ucProdutosUtilizados produtos;
         private ucServicos servicos;
-        private Pedido _pedido;
+        private OrdemServico _ordemServico;
         conexao con = new conexao();
         string sql;
         MySqlCommand cmd;
         private int id;
         
-        public FrmEditarPedido(Pedido pedido)
+        public FrmEditarPedido(OrdemServico ordemServico)
         {
             InitializeComponent();
             ApplyModernDesign();
-            _pedido = pedido;
+            _ordemServico = ordemServico;
         }
 
         private void FrmEditarPedido_Load(object sender, EventArgs e)
         {
-            detalhes = new ucDetalhesPedidos(_pedido);
-            produtos = new ucProdutosUtilizados(_pedido);
-            servicos = new ucServicos(_pedido);
+            detalhes = new ucDetalhesPedidos(_ordemServico);
+            produtos = new ucProdutosUtilizados(_ordemServico);
+            servicos = new ucServicos(_ordemServico);
             detalhes.Dock = DockStyle.Fill;
             produtos.Dock = DockStyle.Fill;
             panelConteudo.Controls.Add(detalhes);
@@ -132,7 +132,7 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
 
                 using (MySqlCommand cmd = new MySqlCommand(sql, con.con))
                 {
-                    cmd.Parameters.AddWithValue("@id", _pedido.id_pedido);
+                    cmd.Parameters.AddWithValue("@id", _ordemServico.id_pedido);
 
                     using (MySqlDataReader dr = cmd.ExecuteReader())
                     {

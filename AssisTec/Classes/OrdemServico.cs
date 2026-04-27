@@ -3,7 +3,7 @@ using System.Windows.Forms;
 
 namespace AssisTec
 {
-    public class Pedido
+    public class OrdemServico
     {
         private int Id_pedido;
         private int Id_cliente;

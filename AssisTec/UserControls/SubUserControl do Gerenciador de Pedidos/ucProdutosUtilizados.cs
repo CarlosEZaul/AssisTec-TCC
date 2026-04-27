@@ -8,15 +8,15 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
 {
     public partial class ucProdutosUtilizados : UserControl
     {
-        private Pedido _pedido;
+        private OrdemServico _ordemServico;
         conexao con = new conexao();
         MySqlCommand cmd;
         private int id;
         
-        public ucProdutosUtilizados(Pedido pedido)
+        public ucProdutosUtilizados(OrdemServico ordemServico)
         {
             InitializeComponent();
-            _pedido = pedido;
+            _ordemServico = ordemServico;
             ConfigurarComboBox();
             
         }

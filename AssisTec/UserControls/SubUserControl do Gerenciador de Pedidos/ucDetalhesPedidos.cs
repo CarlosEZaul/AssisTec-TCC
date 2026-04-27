@@ -19,17 +19,17 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
         MySqlCommand cmd;
         private int id;
         private string uf;
-        private Pedido _pedido;
+        private OrdemServico _ordemServico;
         
-        public ucDetalhesPedidos(Pedido pedido)
+        public ucDetalhesPedidos(OrdemServico ordemServico)
         {
             InitializeComponent();
-            _pedido = pedido;
+            _ordemServico = ordemServico;
         }
 
         private void ucDetalhesPedidos_Load(object sender, EventArgs e)
         {
-            txtId.Text = _pedido.id_pedido.ToString();
+            txtId.Text = _ordemServico.id_pedido.ToString();
             //CarregarDadosPedido();
         }
         
@@ -67,7 +67,7 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
 
                 using (MySqlCommand cmd = new MySqlCommand(sql, con.con))
                 {
-                    cmd.Parameters.AddWithValue("@id", _pedido.id_pedido);
+                    cmd.Parameters.AddWithValue("@id", _ordemServico.id_pedido);
 
                     using (MySqlDataReader dr = cmd.ExecuteReader())
                     {
