@@ -105,7 +105,7 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
                 con.OpenConnection();
                 string sql = @"
                                 SELECT 
-                                    p.id_pedido, 
+                                    p.id_os, 
                                     p.status, 
                                     p.data_abertura, 
                                     p.data_atualizacao, 

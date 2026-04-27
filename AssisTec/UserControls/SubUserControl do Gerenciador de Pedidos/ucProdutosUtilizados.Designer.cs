@@ -31,7 +31,6 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
         /// </summary>
         private void InitializeComponent()
         {
-            this.listaProdutos = new System.Windows.Forms.ListBox();
             this.txtQntd = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -39,15 +38,9 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             this.btnSalvar = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.lblTotal = new System.Windows.Forms.Label();
+            this.dgvUsuarios = new System.Windows.Forms.DataGridView();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvUsuarios)).BeginInit();
             this.SuspendLayout();
-            // 
-            // listaProdutos
-            // 
-            this.listaProdutos.FormattingEnabled = true;
-            this.listaProdutos.Location = new System.Drawing.Point(3, 112);
-            this.listaProdutos.Name = "listaProdutos";
-            this.listaProdutos.Size = new System.Drawing.Size(679, 264);
-            this.listaProdutos.TabIndex = 0;
             // 
             // txtQntd
             // 
@@ -129,11 +122,29 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             this.lblTotal.TabIndex = 128;
             this.lblTotal.Text = "...";
             // 
+            // dgvUsuarios
+            // 
+            this.dgvUsuarios.AllowUserToAddRows = false;
+            this.dgvUsuarios.AllowUserToDeleteRows = false;
+            this.dgvUsuarios.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvUsuarios.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvUsuarios.BackgroundColor = System.Drawing.Color.Gray;
+            this.dgvUsuarios.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Sunken;
+            this.dgvUsuarios.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvUsuarios.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.dgvUsuarios.Location = new System.Drawing.Point(20, 93);
+            this.dgvUsuarios.MultiSelect = false;
+            this.dgvUsuarios.Name = "dgvUsuarios";
+            this.dgvUsuarios.ReadOnly = true;
+            this.dgvUsuarios.Size = new System.Drawing.Size(647, 268);
+            this.dgvUsuarios.TabIndex = 129;
+            // 
             // ucProdutosUtilizados
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(44)))), ((int)(((byte)(64)))));
+            this.Controls.Add(this.dgvUsuarios);
             this.Controls.Add(this.lblTotal);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.btnSalvar);
@@ -141,12 +152,14 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             this.Controls.Add(this.label1);
             this.Controls.Add(this.label14);
             this.Controls.Add(this.txtQntd);
-            this.Controls.Add(this.listaProdutos);
             this.Name = "ucProdutosUtilizados";
             this.Size = new System.Drawing.Size(685, 442);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvUsuarios)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
         }
+
+        private System.Windows.Forms.DataGridView dgvUsuarios;
 
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label lblTotal;
@@ -160,8 +173,6 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
         private System.Windows.Forms.Label label14;
 
         private System.Windows.Forms.TextBox txtQntd;
-
-        private System.Windows.Forms.ListBox listaProdutos;
 
         #endregion
     }

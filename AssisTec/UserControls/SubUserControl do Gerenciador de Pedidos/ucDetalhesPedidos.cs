@@ -30,7 +30,7 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
         private void ucDetalhesPedidos_Load(object sender, EventArgs e)
         {
             txtId.Text = _pedido.id_pedido.ToString();
-            CarregarDadosPedido();
+            //CarregarDadosPedido();
         }
         
 

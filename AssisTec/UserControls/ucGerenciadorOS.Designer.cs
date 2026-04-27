@@ -67,6 +67,7 @@ namespace AssisTec.UserControls
             this.dgvOS.ReadOnly = true;
             this.dgvOS.Size = new System.Drawing.Size(1138, 579);
             this.dgvOS.TabIndex = 53;
+            this.dgvOS.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvOS_CellClick);
             // 
             // label4
             // 
@@ -190,6 +191,7 @@ namespace AssisTec.UserControls
             this.btnGerenciar.TabIndex = 103;
             this.btnGerenciar.Text = "Gerenciar";
             this.btnGerenciar.UseVisualStyleBackColor = false;
+            this.btnGerenciar.Click += new System.EventHandler(this.btnGerenciar_Click);
             // 
             // label1
             // 

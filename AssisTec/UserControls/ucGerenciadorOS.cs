@@ -50,6 +50,11 @@ namespace AssisTec.UserControls
         }
 
         #endregion
+
+        private void enableBtn()
+        {
+            btnGerenciar.Enabled =  true;
+        }
         private void formartGrid()
         {
             if (dgvOS.Columns.Count <= 0) return;
@@ -114,6 +119,21 @@ namespace AssisTec.UserControls
         private void btnAtualizar_Click(object sender, EventArgs e)
         {
             listGrid();
+        }
+
+        private void btnGerenciar_Click(object sender, EventArgs e)
+        {
+            Pedido pedido = new Pedido();
+            FrmEditarPedido frmEditarPedido = new FrmEditarPedido(pedido);
+            
+            frmEditarPedido.Left = (this.ClientSize.Width - frmEditarPedido.Width)/2;
+            frmEditarPedido.Top = (this.ClientSize.Height - frmEditarPedido.Height)/2;
+            frmEditarPedido.Show();
+        }
+
+        private void dgvOS_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            enableBtn();
         }
     }
 }

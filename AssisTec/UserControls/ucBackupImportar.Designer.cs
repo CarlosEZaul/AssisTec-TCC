@@ -61,7 +61,7 @@ namespace AssisTec.UserControls
             this.label4.BackColor = System.Drawing.Color.Transparent;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.Color.White;
-            this.label4.Location = new System.Drawing.Point(373, 290);
+            this.label4.Location = new System.Drawing.Point(-16, 182);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(1175, 54);
             this.label4.TabIndex = 148;
@@ -74,22 +74,22 @@ namespace AssisTec.UserControls
             this.label1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label1.Location = new System.Drawing.Point(-3, 434);
+            this.label1.Location = new System.Drawing.Point(4, 326);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(1920, 97);
+            this.label1.Size = new System.Drawing.Size(1135, 97);
             this.label1.TabIndex = 149;
             this.label1.Text = "⚠️ Aviso: Ao importar os dados, as informações atuais podem ser substituídas. Ver" + "ifique o arquivo antes de continuar.";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // panelBackup
             // 
-            this.panelBackup.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.panelBackup.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.panelBackup.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelBackup.Controls.Add(this.btnBackup);
             this.panelBackup.Controls.Add(this.label5);
             this.panelBackup.Controls.Add(this.label3);
             this.panelBackup.Controls.Add(this.label2);
-            this.panelBackup.Location = new System.Drawing.Point(439, 621);
+            this.panelBackup.Location = new System.Drawing.Point(43, 500);
             this.panelBackup.Name = "panelBackup";
             this.panelBackup.Size = new System.Drawing.Size(413, 246);
             this.panelBackup.TabIndex = 160;
@@ -150,7 +150,7 @@ namespace AssisTec.UserControls
             this.pictureBox1.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.pictureBox1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBox1.BackgroundImage")));
             this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pictureBox1.Location = new System.Drawing.Point(868, 141);
+            this.pictureBox1.Location = new System.Drawing.Point(472, 3);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(188, 146);
             this.pictureBox1.TabIndex = 161;
@@ -161,7 +161,7 @@ namespace AssisTec.UserControls
             this.label6.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label6.Location = new System.Drawing.Point(376, 344);
+            this.label6.Location = new System.Drawing.Point(-13, 236);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(1172, 65);
             this.label6.TabIndex = 162;
@@ -170,13 +170,13 @@ namespace AssisTec.UserControls
             // 
             // panelImportar
             // 
-            this.panelImportar.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.panelImportar.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.panelImportar.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelImportar.Controls.Add(this.guna2Button1);
             this.panelImportar.Controls.Add(this.label7);
             this.panelImportar.Controls.Add(this.label8);
             this.panelImportar.Controls.Add(this.label9);
-            this.panelImportar.Location = new System.Drawing.Point(1113, 621);
+            this.panelImportar.Location = new System.Drawing.Point(679, 500);
             this.panelImportar.Name = "panelImportar";
             this.panelImportar.Size = new System.Drawing.Size(413, 246);
             this.panelImportar.TabIndex = 164;
@@ -243,7 +243,7 @@ namespace AssisTec.UserControls
             this.Controls.Add(this.label1);
             this.Controls.Add(this.label4);
             this.Name = "ucBackupImportar";
-            this.Size = new System.Drawing.Size(1920, 1080);
+            this.Size = new System.Drawing.Size(1142, 749);
             this.panelBackup.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panelImportar.ResumeLayout(false);
