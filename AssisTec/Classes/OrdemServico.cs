@@ -5,7 +5,7 @@ namespace AssisTec
 {
     public class OrdemServico
     {
-        private int Id_pedido;
+        private int _idOs;
         private int Id_cliente;
         private int Id_equipamento;
         private int Id_tecnico;
@@ -47,10 +47,10 @@ namespace AssisTec
         }
         
 
-        public int id_pedido
+        public int id_os
         {
-            get { return Id_pedido; }
-            set { Id_pedido = value; }
+            get { return _idOs; }
+            set { _idOs = value; }
         }
 
         public int id_cliente

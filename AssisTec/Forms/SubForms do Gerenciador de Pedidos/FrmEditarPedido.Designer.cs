@@ -35,13 +35,13 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             this.btnServiços = new System.Windows.Forms.Button();
             this.btnProdutos = new System.Windows.Forms.Button();
             this.btnDetalhes = new System.Windows.Forms.Button();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.panelBotoes = new System.Windows.Forms.Panel();
             this.button1 = new System.Windows.Forms.Button();
             this.btnFechar = new System.Windows.Forms.Button();
             this.btnImprimir = new System.Windows.Forms.Button();
             this.panelConteudo = new System.Windows.Forms.Panel();
             this.panel2.SuspendLayout();
-            this.panel1.SuspendLayout();
+            this.panelBotoes.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel2
@@ -90,18 +90,18 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             this.btnDetalhes.UseVisualStyleBackColor = true;
             this.btnDetalhes.Click += new System.EventHandler(this.btnDetalhes_Click);
             // 
-            // panel1
+            // panelBotoes
             // 
-            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(55)))), ((int)(((byte)(76)))));
-            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel1.Controls.Add(this.button1);
-            this.panel1.Controls.Add(this.btnFechar);
-            this.panel1.Controls.Add(this.btnImprimir);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(0, 487);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(679, 38);
-            this.panel1.TabIndex = 75;
+            this.panelBotoes.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(55)))), ((int)(((byte)(76)))));
+            this.panelBotoes.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelBotoes.Controls.Add(this.button1);
+            this.panelBotoes.Controls.Add(this.btnFechar);
+            this.panelBotoes.Controls.Add(this.btnImprimir);
+            this.panelBotoes.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panelBotoes.Location = new System.Drawing.Point(0, 487);
+            this.panelBotoes.Name = "panelBotoes";
+            this.panelBotoes.Size = new System.Drawing.Size(679, 38);
+            this.panelBotoes.TabIndex = 75;
             // 
             // button1
             // 
@@ -165,7 +165,7 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             this.ClientSize = new System.Drawing.Size(679, 525);
             this.ControlBox = false;
             this.Controls.Add(this.panelConteudo);
-            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.panelBotoes);
             this.Controls.Add(this.panel2);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.MaximizeBox = false;
@@ -176,7 +176,7 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Load += new System.EventHandler(this.FrmEditarPedido_Load);
             this.panel2.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
+            this.panelBotoes.ResumeLayout(false);
             this.ResumeLayout(false);
         }
 
@@ -184,7 +184,7 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
 
         private System.Windows.Forms.Panel panelConteudo;
 
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel panelBotoes;
 
         private System.Windows.Forms.Button btnFechar;
         private System.Windows.Forms.Button btnImprimir;

@@ -29,7 +29,7 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
 
         private void ucDetalhesPedidos_Load(object sender, EventArgs e)
         {
-            txtId.Text = _ordemServico.id_pedido.ToString();
+            txtId.Text = _ordemServico.id_os.ToString();
             //CarregarDadosPedido();
         }
         
@@ -67,7 +67,7 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
 
                 using (MySqlCommand cmd = new MySqlCommand(sql, con.con))
                 {
-                    cmd.Parameters.AddWithValue("@id", _ordemServico.id_pedido);
+                    cmd.Parameters.AddWithValue("@id", _ordemServico.id_os);
 
                     using (MySqlDataReader dr = cmd.ExecuteReader())
                     {
