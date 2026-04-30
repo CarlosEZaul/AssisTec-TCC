@@ -106,7 +106,6 @@ namespace AssisTec.UserControls
         {
             try
             {
-                Usuario user = new Usuario();
                 dgvUsuarios.DataSource = user.atualizarDados();
             }
             catch (Exception ex)
@@ -253,7 +252,6 @@ namespace AssisTec.UserControls
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            Usuario user = new Usuario();
             user.deletarUsuario(id, dgvUsuarios);
             btnDelete.Enabled = false;
             btnEditar.Enabled = false;
@@ -313,9 +311,10 @@ namespace AssisTec.UserControls
 
         private void btnImprimir_Click(object sender, EventArgs e)
         {
-            Usuario usuario = new Usuario();
-            usuario.ImprimirTecnico(id);
+            user.ImprimirTecnico(id);
         }
+
+       
     }
 }
     

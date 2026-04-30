@@ -33,6 +33,7 @@ namespace AssisTec.UserControls
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ucContasPagar));
             this.panel2 = new System.Windows.Forms.Panel();
+            this.btnRecibo = new System.Windows.Forms.Button();
             this.btnRegistrar = new System.Windows.Forms.Button();
             this.btnDefinirPaga = new System.Windows.Forms.Button();
             this.btnRelatorio = new System.Windows.Forms.Button();
@@ -48,7 +49,6 @@ namespace AssisTec.UserControls
             this.label1 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.dgvContasReceber = new System.Windows.Forms.DataGridView();
-            this.btnRecibo = new System.Windows.Forms.Button();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnAtualizar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvContasReceber)).BeginInit();
@@ -66,6 +66,22 @@ namespace AssisTec.UserControls
             this.panel2.Size = new System.Drawing.Size(440, 61);
             this.panel2.TabIndex = 172;
             // 
+            // btnRecibo
+            // 
+            this.btnRecibo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnRecibo.BackColor = System.Drawing.Color.RoyalBlue;
+            this.btnRecibo.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnRecibo.Enabled = false;
+            this.btnRecibo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRecibo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.btnRecibo.ForeColor = System.Drawing.SystemColors.Control;
+            this.btnRecibo.Location = new System.Drawing.Point(331, 15);
+            this.btnRecibo.Name = "btnRecibo";
+            this.btnRecibo.Size = new System.Drawing.Size(88, 33);
+            this.btnRecibo.TabIndex = 104;
+            this.btnRecibo.Text = "Emitir Recibo";
+            this.btnRecibo.UseVisualStyleBackColor = false;
+            // 
             // btnRegistrar
             // 
             this.btnRegistrar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -80,6 +96,7 @@ namespace AssisTec.UserControls
             this.btnRegistrar.TabIndex = 99;
             this.btnRegistrar.Text = "Registrar Saída";
             this.btnRegistrar.UseVisualStyleBackColor = false;
+            this.btnRegistrar.Click += new System.EventHandler(this.btnRegistrar_Click);
             // 
             // btnDefinirPaga
             // 
@@ -255,22 +272,6 @@ namespace AssisTec.UserControls
             this.dgvContasReceber.ReadOnly = true;
             this.dgvContasReceber.Size = new System.Drawing.Size(1138, 579);
             this.dgvContasReceber.TabIndex = 160;
-            // 
-            // btnRecibo
-            // 
-            this.btnRecibo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnRecibo.BackColor = System.Drawing.Color.RoyalBlue;
-            this.btnRecibo.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnRecibo.Enabled = false;
-            this.btnRecibo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnRecibo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.btnRecibo.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnRecibo.Location = new System.Drawing.Point(331, 15);
-            this.btnRecibo.Name = "btnRecibo";
-            this.btnRecibo.Size = new System.Drawing.Size(88, 33);
-            this.btnRecibo.TabIndex = 104;
-            this.btnRecibo.Text = "Emitir Recibo";
-            this.btnRecibo.UseVisualStyleBackColor = false;
             // 
             // ucContasPagar
             // 

@@ -19,8 +19,6 @@ namespace AssisTec
         {
             try
             {
-                Cliente cliente = new Cliente();
-
                 con.OpenConnection();
 
                 sql = "SELECT * FROM clientes WHERE id_cliente = @id_cliente";
@@ -31,31 +29,30 @@ namespace AssisTec
 
                 if (rs.Read())
                 {
-                    cliente.id = rs.GetInt32("id_cliente");
-                    cliente.nome = rs.GetString("nome");
-                    cliente.cpf = rs.GetString("cpf");
-                    cliente.telefone = rs.GetString("telefone");
-                    cliente.dataNascimento = rs.GetDateTime("datanasc").ToString("dd/MM/yyyy");
-                    cliente.cep = rs.GetString("cep");
-                    cliente.rua = rs.GetString("rua");
-                    cliente.numero = Convert.ToInt32(rs.GetString("numero"));
-                    cliente.cidade = rs.GetString("cidade");
-                    cliente.estado = rs.GetString("estado");
-                    cliente.bairro = rs.GetString("bairro");
-                    cliente.complemento = rs.GetString("complemento");
+                    this.id = rs.GetInt32("id_cliente");
+                    this.nome = rs.GetString("nome");
+                    this.cpf = rs.GetString("cpf");
+                    this.telefone = rs.GetString("telefone");
+                    this.dataNascimento = rs.GetDateTime("datanasc").ToString("dd/MM/yyyy");
+                    this.cep = rs.GetString("cep");
+                    this.rua = rs.GetString("rua");
+                    this.numero = Convert.ToInt32(rs.GetString("numero"));
+                    this.cidade = rs.GetString("cidade");
+                    this.estado = rs.GetString("estado");
+                    this.bairro = rs.GetString("bairro");
+                    this.complemento = rs.GetString("complemento");
                     
                 }
 
                 rs.Close();
                 con.CloseConnection();
-                return cliente;
+                return this;
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Erro ao carregar cliente!" + ex, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return null;
             }
-
-            return new Cliente();
         }
 
         public void novoCliente(Cliente cliente)

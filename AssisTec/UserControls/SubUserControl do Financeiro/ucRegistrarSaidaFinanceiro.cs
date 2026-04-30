@@ -1,24 +1,34 @@
 ﻿using System;
 using System.Data;
+using System.Drawing;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 
 namespace AssisTec.UserControls.SubUserControl_do_Financeiro
 {
-    public partial class ucRegistrarEntradaFinanceiro : UserControl
+    public partial class ucRegistrarSaidaFinanceiro : UserControl
     {
-        private conexao con  = new conexao();
+        conexao con = new conexao();
         private string sql;
-        private MySqlCommand cmd;
+        MySqlCommand cmd;
         DataTable dtFormaPagamento;
         private DataGridView dgv;
-        public ucRegistrarEntradaFinanceiro(DataGridView _dgv)
+        
+        public ucRegistrarSaidaFinanceiro()
         {
             InitializeComponent();
             ConfigurarCombobox();
-            dgv = _dgv;
-            
+            applyDesing();
         }
+
+        #region DesingModerno
+
+        private void applyDesing()
+        {
+            DesingComponentes.StyleButton(btnFechar, Color.Red);
+        }
+
+        #endregion
         
         #region metodos ou funcoes
 
@@ -52,8 +62,10 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
         }
 
         
-        #endregion
 
+        
+        #endregion
+        
         #region Função dos componentes
 
         private void fechar()
@@ -70,7 +82,6 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
                 if (string.IsNullOrWhiteSpace(txtValor.Text) || string.IsNullOrWhiteSpace(txtDescricao.Text) ||
                     string.IsNullOrWhiteSpace(txtDescricao.Text) ||
                     string.IsNullOrWhiteSpace(mtbDataEmissao.Text) ||
-                    string.IsNullOrWhiteSpace(mtbDataVencimento.Text)||
                     string.IsNullOrWhiteSpace(cbStatus.Text))
                 {
                     MessageBox.Show("Preencha todos os campos", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -78,11 +89,10 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
                 
                 LancamentoFinanceiro lf = new LancamentoFinanceiro();
                 lf.pagamento = new Pagamento();
-                lf.tipo = 1;
+                lf.tipo = 2;
                 lf.valor = Convert.ToDecimal(txtValor.Text);
                 lf.descricao = txtDescricao.Text;
                 lf.dataEmissao = DateTime.Now.ToShortDateString();
-                lf.dataVencimento = mtbDataVencimento.Text;
                 lf.dataPagamento = mtbDataPagamento.Text;
                 lf.status = cbStatus.Text;
                 lf.obervacoes = txtObservacoes.Text;
@@ -177,15 +187,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
         }
         #endregion
 
-        private void btnLimpar_Click(object sender, EventArgs e)
-        {
-            txtDescricao.Text = null;
-            txtValor.Text = null;
-            mtbDataPagamento.Text = null;
-            mtbDataVencimento.Text = null;
-            cbStatus.SelectedIndex = 0;
-            cbFormaPagamento.SelectedIndex = 0;
-            txtObservacoes.Text = null;
-        }
+        
     }
+    
 }

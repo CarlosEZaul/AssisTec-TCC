@@ -40,8 +40,9 @@ namespace AssisTec
                     cr.data_pagamento,
                     cr.data_vencimento,
                     cr.status,
-                    cr.observacoes,      
-                    fp.descricao AS forma_pagamento
+                    fp.descricao AS forma_pagamento,
+                    cr.observacoes
+                    
                 FROM contas_receber cr
                 
                 LEFT JOIN forma_pagamento fp
@@ -49,6 +50,41 @@ namespace AssisTec
                     
                 LEFT JOIN ordem_servico os
                     ON cr.id_os_fk = os.id_os;";
+
+                cmd = new MySqlCommand(sql, con.con);
+                MySqlDataAdapter da = new MySqlDataAdapter(cmd);
+                da.Fill(dt);
+
+                con.CloseConnection();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao carregar contas a receber \n" + ex.Message);
+            }
+
+            return dt;
+        }
+        
+        public DataTable atualizarContasPagar()
+        {
+            DataTable dt = new DataTable();
+
+            try
+            {
+                con.OpenConnection();
+                sql = @"SELECT 
+                    cp.id_conta_pagar,
+                    fp.descricao AS forma_pagamento,
+                    cp.descricao,
+                    cp.valor,
+                    cp.data_emissao,
+                    cp.data_pagamento,
+                    cp.status,
+                    cp.observacoes      
+                FROM contas_pagar cp
+
+                LEFT JOIN forma_pagamento fp                            
+                    ON cp.id_forma_pagamento_fk = fp.id_forma_pagamento ;";
 
                 cmd = new MySqlCommand(sql, con.con);
                 MySqlDataAdapter da = new MySqlDataAdapter(cmd);
@@ -138,6 +174,52 @@ namespace AssisTec
                     con.CloseConnection();
                 
                     MessageBox.Show("Entrada registrada com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    
+                }
+                catch (MySqlException ex)
+                {
+                    MessageBox.Show(ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+
+            if (tipo == 2)
+            {
+                if (status == "PAGA" && string.IsNullOrWhiteSpace(dataPagamento))
+                {
+                    MessageBox.Show("Data de pagamento é obrigatória para status PAGA!", 
+                        "Atenção!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                
+                try
+                {
+                    con.OpenConnection();
+                    sql = @"INSERT INTO contas_pagar 
+                        (DESCRICAO, VALOR, DATA_EMISSAO, DATA_PAGAMENTO, STATUS, ID_FORMA_PAGAMENTO_FK, OBSERVACOES)
+                    VALUES 
+                        (@descricao, @valor, @data_emissao, @data_pagamento, @data_vencimento,@status, @id_pagamento_fk, @observacoes)";
+            
+                    cmd = new MySqlCommand(sql, con.con);
+                
+                    cmd.Parameters.AddWithValue("@descricao", descricao);
+                    cmd.Parameters.AddWithValue("@valor", valor);
+                    cmd.Parameters.AddWithValue("@data_emissao", DataFormatada(dataEmissao));
+                    
+                    if (string.IsNullOrWhiteSpace(dataPagamento))
+                    {
+                        cmd.Parameters.AddWithValue("@data_pagamento", DBNull.Value);
+                    }
+                    else
+                    {
+                        cmd.Parameters.AddWithValue("@data_pagamento", DataFormatada(dataPagamento, false));
+                    }
+                    cmd.Parameters.AddWithValue("@status", status);
+                    cmd.Parameters.AddWithValue("@id_pagamento_fk", pagamento.id_pagamento);
+                    cmd.Parameters.AddWithValue("@observacoes", obervacoes);
+                    cmd.ExecuteNonQuery();
+                    con.CloseConnection();
+                
+                    MessageBox.Show("Saída registrada com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     
                 }
                 catch (MySqlException ex)

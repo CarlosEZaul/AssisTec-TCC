@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Windows.Forms;
 
 namespace AssisTec.UserControls
 {
@@ -19,5 +20,10 @@ namespace AssisTec.UserControls
         
 
         #endregion
+
+        private void btnNew_Click(object sender, EventArgs e)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

@@ -42,47 +42,41 @@ namespace AssisTec
         {
             try
             {
-                Usuario usuario = new Usuario();
-
                 con.OpenConnection();
 
-                sql = "SELECT * FROM usuarios WHERE id_usuario  = @id_usuario";
+                sql = "SELECT * FROM usuarios WHERE id_usuario = @id_usuario";
                 cmd = new MySqlCommand(sql, con.con);
                 cmd.Parameters.AddWithValue("@id_usuario", id);
 
-                MySqlDataReader rs = cmd.ExecuteReader();
-
-                if (rs.Read())
+                using (MySqlDataReader rs = cmd.ExecuteReader())
                 {
-                    usuario.id = rs.GetInt32("id_usuario");
-                    usuario.nome = rs.GetString("nome");
-                    usuario.cpf = rs.GetString("cpf");
-                    usuario.telefone = rs.GetString("telefone");
-                    usuario.status = rs.GetString("status");
-                    usuario.nivel = Convert.ToInt32(rs["nivel"]);
-                    usuario.senha = rs.GetString("senha");
-                    usuario.cep = rs.GetString("cep");
-                    usuario.rua = rs.GetString("rua");
-                    usuario.numero = Convert.ToInt32(rs.GetString("numero"));
-                    usuario.cidade = rs.GetString("cidade");
-                    usuario.estado = rs.GetString("estado");
-                    usuario.bairro = rs.GetString("bairro");
-                    usuario.complemento = rs.GetString("complemento");
-                    
+                    if (rs.Read())
+                    {
+                        this.id          = rs.GetInt32("id_usuario");
+                        this.nome        = rs.GetString("nome");
+                        this.cpf         = rs.GetString("cpf");
+                        this.telefone    = rs.GetString("telefone");
+                        this.status      = rs.GetString("status");
+                        this.nivel       = rs.GetInt32("nivel");
+                        this.senha       = rs.GetString("senha");
+                        this.cep         = rs.GetString("cep");
+                        this.rua         = rs.GetString("rua");
+                        this.numero      = rs.GetInt32("numero");
+                        this.cidade      = rs.GetString("cidade");
+                        this.estado      = rs.GetString("estado");
+                        this.bairro      = rs.GetString("bairro");
+                        this.complemento = rs.GetString("complemento");
+                    }
                 }
-
-                rs.Close();
                 con.CloseConnection();
-                return usuario;
-
-
+                return this;
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Erro ao carregar usuário!" + ex, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Erro ao carregar usuário: " + ex.Message, "Erro",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return null;
             }
-
-            return new Usuario();
         }
         
 
@@ -316,9 +310,9 @@ namespace AssisTec
             con.OpenConnection();
             sql = @"SELECT 
                 os.id_os,
-                c.nome          AS nome_cliente,
-                u.nome          AS nome_tecnico,
-                e.descricao     AS descricao_equipamento,
+                c.nome  AS nome_cliente,
+                u.nome  AS nome_tecnico,
+                e.descricao AS descricao_equipamento,
                 os.status,
                 os.data_abertura,
                 os.data_fechamento,
@@ -454,9 +448,9 @@ namespace AssisTec
                     void AddCelula(string valor)
                     {
                         PdfPCell cell = new PdfPCell(new Phrase(valor, fonteDado));
-                        cell.BackgroundColor     = cor;
-                        cell.Border              = Rectangle.NO_BORDER;
-                        cell.Padding             = 7;
+                        cell.BackgroundColor = cor;
+                        cell.Border = Rectangle.NO_BORDER;
+                        cell.Padding = 7;
                         cell.HorizontalAlignment = Element.ALIGN_CENTER;
                         tabela.AddCell(cell);
                     }
@@ -482,10 +476,10 @@ namespace AssisTec
 
                 PdfPCell rodape = new PdfPCell(new Phrase("Total de usuários: " + linha,
                     new Font(Font.FontFamily.HELVETICA, 9, Font.BOLD, new BaseColor(80, 80, 80))));
-                rodape.Colspan             = 7;
-                rodape.BackgroundColor     = new BaseColor(214, 234, 248);
-                rodape.Border              = Rectangle.NO_BORDER;
-                rodape.Padding             = 8;
+                rodape.Colspan = 7;
+                rodape.BackgroundColor = new BaseColor(214, 234, 248);
+                rodape.Border = Rectangle.NO_BORDER;
+                rodape.Padding = 8;
                 rodape.HorizontalAlignment = Element.ALIGN_RIGHT;
                 tabela.AddCell(rodape);
 
@@ -562,18 +556,18 @@ namespace AssisTec
                     iTextSharp.text.Image logo = iTextSharp.text.Image.GetInstance(logoBytes);
                     logo.ScaleToFit(80f, 80f);
                     PdfPCell logoCell = new PdfPCell(logo);
-                    logoCell.BackgroundColor     = corPrimaria;
-                    logoCell.Border              = Rectangle.NO_BORDER;
+                    logoCell.BackgroundColor  = corPrimaria;
+                    logoCell.Border = Rectangle.NO_BORDER;
                     logoCell.VerticalAlignment   = Element.ALIGN_MIDDLE;
                     logoCell.HorizontalAlignment = Element.ALIGN_CENTER;
-                    logoCell.Padding             = 8;
+                    logoCell.Padding  = 8;
                     headerTable.AddCell(logoCell);
                 }
                 catch
                 {
                     PdfPCell vazia = new PdfPCell(new Phrase(""));
                     vazia.BackgroundColor = corPrimaria;
-                    vazia.Border          = Rectangle.NO_BORDER;
+                    vazia.Border = Rectangle.NO_BORDER;
                     headerTable.AddCell(vazia);
                 }
 
@@ -581,12 +575,12 @@ namespace AssisTec
                 Font fonteSubtitulo = new Font(Font.FontFamily.HELVETICA, 11, Font.NORMAL, new BaseColor(200, 220, 240));
 
                 PdfPCell textoCell = new PdfPCell();
-                textoCell.BackgroundColor     = corPrimaria;
-                textoCell.Border              = Rectangle.NO_BORDER;
+                textoCell.BackgroundColor = corPrimaria;
+                textoCell.Border = Rectangle.NO_BORDER;
                 textoCell.VerticalAlignment   = Element.ALIGN_MIDDLE;
                 textoCell.HorizontalAlignment = Element.ALIGN_LEFT;
-                textoCell.Padding             = 12;
-                textoCell.AddElement(new Paragraph("ASSISTEC",             fonteAssistec)  { SpacingAfter = 2 });
+                textoCell.Padding = 12;
+                textoCell.AddElement(new Paragraph("ASSISTEC", fonteAssistec)  { SpacingAfter = 2 });
                 textoCell.AddElement(new Paragraph("Relatório do Técnico", fonteSubtitulo));
                 headerTable.AddCell(textoCell);
 
@@ -597,8 +591,8 @@ namespace AssisTec
                 secaoTecnico.WidthPercentage = 100;
                 PdfPCell secaoCell = new PdfPCell(new Phrase("DADOS DO TÉCNICO", fonteSecao));
                 secaoCell.BackgroundColor = corSecao;
-                secaoCell.Padding         = 8;
-                secaoCell.Border          = Rectangle.NO_BORDER;
+                secaoCell.Padding = 8;
+                secaoCell.Border = Rectangle.NO_BORDER;
                 secaoTecnico.AddCell(secaoCell);
                 doc.Add(secaoTecnico);
 
@@ -615,14 +609,14 @@ namespace AssisTec
                     dadosTecnico.AddCell(v);
                 }
 
-                AddLinha("Nome",     tecnico.nome,                                          corLinha1);
-                AddLinha("CPF",      tecnico.cpf,                                           corLinha2);
-                AddLinha("Telefone", tecnico.telefone,                                      corLinha1);
-                AddLinha("Status",   tecnico.status,                                        corLinha2);
+                AddLinha("Nome",     tecnico.nome, corLinha1);
+                AddLinha("CPF",      tecnico.cpf, corLinha2);
+                AddLinha("Telefone", tecnico.telefone, corLinha1);
+                AddLinha("Status",   tecnico.status, corLinha2);
                 AddLinha("Endereço", tecnico.rua + ", " + tecnico.numero + " - " + tecnico.bairro, corLinha1);
-                AddLinha("Cidade",   tecnico.cidade + " / " + tecnico.estado,              corLinha2);
-                AddLinha("CEP",      tecnico.cep,                                           corLinha1);
-                AddLinha("Compl.",   tecnico.complemento,                                   corLinha2);
+                AddLinha("Cidade",   tecnico.cidade + " / " + tecnico.estado, corLinha2);
+                AddLinha("CEP",      tecnico.cep, corLinha1);
+                AddLinha("Compl.",   tecnico.complemento, corLinha2);
 
                 doc.Add(dadosTecnico);
                 doc.Add(new Paragraph(" "));

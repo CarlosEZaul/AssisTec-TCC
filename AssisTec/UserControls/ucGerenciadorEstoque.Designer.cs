@@ -200,6 +200,7 @@ namespace AssisTec.UserControls
             this.btnNew.TabIndex = 99;
             this.btnNew.Text = "Novo";
             this.btnNew.UseVisualStyleBackColor = false;
+            this.btnNew.Click += new System.EventHandler(this.btnNew_Click);
             // 
             // btnDelete
             // 

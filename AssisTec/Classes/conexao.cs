@@ -115,7 +115,11 @@ namespace AssisTec
 
         public void importarBackup()
         {
-            OpenFileDialog openFileDialog1 = new OpenFileDialog();
+            DialogResult result = MessageBox.Show("Deseja realmente deseja importar Backup?", "Importar", MessageBoxButtons.YesNo);
+
+            if (result == DialogResult.Yes)
+            {
+                OpenFileDialog openFileDialog1 = new OpenFileDialog();
             openFileDialog1.Filter = "Backup File|*.bak";
             openFileDialog1.Title = "Import Backup";
 
@@ -166,6 +170,15 @@ namespace AssisTec
                     }
                 }
             }
+            else
+            {
+                MessageBox.Show("Operação cancelada");
+                return;
+            }
+            }
+            
+            
+            
         }
 
         private void Descriptografar(string inputFile, string outputFile, string senha)

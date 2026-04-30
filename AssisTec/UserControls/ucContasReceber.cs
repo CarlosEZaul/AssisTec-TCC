@@ -41,7 +41,6 @@ namespace AssisTec.UserControls
         {
             try
             {
-                LancamentoFinanceiro lancamentoFinanceiro = new LancamentoFinanceiro();
                 dgvContasReceber.DataSource = lancamentoFinanceiro.atualizarContasReceber();
 
             }

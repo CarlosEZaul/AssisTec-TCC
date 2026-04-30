@@ -245,6 +245,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
             this.btnLimpar.TabIndex = 101;
             this.btnLimpar.Text = "Limpar";
             this.btnLimpar.UseVisualStyleBackColor = false;
+            this.btnLimpar.Click += new System.EventHandler(this.btnLimpar_Click);
             // 
             // cbFormaPagamento
             // 
