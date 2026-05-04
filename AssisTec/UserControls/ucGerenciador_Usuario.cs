@@ -77,10 +77,16 @@ namespace AssisTec.UserControls
         private void ConfigurarComboBox()
         {
             cbNivel.Items.Clear();
-            cbNivel.Items.Add("Todos");
-            cbNivel.Items.Add("1- Gerente");
-            cbNivel.Items.Add("2- Atendente");
-            cbNivel.Items.Add("3- Técnico");
+            var lista = new List<dynamic>()
+            {
+                new { Id = 0, Nome = "Todos" },
+                new { Id = 1, Nome = "1- Gerente" },
+                new { Id = 2, Nome = "2- Atendente" },
+                new { Id = 3, Nome = "3- Técnico" }
+            };
+            cbNivel.DataSource = lista;
+            cbNivel.DisplayMember = "Nome";
+            cbNivel.ValueMember = "Id";
             cbNivel.DropDownStyle = ComboBoxStyle.DropDownList;
         }
         
@@ -139,40 +145,47 @@ namespace AssisTec.UserControls
 
                 string sql = "SELECT * FROM usuarios WHERE 1=1";
 
-                if (!string.IsNullOrWhiteSpace(txtBusca.Text))
+                bool filtrarNome = !string.IsNullOrWhiteSpace(txtBusca.Text);
+                bool filtrarStatus = cbInativo.Checked;
+
+                int nivelSelecionado = 0;
+                bool filtrarNivel = cbNivel.SelectedIndex > 0
+                                    && cbNivel.SelectedValue != null
+                                    && int.TryParse(cbNivel.SelectedValue.ToString(), out nivelSelecionado)
+                                    && nivelSelecionado != 0;
+
+                if (filtrarNome)
                     sql += " AND nome LIKE @nome";
 
-                if (cbInativo.Checked)
+                if (filtrarStatus)
                     sql += " AND status = 'Desativado'";
 
-                if (cbNivel.SelectedIndex > 0) // índice 0 = "Todos"
+                if (filtrarNivel)
                     sql += " AND nivel = @nivel";
 
                 sql += " ORDER BY nome ASC";
 
                 cmd = new MySqlCommand(sql, con.con);
 
-                if (!string.IsNullOrWhiteSpace(txtBusca.Text))
-                    cmd.Parameters.AddWithValue("@nome", txtBusca.Text + "%");
+                if (filtrarNome)
+                    cmd.Parameters.AddWithValue("@nome", txtBusca.Text.Trim() + "%");
 
-                if (cbNivel.SelectedIndex > 0)
-                    cmd.Parameters.AddWithValue("@nivel", cbNivel.SelectedIndex); // 1=Gerente, 2=Atendente, 3=Técnico
+                if (filtrarNivel)
+                    cmd.Parameters.AddWithValue("@nivel", nivelSelecionado);
 
                 DataTable dt = new DataTable();
                 MySqlDataAdapter da = new MySqlDataAdapter(cmd);
                 da.Fill(dt);
 
                 dgvUsuarios.DataSource = dt;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Erro: " + ex.Message);
-            }
-            finally
-            {
+
                 con.CloseConnection();
-                formartGrid();
             }
+            catch
+            {
+                MessageBox.Show("Erro ao filtrar usuários", "Erro no filtro", MessageBoxButtons.OK);
+            }
+            
         }
         
         
