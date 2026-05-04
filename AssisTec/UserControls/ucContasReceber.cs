@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Windows.Forms;
 using AssisTec.UserControls.SubUserControl_do_Financeiro;
 using MySql.Data.MySqlClient;
@@ -11,17 +12,19 @@ namespace AssisTec.UserControls
     {
         public ucContasReceber()
         {
-            //formatgrid();
+            
             InitializeComponent();
             apllyDesingModerno();
             listgrid();
             formatgrid();
+            configurarComboBox();
         }
 
         private string sql;
         private MySqlCommand cmd;
         conexao con = new conexao();
         LancamentoFinanceiro lancamentoFinanceiro = new LancamentoFinanceiro();
+        DataTable dtFormaPagamento;
         
         #region DesingModerno
 
@@ -35,8 +38,147 @@ namespace AssisTec.UserControls
         
         
         #endregion
-        
 
+        #region Funções ou métodos
+
+        private void filtro()
+        {
+            try
+            {
+                con.OpenConnection();
+
+                int idForma = 0;
+
+                bool temFormaPagamento = cbFormaPagamento.SelectedValue != null
+                    && int.TryParse(cbFormaPagamento.SelectedValue.ToString(), out idForma)
+                    && idForma > 0;
+
+                sql = @"SELECT 
+                    cr.id_conta_receber,
+                    cr.descricao,
+                    cr.valor,
+                    cr.data_emissao,
+                    cr.data_pagamento,
+                    cr.data_vencimento,
+                    cr.status,
+                    cr.id_forma_pagamento_fk,
+                    cr.observacoes
+                FROM contas_receber cr
+                WHERE 1=1";
+
+                bool temDataInicio = mtbDataInicio.Text.Replace("/", "").Replace("_", "").Trim().Length > 0;
+                bool temDataFim = mtbDataFim.Text.Replace("/", "").Replace("_", "").Trim().Length > 0;
+
+                if (temDataInicio)
+                {
+                    if (DateTime.TryParseExact(mtbDataInicio.Text, "dd/MM/yyyy",
+                        CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime dataInicio))
+                    {
+                        sql += " AND cr.data_vencimento >= @DataInicio";
+                    }
+                    else
+                    {
+                        MessageBox.Show("Data de início inválida!", "Aviso",
+                            MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+                }
+
+                if (temDataFim)
+                {
+                    if (DateTime.TryParseExact(mtbDataFim.Text, "dd/MM/yyyy",
+                        CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime dataFim))
+                    {
+                        sql += " AND cr.data_vencimento <= @DataFim";
+                    }
+                    else
+                    {
+                        MessageBox.Show("Data fim inválida!", "Aviso",
+                            MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+                }
+
+                if (!string.IsNullOrWhiteSpace(txtBusca.Text))
+                    sql += " AND cr.descricao LIKE @Descricao";
+
+                if (cbStatus.SelectedIndex > 0)
+                    sql += " AND cr.status = @Status";
+
+                if (temFormaPagamento)
+                    sql += " AND cr.id_forma_pagamento_fk = @FormaPagamento";
+
+                sql += " ORDER BY cr.data_vencimento ASC";
+
+                MySqlCommand cmd = new MySqlCommand(sql, con.con);
+
+                if (temDataInicio)
+                    cmd.Parameters.AddWithValue("@DataInicio",
+                        DateTime.ParseExact(mtbDataInicio.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture).Date);
+
+                if (temDataFim)
+                    cmd.Parameters.AddWithValue("@DataFim",
+                        DateTime.ParseExact(mtbDataFim.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture).Date.AddDays(1).AddSeconds(-1));
+
+                if (!string.IsNullOrWhiteSpace(txtBusca.Text))
+                    cmd.Parameters.AddWithValue("@Descricao", $"%{txtBusca.Text.Trim()}%");
+
+                if (cbStatus.SelectedIndex > 0)
+                    cmd.Parameters.AddWithValue("@Status", cbStatus.SelectedItem.ToString());
+
+                if (temFormaPagamento)
+                    cmd.Parameters.AddWithValue("@FormaPagamento", idForma);
+
+                MySqlDataAdapter adapter = new MySqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                adapter.Fill(dt);
+
+                dgvContasReceber.DataSource = dt;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+            finally
+            {
+                con.CloseConnection();
+            }
+        }
+
+        private void configurarComboBox()
+        {
+            cbFormaPagamento.Items.Clear();
+            con.OpenConnection();
+
+            sql = @"SELECT id_forma_pagamento, CONCAT(descricao) AS exibicao 
+        FROM forma_pagamento 
+        ORDER BY descricao;";
+
+            cmd = new MySqlCommand(sql, con.con);
+            MySqlDataAdapter da = new MySqlDataAdapter(cmd);
+            dtFormaPagamento = new DataTable();
+            da.Fill(dtFormaPagamento);
+            
+            DataRow dr = dtFormaPagamento.NewRow();
+            dr["id_forma_pagamento"] = 0;
+            dr["exibicao"] = "Todas as formas de pagamento";
+            dtFormaPagamento.Rows.InsertAt(dr, 0);
+
+            cbFormaPagamento.DataSource = dtFormaPagamento;
+            cbFormaPagamento.DisplayMember = "exibicao";
+            cbFormaPagamento.ValueMember = "id_forma_pagamento";
+
+            cbFormaPagamento.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            cbFormaPagamento.AutoCompleteSource = AutoCompleteSource.ListItems;
+            
+            con.CloseConnection();
+
+            cbStatus.Items.Add("Todos os Status");
+            cbStatus.Items.Add("PENDENTE");
+            cbStatus.Items.Add("PAGA");
+            cbStatus.Items.Add("ATRASADO");
+        }
         private void listgrid()
         {
             try
@@ -74,6 +216,11 @@ namespace AssisTec.UserControls
             }
             
         }
+        
+
+        #endregion
+
+        
 
         private void btnRegistrar_Click(object sender, EventArgs e)
         {
@@ -88,6 +235,11 @@ namespace AssisTec.UserControls
         private void btnAtualizar_Click(object sender, EventArgs e)
         {
             listgrid();
+        }
+
+        private void btnBuscar_Click(object sender, EventArgs e)
+        {
+            filtro();
         }
     }
 }

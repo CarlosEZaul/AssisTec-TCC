@@ -127,7 +127,7 @@ namespace AssisTec
             }
         }
 
-        public void SalvarLancamentoFinanceiro()
+        public void SalvarEntrada()
         {
             if (tipo == 1)
             {
@@ -182,6 +182,11 @@ namespace AssisTec
                 }
             }
 
+            
+        }
+
+        public void SalvarSaida()
+        {
             if (tipo == 2)
             {
                 if (status == "PAGA" && string.IsNullOrWhiteSpace(dataPagamento))
@@ -227,9 +232,6 @@ namespace AssisTec
                     MessageBox.Show(ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-            
-            
-
         }
 
         public void lancamentoFinanceiroOS()

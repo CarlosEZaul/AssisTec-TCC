@@ -21,6 +21,10 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
         }
         
         #region metodos ou funcoes
+        private void fechar()
+        {
+            this.Hide();
+        }
 
         private void ConfigurarCombobox()
         {
@@ -56,10 +60,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
 
         #region Função dos componentes
 
-        private void fechar()
-        {
-            this.Hide();
-        }
+        
 
         
         private void btnSave_Click(object sender, EventArgs e)
@@ -89,7 +90,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
                 lf.pagamento.id_pagamento = Convert.ToInt32(cbFormaPagamento.SelectedValue);
             
             
-                lf.SalvarLancamentoFinanceiro();
+                lf.SalvarEntrada();
                 dgv.DataSource = lf.atualizarContasReceber();
             }
             catch (Exception ex)

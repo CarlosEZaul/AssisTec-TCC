@@ -36,6 +36,7 @@ namespace AssisTec.UserControls
             ConfigurarComboBox();
             ApplyModernDesign();
             listGrid();
+            formartGrid();
             
         }
         #region Design Moderno
@@ -76,19 +77,10 @@ namespace AssisTec.UserControls
         private void ConfigurarComboBox()
         {
             cbNivel.Items.Clear();
-            var lista = new List<dynamic>()
-            {
-                new { Id = 0, Nome = "Todos" },
-                new { Id = 1, Nome = "1- Gerente" },
-                new { Id = 2, Nome = "2- Atendente" },
-                new { Id = 3, Nome = "3- Técnico" }
-            };
-            cbNivel.DataSource = lista;
-            cbNivel.DisplayMember = "Nome";
-            cbNivel.ValueMember = "Id";
-            
-            
-            
+            cbNivel.Items.Add("Todos");
+            cbNivel.Items.Add("1- Gerente");
+            cbNivel.Items.Add("2- Atendente");
+            cbNivel.Items.Add("3- Técnico");
             cbNivel.DropDownStyle = ComboBoxStyle.DropDownList;
         }
         
@@ -147,44 +139,24 @@ namespace AssisTec.UserControls
 
                 string sql = "SELECT * FROM usuarios WHERE 1=1";
 
-                // 🔍 Filtro nome (só aplica se tiver texto)
                 if (!string.IsNullOrWhiteSpace(txtBusca.Text))
-                {
                     sql += " AND nome LIKE @nome";
-                }
 
-                // ☑ Filtro status
                 if (cbInativo.Checked)
-                {
                     sql += " AND status = 'Desativado'";
-                }
 
-                // 👤 Filtro nível
-                int nivelSelecionado = 0;
-
-                if (cbNivel.SelectedValue != null &&
-                    int.TryParse(cbNivel.SelectedValue.ToString(), out nivelSelecionado))
-                {
-                    if (nivelSelecionado != 0)
-                    {
-                        sql += " AND nivel = @nivel";
-                    }
-                }
+                if (cbNivel.SelectedIndex > 0) // índice 0 = "Todos"
+                    sql += " AND nivel = @nivel";
 
                 sql += " ORDER BY nome ASC";
 
                 cmd = new MySqlCommand(sql, con.con);
 
-                // Parâmetros
                 if (!string.IsNullOrWhiteSpace(txtBusca.Text))
-                {
                     cmd.Parameters.AddWithValue("@nome", txtBusca.Text + "%");
-                }
 
-                if (nivelSelecionado != 0)
-                {
-                    cmd.Parameters.AddWithValue("@nivel", nivelSelecionado);
-                }
+                if (cbNivel.SelectedIndex > 0)
+                    cmd.Parameters.AddWithValue("@nivel", cbNivel.SelectedIndex); // 1=Gerente, 2=Atendente, 3=Técnico
 
                 DataTable dt = new DataTable();
                 MySqlDataAdapter da = new MySqlDataAdapter(cmd);
@@ -261,6 +233,7 @@ namespace AssisTec.UserControls
 
         private void btnAtualizar_Click(object sender, EventArgs e)
         {
+            
             listGrid();
         }
 

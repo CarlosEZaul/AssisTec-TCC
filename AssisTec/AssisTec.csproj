@@ -397,5 +397,12 @@
   <ItemGroup>
     <WCFMetadataStorage Include="Connected Services\wscep" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Properties\cifrao.png" />
+    <Content Include="Resources\aprovado.png" />
+    <Content Include="Resources\atencao.png" />
+    <Content Include="Resources\cifrao.png" />
+    <Content Include="Resources\relogio_pendente.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
