@@ -263,6 +263,30 @@ namespace AssisTec
                 MessageBox.Show(ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        
+        public void alterarParaAtrasado()
+        {
+            try
+            {
+                con.OpenConnection();
+                sql = @"UPDATE contas_receber
+                    set status = 'ATRASADO'
+                    where status = 'PENDENTE' 
+                    and data_vencimento < current_date()
+                    ";
+
+                MySqlCommand cmd = new MySqlCommand(sql, con.con);
+                cmd.ExecuteNonQuery();
+                con.CloseConnection();
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao alterar contas atrasadas" + ex.Message, "Erro", MessageBoxButtons.OK);
+            }
+        }
     }
+    
+    
     
 }

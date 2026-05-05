@@ -15,9 +15,9 @@ namespace AssisTec.UserControls
             
             InitializeComponent();
             apllyDesingModerno();
+            configurarComboBox();
             listgrid();
             formatgrid();
-            configurarComboBox();
         }
 
         private string sql;
@@ -33,13 +33,21 @@ namespace AssisTec.UserControls
             this.Text = "Contas a Receber";
             this.BackColor = Color.FromArgb(39, 55, 76);
             DesingComponentes.StyleDataGridView(dgvContasReceber, DataGridViewAutoSizeColumnsMode.Fill);
-            DesingComponentes.centralizarPanelBotoes(panelBotoes, this.Width);
+            DesingComponentes.centralizarPanel(panelBotoes, this.Width);
+            DesingComponentes.centralizarPanel(panelExibicao,this.Width);
         }
         
         
         #endregion
 
         #region Funções ou métodos
+
+        private void carregarlabels()
+        {
+            
+        }
+
+        
 
         private void filtro()
         {
@@ -54,16 +62,19 @@ namespace AssisTec.UserControls
                     && idForma > 0;
 
                 sql = @"SELECT 
-                    cr.id_conta_receber,
-                    cr.descricao,
-                    cr.valor,
-                    cr.data_emissao,
-                    cr.data_pagamento,
-                    cr.data_vencimento,
-                    cr.status,
-                    cr.id_forma_pagamento_fk,
-                    cr.observacoes
+                    cr.id_conta_receber,        
+                    cr.id_os_fk,                   
+                    cr.descricao,               
+                    cr.valor,                   
+                    cr.data_emissao,            
+                    cr.data_pagamento,          
+                    cr.data_vencimento,         
+                    cr.status,                  
+                    fp.descricao AS forma_pagamento, 
+                    cr.observacoes              
                 FROM contas_receber cr
+                INNER JOIN forma_pagamento fp 
+                    ON cr.id_forma_pagamento_fk = fp.id_forma_pagamento
                 WHERE 1=1";
 
                 bool temDataInicio = mtbDataInicio.Text.Replace("/", "").Replace("_", "").Trim().Length > 0;
@@ -137,12 +148,13 @@ namespace AssisTec.UserControls
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
+                MessageBox.Show("Erro ao filtrar", "Erro", MessageBoxButtons.OK);
                 throw;
             }
             finally
             {
                 con.CloseConnection();
+                formatgrid();
             }
         }
 
@@ -183,7 +195,9 @@ namespace AssisTec.UserControls
         {
             try
             {
+                lancamentoFinanceiro.alterarParaAtrasado();
                 dgvContasReceber.DataSource = lancamentoFinanceiro.atualizarContasReceber();
+                
 
             }
             catch (Exception ex)
@@ -198,7 +212,7 @@ namespace AssisTec.UserControls
             try
             {
                 if (dgvContasReceber.Columns.Count <= 0) return;
-                // Headers
+
                 dgvContasReceber.Columns[0].HeaderText = "ID_CONTA";
                 dgvContasReceber.Columns[1].HeaderText = "ID_OS";
                 dgvContasReceber.Columns[2].HeaderText = "Descrição";
@@ -235,6 +249,8 @@ namespace AssisTec.UserControls
         private void btnAtualizar_Click(object sender, EventArgs e)
         {
             listgrid();
+            cbStatus.SelectedIndex = 0;
+            cbFormaPagamento.SelectedIndex = 0;
         }
 
         private void btnBuscar_Click(object sender, EventArgs e)

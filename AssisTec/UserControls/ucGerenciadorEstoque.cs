@@ -15,7 +15,7 @@ namespace AssisTec.UserControls
 
         private void DesingModerno()
         {
-            DesingComponentes.centralizarPanelBotoes(panelBotoes, this.Width);
+            DesingComponentes.centralizarPanel(panelBotoes, this.Width);
         }
         
 

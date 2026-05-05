@@ -55,27 +55,30 @@ namespace AssisTec.UserControls
             this.label7 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panelExibicao = new System.Windows.Forms.Panel();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.lblPendente = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.panel5 = new System.Windows.Forms.Panel();
+            this.lblAtrasado = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.lblRecebido = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.panel4 = new System.Windows.Forms.Panel();
-            this.label11 = new System.Windows.Forms.Label();
-            this.pictureBox3 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvContasReceber)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnAtualizar)).BeginInit();
             this.panelBotoes.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panelExibicao.SuspendLayout();
+            this.panel4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             this.panel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
-            this.panel4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             this.SuspendLayout();
             // 
             // dgvContasReceber
@@ -305,19 +308,20 @@ namespace AssisTec.UserControls
             // 
             // panel1
             // 
+            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Controls.Add(this.lblTotalReceber);
             this.panel1.Controls.Add(this.label7);
             this.panel1.Controls.Add(this.pictureBox1);
-            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Location = new System.Drawing.Point(4, 11);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(588, 375);
+            this.panel1.Size = new System.Drawing.Size(239, 56);
             this.panel1.TabIndex = 162;
             // 
             // lblTotalReceber
             // 
             this.lblTotalReceber.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTotalReceber.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.lblTotalReceber.Location = new System.Drawing.Point(66, 26);
+            this.lblTotalReceber.Location = new System.Drawing.Point(71, 26);
             this.lblTotalReceber.Name = "lblTotalReceber";
             this.lblTotalReceber.Size = new System.Drawing.Size(115, 23);
             this.lblTotalReceber.TabIndex = 2;
@@ -347,82 +351,35 @@ namespace AssisTec.UserControls
             // panelExibicao
             // 
             this.panelExibicao.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelExibicao.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelExibicao.Controls.Add(this.panel4);
             this.panelExibicao.Controls.Add(this.panel5);
+            this.panelExibicao.Controls.Add(this.panel3);
             this.panelExibicao.Controls.Add(this.panel1);
-            this.panelExibicao.Location = new System.Drawing.Point(18, 62);
+            this.panelExibicao.Location = new System.Drawing.Point(86, 59);
             this.panelExibicao.Name = "panelExibicao";
-            this.panelExibicao.Size = new System.Drawing.Size(1138, 57);
+            this.panelExibicao.Size = new System.Drawing.Size(986, 75);
             this.panelExibicao.TabIndex = 163;
-            // 
-            // panel5
-            // 
-            this.panel5.Controls.Add(this.label13);
-            this.panel5.Controls.Add(this.pictureBox4);
-            this.panel5.Location = new System.Drawing.Point(897, -1);
-            this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(236, 58);
-            this.panel5.TabIndex = 165;
-            // 
-            // label13
-            // 
-            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label13.Location = new System.Drawing.Point(66, 3);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(115, 23);
-            this.label13.TabIndex = 1;
-            this.label13.Text = "Atrasado";
-            // 
-            // pictureBox4
-            // 
-            this.pictureBox4.BackgroundImage = global::AssisTec.Properties.Resources.atencao;
-            this.pictureBox4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pictureBox4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBox4.Location = new System.Drawing.Point(3, 3);
-            this.pictureBox4.Name = "pictureBox4";
-            this.pictureBox4.Size = new System.Drawing.Size(57, 55);
-            this.pictureBox4.TabIndex = 0;
-            this.pictureBox4.TabStop = false;
-            // 
-            // panel3
-            // 
-            this.panel3.Controls.Add(this.label9);
-            this.panel3.Controls.Add(this.pictureBox2);
-            this.panel3.Location = new System.Drawing.Point(334, 61);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(312, 55);
-            this.panel3.TabIndex = 163;
-            // 
-            // label9
-            // 
-            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label9.Location = new System.Drawing.Point(66, 3);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(115, 23);
-            this.label9.TabIndex = 1;
-            this.label9.Text = "Recebido";
-            // 
-            // pictureBox2
-            // 
-            this.pictureBox2.BackgroundImage = global::AssisTec.Properties.Resources.aprovado;
-            this.pictureBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pictureBox2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBox2.Location = new System.Drawing.Point(3, 3);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(57, 55);
-            this.pictureBox2.TabIndex = 0;
-            this.pictureBox2.TabStop = false;
             // 
             // panel4
             // 
+            this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel4.Controls.Add(this.lblPendente);
             this.panel4.Controls.Add(this.label11);
             this.panel4.Controls.Add(this.pictureBox3);
-            this.panel4.Location = new System.Drawing.Point(649, 61);
+            this.panel4.Location = new System.Drawing.Point(494, 11);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(261, 58);
+            this.panel4.Size = new System.Drawing.Size(239, 56);
             this.panel4.TabIndex = 164;
+            // 
+            // lblPendente
+            // 
+            this.lblPendente.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPendente.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.lblPendente.Location = new System.Drawing.Point(66, 26);
+            this.lblPendente.Name = "lblPendente";
+            this.lblPendente.Size = new System.Drawing.Size(115, 23);
+            this.lblPendente.TabIndex = 4;
+            this.lblPendente.Text = "R$";
             // 
             // label11
             // 
@@ -439,19 +396,101 @@ namespace AssisTec.UserControls
             this.pictureBox3.BackgroundImage = global::AssisTec.Properties.Resources.relogio_pendente;
             this.pictureBox3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pictureBox3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBox3.Location = new System.Drawing.Point(3, 3);
+            this.pictureBox3.Location = new System.Drawing.Point(3, 1);
             this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(57, 55);
+            this.pictureBox3.Size = new System.Drawing.Size(57, 51);
             this.pictureBox3.TabIndex = 0;
             this.pictureBox3.TabStop = false;
+            // 
+            // panel5
+            // 
+            this.panel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel5.Controls.Add(this.lblAtrasado);
+            this.panel5.Controls.Add(this.label13);
+            this.panel5.Controls.Add(this.pictureBox4);
+            this.panel5.Location = new System.Drawing.Point(739, 11);
+            this.panel5.Name = "panel5";
+            this.panel5.Size = new System.Drawing.Size(239, 56);
+            this.panel5.TabIndex = 165;
+            // 
+            // lblAtrasado
+            // 
+            this.lblAtrasado.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAtrasado.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.lblAtrasado.Location = new System.Drawing.Point(66, 26);
+            this.lblAtrasado.Name = "lblAtrasado";
+            this.lblAtrasado.Size = new System.Drawing.Size(115, 23);
+            this.lblAtrasado.TabIndex = 5;
+            this.lblAtrasado.Text = "R$";
+            // 
+            // label13
+            // 
+            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.label13.Location = new System.Drawing.Point(66, 3);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(115, 23);
+            this.label13.TabIndex = 1;
+            this.label13.Text = "Atrasado";
+            // 
+            // pictureBox4
+            // 
+            this.pictureBox4.BackgroundImage = global::AssisTec.Properties.Resources.atencao;
+            this.pictureBox4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pictureBox4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureBox4.Location = new System.Drawing.Point(3, 1);
+            this.pictureBox4.Name = "pictureBox4";
+            this.pictureBox4.Size = new System.Drawing.Size(57, 51);
+            this.pictureBox4.TabIndex = 0;
+            this.pictureBox4.TabStop = false;
+            // 
+            // panel3
+            // 
+            this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel3.Controls.Add(this.lblRecebido);
+            this.panel3.Controls.Add(this.label9);
+            this.panel3.Controls.Add(this.pictureBox2);
+            this.panel3.Location = new System.Drawing.Point(249, 11);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(239, 56);
+            this.panel3.TabIndex = 163;
+            // 
+            // lblRecebido
+            // 
+            this.lblRecebido.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblRecebido.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.lblRecebido.Location = new System.Drawing.Point(66, 26);
+            this.lblRecebido.Name = "lblRecebido";
+            this.lblRecebido.Size = new System.Drawing.Size(115, 23);
+            this.lblRecebido.TabIndex = 3;
+            this.lblRecebido.Text = "R$";
+            // 
+            // label9
+            // 
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.label9.Location = new System.Drawing.Point(66, 3);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(115, 23);
+            this.label9.TabIndex = 1;
+            this.label9.Text = "Recebido";
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.BackgroundImage = global::AssisTec.Properties.Resources.aprovado;
+            this.pictureBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pictureBox2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureBox2.Location = new System.Drawing.Point(3, 1);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(57, 51);
+            this.pictureBox2.TabIndex = 0;
+            this.pictureBox2.TabStop = false;
             // 
             // ucContasReceber
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(55)))), ((int)(((byte)(76)))));
-            this.Controls.Add(this.panel4);
-            this.Controls.Add(this.panel3);
             this.Controls.Add(this.panelExibicao);
             this.Controls.Add(this.cbFormaPagamento);
             this.Controls.Add(this.label6);
@@ -477,15 +516,19 @@ namespace AssisTec.UserControls
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panelExibicao.ResumeLayout(false);
+            this.panel4.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             this.panel5.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             this.panel3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            this.panel4.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
         }
+
+        private System.Windows.Forms.Label lblRecebido;
+        private System.Windows.Forms.Label lblPendente;
+        private System.Windows.Forms.Label lblAtrasado;
 
         private System.Windows.Forms.Panel panel5;
         private System.Windows.Forms.Label label13;
