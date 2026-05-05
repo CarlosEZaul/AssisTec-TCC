@@ -123,7 +123,7 @@ namespace AssisTec.UserControls
 
         private void btnGerenciar_Click(object sender, EventArgs e)
         {
-            OrdemServico ordemServico = new OrdemServico();
+            OrdemDeServico ordemServico = new OrdemDeServico();
             FrmEditarPedido frmEditarPedido = new FrmEditarPedido(ordemServico);
             
             frmEditarPedido.Left = (this.ClientSize.Width - frmEditarPedido.Width)/2;

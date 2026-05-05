@@ -8,12 +8,12 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
 {
     public partial class ucProdutosUtilizados : UserControl
     {
-        private OrdemServico _ordemServico;
+        private OrdemDeServico _ordemServico;
         conexao con = new conexao();
         MySqlCommand cmd;
         private int id;
         
-        public ucProdutosUtilizados(OrdemServico ordemServico)
+        public ucProdutosUtilizados(OrdemDeServico ordemServico)
         {
             InitializeComponent();
             _ordemServico = ordemServico;

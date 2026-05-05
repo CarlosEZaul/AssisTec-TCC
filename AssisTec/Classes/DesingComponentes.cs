@@ -17,9 +17,7 @@ namespace AssisTec
             }
         }
 
-        // ============================================================
-        //  ESTILO PARA TEXTBOX
-        // ============================================================
+       
         public static void StyleTextBox(TextBox textBox)
         {
             textBox.BorderStyle = BorderStyle.FixedSingle;
@@ -28,9 +26,7 @@ namespace AssisTec
             textBox.ForeColor = Color.FromArgb(60, 60, 60);
         }
 
-        // ============================================================
-        //  ESTILO PARA MASKEDTEXTBOX
-        // ============================================================
+        
         public static void StyleMaskedTextBox(MaskedTextBox maskedTextBox)
         {
             maskedTextBox.BorderStyle = BorderStyle.FixedSingle;
@@ -39,9 +35,7 @@ namespace AssisTec
             maskedTextBox.ForeColor = Color.FromArgb(60, 60, 60);
         }
 
-        // ============================================================
-        //  ESTILO PARA BOTÕES
-        // ============================================================
+        
         public static void StyleButton(Button button, Color backgroundColor)
         {
             button.FlatStyle = FlatStyle.Flat;
@@ -52,9 +46,7 @@ namespace AssisTec
             button.Cursor = Cursors.Hand;
         }
 
-        // ============================================================
-        //  ESTILO PARA DATAGRIDVIEW
-        // ============================================================
+        
         public static void StyleDataGridView(DataGridView dgv, DataGridViewAutoSizeColumnsMode autoSizeMode)
         {
             dgv.BorderStyle = BorderStyle.None;
@@ -83,18 +75,19 @@ namespace AssisTec
             dgv.ScrollBars = ScrollBars.Horizontal;
         }
         
-        // ============================================================
-        //  ESTILO PARA CHECKBOX
-        // ============================================================
+        
         public static void StyleComboBox(ComboBox comboBox)
         {
             comboBox.ForeColor = Color.White;
         }
+        
+        //Centralizar Panel
 
         public static void centralizarPanel(Panel panel, int w)
         {
             panel.Left = (w - panel.Width) / 2;
         }
+        
 
         
         

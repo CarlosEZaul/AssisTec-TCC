@@ -221,7 +221,7 @@ namespace AssisTec.UserControls
                 try
                 {
                     enableBtn();
-                    btnEditar.Enabled = true;
+                    
                     
 
                     id = Convert.ToInt32(dgvUsuarios.Rows[e.RowIndex].Cells[0].Value);

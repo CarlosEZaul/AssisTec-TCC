@@ -163,7 +163,6 @@
     <Compile Include="Classes\MovimentacaoEstoque.cs" />
     <Compile Include="Classes\OrdemDeServico.cs" />
     <Compile Include="Classes\Pagamento.cs" />
-    <Compile Include="Classes\OrdemServico.cs" />
     <Compile Include="Classes\Pessoa.cs" />
     <Compile Include="Classes\Produto.cs" />
     <Compile Include="Classes\Usuario.cs" />

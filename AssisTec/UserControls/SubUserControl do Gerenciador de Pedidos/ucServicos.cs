@@ -4,8 +4,8 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
 {
     public partial class ucServicos : UserControl
     {
-        private OrdemServico _ordemServico;
-        public ucServicos(OrdemServico ordemServico)
+        private OrdemDeServico _ordemServico;
+        public ucServicos(OrdemDeServico ordemServico)
         {
             InitializeComponent();
             _ordemServico = ordemServico;

@@ -136,7 +136,6 @@ namespace AssisTec.UserControls
         private void btnDelete_Click(object sender, EventArgs e)
         {
             Cliente cliente =  new Cliente();
-            cliente.id = id;
             cliente.deletarCLiente(id);
             dgvClientes.DataSource = cliente.atualizarDados();
             disableBtn();

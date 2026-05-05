@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
@@ -8,15 +9,21 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
     public partial class ucRegistrarEntradaFinanceiro : UserControl
     {
         private conexao con  = new conexao();
+        LancamentoFinanceiro lf = new LancamentoFinanceiro();
         private string sql;
         private MySqlCommand cmd;
         DataTable dtFormaPagamento;
         private DataGridView dgv;
-        public ucRegistrarEntradaFinanceiro(DataGridView _dgv)
+        private int id;
+        private int modo;
+        
+        public ucRegistrarEntradaFinanceiro(DataGridView _dgv, int _id, int _modo)
         {
             InitializeComponent();
             ConfigurarCombobox();
             dgv = _dgv;
+            id = _id;
+            modo = _modo;
             
         }
         
@@ -55,48 +62,111 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
 
         }
 
+        private void carregarDados()
+        {
+            lf = lf.carregarContaReceber(id);
+
+            id = lf.id_lancamento;
+            txtDescricao.Text = lf.descricao;
+            txtValor.Text = lf.valor.ToString();
+            mtbDataEmissao.Text = lf.dataEmissao;
+            mtbDataPagamento.Text = lf.dataPagamento;
+            mtbDataVencimento.Text = lf.dataVencimento;
+            cbStatus.Text = lf.status;
+            cbFormaPagamento.Text = lf.pagamento.forma_pagamento;
+            txtObservacoes.Text = lf.obervacoes;
+        }
+
         
         #endregion
 
         #region Função dos componentes
-
-        
-
-        
         private void btnSave_Click(object sender, EventArgs e)
         {
-            
-            try
+
+            if (modo == 1)
             {
-                if (string.IsNullOrWhiteSpace(txtValor.Text) || string.IsNullOrWhiteSpace(txtDescricao.Text) ||
-                    string.IsNullOrWhiteSpace(txtDescricao.Text) ||
-                    string.IsNullOrWhiteSpace(mtbDataEmissao.Text) ||
-                    string.IsNullOrWhiteSpace(mtbDataVencimento.Text)||
-                    string.IsNullOrWhiteSpace(cbStatus.Text))
+                try
                 {
-                    MessageBox.Show("Preencha todos os campos", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    if (string.IsNullOrWhiteSpace(txtValor.Text) || string.IsNullOrWhiteSpace(txtDescricao.Text) ||
+                        string.IsNullOrWhiteSpace(txtDescricao.Text) ||
+                        string.IsNullOrWhiteSpace(mtbDataEmissao.Text) ||
+                        string.IsNullOrWhiteSpace(mtbDataVencimento.Text)||
+                        string.IsNullOrWhiteSpace(cbStatus.Text))
+                    {
+                        MessageBox.Show("Preencha todos os campos", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                
+                
+                    lf.pagamento = new Pagamento();
+                    lf.tipo = 1;
+                    lf.valor = Convert.ToDecimal(txtValor.Text);
+                    lf.descricao = txtDescricao.Text;
+                    lf.dataEmissao = DateTime.Now.ToShortDateString();
+                    lf.dataVencimento = mtbDataVencimento.Text;
+                    lf.dataPagamento = mtbDataPagamento.Text;
+                    lf.status = cbStatus.Text;
+                    lf.obervacoes = txtObservacoes.Text;
+                    lf.pagamento.id_pagamento = Convert.ToInt32(cbFormaPagamento.SelectedValue);
+            
+            
+                    lf.SalvarEntrada();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Erro ao registrar", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+
+            if (modo == 2)
+            {
+                try
+                {
+                    if (string.IsNullOrWhiteSpace(txtValor.Text) || string.IsNullOrWhiteSpace(txtDescricao.Text) ||
+                        string.IsNullOrWhiteSpace(txtDescricao.Text) ||
+                        string.IsNullOrWhiteSpace(mtbDataEmissao.Text) ||
+                        string.IsNullOrWhiteSpace(mtbDataVencimento.Text) ||
+                        string.IsNullOrWhiteSpace(cbStatus.Text))
+                    {
+                        MessageBox.Show("Preencha todos os campos", "Aviso", MessageBoxButtons.OK,
+                            MessageBoxIcon.Warning);
+                    }
+
+                    lf.descricao = txtDescricao.Text;
+                    lf.valor = Convert.ToDecimal(txtValor.Text);
+                    lf.status = cbStatus.SelectedItem.ToString();
+                    lf.dataEmissao = mtbDataEmissao.Text;
+                    lf.dataVencimento = mtbDataVencimento.Text;
+                    lf.dataPagamento = mtbDataPagamento.Text;
+                    lf.obervacoes = txtObservacoes.Text;
+
+                    lf.pagamento = new Pagamento { id_pagamento = Convert.ToInt32(cbFormaPagamento.SelectedValue) };
+
+                    lf.editarContaReceber(lf);
+                    
+
+
+                    MessageBox.Show("Registro alterado com sucesso!", "Sucesso", MessageBoxButtons.OK,
+                        MessageBoxIcon.Information);
+                    fechar();
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Erro ao alterar conta " + ex, "Erro ao alterar conta", MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
+                }
+                finally
+                {
+                    dgv.DataSource = lf.atualizarContasReceber();
+                    
                 }
                 
-                LancamentoFinanceiro lf = new LancamentoFinanceiro();
-                lf.pagamento = new Pagamento();
-                lf.tipo = 1;
-                lf.valor = Convert.ToDecimal(txtValor.Text);
-                lf.descricao = txtDescricao.Text;
-                lf.dataEmissao = DateTime.Now.ToShortDateString();
-                lf.dataVencimento = mtbDataVencimento.Text;
-                lf.dataPagamento = mtbDataPagamento.Text;
-                lf.status = cbStatus.Text;
-                lf.obervacoes = txtObservacoes.Text;
-                lf.pagamento.id_pagamento = Convert.ToInt32(cbFormaPagamento.SelectedValue);
+                
+
+            }
             
             
-                lf.SalvarEntrada();
-                dgv.DataSource = lf.atualizarContasReceber();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Erro ao registrar", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
             
         }
 
@@ -108,6 +178,10 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
         private void ucRegistrarEntradaFinanceiro_Load(object sender, EventArgs e)
         {
             mtbDataEmissao.Text = DateTime.Now.ToShortDateString();
+            if (modo == 2)
+            {
+                carregarDados();
+            }
         }
 
 

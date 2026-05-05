@@ -374,7 +374,7 @@ namespace AssisTec
                 doc.Add(tabela);
                 doc.Close();
 
-                MessageBox.Show($"Relatório gerado com sucesso!\n{caminho}", "Sucesso",
+                MessageBox.Show($"Relatório gerado com sucesso!", "Sucesso",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 System.Diagnostics.Process.Start(caminho);

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
 using System.Globalization;
@@ -16,8 +17,13 @@ namespace AssisTec.UserControls
             InitializeComponent();
             apllyDesingModerno();
             configurarComboBox();
-            listgrid();
-            formatgrid();
+            atualizar();
+            listaLabelsTotais = new List<Label> { 
+                lblTotalReceber, 
+                lblRecebido, 
+                lblPendente, 
+                lblAtrasado 
+            };
         }
 
         private string sql;
@@ -25,6 +31,8 @@ namespace AssisTec.UserControls
         conexao con = new conexao();
         LancamentoFinanceiro lancamentoFinanceiro = new LancamentoFinanceiro();
         DataTable dtFormaPagamento;
+        private int idConta;
+        private List<Label> listaLabelsTotais;
         
         #region DesingModerno
 
@@ -35,128 +43,62 @@ namespace AssisTec.UserControls
             DesingComponentes.StyleDataGridView(dgvContasReceber, DataGridViewAutoSizeColumnsMode.Fill);
             DesingComponentes.centralizarPanel(panelBotoes, this.Width);
             DesingComponentes.centralizarPanel(panelExibicao,this.Width);
+            DesingComponentes.StyleButton(btnDelete, Color.Red);
         }
         
         
         #endregion
 
         #region Funções ou métodos
-
-        private void carregarlabels()
-        {
-            
-        }
-
         
-
         private void filtro()
         {
-            try
+            // Valida datas antes de passar para a classe
+            bool temDataInicio = mtbDataInicio.Text.Replace("/", "").Replace("_", "").Trim().Length > 0;
+            bool temDataFim    = mtbDataFim.Text.Replace("/", "").Replace("_", "").Trim().Length > 0;
+
+            if (temDataInicio && !DateTime.TryParseExact(mtbDataInicio.Text, "dd/MM/yyyy",
+                    CultureInfo.InvariantCulture, DateTimeStyles.None, out _))
             {
-                con.OpenConnection();
-
-                int idForma = 0;
-
-                bool temFormaPagamento = cbFormaPagamento.SelectedValue != null
-                    && int.TryParse(cbFormaPagamento.SelectedValue.ToString(), out idForma)
-                    && idForma > 0;
-
-                sql = @"SELECT 
-                    cr.id_conta_receber,        
-                    cr.id_os_fk,                   
-                    cr.descricao,               
-                    cr.valor,                   
-                    cr.data_emissao,            
-                    cr.data_pagamento,          
-                    cr.data_vencimento,         
-                    cr.status,                  
-                    fp.descricao AS forma_pagamento, 
-                    cr.observacoes              
-                FROM contas_receber cr
-                INNER JOIN forma_pagamento fp 
-                    ON cr.id_forma_pagamento_fk = fp.id_forma_pagamento
-                WHERE 1=1";
-
-                bool temDataInicio = mtbDataInicio.Text.Replace("/", "").Replace("_", "").Trim().Length > 0;
-                bool temDataFim = mtbDataFim.Text.Replace("/", "").Replace("_", "").Trim().Length > 0;
-
-                if (temDataInicio)
-                {
-                    if (DateTime.TryParseExact(mtbDataInicio.Text, "dd/MM/yyyy",
-                        CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime dataInicio))
-                    {
-                        sql += " AND cr.data_vencimento >= @DataInicio";
-                    }
-                    else
-                    {
-                        MessageBox.Show("Data de início inválida!", "Aviso",
-                            MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        return;
-                    }
-                }
-
-                if (temDataFim)
-                {
-                    if (DateTime.TryParseExact(mtbDataFim.Text, "dd/MM/yyyy",
-                        CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime dataFim))
-                    {
-                        sql += " AND cr.data_vencimento <= @DataFim";
-                    }
-                    else
-                    {
-                        MessageBox.Show("Data fim inválida!", "Aviso",
-                            MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        return;
-                    }
-                }
-
-                if (!string.IsNullOrWhiteSpace(txtBusca.Text))
-                    sql += " AND cr.descricao LIKE @Descricao";
-
-                if (cbStatus.SelectedIndex > 0)
-                    sql += " AND cr.status = @Status";
-
-                if (temFormaPagamento)
-                    sql += " AND cr.id_forma_pagamento_fk = @FormaPagamento";
-
-                sql += " ORDER BY cr.data_vencimento ASC";
-
-                MySqlCommand cmd = new MySqlCommand(sql, con.con);
-
-                if (temDataInicio)
-                    cmd.Parameters.AddWithValue("@DataInicio",
-                        DateTime.ParseExact(mtbDataInicio.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture).Date);
-
-                if (temDataFim)
-                    cmd.Parameters.AddWithValue("@DataFim",
-                        DateTime.ParseExact(mtbDataFim.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture).Date.AddDays(1).AddSeconds(-1));
-
-                if (!string.IsNullOrWhiteSpace(txtBusca.Text))
-                    cmd.Parameters.AddWithValue("@Descricao", $"%{txtBusca.Text.Trim()}%");
-
-                if (cbStatus.SelectedIndex > 0)
-                    cmd.Parameters.AddWithValue("@Status", cbStatus.SelectedItem.ToString());
-
-                if (temFormaPagamento)
-                    cmd.Parameters.AddWithValue("@FormaPagamento", idForma);
-
-                MySqlDataAdapter adapter = new MySqlDataAdapter(cmd);
-                DataTable dt = new DataTable();
-                adapter.Fill(dt);
-
-                dgvContasReceber.DataSource = dt;
+                MessageBox.Show("Data de início inválida!", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
             }
-            catch (Exception e)
+
+            if (temDataFim && !DateTime.TryParseExact(mtbDataFim.Text, "dd/MM/yyyy",
+                    CultureInfo.InvariantCulture, DateTimeStyles.None, out _))
             {
-                MessageBox.Show("Erro ao filtrar", "Erro", MessageBoxButtons.OK);
-                throw;
+                MessageBox.Show("Data fim inválida!", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
             }
-            finally
+
+            int idForma = 0;
+            int.TryParse(cbFormaPagamento.SelectedValue?.ToString(), out idForma);
+
+            LancamentoFinanceiro lf = new LancamentoFinanceiro
             {
-                con.CloseConnection();
-                formatgrid();
-            }
+                // Limpa a máscara antes de passar, se estiver vazia vira null
+                filtroDataInicio = mtbDataInicio.Text.Replace("/", "").Replace("_", "").Trim().Length > 0
+                    ? mtbDataInicio.Text : null,
+
+                filtroDataFim = mtbDataFim.Text.Replace("/", "").Replace("_", "").Trim().Length > 0
+                    ? mtbDataFim.Text : null,
+
+                filtroDescricao        = txtBusca.Text,
+                filtroStatus           = cbStatus.SelectedIndex > 0 ? cbStatus.SelectedItem.ToString() : null,
+                filtroIdFormaPagamento = idForma
+            };
+
+            dgvContasReceber.DataSource = lf.FiltrarContasReceber();
+            formatgrid();
+
+            var (totalGeral, totalRecebido, totalPendente, totalAtrasado) = lf.AtualizarTotais();
+            lblTotalReceber.Text = $"R$ {totalGeral:N2}";
+            lblRecebido.Text     = $"R$ {totalRecebido:N2}";
+            lblPendente.Text     = $"R$ {totalPendente:N2}";
+            lblAtrasado.Text     = $"R$ {totalAtrasado:N2}";
         }
+        
+        
 
         private void configurarComboBox()
         {
@@ -164,8 +106,8 @@ namespace AssisTec.UserControls
             con.OpenConnection();
 
             sql = @"SELECT id_forma_pagamento, CONCAT(descricao) AS exibicao 
-        FROM forma_pagamento 
-        ORDER BY descricao;";
+                    FROM forma_pagamento 
+                    ORDER BY descricao;";
 
             cmd = new MySqlCommand(sql, con.con);
             MySqlDataAdapter da = new MySqlDataAdapter(cmd);
@@ -190,7 +132,11 @@ namespace AssisTec.UserControls
             cbStatus.Items.Add("PENDENTE");
             cbStatus.Items.Add("PAGA");
             cbStatus.Items.Add("ATRASADO");
+            
+            cbStatus.SelectedIndex = 0;
+            cbFormaPagamento.SelectedIndex = 0;
         }
+        
         private void listgrid()
         {
             try
@@ -230,15 +176,47 @@ namespace AssisTec.UserControls
             }
             
         }
+
+        private void atualizar()
+        {
+            listgrid();
+            cbStatus.SelectedIndex = 0;
+            cbFormaPagamento.SelectedIndex = 0;
+            var (totalGeral, totalRecebido, totalPendente, totalAtrasado) = lancamentoFinanceiro.AtualizarTotais();
+
+            lblTotalReceber.Text = $"R$ {totalGeral:N2}";
+            lblRecebido.Text     = $"R$ {totalRecebido:N2}";
+            lblPendente.Text     = $"R$ {totalPendente:N2}";
+            lblAtrasado.Text     = $"R$ {totalAtrasado:N2}";
+            formatgrid();
+        }
+
+        private void EnableBtn()
+        {
+            btnEditar.Enabled = true;
+            btnDelete.Enabled = true;
+            btnRecibo.Enabled = true;
+        }
+
+        private void DisableBtn()
+        {
+            btnEditar.Enabled = false;
+            btnDelete.Enabled = false;
+            btnRecibo.Enabled = false;
+        }
         
 
         #endregion
+
+        #region Funções dos componentes
+
+        
 
         
 
         private void btnRegistrar_Click(object sender, EventArgs e)
         {
-            ucRegistrarEntradaFinanceiro ucRegistrarEntrada = new ucRegistrarEntradaFinanceiro(dgvContasReceber);
+            ucRegistrarEntradaFinanceiro ucRegistrarEntrada = new ucRegistrarEntradaFinanceiro(dgvContasReceber, idConta, 1);
             this.Controls.Add(ucRegistrarEntrada);
             ucRegistrarEntrada.BringToFront();
             ucRegistrarEntrada.Left = (this.ClientSize.Width - ucRegistrarEntrada.Width)/2;
@@ -248,14 +226,114 @@ namespace AssisTec.UserControls
 
         private void btnAtualizar_Click(object sender, EventArgs e)
         {
-            listgrid();
-            cbStatus.SelectedIndex = 0;
-            cbFormaPagamento.SelectedIndex = 0;
+            atualizar();
         }
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
+            int idForma = 0;
+            int.TryParse(cbFormaPagamento.SelectedValue?.ToString(), out idForma);
+
+            LancamentoFinanceiro lf = new LancamentoFinanceiro
+            {
+                // Limpa a máscara antes de passar, se estiver vazia vira null
+                filtroDataInicio = mtbDataInicio.Text.Replace("/", "").Replace("_", "").Trim().Length > 0
+                    ? mtbDataInicio.Text : null,
+
+                filtroDataFim = mtbDataFim.Text.Replace("/", "").Replace("_", "").Trim().Length > 0
+                    ? mtbDataFim.Text : null,
+
+                filtroDescricao        = txtBusca.Text,
+                filtroStatus           = cbStatus.SelectedIndex > 0 ? cbStatus.SelectedItem.ToString() : null,
+                filtroIdFormaPagamento = idForma
+            };
+
+            var (totalGeral, totalRecebido, totalPendente, totalAtrasado) = lf.AtualizarTotais();
+
+            lblTotalReceber.Text = $"R$ {totalGeral:N2}";
+            lblRecebido.Text     = $"R$ {totalRecebido:N2}";
+            lblPendente.Text     = $"R$ {totalPendente:N2}";
+            lblAtrasado.Text     = $"R$ {totalAtrasado:N2}";
+
             filtro();
+            
+        }
+
+        private void btnRelatorio_Click(object sender, EventArgs e)
+        {
+            int idForma = 0;
+            int.TryParse(cbFormaPagamento.SelectedValue?.ToString(), out idForma);
+
+            LancamentoFinanceiro lf = new LancamentoFinanceiro
+            {
+                filtroDataInicio       = mtbDataInicio.Text.Replace("/","").Replace("_","").Trim().Length > 0 ? mtbDataInicio.Text : null,
+                filtroDataFim          = mtbDataFim.Text.Replace("/","").Replace("_","").Trim().Length > 0 ? mtbDataFim.Text : null,
+                filtroDescricao        = txtBusca.Text,
+                filtroStatus           = cbStatus.SelectedIndex > 0 ? cbStatus.SelectedItem.ToString() : null,
+                filtroIdFormaPagamento = idForma
+            };
+
+            DataTable dados = lf.FiltrarContasReceber();
+            var (totalGeral, totalRecebido, totalPendente, totalAtrasado) = lf.AtualizarTotais();
+
+            lf.GerarRelatorioContasReceberPDF(dados, totalGeral, totalRecebido, totalPendente, totalAtrasado);
+        }
+
+        private void dgvContasReceber_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0 && dgvContasReceber.Rows.Count > 0)
+            {
+                try
+                {
+                    EnableBtn();
+                    idConta = Convert.ToInt32(dgvContasReceber.Rows[e.RowIndex].Cells[0].Value);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            
+        }
+
+        private void btnRecibo_Click(object sender, EventArgs e)
+        {
+            lancamentoFinanceiro.GerarReciboContaReceberPDF(idConta);
+        }
+
+        private void btnEditar_Click(object sender, EventArgs e)
+        {
+            ucRegistrarEntradaFinanceiro ucRegistrarEntrada = new ucRegistrarEntradaFinanceiro(dgvContasReceber, idConta, 2);
+            this.Controls.Add(ucRegistrarEntrada);
+            ucRegistrarEntrada.BringToFront();
+            ucRegistrarEntrada.Left = (this.ClientSize.Width - ucRegistrarEntrada.Width) / 2;
+            ucRegistrarEntrada.Top = (this.ClientSize.Height - ucRegistrarEntrada.Height) / 2;
+            ucRegistrarEntrada.Show();
+        }
+        #endregion
+
+        private void dgvContasReceber_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (dgvContasReceber.Columns[e.ColumnIndex].Index == 7 && e.Value != null)
+            {
+                string status = e.Value.ToString();
+
+                // Se o status for 'Atrasado', pinta a LINHA toda de vermelho
+                if (status == "ATRASADO")
+                {
+                    dgvContasReceber.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.Tomato;
+                    dgvContasReceber.Rows[e.RowIndex].DefaultCellStyle.ForeColor = Color.White;
+                }
+                
+            }
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            lancamentoFinanceiro.deletarContaReceber(idConta);
+            dgvContasReceber.DataSource = lancamentoFinanceiro.atualizarContasReceber();
+            DisableBtn();
+            
         }
     }
 }

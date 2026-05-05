@@ -8,7 +8,7 @@ namespace AssisTec
     public class OrdemDeServico
     {
         // ================= ATRIBUTOS =================
-        private int id_pedido;
+        private int id_os;
 
         private Cliente cliente;
         private Equipamento equipamento;
@@ -43,10 +43,10 @@ namespace AssisTec
             dataAbertura = DateTime.Now;
         }
 
-        public int IdPedido
+        public int Id_os
         {
-            get { return id_pedido; }
-            set { id_pedido = value; }
+            get { return id_os; }
+            set { id_os = value; }
         }
 
         public Cliente Cliente

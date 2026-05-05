@@ -72,8 +72,6 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Clientes.ucForm
                 txtEstado.Text = cliente.estado;
                 txtComp.Text = cliente.complemento;
                 
-                con.CloseConnection();
-                
             }
             catch (Exception ex)
             {
