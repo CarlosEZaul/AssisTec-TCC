@@ -574,20 +574,20 @@ namespace AssisTec
                 //Fontes
                 Font fonteAssistec  = new Font(Font.FontFamily.HELVETICA, 28, Font.BOLD,   BaseColor.WHITE);
                 Font fonteSubtitulo = new Font(Font.FontFamily.HELVETICA, 11, Font.NORMAL, new BaseColor(200, 220, 240));
-                Font fonteColuna    = new Font(Font.FontFamily.HELVETICA,  9, Font.BOLD,   BaseColor.WHITE);
-                Font fonteDado      = new Font(Font.FontFamily.HELVETICA,  9, Font.NORMAL, new BaseColor(30, 30, 30));
+                Font fonteColuna  = new Font(Font.FontFamily.HELVETICA,  9, Font.BOLD,   BaseColor.WHITE);
+                Font fonteDado = new Font(Font.FontFamily.HELVETICA,  9, Font.NORMAL, new BaseColor(30, 30, 30));
                 Font fonteTotalLabel = new Font(Font.FontFamily.HELVETICA, 8, Font.NORMAL, BaseColor.WHITE);
                 Font fonteTotalValor = new Font(Font.FontFamily.HELVETICA, 11, Font.BOLD,  BaseColor.WHITE);
 
                 // Cores
                 BaseColor corPrimaria  = new BaseColor(33, 97, 140);
-                BaseColor corHeader    = new BaseColor(52, 73, 94);
-                BaseColor corLinha1    = new BaseColor(245, 248, 250);
-                BaseColor corLinha2    = BaseColor.WHITE;
-                BaseColor corRecebido  = new BaseColor(39, 174, 96);
-                BaseColor corPendente  = new BaseColor(230, 126, 34);
-                BaseColor corAtrasado  = new BaseColor(192, 57, 43);
-                BaseColor corTotal     = new BaseColor(52, 73, 94);
+                BaseColor corHeader = new BaseColor(52, 73, 94);
+                BaseColor corLinha1 = new BaseColor(245, 248, 250);
+                BaseColor corLinha2 = BaseColor.WHITE;
+                BaseColor corRecebido = new BaseColor(39, 174, 96);
+                BaseColor corPendente = new BaseColor(230, 126, 34);
+                BaseColor corAtrasado = new BaseColor(192, 57, 43);
+                BaseColor corTotal = new BaseColor(52, 73, 94);
 
                 //Cabeçalho com logo 
                 byte[] logoBytes = (byte[])new ImageConverter().ConvertTo(Properties.Resources.logopng, typeof(byte[]));
@@ -600,27 +600,27 @@ namespace AssisTec
                     iTextSharp.text.Image logo = iTextSharp.text.Image.GetInstance(logoBytes);
                     logo.ScaleToFit(80f, 80f);
                     PdfPCell logoCell = new PdfPCell(logo);
-                    logoCell.BackgroundColor     = corPrimaria;
-                    logoCell.Border              = Rectangle.NO_BORDER;
-                    logoCell.VerticalAlignment   = Element.ALIGN_MIDDLE;
+                    logoCell.BackgroundColor = corPrimaria;
+                    logoCell.Border = Rectangle.NO_BORDER;
+                    logoCell.VerticalAlignment = Element.ALIGN_MIDDLE;
                     logoCell.HorizontalAlignment = Element.ALIGN_CENTER;
-                    logoCell.Padding             = 8;
+                    logoCell.Padding= 8;
                     headerTable.AddCell(logoCell);
                 }
                 catch
                 {
                     PdfPCell vazia = new PdfPCell(new Phrase(""));
                     vazia.BackgroundColor = corPrimaria;
-                    vazia.Border          = Rectangle.NO_BORDER;
+                    vazia.Border = Rectangle.NO_BORDER;
                     headerTable.AddCell(vazia);
                 }
 
                 PdfPCell textoCell = new PdfPCell();
-                textoCell.BackgroundColor   = corPrimaria;
-                textoCell.Border            = Rectangle.NO_BORDER;
+                textoCell.BackgroundColor = corPrimaria;
+                textoCell.Border = Rectangle.NO_BORDER;
                 textoCell.VerticalAlignment = Element.ALIGN_MIDDLE;
-                textoCell.Padding           = 12;
-                textoCell.AddElement(new Paragraph("ASSISTEC",                  fonteAssistec)  { SpacingAfter = 2 });
+                textoCell.Padding = 12;
+                textoCell.AddElement(new Paragraph("ASSISTEC", fonteAssistec) { SpacingAfter = 2 });
                 textoCell.AddElement(new Paragraph("Relatório de Contas a Receber", fonteSubtitulo));
 
                 if (!string.IsNullOrWhiteSpace(filtroDataInicio) || !string.IsNullOrWhiteSpace(filtroDataFim))
@@ -639,20 +639,20 @@ namespace AssisTec
                 void AddCard(string label, decimal valor, BaseColor cor)
                 {
                     PdfPCell card = new PdfPCell();
-                    card.BackgroundColor     = cor;
-                    card.Border              = Rectangle.NO_BORDER;
-                    card.BorderWidthRight    = 2f;
-                    card.BorderColorRight    = BaseColor.WHITE;
-                    card.Padding             = 8f;
+                    card.BackgroundColor  = cor;
+                    card.Border  = Rectangle.NO_BORDER;
+                    card.BorderWidthRight = 2f;
+                    card.BorderColorRight = BaseColor.WHITE;
+                    card.Padding = 8f;
                     card.AddElement(new Paragraph(label,             fonteTotalLabel));
                     card.AddElement(new Paragraph($"R$ {valor:N2}", fonteTotalValor));
                     tblTotais.AddCell(card);
                 }
 
                 AddCard("Total a Receber", totalGeral,    corTotal);
-                AddCard("Recebido",        totalRecebido, corRecebido);
-                AddCard("Pendente",        totalPendente, corPendente);
-                AddCard("Atrasado",        totalAtrasado, corAtrasado);
+                AddCard("Recebido", totalRecebido, corRecebido);
+                AddCard("Pendente", totalPendente, corPendente);
+                AddCard("Atrasado", totalAtrasado, corAtrasado);
 
                 doc.Add(tblTotais);
                 doc.Add(new Paragraph(" "));
@@ -664,9 +664,9 @@ namespace AssisTec
                 void AddCabecalho(string texto)
                 {
                     PdfPCell cell = new PdfPCell(new Phrase(texto, fonteColuna));
-                    cell.BackgroundColor     = corHeader;
-                    cell.Border              = Rectangle.NO_BORDER;
-                    cell.Padding             = 8;
+                    cell.BackgroundColor = corHeader;
+                    cell.Border = Rectangle.NO_BORDER;
+                    cell.Padding = 8;
                     cell.HorizontalAlignment = Element.ALIGN_CENTER;
                     tabela.AddCell(cell);
                 }
@@ -688,9 +688,9 @@ namespace AssisTec
                     void AddCelula(string valor, int alinhamento = Element.ALIGN_CENTER)
                     {
                         PdfPCell cell = new PdfPCell(new Phrase(valor, fonteDado));
-                        cell.BackgroundColor     = cor;
-                        cell.Border              = Rectangle.NO_BORDER;
-                        cell.Padding             = 7;
+                        cell.BackgroundColor = cor;
+                        cell.Border = Rectangle.NO_BORDER;
+                        cell.Padding = 7;
                         cell.HorizontalAlignment = alinhamento;
                         tabela.AddCell(cell);
                     }
@@ -701,7 +701,7 @@ namespace AssisTec
 
                     AddCelula(row["descricao"].ToString(), Element.ALIGN_LEFT);
                     AddCelula(row["id_os_fk"] != DBNull.Value ? row["id_os_fk"].ToString() : "-");
-                    AddCelula($"R$ {Convert.ToDecimal(row["valor"]):N2}", Element.ALIGN_RIGHT);
+                    AddCelula($"R$ {Convert.ToDecimal(row["valor"]):N2}");
                     AddCelula(FormatarData("data_emissao"));
                     AddCelula(FormatarData("data_vencimento"));
                     AddCelula(FormatarData("data_pagamento"));
@@ -798,27 +798,27 @@ namespace AssisTec
                     Environment.GetFolderPath(Environment.SpecialFolder.Desktop),
                     "Recibo_" + conta["id_conta_receber"].ToString() + "_" + DateTime.Now.ToString("ddMMyyyy_HHmm") + ".pdf");
 
-                // ── Documento A5 retrato ──────────────────────────────────────────
+                // Documento A5 retrato 
                 Document doc = new Document(PageSize.A5, 40, 40, 40, 40);
                 PdfWriter.GetInstance(doc, new FileStream(caminho, FileMode.Create));
                 doc.Open();
 
-                // ── Fontes ────────────────────────────────────────────────────────
+                //Fontes
                 Font fonteEmpresa   = new Font(Font.FontFamily.HELVETICA, 20, Font.BOLD,   BaseColor.WHITE);
                 Font fonteSubtitulo = new Font(Font.FontFamily.HELVETICA,  9, Font.NORMAL, new BaseColor(200, 220, 240));
-                Font fonteTitulo    = new Font(Font.FontFamily.HELVETICA, 13, Font.BOLD,   new BaseColor(33, 97, 140));
-                Font fonteLabel     = new Font(Font.FontFamily.HELVETICA,  8, Font.BOLD,   new BaseColor(100, 100, 100));
-                Font fonteDado      = new Font(Font.FontFamily.HELVETICA,  9, Font.NORMAL, new BaseColor(30,  30,  30));
+                Font fonteTitulo = new Font(Font.FontFamily.HELVETICA, 13, Font.BOLD,   new BaseColor(33, 97, 140));
+                Font fonteLabel = new Font(Font.FontFamily.HELVETICA,  8, Font.BOLD,   new BaseColor(100, 100, 100));
+                Font fonteDado = new Font(Font.FontFamily.HELVETICA,  9, Font.NORMAL, new BaseColor(30,  30,  30));
                 Font fonteValorGrande = new Font(Font.FontFamily.HELVETICA, 22, Font.BOLD, new BaseColor(39, 174, 96));
                 Font fonteRodape    = new Font(Font.FontFamily.HELVETICA,  7, Font.ITALIC, new BaseColor(150, 150, 150));
                 Font fonteNumRecibo = new Font(Font.FontFamily.HELVETICA,  8, Font.NORMAL, new BaseColor(180, 180, 180));
 
-                // ── Cores ─────────────────────────────────────────────────────────
+                // Cores 
                 BaseColor corPrimaria = new BaseColor(33,  97, 140);
                 BaseColor corFundo    = new BaseColor(245, 248, 250);
                 BaseColor corBorda    = new BaseColor(200, 220, 240);
 
-                // ── Cabeçalho ─────────────────────────────────────────────────────
+                // Cabeçalho 
                 byte[] logoBytes = (byte[])new ImageConverter().ConvertTo(Properties.Resources.logopng, typeof(byte[]));
 
                 PdfPTable headerTable = new PdfPTable(new float[] { 1, 3 });
@@ -854,7 +854,7 @@ namespace AssisTec
                 headerTable.AddCell(textoCell);
                 doc.Add(headerTable);
 
-                // ── Linha: Nº do recibo + data de emissão ─────────────────────────
+                // Linha: Nº do recibo + data de emissão 
                 PdfPTable tblNumero = new PdfPTable(2);
                 tblNumero.WidthPercentage = 100;
                 tblNumero.SpacingBefore   = 6f;
@@ -882,7 +882,7 @@ namespace AssisTec
                 tblNumero.AddCell(cellData);
                 doc.Add(tblNumero);
 
-                // ── Card do valor recebido ─────────────────────────────────────────
+                // Card do valor recebido 
                 decimal valorConta = Convert.ToDecimal(conta["valor"]);
 
                 PdfPTable tblValor = new PdfPTable(1);
@@ -905,7 +905,7 @@ namespace AssisTec
                 tblValor.AddCell(cardValor);
                 doc.Add(tblValor);
 
-                // ── Detalhes do lançamento ─────────────────────────────────────────
+                // Detalhes do lançamento
                 PdfPTable tblDetalhes = new PdfPTable(new float[] { 1, 2 });
                 tblDetalhes.WidthPercentage = 100;
                 tblDetalhes.SpacingAfter    = 8f;
@@ -931,19 +931,18 @@ namespace AssisTec
                     conta[campo] != DBNull.Value && DateTime.TryParse(conta[campo].ToString(), out DateTime dt)
                         ? dt.ToString("dd/MM/yyyy") : "-";
 
-                AddDetalhe("DESCRIÇÃO",        conta["descricao"].ToString());
-                AddDetalhe("VENCIMENTO",       FormatarData("data_vencimento"));
-                AddDetalhe("DATA PAGAMENTO",   FormatarData("data_pagamento"));
-                AddDetalhe("FORMA PAGAMENTO",  conta["forma_pagamento"] != DBNull.Value
-                                                   ? conta["forma_pagamento"].ToString() : "-");
-                AddDetalhe("STATUS",           conta["status"].ToString());
+                AddDetalhe("DESCRIÇÃO", conta["descricao"].ToString());
+                AddDetalhe("VENCIMENTO",FormatarData("data_vencimento"));
+                AddDetalhe("DATA PAGAMENTO",FormatarData("data_pagamento"));
+                AddDetalhe("FORMA PAGAMENTO",conta["forma_pagamento"] != DBNull.Value ? conta["forma_pagamento"].ToString() : "-");
+                AddDetalhe("STATUS", conta["status"].ToString());
 
                 if (conta["observacoes"] != DBNull.Value && !string.IsNullOrWhiteSpace(conta["observacoes"].ToString()))
                     AddDetalhe("OBSERVAÇÕES", conta["observacoes"].ToString());
 
                 doc.Add(tblDetalhes);
 
-                // ── Assinatura ────────────────────────────────────────────────────
+                // Assinatura
                 PdfPTable tblAssinatura = new PdfPTable(2);
                 tblAssinatura.WidthPercentage = 100;
                 tblAssinatura.SpacingBefore   = 20f;
@@ -965,7 +964,7 @@ namespace AssisTec
                 AddLinha("Assinatura do Cliente");
                 doc.Add(tblAssinatura);
 
-                // ── Rodapé ────────────────────────────────────────────────────────
+                // Rodapé
                 doc.Add(new Paragraph(" "));
                 Paragraph rodape = new Paragraph(
                     $"Documento gerado em {DateTime.Now:dd/MM/yyyy} às {DateTime.Now:HH:mm}  •  ASSISTEC — Sistema de Gestão de Assistência Técnica",

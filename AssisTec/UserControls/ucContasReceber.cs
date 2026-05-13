@@ -211,9 +211,29 @@ namespace AssisTec.UserControls
 
         #region Funções dos componentes
 
-        
+        private void dgvContasReceber_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (dgvContasReceber.Columns[e.ColumnIndex].Index == 7 && e.Value != null)
+            {
+                string status = e.Value.ToString();
 
-        
+                // Se o status for 'Atrasado', pinta a linha de vermelho
+                if (status == "ATRASADO")
+                {
+                    dgvContasReceber.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.Red;
+                    dgvContasReceber.Rows[e.RowIndex].DefaultCellStyle.ForeColor = Color.White;
+                }
+                
+            }
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            lancamentoFinanceiro.deletarContaReceber(idConta);
+            DisableBtn();
+            atualizar();
+            
+        }
 
         private void btnRegistrar_Click(object sender, EventArgs e)
         {
@@ -308,28 +328,6 @@ namespace AssisTec.UserControls
         }
         #endregion
 
-        private void dgvContasReceber_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
-        {
-            if (dgvContasReceber.Columns[e.ColumnIndex].Index == 7 && e.Value != null)
-            {
-                string status = e.Value.ToString();
-
-                // Se o status for 'Atrasado', pinta a linha de vermelho
-                if (status == "ATRASADO")
-                {
-                    dgvContasReceber.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.Red;
-                    dgvContasReceber.Rows[e.RowIndex].DefaultCellStyle.ForeColor = Color.White;
-                }
-                
-            }
-        }
-
-        private void btnDelete_Click(object sender, EventArgs e)
-        {
-            lancamentoFinanceiro.deletarContaReceber(idConta);
-            DisableBtn();
-            atualizar();
-            
-        }
+        
     }
 }
