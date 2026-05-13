@@ -37,7 +37,7 @@ namespace AssisTec
         public string filtroStatus { get; set; }
         public int filtroIdFormaPagamento { get; set; }
 
-        public List<Label> listLabels{get;set;}
+            
 
         #region Contas a Receber
 
@@ -430,7 +430,7 @@ namespace AssisTec
 
                 sql = @"SELECT 
                     SUM(cr.valor) AS total_geral,
-                    SUM(CASE WHEN cr.status = 'Recebido' THEN cr.valor ELSE 0 END) AS total_recebido,
+                    SUM(CASE WHEN cr.status = 'Paga' THEN cr.valor ELSE 0 END) AS total_recebido,
                     SUM(CASE WHEN cr.status = 'Pendente'  THEN cr.valor ELSE 0 END) AS total_pendente,
                     SUM(CASE WHEN cr.status = 'Atrasado'  THEN cr.valor ELSE 0 END) AS total_atrasado
                 FROM contas_receber cr

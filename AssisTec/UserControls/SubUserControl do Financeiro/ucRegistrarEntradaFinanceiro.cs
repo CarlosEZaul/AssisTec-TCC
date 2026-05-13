@@ -16,18 +16,30 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
         private DataGridView dgv;
         private int id;
         private int modo;
+        private List<Label> listalabels = new List<Label>();
         
-        public ucRegistrarEntradaFinanceiro(DataGridView _dgv, int _id, int _modo)
+        public ucRegistrarEntradaFinanceiro(DataGridView _dgv, int _id, int _modo, List<Label> _listaLabels)
         {
             InitializeComponent();
             ConfigurarCombobox();
             dgv = _dgv;
             id = _id;
             modo = _modo;
+            listalabels= _listaLabels;
             
         }
         
         #region metodos ou funcoes
+
+        private void atualizarLabels()
+        {
+            var totais = lf.AtualizarTotais();
+            listalabels[0].Text = totais.totalGeral.ToString("C2");
+            listalabels[1].Text = totais.totalRecebido.ToString("C2");
+            listalabels[2].Text = totais.totalPendente.ToString("C2");
+            listalabels[3].Text = totais.totalAtrasado.ToString("C2");
+            
+        }
         private void fechar()
         {
             this.Hide();
@@ -111,6 +123,9 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
             
             
                     lf.SalvarEntrada();
+                    dgv.DataSource = lf.atualizarContasReceber();
+                    atualizarLabels();
+                    
                 }
                 catch (Exception ex)
                 {
@@ -148,6 +163,8 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
 
                     MessageBox.Show("Registro alterado com sucesso!", "Sucesso", MessageBoxButtons.OK,
                         MessageBoxIcon.Information);
+                    dgv.DataSource = lf.atualizarContasReceber();
+                    atualizarLabels();
                     fechar();
 
                 }
@@ -156,14 +173,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
                     MessageBox.Show("Erro ao alterar conta " + ex, "Erro ao alterar conta", MessageBoxButtons.OK,
                         MessageBoxIcon.Error);
                 }
-                finally
-                {
-                    dgv.DataSource = lf.atualizarContasReceber();
-                    
-                }
                 
-                
-
             }
             
             

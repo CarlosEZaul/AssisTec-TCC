@@ -15,15 +15,16 @@ namespace AssisTec.UserControls
         {
             
             InitializeComponent();
-            apllyDesingModerno();
-            configurarComboBox();
-            atualizar();
             listaLabelsTotais = new List<Label> { 
                 lblTotalReceber, 
                 lblRecebido, 
                 lblPendente, 
                 lblAtrasado 
             };
+            apllyDesingModerno();
+            configurarComboBox();
+            atualizar();
+            
         }
 
         private string sql;
@@ -182,12 +183,12 @@ namespace AssisTec.UserControls
             listgrid();
             cbStatus.SelectedIndex = 0;
             cbFormaPagamento.SelectedIndex = 0;
-            var (totalGeral, totalRecebido, totalPendente, totalAtrasado) = lancamentoFinanceiro.AtualizarTotais();
+            var totais = lancamentoFinanceiro.AtualizarTotais();
 
-            lblTotalReceber.Text = $"R$ {totalGeral:N2}";
-            lblRecebido.Text     = $"R$ {totalRecebido:N2}";
-            lblPendente.Text     = $"R$ {totalPendente:N2}";
-            lblAtrasado.Text     = $"R$ {totalAtrasado:N2}";
+            listaLabelsTotais[0].Text = totais.totalGeral.ToString("C2");
+            listaLabelsTotais[1].Text = totais.totalRecebido.ToString("C2");
+            listaLabelsTotais[2].Text = totais.totalPendente.ToString("C2");
+            listaLabelsTotais[3].Text = totais.totalAtrasado.ToString("C2");
             formatgrid();
         }
 
@@ -216,7 +217,7 @@ namespace AssisTec.UserControls
 
         private void btnRegistrar_Click(object sender, EventArgs e)
         {
-            ucRegistrarEntradaFinanceiro ucRegistrarEntrada = new ucRegistrarEntradaFinanceiro(dgvContasReceber, idConta, 1);
+            ucRegistrarEntradaFinanceiro ucRegistrarEntrada = new ucRegistrarEntradaFinanceiro(dgvContasReceber, idConta, 1, listaLabelsTotais);
             this.Controls.Add(ucRegistrarEntrada);
             ucRegistrarEntrada.BringToFront();
             ucRegistrarEntrada.Left = (this.ClientSize.Width - ucRegistrarEntrada.Width)/2;
@@ -250,11 +251,6 @@ namespace AssisTec.UserControls
 
             var (totalGeral, totalRecebido, totalPendente, totalAtrasado) = lf.AtualizarTotais();
 
-            lblTotalReceber.Text = $"R$ {totalGeral:N2}";
-            lblRecebido.Text     = $"R$ {totalRecebido:N2}";
-            lblPendente.Text     = $"R$ {totalPendente:N2}";
-            lblAtrasado.Text     = $"R$ {totalAtrasado:N2}";
-
             filtro();
             
         }
@@ -266,10 +262,10 @@ namespace AssisTec.UserControls
 
             LancamentoFinanceiro lf = new LancamentoFinanceiro
             {
-                filtroDataInicio       = mtbDataInicio.Text.Replace("/","").Replace("_","").Trim().Length > 0 ? mtbDataInicio.Text : null,
-                filtroDataFim          = mtbDataFim.Text.Replace("/","").Replace("_","").Trim().Length > 0 ? mtbDataFim.Text : null,
-                filtroDescricao        = txtBusca.Text,
-                filtroStatus           = cbStatus.SelectedIndex > 0 ? cbStatus.SelectedItem.ToString() : null,
+                filtroDataInicio = mtbDataInicio.Text.Replace("/","").Replace("_","").Trim().Length > 0 ? mtbDataInicio.Text : null,
+                filtroDataFim = mtbDataFim.Text.Replace("/","").Replace("_","").Trim().Length > 0 ? mtbDataFim.Text : null,
+                filtroDescricao = txtBusca.Text,
+                filtroStatus = cbStatus.SelectedIndex > 0 ? cbStatus.SelectedItem.ToString() : null,
                 filtroIdFormaPagamento = idForma
             };
 
@@ -303,7 +299,7 @@ namespace AssisTec.UserControls
 
         private void btnEditar_Click(object sender, EventArgs e)
         {
-            ucRegistrarEntradaFinanceiro ucRegistrarEntrada = new ucRegistrarEntradaFinanceiro(dgvContasReceber, idConta, 2);
+            ucRegistrarEntradaFinanceiro ucRegistrarEntrada = new ucRegistrarEntradaFinanceiro(dgvContasReceber, idConta, 2, listaLabelsTotais);
             this.Controls.Add(ucRegistrarEntrada);
             ucRegistrarEntrada.BringToFront();
             ucRegistrarEntrada.Left = (this.ClientSize.Width - ucRegistrarEntrada.Width) / 2;
@@ -318,10 +314,10 @@ namespace AssisTec.UserControls
             {
                 string status = e.Value.ToString();
 
-                // Se o status for 'Atrasado', pinta a LINHA toda de vermelho
+                // Se o status for 'Atrasado', pinta a linha de vermelho
                 if (status == "ATRASADO")
                 {
-                    dgvContasReceber.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.Tomato;
+                    dgvContasReceber.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.Red;
                     dgvContasReceber.Rows[e.RowIndex].DefaultCellStyle.ForeColor = Color.White;
                 }
                 
@@ -331,8 +327,8 @@ namespace AssisTec.UserControls
         private void btnDelete_Click(object sender, EventArgs e)
         {
             lancamentoFinanceiro.deletarContaReceber(idConta);
-            dgvContasReceber.DataSource = lancamentoFinanceiro.atualizarContasReceber();
             DisableBtn();
+            atualizar();
             
         }
     }
