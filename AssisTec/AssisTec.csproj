@@ -203,6 +203,12 @@
     <Compile Include="UserControls\SubUserControl do Financeiro\ucRegistrarEntradaFinanceiro.Designer.cs">
       <DependentUpon>ucRegistrarEntradaFinanceiro.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\SubUserControl do Financeiro\ucRegistrarPagamento.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\SubUserControl do Financeiro\ucRegistrarPagamento.Designer.cs">
+      <DependentUpon>ucRegistrarPagamento.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\SubUserControl do Financeiro\ucRegistrarSaidaFinanceiro.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -318,6 +324,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\SubUserControl do Financeiro\ucRegistrarEntradaFinanceiro.resx">
       <DependentUpon>ucRegistrarEntradaFinanceiro.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\SubUserControl do Financeiro\ucRegistrarPagamento.resx">
+      <DependentUpon>ucRegistrarPagamento.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\SubUserControl do Financeiro\ucRegistrarSaidaFinanceiro.resx">
       <DependentUpon>ucRegistrarSaidaFinanceiro.cs</DependentUpon>

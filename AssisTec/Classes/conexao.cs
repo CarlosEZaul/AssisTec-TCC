@@ -115,7 +115,7 @@ namespace AssisTec
 
         public void importarBackup()
         {
-            DialogResult result = MessageBox.Show("Deseja realmente deseja importar Backup?", "Importar", MessageBoxButtons.YesNo);
+            DialogResult result = MessageBox.Show("Deseja realmente importar Backup?", "Importar", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
             if (result == DialogResult.Yes)
             {
@@ -156,11 +156,11 @@ namespace AssisTec
                 }
                 catch (CryptographicException)
                 {
-                    MessageBox.Show("Senha incorreta", "Erro", MessageBoxButtons.OK);
+                    MessageBox.Show("Senha incorreta", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Erro ao importar Backup", ex.Message, MessageBoxButtons.OK);
+                    MessageBox.Show("Erro ao importar Backup", ex.Message, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 finally
                 {
@@ -176,9 +176,6 @@ namespace AssisTec
                 return;
             }
             }
-            
-            
-            
         }
 
         private void Descriptografar(string inputFile, string outputFile, string senha)

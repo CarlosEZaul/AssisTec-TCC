@@ -197,6 +197,7 @@ namespace AssisTec.UserControls
             btnEditar.Enabled = true;
             btnDelete.Enabled = true;
             btnRecibo.Enabled = true;
+            btnRegistrarPagamento.Enabled = true;
         }
 
         private void DisableBtn()
@@ -328,6 +329,16 @@ namespace AssisTec.UserControls
         }
         #endregion
 
-        
+
+        private void btnRegistrarPagamento_Click(object sender, EventArgs e)
+        {
+            
+            ucRegistrarPagamento ucRegistrarPagamento = new ucRegistrarPagamento(idConta);
+            this.Controls.Add(ucRegistrarPagamento);
+            ucRegistrarPagamento.BringToFront();
+            ucRegistrarPagamento.Left = (this.ClientSize.Width - ucRegistrarPagamento.Width) / 2;
+            ucRegistrarPagamento.Top = (this.ClientSize.Height - ucRegistrarPagamento.Height) / 2;
+            ucRegistrarPagamento.Show();
+        }
     }
 }

@@ -11,6 +11,7 @@ namespace AssisTec.UserControls
         {
             InitializeComponent();
             listGrid();
+            formatgrid();
             applyDesing();
         }
 
@@ -54,15 +55,13 @@ namespace AssisTec.UserControls
                 if (dgvContasReceber.Columns.Count <= 0) return;
                 // Headers
                 dgvContasReceber.Columns[0].HeaderText = "ID_CONTA";
-                dgvContasReceber.Columns[1].HeaderText = "ID_OS";
-                dgvContasReceber.Columns[2].HeaderText = "Descrição";
-                dgvContasReceber.Columns[3].HeaderText = "Valor";
-                dgvContasReceber.Columns[4].HeaderText = "Data de Emissão";
-                dgvContasReceber.Columns[5].HeaderText = "Data de Pagamento";
-                dgvContasReceber.Columns[6].HeaderText = "Data de Vencimento";
-                dgvContasReceber.Columns[7].HeaderText = "Status";
-                dgvContasReceber.Columns[8].HeaderText = "Forma de Pagamento";
-                dgvContasReceber.Columns[9].HeaderText = "Observações";
+                dgvContasReceber.Columns[1].HeaderText = "Descrição";
+                dgvContasReceber.Columns[2].HeaderText = "Valor";
+                dgvContasReceber.Columns[3].HeaderText = "Data de Emissão";
+                dgvContasReceber.Columns[4].HeaderText = "Data de Pagamento";
+                dgvContasReceber.Columns[5].HeaderText = "Status";
+                dgvContasReceber.Columns[6].HeaderText = "Forma de Pagamento";
+                dgvContasReceber.Columns[7].HeaderText = "Observações";
             }
             catch (Exception e)
             {

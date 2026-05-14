@@ -45,6 +45,14 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
             this.Hide();
         }
 
+        private void bloquearBotoes()
+        {
+            cbFormaPagamento.Enabled = false;
+            cbStatus.Enabled = false;
+            mtbDataPagamento.Enabled = false;
+            
+        }
+
         private void ConfigurarCombobox()
         {
             cbFormaPagamento.Items.Clear();
@@ -191,6 +199,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
             if (modo == 2)
             {
                 carregarDados();
+                bloquearBotoes();
             }
         }
 
@@ -257,7 +266,11 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
 
                 // Garante seleção válida
                 if (cbFormaPagamento.SelectedIndex == -1)
+                {
                     cbFormaPagamento.SelectedIndex = 0;
+                }
+                mtbDataPagamento.Text = DateTime.Now.ToShortDateString();
+                    
             }
         }
         #endregion

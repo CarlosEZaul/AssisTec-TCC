@@ -69,6 +69,7 @@ namespace AssisTec.UserControls
             this.lblRecebido = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.btnRegistrarPagamento = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvContasReceber)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnAtualizar)).BeginInit();
             this.panelBotoes.SuspendLayout();
@@ -233,6 +234,7 @@ namespace AssisTec.UserControls
             // panelBotoes
             // 
             this.panelBotoes.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.panelBotoes.Controls.Add(this.btnRegistrarPagamento);
             this.panelBotoes.Controls.Add(this.btnDelete);
             this.panelBotoes.Controls.Add(this.btnEditar);
             this.panelBotoes.Controls.Add(this.btnRegistrar);
@@ -240,7 +242,7 @@ namespace AssisTec.UserControls
             this.panelBotoes.Controls.Add(this.btnRelatorio);
             this.panelBotoes.Location = new System.Drawing.Point(370, 688);
             this.panelBotoes.Name = "panelBotoes";
-            this.panelBotoes.Size = new System.Drawing.Size(484, 61);
+            this.panelBotoes.Size = new System.Drawing.Size(608, 61);
             this.panelBotoes.TabIndex = 159;
             // 
             // btnDelete
@@ -302,7 +304,7 @@ namespace AssisTec.UserControls
             this.btnRecibo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRecibo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.btnRecibo.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnRecibo.Location = new System.Drawing.Point(384, 15);
+            this.btnRecibo.Location = new System.Drawing.Point(507, 15);
             this.btnRecibo.Name = "btnRecibo";
             this.btnRecibo.Size = new System.Drawing.Size(88, 33);
             this.btnRecibo.TabIndex = 101;
@@ -527,6 +529,23 @@ namespace AssisTec.UserControls
             this.pictureBox2.TabIndex = 0;
             this.pictureBox2.TabStop = false;
             // 
+            // btnRegistrarPagamento
+            // 
+            this.btnRegistrarPagamento.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnRegistrarPagamento.BackColor = System.Drawing.Color.RoyalBlue;
+            this.btnRegistrarPagamento.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnRegistrarPagamento.Enabled = false;
+            this.btnRegistrarPagamento.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRegistrarPagamento.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.btnRegistrarPagamento.ForeColor = System.Drawing.SystemColors.Control;
+            this.btnRegistrarPagamento.Location = new System.Drawing.Point(384, 15);
+            this.btnRegistrarPagamento.Name = "btnRegistrarPagamento";
+            this.btnRegistrarPagamento.Size = new System.Drawing.Size(117, 33);
+            this.btnRegistrarPagamento.TabIndex = 106;
+            this.btnRegistrarPagamento.Text = "Registrar Pagamento";
+            this.btnRegistrarPagamento.UseVisualStyleBackColor = false;
+            this.btnRegistrarPagamento.Click += new System.EventHandler(this.btnRegistrarPagamento_Click);
+            // 
             // ucContasReceber
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -566,6 +585,8 @@ namespace AssisTec.UserControls
             this.ResumeLayout(false);
             this.PerformLayout();
         }
+
+        private System.Windows.Forms.Button btnRegistrarPagamento;
 
         private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.Button btnEditar;
