@@ -338,7 +338,7 @@ namespace AssisTec.UserControls
             ucRegistrarPagamento.BringToFront();
             ucRegistrarPagamento.Left = (this.ClientSize.Width - ucRegistrarPagamento.Width) / 2;
             ucRegistrarPagamento.Top = (this.ClientSize.Height - ucRegistrarPagamento.Height) / 2;
-            ucRegistrarPagamento.Show();
+            ucRegistrarPagamento.Show();//
         }
     }
 }
