@@ -198,31 +198,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios
 
             return user;
         }
-
         
-        
-        /*private bool usuarioExiste(string cpf, int? ignorarId = null)
-        {
-            con.OpenConnection();
-            sql = "SELECT COUNT(*) FROM usuarios WHERE cpf = @cpf";
-            if (ignorarId.HasValue)
-            {
-                sql += " AND id_usuario <> @id"; 
-            }
-
-            using (MySqlCommand cmd = new MySqlCommand(sql, con.con))
-            {
-                cmd.Parameters.AddWithValue("@cpf", cpf);
-                if (ignorarId.HasValue)
-                {
-                    cmd.Parameters.AddWithValue("@id", ignorarId.Value);
-                }
-
-                int count = Convert.ToInt32(cmd.ExecuteScalar());
-                con.CloseConnection();
-                return count > 0;
-            }
-        }*/
 
         
         private void fechar()
@@ -296,31 +272,45 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios
                 return;
             }
 
+            if (okCep == false)
+            {
+                MessageBox.Show("CEP inváldo", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             try
             {
                 
                 Usuario user = formUsuario();
                 if (modo == 1)
                 {
-                    
-                    user.novoUsuario(user);
+
+                    if (user.novoUsuario(user))
+                    {
+                        deleteAll();
+                    }
                     dgv.DataSource = user.atualizarDados();
-                    deleteAll();
+                    
                 }
 
                 if (modo == 2) 
                 {
-                    
-                    user.editarUsuario(user);
+
+                    if (user.editarUsuario(user))
+                    {
+                        deleteAll();
+                        fechar();
+                    }
                     dgv.DataSource = user.atualizarDados();
-                    deleteAll();
-                    fechar();
+                    
                 }
 
                 if (modo == 3)
                 {
-                    user.novoUsuario(user);
-                    fechar();
+                    if (user.novoUsuario(user))
+                    {
+                        fechar();
+                    }
                 }
     
             
@@ -328,7 +318,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Erro: " + ex, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Erro ao gerenciar usuários", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
             

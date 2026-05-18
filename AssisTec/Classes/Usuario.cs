@@ -103,6 +103,7 @@ namespace AssisTec
             }
         }
         
+        
         public bool novoUsuario(Usuario user)
         {
           
@@ -120,6 +121,20 @@ namespace AssisTec
                     MessageBox.Show("Usuário com este CPF já existe", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return false;
                 }
+
+                if (!ValidarCPF(user.cpf))
+                {
+                    MessageBox.Show("CPF inválido", "Verifique o CPF", MessageBoxButtons.OK, MessageBoxIcon.Warning );
+                    return false;
+                }
+                
+                if (!ValidarTelefone(user.telefone))
+                {
+                    MessageBox.Show("Número de telefone inválido", "Verifique o número de telefone",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return false;
+                }
+                
                 string senhaHash = BCrypt.Net.BCrypt.HashPassword(user.Senha);
                 
                 con.OpenConnection();
@@ -168,6 +183,18 @@ namespace AssisTec
                 if (usuarioExiste(user.cpf, user.id))
                 {
                     MessageBox.Show("Usuário já existe", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
+                }
+                
+                if (!ValidarCPF(user.cpf))
+                {
+                    MessageBox.Show("CPF inválido", "Verifique o CPF", MessageBoxButtons.OK, MessageBoxIcon.Warning );
+                    return false;
+                }
+                if (!ValidarTelefone(user.telefone))
+                {
+                    MessageBox.Show("Número de telefone inválido", "Verifique o número de telefone",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return false;
                 }
 

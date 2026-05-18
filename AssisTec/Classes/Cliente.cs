@@ -55,27 +55,42 @@ namespace AssisTec
             }
         }
 
-        public void novoCliente(Cliente cliente)
+        public bool novoCliente(Cliente cliente)
         {
 
             if (cliente == null)
             {
                 MessageBox.Show("Cadastro com um campo inválido!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
 
             }
 
             try
             {
+                if (!ValidarCPF(cliente.cpf))
+                {
+                    MessageBox.Show("CPF inválido", "Verifique o CPF", MessageBoxButtons.OK, MessageBoxIcon.Warning );
+                    return false;
+                }
+
+                if (!ValidarTelefone(cliente.telefone))
+                {
+                    MessageBox.Show("Número de telefone inválido", "Verifique o número de telefone",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return false;
+                }
 
                 con.OpenConnection();
                 sql = "SELECT COUNT(*) FROM clientes WHERE cpf=@cpf";
                 cmd = new MySqlCommand(sql, con.con);
                 cmd.Parameters.AddWithValue("@cpf", cliente.cpf);
                 int count = Convert.ToInt32(cmd.ExecuteScalar());
+                
                 if (count > 0)
                 {
                     MessageBox.Show("Cliente já cadastrado!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     con.CloseConnection();
+                    return false;
                 }
                 else
                 {
@@ -103,6 +118,7 @@ namespace AssisTec
 
                     MessageBox.Show("Cadastrado com sucesso!", "Sucesso", MessageBoxButtons.OK,
                         MessageBoxIcon.Information);
+                    return true;
 
                 }
 
@@ -111,24 +127,35 @@ namespace AssisTec
             {
                 MessageBox.Show("Erro ao cadastrar cliente\n" + ex.Message, "Erro", MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
+                return false;
             }
-
-
-
+            
         }
 
-        public void editarCliente(Cliente cliente)
+        public bool editarCliente(Cliente cliente)
         {
 
             if (cliente == null)
             {
                 MessageBox.Show("Tentativa de cadastro com campo inválido!", "Erro", MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
-                return;
+                return false;
             }
+            
 
             try
             {
+                if (!ValidarCPF(cliente.cpf))
+                {
+                    MessageBox.Show("CPF inválido", "Verifique o CPF", MessageBoxButtons.OK, MessageBoxIcon.Warning );
+                    return false;
+                }
+                if (!ValidarTelefone(cliente.telefone))
+                {
+                    MessageBox.Show("Número de telefone inválido", "Verifique o número de telefone",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return false;
+                }
                 con.OpenConnection();
                 sql =
                     "update clientes set nome=@nome, cpf=@cpf, telefone=@telefone, datanasc=@datanasc, cep=@cep, rua=@rua, numero=@numero, cidade=@cidade, estado=@estado, bairro=@bairro, complemento=@complemento where id_cliente=@id_cliente";
@@ -154,11 +181,13 @@ namespace AssisTec
 
                 MessageBox.Show("Cliente editado com sucesso!", "Sucesso", MessageBoxButtons.OK,
                     MessageBoxIcon.Information);
+                return true;
             }
             catch (Exception exception)
             {
                 MessageBox.Show("Erro ao editar!\n" + exception.Message, "Erro", MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
+                return false;
             }
         }
 

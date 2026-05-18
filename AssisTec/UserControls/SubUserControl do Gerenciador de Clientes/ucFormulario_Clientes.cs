@@ -126,15 +126,21 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Clientes.ucForm
                     txtNome.Focus();
                     return;
                 }
+
+                if (okCep == false)
+                {
+                    MessageBox.Show("CEP inválido", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
             
-                if (modo == 1 && okCep == true) 
+                if (modo == 1) 
                 {
                     cliente.novoCliente(cliente);
                     dgvClientes.DataSource = cliente.atualizarDados();
                     deleteAll();
                 
                 }
-                else if (modo == 2 && okCep == true) 
+                else if (modo == 2 ) 
                 {
                     cliente.editarCliente(cliente);
                     dgvClientes.DataSource = cliente.atualizarDados();;
@@ -147,7 +153,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Clientes.ucForm
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Erro ao gerenciar clientes", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Erro ao gerenciar clientes", "Erro ",MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
            
         }
