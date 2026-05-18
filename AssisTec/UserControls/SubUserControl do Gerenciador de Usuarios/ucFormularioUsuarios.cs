@@ -316,6 +316,12 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios
                     deleteAll();
                     fechar();
                 }
+
+                if (modo == 3)
+                {
+                    user.novoUsuario(user);
+                    fechar();
+                }
     
             
                 

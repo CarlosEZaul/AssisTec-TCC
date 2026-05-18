@@ -1349,3 +1349,5 @@ C:\Users\carlo\OneDrive\Área de Trabalho\AssisTec14-05\AssisTec\obj\Debug\Assis
 C:\Users\carlo\OneDrive\Área de Trabalho\AssisTec14-05\AssisTec\obj\Debug\AssisTec.exe
 C:\Users\carlo\OneDrive\Área de Trabalho\AssisTec14-05\AssisTec\obj\Debug\AssisTec.pdb
 C:\Users\carlo\OneDrive\Área de Trabalho\AssisTec14-05\AssisTec\obj\Debug\AssisTec.UserControls.SubUserControl_do_Financeiro.ucRegistrarPagamento.resources
+C:\Users\Pc do estagiario\Desktop\AssisTec\AssisTec\obj\Debug\AssisTec.UserControls.SubUserControl_do_Financeiro.ucRegistrarPagamento.resources
+C:\Users\Pc do estagiario\Desktop\AssisTec\AssisTec\obj\Debug\AssisTec.UserControls.SubUserControl_do_Financeiro.ucRegistrarSaidaFinanceiro.resources
