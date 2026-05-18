@@ -146,6 +146,7 @@ namespace AssisTec
                         
                     }
                 }
+                con.CloseConnection();
             }
             catch (Exception e)
             {
