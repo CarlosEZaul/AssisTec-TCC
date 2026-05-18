@@ -313,6 +313,38 @@ namespace AssisTec
             }
         }
 
+        public bool registrarPagamentoEntrada(int id, int foma_pagamento, String data_pagamento, DataGridView dgv)
+        {
+            try
+            {
+                con.OpenConnection();
+                sql = @"UPDATE contas_receber SET 
+                          data_pagamento = @data_pagamento,
+                          id_forma_pagamento_fk = @id_forma_pagamento_fk,
+                          status = 'PAGA'
+                     WHERE id_conta_receber = @id;";
+                
+                cmd = new MySqlCommand(sql, con.con);
+                
+                cmd.Parameters.AddWithValue("@id", id);
+                cmd.Parameters.AddWithValue("@data_pagamento", DataFormatada(data_pagamento) ?? (object)DBNull.Value);
+                cmd.Parameters.AddWithValue("@id_forma_pagamento_fk", foma_pagamento);
+                
+                cmd.ExecuteNonQuery();
+                con.CloseConnection();
+                
+                MessageBox.Show("Pagamento registrada com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                dgv.DataSource = atualizarContasReceber();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao registrar pagamento", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                throw;
+            }
+            
+        }
+
         public bool deletarContaReceber(int idConta)
         {
             try
@@ -794,9 +826,20 @@ namespace AssisTec
             
             try
             {
-                string caminho = Path.Combine(
+                string pastaRecibos = Path.Combine(
                     Environment.GetFolderPath(Environment.SpecialFolder.Desktop),
-                    "Recibo_" + conta["id_conta_receber"].ToString() + "_" + DateTime.Now.ToString("ddMMyyyy_HHmm") + ".pdf");
+                    "Recibos",
+                    DateTime.Now.ToString("dd-MM-yyyy")
+                );
+                Directory.CreateDirectory(pastaRecibos);
+
+                string caminho = Path.Combine(
+                    pastaRecibos,
+                    "Recibo_" +
+                    conta["id_conta_receber"].ToString() + "_" +
+                    DateTime.Now.ToString("ddMMyyyy_HHmm") +
+                    ".pdf"
+                );
 
                 // Documento A5 retrato 
                 Document doc = new Document(PageSize.A5, 40, 40, 40, 40);

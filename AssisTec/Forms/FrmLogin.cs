@@ -129,7 +129,7 @@ namespace AssisTec
 
                     if (total == 0)
                     {
-                        MessageBox.Show("Nenhum usuário encontrado no sistema, faça seu cadastro!", "Primeiro Login", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MessageBox.Show("Nenhum gerente encontrado no sistema, faça seu cadastro!", "Primeiro Login", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         ucFormularioUsuarios ucFormularioUsuarios = new ucFormularioUsuarios(0, 3, new DataGridView());
                         
                         ucFormularioUsuarios.Disposed += (senderControl, args) =>

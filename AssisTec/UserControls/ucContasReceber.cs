@@ -332,8 +332,12 @@ namespace AssisTec.UserControls
 
         private void btnRegistrarPagamento_Click(object sender, EventArgs e)
         {
-            
-            ucRegistrarPagamento ucRegistrarPagamento = new ucRegistrarPagamento(idConta);
+            if (dgvContasReceber.CurrentRow.Cells["Status"].Value.ToString() == "PAGA")
+            {
+                MessageBox.Show("Registro de Pagamento apenas para contas não pagas", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            ucRegistrarPagamento ucRegistrarPagamento = new ucRegistrarPagamento(idConta, dgvContasReceber, listaLabelsTotais);
             this.Controls.Add(ucRegistrarPagamento);
             ucRegistrarPagamento.BringToFront();
             ucRegistrarPagamento.Left = (this.ClientSize.Width - ucRegistrarPagamento.Width) / 2;
