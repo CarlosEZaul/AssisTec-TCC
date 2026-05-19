@@ -45,13 +45,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
             this.Hide();
         }
 
-        private void bloquearBotoes()
-        {
-            cbFormaPagamento.Enabled = false;
-            cbStatus.Enabled = false;
-            mtbDataPagamento.Enabled = false;
-            
-        }
+        
 
         private void ConfigurarCombobox()
         {
@@ -199,7 +193,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
             if (modo == 2)
             {
                 carregarDados();
-                bloquearBotoes();
+                
             }
         }
 
