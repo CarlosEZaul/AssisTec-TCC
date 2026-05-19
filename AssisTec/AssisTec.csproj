@@ -227,6 +227,12 @@
     <Compile Include="UserControls\SubUserControl do Gerenciador de Pedidos\ucFormularioOS.Designer.cs">
       <DependentUpon>ucFormularioOS.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\SubUserControl do Gerenciador de Pedidos\ucHistoricoOS.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\SubUserControl do Gerenciador de Pedidos\ucHistoricoOS.Designer.cs">
+      <DependentUpon>ucHistoricoOS.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\ucBackupImportar.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -293,12 +299,6 @@
     <Compile Include="UserControls\ucGerenciador_Usuario.Designer.cs">
       <DependentUpon>ucGerenciador_Usuario.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\ucHistoricoOS.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UserControls\ucHistoricoOS.Designer.cs">
-      <DependentUpon>ucHistoricoOS.cs</DependentUpon>
-    </Compile>
     <Compile Include="UserControls\ucHome.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -337,6 +337,9 @@
     <EmbeddedResource Include="UserControls\SubUserControl do Gerenciador de Pedidos\ucFormularioOS.resx">
       <DependentUpon>ucFormularioOS.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\SubUserControl do Gerenciador de Pedidos\ucHistoricoOS.resx">
+      <DependentUpon>ucHistoricoOS.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UserControls\ucBackupImportar.resx">
       <DependentUpon>ucBackupImportar.cs</DependentUpon>
     </EmbeddedResource>
@@ -369,9 +372,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\ucGerenciador_Usuario.resx">
       <DependentUpon>ucGerenciador_Usuario.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\ucHistoricoOS.resx">
-      <DependentUpon>ucHistoricoOS.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\ucHome.resx">
       <DependentUpon>ucHome.cs</DependentUpon>
