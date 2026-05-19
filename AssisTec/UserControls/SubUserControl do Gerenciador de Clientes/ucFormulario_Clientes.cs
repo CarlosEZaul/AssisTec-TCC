@@ -15,19 +15,50 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Clientes.ucForm
         private string uf;
         private DataGridView dgvClientes;
         private bool okCep;
+
         public ucFormulario_Clientes(int _id, int _modo, DataGridView _dgv)
         {
-            modo =  _modo;
+            modo = _modo;
             id = _id;
-            dgvClientes =  _dgv;
+            dgvClientes = _dgv;
             InitializeComponent();
         }
+
         #region Métodos e funções
+
         private void ucFormulario_Clientes_Load(object sender, EventArgs e)
         {
+            ApplyModernDesign();
             if (modo == 2)
             {
                 carregarDados();
+            }
+        }
+
+        private void ApplyModernDesign()
+        {
+            try
+            {
+                this.BackColor = System.Drawing.Color.FromArgb(39, 55, 76);
+                DesingComponentes.StyleTextBox(txtNome);
+                DesingComponentes.StyleTextBox(txtRua);
+                DesingComponentes.StyleTextBox(txtBairro);
+                DesingComponentes.StyleTextBox(txtCidade);
+                DesingComponentes.StyleTextBox(txtEstado);
+                DesingComponentes.StyleTextBox(txtNumber);
+                DesingComponentes.StyleTextBox(txtComp);
+                DesingComponentes.StyleMaskedTextBox(mtbCPF);
+                DesingComponentes.StyleMaskedTextBox(mtbTel);
+                DesingComponentes.StyleMaskedTextBox(mtbNasc);
+                DesingComponentes.StyleMaskedTextBox(mtbCep);
+                DesingComponentes.StyleButton(btnSave, System.Drawing.Color.FromArgb(0, 153, 76));
+                DesingComponentes.StyleButton(btnLimpar, System.Drawing.Color.FromArgb(0, 120, 215));
+                DesingComponentes.StyleButton(btnFechar, System.Drawing.Color.FromArgb(209, 17, 65));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao aplicar design: " + ex.Message, "Aviso",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
@@ -35,6 +66,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Clientes.ucForm
         {
             this.Dispose();
         }
+
         private void deleteAll()
         {
             txtNome.Text = "";
@@ -48,7 +80,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Clientes.ucForm
             mtbCep.Text = "";
             txtEstado.Text = "";
             txtComp.Text = "";
-            
+            okCep = false;
         }
 
         public void carregarDados()
@@ -57,8 +89,6 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Clientes.ucForm
             {
                 Cliente cliente = new Cliente();
                 cliente = cliente.carregarDados(id);
-
-
                 id = cliente.id;
                 txtNome.Text = cliente.nome;
                 mtbCPF.Text = cliente.cpf;
@@ -71,14 +101,14 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Clientes.ucForm
                 txtBairro.Text = cliente.bairro;
                 txtEstado.Text = cliente.estado;
                 txtComp.Text = cliente.complemento;
-                
+                okCep = true;
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Erro ao carregar dados form: " + ex.Message);
             }
         }
-        
+
         private Cliente formCliente()
         {
             Cliente cliente = new Cliente();
@@ -87,138 +117,136 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Clientes.ucForm
             cliente.cpf = mtbCPF.Text;
             cliente.dataNascimento = mtbNasc.Text;
             cliente.telefone = mtbTel.Text;
-            cliente.dataNascimento = mtbNasc.Text;
             string dataFormatada = cliente.dataNascimentoFormatada;
             if (dataFormatada == null)
             {
                 return null;
             }
-            
             cliente.cep = mtbCep.Text;
             cliente.rua = txtRua.Text;
-            cliente.numero = Convert.ToInt32(txtNumber.Text);
+            if (!int.TryParse(txtNumber.Text, out int numero))
+            {
+                MessageBox.Show("Número do endereço inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return null;
+            }
+            cliente.numero = numero;
             cliente.cidade = txtCidade.Text;
             cliente.estado = txtEstado.Text;
             cliente.bairro = txtBairro.Text;
             cliente.complemento = txtComp.Text;
             return cliente;
-            
         }
-        
 
-        #endregion
-
-        private void btnSave_Click(object sender, EventArgs e)
+        async Task BuscarCep(string cep)
         {
             try
             {
-                
-                Cliente cliente = formCliente();
-                BuscarCep(cliente.cep);
+                Cursor = Cursors.WaitCursor;
+                okCep = false;
+                BuscaCEP buscaCep = new BuscaCEP();
+                buscaCep.cep = cep;
+                buscaCep.Consultar();
+                if (string.IsNullOrWhiteSpace(buscaCep.cidade) ||
+                    string.IsNullOrWhiteSpace(buscaCep.rua) ||
+                    string.IsNullOrWhiteSpace(buscaCep.bairro))
+                {
+                    MessageBox.Show("Falha ao localizar CEP!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    okCep = false;
+                    return;
+                }
+                txtCidade.Text = buscaCep.cidade;
+                txtRua.Text = buscaCep.rua;
+                txtBairro.Text = buscaCep.bairro;
+                txtEstado.Text = buscaCep.estado;
+                okCep = true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("CEP inválido!" + ex, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                okCep = false;
+            }
+            finally
+            {
+                Cursor = Cursors.Default;
+            }
+        }
+
+        #endregion
+
+        #region botões ou componentes
+
+        private async void mtbCep_Leave(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(mtbCep.Text) && mtbCep.Text.Replace("-", "").Length == 8)
+            {
+                await BuscarCep(mtbCep.Text);
+            }
+        }
+
+        private async void btnSave_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                btnSave.Enabled = false;
+                if (!okCep && mtbCep.MaskFull)
+                {
+                    await BuscarCep(mtbCep.Text);
+                }
                 if (string.IsNullOrWhiteSpace(txtNome.Text) ||
                     !mtbCPF.MaskFull ||
                     !mtbTel.MaskFull ||
                     !mtbCep.MaskFull ||
                     string.IsNullOrWhiteSpace(txtNumber.Text) ||
-                    !DateTime.TryParseExact(mtbNasc.Text, "dd/MM/yyyy", null, System.Globalization.DateTimeStyles.None, out _))
+                    !mtbNasc.MaskFull)
                 {
                     MessageBox.Show("Preencha todos os campos obrigatórios corretamente!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     txtNome.Focus();
                     return;
                 }
-
-                if (okCep == false)
+                if (!okCep)
                 {
                     MessageBox.Show("CEP inválido", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
-            
-                if (modo == 1) 
+                Cliente cliente = formCliente();
+                if (cliente == null)
                 {
-                    cliente.novoCliente(cliente);
+                    return;
+                }
+                if (modo == 1)
+                {
+                    if (cliente.novoCliente(cliente))
+                    {
+                        
+                        deleteAll();
+                    }
                     dgvClientes.DataSource = cliente.atualizarDados();
-                    deleteAll();
-                
+                    
                 }
-                else if (modo == 2 ) 
+                else if (modo == 2)
                 {
-                    cliente.editarCliente(cliente);
-                    dgvClientes.DataSource = cliente.atualizarDados();;
-                    fechar();
-                }
-                else if (!okCep)
-                {
-                    MessageBox.Show("Por favor, verifique o CEP informado.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    if (cliente.editarCliente(cliente))
+                    {
+                        fechar();
+                    }
+                    
+                    dgvClientes.DataSource = cliente.atualizarDados();
+                    
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Erro ao gerenciar clientes", "Erro ",MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-           
-        }
-        
-        async Task BuscarCep(string cep)
-        {
-            try
-            {
-                
-                Cursor = Cursors.WaitCursor;
-                
-                Cursor = Cursors.WaitCursor;
-                
-                BuscaCEP buscaCep = new BuscaCEP();
-                buscaCep.cep = cep;
-                buscaCep.Consultar();
-                
-                txtCidade.Text = buscaCep.cidade;
-                txtRua.Text = buscaCep.rua;
-                txtBairro.Text = buscaCep.bairro;
-                txtEstado.Text = buscaCep.estado;
-                
-                okCep = true;
-                
-                if (buscaCep.rua == null || txtRua.Text == null || txtBairro.Text == null|| txtEstado.Text == null)
-                {
-                    MessageBox.Show("Falha ao localizar CEP!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    okCep = false;
-                }
-                
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("CEP inválido!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                okCep = false;
+                MessageBox.Show("Erro ao gerenciar clientes", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {
-                
-                Cursor = Cursors.Default;
-            }
-        }
-        
-
-        private void mtbCep_Leave(object sender, EventArgs e)
-        {
-            if (!string.IsNullOrWhiteSpace(mtbCep.Text) && mtbCep.Text.Replace("-", "").Length == 8)
-            {
-                BuscarCep(mtbCep.Text);
+                btnSave.Enabled = true;
             }
         }
 
         private void btnLimpar_Click(object sender, EventArgs e)
         {
-            txtNome.Clear();
-            mtbCPF.Clear();
-            mtbTel.Clear();
-            mtbNasc.Clear();
-            mtbCep.Clear();
-            txtRua.Clear();
-            txtNumber.Clear();
-            txtCidade.Clear();
-            txtEstado.Clear();
-            txtBairro.Clear();
-            txtComp.Clear();
+            deleteAll();
         }
 
         private void btnFechar_Click(object sender, EventArgs e)
@@ -226,6 +254,6 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Clientes.ucForm
             fechar();
         }
 
-        
+        #endregion
     }
 }

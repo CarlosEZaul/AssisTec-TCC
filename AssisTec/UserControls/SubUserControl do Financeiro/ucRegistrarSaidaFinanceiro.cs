@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
@@ -8,17 +9,25 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
 {
     public partial class ucRegistrarSaidaFinanceiro : UserControl
     {
-        conexao con = new conexao();
+        private conexao con  = new conexao();
+        LancamentoFinanceiro lf = new LancamentoFinanceiro();
         private string sql;
-        MySqlCommand cmd;
+        private MySqlCommand cmd;
         DataTable dtFormaPagamento;
         private DataGridView dgv;
+        private int id;
+        private int modo;
+        private List<Label> listalabels = new List<Label>();
         
-        public ucRegistrarSaidaFinanceiro()
+        public ucRegistrarSaidaFinanceiro(DataGridView _dgv, int _id, int _modo, List<Label> _listaLabels)
         {
             InitializeComponent();
             ConfigurarCombobox();
             applyDesing();
+            dgv = _dgv;
+            id = _id;
+            modo = _modo;
+            listalabels= _listaLabels;
         }
 
         #region DesingModerno
@@ -31,6 +40,29 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
         #endregion
         
         #region metodos ou funcoes
+        private void carregarDados()
+        {
+            lf = lf.carregarContaPagar(id);
+
+            id = lf.id_lancamento;
+            txtDescricao.Text = lf.descricao;
+            txtValor.Text = lf.valor.ToString();
+            mtbDataEmissao.Text = lf.dataEmissao;
+            mtbDataPagamento.Text = lf.dataPagamento;
+            mtbDataVencimento.Text = lf.dataVencimento;
+            cbStatus.Text = lf.status;
+            cbFormaPagamento.Text = lf.pagamento.forma_pagamento;
+            txtObservacoes.Text = lf.obervacoes;
+        }
+        private void atualizarLabels()
+        {
+            var totais = lf.AtualizarTotaisPagar();
+            listalabels[0].Text = totais.totalGeral.ToString("C2");
+            listalabels[1].Text = totais.totalPago.ToString("C2");
+            listalabels[2].Text = totais.totalPendente.ToString("C2");
+            listalabels[3].Text = totais.totalAtrasado.ToString("C2");
+            
+        }
 
         private void ConfigurarCombobox()
         {
@@ -60,7 +92,10 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
             cbStatus.Items.Add("PAGA");
 
         }
-
+        private void fechar()
+        {
+            this.Hide();
+        }
         
 
         
@@ -68,44 +103,75 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
         
         #region Função dos componentes
 
-        private void fechar()
-        {
-            this.Hide();
-        }
+        
 
         
         private void btnSave_Click(object sender, EventArgs e)
         {
-            
-            try
+            if (string.IsNullOrWhiteSpace(txtValor.Text) || string.IsNullOrWhiteSpace(txtDescricao.Text) ||
+                string.IsNullOrWhiteSpace(txtDescricao.Text) ||
+                string.IsNullOrWhiteSpace(mtbDataEmissao.Text) || string.IsNullOrWhiteSpace(mtbDataVencimento.Text) ||
+                string.IsNullOrWhiteSpace(mtbDataPagamento.Text)||
+                string.IsNullOrWhiteSpace(cbStatus.Text))
             {
-                if (string.IsNullOrWhiteSpace(txtValor.Text) || string.IsNullOrWhiteSpace(txtDescricao.Text) ||
-                    string.IsNullOrWhiteSpace(txtDescricao.Text) ||
-                    string.IsNullOrWhiteSpace(mtbDataEmissao.Text) ||
-                    string.IsNullOrWhiteSpace(cbStatus.Text))
+                MessageBox.Show("Preencha todos os campos", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+                    
+            }
+
+            if (modo == 1)
+            {
+                try
                 {
-                    MessageBox.Show("Preencha todos os campos", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    lf.pagamento = new Pagamento();
+                    lf.tipo = 2;
+                    lf.valor = Convert.ToDecimal(txtValor.Text);
+                    lf.descricao = txtDescricao.Text;
+                    lf.dataEmissao = DateTime.Now.ToShortDateString();
+                    lf.dataPagamento = mtbDataPagamento.Text;
+                    lf.dataVencimento = mtbDataVencimento.Text;
+                    lf.status = cbStatus.Text;
+                    lf.obervacoes = txtObservacoes.Text;
+                    lf.pagamento.id_pagamento = Convert.ToInt32(cbFormaPagamento.SelectedValue);
+            
+            
+                    lf.SalvarSaida();
+                    dgv.DataSource = lf.atualizarContasPagar();
+                    atualizarLabels();
                 }
-                
-                LancamentoFinanceiro lf = new LancamentoFinanceiro();
-                lf.pagamento = new Pagamento();
-                lf.tipo = 2;
-                lf.valor = Convert.ToDecimal(txtValor.Text);
-                lf.descricao = txtDescricao.Text;
-                lf.dataEmissao = DateTime.Now.ToShortDateString();
-                lf.dataPagamento = mtbDataPagamento.Text;
-                lf.status = cbStatus.Text;
-                lf.obervacoes = txtObservacoes.Text;
-                lf.pagamento.id_pagamento = Convert.ToInt32(cbFormaPagamento.SelectedValue);
-            
-            
-                lf.SalvarSaida();
-                dgv.DataSource = lf.atualizarContasReceber();
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Erro ao registrar", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
-            catch (Exception ex)
+
+            if (modo ==2)
             {
-                MessageBox.Show(ex.Message, "Erro ao registrar", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                try
+                {
+                    lf.pagamento = new Pagamento();
+                    lf.tipo = 2;
+                    lf.valor = Convert.ToDecimal(txtValor.Text);
+                    lf.descricao = txtDescricao.Text;
+                    lf.dataEmissao = DateTime.Now.ToShortDateString();
+                    lf.dataPagamento = mtbDataPagamento.Text;
+                    lf.dataVencimento = mtbDataVencimento.Text;
+                    lf.status = cbStatus.Text;
+                    lf.obervacoes = txtObservacoes.Text;
+                    lf.pagamento.id_pagamento = Convert.ToInt32(cbFormaPagamento.SelectedValue);
+            
+                    
+                    lf.editarContaPagar(lf);
+                    dgv.DataSource = lf.atualizarContasPagar();
+                    atualizarLabels();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Erro ao editar saída", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    throw;
+                }   
             }
+            
             
         }
 
@@ -117,6 +183,12 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
         private void ucRegistrarEntradaFinanceiro_Load(object sender, EventArgs e)
         {
             mtbDataEmissao.Text = DateTime.Now.ToShortDateString();
+            mtbDataEmissao.Text = DateTime.Now.ToShortDateString();
+            if (modo == 2)
+            {
+                carregarDados();
+                
+            }
         }
 
 

@@ -97,21 +97,21 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
         #region Função dos componentes
         private void btnSave_Click(object sender, EventArgs e)
         {
-
+            if (string.IsNullOrWhiteSpace(txtValor.Text) || string.IsNullOrWhiteSpace(txtDescricao.Text) ||
+                string.IsNullOrWhiteSpace(txtDescricao.Text) ||
+                string.IsNullOrWhiteSpace(mtbDataEmissao.Text.Replace("/","").Trim()) ||
+                string.IsNullOrWhiteSpace(mtbDataVencimento.Text.Replace("/","").Trim())||
+                string.IsNullOrWhiteSpace(cbStatus.Text))
+            {
+                MessageBox.Show("Preencha todos os campos", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            
+            
             if (modo == 1)
             {
                 try
                 {
-                    if (string.IsNullOrWhiteSpace(txtValor.Text) || string.IsNullOrWhiteSpace(txtDescricao.Text) ||
-                        string.IsNullOrWhiteSpace(txtDescricao.Text) ||
-                        string.IsNullOrWhiteSpace(mtbDataEmissao.Text) ||
-                        string.IsNullOrWhiteSpace(mtbDataVencimento.Text)||
-                        string.IsNullOrWhiteSpace(cbStatus.Text))
-                    {
-                        MessageBox.Show("Preencha todos os campos", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                
-                
                     lf.pagamento = new Pagamento();
                     lf.tipo = 1;
                     lf.valor = Convert.ToDecimal(txtValor.Text);
@@ -122,8 +122,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
                     lf.status = cbStatus.Text;
                     lf.obervacoes = txtObservacoes.Text;
                     lf.pagamento.id_pagamento = Convert.ToInt32(cbFormaPagamento.SelectedValue);
-            
-            
+                    
                     lf.SalvarEntrada();
                     dgv.DataSource = lf.atualizarContasReceber();
                     atualizarLabels();
@@ -139,16 +138,6 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
             {
                 try
                 {
-                    if (string.IsNullOrWhiteSpace(txtValor.Text) || string.IsNullOrWhiteSpace(txtDescricao.Text) ||
-                        string.IsNullOrWhiteSpace(txtDescricao.Text) ||
-                        string.IsNullOrWhiteSpace(mtbDataEmissao.Text) ||
-                        string.IsNullOrWhiteSpace(mtbDataVencimento.Text) ||
-                        string.IsNullOrWhiteSpace(cbStatus.Text))
-                    {
-                        MessageBox.Show("Preencha todos os campos", "Aviso", MessageBoxButtons.OK,
-                            MessageBoxIcon.Warning);
-                    }
-
                     lf.descricao = txtDescricao.Text;
                     lf.valor = Convert.ToDecimal(txtValor.Text);
                     lf.status = cbStatus.SelectedItem.ToString();
@@ -161,10 +150,10 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
 
                     lf.editarContaReceber(lf);
                     
-
-
+                    
                     MessageBox.Show("Registro alterado com sucesso!", "Sucesso", MessageBoxButtons.OK,
                         MessageBoxIcon.Information);
+                    
                     dgv.DataSource = lf.atualizarContasReceber();
                     atualizarLabels();
                     fechar();

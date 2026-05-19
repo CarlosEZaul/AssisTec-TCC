@@ -147,6 +147,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios
                 cbNivel.SelectedIndex = indexNivel;
                 cbStatus.Text = usuario.Status;
                 mtbCep.Text = usuario.cep;
+                okCep = true;
                 txtRua.Text = usuario.rua;
                 txtNumber.Text = usuario.numero.ToString();
                 txtCidade.Text = usuario.cidade;
@@ -224,10 +225,17 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios
                 
                 okCep = true;
                 
-                if (buscaCep.cidade == null && buscaCep.rua == null && buscaCep.bairro == null)
+                if (string.IsNullOrWhiteSpace(buscaCep.cidade) ||
+                    string.IsNullOrWhiteSpace(buscaCep.rua) ||
+                    string.IsNullOrWhiteSpace(buscaCep.bairro))
                 {
-                    MessageBox.Show("Falha ao localizar CEP!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Falha ao localizar CEP!",
+                        "Erro",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning);
+
                     okCep = false;
+                    return;
                 }
 
                 
@@ -250,11 +258,11 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios
 
         #region botões ou componentes
 
-        private void mtbCep_Leave(object sender, EventArgs e)
+        private async void mtbCep_Leave(object sender, EventArgs e)
         {
             if (!string.IsNullOrWhiteSpace(mtbCep.Text) && mtbCep.Text.Replace("-", "").Length == 8)
             {
-                BuscarCep(mtbCep.Text);
+                 await BuscarCep(mtbCep.Text);
             }
         }
         
@@ -263,7 +271,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios
         private void btnSave_Click(object sender, EventArgs e)
         {
             
-            if(string.IsNullOrEmpty(txtNome.Text)|| string.IsNullOrEmpty(txtSenha.Text)|| !mtbCPF.MaskFull|| !mtbTel.MaskFull ||
+            if(string.IsNullOrEmpty(txtNome.Text)|| string.IsNullOrEmpty(txtSenha.Text)|| !mtbCPF.MaskFull|| !mtbTel.MaskFull || !mtbCep.MaskFull ||
                string.IsNullOrEmpty(cbNivel.Text)|| string.IsNullOrEmpty(cbStatus.Text))
             {
                 MessageBox.Show("Preencha todos os campos corretamente", "Erro", MessageBoxButtons.OK,
@@ -271,8 +279,9 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios
                 txtNome.Focus();
                 return;
             }
+            
 
-            if (okCep == false)
+            if (!okCep)
             {
                 MessageBox.Show("CEP inváldo", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;

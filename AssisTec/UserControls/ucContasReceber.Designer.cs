@@ -44,12 +44,6 @@ namespace AssisTec.UserControls
             this.txtBusca = new System.Windows.Forms.TextBox();
             this.btnBuscar = new System.Windows.Forms.Button();
             this.btnAtualizar = new System.Windows.Forms.PictureBox();
-            this.panelBotoes = new System.Windows.Forms.Panel();
-            this.btnDelete = new System.Windows.Forms.Button();
-            this.btnEditar = new System.Windows.Forms.Button();
-            this.btnRegistrar = new System.Windows.Forms.Button();
-            this.btnRecibo = new System.Windows.Forms.Button();
-            this.btnRelatorio = new System.Windows.Forms.Button();
             this.cbFormaPagamento = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -69,10 +63,15 @@ namespace AssisTec.UserControls
             this.lblRecebido = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.btnRelatorio = new System.Windows.Forms.Button();
+            this.btnRecibo = new System.Windows.Forms.Button();
+            this.btnRegistrar = new System.Windows.Forms.Button();
+            this.btnEditar = new System.Windows.Forms.Button();
+            this.btnDelete = new System.Windows.Forms.Button();
             this.btnRegistrarPagamento = new System.Windows.Forms.Button();
+            this.panelBotoes = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.dgvContasReceber)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnAtualizar)).BeginInit();
-            this.panelBotoes.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panelExibicao.SuspendLayout();
@@ -82,6 +81,7 @@ namespace AssisTec.UserControls
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            this.panelBotoes.SuspendLayout();
             this.SuspendLayout();
             // 
             // dgvContasReceber
@@ -230,103 +230,6 @@ namespace AssisTec.UserControls
             this.btnAtualizar.TabIndex = 158;
             this.btnAtualizar.TabStop = false;
             this.btnAtualizar.Click += new System.EventHandler(this.btnAtualizar_Click);
-            // 
-            // panelBotoes
-            // 
-            this.panelBotoes.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.panelBotoes.Controls.Add(this.btnRegistrarPagamento);
-            this.panelBotoes.Controls.Add(this.btnDelete);
-            this.panelBotoes.Controls.Add(this.btnEditar);
-            this.panelBotoes.Controls.Add(this.btnRegistrar);
-            this.panelBotoes.Controls.Add(this.btnRecibo);
-            this.panelBotoes.Controls.Add(this.btnRelatorio);
-            this.panelBotoes.Location = new System.Drawing.Point(370, 688);
-            this.panelBotoes.Name = "panelBotoes";
-            this.panelBotoes.Size = new System.Drawing.Size(608, 61);
-            this.panelBotoes.TabIndex = 159;
-            // 
-            // btnDelete
-            // 
-            this.btnDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnDelete.BackColor = System.Drawing.Color.RoyalBlue;
-            this.btnDelete.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnDelete.Enabled = false;
-            this.btnDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnDelete.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.btnDelete.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnDelete.Location = new System.Drawing.Point(204, 15);
-            this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(78, 33);
-            this.btnDelete.TabIndex = 104;
-            this.btnDelete.Text = "Excluir";
-            this.btnDelete.UseVisualStyleBackColor = false;
-            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
-            // 
-            // btnEditar
-            // 
-            this.btnEditar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnEditar.BackColor = System.Drawing.Color.RoyalBlue;
-            this.btnEditar.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnEditar.Enabled = false;
-            this.btnEditar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnEditar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.btnEditar.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnEditar.Location = new System.Drawing.Point(120, 15);
-            this.btnEditar.Name = "btnEditar";
-            this.btnEditar.Size = new System.Drawing.Size(78, 33);
-            this.btnEditar.TabIndex = 105;
-            this.btnEditar.Text = "Gerenciar";
-            this.btnEditar.UseVisualStyleBackColor = false;
-            this.btnEditar.Click += new System.EventHandler(this.btnEditar_Click);
-            // 
-            // btnRegistrar
-            // 
-            this.btnRegistrar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnRegistrar.BackColor = System.Drawing.Color.RoyalBlue;
-            this.btnRegistrar.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnRegistrar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnRegistrar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.btnRegistrar.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnRegistrar.Location = new System.Drawing.Point(14, 15);
-            this.btnRegistrar.Name = "btnRegistrar";
-            this.btnRegistrar.Size = new System.Drawing.Size(100, 33);
-            this.btnRegistrar.TabIndex = 99;
-            this.btnRegistrar.Text = "Registrar Entrada";
-            this.btnRegistrar.UseVisualStyleBackColor = false;
-            this.btnRegistrar.Click += new System.EventHandler(this.btnRegistrar_Click);
-            // 
-            // btnRecibo
-            // 
-            this.btnRecibo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnRecibo.BackColor = System.Drawing.Color.RoyalBlue;
-            this.btnRecibo.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnRecibo.Enabled = false;
-            this.btnRecibo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnRecibo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.btnRecibo.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnRecibo.Location = new System.Drawing.Point(507, 15);
-            this.btnRecibo.Name = "btnRecibo";
-            this.btnRecibo.Size = new System.Drawing.Size(88, 33);
-            this.btnRecibo.TabIndex = 101;
-            this.btnRecibo.Text = "Emitir Recibo";
-            this.btnRecibo.UseVisualStyleBackColor = false;
-            this.btnRecibo.Click += new System.EventHandler(this.btnRecibo_Click);
-            // 
-            // btnRelatorio
-            // 
-            this.btnRelatorio.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnRelatorio.BackColor = System.Drawing.Color.RoyalBlue;
-            this.btnRelatorio.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnRelatorio.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnRelatorio.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.btnRelatorio.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnRelatorio.Location = new System.Drawing.Point(288, 15);
-            this.btnRelatorio.Name = "btnRelatorio";
-            this.btnRelatorio.Size = new System.Drawing.Size(90, 33);
-            this.btnRelatorio.TabIndex = 103;
-            this.btnRelatorio.Text = "Gerar Relatório";
-            this.btnRelatorio.UseVisualStyleBackColor = false;
-            this.btnRelatorio.Click += new System.EventHandler(this.btnRelatorio_Click);
             // 
             // cbFormaPagamento
             // 
@@ -529,6 +432,89 @@ namespace AssisTec.UserControls
             this.pictureBox2.TabIndex = 0;
             this.pictureBox2.TabStop = false;
             // 
+            // btnRelatorio
+            // 
+            this.btnRelatorio.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnRelatorio.BackColor = System.Drawing.Color.RoyalBlue;
+            this.btnRelatorio.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnRelatorio.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRelatorio.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.btnRelatorio.ForeColor = System.Drawing.SystemColors.Control;
+            this.btnRelatorio.Location = new System.Drawing.Point(288, 15);
+            this.btnRelatorio.Name = "btnRelatorio";
+            this.btnRelatorio.Size = new System.Drawing.Size(90, 33);
+            this.btnRelatorio.TabIndex = 103;
+            this.btnRelatorio.Text = "Gerar Relatório";
+            this.btnRelatorio.UseVisualStyleBackColor = false;
+            this.btnRelatorio.Click += new System.EventHandler(this.btnRelatorio_Click);
+            // 
+            // btnRecibo
+            // 
+            this.btnRecibo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnRecibo.BackColor = System.Drawing.Color.RoyalBlue;
+            this.btnRecibo.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnRecibo.Enabled = false;
+            this.btnRecibo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRecibo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.btnRecibo.ForeColor = System.Drawing.SystemColors.Control;
+            this.btnRecibo.Location = new System.Drawing.Point(507, 15);
+            this.btnRecibo.Name = "btnRecibo";
+            this.btnRecibo.Size = new System.Drawing.Size(88, 33);
+            this.btnRecibo.TabIndex = 101;
+            this.btnRecibo.Text = "Emitir Recibo";
+            this.btnRecibo.UseVisualStyleBackColor = false;
+            this.btnRecibo.Click += new System.EventHandler(this.btnRecibo_Click);
+            // 
+            // btnRegistrar
+            // 
+            this.btnRegistrar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnRegistrar.BackColor = System.Drawing.Color.RoyalBlue;
+            this.btnRegistrar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnRegistrar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRegistrar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.btnRegistrar.ForeColor = System.Drawing.SystemColors.Control;
+            this.btnRegistrar.Location = new System.Drawing.Point(14, 15);
+            this.btnRegistrar.Name = "btnRegistrar";
+            this.btnRegistrar.Size = new System.Drawing.Size(100, 33);
+            this.btnRegistrar.TabIndex = 99;
+            this.btnRegistrar.Text = "Registrar Entrada";
+            this.btnRegistrar.UseVisualStyleBackColor = false;
+            this.btnRegistrar.Click += new System.EventHandler(this.btnRegistrar_Click);
+            // 
+            // btnEditar
+            // 
+            this.btnEditar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnEditar.BackColor = System.Drawing.Color.RoyalBlue;
+            this.btnEditar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnEditar.Enabled = false;
+            this.btnEditar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnEditar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.btnEditar.ForeColor = System.Drawing.SystemColors.Control;
+            this.btnEditar.Location = new System.Drawing.Point(120, 15);
+            this.btnEditar.Name = "btnEditar";
+            this.btnEditar.Size = new System.Drawing.Size(78, 33);
+            this.btnEditar.TabIndex = 105;
+            this.btnEditar.Text = "Gerenciar";
+            this.btnEditar.UseVisualStyleBackColor = false;
+            this.btnEditar.Click += new System.EventHandler(this.btnEditar_Click);
+            // 
+            // btnDelete
+            // 
+            this.btnDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnDelete.BackColor = System.Drawing.Color.RoyalBlue;
+            this.btnDelete.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnDelete.Enabled = false;
+            this.btnDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDelete.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.btnDelete.ForeColor = System.Drawing.SystemColors.Control;
+            this.btnDelete.Location = new System.Drawing.Point(204, 15);
+            this.btnDelete.Name = "btnDelete";
+            this.btnDelete.Size = new System.Drawing.Size(78, 33);
+            this.btnDelete.TabIndex = 104;
+            this.btnDelete.Text = "Excluir";
+            this.btnDelete.UseVisualStyleBackColor = false;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
+            // 
             // btnRegistrarPagamento
             // 
             this.btnRegistrarPagamento.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -545,6 +531,20 @@ namespace AssisTec.UserControls
             this.btnRegistrarPagamento.Text = "Registrar Pagamento";
             this.btnRegistrarPagamento.UseVisualStyleBackColor = false;
             this.btnRegistrarPagamento.Click += new System.EventHandler(this.btnRegistrarPagamento_Click);
+            // 
+            // panelBotoes
+            // 
+            this.panelBotoes.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.panelBotoes.Controls.Add(this.btnRegistrarPagamento);
+            this.panelBotoes.Controls.Add(this.btnDelete);
+            this.panelBotoes.Controls.Add(this.btnEditar);
+            this.panelBotoes.Controls.Add(this.btnRegistrar);
+            this.panelBotoes.Controls.Add(this.btnRecibo);
+            this.panelBotoes.Controls.Add(this.btnRelatorio);
+            this.panelBotoes.Location = new System.Drawing.Point(370, 688);
+            this.panelBotoes.Name = "panelBotoes";
+            this.panelBotoes.Size = new System.Drawing.Size(608, 61);
+            this.panelBotoes.TabIndex = 159;
             // 
             // ucContasReceber
             // 
@@ -572,7 +572,6 @@ namespace AssisTec.UserControls
             this.Size = new System.Drawing.Size(1175, 749);
             ((System.ComponentModel.ISupportInitialize)(this.dgvContasReceber)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnAtualizar)).EndInit();
-            this.panelBotoes.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panelExibicao.ResumeLayout(false);
@@ -582,6 +581,7 @@ namespace AssisTec.UserControls
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             this.panel3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            this.panelBotoes.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
         }
