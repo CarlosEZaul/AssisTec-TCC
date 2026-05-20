@@ -367,6 +367,7 @@ namespace AssisTec
                             con.CloseConnection();
                             dgv.DataSource = atualizarDados();
                             Task.Delay(3000);
+                            Sessao.usuarioLogado = null;
                             Application.Restart();
                             return true;
                             
