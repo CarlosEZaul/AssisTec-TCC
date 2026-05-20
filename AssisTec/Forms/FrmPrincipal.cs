@@ -28,6 +28,10 @@ namespace AssisTec
 
         private void ConfigurarPanelUsuario()
         {
+            string[] partesNome = Sessao.usuarioLogado.nome.Trim().Split(' ');
+
+            string nomeExibicao = partesNome.Length >= 2 ? $"{partesNome[0]} {partesNome[1]}" : partesNome[0];
+            
             panelUsuario = new Panel
             {
                 Dock = DockStyle.Bottom,
@@ -45,7 +49,7 @@ namespace AssisTec
 
             lblNome = new Label
             {
-                Text = $"{Sessao.usuarioLogado.nome.Split()[0]} {Sessao.usuarioLogado.nome.Split()[1]}",
+                Text = nomeExibicao,
                 ForeColor = Color.White,
                 Font = new Font("Segoe UI", 10, FontStyle.Bold),
                 Location = new Point(15, 15),
