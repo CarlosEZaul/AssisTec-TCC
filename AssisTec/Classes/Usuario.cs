@@ -390,9 +390,20 @@ namespace AssisTec
                     cmd.Parameters.AddWithValue("@nivel", nivelSelecionado);
 
                 MySqlDataReader reader = cmd.ExecuteReader();
+                
+                string pasta = Path.Combine(
+                    Environment.GetFolderPath(Environment.SpecialFolder.Desktop),
+                    "Relatório de Usuários",
+                    DateTime.Now.ToString("dd-MM-yyyy")
+                );
+                Directory.CreateDirectory(pasta);
 
-                string caminho = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop),
-                                              "Relatorio_Usuarios_" + DateTime.Now.ToString("ddMMyyyy_HHmm") + ".pdf");
+                string caminho = Path.Combine(
+                    pasta,
+                    "Relatorio_Usuarios_" +
+                    ".pdf"
+                );
+                
 
                 Document  doc    = new Document(PageSize.A4.Rotate(), 40, 40, 40, 40);
                 PdfWriter writer = PdfWriter.GetInstance(doc, new FileStream(caminho, FileMode.Create));
@@ -554,8 +565,18 @@ namespace AssisTec
                 cmd.Parameters.AddWithValue("@id", id);
                 MySqlDataReader reader = cmd.ExecuteReader();
 
-                string caminho = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop),
-                                              "Relatorio_" + tecnico.nome + "_" + DateTime.Now.ToString("ddMMyyyy_HHmm") + ".pdf");
+                string pasta = Path.Combine(
+                    Environment.GetFolderPath(Environment.SpecialFolder.Desktop),
+                    "Relatório de Técnicos",
+                    DateTime.Now.ToString("dd-MM-yyyy")
+                );
+                Directory.CreateDirectory(pasta);
+
+                string caminho = Path.Combine(
+                    pasta,
+                    "Relatorio_Cliente_" +
+                    $"{tecnico.nome}_{DateTime.Now:ddMMyyyy_HHmm}.pdf"
+                );
 
                 Document  doc    = new Document(PageSize.A4, 40, 40, 40, 40);
                 PdfWriter writer = PdfWriter.GetInstance(doc, new FileStream(caminho, FileMode.Create));

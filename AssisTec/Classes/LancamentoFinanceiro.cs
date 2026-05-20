@@ -557,9 +557,22 @@ namespace AssisTec
             try
             {
                 con.OpenConnection();
+                
+                string pasta = Path.Combine(
+                    Environment.GetFolderPath(Environment.SpecialFolder.Desktop),
+                    "Relatório de contas á receber",
+                    DateTime.Now.ToString("dd-MM-yyyy")
+                );
+                Directory.CreateDirectory(pasta);
 
-                string caminho = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop),
-                                              "Relatorio_ContasReceber_" + DateTime.Now.ToString("ddMMyyyy_HHmm") + ".pdf");
+                string caminho = Path.Combine(
+                    pasta,
+                    "Relatorio_ContasReceber_" +
+                    DateTime.Now.ToString("ddMMyyyy_HHmm") +
+                    ".pdf"
+                );
+
+                
 
                 Document  doc    = new Document(PageSize.A4.Rotate(), 40, 40, 40, 40);
                 PdfWriter writer = PdfWriter.GetInstance(doc, new FileStream(caminho, FileMode.Create));
@@ -788,15 +801,15 @@ namespace AssisTec
             
             try
             {
-                string pastaRecibos = Path.Combine(
+                string pasta = Path.Combine(
                     Environment.GetFolderPath(Environment.SpecialFolder.Desktop),
                     "Recibos",
                     DateTime.Now.ToString("dd-MM-yyyy")
                 );
-                Directory.CreateDirectory(pastaRecibos);
+                Directory.CreateDirectory(pasta);
 
                 string caminho = Path.Combine(
-                    pastaRecibos,
+                    pasta,
                     "Recibo_" +
                     conta["id_conta_receber"].ToString() + "_" +
                     DateTime.Now.ToString("ddMMyyyy_HHmm") +

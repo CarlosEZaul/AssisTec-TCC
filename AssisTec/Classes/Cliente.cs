@@ -285,8 +285,19 @@ namespace AssisTec
                 MySqlDataReader reader = cmd.ExecuteReader();
 
                 //Configurar PDF 
-                string caminho = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop),
-                                              $"Relatorio_Clientes_{DateTime.Now:ddMMyyyy_HHmm}.pdf");
+                string pasta = Path.Combine(
+                    Environment.GetFolderPath(Environment.SpecialFolder.Desktop),
+                    "Relatório de Clientes",
+                    DateTime.Now.ToString("dd-MM-yyyy")
+                );
+                Directory.CreateDirectory(pasta);
+
+                string caminho = Path.Combine(
+                    pasta,
+                    "Relatorio_Clientes_" +
+                    ".pdf"
+                );
+
 
                 Document  doc    = new Document(PageSize.A4, 40, 40, 40, 40);
                 PdfWriter writer = PdfWriter.GetInstance(doc, new FileStream(caminho, FileMode.Create));
@@ -445,8 +456,20 @@ namespace AssisTec
                 MySqlDataReader reader = cmd.ExecuteReader();
 
                 // Configurar PDF 
-                string caminho = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), 
-                                              $"Relatorio_{cliente.nome}_{DateTime.Now:ddMMyyyy_HHmm}.pdf");
+                string pasta = Path.Combine(
+                    Environment.GetFolderPath(Environment.SpecialFolder.Desktop),
+                    "Relatório de Clientes",
+                    DateTime.Now.ToString("dd-MM-yyyy")
+                );
+                Directory.CreateDirectory(pasta);
+
+                string caminho = Path.Combine(
+                    pasta,
+                    "Relatorio_Cliente_" +
+                    $"{cliente.nome}_{DateTime.Now:ddMMyyyy_HHmm}.pdf"
+                );
+
+                
 
                 Document doc     = new Document(PageSize.A4, 40, 40, 40, 40);
                 PdfWriter writer = PdfWriter.GetInstance(doc, new FileStream(caminho, FileMode.Create));
