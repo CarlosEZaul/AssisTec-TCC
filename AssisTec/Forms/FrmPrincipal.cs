@@ -11,12 +11,81 @@ namespace AssisTec
     {
         private Guna2Button botaoAtivo;
 
+        Panel panelUsuario;
+        Panel linha;
+        Label lblNome;
+        Label lblFuncao;
+        Label lblStatus;
+        Guna2Button btnLogout;
+
         public FrmPrincipal()
         {
             this.WindowState = FormWindowState.Maximized;
             InitializeComponent();
+            ConfigurarPanelUsuario();
             ConfigurarNavbar();
-            
+        }
+
+        private void ConfigurarPanelUsuario()
+        {
+            panelUsuario = new Panel
+            {
+                Dock = DockStyle.Bottom,
+                Height = 120,
+                BackColor = Color.FromArgb(35, 35, 38),
+                Padding = new Padding(10)
+            };
+
+            linha = new Panel
+            {
+                Dock = DockStyle.Top,
+                Height = 1,
+                BackColor = Color.FromArgb(60, 60, 65)
+            };
+
+            lblNome = new Label
+            {
+                Text = $"{Sessao.usuarioLogado.nome.Split()[0]} {Sessao.usuarioLogado.nome.Split()[1]}",
+                ForeColor = Color.White,
+                Font = new Font("Segoe UI", 10, FontStyle.Bold),
+                Location = new Point(15, 15),
+                AutoSize = true
+            };
+
+            lblFuncao = new Label
+            {
+                Text = ObterFuncao(Sessao.usuarioLogado.Nivel),
+                ForeColor = Color.Silver,
+                Font = new Font("Segoe UI", 9),
+                Location = new Point(15, 40),
+                AutoSize = true
+            };
+
+            lblStatus = new Label
+            {
+                Text = "● Online",
+                ForeColor = Color.LimeGreen,
+                Font = new Font("Segoe UI", 9, FontStyle.Bold),
+                Location = new Point(15, 62),
+                AutoSize = true
+            };
+
+            btnLogout = new Guna2Button
+            {
+                Animated = false,
+                Text = "↩ Logout",
+                Dock = DockStyle.Bottom,
+                Width = 30,
+                Height = 30,
+                FillColor = Color.Transparent,
+                ForeColor = Color.White,
+                Font = new Font("Segoe UI", 10, FontStyle.Bold),
+                TextAlign = HorizontalAlignment.Center,
+                TextOffset = new Point(20, 0),
+                BorderRadius = 5
+            };
+
+            btnLogout.Click += funcaoLogOut;
         }
 
         private void ConfigurarNavbar()
@@ -26,73 +95,58 @@ namespace AssisTec
             panelNavegacao.BackColor = Color.FromArgb(45, 45, 48);
 
             panelNavegacao.Controls.Clear();
-            
-            
-            //Botão Home
+
             Guna2Button btnHome = CriarBotaoMenu(
                 "🏠 Home",
-                (s, e) => AbrirUserControl(new ucHome(),s));
+                (s, e) => AbrirUserControl(new ucHome(), s));
 
-            // Botão Usuários
             Guna2Button btnUsuario = CriarBotaoMenu(
                 "👤 Usuários",
                 (s, e) => AbrirUserControl(new ucGerenciador_Usuario(), s)
             );
 
-            
-            
-            // Botão Clientes
             Guna2Button btnClientes = CriarBotaoMenu(
                 "👥 Clientes",
                 (s, e) => AbrirUserControl(new ucGerenciador_Clientes(), s)
             );
-            
-            
-            // Botão Estoque
+
             Guna2Button btnEstoque = CriarBotaoMenu(
                 "📦 Estoque",
-                (s, e) => AbrirUserControl(new ucGerenciadorEstoque() ,s)
+                (s, e) => AbrirUserControl(new ucGerenciadorEstoque(), s)
             );
-            
-            //panelNavegacao.Controls.Add(btnProdutos);
-            
-            //Botão OS
+
             Guna2Button btnPedidos = CriarBotaoMenu(
                 "📨 Ordens de Serviço",
                 (s, e) => AbrirUserControl(new ucGerenciadorOS(), s)
             );
-            
-            //Botão Contas a receber
+
             Guna2Button btnContasReceber = CriarBotaoMenu(
                 "💰 Contas a receber",
                 (s, e) => AbrirUserControl(new ucContasReceber(), s)
             );
-            
-            //Botão contas a pagar
+
             Guna2Button btnContasPagar = CriarBotaoMenu(
                 "🧾 Contas a pagar",
                 (s, e) => AbrirUserControl(new ucContasPagar(), s)
             );
-            
-            //botão backup/importar
+
             Guna2Button btnBackupImportar = CriarBotaoMenu(
                 "☁︎Backup/Importar",
                 (s, e) => AbrirUserControl(new ucBackupImportar(), s)
             );
-            
-            
-            // Logo
+
             Label lblLogo = new Label
             {
                 Text = "ASSISTEC",
-                Anchor =AnchorStyles.Top,
+                Anchor = AnchorStyles.Top,
                 Dock = DockStyle.Top,
                 Height = 80,
                 ForeColor = Color.White,
                 Font = new Font("Segoe UI", 22, FontStyle.Bold),
                 TextAlign = ContentAlignment.TopLeft,
-                Padding = new Padding(20,0,0,0),
+                Padding = new Padding(20, 0, 0, 0),
             };
+
             panelNavegacao.Controls.Add(btnBackupImportar);
             panelNavegacao.Controls.Add(btnContasPagar);
             panelNavegacao.Controls.Add(btnContasReceber);
@@ -102,6 +156,12 @@ namespace AssisTec
             panelNavegacao.Controls.Add(btnUsuario);
             panelNavegacao.Controls.Add(btnHome);
             panelNavegacao.Controls.Add(lblLogo);
+
+            panelUsuario.Controls.Add(lblNome);
+            panelUsuario.Controls.Add(lblFuncao);
+            panelUsuario.Controls.Add(lblStatus);
+            panelUsuario.Controls.Add(btnLogout);
+            panelNavegacao.Controls.Add(panelUsuario);
         }
 
         private Guna2Button CriarBotaoMenu(string texto, EventHandler eventoClick)
@@ -126,11 +186,31 @@ namespace AssisTec
             return btn;
         }
 
+        #region Usuario
+
+        private string ObterFuncao(int nivel)
+        {
+            if (nivel == 1)
+            {
+                return "Gerente";
+            }
+            else if (nivel == 2)
+            {
+                return "Atendente";
+            }
+            else
+            {
+                return "Técnico";
+            }
+        }
+
+        #endregion
+
         private void AbrirUserControl(UserControl uc, object btnSender)
         {
             AtivarBotao(btnSender);
 
-            panelConteudo.Controls.Clear(); // sempre limpa
+            panelConteudo.Controls.Clear();
 
             uc.Dock = DockStyle.Fill;
 
@@ -162,6 +242,10 @@ namespace AssisTec
             }
         }
 
-        
+        private void funcaoLogOut(Object sender, EventArgs e)
+        {
+            Sessao.usuarioLogado = null;
+            Application.Restart();
+        }
     }
 }

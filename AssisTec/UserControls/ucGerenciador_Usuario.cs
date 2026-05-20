@@ -237,9 +237,13 @@ namespace AssisTec.UserControls
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            user.deletarUsuario(id, dgvUsuarios);
-            btnDelete.Enabled = false;
-            btnEditar.Enabled = false;
+            if (user.deletarUsuario(id, dgvUsuarios))
+            {
+                btnDelete.Enabled = false;
+                btnEditar.Enabled = false;
+            }
+           
+            
         }
         
 

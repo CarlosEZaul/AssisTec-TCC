@@ -38,6 +38,15 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios
             {
                 carregarDados();
             }
+
+            if (modo == 3)
+            {
+                cbNivel.SelectedIndex = 0;
+                cbNivel.Enabled = false;
+                
+                cbStatus.SelectedIndex = 0;
+                cbStatus.Enabled = false;
+            }
             
         }
         

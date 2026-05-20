@@ -2,7 +2,9 @@
 using System.Data;
 using System.Drawing;
 using System.IO;
+using System.Threading.Tasks;
 using System.Windows.Forms;
+using AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 using MySql.Data.MySqlClient;
@@ -19,6 +21,7 @@ namespace AssisTec
         conexao con = new conexao();
         string sql;
         MySqlCommand cmd;
+        
 
         public string Senha
         {
@@ -52,19 +55,19 @@ namespace AssisTec
                 {
                     if (rs.Read())
                     {
-                        this.id          = rs.GetInt32("id_usuario");
-                        this.nome        = rs.GetString("nome");
-                        this.cpf         = rs.GetString("cpf");
-                        this.telefone    = rs.GetString("telefone");
-                        this.status      = rs.GetString("status");
-                        this.nivel       = rs.GetInt32("nivel");
-                        this.senha       = rs.GetString("senha");
-                        this.cep         = rs.GetString("cep");
-                        this.rua         = rs.GetString("rua");
-                        this.numero      = rs.GetInt32("numero");
-                        this.cidade      = rs.GetString("cidade");
-                        this.estado      = rs.GetString("estado");
-                        this.bairro      = rs.GetString("bairro");
+                        this.id  = rs.GetInt32("id_usuario");
+                        this.nome = rs.GetString("nome");
+                        this.cpf = rs.GetString("cpf");
+                        this.telefone = rs.GetString("telefone");
+                        this.status = rs.GetString("status");
+                        this.nivel = rs.GetInt32("nivel");
+                        this.senha = rs.GetString("senha");
+                        this.cep = rs.GetString("cep");
+                        this.rua = rs.GetString("rua");
+                        this.numero  = rs.GetInt32("numero");
+                        this.cidade = rs.GetString("cidade");
+                        this.estado = rs.GetString("estado");
+                        this.bairro = rs.GetString("bairro");
                         this.complemento = rs.GetString("complemento");
                     }
                 }
@@ -101,6 +104,55 @@ namespace AssisTec
                 con.CloseConnection();
                 return count > 0;
             }
+        }
+
+        public bool verificarGerentePadrao(Form form)
+        {
+            try
+            {
+                con.OpenConnection();
+                sql = "SELECT COUNT(*) FROM usuarios where nivel = 1 AND status = 'Ativo'";
+
+                using (MySqlCommand cmd =  new MySqlCommand(sql, con.con))
+                {
+                    int total = Convert.ToInt32(cmd.ExecuteScalar());
+
+                    if (total == 0)
+                    {
+                        MessageBox.Show("Nenhum gerente encontrado no sistema, faça seu cadastro!", "Primeiro Login", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        
+                        ucFormularioUsuarios ucFormularioUsuarios = new ucFormularioUsuarios(0, 3, new DataGridView());
+
+                        
+                        
+                        ucFormularioUsuarios.Disposed += (senderControl, args) =>
+                        {
+                            form.Size = new Size(751, 409);
+                        };
+                        
+                        form.Size = new Size(ucFormularioUsuarios.Width, ucFormularioUsuarios.Height + 30);
+                        ucFormularioUsuarios.BorderStyle = BorderStyle.FixedSingle;
+                        form.Controls.Add(ucFormularioUsuarios);
+                        
+                        ucFormularioUsuarios.BringToFront();
+                        ucFormularioUsuarios.Show();
+                        con.CloseConnection();
+                        return true;
+
+                    }
+                }
+                
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Falha no primeiro login: " + e.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                form.Close();
+                return false;
+                throw;
+                
+            }
+
+            return false;
         }
         
         
@@ -266,7 +318,7 @@ namespace AssisTec
             }
         }
 
-        public void deletarUsuario(int id, DataGridView dgv)
+        public bool deletarUsuario(int id, DataGridView dgv)
         {
             DialogResult result = MessageBox.Show("Deseja excluir usuário?", "Confirmar Exclusão", 
                 MessageBoxButtons.YesNo, MessageBoxIcon.Question);
@@ -280,12 +332,49 @@ namespace AssisTec
                     cmd.Parameters.AddWithValue("@id", id);
                     int osEmAndamento = Convert.ToInt32(cmd.ExecuteScalar());
                     con.CloseConnection();
-
+                    
                     if (osEmAndamento >0)
                     {
                         MessageBox.Show("Não é possivel excluir usuário com um Ordem de Serviço em andamento", "Exclusão bloqueada", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        
+                        return false;
+
                     }
+                    
+                    con.OpenConnection();
+                    sql = "SELECT COUNT(*) FROM usuarios WHERE id_usuario = @id";
+                    cmd = new MySqlCommand(sql, con.con);
+                    cmd.Parameters.AddWithValue("@id", Sessao.usuarioLogado.id);
+                    int usuarioExiste = Convert.ToInt32(cmd.ExecuteScalar());
+                    con.CloseConnection();
+
+                    if (usuarioExiste > 0)
+                    {
+                        DialogResult dialogResult = MessageBox.Show("Deseja deletar sua conta do sistema?",
+                            "Deletar usuário", MessageBoxButtons.YesNo);
+                        if (dialogResult == DialogResult.No)
+                        {
+                            MessageBox.Show("Operação cancelada!");
+                            return false;
+                        }
+
+                        if (dialogResult == DialogResult.Yes)
+                        {
+                            con.OpenConnection();
+                            sql = "DELETE FROM usuarios WHERE id_usuario = @id";
+                            cmd = new MySqlCommand(sql, con.con);
+                            cmd.Parameters.AddWithValue("@id",Sessao.usuarioLogado.id);
+                            cmd.ExecuteNonQuery();
+                            con.CloseConnection();
+                            dgv.DataSource = atualizarDados();
+                            Task.Delay(3000);
+                            Application.Restart();
+                            return true;
+                            
+                        }
+                    }
+
+                    
+                    
                 
                     con.OpenConnection();
                     sql = "DELETE FROM usuarios WHERE id_usuario = @id";
@@ -294,16 +383,18 @@ namespace AssisTec
                     cmd.ExecuteNonQuery();
                     con.CloseConnection();
                     dgv.DataSource = atualizarDados();
-                    
-                
+                    return true;
+
+
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
                     
                 }
-                
             }
+            return false;
         }
         
         //Atualiza os dados do datagridview

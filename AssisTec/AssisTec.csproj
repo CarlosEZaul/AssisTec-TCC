@@ -165,6 +165,7 @@
     <Compile Include="Classes\Pagamento.cs" />
     <Compile Include="Classes\Pessoa.cs" />
     <Compile Include="Classes\Produto.cs" />
+    <Compile Include="Classes\Sessao.cs" />
     <Compile Include="Classes\Usuario.cs" />
     <Compile Include="Connected Services\wscep\wscep.cs">
       <AutoGen>True</AutoGen>

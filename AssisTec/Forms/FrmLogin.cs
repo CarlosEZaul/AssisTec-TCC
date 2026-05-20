@@ -24,9 +24,10 @@ namespace AssisTec
         {
             
             InitializeComponent();
+            user.verificarGerentePadrao(this);
             ApplyDesing();
             mtbCPF.Focus();
-            VerificarGerentePadrão();
+            
         }
 
         #region DesingModerno
@@ -61,7 +62,7 @@ namespace AssisTec
             }
             try
             {
-                VerificarGerentePadrão();
+                user.verificarGerentePadrao(this);;
                 con.OpenConnection();
                 string cpf = mtbCPF.Text
                     .Replace(".", "")
@@ -69,7 +70,7 @@ namespace AssisTec
                     .Replace(",", "")
                     .Trim();
                 
-                sql = @"SELECT nome, senha FROM usuarios 
+                sql = @"SELECT id_usuario, nome, senha FROM usuarios 
                             WHERE REPLACE(REPLACE(REPLACE(cpf, '.', ''), '-', ''), ',', '') = @cpf";
 
                 cmd = new MySqlCommand(sql, con.con);
@@ -79,6 +80,7 @@ namespace AssisTec
 
                 if (reader.Read())
                 {
+                    int id = reader.GetInt32("id_usuario");
                     string nome = reader.GetString("nome");
                     string hashSenha = reader.GetString("senha");
 
@@ -92,6 +94,11 @@ namespace AssisTec
                         MessageBox.Show($"Bem-vindo, {nome}!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                         this.DialogResult = DialogResult.OK;
+                        user = user.carregarDados(id);
+                        Sessao.usuarioLogado = user;
+                        
+                        
+                        
                         this.Hide();
                     }
                     else
@@ -114,49 +121,6 @@ namespace AssisTec
             }
         }
 
-        #region Funções ou métodos
-
-        private void VerificarGerentePadrão()
-        {
-            try
-            {
-                con.OpenConnection();
-                sql = "SELECT COUNT(*) FROM usuarios where nivel = 1 AND status = 'Ativo'";
-
-                using (MySqlCommand cmd =  new MySqlCommand(sql, con.con))
-                {
-                    int total = Convert.ToInt32(cmd.ExecuteScalar());
-
-                    if (total == 0)
-                    {
-                        MessageBox.Show("Nenhum gerente encontrado no sistema, faça seu cadastro!", "Primeiro Login", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        ucFormularioUsuarios ucFormularioUsuarios = new ucFormularioUsuarios(0, 3, new DataGridView());
-                        
-                        ucFormularioUsuarios.Disposed += (senderControl, args) =>
-                        {
-                            this.Size = new Size(751, 409);
-                        };
-                        
-                        this.Size = new Size(ucFormularioUsuarios.Width, ucFormularioUsuarios.Height + 30);
-                        ucFormularioUsuarios.BorderStyle = BorderStyle.FixedSingle;
-                        this.Controls.Add(ucFormularioUsuarios);
-                        
-                        ucFormularioUsuarios.BringToFront();
-                        ucFormularioUsuarios.Show();
-                        
-                    }
-                }
-                con.CloseConnection();
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show("Falha no primeiro login: " + e.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                throw;
-            }
-            
-        }
         
-
-        #endregion
     }
 }
