@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using AssisTec.AtendeClienteService;
 using AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Clientes.ucFormulario_Clientes;
-using AssisTec.WhatsApp;
 using MySql.Data.MySqlClient;
 using Exception = System.Exception;
 
@@ -18,15 +17,14 @@ namespace AssisTec.UserControls
     public partial class ucGerenciador_Clientes : UserControl
     {
         conexao con = new conexao();
+        Cliente cliente = new Cliente();
         string sql;
         MySqlCommand cmd;
         private int modo;
         private int id;
         private string uf;
         private bool okCep;
-        private readonly WhatsAppService whatsApp =  new WhatsAppService();
-        
-
+ 
         public ucGerenciador_Clientes()
         {
             InitializeComponent();
@@ -137,11 +135,11 @@ namespace AssisTec.UserControls
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            Cliente cliente =  new Cliente();
-            cliente.deletarCLiente(id);
-            dgvClientes.DataSource = cliente.atualizarDados();
-            disableBtn();
-            
+            if (cliente.deletarCLiente(id))
+            {
+                dgvClientes.DataSource = cliente.atualizarDados();
+                disableBtn();
+            }
         }
 
         private void btnAtualizar_Click(object sender, EventArgs e)
@@ -225,35 +223,18 @@ namespace AssisTec.UserControls
 
         private void btnImprimir_Click(object sender, EventArgs e)
         {
-            Cliente cliente = new Cliente();
             cliente.ImprimirCliente(id);
         }
 
         private void btnRelatorio_Click(object sender, EventArgs e)
         {
-            Cliente cliente = new Cliente();
+            
             cliente.gerarRelatorioTodosClientes();
         }
 
         private async void btnContato_Click(object sender, EventArgs e)
         {
-            try
-            {
-                bool enviado = await whatsApp.EnviarMensagemPadraoAsync();
-
-                if (enviado)
-                {
-                    MessageBox.Show("Mensagem enviada com sucesso!");
-                }
-                else
-                {
-                    MessageBox.Show("Falha no enviado!");
-                }
-            }
-            catch (Exception exception)
-            {
-                MessageBox.Show("Falha no enviado! " + exception);
-            }
+            cliente.WhatsAppWeb("", "");
         }
     }
         #endregion

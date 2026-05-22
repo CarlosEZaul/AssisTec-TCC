@@ -1,6 +1,8 @@
 ﻿using System.Data;
 using System;
+using System.Diagnostics;
 using System.Linq;
+using System.Net;
 using System.Windows.Forms;
 using Mysqlx;
 
@@ -21,6 +23,31 @@ namespace AssisTec
         private string Rua;
         private int Numero;
         private string Complemento;
+        
+        public bool WhatsAppWeb(string numero, string mensagem)
+        {
+            try
+            {
+                string texto = WebUtility.UrlEncode(mensagem);
+    
+                string url = $"https://wa.me/{numero}?text={texto}";
+
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = url,
+                    UseShellExecute = true
+                });
+                
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Falha ao entrar em contato com cliente");
+                return false;
+            }
+            return false;
+           
+        }
         
         public static bool ValidarTelefone(string telefone)
         {

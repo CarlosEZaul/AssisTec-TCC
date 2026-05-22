@@ -167,8 +167,6 @@
     <Compile Include="Classes\Produto.cs" />
     <Compile Include="Classes\Sessao.cs" />
     <Compile Include="Classes\Usuario.cs" />
-    <Compile Include="Classes\WhatsApp\WhatsAppConfig.cs" />
-    <Compile Include="Classes\WhatsApp\WhatsAppService.cs" />
     <Compile Include="Connected Services\wscep\wscep.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

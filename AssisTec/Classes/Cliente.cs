@@ -191,7 +191,7 @@ namespace AssisTec
             }
         }
 
-        public void deletarCLiente(int id)
+        public bool deletarCLiente(int id)
         {
             DialogResult result = MessageBox.Show("Deseja excluir cliente?", "Confirmar Exclusão", 
                 MessageBoxButtons.YesNo, MessageBoxIcon.Question);
@@ -211,13 +211,17 @@ namespace AssisTec
                     MessageBox.Show("Cliente excluído com sucesso!", "Sucesso", 
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
                     atualizarDados();
+                    return true;
                 }
                 catch (Exception exception)
                 {
                     MessageBox.Show("Erro ao excluir cliente!\n" + exception.Message, "Erro", 
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
                 }
             }
+
+            return false;
         }
         
         public DataTable atualizarDados()
