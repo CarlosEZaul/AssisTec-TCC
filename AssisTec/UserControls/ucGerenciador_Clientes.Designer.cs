@@ -44,6 +44,7 @@ namespace AssisTec.UserControls
             this.label14 = new System.Windows.Forms.Label();
             this.btnAtualizar = new System.Windows.Forms.PictureBox();
             this.txtBusca = new System.Windows.Forms.TextBox();
+            this.btnContato = new System.Windows.Forms.Button();
             this.panelBotoes.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvClientes)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnAtualizar)).BeginInit();
@@ -52,6 +53,7 @@ namespace AssisTec.UserControls
             // panelBotoes
             // 
             this.panelBotoes.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.panelBotoes.Controls.Add(this.btnContato);
             this.panelBotoes.Controls.Add(this.btnRelatorio);
             this.panelBotoes.Controls.Add(this.btnImprimir);
             this.panelBotoes.Controls.Add(this.btnOS);
@@ -60,7 +62,7 @@ namespace AssisTec.UserControls
             this.panelBotoes.Controls.Add(this.btnDelete);
             this.panelBotoes.Location = new System.Drawing.Point(334, 685);
             this.panelBotoes.Name = "panelBotoes";
-            this.panelBotoes.Size = new System.Drawing.Size(609, 61);
+            this.panelBotoes.Size = new System.Drawing.Size(755, 61);
             this.panelBotoes.TabIndex = 146;
             // 
             // btnRelatorio
@@ -223,6 +225,21 @@ namespace AssisTec.UserControls
             this.txtBusca.TabIndex = 142;
             this.txtBusca.TextChanged += new System.EventHandler(this.txtBusca_TextChanged);
             // 
+            // btnContato
+            // 
+            this.btnContato.BackColor = System.Drawing.Color.RoyalBlue;
+            this.btnContato.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnContato.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnContato.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.btnContato.ForeColor = System.Drawing.SystemColors.Control;
+            this.btnContato.Location = new System.Drawing.Point(605, 15);
+            this.btnContato.Name = "btnContato";
+            this.btnContato.Size = new System.Drawing.Size(110, 33);
+            this.btnContato.TabIndex = 106;
+            this.btnContato.Text = "Entrar em Contato";
+            this.btnContato.UseVisualStyleBackColor = false;
+            this.btnContato.Click += new System.EventHandler(this.btnContato_Click);
+            // 
             // ucGerenciador_Clientes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -243,6 +260,8 @@ namespace AssisTec.UserControls
             this.ResumeLayout(false);
             this.PerformLayout();
         }
+
+        private System.Windows.Forms.Button btnContato;
 
         private System.Windows.Forms.Button btnRelatorio;
 
