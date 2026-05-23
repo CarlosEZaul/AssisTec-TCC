@@ -5,6 +5,9 @@ using MySql.Data.MySqlClient;
 using System.Drawing;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using AssisTec.Business;
+using AssisTec.Data;
+using AssisTec.Reports;
 using Mysqlx.Session;
 
 namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios
@@ -21,6 +24,9 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios
         private int modo;
         private DataGridView dgv;
         private Usuario usuario;
+        UsuarioRepository repository = new UsuarioRepository();
+        UsuarioService  service = new UsuarioService();
+        UsuarioRelatorio relatorio = new UsuarioRelatorio();
         
         public ucFormularioUsuarios(int _id, int _modo,  DataGridView _dgv)
         {
@@ -133,18 +139,18 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios
             try
             {
                 Usuario usuario = new Usuario();
-                usuario = usuario.carregarDados(id);
+                usuario = repository.ObterPorId(id);
                 id = usuario.id;
                 txtNome.Text = usuario.nome;
                 mtbCPF.Text = usuario.cpf;
                 txtSenha.Text = "********";
                 mtbTel.Text = usuario.telefone;
 
-                if (usuario.Nivel == 1)
+                if (usuario.nivel == 1)
                 {
                     indexNivel = 0;
                 }
-                else if (usuario.Nivel == 2)
+                else if (usuario.nivel == 2)
                 {
                     indexNivel = 1;
                 }
@@ -154,7 +160,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios
                 }
 
                 cbNivel.SelectedIndex = indexNivel;
-                cbStatus.Text = usuario.Status;
+                cbStatus.Text = usuario.status;
                 mtbCep.Text = usuario.cep;
                 okCep = true;
                 txtRua.Text = usuario.rua;
@@ -181,22 +187,19 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios
             user.nome = txtNome.Text;
             user.cpf = mtbCPF.Text;
             user.telefone = mtbTel.Text;
-            user.Senha = txtSenha.Text;
+            user.senha = txtSenha.Text;
             
             if (cbNivel.SelectedItem != null)
             {
                 string texto = cbNivel.SelectedItem.ToString();
-                user.Nivel = int.Parse(texto.Split('-')[0].Trim());
+                user.nivel = int.Parse(texto.Split('-')[0].Trim());
             }
             
             if (cbStatus.SelectedItem != null)
             {
                 string texto = cbStatus.SelectedItem.ToString();
-                user.Status = texto;
+                user.status = texto;
             }
-
-            user.Senha = txtSenha.Text;
-            
             
             user.cep = mtbCep.Text;
             user.rua = txtRua.Text;
@@ -302,33 +305,54 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios
                 Usuario user = formUsuario();
                 if (modo == 1)
                 {
-
-                    if (user.novoUsuario(user))
+                    var (sucesso, mensagem) = service.CadastrarUsuario(user);
+                    if (sucesso)
                     {
+                        MessageBox.Show(mensagem, "Sucesso", MessageBoxButtons.OK);
                         deleteAll();
                     }
-                    dgv.DataSource = user.atualizarDados();
+                    else
+                    {
+                        MessageBox.Show(mensagem, "Erro", MessageBoxButtons.OK);
+                    }
+                    
+                    dgv.DataSource = repository.ObterTodos();
                     
                 }
 
                 if (modo == 2) 
                 {
 
-                    if (user.editarUsuario(user))
+                    var (sucesso, mensagem)  =service.EditarUsuario(user);
+
+                    if (sucesso)
                     {
+                        MessageBox.Show(mensagem, "Sucesso", MessageBoxButtons.OK);
                         deleteAll();
                         fechar();
                     }
-                    dgv.DataSource = user.atualizarDados();
+                    else
+                    {
+                        MessageBox.Show(mensagem, "Erro", MessageBoxButtons.OK);
+                    }
+                    dgv.DataSource = repository.ObterTodos();
                     
                 }
 
                 if (modo == 3)
                 {
-                    if (user.novoUsuario(user))
+                    var (sucesso, mensagem)  =service.CadastrarUsuario(user);
+
+                    if (sucesso)
                     {
+                        MessageBox.Show(mensagem, "Sucesso", MessageBoxButtons.OK);
                         fechar();
                     }
+                    else
+                    {
+                        MessageBox.Show(mensagem, "Erro", MessageBoxButtons.OK);
+                    }
+                    
                 }
     
             

@@ -12,7 +12,6 @@ namespace AssisTec
         private Guna2Button botaoAtivo;
 
         Panel panelUsuario;
-        Panel linha;
         Label lblNome;
         Label lblFuncao;
         Label lblStatus;
@@ -39,14 +38,7 @@ namespace AssisTec
                 BackColor = Color.FromArgb(35, 35, 38),
                 Padding = new Padding(10)
             };
-
-            linha = new Panel
-            {
-                Dock = DockStyle.Top,
-                Height = 1,
-                BackColor = Color.FromArgb(60, 60, 65)
-            };
-
+            
             lblNome = new Label
             {
                 Text = nomeExibicao,
@@ -58,7 +50,7 @@ namespace AssisTec
 
             lblFuncao = new Label
             {
-                Text = ObterFuncao(Sessao.usuarioLogado.Nivel),
+                Text = ObterFuncao(Sessao.usuarioLogado.nivel),
                 ForeColor = Color.Silver,
                 Font = new Font("Segoe UI", 9),
                 Location = new Point(15, 40),

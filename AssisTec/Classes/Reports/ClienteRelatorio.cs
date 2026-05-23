@@ -1,252 +1,23 @@
 ﻿using System;
 using System.Data;
 using System.IO;
-using System.Text;
 using System.Windows.Forms;
-using MySql.Data.MySqlClient;
+using AssisTec.Business;
+using AssisTec.Data;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
+using MySql.Data.MySqlClient;
+using Exception = AssisTec.AtendeClienteService.Exception;
 
-namespace AssisTec
+namespace AssisTec.Reports
 {
-    public class Cliente : Pessoa
+    public class ClienteRelatorio
     {
-        private conexao con = new conexao();
-        private MySqlCommand cmd;
-        private string sql;
-
-        public Cliente carregarDados(int id)
-        {
-            try
-            {
-                con.OpenConnection();
-
-                sql = "SELECT * FROM clientes WHERE id_cliente = @id_cliente";
-                cmd = new MySqlCommand(sql, con.con);
-                cmd.Parameters.AddWithValue("@id_cliente", id);
-
-                MySqlDataReader rs = cmd.ExecuteReader();
-
-                if (rs.Read())
-                {
-                    this.id = rs.GetInt32("id_cliente");
-                    this.nome = rs.GetString("nome");
-                    this.cpf = rs.GetString("cpf");
-                    this.telefone = rs.GetString("telefone");
-                    this.dataNascimento = rs.GetDateTime("datanasc").ToString("dd/MM/yyyy");
-                    this.cep = rs.GetString("cep");
-                    this.rua = rs.GetString("rua");
-                    this.numero = Convert.ToInt32(rs.GetString("numero"));
-                    this.cidade = rs.GetString("cidade");
-                    this.estado = rs.GetString("estado");
-                    this.bairro = rs.GetString("bairro");
-                    this.complemento = rs.GetString("complemento");
-                    
-                }
-
-                rs.Close();
-                con.CloseConnection();
-                return this;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Erro ao carregar cliente!" + ex, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return null;
-            }
-        }
-
-        public bool novoCliente(Cliente cliente)
-        {
-
-            if (cliente == null)
-            {
-                MessageBox.Show("Cadastro com um campo inválido!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-
-            }
-
-            try
-            {
-                if (!ValidarCPF(cliente.cpf))
-                {
-                    MessageBox.Show("CPF inválido", "Verifique o CPF", MessageBoxButtons.OK, MessageBoxIcon.Warning );
-                    return false;
-                }
-
-                if (!ValidarTelefone(cliente.telefone))
-                {
-                    MessageBox.Show("Número de telefone inválido", "Verifique o número de telefone",
-                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return false;
-                }
-
-                con.OpenConnection();
-                sql = "SELECT COUNT(*) FROM clientes WHERE cpf=@cpf";
-                cmd = new MySqlCommand(sql, con.con);
-                cmd.Parameters.AddWithValue("@cpf", cliente.cpf);
-                int count = Convert.ToInt32(cmd.ExecuteScalar());
-                
-                if (count > 0)
-                {
-                    MessageBox.Show("Cliente já cadastrado!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    con.CloseConnection();
-                    return false;
-                }
-                else
-                {
-
-                    con.OpenConnection();
-                    sql =
-                        "insert into clientes (nome, cpf, telefone, datanasc, cep, rua, numero, cidade, estado, bairro, complemento) values (@nome, @cpf, @telefone, @datanasc, @cep, @rua, @numero, @cidade, @estado, @bairro, @complemento)";
-                    cmd = new MySqlCommand(sql, con.con);
-
-                    cmd.Parameters.AddWithValue("@nome", cliente.nome);
-                    cmd.Parameters.AddWithValue("@cpf", cliente.cpf);
-                    cmd.Parameters.AddWithValue("@telefone", cliente.telefone);
-                    cmd.Parameters.AddWithValue("@datanasc", cliente.dataNascimentoFormatada);
-                    cmd.Parameters.AddWithValue("@cep", cliente.cep);
-                    cmd.Parameters.AddWithValue("@rua", cliente.rua);
-                    cmd.Parameters.AddWithValue("@numero", cliente.numero);
-                    cmd.Parameters.AddWithValue("@cidade", cliente.cidade);
-                    cmd.Parameters.AddWithValue("@estado", cliente.estado);
-                    cmd.Parameters.AddWithValue("@bairro", cliente.bairro);
-                    cmd.Parameters.AddWithValue("@complemento", cliente.complemento);
-
-                    cmd.ExecuteNonQuery();
-                    con.CloseConnection();
-
-
-                    MessageBox.Show("Cadastrado com sucesso!", "Sucesso", MessageBoxButtons.OK,
-                        MessageBoxIcon.Information);
-                    return true;
-
-                }
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Erro ao cadastrar cliente\n" + ex.Message, "Erro", MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
-                return false;
-            }
-            
-        }
-
-        public bool editarCliente(Cliente cliente)
-        {
-
-            if (cliente == null)
-            {
-                MessageBox.Show("Tentativa de cadastro com campo inválido!", "Erro", MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
-                return false;
-            }
-            
-
-            try
-            {
-                if (!ValidarCPF(cliente.cpf))
-                {
-                    MessageBox.Show("CPF inválido", "Verifique o CPF", MessageBoxButtons.OK, MessageBoxIcon.Warning );
-                    return false;
-                }
-                if (!ValidarTelefone(cliente.telefone))
-                {
-                    MessageBox.Show("Número de telefone inválido", "Verifique o número de telefone",
-                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return false;
-                }
-                con.OpenConnection();
-                sql =
-                    "update clientes set nome=@nome, cpf=@cpf, telefone=@telefone, datanasc=@datanasc, cep=@cep, rua=@rua, numero=@numero, cidade=@cidade, estado=@estado, bairro=@bairro, complemento=@complemento where id_cliente=@id_cliente";
-
-                cmd = new MySqlCommand(sql, con.con);
-                cmd.Parameters.AddWithValue("@id_cliente", cliente.id);
-                cmd.Parameters.AddWithValue("@nome", cliente.nome);
-                cmd.Parameters.AddWithValue("@cpf", cliente.cpf);
-                cmd.Parameters.AddWithValue("@telefone", cliente.telefone);
-                cmd.Parameters.AddWithValue("@datanasc", cliente.dataNascimentoFormatada);
-                cmd.Parameters.AddWithValue("@cep", cliente.cep);
-                cmd.Parameters.AddWithValue("@rua", cliente.rua);
-                cmd.Parameters.AddWithValue("@numero", cliente.numero);
-                cmd.Parameters.AddWithValue("@cidade", cliente.cidade);
-                cmd.Parameters.AddWithValue("@estado", cliente.estado);
-                cmd.Parameters.AddWithValue("@bairro", cliente.bairro);
-                cmd.Parameters.AddWithValue("@complemento", cliente.complemento);
-
-                cmd.ExecuteNonQuery();
-                con.CloseConnection();
-
-
-
-                MessageBox.Show("Cliente editado com sucesso!", "Sucesso", MessageBoxButtons.OK,
-                    MessageBoxIcon.Information);
-                return true;
-            }
-            catch (Exception exception)
-            {
-                MessageBox.Show("Erro ao editar!\n" + exception.Message, "Erro", MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
-                return false;
-            }
-        }
-
-        public bool deletarCLiente(int id)
-        {
-            DialogResult result = MessageBox.Show("Deseja excluir cliente?", "Confirmar Exclusão", 
-                MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                
-            if (result == DialogResult.Yes)
-            {
-                try
-                {
-                    con.OpenConnection();
-                    sql = "DELETE FROM clientes WHERE id_cliente = @id";
-                    cmd = new MySqlCommand(sql, con.con);
-                    cmd.Parameters.AddWithValue("@id", id);
-                    cmd.ExecuteNonQuery();
-                    con.CloseConnection();
-                    
-                    
-                    MessageBox.Show("Cliente excluído com sucesso!", "Sucesso", 
-                        MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    atualizarDados();
-                    return true;
-                }
-                catch (Exception exception)
-                {
-                    MessageBox.Show("Erro ao excluir cliente!\n" + exception.Message, "Erro", 
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return false;
-                }
-            }
-
-            return false;
-        }
-        
-        public DataTable atualizarDados()
-        {
-            DataTable dt =  new DataTable();
-            try
-            {
-                con.OpenConnection();
-                sql = "SELECT * FROM clientes ORDER BY NOME ASC";
-                cmd = new MySqlCommand(sql, con.con);
-                MySqlDataAdapter da = new MySqlDataAdapter();
-                da.SelectCommand = cmd;
-                da.Fill(dt);
-                con.CloseConnection();
-                
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw;
-            }
-
-            return dt;
-        }
-        
+        conexao con = new conexao();
+        string sql;
+        MySqlCommand cmd;
+        ClienteService service = new ClienteService();
+        ClienteRository  repository = new ClienteRository();
         public DataTable historicoOs(int id_cliente)
         {
             DataTable dt = new DataTable();
@@ -434,7 +205,7 @@ namespace AssisTec
         public void ImprimirCliente(int id) {
             try
             {
-                Cliente cliente = carregarDados(id);
+                Cliente cliente = repository.ObterPorId(id);
 
                 con.OpenConnection();
                 sql = @"SELECT 
@@ -687,18 +458,15 @@ namespace AssisTec
 
                 doc.Close();
 
-                MessageBox.Show($"Relatório gerado com sucesso!", "Sucesso",
-                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                
 
                 // Abrir o PDF automaticamente
                 System.Diagnostics.Process.Start(caminho);
             }
             catch (Exception e)
             {
-                MessageBox.Show("Erro ao gerar relatório!\n" + e.Message, "Erro",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                throw;
             }
         }
     }
 }
-    

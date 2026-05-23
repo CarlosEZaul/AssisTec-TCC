@@ -8,6 +8,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using AssisTec.AtendeClienteService;
+using AssisTec.Business;
+using AssisTec.Data;
+using AssisTec.Reports;
 using AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Clientes.ucFormulario_Clientes;
 using MySql.Data.MySqlClient;
 using Exception = System.Exception;
@@ -18,6 +21,9 @@ namespace AssisTec.UserControls
     {
         conexao con = new conexao();
         Cliente cliente = new Cliente();
+        ClienteService service = new ClienteService();
+        ClienteRository repository = new ClienteRository();
+        ClienteRelatorio  relatorio = new ClienteRelatorio();
         string sql;
         MySqlCommand cmd;
         private int modo;
@@ -116,15 +122,7 @@ namespace AssisTec.UserControls
         {
             try
             {
-                con.OpenConnection();
-                sql = "SELECT * FROM clientes ORDER BY NOME ASC";
-                cmd = new MySqlCommand(sql, con.con);
-                MySqlDataAdapter da = new MySqlDataAdapter();
-                da.SelectCommand = cmd;
-                DataTable dt = new DataTable();
-                da.Fill(dt);
-                dgvClientes.DataSource = dt;
-                con.CloseConnection();
+                dgvClientes.DataSource = repository.ObterTodosClientes();
                 formartGrid();
             }
             catch (Exception ex)
@@ -135,11 +133,25 @@ namespace AssisTec.UserControls
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            if (cliente.deletarCLiente(id))
+            DialogResult dialogResult = MessageBox.Show("Deletar cliente?", "excluir",  MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (dialogResult == DialogResult.Yes)
             {
-                dgvClientes.DataSource = cliente.atualizarDados();
-                disableBtn();
+                var (podeExcluir, mensagem) = service.ValidarExclusao(id);
+
+                if (!podeExcluir)
+                {
+                    MessageBox.Show("Nao e possivel exluir com OS em andamento");
+                }
+                else
+                {
+                    if (service.DeletarCliente(id))
+                    {
+                        dgvClientes.DataSource = repository.ObterTodosClientes();
+                        disableBtn();
+                    }
+                }
             }
+            
         }
 
         private void btnAtualizar_Click(object sender, EventArgs e)
@@ -169,15 +181,7 @@ namespace AssisTec.UserControls
         {
             try
             {
-                con.OpenConnection();
-                sql = "SELECT * FROM clientes WHERE nome LIKE @nome ORDER BY NOME ASC";  
-                cmd = new MySqlCommand(sql, con.con);
-                cmd.Parameters.AddWithValue("@nome", txtBusca.Text + "%");
-                DataTable dt = new DataTable();
-                MySqlDataAdapter da = new MySqlDataAdapter(cmd);
-                da.Fill(dt);
-                dgvClientes.DataSource = dt;
-                con.CloseConnection();
+                dgvClientes.DataSource = repository.buscarClientes(txtBusca.Text);
                 formartGrid();
             }
             catch (Exception ex)
@@ -223,18 +227,18 @@ namespace AssisTec.UserControls
 
         private void btnImprimir_Click(object sender, EventArgs e)
         {
-            cliente.ImprimirCliente(id);
+            relatorio.ImprimirCliente(id);
         }
 
         private void btnRelatorio_Click(object sender, EventArgs e)
         {
             
-            cliente.gerarRelatorioTodosClientes();
+            relatorio.gerarRelatorioTodosClientes();
         }
 
         private async void btnContato_Click(object sender, EventArgs e)
         {
-            cliente.WhatsAppWeb("", "");
+            cliente.WhatsAppWeb("18996785479", "teste");
         }
     }
         #endregion

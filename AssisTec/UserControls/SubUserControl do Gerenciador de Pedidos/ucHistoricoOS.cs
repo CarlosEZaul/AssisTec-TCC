@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Data;
 using System.Windows.Forms;
+using AssisTec.Business;
+using AssisTec.Data;
+using AssisTec.Reports;
 using MySql.Data.MySqlClient;
 
 namespace AssisTec.UserControls
@@ -9,7 +12,12 @@ namespace AssisTec.UserControls
     {
         
         Usuario user = new Usuario();
+        UsuarioRepository repository = new UsuarioRepository();
+        UsuarioService service = new UsuarioService();
+        UsuarioRelatorio relatorio = new UsuarioRelatorio();
+        
         Cliente cliente = new Cliente();
+        
         
         public ucHistoricoOS(Pessoa pessoa, int id)
         {
@@ -41,12 +49,12 @@ namespace AssisTec.UserControls
 
         private void listGridUsuario(int id)
         {
-            dgvOS.DataSource = user.historicoOs(id);
+            dgvOS.DataSource = repository.ObterHistoricoOs(id);
         }
 
         private void listGridCliente(int id)
         {
-            dgvOS.DataSource = cliente.historicoOs(id);
+            dgvOS.DataSource = repository.ObterHistoricoOs(id);
         }
         private void btnFechar_Click(object sender, EventArgs e)
         {

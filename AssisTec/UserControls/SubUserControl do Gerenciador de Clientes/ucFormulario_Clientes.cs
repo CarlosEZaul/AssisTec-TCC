@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using AssisTec.Business;
+using AssisTec.Data;
+using AssisTec.Reports;
 using MySql.Data.MySqlClient;
 
 namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Clientes.ucFormulario_Clientes
@@ -8,6 +11,10 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Clientes.ucForm
     public partial class ucFormulario_Clientes : UserControl
     {
         conexao con = new conexao();
+        ClienteRository repositoryCliente = new ClienteRository();
+        ClienteService serviceCliente = new ClienteService();
+        ClienteRelatorio  relatorioCliente = new ClienteRelatorio();
+        
         MySqlCommand cmd;
         private string sql;
         private int id;
@@ -88,7 +95,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Clientes.ucForm
             try
             {
                 Cliente cliente = new Cliente();
-                cliente = cliente.carregarDados(id);
+                cliente = repositoryCliente.ObterPorId(id);
                 id = cliente.id;
                 txtNome.Text = cliente.nome;
                 mtbCPF.Text = cliente.cpf;
@@ -215,22 +222,35 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Clientes.ucForm
                 }
                 if (modo == 1)
                 {
-                    if (cliente.novoCliente(cliente))
+                    var (sucesso, mensagem) = serviceCliente.CadastrarCliente(cliente);
+                    if (sucesso)
                     {
-                        
+                        MessageBox.Show(mensagem, "Sucesso", MessageBoxButtons.OK);
                         deleteAll();
                     }
-                    dgvClientes.DataSource = cliente.atualizarDados();
+                    else
+                    {
+                        MessageBox.Show(mensagem, "Erro", MessageBoxButtons.OK);
+                    }
+                    
+                    dgvClientes.DataSource = repositoryCliente.ObterTodosClientes();
                     
                 }
                 else if (modo == 2)
                 {
-                    if (cliente.editarCliente(cliente))
+                    var (sucesso, mensagem)  =serviceCliente.EditarCliente(cliente);
+
+                    if (sucesso)
                     {
+                        MessageBox.Show(mensagem, "Sucesso", MessageBoxButtons.OK);
+                        deleteAll();
                         fechar();
                     }
-                    
-                    dgvClientes.DataSource = cliente.atualizarDados();
+                    else
+                    {
+                        MessageBox.Show(mensagem, "Erro", MessageBoxButtons.OK);
+                    }
+                    dgvClientes.DataSource = repositoryCliente.ObterTodosClientes();
                     
                 }
             }

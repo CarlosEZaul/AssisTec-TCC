@@ -223,7 +223,7 @@ namespace AssisTec.AtendeClienteService
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.1.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://cliente.bean.master.sigep.bsb.correios.com.br/")]
-    public partial class Exception
+    public partial class Exception : System.Exception
     {
         
         private string messageField;

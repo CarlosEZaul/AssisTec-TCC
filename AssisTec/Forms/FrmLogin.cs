@@ -1,126 +1,103 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using AssisTec.UserControls;
+using AssisTec.Business;
+using AssisTec.Data;
 using AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios;
-using MySql.Data.MySqlClient;
-
 
 namespace AssisTec
 {
     public partial class FrmLogin : Form
     {
-        conexao con = new conexao();
-        private string sql;
-        MySqlCommand cmd;
-        private Usuario user = new Usuario();
+        private readonly UsuarioService service = new UsuarioService();
+        private readonly UsuarioRepository repository = new UsuarioRepository();
+        private bool _primeiroAcessoVerificado = false;
+
         public FrmLogin()
         {
-            
             InitializeComponent();
-            user.verificarGerentePadrao(this);
             ApplyDesing();
             mtbCPF.Focus();
-            
         }
 
-        #region DesingModerno
+        // Verifica DEPOIS que o form foi carregado, não no construtor
+        private void FrmLogin_Load(object sender, EventArgs e)
+        {
+            if (!_primeiroAcessoVerificado)
+            {
+                _primeiroAcessoVerificado = true;
+                VerificarPrimeiroAcesso();
+            }
+        }
+
+        private void VerificarPrimeiroAcesso()
+        {
+            if (repository.ExisteGerenteAtivo() == false)
+            {
+                MessageBox.Show(
+                    "Nenhum gerente encontrado no sistema!\nFaça seu cadastro para começar.",
+                    "Primeiro Acesso",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
+                
+                // Esconde o form de login
+                this.Hide();
+
+                // Abre o form de cadastro de gerente
+                ucFormularioUsuarios ucFormularioUsuarios = new ucFormularioUsuarios(0, 3,null);
+                
+                this.Width = ucFormularioUsuarios.Width;
+                this.Height = ucFormularioUsuarios.Height + 20;
+                
+                this.Controls.Add(ucFormularioUsuarios);
+                ucFormularioUsuarios.BringToFront();
+                ucFormularioUsuarios.Left = (this.ClientSize.Width - ucFormularioUsuarios.Width)/2;
+                ucFormularioUsuarios.Top = (this.ClientSize.Height - ucFormularioUsuarios.Height)/2;
+                
+                ucFormularioUsuarios.Disposed += (s, ev) =>
+                {
+                    Application.Restart();
+                };
+
+                ucFormularioUsuarios.Show();
+                
+                
+            }
+        }
 
         private void ApplyDesing()
         {
             DesingComponentes.StyleButton(btnLogin, Color.FromArgb(0, 120, 215));
-           
         }
-        
-        #endregion
 
-        
         private void cbSenha_CheckedChanged(object sender, EventArgs e)
         {
-            if (cbSenha.Checked==true)
-            {
-                txtPassword.PasswordChar = '\0';
-            }
-            else
-            {
-                txtPassword.PasswordChar = '*';
-            }
+            txtPassword.PasswordChar = cbSenha.Checked ? '\0' : '*';
         }
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(mtbCPF.Text.Trim()) || string.IsNullOrWhiteSpace(txtPassword.Text))
+            var (sucesso, mensagem, usuario) = service.RealizarLogin(
+                mtbCPF.Text, 
+                txtPassword.Text
+            );
+
+            if (sucesso)
             {
-                MessageBox.Show("Preencha todos os campos.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
+                MessageBox.Show(mensagem, "Sucesso", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                Sessao.usuarioLogado = usuario;
+                this.DialogResult = DialogResult.OK;
+                this.Hide();
             }
-            try
+            else
             {
-                user.verificarGerentePadrao(this);;
-                con.OpenConnection();
-                string cpf = mtbCPF.Text
-                    .Replace(".", "")
-                    .Replace("-", "")
-                    .Replace(",", "")
-                    .Trim();
-                
-                sql = @"SELECT id_usuario, nome, senha FROM usuarios 
-                            WHERE REPLACE(REPLACE(REPLACE(cpf, '.', ''), '-', ''), ',', '') = @cpf";
-
-                cmd = new MySqlCommand(sql, con.con);
-                cmd.Parameters.AddWithValue("@cpf", cpf);
-
-                MySqlDataReader reader = cmd.ExecuteReader();
-
-                if (reader.Read())
-                {
-                    int id = reader.GetInt32("id_usuario");
-                    string nome = reader.GetString("nome");
-                    string hashSenha = reader.GetString("senha");
-
-                    reader.Close();
-                    con.CloseConnection();
-                    
-                    bool senhaValida = BCrypt.Net.BCrypt.Verify(txtPassword.Text.Trim(), hashSenha);
-
-                    if (senhaValida)
-                    {
-                        MessageBox.Show($"Bem-vindo, {nome}!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                        this.DialogResult = DialogResult.OK;
-                        user = user.carregarDados(id);
-                        Sessao.usuarioLogado = user;
-                        
-                        
-                        
-                        this.Hide();
-                    }
-                    else
-                    {
-                        MessageBox.Show("CPF ou senha inválidos.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                }
-                else
-                {
-                    reader.Close();
-                    con.CloseConnection();
-
-                    MessageBox.Show("CPF ou senha inválidos.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-            catch (Exception ex)
-            {
-                con.CloseConnection();
-                MessageBox.Show("Erro: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(mensagem, "Erro", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtPassword.Clear();
+                mtbCPF.Focus();
             }
         }
-
-        
     }
 }

@@ -29,7 +29,7 @@ namespace AssisTec.UserControls
         private MySqlCommand cmd;
         conexao con = new conexao();
         LancamentoFinanceiro lancamentoFinanceiro = new LancamentoFinanceiro();
-        DataTable dtFormaPagamento;
+        Pagamento pagamento = new Pagamento();
         private int idConta;
         private List<Label> listaLabelsTotais;
         
@@ -99,23 +99,9 @@ namespace AssisTec.UserControls
         private void configurarComboBox()
         {
             cbFormaPagamento.Items.Clear();
-            con.OpenConnection();
 
-            sql = @"SELECT id_forma_pagamento, CONCAT(descricao) AS exibicao 
-                    FROM forma_pagamento 
-                    ORDER BY descricao;";
 
-            cmd = new MySqlCommand(sql, con.con);
-            MySqlDataAdapter da = new MySqlDataAdapter(cmd);
-            dtFormaPagamento = new DataTable();
-            da.Fill(dtFormaPagamento);
-            
-            DataRow dr = dtFormaPagamento.NewRow();
-            dr["id_forma_pagamento"] = 0;
-            dr["exibicao"] = "Todas as formas de pagamento";
-            dtFormaPagamento.Rows.InsertAt(dr, 0);
-
-            cbFormaPagamento.DataSource = dtFormaPagamento;
+            cbFormaPagamento.DataSource = pagamento.carregarFormasPamento();
             cbFormaPagamento.DisplayMember = "exibicao";
             cbFormaPagamento.ValueMember = "id_forma_pagamento";
 

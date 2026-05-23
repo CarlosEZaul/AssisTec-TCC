@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Data;
 using System.Windows.Forms;
+using AssisTec.Business;
+using AssisTec.Data;
+using AssisTec.Reports;
 using MySql.Data.MySqlClient;
 
 namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
@@ -11,6 +14,12 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
         string sql;
         MySqlCommand cmd;
         private DataGridView dgvOS;
+        UsuarioRepository repositoryUsuario = new UsuarioRepository();
+        UsuarioService Usuarioservice = new UsuarioService();
+        UsuarioRelatorio Usuariorelatorio = new UsuarioRelatorio();
+        ClienteService clienteService = new ClienteService();
+        ClienteRository clienteRository = new ClienteRository();
+        ClienteRelatorio clienteRelatorio = new ClienteRelatorio();
         public ucFormularioOS(DataGridView _dgvOS)
         {
             dgvOS = _dgvOS;
@@ -83,9 +92,9 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
         private void CarregarOS()
         {
             Cliente cliente = new Cliente();
-            cliente = cliente.carregarDados(Convert.ToInt32(cbCliente.SelectedValue));
+            cliente = clienteRository.ObterPorId(Convert.ToInt32(cbCliente.SelectedValue));
             Usuario tecnico = new Usuario();
-            tecnico = tecnico.carregarDados(Convert.ToInt32(cbTecnico.SelectedValue));
+            tecnico = repositoryUsuario.ObterPorId(Convert.ToInt32(cbTecnico.SelectedValue));
             Equipamento equipamento = new Equipamento();
             
             OrdemDeServico os = new OrdemDeServico();

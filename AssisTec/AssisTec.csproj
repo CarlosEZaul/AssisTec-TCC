@@ -152,21 +152,33 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\AcaoOS.cs" />
     <Compile Include="Classes\BuscaCEP.cs" />
-    <Compile Include="Classes\Cliente.cs" />
     <Compile Include="Classes\conexao.cs" />
+    <Compile Include="Classes\Data\ClienteRository.cs" />
+    <Compile Include="Classes\Data\LancamentoFinanceiroRepository.cs" />
+    <Compile Include="Classes\Data\OrdemDeServicoRepository.cs" />
+    <Compile Include="Classes\Data\UsuarioRepository.cs" />
     <Compile Include="Classes\DesingComponentes.cs" />
-    <Compile Include="Classes\Equipamento.cs" />
-    <Compile Include="Classes\ItemOS.cs" />
-    <Compile Include="Classes\LancamentoFinanceiro.cs" />
-    <Compile Include="Classes\MovimentacaoEstoque.cs" />
-    <Compile Include="Classes\OrdemDeServico.cs" />
-    <Compile Include="Classes\Pagamento.cs" />
-    <Compile Include="Classes\Pessoa.cs" />
-    <Compile Include="Classes\Produto.cs" />
-    <Compile Include="Classes\Sessao.cs" />
-    <Compile Include="Classes\Usuario.cs" />
+    <Compile Include="Classes\Models\AcaoOS.cs" />
+    <Compile Include="Classes\Models\Cliente.cs" />
+    <Compile Include="Classes\Models\Equipamento.cs" />
+    <Compile Include="Classes\Models\ItemOS.cs" />
+    <Compile Include="Classes\Models\LancamentoFinanceiro.cs" />
+    <Compile Include="Classes\Models\MovimentacaoEstoque.cs" />
+    <Compile Include="Classes\Models\OrdemDeServico.cs" />
+    <Compile Include="Classes\Models\Pagamento.cs" />
+    <Compile Include="Classes\Models\Pessoa.cs" />
+    <Compile Include="Classes\Models\Produto.cs" />
+    <Compile Include="Classes\Models\Sessao.cs" />
+    <Compile Include="Classes\Models\Usuario.cs" />
+    <Compile Include="Classes\Reports\ClienteRelatorio.cs" />
+    <Compile Include="Classes\Reports\LancamentoFinanceiroRelatorio.cs" />
+    <Compile Include="Classes\Reports\OrdensDeServicoRelatorio.cs" />
+    <Compile Include="Classes\Reports\UsuarioRelatorio.cs" />
+    <Compile Include="Classes\Service\ClienteService.cs" />
+    <Compile Include="Classes\Service\LancamentoFinanceiroService.cs" />
+    <Compile Include="Classes\Service\OrdemDeServicoService.cs" />
+    <Compile Include="Classes\Service\UsuarioService.cs" />
     <Compile Include="Connected Services\wscep\wscep.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

@@ -8,6 +8,9 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using AssisTec.Business;
+using AssisTec.Data;
+using AssisTec.Reports;
 using AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios;
 
 namespace AssisTec.UserControls
@@ -23,7 +26,9 @@ namespace AssisTec.UserControls
         private string uf;
         private bool okCep;
         private Usuario user = new Usuario();
-        
+        UsuarioRepository repository = new UsuarioRepository();
+        UsuarioService service = new UsuarioService();
+        UsuarioRelatorio  relatorio = new UsuarioRelatorio();
         
         
         
@@ -104,7 +109,7 @@ namespace AssisTec.UserControls
         {
             try
             {
-                dgvUsuarios.DataSource = user.atualizarDados();
+                dgvUsuarios.DataSource = repository.ObterTodos();
             }
             catch (Exception ex)
             {
@@ -139,53 +144,9 @@ namespace AssisTec.UserControls
 
         private void Filtro()
         {
-            try
-            {
-                con.OpenConnection();
-
-                string sql = "SELECT * FROM usuarios WHERE 1=1";
-
-                bool filtrarNome = !string.IsNullOrWhiteSpace(txtBusca.Text);
-                bool filtrarStatus = cbInativo.Checked;
-
-                int nivelSelecionado = 0;
-                bool filtrarNivel = cbNivel.SelectedIndex > 0
-                                    && cbNivel.SelectedValue != null
-                                    && int.TryParse(cbNivel.SelectedValue.ToString(), out nivelSelecionado)
-                                    && nivelSelecionado != 0;
-
-                if (filtrarNome)
-                    sql += " AND nome LIKE @nome";
-
-                if (filtrarStatus)
-                    sql += " AND status = 'Desativado'";
-
-                if (filtrarNivel)
-                    sql += " AND nivel = @nivel";
-
-                sql += " ORDER BY nome ASC";
-
-                cmd = new MySqlCommand(sql, con.con);
-
-                if (filtrarNome)
-                    cmd.Parameters.AddWithValue("@nome", txtBusca.Text.Trim() + "%");
-
-                if (filtrarNivel)
-                    cmd.Parameters.AddWithValue("@nivel", nivelSelecionado);
-
-                DataTable dt = new DataTable();
-                MySqlDataAdapter da = new MySqlDataAdapter(cmd);
-                da.Fill(dt);
-
-                dgvUsuarios.DataSource = dt;
-
-                con.CloseConnection();
-            }
-            catch
-            {
-                MessageBox.Show("Erro ao filtrar usuários", "Erro no filtro", MessageBoxButtons.OK);
-            }
-            
+            dgvUsuarios.DataSource =
+                repository.ObterComFiltros(txtBusca.Text, cbInativo.Checked, cbNivel.SelectedIndex);
+           
         }
         
         
@@ -237,11 +198,63 @@ namespace AssisTec.UserControls
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            if (user.deletarUsuario(id, dgvUsuarios))
+            DialogResult dialogResult =
+                MessageBox.Show("Deseja excluir o usuário? ", "Excluir", MessageBoxButtons.YesNo);
+
+            var (podeExcluir, mensagem) = service.ValidarExclusao(id);
+
+            
+            
+            if (dialogResult == DialogResult.Yes)
             {
+                if (!podeExcluir)
+                {
+                    MessageBox.Show(mensagem, "Não pode excluir", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    if (Sessao.usuarioLogado.id == id)
+                    {
+                        dialogResult = MessageBox.Show("Deseja excluir a conta do sistema?", "Excluir", MessageBoxButtons.YesNo);
+                        if (dialogResult == DialogResult.Yes)
+                        {
+                            if (service.DeletarUsuario(id))
+                            {
+                                btnDelete.Enabled = false;
+                                btnEditar.Enabled = false;
+                                MessageBox.Show("Usuário deletado com sucesso", "Excluir", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                Application.Restart();
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("Operação cancelada");
+                            btnDelete.Enabled = false;
+                            btnEditar.Enabled = false;
+                        }
+                    
+                    }
+                    else
+                    {
+                        if (service.DeletarUsuario(id))
+                        {
+                            btnDelete.Enabled = false;
+                            btnEditar.Enabled = false;
+                            MessageBox.Show("Usuário deletado com sucesso", "Excluir", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            listGrid();
+                        }
+                    }
+                }
+                
+                
+            }
+            else
+            {
+                MessageBox.Show("Operação cancelada");
                 btnDelete.Enabled = false;
                 btnEditar.Enabled = false;
             }
+            
            
             
         }
@@ -293,15 +306,25 @@ namespace AssisTec.UserControls
 
         private void btnRelatorio_Click(object sender, EventArgs e)
         {
-            Usuario usuario = new Usuario();
-            usuario.gerarRelatorioTodosUsuarios(txtBusca.Text, cbInativo.Checked, int.TryParse(cbNivel.SelectedValue?.ToString(), out int n) ? n:0);
+            
+            relatorio.GerarRelatorioGeral(txtBusca.Text, cbInativo.Checked, cbNivel.SelectedIndex);
         }
 
         
 
         private void btnImprimir_Click(object sender, EventArgs e)
         {
-            user.ImprimirTecnico(id);
+            var (sucesso, mensagem, caminho) = relatorio.GerarRelatorioTecnico(id);
+            if (sucesso)
+            {
+                MessageBox.Show(mensagem);
+            }
+            else
+            {
+                MessageBox.Show(mensagem);
+            }
+            
+           
         }
 
        
