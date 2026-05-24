@@ -17,7 +17,7 @@ namespace AssisTec.Reports
         string sql;
         MySqlCommand cmd;
         ClienteService service = new ClienteService();
-        ClienteRository  repository = new ClienteRository();
+        ClienteRepository  repository = new ClienteRepository();
         public DataTable historicoOs(int id_cliente)
         {
             DataTable dt = new DataTable();

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
+using AssisTec.Data;
+using AssisTec.Reports;
 using MySql.Data.MySqlClient;
 
 namespace AssisTec.UserControls.SubUserControl_do_Financeiro
@@ -11,6 +13,10 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
     {
         private int idConta;
         LancamentoFinanceiro lf  = new LancamentoFinanceiro();
+        ContasReceber  contasReceber = new ContasReceber();
+        ContasReceberRelatorio  contasReceberRelatorio = new ContasReceberRelatorio();
+        PagamentoRepository PagamentoRepository = new PagamentoRepository();
+        ContasReceberRepositoy ContasReceberRepositoy = new ContasReceberRepositoy();
         private conexao con = new conexao();
         private string sql;
         MySqlCommand cmd;
@@ -45,14 +51,15 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
         #region Funções dos componentes
         private void btnSave_Click(object sender, EventArgs e)
         {
-            lf.registrarPagamentoEntrada(idConta, Convert.ToInt32(cbFormaPagamento.SelectedValue),
-                mtbDataPagamento.Text, dgvContasReceber);
-            var totais = lf.AtualizarTotais();
+            PagamentoRepository.registrarPagamentoEntrada(idConta, Convert.ToInt32(cbFormaPagamento.SelectedValue),
+                mtbDataPagamento.Text);
+            var totais = ContasReceberRepositoy.AtualizarTotais(contasReceber);
             listLabels[0].Text = totais.totalGeral.ToString("C2");
             listLabels[1].Text = totais.totalRecebido.ToString("C2");
             listLabels[2].Text = totais.totalPendente.ToString("C2");
             listLabels[3].Text = totais.totalAtrasado.ToString("C2");
-            lf.GerarReciboContaReceberPDF(idConta);
+            contasReceberRelatorio.GerarRecibo(idConta);
+            dgvContasReceber.DataSource = ContasReceberRepositoy.AtualizarTotais(contasReceber);
             this.Dispose();
         }
 
@@ -68,16 +75,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
         private void ConfigurarCombobox()
         {
             cbFormaPagamento.Items.Clear();
-            con.OpenConnection();
-
-            sql = @"SELECT id_forma_pagamento, CONCAT(descricao) AS exibicao 
-                    FROM forma_pagamento 
-                    ORDER BY descricao;";
-
-            cmd = new MySqlCommand(sql, con.con);
-            MySqlDataAdapter da = new MySqlDataAdapter(cmd);
-            dtFormaPagamento = new DataTable();
-            da.Fill(dtFormaPagamento);
+            dtFormaPagamento = PagamentoRepository.carregarFormasPamento();
 
             cbFormaPagamento.DataSource = dtFormaPagamento;
             cbFormaPagamento.DisplayMember = "exibicao";

@@ -14,34 +14,32 @@ namespace AssisTec
         public int id_pagamento{get;set;}
         public string forma_pagamento{get;set;}
 
-        public DataTable carregarFormasPamento()
+        
+        
+        public string DataFormatada(string DataFornecida, bool obrigatoria = true)
         {
-            try
+            if (string.IsNullOrWhiteSpace(DataFornecida))
             {
-                con.OpenConnection();
-
-                sql = @"SELECT id_forma_pagamento, CONCAT(descricao) AS exibicao 
-                    FROM forma_pagamento 
-                    ORDER BY descricao;";
-
-                cmd = new MySqlCommand(sql, con.con);
-                MySqlDataAdapter da = new MySqlDataAdapter(cmd);
-                DataTable dtFormaPagamento = new DataTable();
-                da.Fill(dtFormaPagamento);
-            
-                DataRow dr = dtFormaPagamento.NewRow();
-                dr["id_forma_pagamento"] = 0;
-                dr["exibicao"] = "Todas as formas de pagamento";
-                dtFormaPagamento.Rows.InsertAt(dr, 0);
-            
-                return dtFormaPagamento;
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show("Falha ao carregar formas de pagamento: ", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if (obrigatoria)
+                {
+                    MessageBox.Show("Data vazia!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
                 return null;
             }
-            
+
+            try
+            {
+                DateTime dataConvertida = DateTime.ParseExact(DataFornecida, "dd/MM/yyyy", null);
+                return dataConvertida.ToString("yyyy-MM-dd");
+            }
+            catch
+            {
+                if (obrigatoria)
+                {
+                    MessageBox.Show("Data inválida!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                return null;
+            }
         }
     }
 }

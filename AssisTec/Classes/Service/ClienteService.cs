@@ -4,7 +4,7 @@ namespace AssisTec.Business
 {
     public class ClienteService
     {
-        ClienteRository repository = new ClienteRository();
+        ClienteRepository repository = new ClienteRepository();
 
         public (bool sucesso, string mensagem) CadastrarCliente(Cliente cliente)
         {

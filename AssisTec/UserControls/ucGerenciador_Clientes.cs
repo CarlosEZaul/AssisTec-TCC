@@ -22,7 +22,7 @@ namespace AssisTec.UserControls
         conexao con = new conexao();
         Cliente cliente = new Cliente();
         ClienteService service = new ClienteService();
-        ClienteRository repository = new ClienteRository();
+        ClienteRepository repository = new ClienteRepository();
         ClienteRelatorio  relatorio = new ClienteRelatorio();
         string sql;
         MySqlCommand cmd;

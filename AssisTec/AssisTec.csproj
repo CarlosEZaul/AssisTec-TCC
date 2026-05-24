@@ -154,13 +154,18 @@
   <ItemGroup>
     <Compile Include="Classes\BuscaCEP.cs" />
     <Compile Include="Classes\conexao.cs" />
-    <Compile Include="Classes\Data\ClienteRository.cs" />
+    <Compile Include="Classes\Data\ClienteRepository.cs" />
+    <Compile Include="Classes\Data\ContasPagarRepository.cs" />
+    <Compile Include="Classes\Data\ContasReceberRepositoy.cs" />
     <Compile Include="Classes\Data\LancamentoFinanceiroRepository.cs" />
     <Compile Include="Classes\Data\OrdemDeServicoRepository.cs" />
+    <Compile Include="Classes\Data\PagamentoRepository.cs" />
     <Compile Include="Classes\Data\UsuarioRepository.cs" />
     <Compile Include="Classes\DesingComponentes.cs" />
     <Compile Include="Classes\Models\AcaoOS.cs" />
     <Compile Include="Classes\Models\Cliente.cs" />
+    <Compile Include="Classes\Models\ContasPagar.cs" />
+    <Compile Include="Classes\Models\ContasReceber.cs" />
     <Compile Include="Classes\Models\Equipamento.cs" />
     <Compile Include="Classes\Models\ItemOS.cs" />
     <Compile Include="Classes\Models\LancamentoFinanceiro.cs" />
@@ -172,10 +177,14 @@
     <Compile Include="Classes\Models\Sessao.cs" />
     <Compile Include="Classes\Models\Usuario.cs" />
     <Compile Include="Classes\Reports\ClienteRelatorio.cs" />
+    <Compile Include="Classes\Reports\ContasPagarRelatorio.cs" />
+    <Compile Include="Classes\Reports\ContasReceberRelatorio.cs" />
     <Compile Include="Classes\Reports\LancamentoFinanceiroRelatorio.cs" />
     <Compile Include="Classes\Reports\OrdensDeServicoRelatorio.cs" />
     <Compile Include="Classes\Reports\UsuarioRelatorio.cs" />
     <Compile Include="Classes\Service\ClienteService.cs" />
+    <Compile Include="Classes\Service\ContasPagarService.cs" />
+    <Compile Include="Classes\Service\ContasReceberService.cs" />
     <Compile Include="Classes\Service\LancamentoFinanceiroService.cs" />
     <Compile Include="Classes\Service\OrdemDeServicoService.cs" />
     <Compile Include="Classes\Service\UsuarioService.cs" />

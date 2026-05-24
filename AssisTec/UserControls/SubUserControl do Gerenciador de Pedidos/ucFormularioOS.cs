@@ -18,7 +18,7 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
         UsuarioService Usuarioservice = new UsuarioService();
         UsuarioRelatorio Usuariorelatorio = new UsuarioRelatorio();
         ClienteService clienteService = new ClienteService();
-        ClienteRository clienteRository = new ClienteRository();
+        ClienteRepository _clienteRepository = new ClienteRepository();
         ClienteRelatorio clienteRelatorio = new ClienteRelatorio();
         public ucFormularioOS(DataGridView _dgvOS)
         {
@@ -92,7 +92,7 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
         private void CarregarOS()
         {
             Cliente cliente = new Cliente();
-            cliente = clienteRository.ObterPorId(Convert.ToInt32(cbCliente.SelectedValue));
+            cliente = _clienteRepository.ObterPorId(Convert.ToInt32(cbCliente.SelectedValue));
             Usuario tecnico = new Usuario();
             tecnico = repositoryUsuario.ObterPorId(Convert.ToInt32(cbTecnico.SelectedValue));
             Equipamento equipamento = new Equipamento();

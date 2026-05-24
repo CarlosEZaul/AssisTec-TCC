@@ -11,7 +11,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Clientes.ucForm
     public partial class ucFormulario_Clientes : UserControl
     {
         conexao con = new conexao();
-        ClienteRository repositoryCliente = new ClienteRository();
+        ClienteRepository repositoryCliente = new ClienteRepository();
         ClienteService serviceCliente = new ClienteService();
         ClienteRelatorio  relatorioCliente = new ClienteRelatorio();
         

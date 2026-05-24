@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Windows.Forms;
+using AssisTec.Business;
+using AssisTec.Data;
+using AssisTec.Reports;
 using MySql.Data.MySqlClient;
 
 namespace AssisTec.UserControls.SubUserControl_do_Financeiro
@@ -9,7 +12,11 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
     public partial class ucRegistrarEntradaFinanceiro : UserControl
     {
         private conexao con  = new conexao();
-        LancamentoFinanceiro lf = new LancamentoFinanceiro();
+        PagamentoRepository pagamentoRepository = new PagamentoRepository();
+        ContasReceber contasReceber = new ContasReceber();
+        ContasReceberRepositoy ContasReceberRepositoy =  new ContasReceberRepositoy();
+        ContasReceberRelatorio contasReceberRelatorio = new ContasReceberRelatorio();
+        ContasReceberService contasReceberService = new ContasReceberService();
         private string sql;
         private MySqlCommand cmd;
         DataTable dtFormaPagamento;
@@ -33,7 +40,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
 
         private void atualizarLabels()
         {
-            var totais = lf.AtualizarTotais();
+            var totais = ContasReceberRepositoy.AtualizarTotais(contasReceber);
             listalabels[0].Text = totais.totalGeral.ToString("C2");
             listalabels[1].Text = totais.totalRecebido.ToString("C2");
             listalabels[2].Text = totais.totalPendente.ToString("C2");
@@ -78,17 +85,17 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
 
         private void carregarDados()
         {
-            lf = lf.carregarContaReceber(id);
+            contasReceber = ContasReceberRepositoy.carregarContaReceber(id);
 
-            id = lf.id_lancamento;
-            txtDescricao.Text = lf.descricao;
-            txtValor.Text = lf.valor.ToString();
-            mtbDataEmissao.Text = lf.dataEmissao;
-            mtbDataPagamento.Text = lf.dataPagamento;
-            mtbDataVencimento.Text = lf.dataVencimento;
-            cbStatus.Text = lf.status;
-            cbFormaPagamento.Text = lf.pagamento.forma_pagamento;
-            txtObservacoes.Text = lf.obervacoes;
+            id = contasReceber.id_conta;
+            txtDescricao.Text = contasReceber.descricao;
+            txtValor.Text = contasReceber.valor.ToString();
+            mtbDataEmissao.Text = contasReceber.dataEmissao;
+            mtbDataPagamento.Text = contasReceber.dataPagamento;
+            mtbDataVencimento.Text = contasReceber.dataVencimento;
+            cbStatus.Text = contasReceber.status;
+            cbFormaPagamento.Text = contasReceber.pagamento.forma_pagamento;
+            txtObservacoes.Text = contasReceber.obervacoes;
         }
 
         
@@ -112,19 +119,29 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
             {
                 try
                 {
-                    lf.pagamento = new Pagamento();
-                    lf.tipo = 1;
-                    lf.valor = Convert.ToDecimal(txtValor.Text);
-                    lf.descricao = txtDescricao.Text;
-                    lf.dataEmissao = DateTime.Now.ToShortDateString();
-                    lf.dataVencimento = mtbDataVencimento.Text;
-                    lf.dataPagamento = mtbDataPagamento.Text;
-                    lf.status = cbStatus.Text;
-                    lf.obervacoes = txtObservacoes.Text;
-                    lf.pagamento.id_pagamento = Convert.ToInt32(cbFormaPagamento.SelectedValue);
+                    contasReceber.pagamento = new Pagamento();
+                    contasReceber.tipo = 1;
+                    contasReceber.valor = Convert.ToDecimal(txtValor.Text);
+                    contasReceber.descricao = txtDescricao.Text;
+                    contasReceber.dataEmissao = DateTime.Now.ToShortDateString();
+                    contasReceber.dataVencimento = mtbDataVencimento.Text;
+                    contasReceber.dataPagamento = mtbDataPagamento.Text;
+                    contasReceber.status = cbStatus.Text;
+                    contasReceber.obervacoes = txtObservacoes.Text;
+                    contasReceber.pagamento.id_pagamento = Convert.ToInt32(cbFormaPagamento.SelectedValue);
                     
-                    lf.SalvarEntrada();
-                    dgv.DataSource = lf.atualizarContasReceber();
+                    var (sucesso, mensagem) = contasReceberService.CadastrarContasReceber(contasReceber);
+
+                    if (sucesso)
+                    {
+                        MessageBox.Show(mensagem, "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        MessageBox.Show(mensagem, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    
+                    dgv.DataSource = ContasReceberRepositoy.CarregarTodasContasReceber();
                     atualizarLabels();
                     
                 }
@@ -138,25 +155,36 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
             {
                 try
                 {
-                    lf.descricao = txtDescricao.Text;
-                    lf.valor = Convert.ToDecimal(txtValor.Text);
-                    lf.status = cbStatus.SelectedItem.ToString();
-                    lf.dataEmissao = mtbDataEmissao.Text;
-                    lf.dataVencimento = mtbDataVencimento.Text;
-                    lf.dataPagamento = mtbDataPagamento.Text;
-                    lf.obervacoes = txtObservacoes.Text;
+                    contasReceber.id_conta = id;
+                    contasReceber.pagamento = new Pagamento();
+                    contasReceber.tipo = 1;
+                    contasReceber.valor = Convert.ToDecimal(txtValor.Text);
+                    contasReceber.descricao = txtDescricao.Text;
+                    contasReceber.dataEmissao = DateTime.Now.ToShortDateString();
+                    contasReceber.dataVencimento = mtbDataVencimento.Text;
+                    contasReceber.dataPagamento = mtbDataPagamento.Text;
+                    contasReceber.status = cbStatus.Text;
+                    contasReceber.obervacoes = txtObservacoes.Text;
+                    contasReceber.pagamento.id_pagamento = Convert.ToInt32(cbFormaPagamento.SelectedValue);
 
-                    lf.pagamento = new Pagamento { id_pagamento = Convert.ToInt32(cbFormaPagamento.SelectedValue) };
+                   contasReceber.pagamento = new Pagamento { id_pagamento = Convert.ToInt32(cbFormaPagamento.SelectedValue) };
 
-                    lf.editarContaReceber(lf);
-                    
-                    
-                    MessageBox.Show("Registro alterado com sucesso!", "Sucesso", MessageBoxButtons.OK,
-                        MessageBoxIcon.Information);
-                    
-                    dgv.DataSource = lf.atualizarContasReceber();
+                   
+                   var (sucesso, mensagem) = contasReceberService.EditarContasReceber(contasReceber);
+
+                   if (sucesso)
+                   {
+                       MessageBox.Show(mensagem, "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                       fechar();
+                   }
+                   else
+                   {
+                       MessageBox.Show(mensagem, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                   }
+                   
+                    dgv.DataSource = ContasReceberRepositoy.CarregarTodasContasReceber();
                     atualizarLabels();
-                    fechar();
+                    
 
                 }
                 catch (Exception ex)

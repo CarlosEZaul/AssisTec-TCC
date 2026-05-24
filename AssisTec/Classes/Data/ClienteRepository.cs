@@ -5,7 +5,7 @@ using MySql.Data.MySqlClient;
 
 namespace AssisTec.Data
 {
-    public class ClienteRository
+    public class ClienteRepository
     {
         conexao con = new conexao();
         MySqlCommand cmd;

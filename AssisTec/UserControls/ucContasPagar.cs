@@ -4,6 +4,7 @@ using System.Data;
 using System.Drawing;
 using System.Globalization;
 using System.Windows.Forms;
+using AssisTec.Data;
 using AssisTec.UserControls.SubUserControl_do_Financeiro;
 using MySql.Data.MySqlClient;
 
@@ -28,6 +29,7 @@ namespace AssisTec.UserControls
         private string sql;
         private MySqlCommand cmd;
         conexao con = new conexao();
+        PagamentoRepository pagamentoRepository = new PagamentoRepository();
         LancamentoFinanceiro lancamentoFinanceiro = new LancamentoFinanceiro();
         Pagamento pagamento = new Pagamento();
         private int idConta;
@@ -99,11 +101,16 @@ namespace AssisTec.UserControls
         private void configurarComboBox()
         {
             cbFormaPagamento.Items.Clear();
+            DataTable dtFormaPagamento = pagamentoRepository.carregarFormasPamento();
 
-
-            cbFormaPagamento.DataSource = pagamento.carregarFormasPamento();
+            cbFormaPagamento.DataSource = dtFormaPagamento;
             cbFormaPagamento.DisplayMember = "exibicao";
             cbFormaPagamento.ValueMember = "id_forma_pagamento";
+            
+            DataRow dr = dtFormaPagamento.NewRow();
+            dr["id_forma_pagamento"] = 0;
+            dr["exibicao"] = "Todas as formas de pagamento";
+            dtFormaPagamento.Rows.InsertAt(dr, 0);
 
             cbFormaPagamento.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
             cbFormaPagamento.AutoCompleteSource = AutoCompleteSource.ListItems;

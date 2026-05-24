@@ -44,7 +44,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
         {
             lf = lf.carregarContaPagar(id);
 
-            id = lf.id_lancamento;
+            id = lf.id_conta;
             txtDescricao.Text = lf.descricao;
             txtValor.Text = lf.valor.ToString();
             mtbDataEmissao.Text = lf.dataEmissao;
