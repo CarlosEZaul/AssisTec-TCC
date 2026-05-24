@@ -9,15 +9,27 @@ namespace AssisTec.Business
 
         public (bool sucesso, string mensagem) CadastrarContasReceber(ContasReceber contasReceber)
         {
-            if (contasReceber.status == "PAGA" && string.IsNullOrWhiteSpace(contasReceber.dataPagamento.Replace("/","").Trim()))
+            if (contasReceber.status.ToUpper() == "PAGA")
             {
-                return (false, "Uma forma de pagamento deve ser selecionada");
+                if (contasReceber.pagamento == null || contasReceber.pagamento.id_pagamento <= 0)
+                {
+                    return (false, "Uma forma de pagamento deve ser selecionada");
+                }
+
+                if (string.IsNullOrWhiteSpace(contasReceber.dataPagamento.Replace("/", "").Trim()))
+                {
+                    return (false, "A data de pagamento deve ser informada para contas pagas.");
+                }
             }
 
-            if (Convert.ToDateTime(contasReceber.dataVencimento).Date < DateTime.Now)
+            if (DateTime.TryParse(contasReceber.dataVencimento, out DateTime dataVencimento))
             {
-                return (false, "A data de venciamento não pode ser menor que a data de hoje");
+                if (dataVencimento < DateTime.Now)
+                {
+                    return (false, "A data de venciamento não pode ser menor que a data de hoje");
+                }
             }
+            
             
             bool sucesso = repository.SalvarEntrada(contasReceber);
 
@@ -35,14 +47,25 @@ namespace AssisTec.Business
 
         public (bool sucesso, string mensagem) EditarContasReceber(ContasReceber contasReceber)
         {
-            if (contasReceber.status == "PAGA" && string.IsNullOrWhiteSpace(contasReceber.dataPagamento.Replace("/","").Trim()))
+            if (contasReceber.status.ToUpper() == "PAGA")
             {
-                return (false, "Uma forma de pagamento deve ser selecionada");
+                if (contasReceber.pagamento == null || contasReceber.pagamento.id_pagamento <= 0)
+                {
+                    return (false, "Uma forma de pagamento deve ser selecionada");
+                }
+
+                if (string.IsNullOrWhiteSpace(contasReceber.dataPagamento.Replace("/", "").Trim()))
+                {
+                    return (false, "A data de pagamento deve ser informada para contas pagas.");
+                }
             }
 
-            if (Convert.ToDateTime(contasReceber.dataVencimento).Date < DateTime.Now)
+            if (DateTime.TryParse(contasReceber.dataVencimento, out DateTime dataVencimento))
             {
-                return (false, "A data de venciamento não pode ser menor que a data de hoje");
+                if (dataVencimento < DateTime.Now)
+                {
+                    return (false, "A data de venciamento não pode ser menor que a data de hoje");
+                }
             }
             
             bool sucesso = repository.editarContaReceber(contasReceber);

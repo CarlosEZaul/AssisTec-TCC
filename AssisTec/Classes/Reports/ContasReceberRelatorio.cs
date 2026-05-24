@@ -44,10 +44,7 @@ namespace AssisTec.Reports
         {
             con = new conexao();
         }
-
-        // =========================
-        // MÉTODOS PÚBLICOS
-        // =========================
+        
 
         public (bool sucesso, string mensagem, string caminho)
             GerarRelatorioGeral(
@@ -98,7 +95,7 @@ namespace AssisTec.Reports
         {
             try
             {
-                DataRow conta = BuscarConta(idConta);
+                ContasReceber conta = BuscarConta(idConta);
 
                 if (conta == null)
                 {
@@ -109,10 +106,7 @@ namespace AssisTec.Reports
                     );
                 }
 
-                string status = conta["status"]
-                    .ToString()
-                    .Trim()
-                    .ToUpper();
+                string status = conta.status.Trim().ToUpper();
 
                 if (status == "ATRASADO" || status == "PENDENTE")
                 {
@@ -142,10 +136,7 @@ namespace AssisTec.Reports
                 );
             }
         }
-
-        // =========================
-        // PDF RELATÓRIO
-        // =========================
+        
 
         private string CriarPdfRelatorio(
             DataTable dados,
@@ -196,21 +187,16 @@ namespace AssisTec.Reports
 
             return caminho;
         }
+        
 
-        // =========================
-        // PDF RECIBO
-        // =========================
-
-        private string CriarPdfRecibo(
-            DataRow conta)
+        private string CriarPdfRecibo(ContasReceber conta)
         {
             string caminho = ObterCaminhoArquivo(
-                $"Recibo_{conta["id_conta_receber"]}",
+                $"Recibo_{conta.id_conta}",
                 "Recibos"
             );
 
-            // ALTERADO:
-            // Página menor e margens reduzidas
+            
             Document doc = new Document(
                 PageSize.A5,
                 25,
@@ -240,10 +226,7 @@ namespace AssisTec.Reports
 
             return caminho;
         }
-
-        // =========================
-        // CABEÇALHO RELATÓRIO
-        // =========================
+        
 
         private void AdicionarCabecalho(
             Document doc,
@@ -355,11 +338,7 @@ namespace AssisTec.Reports
 
             doc.Add(new Paragraph(" "));
         }
-
-        // =========================
-        // CABEÇALHO RECIBO
-        // =========================
-
+        
         private void AdicionarCabecalhoRecibo(
             Document doc,
             string titulo)
@@ -471,10 +450,7 @@ namespace AssisTec.Reports
 
             doc.Add(new Paragraph(" "));
         }
-
-        // =========================
-        // CARDS
-        // =========================
+        
 
         private void AdicionarCardsTotais(
             Document doc,
@@ -587,10 +563,7 @@ namespace AssisTec.Reports
             tabela.AddCell(card);
         }
 
-        // =========================
-        // TABELA
-        // =========================
-
+        
         private void AdicionarTabelaContas(
             Document doc,
             DataTable dados)
@@ -769,14 +742,11 @@ namespace AssisTec.Reports
 
             doc.Add(tabela);
         }
-
-        // =========================
-        // RECIBO
-        // =========================
+        
 
         private void AdicionarDadosRecibo(
             Document doc,
-            DataRow conta)
+            ContasReceber conta)
         {
             Font fonteTitulo = new Font(
                 Font.FontFamily.HELVETICA,
@@ -815,7 +785,7 @@ namespace AssisTec.Reports
 
             decimal valor =
                 Convert.ToDecimal(
-                    conta["valor"]
+                    conta.valor
                 );
 
             PdfPTable card =
@@ -851,7 +821,7 @@ namespace AssisTec.Reports
 
             Paragraph subtitulo =
                 new Paragraph(
-                    "Comprovante de recebimento financeiro",
+                    "Comprovante de pagamento",
                     fonteSubtitulo
                 );
 
@@ -897,7 +867,7 @@ namespace AssisTec.Reports
             AdicionarLinhaDados(
                 tabela,
                 "Descrição",
-                conta["descricao"].ToString(),
+                conta.descricao,
                 fonteLabel,
                 fonteValor
             );
@@ -905,8 +875,8 @@ namespace AssisTec.Reports
             AdicionarLinhaDados(
                 tabela,
                 "OS",
-                conta["id_os_fk"] != DBNull.Value
-                    ? conta["id_os_fk"].ToString()
+                conta.ordemDeServico.Id_os != null
+                    ? conta.ordemDeServico.Id_os.ToString()
                     : "-",
                 fonteLabel,
                 fonteValor
@@ -916,7 +886,7 @@ namespace AssisTec.Reports
                 tabela,
                 "Vencimento",
                 FormatarData(
-                    conta["data_vencimento"]
+                    conta.DataFormatada(conta.dataVencimento)
                 ),
                 fonteLabel,
                 fonteValor
@@ -926,7 +896,7 @@ namespace AssisTec.Reports
                 tabela,
                 "Pagamento",
                 FormatarData(
-                    conta["data_pagamento"]
+                    conta.DataFormatada(conta.dataPagamento)
                 ),
                 fonteLabel,
                 fonteValor
@@ -935,9 +905,8 @@ namespace AssisTec.Reports
             AdicionarLinhaDados(
                 tabela,
                 "Forma Pgto",
-                conta["forma_pagamento"] != DBNull.Value
-                    ? conta["forma_pagamento"].ToString()
-                    : "-",
+                conta.pagamento.forma_pagamento != null
+                    ? conta.pagamento.forma_pagamento : "-",
                 fonteLabel,
                 fonteValor
             );
@@ -985,16 +954,16 @@ namespace AssisTec.Reports
         // BANCO
         // =========================
 
-        private DataRow BuscarConta(int idConta)
+        private ContasReceber BuscarConta(int idConta)
         {
             ContasReceberRepositoy contasReceberRepositoy = new ContasReceberRepositoy();                                                         
             
-            DataTable dt = contasReceberRepositoy.carregarContaReceberdoBD(idConta);
+            ContasReceber contaReceber = contasReceberRepositoy.carregarContaReceber(idConta);
 
-            if (dt.Rows.Count == 0)
+            if (contaReceber is null)
                 return null;
 
-            return dt.Rows[0];
+            return contaReceber;
         }
 
         // =========================

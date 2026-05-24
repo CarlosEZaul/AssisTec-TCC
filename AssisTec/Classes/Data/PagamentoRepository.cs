@@ -25,24 +25,28 @@ namespace AssisTec.Data
                 MySqlDataAdapter da = new MySqlDataAdapter(cmd);
                 DataTable dtFormaPagamento = new DataTable();
                 da.Fill(dtFormaPagamento);
-            
-                
-            
+
+
+
                 return dtFormaPagamento;
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                MessageBox.Show("Falha ao carregar formas de pagamento: ", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                throw new Exception("Erro ao carregar formas de pagamento", ex);
                 return null;
+            }
+            finally
+            {
+                con.CloseConnection();
             }
             
         }
         
-        public bool registrarPagamentoEntrada(int id, int foma_pagamento, string data_pagamento)
+        public bool registrarPagamentoEntrada(Pagamento pagamento, ContasReceber contasReceber)
         {
             try
             {
-                Pagamento pagamento = new Pagamento();
+                
                 con.OpenConnection();
                 sql = @"UPDATE contas_receber SET 
                           data_pagamento = @data_pagamento,
@@ -52,18 +56,22 @@ namespace AssisTec.Data
                 
                 cmd = new MySqlCommand(sql, con.con);
                 
-                cmd.Parameters.AddWithValue("@id", id);
-                cmd.Parameters.AddWithValue("@data_pagamento", pagamento.DataFormatada(data_pagamento) ?? (object)DBNull.Value);
-                cmd.Parameters.AddWithValue("@id_forma_pagamento_fk", foma_pagamento);
+                cmd.Parameters.AddWithValue("@id", contasReceber.id_conta);
+                cmd.Parameters.AddWithValue("@data_pagamento", pagamento.DataFormatada(pagamento.data_pagamento) ?? (object)DBNull.Value);
+                cmd.Parameters.AddWithValue("@id_forma_pagamento_fk", pagamento.id_pagamento);
                 
                 cmd.ExecuteNonQuery();
-                con.CloseConnection();
+                
                 
                 return true;
             }
             catch (Exception ex)
             {
+                return false;
                 throw;
+            }
+            finally{
+                con.CloseConnection();
             }
             
         }

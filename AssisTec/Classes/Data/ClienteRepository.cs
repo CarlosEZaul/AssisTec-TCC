@@ -19,32 +19,33 @@ namespace AssisTec.Data
                 sql = "SELECT * FROM clientes WHERE id_cliente = @id_cliente";
                 cmd = new MySqlCommand(sql, con.con);
                 cmd.Parameters.AddWithValue("@id_cliente", id);
-
-                MySqlDataReader rs = cmd.ExecuteReader();
-
-                if (rs.Read())
+                using (MySqlDataReader rs = cmd.ExecuteReader())
                 {
-                    return new Cliente()
+                    if (rs.Read())
                     {
-                        id = rs.GetInt32("id_cliente"),
-                        nome = rs.GetString("nome"),
-                        cpf = rs.GetString("cpf"),
-                        telefone = rs.GetString("telefone"),
-                        dataNascimento = rs.GetDateTime("datanasc").ToString("dd/MM/yyyy"),
-                        cep = rs.GetString("cep"),
-                        rua = rs.GetString("rua"),
-                        numero = Convert.ToInt32(rs.GetString("numero")),
-                        cidade = rs.GetString("cidade"),
-                        estado = rs.GetString("estado"),
-                        bairro = rs.GetString("bairro"),
-                        complemento = rs.GetString("complemento"),
-                    };
+                        return new Cliente()
+                        {
+                            id = rs.GetInt32("id_cliente"),
+                            nome = rs.GetString("nome"),
+                            cpf = rs.GetString("cpf"),
+                            telefone = rs.GetString("telefone"),
+                            dataNascimento = rs.GetDateTime("datanasc").ToString("dd/MM/yyyy"),
+                            cep = rs.GetString("cep"),
+                            rua = rs.GetString("rua"),
+                            numero = Convert.ToInt32(rs.GetString("numero")),
+                            cidade = rs.GetString("cidade"),
+                            estado = rs.GetString("estado"),
+                            bairro = rs.GetString("bairro"),
+                            complemento = rs.GetString("complemento"),
+                        };
+                    }
                 }
+         
                 return null;
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Erro ao carregar cliente!" + ex, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                throw new Exception("Erro ao carregar cliente .", ex);
                 return null;
             }
             finally
@@ -64,13 +65,17 @@ namespace AssisTec.Data
                 MySqlDataAdapter da = new MySqlDataAdapter();
                 da.SelectCommand = cmd;
                 da.Fill(dt);
-                con.CloseConnection();
+                
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Erro ao carregar clientes .", ex);
                 
             }
-            catch (Exception e)
+            finally
             {
-                Console.WriteLine(e);
-                throw;
+                con.CloseConnection();
             }
 
             return dt;
@@ -81,7 +86,7 @@ namespace AssisTec.Data
             try
             {
                 con.OpenConnection();
-                
+
                 string sql = "SELECT COUNT(*) FROM usuarios WHERE cpf = @cpf";
                 if (ignorarId.HasValue)
                     sql += " AND id_usuario <> @id";
@@ -95,6 +100,10 @@ namespace AssisTec.Data
                     int count = Convert.ToInt32(cmd.ExecuteScalar());
                     return count > 0;
                 }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Erro ao verificar se CPF existe", ex);
             }
             finally
             {
@@ -116,9 +125,9 @@ namespace AssisTec.Data
                 con.CloseConnection();
                 return dt;
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                MessageBox.Show("Falha ao buscar cliente", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                throw new Exception("Falha ao buscar clientes", ex);
                 return null;
             }
         }
@@ -220,6 +229,43 @@ namespace AssisTec.Data
                 con.CloseConnection();
             }
             
+        }
+        
+        public DataTable ObterHistoricoOs(int idCliente)
+        {
+            try
+            {
+                con.OpenConnection();
+
+                string sql = @"SELECT 
+                    os.id_os, c.nome AS nome_cliente, u.nome AS nome_tecnico,
+                    e.descricao AS descricao_equipamento, os.status, os.data_abertura,
+                    os.data_fechamento, os.valor_mao_obra, os.valor_pecas, os.valor_total,
+                    os.problema_relatado, os.diagnostico, os.observacoes
+                FROM ordem_servico os
+                LEFT JOIN clientes c ON c.id_cliente = os.id_cliente
+                LEFT JOIN usuarios u ON u.id_usuario = os.id_tecnico
+                LEFT JOIN equipamentos e ON e.id_equipamento = os.id_equipamento
+                WHERE os.id_cliente = @id";
+
+                MySqlCommand cmd = new MySqlCommand(sql, con.con);
+
+                cmd.Parameters.AddWithValue("@id", idCliente);
+
+                DataTable dt = new DataTable();
+                MySqlDataAdapter da = new MySqlDataAdapter(cmd);
+                da.Fill(dt);
+                return dt;
+
+            }
+            catch(Exception ex)
+            {
+                throw new Exception("Falha ao carregar histórico", ex);
+            }
+            finally
+            {
+                con.CloseConnection();
+            }
         }
         
         public int ContarOsEmAndamento(int idCliente)

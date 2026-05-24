@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
+using AssisTec.Business;
 using AssisTec.Data;
 using AssisTec.Reports;
 using MySql.Data.MySqlClient;
@@ -12,10 +13,11 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
     public partial class ucRegistrarPagamento : UserControl
     {
         private int idConta;
-        LancamentoFinanceiro lf  = new LancamentoFinanceiro();
+        Pagamento pagamento =  new Pagamento();
         ContasReceber  contasReceber = new ContasReceber();
         ContasReceberRelatorio  contasReceberRelatorio = new ContasReceberRelatorio();
         PagamentoRepository PagamentoRepository = new PagamentoRepository();
+        PagamentoService  pagamentoService = new PagamentoService();
         ContasReceberRepositoy ContasReceberRepositoy = new ContasReceberRepositoy();
         private conexao con = new conexao();
         private string sql;
@@ -51,15 +53,20 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
         #region Funções dos componentes
         private void btnSave_Click(object sender, EventArgs e)
         {
-            PagamentoRepository.registrarPagamentoEntrada(idConta, Convert.ToInt32(cbFormaPagamento.SelectedValue),
-                mtbDataPagamento.Text);
+            pagamento.id_pagamento = Convert.ToInt32(cbFormaPagamento.SelectedValue);
+            pagamento.data_pagamento = mtbDataPagamento.Text;
+            contasReceber.id_conta = idConta;
+            pagamentoService.RegistrarPagamentoEntrada(pagamento, contasReceber);
+            
             var totais = ContasReceberRepositoy.AtualizarTotais(contasReceber);
             listLabels[0].Text = totais.totalGeral.ToString("C2");
             listLabels[1].Text = totais.totalRecebido.ToString("C2");
             listLabels[2].Text = totais.totalPendente.ToString("C2");
             listLabels[3].Text = totais.totalAtrasado.ToString("C2");
+            
             contasReceberRelatorio.GerarRecibo(idConta);
-            dgvContasReceber.DataSource = ContasReceberRepositoy.AtualizarTotais(contasReceber);
+            
+            dgvContasReceber.DataSource = ContasReceberRepositoy.CarregarTodasContasReceber();
             this.Dispose();
         }
 

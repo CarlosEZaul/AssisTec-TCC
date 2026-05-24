@@ -179,7 +179,6 @@
     <Compile Include="Classes\Reports\ClienteRelatorio.cs" />
     <Compile Include="Classes\Reports\ContasPagarRelatorio.cs" />
     <Compile Include="Classes\Reports\ContasReceberRelatorio.cs" />
-    <Compile Include="Classes\Reports\LancamentoFinanceiroRelatorio.cs" />
     <Compile Include="Classes\Reports\OrdensDeServicoRelatorio.cs" />
     <Compile Include="Classes\Reports\UsuarioRelatorio.cs" />
     <Compile Include="Classes\Service\ClienteService.cs" />
@@ -187,6 +186,7 @@
     <Compile Include="Classes\Service\ContasReceberService.cs" />
     <Compile Include="Classes\Service\LancamentoFinanceiroService.cs" />
     <Compile Include="Classes\Service\OrdemDeServicoService.cs" />
+    <Compile Include="Classes\Service\PagamentoService.cs" />
     <Compile Include="Classes\Service\UsuarioService.cs" />
     <Compile Include="Connected Services\wscep\wscep.cs">
       <AutoGen>True</AutoGen>

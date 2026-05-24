@@ -3,7 +3,7 @@ using System.Data;
 using System.Globalization;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
-using Exception = AssisTec.AtendeClienteService.Exception;
+
 
 namespace AssisTec.Data
 {
@@ -38,57 +38,66 @@ namespace AssisTec.Data
                         ON cr.id_os_fk = os.id_os
                     WHERE cr.id_conta_receber = @id;";
 
-                cmd = new MySqlCommand(sql, con.con);
-                cmd.Parameters.AddWithValue("@id", id);
-
-                MySqlDataReader rs = cmd.ExecuteReader();
-
-                if (rs.Read())
+                
+                using (cmd = new MySqlCommand(sql, con.con))
                 {
-                    return new ContasReceber()
+                    cmd.Parameters.AddWithValue("@id", id);
+                    using ( MySqlDataReader rs = cmd.ExecuteReader())
                     {
-                        id_conta = rs.GetInt32("id_conta_receber"),
-                        descricao = rs.GetString("descricao"),
-                        valor = rs.GetDecimal("valor"),
-
-                        dataEmissao = rs.IsDBNull(rs.GetOrdinal("data_emissao"))
-                            ? ""
-                            : rs.GetDateTime("data_emissao").ToString("dd/MM/yyyy"),
-                        dataPagamento = rs.IsDBNull(rs.GetOrdinal("data_pagamento"))
-                            ? ""
-                            : rs.GetDateTime("data_pagamento").ToString("dd/MM/yyyy"),
-                        dataVencimento = rs.IsDBNull(rs.GetOrdinal("data_vencimento"))
-                            ? ""
-                            : rs.GetDateTime("data_vencimento").ToString("dd/MM/yyyy"),
-
-                        status = rs.GetString("status"),
-                        obervacoes = rs.IsDBNull(rs.GetOrdinal("observacoes")) ? "" : rs.GetString("observacoes"),
-
-                        ordemDeServico = new OrdemDeServico
+                        if (rs.Read())
                         {
-                            Id_os = rs.IsDBNull(rs.GetOrdinal("id_os")) ? 0 : rs.GetInt32("id_os"),
-                        },
+                            return new ContasReceber()
+                            {
+                                id_conta = rs.GetInt32("id_conta_receber"),
+                                descricao = rs.GetString("descricao"),
+                                valor = rs.GetDecimal("valor"),
 
-                        pagamento = new Pagamento
-                        {
-                            id_pagamento = rs.IsDBNull(rs.GetOrdinal("id_forma_pagamento"))
-                                ? 0
-                                : rs.GetInt32("id_forma_pagamento"),
-                            forma_pagamento = rs.IsDBNull(rs.GetOrdinal("forma_pagamento"))
-                                ? ""
-                                : rs.GetString("forma_pagamento")
+                                dataEmissao = rs.IsDBNull(rs.GetOrdinal("data_emissao"))
+                                    ? ""
+                                    : rs.GetDateTime("data_emissao").ToString("dd/MM/yyyy"),
+                                dataPagamento = rs.IsDBNull(rs.GetOrdinal("data_pagamento"))
+                                    ? ""
+                                    : rs.GetDateTime("data_pagamento").ToString("dd/MM/yyyy"),
+                                dataVencimento = rs.IsDBNull(rs.GetOrdinal("data_vencimento"))
+                                    ? ""
+                                    : rs.GetDateTime("data_vencimento").ToString("dd/MM/yyyy"),
+
+                                status = rs.GetString("status"),
+                                obervacoes = rs.IsDBNull(rs.GetOrdinal("observacoes")) ? "" : rs.GetString("observacoes"),
+
+                                ordemDeServico = new OrdemDeServico
+                                {
+                                    Id_os = rs.IsDBNull(rs.GetOrdinal("id_os")) ? 0 : rs.GetInt32("id_os"),
+                                },
+
+                                pagamento = new Pagamento
+                                {
+                                    id_pagamento = rs.IsDBNull(rs.GetOrdinal("id_forma_pagamento"))
+                                        ? 0
+                                        : rs.GetInt32("id_forma_pagamento"),
+                                    forma_pagamento = rs.IsDBNull(rs.GetOrdinal("forma_pagamento"))
+                                        ? ""
+                                        : rs.GetString("forma_pagamento")
+                                },
+                        
+
+                            };
+                    
                         }
-
-                    };
+                    }
                 }
+                
             }
             catch (Exception ex)
             {
-                return null;
+                throw new Exception("Falha crítica carregar conta.", ex);
+                
             }
             finally
             {
+                
                 con.CloseConnection();
+                
             }
             return null;
         }
@@ -130,7 +139,7 @@ namespace AssisTec.Data
             }
             catch (Exception ex)
             {
-                return dt;
+                throw new Exception("Falha crítica ao ler as contas a receber do banco de dados.", ex);
             }
             finally
             {
@@ -176,7 +185,7 @@ namespace AssisTec.Data
             }
             catch (Exception e)
             {
-                return true;
+                return false;
             }
             finally
             {
@@ -208,20 +217,28 @@ namespace AssisTec.Data
                 cmd.Parameters.AddWithValue("@valor", contasReceber.valor);
                 cmd.Parameters.AddWithValue("@status", contasReceber.status);
                 cmd.Parameters.AddWithValue("@observacoes", contasReceber.obervacoes);
-                cmd.Parameters.AddWithValue("@idFormaPagamento", contasReceber.pagamento != null ? contasReceber.pagamento.id_pagamento : (object)DBNull.Value);
-                cmd.Parameters.AddWithValue("@dataEmissao", contasReceber.DataFormatada(contasReceber.dataEmissao) ?? (object)DBNull.Value);
-                cmd.Parameters.AddWithValue("@dataVencimento", contasReceber.DataFormatada(contasReceber.dataVencimento) ?? (object)DBNull.Value);
-                cmd.Parameters.AddWithValue("@dataPagamento",  contasReceber.DataFormatada(contasReceber.dataPagamento, false) ?? (object)DBNull.Value);
+                cmd.Parameters.AddWithValue("@idFormaPagamento",
+                    contasReceber.pagamento != null ? contasReceber.pagamento.id_pagamento : (object)DBNull.Value);
+                cmd.Parameters.AddWithValue("@dataEmissao",
+                    contasReceber.DataFormatada(contasReceber.dataEmissao) ?? (object)DBNull.Value);
+                cmd.Parameters.AddWithValue("@dataVencimento",
+                    contasReceber.DataFormatada(contasReceber.dataVencimento) ?? (object)DBNull.Value);
+                cmd.Parameters.AddWithValue("@dataPagamento",
+                    contasReceber.DataFormatada(contasReceber.dataPagamento, false) ?? (object)DBNull.Value);
 
                 cmd.ExecuteNonQuery();
-                con.CloseConnection();
+
 
                 return true;
             }
             catch (Exception ex)
             {
-                
+
                 return false;
+            }
+            finally
+            {
+                con.CloseConnection();
             }
         }
         
@@ -267,7 +284,7 @@ namespace AssisTec.Data
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Erro ao deletar conta: " + ex.Message);
+                
                 return false;
             }
             finally
@@ -276,50 +293,7 @@ namespace AssisTec.Data
             }
         }
 
-        public DataTable carregarContaReceberdoBD(int idConta)
-        {
-            con.OpenConnection();
-
-            string sql = @"
-                SELECT
-                    cr.id_conta_receber,
-                    cr.id_os_fk,
-                    cr.descricao,
-                    cr.valor,
-                    cr.data_emissao,
-                    cr.data_pagamento,
-                    cr.data_vencimento,
-                    cr.status,
-                    fp.descricao AS forma_pagamento,
-                    cr.observacoes
-                FROM contas_receber cr
-                LEFT JOIN forma_pagamento fp
-                    ON cr.id_forma_pagamento_fk =
-                       fp.id_forma_pagamento
-                WHERE cr.id_conta_receber =
-                    @idConta";
-
-            MySqlCommand cmd =
-                new MySqlCommand(
-                    sql,
-                    con.con
-                );
-
-            cmd.Parameters.AddWithValue(
-                "@idConta",
-                idConta
-            );
-
-            DataTable dt =
-                new DataTable();
-
-            new MySqlDataAdapter(cmd)
-                .Fill(dt);
-
-            con.CloseConnection();
-            
-            return dt;
-        }
+        
 
         /*public void lancamentoFinanceiroOS()
         {
@@ -412,9 +386,9 @@ namespace AssisTec.Data
 
                 sql = @"SELECT 
                     SUM(cr.valor) AS total_geral,
-                    SUM(CASE WHEN cr.status = 'Paga' THEN cr.valor ELSE 0 END) AS total_recebido,
-                    SUM(CASE WHEN cr.status = 'Pendente'  THEN cr.valor ELSE 0 END) AS total_pendente,
-                    SUM(CASE WHEN cr.status = 'Atrasado'  THEN cr.valor ELSE 0 END) AS total_atrasado
+                    SUM(CASE WHEN cr.status = 'PAGA' THEN cr.valor ELSE 0 END) AS total_recebido,
+                    SUM(CASE WHEN cr.status = 'PENDENTE'  THEN cr.valor ELSE 0 END) AS total_pendente,
+                    SUM(CASE WHEN cr.status = 'ATRASADO'  THEN cr.valor ELSE 0 END) AS total_atrasado
                 FROM contas_receber cr
                 WHERE 1=1";
 
@@ -433,13 +407,11 @@ namespace AssisTec.Data
 
                 if (temDataInicio)
                     cmd.Parameters.AddWithValue("@DataInicio",
-                        DateTime.ParseExact(contasReceber.filtroDataInicio, "dd/MM/yyyy", CultureInfo.InvariantCulture)
-                            .Date);
+                        contasReceber.DataFormatada(contasReceber.filtroDataInicio));
 
                 if (temDataFim)
                     cmd.Parameters.AddWithValue("@DataFim",
-                        DateTime.ParseExact(contasReceber.filtroDataFim, "dd/MM/yyyy", CultureInfo.InvariantCulture)
-                            .Date.AddDays(1).AddSeconds(-1));
+                        contasReceber.DataFormatada(contasReceber.filtroDataFim));
 
                 if (temDescricao)
                     cmd.Parameters.AddWithValue("@Descricao", $"%{contasReceber.filtroDescricao.Trim()}%");
@@ -450,20 +422,18 @@ namespace AssisTec.Data
                 if (temFormaPagamento)
                     cmd.Parameters.AddWithValue("@FormaPagamento", contasReceber.filtroIdFormaPagamento);
 
-                MySqlDataReader reader = cmd.ExecuteReader();
-
-                if (reader.Read())
+                using (MySqlDataReader reader = cmd.ExecuteReader())
                 {
-                    decimal totalGeral = reader.IsDBNull(0) ? 0 : reader.GetDecimal(0);
-                    decimal totalRecebido = reader.IsDBNull(1) ? 0 : reader.GetDecimal(1);
-                    decimal totalPendente = reader.IsDBNull(2) ? 0 : reader.GetDecimal(2);
-                    decimal totalAtrasado = reader.IsDBNull(3) ? 0 : reader.GetDecimal(3);
-
-                    reader.Close();
-                    return (totalGeral, totalRecebido, totalPendente, totalAtrasado);
+                    if (reader.Read())
+                    {
+                        decimal totalGeral = reader.IsDBNull(0) ? 0 : reader.GetDecimal(0);
+                        decimal totalRecebido = reader.IsDBNull(1) ? 0 : reader.GetDecimal(1);
+                        decimal totalPendente = reader.IsDBNull(2) ? 0 : reader.GetDecimal(2);
+                        decimal totalAtrasado = reader.IsDBNull(3) ? 0 : reader.GetDecimal(3);
+                        
+                        return (totalGeral, totalRecebido, totalPendente, totalAtrasado);
+                    }
                 }
-
-                reader.Close();
                 
             }
             catch (Exception ex)
@@ -521,11 +491,11 @@ namespace AssisTec.Data
 
                 if (temDataInicio)
                     cmd.Parameters.AddWithValue("@DataInicio",
-                        DateTime.ParseExact(contasReceber.filtroDataInicio, "dd/MM/yyyy", CultureInfo.InvariantCulture).Date);
+                        contasReceber.DataFormatada(contasReceber.filtroDataInicio));
 
                 if (temDataFim)
                     cmd.Parameters.AddWithValue("@DataFim",
-                        DateTime.ParseExact(contasReceber.filtroDataFim, "dd/MM/yyyy", CultureInfo.InvariantCulture).Date.AddDays(1).AddSeconds(-1));
+                        contasReceber.DataFormatada(contasReceber.filtroDataFim));
 
                 if (temDescricao)
                     cmd.Parameters.AddWithValue("@Descricao", $"%{contasReceber.filtroDescricao.Trim()}%");

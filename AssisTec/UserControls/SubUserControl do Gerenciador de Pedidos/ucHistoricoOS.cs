@@ -13,6 +13,7 @@ namespace AssisTec.UserControls
         
         Usuario user = new Usuario();
         UsuarioRepository repository = new UsuarioRepository();
+        ClienteRepository ClienteRepository = new ClienteRepository();
         UsuarioService service = new UsuarioService();
         UsuarioRelatorio relatorio = new UsuarioRelatorio();
         
@@ -54,7 +55,7 @@ namespace AssisTec.UserControls
 
         private void listGridCliente(int id)
         {
-            dgvOS.DataSource = repository.ObterHistoricoOs(id);
+            dgvOS.DataSource = ClienteRepository.ObterHistoricoOs(id);
         }
         private void btnFechar_Click(object sender, EventArgs e)
         {

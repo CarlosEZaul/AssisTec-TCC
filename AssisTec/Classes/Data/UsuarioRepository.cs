@@ -13,32 +13,43 @@ namespace AssisTec.Data
             try
             {
                 con.OpenConnection();
-                
+
                 string sql = "SELECT * FROM usuarios WHERE id_usuario = @id";
-                MySqlCommand cmd = new MySqlCommand(sql, con.con);
-                cmd.Parameters.AddWithValue("@id", id);
-                MySqlDataReader rs = cmd.ExecuteReader();
-                if (rs.Read())
+                using ( MySqlCommand cmd = new MySqlCommand(sql, con.con))
                 {
-                    return new Usuario
+                    cmd.Parameters.AddWithValue("@id", id);
+                    using ( MySqlDataReader rs = cmd.ExecuteReader())
                     {
-                        id = rs.GetInt32("id_usuario"),
-                        nome = rs.GetString("nome"),
-                        cpf = rs.GetString("cpf"),
-                        telefone = rs.GetString("telefone"),
-                        status = rs.GetString("status"),
-                        nivel = rs.GetInt32("nivel"),
-                        senha = rs.GetString("senha"),
-                        cep = rs.GetString("cep"),
-                        rua = rs.GetString("rua"),
-                        numero = rs.GetInt32("numero"),
-                        cidade = rs.GetString("cidade"),
-                        estado = rs.GetString("estado"),
-                        bairro = rs.GetString("bairro"), 
-                        complemento = rs.GetString("complemento")
-                    };
+                        if (rs.Read())
+                        {
+                            return new Usuario
+                            {
+                                id = rs.GetInt32("id_usuario"),
+                                nome = rs.GetString("nome"),
+                                cpf = rs.GetString("cpf"),
+                                telefone = rs.GetString("telefone"),
+                                status = rs.GetString("status"),
+                                nivel = rs.GetInt32("nivel"),
+                                senha = rs.GetString("senha"),
+                                cep = rs.GetString("cep"),
+                                rua = rs.GetString("rua"),
+                                numero = rs.GetInt32("numero"),
+                                cidade = rs.GetString("cidade"),
+                                estado = rs.GetString("estado"),
+                                bairro = rs.GetString("bairro"),
+                                complemento = rs.GetString("complemento")
+                            };
+                        }
+                    }
+
+                   
                 }
+                
                 return null;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Erro ao carregar usuário", ex);
             }
             finally
             {
@@ -51,20 +62,24 @@ namespace AssisTec.Data
             try
             {
                 con.OpenConnection();
-                
+
                 string sql = "SELECT COUNT(*) FROM usuarios WHERE cpf = @cpf";
                 if (ignorarId.HasValue)
                     sql += " AND id_usuario <> @id";
 
                 MySqlCommand cmd = new MySqlCommand(sql, con.con);
-                    
+
                 cmd.Parameters.AddWithValue("@cpf", cpf);
                 if (ignorarId.HasValue)
                     cmd.Parameters.AddWithValue("@id", ignorarId.Value);
 
                 int count = Convert.ToInt32(cmd.ExecuteScalar());
                 return count > 0;
-                
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Erro ao verificar se o CPF existe", ex);
             }
             finally
             {
@@ -77,10 +92,10 @@ namespace AssisTec.Data
             try
             {
                 con.OpenConnection();
-                
+
                 string sql = "SELECT COUNT(*) FROM usuarios WHERE nivel = 1 AND status = 'Ativo'";
                 MySqlCommand cmd = new MySqlCommand(sql, con.con);
-                
+
                 int total = Convert.ToInt32(cmd.ExecuteScalar());
                 if (total > 0)
                 {
@@ -90,7 +105,11 @@ namespace AssisTec.Data
                 {
                     return false;
                 }
-                
+
+            }
+            catch (Exception ex)
+            {
+                return false;
             }
             finally
             {
@@ -215,13 +234,17 @@ namespace AssisTec.Data
             try
             {
                 con.OpenConnection();
-                
+
                 string sql = "SELECT COUNT(*) FROM ordem_servico WHERE id_tecnico = @id AND status = 'EM ANDAMENTO'";
                 MySqlCommand cmd = new MySqlCommand(sql, con.con);
-                
+
                 cmd.Parameters.AddWithValue("@id", idTecnico);
                 return Convert.ToInt32(cmd.ExecuteScalar());
-                
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Erro ao verificar OS do técnico", ex);
             }
             finally
             {
@@ -234,15 +257,19 @@ namespace AssisTec.Data
             try
             {
                 con.OpenConnection();
-                
+
                 string sql = "SELECT * FROM usuarios ORDER BY nome ASC";
                 MySqlCommand cmd = new MySqlCommand(sql, con.con);
-                
+
                 DataTable dt = new DataTable();
                 MySqlDataAdapter da = new MySqlDataAdapter(cmd);
                 da.Fill(dt);
                 return dt;
-                
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Erro ao carregar usuários", ex);
             }
             finally
             {
@@ -255,41 +282,46 @@ namespace AssisTec.Data
             try
             {
                 con.OpenConnection();
-            
+
                 string cpfLimpo = cpf.Replace(".", "").Replace("-", "").Replace(",", "").Trim();
-            
+
                 string sql = @"SELECT * FROM usuarios 
                           WHERE REPLACE(REPLACE(REPLACE(cpf, '.', ''), '-', ''), ',', '') = @cpf 
                           AND status = 'Ativo'";
 
-                MySqlCommand cmd = new MySqlCommand(sql, con.con);
-                
+                using (MySqlCommand cmd = new MySqlCommand(sql, con.con))
+                {
                     cmd.Parameters.AddWithValue("@cpf", cpfLimpo);
-
-                    MySqlDataReader reader = cmd.ExecuteReader();
-                    
-                    if (reader.Read())
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
                     {
-                        return new Usuario
+                        if (reader.Read())
                         {
-                            id = reader.GetInt32("id_usuario"),
-                            nome = reader.GetString("nome"),
-                            cpf = reader.GetString("cpf"),
-                            telefone = reader.GetString("telefone"),
-                            status = reader.GetString("status"),
-                            nivel = reader.GetInt32("nivel"),
-                            senha = reader.GetString("senha"),
-                            cep = reader.GetString("cep"),
-                            rua = reader.GetString("rua"),
-                            numero = reader.GetInt32("numero"),
-                            cidade = reader.GetString("cidade"),
-                            estado = reader.GetString("estado"),
-                            bairro = reader.GetString("bairro"),
-                            complemento = reader.GetString("complemento")
-                        };
+                            return new Usuario
+                            {
+                                id = reader.GetInt32("id_usuario"),
+                                nome = reader.GetString("nome"),
+                                cpf = reader.GetString("cpf"),
+                                telefone = reader.GetString("telefone"),
+                                status = reader.GetString("status"),
+                                nivel = reader.GetInt32("nivel"),
+                                senha = reader.GetString("senha"),
+                                cep = reader.GetString("cep"),
+                                rua = reader.GetString("rua"),
+                                numero = reader.GetInt32("numero"),
+                                cidade = reader.GetString("cidade"),
+                                estado = reader.GetString("estado"),
+                                bairro = reader.GetString("bairro"),
+                                complemento = reader.GetString("complemento")
+                            };
+                        }
                     }
-                    
+                }
+
                 return null;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Erro ao carregar usuario pelo cpf", ex);
             }
             finally
             {
@@ -316,19 +348,24 @@ namespace AssisTec.Data
 
                 sql += " ORDER BY nome ASC";
 
-                MySqlCommand cmd = new MySqlCommand(sql, con.con);
-                
-                if (!string.IsNullOrWhiteSpace(nome))
-                    cmd.Parameters.AddWithValue("@nome", nome.Trim() + "%");
+                using (MySqlCommand cmd = new MySqlCommand(sql, con.con))
+                {
+                    if (!string.IsNullOrWhiteSpace(nome))
+                        cmd.Parameters.AddWithValue("@nome", nome.Trim() + "%");
 
-                if (nivel > 0)
-                    cmd.Parameters.AddWithValue("@nivel", nivel);
+                    if (nivel > 0)
+                        cmd.Parameters.AddWithValue("@nivel", nivel);
 
-                DataTable dt = new DataTable();
-                MySqlDataAdapter da = new MySqlDataAdapter(cmd);
-                da.Fill(dt);
-                return dt;
+                    DataTable dt = new DataTable();
+                    MySqlDataAdapter da = new MySqlDataAdapter(cmd);
+                    da.Fill(dt);
+                    return dt;
+                }
                 
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Erro no filtro", ex);
             }
             finally
             {
@@ -341,7 +378,7 @@ namespace AssisTec.Data
             try
             {
                 con.OpenConnection();
-                
+
                 string sql = @"SELECT 
                     os.id_os, c.nome AS nome_cliente, u.nome AS nome_tecnico,
                     e.descricao AS descricao_equipamento, os.status, os.data_abertura,
@@ -354,14 +391,18 @@ namespace AssisTec.Data
                 WHERE os.id_tecnico = @id";
 
                 MySqlCommand cmd = new MySqlCommand(sql, con.con);
-                
+
                 cmd.Parameters.AddWithValue("@id", idTecnico);
-                
+
                 DataTable dt = new DataTable();
                 MySqlDataAdapter da = new MySqlDataAdapter(cmd);
                 da.Fill(dt);
                 return dt;
-                
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Erro ao obter histórico de OS", ex);
             }
             finally
             {

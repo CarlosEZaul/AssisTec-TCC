@@ -13,6 +13,8 @@ namespace AssisTec
         
         public int id_pagamento{get;set;}
         public string forma_pagamento{get;set;}
+        
+        public string data_pagamento{get;set;}
 
         
         
