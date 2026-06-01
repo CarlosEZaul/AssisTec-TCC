@@ -1,0 +1,261 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Drawing;
+using System.Windows.Forms;
+using MySql.Data.MySqlClient;
+
+namespace AssisTec.UserControls.SubUserControl_do_Financeiro
+{
+    public partial class ucRegistrarSaidaFinanceiro : UserControl
+    {
+        
+        DataTable dtFormaPagamento;
+        private DataGridView dgv;
+        private int id;
+        private int modo;
+        private List<Label> listalabels = new List<Label>();
+        
+        public ucRegistrarSaidaFinanceiro(DataGridView _dgv, int _id, int _modo, List<Label> _listaLabels)
+        {
+            InitializeComponent();
+            
+            dgv = _dgv;
+            id = _id;
+            modo = _modo;
+            listalabels= _listaLabels;
+        }
+
+        // #region DesingModerno
+        //
+        // private void applyDesing()
+        // {
+        //     DesingComponentes.StyleButton(btnFechar, Color.Red);
+        // }
+        //
+        // #endregion
+        //
+        // #region metodos ou funcoes
+        // private void carregarDados()
+        // {
+        //     lf = lf.carregarContaPagar(id);
+        //
+        //     id = lf.id_conta;
+        //     txtDescricao.Text = lf.descricao;
+        //     txtValor.Text = lf.valor.ToString();
+        //     mtbDataEmissao.Text = lf.dataEmissao;
+        //     mtbDataPagamento.Text = lf.dataPagamento;
+        //     mtbDataVencimento.Text = lf.dataVencimento;
+        //     cbStatus.Text = lf.status;
+        //     cbFormaPagamento.Text = lf.pagamento.forma_pagamento;
+        //     txtObservacoes.Text = lf.obervacoes;
+        // }
+        // private void atualizarLabels()
+        // {
+        //     var totais = lf.AtualizarTotaisPagar();
+        //     listalabels[0].Text = totais.totalGeral.ToString("C2");
+        //     listalabels[1].Text = totais.totalPago.ToString("C2");
+        //     listalabels[2].Text = totais.totalPendente.ToString("C2");
+        //     listalabels[3].Text = totais.totalAtrasado.ToString("C2");
+        //     
+        // }
+        //
+        // private void ConfigurarCombobox()
+        // {
+        //     cbFormaPagamento.Items.Clear();
+        //     con.OpenConnection();
+        //
+        //     sql = @"SELECT id_forma_pagamento, CONCAT(descricao) AS exibicao 
+        //             FROM forma_pagamento 
+        //             ORDER BY descricao;";
+        //
+        //     cmd = new MySqlCommand(sql, con.con);
+        //     MySqlDataAdapter da = new MySqlDataAdapter(cmd);
+        //     dtFormaPagamento = new DataTable();
+        //     da.Fill(dtFormaPagamento);
+        //
+        //     cbFormaPagamento.DataSource = dtFormaPagamento;
+        //     cbFormaPagamento.DisplayMember = "exibicao";
+        //     cbFormaPagamento.ValueMember = "id_forma_pagamento";
+        //
+        //     cbFormaPagamento.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+        //     cbFormaPagamento.AutoCompleteSource = AutoCompleteSource.ListItems;
+        //     
+        //     con.CloseConnection();
+        //     
+        //     cbStatus.Items.Clear();
+        //     cbStatus.Items.Add("PENDENTE");
+        //     cbStatus.Items.Add("PAGA");
+        //
+        // }
+        // private void fechar()
+        // {
+        //     this.Hide();
+        // }
+        //
+        //
+        //
+        // #endregion
+        //
+        // #region Função dos componentes
+        //
+        //
+        //
+        //
+        // private void btnSave_Click(object sender, EventArgs e)
+        // {
+        //     if (string.IsNullOrWhiteSpace(txtValor.Text) || string.IsNullOrWhiteSpace(txtDescricao.Text) ||
+        //         string.IsNullOrWhiteSpace(txtDescricao.Text) ||
+        //         string.IsNullOrWhiteSpace(mtbDataEmissao.Text) || string.IsNullOrWhiteSpace(mtbDataVencimento.Text) ||
+        //         string.IsNullOrWhiteSpace(mtbDataPagamento.Text)||
+        //         string.IsNullOrWhiteSpace(cbStatus.Text))
+        //     {
+        //         MessageBox.Show("Preencha todos os campos", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        //         return;
+        //             
+        //     }
+        //
+        //     if (modo == 1)
+        //     {
+        //         try
+        //         {
+        //             lf.pagamento = new Pagamento();
+        //             lf.tipo = 2;
+        //             lf.valor = Convert.ToDecimal(txtValor.Text);
+        //             lf.descricao = txtDescricao.Text;
+        //             lf.dataEmissao = DateTime.Now.ToShortDateString();
+        //             lf.dataPagamento = mtbDataPagamento.Text;
+        //             lf.dataVencimento = mtbDataVencimento.Text;
+        //             lf.status = cbStatus.Text;
+        //             lf.obervacoes = txtObservacoes.Text;
+        //             lf.pagamento.id_pagamento = Convert.ToInt32(cbFormaPagamento.SelectedValue);
+        //     
+        //     
+        //             lf.SalvarSaida();
+        //             dgv.DataSource = lf.atualizarContasPagar();
+        //             atualizarLabels();
+        //         }
+        //         catch (Exception ex)
+        //         {
+        //             MessageBox.Show(ex.Message, "Erro ao registrar", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        //         }
+        //     }
+        //
+        //     if (modo ==2)
+        //     {
+        //         try
+        //         {
+        //             lf.pagamento = new Pagamento();
+        //             lf.tipo = 2;
+        //             lf.valor = Convert.ToDecimal(txtValor.Text);
+        //             lf.descricao = txtDescricao.Text;
+        //             lf.dataEmissao = DateTime.Now.ToShortDateString();
+        //             lf.dataPagamento = mtbDataPagamento.Text;
+        //             lf.dataVencimento = mtbDataVencimento.Text;
+        //             lf.status = cbStatus.Text;
+        //             lf.obervacoes = txtObservacoes.Text;
+        //             lf.pagamento.id_pagamento = Convert.ToInt32(cbFormaPagamento.SelectedValue);
+        //     
+        //             
+        //             lf.editarContaPagar(lf);
+        //             dgv.DataSource = lf.atualizarContasPagar();
+        //             atualizarLabels();
+        //         }
+        //         catch (Exception ex)
+        //         {
+        //             MessageBox.Show("Erro ao editar saída", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        //             throw;
+        //         }   
+        //     }
+        //     
+        //     
+        // }
+        //
+        // private void btnFechar_Click(object sender, EventArgs e)
+        // {
+        //     fechar();
+        // }
+        //
+        // private void ucRegistrarEntradaFinanceiro_Load(object sender, EventArgs e)
+        // {
+        //     mtbDataEmissao.Text = DateTime.Now.ToShortDateString();
+        //     mtbDataEmissao.Text = DateTime.Now.ToShortDateString();
+        //     if (modo == 2)
+        //     {
+        //         carregarDados();
+        //         
+        //     }
+        // }
+        //
+        //
+        // private void txtValor_KeyPress(object sender, KeyPressEventArgs e)
+        // {
+        //     if (e.KeyChar == '.')
+        //     {
+        //         e.KeyChar = ',';
+        //     }
+        //     
+        //     if (!char.IsDigit(e.KeyChar) &&
+        //         e.KeyChar != (char)8 &&
+        //         e.KeyChar != ',')
+        //     {
+        //         e.Handled = true;
+        //         return;
+        //     }
+        //     
+        //     if (e.KeyChar == ',' && txtValor.Text.Contains(","))
+        //     {
+        //         e.Handled = true;
+        //         return;
+        //     }
+        //     
+        //     if (txtValor.Text.Contains(","))
+        //     {
+        //         string[] partes = txtValor.Text.Split(',');
+        //         
+        //         if (partes.Length > 1)
+        //         {
+        //             if (txtValor.SelectionStart > txtValor.Text.IndexOf(","))
+        //             {
+        //                 if (partes[1].Length >= 2)
+        //                 {
+        //                     e.Handled = true;
+        //                 }
+        //             }
+        //         }
+        //     }
+        // }
+        //
+        // private void cbStatus_SelectedIndexChanged(object sender, EventArgs e)
+        // {
+        //     if (cbStatus.SelectedItem.ToString() == "PENDENTE")
+        //     {
+        //         // Mostra tudo (inclusive vazio)
+        //         dtFormaPagamento.DefaultView.RowFilter = "";
+        //
+        //         cbFormaPagamento.SelectedValue = 4;
+        //         cbFormaPagamento.Enabled = false;
+        //
+        //         mtbDataPagamento.Text = null;
+        //         mtbDataPagamento.Enabled = false;
+        //     }
+        //     else // PAGA
+        //     {
+        //         // Oculta o "___"
+        //         dtFormaPagamento.DefaultView.RowFilter = 
+        //             "exibicao IS NOT NULL AND exibicao <> '' AND exibicao <> '---'";
+        //
+        //         cbFormaPagamento.Enabled = true;
+        //         mtbDataPagamento.Enabled = true;
+        //
+        //         // Garante seleção válida
+        //         if (cbFormaPagamento.SelectedIndex == -1)
+        //             cbFormaPagamento.SelectedIndex = 0;
+        //     }
+        // }
+        // #endregion
+
+        
+    }
+    
+}

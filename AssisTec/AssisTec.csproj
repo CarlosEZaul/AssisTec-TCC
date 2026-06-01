@@ -36,6 +36,9 @@
     <Reference Include="BCrypt.Net-Next, Version=4.1.0.0, Culture=neutral, PublicKeyToken=1e11be04b6288443, processorArchitecture=MSIL">
       <HintPath>..\packages\BCrypt.Net-Next.4.1.0\lib\net472\BCrypt.Net-Next.dll</HintPath>
     </Reference>
+    <Reference Include="BouncyCastle.Crypto, Version=1.9.0.0, Culture=neutral, PublicKeyToken=0e99375e54769942, processorArchitecture=MSIL">
+      <HintPath>..\packages\Portable.BouncyCastle.1.9.0\lib\net40\BouncyCastle.Crypto.dll</HintPath>
+    </Reference>
     <Reference Include="BouncyCastle.Cryptography, Version=2.0.0.0, Culture=neutral, PublicKeyToken=072edcf4a5328938, processorArchitecture=MSIL">
       <HintPath>..\packages\BouncyCastle.Cryptography.2.6.2\lib\net461\BouncyCastle.Cryptography.dll</HintPath>
     </Reference>
@@ -60,22 +63,89 @@
     <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.8.0.0\lib\net462\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Bcl.HashCode, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.HashCode.1.1.1\lib\net461\Microsoft.Bcl.HashCode.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.EntityFrameworkCore, Version=3.1.32.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.EntityFrameworkCore.3.1.32\lib\netstandard2.0\Microsoft.EntityFrameworkCore.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.EntityFrameworkCore.Abstractions, Version=3.1.32.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.EntityFrameworkCore.Abstractions.3.1.32\lib\netstandard2.0\Microsoft.EntityFrameworkCore.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.EntityFrameworkCore.Relational, Version=3.1.19.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.EntityFrameworkCore.Relational.3.1.19\lib\netstandard2.0\Microsoft.EntityFrameworkCore.Relational.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Caching.Abstractions, Version=3.1.32.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Caching.Abstractions.3.1.32\lib\netstandard2.0\Microsoft.Extensions.Caching.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Caching.Memory, Version=3.1.32.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Caching.Memory.3.1.32\lib\netstandard2.0\Microsoft.Extensions.Caching.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Configuration, Version=3.1.32.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Configuration.3.1.32\lib\netstandard2.0\Microsoft.Extensions.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Configuration.Abstractions, Version=3.1.32.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Configuration.Abstractions.3.1.32\lib\netstandard2.0\Microsoft.Extensions.Configuration.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Configuration.Binder, Version=3.1.32.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Configuration.Binder.3.1.32\lib\netstandard2.0\Microsoft.Extensions.Configuration.Binder.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection, Version=3.1.32.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.3.1.32\lib\net461\Microsoft.Extensions.DependencyInjection.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=3.1.32.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.Abstractions.3.1.32\lib\netstandard2.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging, Version=3.1.32.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Logging.3.1.32\lib\netstandard2.0\Microsoft.Extensions.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging.Abstractions, Version=3.1.32.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Logging.Abstractions.3.1.32\lib\netstandard2.0\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Options, Version=3.1.32.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Options.3.1.32\lib\netstandard2.0\Microsoft.Extensions.Options.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Primitives, Version=3.1.32.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Primitives.3.1.32\lib\netstandard2.0\Microsoft.Extensions.Primitives.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="mscorlib" />
-    <Reference Include="MySql.Data, Version=9.6.0.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
-      <HintPath>..\packages\MySql.Data.9.6.0\lib\net462\MySql.Data.dll</HintPath>
+    <Reference Include="MySql.Data, Version=9.7.0.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>..\packages\MySql.Data.9.7.0\lib\net462\MySql.Data.dll</HintPath>
     </Reference>
-    <Reference Include="MySqlBackup, Version=2.7.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MySqlBackup.NET.2.7.0\lib\net462\MySqlBackup.dll</HintPath>
+    <Reference Include="MySql.Data.EntityFrameworkCore, Version=8.0.22.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>..\packages\MySql.Data.EntityFrameworkCore.8.0.22\lib\netstandard2.0\MySql.Data.EntityFrameworkCore.dll</HintPath>
+    </Reference>
+    <Reference Include="MySqlBackup, Version=2.7.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MySqlBackup.NET.2.7.1\lib\net462\MySqlBackup.dll</HintPath>
+    </Reference>
+    <Reference Include="MySQLConnection, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MySQLConnection.1.0.1\lib\MySQLConnection.dll</HintPath>
+    </Reference>
+    <Reference Include="MySqlConnector, Version=0.69.10.0, Culture=neutral, PublicKeyToken=d33d3e53aa5f8c92, processorArchitecture=MSIL">
+      <HintPath>..\packages\MySqlConnector.0.69.10\lib\net471\MySqlConnector.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.13.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Pomelo.EntityFrameworkCore.MySql, Version=3.2.7.0, Culture=neutral, PublicKeyToken=2cc498582444921b, processorArchitecture=MSIL">
+      <HintPath>..\packages\Pomelo.EntityFrameworkCore.MySql.3.2.7\lib\netstandard2.0\Pomelo.EntityFrameworkCore.MySql.dll</HintPath>
+    </Reference>
+    <Reference Include="Pomelo.JsonObject, Version=2.2.1.0, Culture=neutral, PublicKeyToken=2cc498582444921b, processorArchitecture=MSIL">
+      <HintPath>..\packages\Pomelo.JsonObject.2.2.1\lib\netstandard2.0\Pomelo.JsonObject.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Buffers, Version=4.0.5.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Buffers.4.6.1\lib\net462\System.Buffers.dll</HintPath>
     </Reference>
+    <Reference Include="System.Collections.Immutable, Version=1.2.5.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Collections.Immutable.1.7.1\lib\net461\System.Collections.Immutable.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.Annotations, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ComponentModel.Annotations.4.7.0\lib\net461\System.ComponentModel.Annotations.dll</HintPath>
+    </Reference>
     <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Configuration.ConfigurationManager, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Configuration.ConfigurationManager.8.0.0\lib\net462\System.Configuration.ConfigurationManager.dll</HintPath>
@@ -152,250 +222,202 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\BuscaCEP.cs" />
-    <Compile Include="Classes\conexao.cs" />
-    <Compile Include="Classes\Data\ClienteRepository.cs" />
-    <Compile Include="Classes\Data\ContasPagarRepository.cs" />
-    <Compile Include="Classes\Data\ContasReceberRepositoy.cs" />
-    <Compile Include="Classes\Data\LancamentoFinanceiroRepository.cs" />
-    <Compile Include="Classes\Data\OrdemDeServicoRepository.cs" />
-    <Compile Include="Classes\Data\PagamentoRepository.cs" />
-    <Compile Include="Classes\Data\UsuarioRepository.cs" />
-    <Compile Include="Classes\DesingComponentes.cs" />
-    <Compile Include="Classes\Models\AcaoOS.cs" />
-    <Compile Include="Classes\Models\Cliente.cs" />
-    <Compile Include="Classes\Models\ContasPagar.cs" />
-    <Compile Include="Classes\Models\ContasReceber.cs" />
-    <Compile Include="Classes\Models\Equipamento.cs" />
-    <Compile Include="Classes\Models\ItemOS.cs" />
-    <Compile Include="Classes\Models\LancamentoFinanceiro.cs" />
-    <Compile Include="Classes\Models\MovimentacaoEstoque.cs" />
-    <Compile Include="Classes\Models\OrdemDeServico.cs" />
-    <Compile Include="Classes\Models\Pagamento.cs" />
-    <Compile Include="Classes\Models\Pessoa.cs" />
-    <Compile Include="Classes\Models\Produto.cs" />
-    <Compile Include="Classes\Models\Sessao.cs" />
-    <Compile Include="Classes\Models\Usuario.cs" />
-    <Compile Include="Classes\Reports\ClienteRelatorio.cs" />
-    <Compile Include="Classes\Reports\ContasPagarRelatorio.cs" />
-    <Compile Include="Classes\Reports\ContasReceberRelatorio.cs" />
-    <Compile Include="Classes\Reports\OrdensDeServicoRelatorio.cs" />
-    <Compile Include="Classes\Reports\UsuarioRelatorio.cs" />
-    <Compile Include="Classes\Service\ClienteService.cs" />
-    <Compile Include="Classes\Service\ContasPagarService.cs" />
-    <Compile Include="Classes\Service\ContasReceberService.cs" />
-    <Compile Include="Classes\Service\LancamentoFinanceiroService.cs" />
-    <Compile Include="Classes\Service\OrdemDeServicoService.cs" />
-    <Compile Include="Classes\Service\PagamentoService.cs" />
-    <Compile Include="Classes\Service\UsuarioService.cs" />
     <Compile Include="Connected Services\wscep\wscep.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>wscep.svcmap</DependentUpon>
     </Compile>
-    <Compile Include="Forms\formSubs.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\formSubs.Designer.cs">
-      <DependentUpon>formSubs.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\FrmPrincipal.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\FrmPrincipal.Designer.cs">
-      <DependentUpon>FrmPrincipal.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\FrmLogin.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\FrmLogin.Designer.cs">
-      <DependentUpon>FrmLogin.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\SubForms do Gerenciador de Pedidos\FrmEditarPedido.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\SubForms do Gerenciador de Pedidos\FrmEditarPedido.Designer.cs">
-      <DependentUpon>FrmEditarPedido.cs</DependentUpon>
-    </Compile>
+    <Compile Include="Models\Cliente.cs" />
+    <Compile Include="Models\ContasReceber.cs" />
+    <Compile Include="Models\Equipamento.cs" />
+    <Compile Include="Models\LancamentoFinanceiro.cs" />
+    <Compile Include="Models\OrdemServico.cs" />
+    <Compile Include="Models\Pagamento.cs" />
+    <Compile Include="Models\Sessao.cs" />
+    <Compile Include="Models\Usuario.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UserControls\SubUserControl do Financeiro\ucRegistrarEntradaFinanceiro.cs">
-      <SubType>UserControl</SubType>
+    <Compile Include="Reports\ContasPagarRelatorio.cs" />
+    <Compile Include="Reports\OrdensDeServicoRelatorio.cs" />
+    <Compile Include="Reports\UsuarioRelatorio.cs" />
+    <Compile Include="Repository\AppDbContext.cs" />
+    <Compile Include="Repository\BackupRepository.cs" />
+    <Compile Include="Repository\ClienteRepository.cs" />
+    <Compile Include="Repository\ContaReceberRepository.cs" />
+    <Compile Include="Repository\IBackupRepository.cs" />
+    <Compile Include="Repository\IClienteRepository.cs" />
+    <Compile Include="Repository\IContaReceberRepository.cs" />
+    <Compile Include="Repository\IOrdemServicoRepository.cs" />
+    <Compile Include="Repository\IPagamentoRepository.cs" />
+    <Compile Include="Repository\IUsuarioReposity.cs" />
+    <Compile Include="Repository\OrdemServicoRepository.cs" />
+    <Compile Include="Repository\PagamentoRepository.cs" />
+    <Compile Include="Repository\UsuarioRepository.cs" />
+    <Compile Include="Service\ClienteService.cs" />
+    <Compile Include="Service\ContasReceberService.cs" />
+    <Compile Include="Service\OrdemServicoService.cs" />
+    <Compile Include="Service\PagamentoService.cs" />
+    <Compile Include="Service\UsuarioService.cs" />
+    <Compile Include="Utils\BuscaCEP.cs" />
+    <Compile Include="Utils\DesingComponentes.cs" />
+    <Compile Include="Utils\Validacao.cs" />
+    <Compile Include="Views\Forms\formSubs.cs" />
+    <Compile Include="Views\Forms\formSubs.Designer.cs">
+      <DependentUpon>formSubs.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\SubUserControl do Financeiro\ucRegistrarEntradaFinanceiro.Designer.cs">
+    <Compile Include="Views\Forms\FrmLogin.cs" />
+    <Compile Include="Views\Forms\FrmLogin.Designer.cs">
+      <DependentUpon>FrmLogin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Forms\FrmPrincipal.cs" />
+    <Compile Include="Views\Forms\FrmPrincipal.Designer.cs">
+      <DependentUpon>FrmPrincipal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Forms\SubForms do Gerenciador de Pedidos\FrmEditarPedido.cs" />
+    <Compile Include="Views\Forms\SubForms do Gerenciador de Pedidos\FrmEditarPedido.Designer.cs">
+      <DependentUpon>FrmEditarPedido.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserControls\SubUserControl do Financeiro\ucRegistrarEntradaFinanceiro.cs" />
+    <Compile Include="Views\UserControls\SubUserControl do Financeiro\ucRegistrarEntradaFinanceiro.Designer.cs">
       <DependentUpon>ucRegistrarEntradaFinanceiro.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\SubUserControl do Financeiro\ucRegistrarPagamento.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UserControls\SubUserControl do Financeiro\ucRegistrarPagamento.Designer.cs">
+    <Compile Include="Views\UserControls\SubUserControl do Financeiro\ucRegistrarPagamento.cs" />
+    <Compile Include="Views\UserControls\SubUserControl do Financeiro\ucRegistrarPagamento.Designer.cs">
       <DependentUpon>ucRegistrarPagamento.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\SubUserControl do Financeiro\ucRegistrarSaidaFinanceiro.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UserControls\SubUserControl do Financeiro\ucRegistrarSaidaFinanceiro.Designer.cs">
+    <Compile Include="Views\UserControls\SubUserControl do Financeiro\ucRegistrarSaidaFinanceiro.cs" />
+    <Compile Include="Views\UserControls\SubUserControl do Financeiro\ucRegistrarSaidaFinanceiro.Designer.cs">
       <DependentUpon>ucRegistrarSaidaFinanceiro.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\SubUserControl do Gerenciador de Clientes\ucFormulario_Clientes.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UserControls\SubUserControl do Gerenciador de Clientes\ucFormulario_Clientes.Designer.cs">
+    <Compile Include="Views\UserControls\SubUserControl do Gerenciador de Clientes\ucFormulario_Clientes.cs" />
+    <Compile Include="Views\UserControls\SubUserControl do Gerenciador de Clientes\ucFormulario_Clientes.Designer.cs">
       <DependentUpon>ucFormulario_Clientes.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\SubUserControl do Gerenciador de Pedidos\ucFormularioOS.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UserControls\SubUserControl do Gerenciador de Pedidos\ucFormularioOS.Designer.cs">
-      <DependentUpon>ucFormularioOS.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\SubUserControl do Gerenciador de Pedidos\ucHistoricoOS.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UserControls\SubUserControl do Gerenciador de Pedidos\ucHistoricoOS.Designer.cs">
-      <DependentUpon>ucHistoricoOS.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\ucBackupImportar.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UserControls\ucBackupImportar.Designer.cs">
-      <DependentUpon>ucBackupImportar.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\ucContasPagar.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UserControls\ucContasPagar.Designer.cs">
-      <DependentUpon>ucContasPagar.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\ucContasReceber.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UserControls\ucContasReceber.Designer.cs">
-      <DependentUpon>ucContasReceber.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\ucGerenciadorEstoque.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UserControls\ucGerenciadorEstoque.Designer.cs">
-      <DependentUpon>ucGerenciadorEstoque.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\ucGerenciadorOS.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UserControls\ucGerenciadorOS.Designer.cs">
-      <DependentUpon>ucGerenciadorOS.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\ucGerenciador_Clientes.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UserControls\ucGerenciador_Clientes.Designer.cs">
-      <DependentUpon>ucGerenciador_Clientes.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\SubUserControl do Gerenciador de Usuarios\ucFormularioUsuarios.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UserControls\SubUserControl do Gerenciador de Usuarios\ucFormularioUsuarios.Designer.cs">
-      <DependentUpon>ucFormularioUsuarios.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\SubUserControl do Gerenciador de Pedidos\ucDetalhesPedidos.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UserControls\SubUserControl do Gerenciador de Pedidos\ucDetalhesPedidos.Designer.cs">
+    <Compile Include="Views\UserControls\SubUserControl do Gerenciador de Pedidos\ucDetalhesPedidos.cs" />
+    <Compile Include="Views\UserControls\SubUserControl do Gerenciador de Pedidos\ucDetalhesPedidos.Designer.cs">
       <DependentUpon>ucDetalhesPedidos.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\SubUserControl do Gerenciador de Pedidos\ucProdutosUtilizados.cs">
-      <SubType>UserControl</SubType>
+    <Compile Include="Views\UserControls\SubUserControl do Gerenciador de Pedidos\ucFormularioOS.cs" />
+    <Compile Include="Views\UserControls\SubUserControl do Gerenciador de Pedidos\ucFormularioOS.Designer.cs">
+      <DependentUpon>ucFormularioOS.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\SubUserControl do Gerenciador de Pedidos\ucProdutosUtilizados.Designer.cs">
+    <Compile Include="Views\UserControls\SubUserControl do Gerenciador de Pedidos\ucHistoricoOS.cs" />
+    <Compile Include="Views\UserControls\SubUserControl do Gerenciador de Pedidos\ucHistoricoOS.Designer.cs">
+      <DependentUpon>ucHistoricoOS.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserControls\SubUserControl do Gerenciador de Pedidos\ucProdutosUtilizados.cs" />
+    <Compile Include="Views\UserControls\SubUserControl do Gerenciador de Pedidos\ucProdutosUtilizados.Designer.cs">
       <DependentUpon>ucProdutosUtilizados.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\SubUserControl do Gerenciador de Pedidos\ucServicos.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UserControls\SubUserControl do Gerenciador de Pedidos\ucServicos.Designer.cs">
+    <Compile Include="Views\UserControls\SubUserControl do Gerenciador de Pedidos\ucServicos.cs" />
+    <Compile Include="Views\UserControls\SubUserControl do Gerenciador de Pedidos\ucServicos.Designer.cs">
       <DependentUpon>ucServicos.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\ucGerenciador_Usuario.cs">
-      <SubType>UserControl</SubType>
+    <Compile Include="Views\UserControls\SubUserControl do Gerenciador de Usuarios\ucFormularioUsuarios.cs" />
+    <Compile Include="Views\UserControls\SubUserControl do Gerenciador de Usuarios\ucFormularioUsuarios.Designer.cs">
+      <DependentUpon>ucFormularioUsuarios.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\ucGerenciador_Usuario.Designer.cs">
+    <Compile Include="Views\UserControls\ucBackupImportar.cs" />
+    <Compile Include="Views\UserControls\ucBackupImportar.Designer.cs">
+      <DependentUpon>ucBackupImportar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserControls\ucContasPagar.cs" />
+    <Compile Include="Views\UserControls\ucContasPagar.Designer.cs">
+      <DependentUpon>ucContasPagar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserControls\ucContasReceber.cs" />
+    <Compile Include="Views\UserControls\ucContasReceber.Designer.cs">
+      <DependentUpon>ucContasReceber.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserControls\ucGerenciadorEstoque.cs" />
+    <Compile Include="Views\UserControls\ucGerenciadorEstoque.Designer.cs">
+      <DependentUpon>ucGerenciadorEstoque.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserControls\ucGerenciadorOS.cs" />
+    <Compile Include="Views\UserControls\ucGerenciadorOS.Designer.cs">
+      <DependentUpon>ucGerenciadorOS.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserControls\ucGerenciador_Clientes.cs" />
+    <Compile Include="Views\UserControls\ucGerenciador_Clientes.Designer.cs">
+      <DependentUpon>ucGerenciador_Clientes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserControls\ucGerenciador_Usuario.cs" />
+    <Compile Include="Views\UserControls\ucGerenciador_Usuario.Designer.cs">
       <DependentUpon>ucGerenciador_Usuario.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\ucHome.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UserControls\ucHome.Designer.cs">
+    <Compile Include="Views\UserControls\ucHome.cs" />
+    <Compile Include="Views\UserControls\ucHome.Designer.cs">
       <DependentUpon>ucHome.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Forms\formSubs.resx">
-      <DependentUpon>formSubs.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\FrmPrincipal.resx">
-      <DependentUpon>FrmPrincipal.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\FrmLogin.resx">
-      <DependentUpon>FrmLogin.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\SubForms do Gerenciador de Pedidos\FrmEditarPedido.resx">
-      <DependentUpon>FrmEditarPedido.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\SubUserControl do Financeiro\ucRegistrarEntradaFinanceiro.resx">
+    <EmbeddedResource Include="Views\Forms\formSubs.resx">
+      <DependentUpon>formSubs.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Forms\FrmLogin.resx">
+      <DependentUpon>FrmLogin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Forms\FrmPrincipal.resx">
+      <DependentUpon>FrmPrincipal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Forms\SubForms do Gerenciador de Pedidos\FrmEditarPedido.resx">
+      <DependentUpon>FrmEditarPedido.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\UserControls\SubUserControl do Financeiro\ucRegistrarEntradaFinanceiro.resx">
       <DependentUpon>ucRegistrarEntradaFinanceiro.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\SubUserControl do Financeiro\ucRegistrarPagamento.resx">
+    <EmbeddedResource Include="Views\UserControls\SubUserControl do Financeiro\ucRegistrarPagamento.resx">
       <DependentUpon>ucRegistrarPagamento.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\SubUserControl do Financeiro\ucRegistrarSaidaFinanceiro.resx">
+    <EmbeddedResource Include="Views\UserControls\SubUserControl do Financeiro\ucRegistrarSaidaFinanceiro.resx">
       <DependentUpon>ucRegistrarSaidaFinanceiro.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\SubUserControl do Gerenciador de Clientes\ucFormulario_Clientes.resx">
+    <EmbeddedResource Include="Views\UserControls\SubUserControl do Gerenciador de Clientes\ucFormulario_Clientes.resx">
       <DependentUpon>ucFormulario_Clientes.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\SubUserControl do Gerenciador de Pedidos\ucFormularioOS.resx">
-      <DependentUpon>ucFormularioOS.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\SubUserControl do Gerenciador de Pedidos\ucHistoricoOS.resx">
-      <DependentUpon>ucHistoricoOS.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\ucBackupImportar.resx">
-      <DependentUpon>ucBackupImportar.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\ucContasPagar.resx">
-      <DependentUpon>ucContasPagar.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\ucContasReceber.resx">
-      <DependentUpon>ucContasReceber.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\ucGerenciadorEstoque.resx">
-      <DependentUpon>ucGerenciadorEstoque.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\ucGerenciadorOS.resx">
-      <DependentUpon>ucGerenciadorOS.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\ucGerenciador_Clientes.resx">
-      <DependentUpon>ucGerenciador_Clientes.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\SubUserControl do Gerenciador de Usuarios\ucFormularioUsuarios.resx">
-      <DependentUpon>ucFormularioUsuarios.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\SubUserControl do Gerenciador de Pedidos\ucDetalhesPedidos.resx">
+    <EmbeddedResource Include="Views\UserControls\SubUserControl do Gerenciador de Pedidos\ucDetalhesPedidos.resx">
       <DependentUpon>ucDetalhesPedidos.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\SubUserControl do Gerenciador de Pedidos\ucProdutosUtilizados.resx">
+    <EmbeddedResource Include="Views\UserControls\SubUserControl do Gerenciador de Pedidos\ucFormularioOS.resx">
+      <DependentUpon>ucFormularioOS.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\UserControls\SubUserControl do Gerenciador de Pedidos\ucHistoricoOS.resx">
+      <DependentUpon>ucHistoricoOS.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\UserControls\SubUserControl do Gerenciador de Pedidos\ucProdutosUtilizados.resx">
       <DependentUpon>ucProdutosUtilizados.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\SubUserControl do Gerenciador de Pedidos\ucServicos.resx">
+    <EmbeddedResource Include="Views\UserControls\SubUserControl do Gerenciador de Pedidos\ucServicos.resx">
       <DependentUpon>ucServicos.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\ucGerenciador_Usuario.resx">
+    <EmbeddedResource Include="Views\UserControls\SubUserControl do Gerenciador de Usuarios\ucFormularioUsuarios.resx">
+      <DependentUpon>ucFormularioUsuarios.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\UserControls\ucBackupImportar.resx">
+      <DependentUpon>ucBackupImportar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\UserControls\ucContasPagar.resx">
+      <DependentUpon>ucContasPagar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\UserControls\ucContasReceber.resx">
+      <DependentUpon>ucContasReceber.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\UserControls\ucGerenciadorEstoque.resx">
+      <DependentUpon>ucGerenciadorEstoque.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\UserControls\ucGerenciadorOS.resx">
+      <DependentUpon>ucGerenciadorOS.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\UserControls\ucGerenciador_Clientes.resx">
+      <DependentUpon>ucGerenciador_Clientes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\UserControls\ucGerenciador_Usuario.resx">
       <DependentUpon>ucGerenciador_Usuario.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\ucHome.resx">
+    <EmbeddedResource Include="Views\UserControls\ucHome.resx">
       <DependentUpon>ucHome.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Connected Services\wscep\wscep.svcmap">
@@ -433,6 +455,9 @@
     <Content Include="Resources\atencao.png" />
     <Content Include="Resources\cifrao.png" />
     <Content Include="Resources\relogio_pendente.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Views\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
