@@ -1,131 +1,174 @@
 ﻿using System;
 using System.Drawing;
 using System.IO;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using AssisTec.Repository;
-using Microsoft.VisualBasic;
 
 namespace AssisTec.UserControls
 {
     public partial class ucBackupImportar : UserControl
     {
-        private readonly BackupRepository _repo;
+        private readonly string _connectionString;
+        private readonly string _diretorioMysql;
+        private CancellationTokenSource _cts;
 
         public ucBackupImportar()
         {
             InitializeComponent();
-            
-            string stringConexao = System.Configuration.ConfigurationManager.ConnectionStrings["SuaStringConexao"]?.ConnectionString 
-                ?? "Server=localhost;Database=seu_banco;Uid=root;Pwd=;";
-                
-            _repo = new BackupRepository(stringConexao);
+
+            _connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["SuaStringConexao"]?.ConnectionString ?? "SERVER=localhost;DATABASE=assistec;UID=root;PWD=;PORT=3306;";
+
+            _diretorioMysql = @"C:\xampp\mysql\bin";
+
             DesignModerno();
         }
 
         private void DesignModerno()
         {
-            this.Text = "Backup e Importar";
-            this.BackColor = Color.FromArgb(39, 55, 76);
+            BackColor = Color.FromArgb(39, 55, 76);
         }
-
+        
         private async void btnBackup_Click(object sender, EventArgs e)
         {
-            using (SaveFileDialog sfd = new SaveFileDialog())
+            using (var sfd = new SaveFileDialog())
             {
-                sfd.Filter = "Arquivo de Backup (*.bak)|*.bak";
-                sfd.Title = "Definir Local do Backup";
-                sfd.FileName = string.Format("Backup_Assistec_{0}", DateTime.Now.ToString("yyyyMMdd_HHmmss"));
+                sfd.Filter   = "Arquivo de Backup (*.bak)|*.bak";
+                sfd.Title    = "Definir Local do Backup";
+                sfd.FileName = $"Backup_Assistec_{DateTime.Now:yyyyMMdd_HHmmss}";
 
-                if (sfd.ShowDialog() == DialogResult.OK)
+                if (sfd.ShowDialog() != DialogResult.OK) return;
+
+                string senha = ObterSenha("Digite uma senha para proteger o backup:");
+                if (senha == null)
                 {
-                    string senha = Interaction.InputBox("Digite uma senha para o backup (Aviso: o texto ficará visível):", "Criptografia", "");
+                    return;
+                }
 
-                    if (string.IsNullOrWhiteSpace(senha))
-                    {
-                        MessageBox.Show("Operação cancelada. A senha é obrigatória para gerar o backup.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        return;
-                    }
+                ControleInterface(false, "Gerando backup...");
+                _cts = new CancellationTokenSource();
 
-                    ControleInterface(false);
+                try
+                {
+                    string destino   = sfd.FileName;
+                    string caminhoDump = Path.Combine(_diretorioMysql, "mysqldump.exe");
 
-                    try
-                    {
-                        string destino = sfd.FileName;
-                        await Task.Run(() => _repo.CriarBackup(destino, senha));
-                        
-                        MessageBox.Show("Backup gerado e criptografado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show("Falha ao gerar backup: " + ex.Message, "Erro Crítico", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                    finally
-                    {
-                        ControleInterface(true);
-                    }
+                    await Task.Run(() =>
+                        BackupMysql.ExecutarBackup(
+                            _connectionString, caminhoDump, destino, senha));
+
+                    MessageBox.Show(
+                        "Backup gerado e criptografado com sucesso!",
+                        "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch (Exception ex)
+                {
+                    string destino = sfd.FileName;
+                    if (File.Exists(destino))
+                        TentarDeletarArquivo(destino);
+
+                    MessageBox.Show(
+                        "Falha ao gerar backup:\n" + ex.Message,
+                        "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                finally
+                {
+                    _cts?.Dispose();
+                    ControleInterface(true);
                 }
             }
         }
 
         private async void btnImportar_Click(object sender, EventArgs e)
         {
-            using (OpenFileDialog ofd = new OpenFileDialog())
+            using (var ofd = new OpenFileDialog())
             {
                 ofd.Filter = "Arquivo de Backup (*.bak)|*.bak";
-                ofd.Title = "Selecionar Arquivo de Backup Criptografado";
+                ofd.Title  = "Selecionar Arquivo de Backup";
 
-                if (ofd.ShowDialog() == DialogResult.OK)
+                if (ofd.ShowDialog() != DialogResult.OK) return;
+
+                string senha = ObterSenha("Digite a senha do backup para restaurar:");
+                if (senha == null) return;
+                
+                var confirmacao = MessageBox.Show("ATENÇÃO: Esta operação substituirá todos os dados atuais do banco.\nDeseja continuar?", "Confirmar Restauração", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+                if (confirmacao != DialogResult.Yes) return;
+
+                ControleInterface(false, "Restaurando backup...");
+                _cts = new CancellationTokenSource();
+
+                try
                 {
-                    string senha = Interaction.InputBox("Digite a senha do backup para descriptografar:", "Descriptografia", "");
+                    string origem      = ofd.FileName;
+                    string caminhoMysql = Path.Combine(_diretorioMysql, "mysql.exe");
 
-                    if (string.IsNullOrWhiteSpace(senha))
-                    {
-                        MessageBox.Show("Operação cancelada. A senha é obrigatória para restaurar o backup.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        return;
-                    }
+                    await Task.Run(() =>
+                        BackupMysql.ExecutarImportacao(
+                            _connectionString, caminhoMysql, origem, senha));
 
-                    ControleInterface(false);
-
-                    try
-                    {
-                        string origem = ofd.FileName;
-                        await Task.Run(() => _repo.ImportarBackup(origem, senha));
-
-                        MessageBox.Show("Backup restaurado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                    catch (System.Security.Cryptography.CryptographicException)
-                    {
-                        MessageBox.Show("Senha incorreta ou arquivo corrompido.", "Erro de Criptografia", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show("Falha ao importar backup: " + ex.Message, "Erro Crítico", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                    finally
-                    {
-                        ControleInterface(true);
-                    }
+                    MessageBox.Show(
+                        "Backup restaurado com sucesso!",
+                        "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch (System.Security.Cryptography.CryptographicException)
+                {
+                    MessageBox.Show(
+                        "Senha incorreta ou arquivo corrompido.",
+                        "Erro de Criptografia", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(
+                        "Falha ao restaurar backup:\n" + ex.Message,
+                        "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                finally
+                {
+                    _cts?.Dispose();
+                    ControleInterface(true);
                 }
             }
         }
-
-        private void ControleInterface(bool ativo)
+        
+        private string ObterSenha(string mensagem)
         {
-            btnBackup.Enabled = ativo;
+            using (var form = new PasswordForm_(mensagem))
+            {
+                if (form.ShowDialog(this) != DialogResult.OK)
+                    return null;
+
+                if (string.IsNullOrWhiteSpace(form.Senha))
+                {
+                    MessageBox.Show(
+                        "A senha é obrigatória.",
+                        "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return null;
+                }
+
+                return form.Senha;
+            }
+        }
+
+        private void ControleInterface(bool ativo, string labelStatus = null)
+        {
+            btnBackup.Enabled   = ativo;
             btnImportar.Enabled = ativo;
+            Cursor = ativo ? Cursors.Default : Cursors.WaitCursor;
+
             
-            this.Cursor = ativo ? Cursors.Default : Cursors.WaitCursor;
+        }
+
+        private static void TentarDeletarArquivo(string caminho)
+        {
+            try { File.Delete(caminho); }
+            catch { /* silencioso — melhor deixar o arquivo do que explodir aqui */ }
         }
 
         private void btnBackup_MouseEnter(object sender, EventArgs e)
-        {
-            btnBackup.BackColor = Color.FromArgb(50, 70, 95);
-        }
+            => btnBackup.BackColor = Color.FromArgb(50, 70, 95);
 
         private void btnBackup_MouseLeave(object sender, EventArgs e)
-        {
-            btnBackup.BackColor = SystemColors.Control;
-        }
+            => btnBackup.BackColor = SystemColors.Control;
     }
 }
