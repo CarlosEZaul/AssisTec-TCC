@@ -20,9 +20,13 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios
         
         public ucFormularioUsuarios(int _id, int _modo, DataGridView _dgv)
         {
-            id = _id;
-            modo = _modo;
-            dgv = _dgv;
+            
+            this.modo = _modo;
+            this.dgv = _dgv;
+            if (modo != 1)
+            {
+                this.id = _id;
+            }
             InitializeComponent();
             
             this.service = new UsuarioService(new UsuarioRepository(new AppDbContext()));
@@ -127,18 +131,12 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios
                 id = usuario.Id;
                 txtNome.Text = usuario.Nome;
                 mtbCPF.Text = usuario.Cpf;
-        
-                // CORREÇÃO: Deixe o campo de senha vazio. 
-                // Um placeholder ou label na tela pode avisar: "Deixe em branco para não alterar"
                 txtSenha.Text = string.Empty; 
-        
                 mtbTel.Text = usuario.Telefone;
-
                 int indexNivel = (usuario.Nivel >= 1 && usuario.Nivel <= 3) ? usuario.Nivel - 1 : 1;
                 cbNivel.SelectedIndex = indexNivel;
                 cbStatus.Text = usuario.Status;
                 mtbCep.Text = usuario.Cep;
-        
                 okCep = true;
                 txtRua.Text = usuario.Rua;
                 txtNumber.Text = usuario.Numero;

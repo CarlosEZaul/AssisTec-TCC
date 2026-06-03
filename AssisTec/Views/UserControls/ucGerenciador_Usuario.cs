@@ -5,6 +5,8 @@ using System.Drawing;
 using AssisTec.Service;
 using AssisTec.Models;
 using AssisTec.Repository;
+using AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Clientes.ucFormulario_Clientes;
+using AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios;
 
 
 namespace AssisTec.UserControls
@@ -119,12 +121,30 @@ namespace AssisTec.UserControls
         
         private void AbrirFormularioUsuario(int modoOperacao)
         {
-            var ucFormulario = new SubUserControl_do_Gerenciador_de_Usuarios.ucFormularioUsuarios(idSelected, modoOperacao, dgvUsuarios);
-            this.Controls.Add(ucFormulario);
-            ucFormulario.BringToFront();
-            ucFormulario.Left = (this.ClientSize.Width - ucFormulario.Width) / 2;
-            ucFormulario.Top = (this.ClientSize.Height - ucFormulario.Height) / 2;
-            ucFormulario.Show();
+            ControleEstadoComponentes(false);
+
+            ucFormularioUsuarios ucFormularioUsuarios = new ucFormularioUsuarios(idSelected, modoOperacao, dgvUsuarios);
+            
+            ucFormularioUsuarios.Disposed += (sender, e) =>
+            {
+                ControleEstadoComponentes(true);
+                listGrid();
+            };
+            
+            this.Controls.Add(ucFormularioUsuarios);
+            ucFormularioUsuarios.BringToFront();
+            ucFormularioUsuarios.Left = (this.ClientSize.Width - ucFormularioUsuarios.Width) / 2;
+            ucFormularioUsuarios.Top = (this.ClientSize.Height - ucFormularioUsuarios.Height) / 2;
+            ucFormularioUsuarios.Show();
+        }
+        private void ControleEstadoComponentes(bool ativo)
+        {
+            btnNew.Enabled = ativo;
+            btnEditar.Enabled = ativo;
+            btnDelete.Enabled = ativo;
+            btnAtualizar.Enabled = ativo;
+            txtBusca.Enabled = ativo;
+            dgvUsuarios.Enabled = ativo;
         }
 
         #endregion

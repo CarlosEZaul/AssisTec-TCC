@@ -36,18 +36,39 @@ namespace AssisTec.Service
                 return (false, "Dados do cliente inválidos.");
 
             if (string.IsNullOrWhiteSpace(cliente.Nome) || string.IsNullOrWhiteSpace(cliente.Cpf))
+            {
                 return (false, "Campos obrigatórios não preenchidos.");
+            }
+                
 
-            string cpfLimpo = cliente.Cpf.Replace(".", "").Replace("-", "").Trim();
-            if (repository.CpfExiste(cpfLimpo))
+            if (!Validacao.ValidarCPF(cliente.Cpf))
+            {
+                return (false, "CPF inválido");
+            }
+
+            if (!Validacao.ValidarTelefone(cliente.Telefone))
+            {
+                return (false, "Telefone inválido");
+            }
+            
+            if (!cliente.DataNascimento.HasValue)
+            {
+                return (false, "Data de nascimento é obrigatório");
+            }
+            
+            var (dataValida, mensagemData) = Validacao.ValidarData(cliente.DataNascimento.Value);
+            if (!dataValida)
+            {
+                return (false, mensagemData);
+            }
+            
+            if (repository.CpfExiste(cliente.Cpf))
             {
                 return (false, "O CPF informado já está cadastrado no sistema.");
             }
 
-            cliente.Cpf = cpfLimpo;
-
-            bool inseriu = repository.InserirCliente(cliente);
-            if (inseriu)
+            bool inserirCliente = repository.InserirCliente(cliente);
+            if (inserirCliente)
             {
                 return (true, "Cliente cadastrado com sucesso!");
             }
@@ -57,15 +78,39 @@ namespace AssisTec.Service
 
         public (bool sucesso, string mensagem) EditarCliente(Cliente cliente)
         {
-            if (cliente == null || cliente.Id <= 0)
-                return (false, "Dados do cliente inválidos para edição.");
+            if (string.IsNullOrWhiteSpace(cliente.Nome) || string.IsNullOrWhiteSpace(cliente.Cpf))
+            {
+                return (false, "Campos obrigatórios não preenchidos.");
+            }
+                
 
-            if (string.IsNullOrWhiteSpace(cliente.Nome))
-                return (false, "O nome do cliente não pode ficar vazio.");
+            if (!Validacao.ValidarCPF(cliente.Cpf))
+            {
+                return (false, "CPF inválido");
+            }
 
-            cliente.Cpf = cliente.Cpf.Replace(".", "").Replace("-", "").Trim();
+            if (!Validacao.ValidarTelefone(cliente.Telefone))
+            {
+                return (false, "Telefone inválido");
+            }
+            
+            if (!cliente.DataNascimento.HasValue)
+            {
+                return (false, "Data de nascimento é obrigatório");
+            }
+            
+            var (dataValida, mensagemData) = Validacao.ValidarData(cliente.DataNascimento.Value);
+            if (!dataValida)
+            {
+                return (false, mensagemData);
+            }
+            
+            if (repository.CpfExiste(cliente.Cpf) && cliente.Cpf != cliente.Cpf)
+            {
+                return (false, "O CPF informado já está cadastrado no sistema.");
+            }
 
-            bool atualizou = repository.CorrigirAtualizarCliente(cliente);
+            bool atualizou = repository.AtualizarCliente(cliente);
             if (atualizou)
             {
                 return (true, "Cliente atualizado com sucesso!");

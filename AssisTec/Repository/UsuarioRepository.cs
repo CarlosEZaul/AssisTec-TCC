@@ -12,7 +12,7 @@ namespace AssisTec.Repository
 
         public UsuarioRepository(AppDbContext _context)
         {
-            this.context = _context ?? throw new ArgumentNullException(nameof(_context));
+            this.context = _context;
         }
 
         public bool InserirUsuario(Usuario usuario)

@@ -124,8 +124,8 @@ namespace AssisTec.Service
 
             usuario.Senha = GerarHashSHA256(usuario.Senha);
 
-            bool inseriu = repository.InserirUsuario(usuario);
-            if (inseriu)
+            bool inserirUsuario = repository.InserirUsuario(usuario);
+            if (inserirUsuario)
             {
                 return (true, "Usuário cadastrado com sucesso!");
             }

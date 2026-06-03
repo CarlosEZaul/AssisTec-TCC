@@ -12,19 +12,12 @@ namespace AssisTec.UserControls
     public partial class ucGerenciador_Clientes : UserControl
     {
         private int idSelected;
-        private readonly ClienteService service;
-        private readonly IClienteRepository repository;
-        //private readonly ClienteRelatorio relatorio;
+        private ClienteService service;
  
         public ucGerenciador_Clientes()
         {
             InitializeComponent();
-            
-            var context = new AppDbContext();
-            this.repository = new ClienteRepository(context);
-            this.service = new ClienteService(this.repository);
-            //this.relatorio = new ClienteRelatorio();
-
+            this.service = new ClienteService(new ClienteRepository(new AppDbContext()));
             ApplyModernDesign();
         }
 
@@ -35,6 +28,7 @@ namespace AssisTec.UserControls
         }
         
         #region Design Moderno
+        
         private void ApplyModernDesign()
         {
             try
@@ -54,9 +48,11 @@ namespace AssisTec.UserControls
                 MessageBox.Show("Erro ao aplicar design: " + ex.Message);
             }
         }
+        
         #endregion
 
         #region Métodos de Interface
+        
         private void FormartGrid()
         { 
             if (dgvClientes.Columns.Count <= 0) return;
@@ -76,28 +72,13 @@ namespace AssisTec.UserControls
             dgvClientes.Columns[11].HeaderText = "COMPLEMENTO";
         }
 
-        private void EnableBtn()
-        {
-            btnEditar.Enabled = true;
-            btnDelete.Enabled = true;
-            btnImprimir.Enabled = true;
-            btnOS.Enabled = true;
-        }
-
-        private void DisableBtn()
-        {
-            btnEditar.Enabled = false;
-            btnDelete.Enabled = false;
-            btnImprimir.Enabled = false;
-            btnOS.Enabled = false;
-        }
+        
         
         public void ListGrid()
         {
             try
             {
                 dgvClientes.DataSource = service.ObterTodos();
-                FormartGrid();
             }
             catch (Exception ex)
             {
@@ -109,7 +90,13 @@ namespace AssisTec.UserControls
         {
             try
             {
-                dgvClientes.DataSource = service.FiltrarClientes(txtBusca.Text);
+                using (var context = new AppDbContext())
+                {
+                    var repository = new ClienteRepository(context);
+                    var service = new ClienteService(repository);
+                    
+                    dgvClientes.DataSource = service.FiltrarClientes(txtBusca.Text);
+                }
                 FormartGrid();
             }
             catch (Exception ex)
@@ -117,77 +104,43 @@ namespace AssisTec.UserControls
                 Console.WriteLine("Erro na busca: " + ex.Message);
             }
         }
-        #endregion
 
-        #region Eventos dos Componentes
-        private void btnDelete_Click(object sender, EventArgs e)
+        private void AbrirFormularioCliente(int modoOperacao)
         {
-            if (idSelected <= 0)
+            ControleEstadoComponentes(false);
+
+            ucFormulario_Clientes ucFormularioClientes = new ucFormulario_Clientes(idSelected, modoOperacao, dgvClientes);
+            
+            ucFormularioClientes.Disposed += (sender, e) =>
             {
-                MessageBox.Show("Selecione um cliente válido para realizar a exclusão.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            DialogResult dialogResult = MessageBox.Show("Deseja realmente deletar o cliente selecionado?", "Excluir", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (dialogResult == DialogResult.Yes)
-            {
-                var (podeExcluir, mensagem) = service.ValidarExclusao(idSelected);
-
-                if (!podeExcluir)
-                {
-                    MessageBox.Show(mensagem, "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
-                else
-                {
-                    if (service.DeletarCliente(idSelected))
-                    {
-                        MessageBox.Show("Cliente removido com sucesso.", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        ListGrid();
-                        DisableBtn();
-                    }
-                    else
-                    {
-                        MessageBox.Show("Falha ao tentar excluir o cliente.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                }
-            }
-        }
-
-        private void btnAtualizar_Click(object sender, EventArgs e)
-        {
-            ListGrid();
-        }
-
-        private void dgvClientes_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.RowIndex >= 0 && dgvClientes.Rows.Count > 0)
-            {
-                try
-                {
-                    EnableBtn();
-                    idSelected = Convert.ToInt32(dgvClientes.Rows[e.RowIndex].Cells[0].Value);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Erro ao selecionar registro: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-        }
-
-        private void txtBusca_TextChanged(object sender, EventArgs e)
-        {
-            Filtro();
-        }
-
-        private void btnNew_Click(object sender, EventArgs e)
-        {
-            var ucFormularioClientes = new ucFormulario_Clientes(0, 1, dgvClientes);
+                ControleEstadoComponentes(true);
+                ListGrid();
+            };
             
             this.Controls.Add(ucFormularioClientes);
             ucFormularioClientes.BringToFront();
             ucFormularioClientes.Left = (this.ClientSize.Width - ucFormularioClientes.Width) / 2;
             ucFormularioClientes.Top = (this.ClientSize.Height - ucFormularioClientes.Height) / 2;
             ucFormularioClientes.Show();
+        }
+
+        private void ControleEstadoComponentes(bool ativo)
+        {
+            btnNew.Enabled = ativo;
+            btnEditar.Enabled = ativo;
+            btnDelete.Enabled = ativo;
+            btnAtualizar.Enabled = ativo;
+            txtBusca.Enabled = ativo;
+            dgvClientes.Enabled = ativo;
+        }
+        
+        #endregion
+
+        #region Eventos dos Componentes
+        
+        private void btnNew_Click(object sender, EventArgs e)
+        {
+            AbrirFormularioCliente(1);
         }
 
         private void btnEditar_Click(object sender, EventArgs e)
@@ -197,43 +150,92 @@ namespace AssisTec.UserControls
                 MessageBox.Show("Selecione um cliente na tabela para editar.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
+            AbrirFormularioCliente(2);
+        }
 
-            var ucFormularioClientes = new ucFormulario_Clientes(idSelected, 2, dgvClientes);
-            
-            this.Controls.Add(ucFormularioClientes);
-            ucFormularioClientes.BringToFront();
-            ucFormularioClientes.Left = (this.ClientSize.Width - ucFormularioClientes.Width) / 2;
-            ucFormularioClientes.Top = (this.ClientSize.Height - ucFormularioClientes.Height) / 2;
-            ucFormularioClientes.Show();
+        private void dgvClientes_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0 && dgvClientes.Rows.Count > 0)
+            {
+                try
+                {
+                    ControleEstadoComponentes(true);
+                    idSelected = Convert.ToInt32(dgvClientes.Rows[e.RowIndex].Cells[0].Value);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Erro ao selecionar registro: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            if (idSelected <= 0)
+            {
+                MessageBox.Show("Selecione um cliente válido para realizar a exclusão.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            DialogResult primeiroDialogo = MessageBox.Show("Deseja realmente deletar o cliente selecionado?", "Excluir", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (primeiroDialogo == DialogResult.No)
+            {
+                MessageBox.Show("Operação cancelada");
+                return;
+            }
+
+            using (var context = new AppDbContext())
+            {
+                var repository = new ClienteRepository(context);
+                var service = new ClienteService(repository);
+
+                var (podeExcluir, mensagem) = service.ValidarExclusao(idSelected);
+
+                if (!podeExcluir)
+                {
+                    MessageBox.Show(mensagem, "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                if (service.DeletarCliente(idSelected))
+                {
+                    ControleEstadoComponentes(false);
+                    MessageBox.Show("Cliente removido com sucesso.", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    ListGrid();
+                }
+                else
+                {
+                    MessageBox.Show("Falha ao tentar excluir o cliente.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void btnAtualizar_Click(object sender, EventArgs e)
+        {
+            ListGrid();
+        }
+
+        private void txtBusca_TextChanged(object sender, EventArgs e)
+        {
+            Filtro();
         }
 
         private void btnOS_Click(object sender, EventArgs e)
         {
-            // if (idSelected <= 0) return;
-            //
-            // Pessoa pessoa = new Cliente();
-            // var ucHistorico = new ucHistoricoOS(pessoa, idSelected);
-            // ucHistorico.Left = (this.ClientSize.Width - ucHistorico.Width) / 2;
-            // ucHistorico.Top = (this.ClientSize.Height - ucHistorico.Height) / 2;
-            // this.Controls.Add(ucHistorico);
-            //
-            // ucHistorico.BringToFront();
         }
 
         private void btnImprimir_Click(object sender, EventArgs e)
         {
-            if (idSelected <= 0) return;
-            //relatorio.ImprimirCliente(idSelected);
         }
 
         private void btnRelatorio_Click(object sender, EventArgs e)
         {
-            //relatorio.gerarRelatorioTodosClientes();
         }
 
         private void btnContato_Click(object sender, EventArgs e)
         {
         }
+        
         #endregion
     }
 }

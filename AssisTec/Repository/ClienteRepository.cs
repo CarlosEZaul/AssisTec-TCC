@@ -13,7 +13,7 @@ namespace AssisTec.Repository
 
         public ClienteRepository(AppDbContext _context)
         {
-            context = _context;
+            this.context = _context;
         }
 
         public bool InserirCliente(Cliente cliente)
@@ -37,7 +37,7 @@ namespace AssisTec.Repository
         {
             try
             {
-                return context.Clientes.AsNoTracking().ToList();
+                return context.Clientes.ToList();
             }
             catch (Exception ex)
             {
@@ -57,7 +57,7 @@ namespace AssisTec.Repository
             }
         }
 
-        public bool CorrigirAtualizarCliente(Cliente cliente)
+        public bool AtualizarCliente(Cliente cliente)
         {
             try
             {

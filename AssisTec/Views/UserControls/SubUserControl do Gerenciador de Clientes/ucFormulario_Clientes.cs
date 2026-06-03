@@ -27,7 +27,12 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Clientes.ucForm
             this.serviceCliente = new ClienteService(this.repositoryCliente);
 
             this.modo = _modo;
-            this.id = _id;
+            
+            if (modo != 1)
+            {
+                this.id = _id;    
+            }
+            
             this.dgvClientes = _dgv;
         }
 
@@ -100,7 +105,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Clientes.ucForm
                 txtNome.Text = cliente.Nome;
                 mtbCPF.Text = cliente.Cpf;
                 mtbTel.Text = cliente.Telefone;
-                mtbNasc.Text = cliente.DataNascimento.ToString("dd/MM/yyyy");
+                mtbNasc.Text = cliente.DataNascimento.Value.ToString("dd/MM/yyyy");
                 mtbCep.Text = cliente.Cep;
                 txtRua.Text = cliente.Rua;
                 txtNumber.Text = cliente.Numero;

@@ -8,7 +8,7 @@ namespace AssisTec.Repository
         bool InserirCliente(Cliente cliente);
         List<Cliente> ObterTodosClientes();
         Cliente ObterPorId(int id);
-        bool CorrigirAtualizarCliente(Cliente cliente);
+        bool AtualizarCliente(Cliente cliente);
         bool ExcluirCliente(int id);
         Cliente ObterPorCpf(string cpf);
         bool CpfExiste(string cpf); 

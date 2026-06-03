@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 
 namespace AssisTec
 {
@@ -77,6 +78,26 @@ namespace AssisTec
 
             // Retorna true se os dígitos calculados forem iguais aos do CPF informado
             return cpf.EndsWith(digito);
+        }
+
+        public static (bool sucesso, string mensagem) ValidarData(DateTime data)
+        {
+            if (data > DateTime.Today)
+            {
+                return (false, "A data não pode ser uma data futura");
+            }
+
+            int idadeMaxima = 120;
+            if (data < DateTime.Today.AddYears(-idadeMaxima))
+            {
+                return (false, "A data limite é 120 anos");
+            }
+
+            if (data.Year < 1900)
+            {
+                return (false, "O ano deve ser maior que 1900");
+            }
+            return (true, string.Empty);
         }
     }
 }
