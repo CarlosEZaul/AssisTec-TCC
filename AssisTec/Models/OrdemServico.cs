@@ -4,31 +4,27 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AssisTec.Models
 {
-    [Table ("ordem_servico")]
+    [Table("ordem_servico")]
     public class OrdemServico
     {
         [Key]
-        [Required]
         [Column("id_os")]
         public int id_os { get; set; }
 
-        [Required]
         [Column("id_tecnico")]
-        public int id_tecnico { get; set; }
+        public int? id_tecnico { get; set; }
 
         [ForeignKey("id_tecnico")]
         public virtual Usuario Tecnico { get; set; }
 
-        [Required]
         [Column("id_cliente")]
-        public int id_cliente { get; set; }
+        public int? id_cliente { get; set; }
 
         [ForeignKey("id_cliente")]
         public virtual Cliente Cliente { get; set; }
 
-        [Required]
         [Column("id_equipamento")]
-        public int id_equipamento { get; set; }
+        public int? id_equipamento { get; set; }
 
         [ForeignKey("id_equipamento")]
         public virtual Equipamento Equipamento { get; set; }

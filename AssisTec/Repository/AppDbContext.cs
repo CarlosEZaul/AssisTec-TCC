@@ -47,20 +47,22 @@ namespace AssisTec.Repository
             });
 
             modelBuilder.Entity<ContasReceber>(entity =>
-                {
-                    entity.ToTable("contasReceber");
-                    entity.HasKey(e => e.id_conta_receber);
-                    entity.Property(e => e.id_conta_receber).HasColumnName("id_conta_receber");
-                    entity.HasOne(e => e.OrdemServico)
-                        .WithMany()
-                        .HasForeignKey("id_os_fk")
-                        .OnDelete(DeleteBehavior.SetNull);
-                    entity.HasOne(e => e.Pagamento)
-                        .WithMany()
-                        .HasForeignKey("id_forma_pagamento_fk")
-                        .OnDelete(DeleteBehavior.SetNull);
-                }
-            );
+            {
+                entity.ToTable("contas_receber");
+    
+                entity.HasKey(e => e.id_conta_receber);
+                entity.Property(e => e.id_conta_receber).HasColumnName("id_conta_receber");
+
+                entity.HasOne(e => e.OrdemServico)
+                    .WithMany()
+                    .HasForeignKey(e => e.id_os_fk)
+                    .OnDelete(DeleteBehavior.SetNull);
+
+                entity.HasOne(e => e.Pagamento)
+                    .WithMany()
+                    .HasForeignKey(e => e.id_forma_pagamento_fk)
+                    .OnDelete(DeleteBehavior.SetNull);
+            });
             modelBuilder.Entity<Equipamento>(entity =>
             {
                 entity.ToTable("equipamentos");

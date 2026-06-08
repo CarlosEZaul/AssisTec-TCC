@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using AssisTec.Repository;
 
 namespace AssisTec
 {
@@ -14,6 +15,10 @@ namespace AssisTec
         [STAThread]
         static void Main()
         {
+            using (var context = new AppDbContext())
+            {
+                context.Database.EnsureCreated();
+            }
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             //Application.Run(new FrmPrincipal());
