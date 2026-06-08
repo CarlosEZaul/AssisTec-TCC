@@ -234,7 +234,6 @@
     <Compile Include="Models\Cliente.cs" />
     <Compile Include="Models\ContasReceber.cs" />
     <Compile Include="Models\Equipamento.cs" />
-    <Compile Include="Models\LancamentoFinanceiro.cs" />
     <Compile Include="Models\OrdemServico.cs" />
     <Compile Include="Models\Pagamento.cs" />
     <Compile Include="Models\Sessao.cs" />

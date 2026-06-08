@@ -1,14 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace AssisTec.Models
 {
-    [Table("forma_pagamento")]
     public class Pagamento
     {
-        [Key]
-        [Required]
-        [Column("id_forma_pagamento")]
         public int Idforma_pagamento { get; set; }
 
         [Required]

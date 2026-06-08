@@ -1,34 +1,49 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AssisTec.Models
 {
-    [Table("contas_receber")]
-    public class ContasReceber : LancamentoFinanceiro
+    public class ContasReceber
     {
-        [Key]
-        [Column("id_conta_receber")]
         public int id_conta_receber { get; set; }
+        
+        [Required]
+        [StringLength(100)]
+        public string descricao { get; set; }
+        
+        [Required]
+        [Range(0.01, double.MaxValue, ErrorMessage = "O valor deve ser maior que zero.")]
+        public decimal valor { get; set; }
+        
+        [Required]
+        public DateTime data_emissao { get; set; }
+        public DateTime? data_pagamento { get; set; }
+        public DateTime data_vencimento { get; set; }
+        
+        [Required]
+        [StringLength(30)]
+        public string status { get; set; }
+        
+        [StringLength(100)]
+        public string observacoes { get; set; }
 
-        [Column("id_os_fk")]
         public int? id_os_fk { get; set; }
+        public virtual OrdemServico OrdemServico { get; set; }
 
-        [ForeignKey("id_os_fk")]
-        public OrdemServico OrdemServico { get; set; }
+        public int? id_forma_pagamento_fk { get; set; }
+        public virtual Pagamento Pagamento { get; set; }
 
-        [NotMapped] public string filtroDataInicio { get; set; } = string.Empty;
-
-        [NotMapped]
+        [NotMapped] [Browsable(false)] 
+        public string filtroDataInicio { get; set; } = string.Empty;
+        [NotMapped] [Browsable(false)]
         public string filtroDataFim { get; set; } = string.Empty;
-
-        [NotMapped]
+        [NotMapped] [Browsable(false)] 
         public string filtroDescricao { get; set; } = string.Empty;
-
-        [NotMapped]
+        [NotMapped] [Browsable(false)] 
         public string filtroStatus { get; set; } = string.Empty;
-
-        [NotMapped]
+        [NotMapped] [Browsable(false)]
         public int? filtroIdFormaPagamento { get; set; }
-
     }
 }
