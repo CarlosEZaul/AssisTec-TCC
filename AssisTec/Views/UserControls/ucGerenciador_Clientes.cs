@@ -18,13 +18,16 @@ namespace AssisTec.UserControls
         {
             InitializeComponent();
             this.service = new ClienteService(new ClienteRepository(new AppDbContext()));
+            btnNew.Focus();
+            ListGrid(); 
+            FormartGrid();
+            
             ApplyModernDesign();
         }
 
         private void ucGerenciadorClientes_Load(object sender, EventArgs e)
         {
-            btnNew.Focus();
-            ListGrid(); 
+            
         }
         
         #region Design Moderno

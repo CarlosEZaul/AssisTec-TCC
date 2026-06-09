@@ -116,9 +116,12 @@ namespace AssisTec.UserControls
             dgvContasReceber.Columns[4].HeaderText = "Data de Pagamento";
             dgvContasReceber.Columns[5].HeaderText = "Data de Vencimento";
             dgvContasReceber.Columns[6].HeaderText = "Status";
-            dgvContasReceber.Columns[7].HeaderText = "Forma de Pagamento";
-            dgvContasReceber.Columns[8].HeaderText = "Observações";
+            dgvContasReceber.Columns[7].HeaderText = "Observações";
+            dgvContasReceber.Columns[8].HeaderText = "Forma de Pagamento";
             dgvContasReceber.Columns[9].HeaderText = "ID_OS";
+            dgvContasReceber.Columns[10].Visible = false;
+            dgvContasReceber.Columns[11].Visible = false;
+            dgvContasReceber.AutoGenerateColumns = false;
         }
 
         private void listGrid()
@@ -164,7 +167,7 @@ namespace AssisTec.UserControls
 
         private void dgvContasReceber_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            if (dgvContasReceber.Columns[e.ColumnIndex].Index == 7 && e.Value != null)
+            if (dgvContasReceber.Columns[e.ColumnIndex].Index == 6 && e.Value != null)
             {
                 if (e.Value.ToString() == "ATRASADO")
                 {

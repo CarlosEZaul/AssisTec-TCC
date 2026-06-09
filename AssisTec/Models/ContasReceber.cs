@@ -14,7 +14,7 @@ namespace AssisTec.Models
         public string descricao { get; set; }
         
         [Required]
-        [Range(0.01, double.MaxValue, ErrorMessage = "O valor deve ser maior que zero.")]
+        [Column(TypeName = "decimal(18,2)")]
         public decimal valor { get; set; }
         
         [Required]

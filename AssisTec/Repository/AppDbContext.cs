@@ -30,6 +30,8 @@ namespace AssisTec.Repository
             }
         }
 
+        
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Usuario>(entity =>
@@ -83,6 +85,8 @@ namespace AssisTec.Repository
     
                 entity.Property(e => e.descricao).HasColumnName("descricao");
                 entity.Property(e => e.valor).HasColumnName("valor");
+                modelBuilder.Entity<ContasReceber>()
+                    .Property(p => p.valor).HasMaxLength(18);
                 entity.Property(e => e.data_emissao).HasColumnName("data_emissao");
                 entity.Property(e => e.data_pagamento).HasColumnName("data_pagamento");
                 entity.Property(e => e.data_vencimento).HasColumnName("data_vencimento");
@@ -157,17 +161,19 @@ namespace AssisTec.Repository
             modelBuilder.Entity<Pagamento>(entity =>
             {
                 entity.ToTable("forma_pagamento");
-    
+
                 entity.HasKey(e => e.Idforma_pagamento);
                 entity.Property(e => e.Idforma_pagamento).HasColumnName("id_forma_pagamento");
-    
                 entity.Property(e => e.Descricao).HasColumnName("descricao");
+
+                entity.HasData(
+                    new Pagamento { Idforma_pagamento = 1, Descricao = "Pix" },
+                    new Pagamento { Idforma_pagamento = 2, Descricao = "Cartão de Crédito / Débito" },
+                    new Pagamento { Idforma_pagamento = 3, Descricao = "Dinheiro" }
+                );
             });
-            
-            
-            
-            
 
         }
+        
     }
 }

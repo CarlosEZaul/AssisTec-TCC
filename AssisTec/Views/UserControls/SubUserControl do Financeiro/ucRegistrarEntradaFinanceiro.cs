@@ -122,7 +122,6 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
                 _service.SalvarContaReceber(_contaAtual, _modo);
 
                 MessageBox.Show("Operação realizada com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                
                 AtualizarComponentesExternos();
                 Fechar();
             }
