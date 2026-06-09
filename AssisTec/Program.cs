@@ -15,7 +15,7 @@ namespace AssisTec
         {
             using (var context = new AppDbContext())
             {
-                context.Database.Migrate();
+                context.Database.EnsureCreated();
             }
             
             Application.EnableVisualStyles();

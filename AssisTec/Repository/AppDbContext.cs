@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AssisTec.Models;
+using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 
 
 namespace AssisTec.Repository
@@ -24,8 +25,8 @@ namespace AssisTec.Repository
             {
                 string connectionString = "SERVER=localhost; DATABASE=assistec; UID=root; PWD=; PORT=3306;";
 
-                optionsBuilder.UseMySql(connectionString, mysqlOptions => 
-                    mysqlOptions.ServerVersion("10.4.32-mariadb")
+                optionsBuilder.UseMySql(connectionString, mysqlOptions =>
+                    mysqlOptions.ServerVersion(new Version(10, 4, 32), ServerType.MariaDb)
                 );
             }
         }
@@ -167,9 +168,10 @@ namespace AssisTec.Repository
                 entity.Property(e => e.Descricao).HasColumnName("descricao");
 
                 entity.HasData(
-                    new Pagamento { Idforma_pagamento = 1, Descricao = "Pix" },
-                    new Pagamento { Idforma_pagamento = 2, Descricao = "Cartão de Crédito / Débito" },
-                    new Pagamento { Idforma_pagamento = 3, Descricao = "Dinheiro" }
+                    new Pagamento{ Idforma_pagamento = 1, Descricao = "---"},
+                    new Pagamento { Idforma_pagamento = 2, Descricao = "Pix" },
+                    new Pagamento { Idforma_pagamento = 3, Descricao = "Cartão de Crédito / Débito" },
+                    new Pagamento { Idforma_pagamento = 4, Descricao = "Dinheiro" }
                 );
             });
 

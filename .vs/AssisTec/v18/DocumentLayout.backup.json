@@ -1,12 +1,39 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\carlo\\Desktop\\AssisTec-TCC\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{00000000-0000-0000-0000-000000000000}|\u003CSolution\u003E|AssisTec||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0107DE09-5745-4BB2-B7F8-AAB0EF65E6FA}|AssisTec\\AssisTec.csproj|c:\\users\\carlo\\desktop\\assistec-tcc\\assistec\\properties\\resources.resx||{81828910-B8B3-4D2B-99A3-067027C180C1}",
+      "RelativeMoniker": "D:0:0:{0107DE09-5745-4BB2-B7F8-AAB0EF65E6FA}|AssisTec\\AssisTec.csproj|solutionrelative:assistec\\properties\\resources.resx||{81828910-B8B3-4D2B-99A3-067027C180C1}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 256,
-      "DocumentGroups": []
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "AssisTec",
+              "DocumentMoniker": "C:\\Users\\carlo\\Desktop\\AssisTec-TCC\\AssisTec\\AssisTec.csproj",
+              "RelativeDocumentMoniker": "AssisTec\\AssisTec.csproj",
+              "ToolTip": "C:\\Users\\carlo\\Desktop\\AssisTec-TCC\\AssisTec\\AssisTec.csproj",
+              "RelativeToolTip": "AssisTec\\AssisTec.csproj",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-04-25T23:05:25.676Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
     }
   ]
 }
