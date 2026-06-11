@@ -10,239 +10,134 @@ namespace AssisTec.Repository
 {
     public class ContasReceberRepository : IContaReceberRepository
     {
-        private readonly AppDbContext context;
+        private readonly AppDbContext _context;
 
-        public ContasReceberRepository(AppDbContext _context)
+        public ContasReceberRepository(AppDbContext context)
         {
-            this.context = _context ?? throw new ArgumentNullException(nameof(_context));
+            _context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        public bool InserirContasReceber(ContasReceber conta)
+        public bool Inserir(ContasReceber conta)
         {
-            try
-            {
-                context.ContasReceber.Add(conta);
-                context.SaveChanges();
-                return true;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Falha ao inserir conta a receber.", ex);
-            }
+            _context.ContasReceber.Add(conta);
+            return _context.SaveChanges() > 0;
         }
 
-        public bool InserirContasReceberOS(ContasReceber conta, int idOs)
+        public bool InserirComVinculoOS(ContasReceber conta, int idOs)
         {
-            try
-            {
-                var os = context.OrdemServicos.FirstOrDefault(o => o.id_os == idOs);
-                if (os != null)
-                {
-                    conta.id_os_fk = idOs;
-                    context.ContasReceber.Add(conta);
-                    context.SaveChanges();
-                    return true;
-                }
-                return false;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Falha ao inserir conta a receber com OS.", ex);
-            }
+            if (!_context.OrdemServicos.Any(o => o.id_os == idOs)) return false;
+
+            conta.id_os_fk = idOs;
+            _context.ContasReceber.Add(conta);
+            return _context.SaveChanges() > 0;
         }
 
-        public List<ContasReceber> ObterTodasContasReceber()
+        // CORRIGIDO: Inclui navegações para evitar dados incompletos
+        public IEnumerable<ContasReceber> ObterTodos() =>
+            _context.ContasReceber
+                .Include(c => c.Pagamento)
+                .Include(c => c.OrdemServico)
+                .ToList();
+
+        public ContasReceber ObterPorId(int id) => _context.ContasReceber.Find(id);
+
+        public bool Atualizar(ContasReceber conta)
         {
-            try
-            {
-                return context.ContasReceber.ToList();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Falha ao obter todas as contas a receber.", ex);
-            }
+            _context.ContasReceber.Update(conta);
+            return _context.SaveChanges() > 0;
         }
 
-        public ContasReceber ObterPorId(int id)
+        public bool Excluir(int id)
         {
-            try
-            {
-                return context.ContasReceber.FirstOrDefault(c => c.id_conta_receber == id);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception($"Falha ao obter conta a receber por ID: {id}.", ex);
-            }
+            var conta = _context.ContasReceber.Find(id);
+            if (conta == null) return false;
+
+            _context.ContasReceber.Remove(conta);
+            return _context.SaveChanges() > 0;
         }
 
-        public bool AtualizarContasReceber(ContasReceber conta)
+        public bool MarcarComoAtrasado(int id)
         {
-            try
-            {
-                context.ContasReceber.Update(conta);
-                context.SaveChanges();
-                return true;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Falha ao atualizar conta a receber.", ex);
-            }
+            var conta = _context.ContasReceber.Find(id);
+            if (conta == null) return false;
+
+            // CORRIGIDO: Evita SaveChanges desnecessário se já está ATRASADO
+            if (conta.status == "ATRASADO") return true;
+
+            conta.status = "ATRASADO";
+            return _context.SaveChanges() > 0;
         }
 
-        public bool ExcluirContasReceber(int id)
+        public DataTable Filtrar(ContasReceber filtro)
         {
-            try
+            var resultado = AplicarFiltros(filtro)
+                .Include(c => c.Pagamento)
+                .ToList();
+
+            DataTable dt = new DataTable();
+            dt.Columns.Add("ID_CONTA", typeof(int));
+            dt.Columns.Add("Descricao", typeof(string));
+            dt.Columns.Add("Valor", typeof(decimal));
+            dt.Columns.Add("DataEmissao", typeof(DateTime));
+            dt.Columns.Add("DataPagamento", typeof(object));
+            dt.Columns.Add("DataVencimento", typeof(DateTime));
+            dt.Columns.Add("Status", typeof(string));
+            dt.Columns.Add("Observacoes", typeof(string));
+            // CORRIGIDO: IdOS como int? em vez de string para manter consistência com o model
+            dt.Columns.Add("IdOS", typeof(int));
+            dt.Columns.Add("FormaPagamento", typeof(string));
+
+            foreach (var item in resultado)
             {
-                var conta = context.ContasReceber.FirstOrDefault(c => c.id_conta_receber == id);
-                if (conta != null)
-                {
-                    context.ContasReceber.Remove(conta);
-                    context.SaveChanges();
-                    return true;
-                }
-                return false;
+                dt.Rows.Add(
+                    item.id_conta_receber,
+                    item.descricao,
+                    item.valor,
+                    item.data_emissao,
+                    (object)item.data_pagamento ?? DBNull.Value,
+                    item.data_vencimento,
+                    item.status,
+                    item.observacoes,
+                    // CORRIGIDO: Mantém DBNull quando nulo, em vez de "N/A" (incompatível com typeof(int))
+                    (object)item.id_os_fk ?? DBNull.Value,
+                    item.Pagamento?.Descricao ?? "NÃO DEFINIDA"
+                );
             }
-            catch (Exception ex)
-            {
-                throw new Exception($"Falha ao excluir conta a receber com ID: {id}.", ex);
-            }
+
+            return dt;
         }
 
-        public bool AtualizarParaAtrasado(int id)
+        public (decimal TotalGeral, decimal TotalRecebido, decimal TotalPendente, decimal TotalAtrasado) ObterTotais(ContasReceber filtro)
         {
-            try
-            {
-                var conta = context.ContasReceber.FirstOrDefault(c => c.id_conta_receber == id);
-                if (conta != null)
-                {
-                    conta.status = "ATRASADO";
-                    context.SaveChanges();
-                    return true;
-                }
-                return false;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception($"Falha ao atualizar conta a receber para atrasado. ID: {id}", ex);
-            }
-        }
+            var dados = AplicarFiltros(filtro).Select(c => new { c.status, c.valor }).ToList();
 
-        public DataTable FiltrarContasReceber(ContasReceber filtro)
-        {
-            try
-            {
-                var query = AplicarFiltros(filtro);
-
-                var resultado = query
-                    .Include(c => c.Pagamento)
-                    .Select(c => new
-                    {
-                        c.id_conta_receber,
-                        c.id_os_fk,
-                        c.descricao,
-                        c.valor,
-                        c.data_emissao,
-                        c.data_pagamento,
-                        c.data_vencimento,
-                        c.status,
-                        FormaPagamento = c.Pagamento != null ? c.Pagamento.Descricao : "NÃO DEFINIDA",
-                        c.observacoes
-                    })
-                    .ToList();
-
-                DataTable dt = new DataTable();
-                dt.Columns.Add("ID_CONTA", typeof(int));
-                dt.Columns.Add("ID_OS", typeof(string));
-                dt.Columns.Add("Descrição", typeof(string));
-                dt.Columns.Add("Valor", typeof(decimal));
-                dt.Columns.Add("Data de Emissão", typeof(DateTime));
-                dt.Columns.Add("Data de Pagamento", typeof(object));
-                dt.Columns.Add("Data de Vencimento", typeof(DateTime));
-                dt.Columns.Add("Status", typeof(string));
-                dt.Columns.Add("Forma de Pagamento", typeof(string));
-                dt.Columns.Add("Observações", typeof(string));
-
-                foreach (var item in resultado)
-                {
-                    dt.Rows.Add(
-                        item.id_conta_receber,
-                        item.id_os_fk.HasValue ? item.id_os_fk.Value.ToString() : "N/A",
-                        item.descricao,
-                        item.valor,
-                        item.data_emissao,
-                        item.data_pagamento.HasValue ? (object)item.data_pagamento.Value : DBNull.Value,
-                        item.data_vencimento,
-                        item.status,
-                        item.FormaPagamento,
-                        item.observacoes
-                    );
-                }
-
-                return dt;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Erro ao filtrar contas a receber no banco.", ex);
-            }
-        }
-
-        public (decimal totalGeral, decimal totalRecebido, decimal totalPendente, decimal totalAtrasado) AtualizarTotais(ContasReceber filtro)
-        {
-            try
-            {
-                var query = AplicarFiltros(filtro);
-
-                var dadosTotais = query
-                    .Select(c => new { c.status, c.valor })
-                    .ToList();
-
-                decimal totalGeral = dadosTotais.Sum(c => c.valor);
-                decimal totalRecebido = dadosTotais.Where(c => c.status == "PAGA").Sum(c => c.valor);
-                decimal totalPendente = dadosTotais.Where(c => c.status == "PENDENTE").Sum(c => c.valor);
-                decimal totalAtrasado = dadosTotais.Where(c => c.status == "ATRASADO").Sum(c => c.valor);
-
-                return (totalGeral, totalRecebido, totalPendente, totalAtrasado);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Erro ao calcular totais das contas a receber.", ex);
-            }
+            return (
+                dados.Sum(c => c.valor),
+                dados.Where(c => c.status == "PAGA").Sum(c => c.valor),
+                dados.Where(c => c.status == "PENDENTE").Sum(c => c.valor),
+                dados.Where(c => c.status == "ATRASADO").Sum(c => c.valor)
+            );
         }
 
         private IQueryable<ContasReceber> AplicarFiltros(ContasReceber filtro)
         {
-            var query = context.ContasReceber.AsQueryable();
+            var query = _context.ContasReceber.AsQueryable();
 
-            if (!string.IsNullOrEmpty(filtro.filtroDescricao))
-            {
+            if (!string.IsNullOrWhiteSpace(filtro.filtroDescricao))
                 query = query.Where(c => c.descricao.Contains(filtro.filtroDescricao));
-            }
 
-            if (!string.IsNullOrEmpty(filtro.filtroStatus))
-            {
+            if (!string.IsNullOrWhiteSpace(filtro.filtroStatus))
                 query = query.Where(c => c.status == filtro.filtroStatus);
-            }
 
             if (filtro.filtroIdFormaPagamento.HasValue && filtro.filtroIdFormaPagamento.Value > 0)
-            {
                 query = query.Where(c => c.id_forma_pagamento_fk == filtro.filtroIdFormaPagamento.Value);
-            }
 
-            if (!string.IsNullOrEmpty(filtro.filtroDataInicio))
-            {
-                if (DateTime.TryParseExact(filtro.filtroDataInicio, "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime dtInicio))
-                {
-                    query = query.Where(c => c.data_vencimento >= dtInicio.Date);
-                }
-            }
+            if (DateTime.TryParseExact(filtro.filtroDataInicio, "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime dtInicio))
+                query = query.Where(c => c.data_vencimento >= dtInicio.Date);
 
-            if (!string.IsNullOrEmpty(filtro.filtroDataFim))
-            {
-                if (DateTime.TryParseExact(filtro.filtroDataFim, "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime dtFim))
-                {
-                    query = query.Where(c => c.data_vencimento <= dtFim.Date);
-                }
-            }
+            // CORRIGIDO: Inclui registros do próprio dia final (até 23:59:59)
+            if (DateTime.TryParseExact(filtro.filtroDataFim, "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime dtFim))
+                query = query.Where(c => c.data_vencimento < dtFim.Date.AddDays(1));
 
             return query;
         }

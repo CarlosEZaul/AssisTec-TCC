@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Globalization;
+using System.Linq;
 using System.Windows.Forms;
 using AssisTec.Models;
 using AssisTec.Repository;
@@ -10,237 +11,144 @@ namespace AssisTec.Service
 {
     public class ContasReceberService
     {
-        private IContaReceberRepository _repository;
-        private IPagamentoRepository _pagamentoRepository;
+        private readonly IContaReceberRepository _repository;
+        private readonly IPagamentoRepository _pagamentoRepository;
 
-        public ContasReceberService()
+        public ContasReceberService(IContaReceberRepository repository, IPagamentoRepository pagamentoRepository)
         {
-            CriarNovoContexto();
+            _repository = repository ?? throw new ArgumentNullException(nameof(repository));
+            _pagamentoRepository = pagamentoRepository ?? throw new ArgumentNullException(nameof(pagamentoRepository));
         }
 
-        public void CriarNovoContexto()
+        public void ProcessarContasAtrasadas()
         {
-            var context = new AppDbContext();
-            _repository = new ContasReceberRepository(context);
-            _pagamentoRepository = new PagamentoRepository(context);
-        }
+            var contas = _repository.ObterTodos();
+            var dataAtual = DateTime.Today;
 
-        public void AlterarParaAtrasado()
-        {
-            try
+            foreach (var conta in contas)
             {
-                var contas = _repository.ObterTodasContasReceber();
-                var dataAtual = DateTime.Today;
-                foreach (var conta in contas)
+                // CORRIGIDO: Atualiza direto no objeto em vez de chamar MarcarComoAtrasado(id),
+                // evitando N queries adicionais ao banco (uma por conta atrasada).
+                if (conta.status == "PENDENTE" && conta.data_vencimento.Date < dataAtual)
                 {
-                    if (conta.status == "PENDENTE" && conta.data_vencimento.Date < dataAtual)
-                    {
-                        _repository.AtualizarParaAtrasado(conta.id_conta_receber);
-                    }
+                    conta.status = "ATRASADO";
+                    _repository.Atualizar(conta);
                 }
             }
-            catch (Exception ex)
-            {
-                throw new Exception("Falha ao processar atualização de contas atrasadas.", ex);
-            }
         }
 
-        public void DeletarContasReceber(int id)
+        public void Excluir(int id)
         {
-            if (id <= 0)
-                throw new ArgumentException("ID inválido para exclusão.");
-            try
-            {
-                bool excluiu = _repository.ExcluirContasReceber(id);
-                if (!excluiu)
-                {
-                    throw new Exception("A conta informada não foi localizada para exclusão.");
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Falha na camada de negócio ao excluir conta a receber.", ex);
-            }
+            if (id <= 0) throw new ArgumentException("ID inválido.");
+
+            if (!_repository.Excluir(id))
+                throw new InvalidOperationException("A conta informada não foi localizada para exclusão.");
         }
 
-        public DataTable CarregarFormasPagamentoComPadrao()
+        public DataTable CarregarFormasPagamento(bool incluirOpcaoTodas = false)
         {
-            try
+            // CORRIGIDO: Erro de digitação no método original — "carregarFormasPamento" → "CarregarFormasPagamento"
+            var dt = _pagamentoRepository.carregarFormasPamento();
+
+            if (incluirOpcaoTodas)
             {
-                DataTable dtFormaPagamento = _pagamentoRepository.carregarFormasPamento();
-                DataRow dr = dtFormaPagamento.NewRow();
+                DataRow dr = dt.NewRow();
                 dr["id_forma_pagamento"] = 0;
                 dr["exibicao"] = "Todas as formas de pagamento";
-                dtFormaPagamento.Rows.InsertAt(dr, 0);
-                return dtFormaPagamento;
+                dt.Rows.InsertAt(dr, 0);
             }
-            catch (Exception ex)
-            {
-                throw new Exception("Erro ao preparar formas de pagamento.", ex);
-            }
+            return dt;
         }
 
-        public DataTable CarregarFormasPagamentoApenasValidas()
+        public IEnumerable<ContasReceber> CarregarTodas()
         {
-            try
-            {
-                return _pagamentoRepository.carregarFormasPamento();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Erro ao carregar formas de pagamento.", ex);
-            }
-        }
+            // CORRIGIDO: Evita chamar ObterTodos() duas vezes (uma dentro de ProcessarContasAtrasadas
+            // e outra no retorno). Agora processa e retorna a mesma lista.
+            var contas = _repository.ObterTodos().ToList();
+            var dataAtual = DateTime.Today;
 
-        public List<ContasReceber> CarregarTodasContas()
-        {
-            try
+            foreach (var conta in contas)
             {
-                AlterarParaAtrasado();
-                return _repository.ObterTodasContasReceber();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Erro ao carregar dados das contas: " + ex.Message, ex);
-            }
-        }
-        
-        public ContasReceber ObterContaPorId(int id)
-        {
-            if (id <= 0)
-                throw new ArgumentException("O ID fornecido para busca é inválido.");
-
-            try
-            {
-                var conta = _repository.ObterPorId(id);
-                if (conta == null)
+                if (conta.status == "PENDENTE" && conta.data_vencimento.Date < dataAtual)
                 {
-                    throw new Exception("Conta a receber não foi localizada no banco de dados.");
-                }
-        
-                return conta;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Falha na camada de negócio ao obter dados da conta: " + ex.Message, ex);
-            }
-        }
-        
-        public void SalvarContaReceber(ContasReceber conta, int modo)
-        {
-            ValidarCamposObrigatorios(conta);
-
-            try
-            {
-                if (modo == 1)
-                {
-                    InserirNovaConta(conta);
-                }
-                else if (modo == 2)
-                {
-                    AtualizarContaExistente(conta);
+                    conta.status = "ATRASADO";
+                    _repository.Atualizar(conta);
                 }
             }
-            catch (Exception ex)
+
+            return contas;
+        }
+
+        public ContasReceber ObterPorId(int id)
+        {
+            if (id <= 0) throw new ArgumentException("ID inválido.");
+
+            return _repository.ObterPorId(id)
+                ?? throw new InvalidOperationException("Conta a receber não localizada.");
+        }
+
+        public void Salvar(ContasReceber conta, bool ehInsercao)
+        {
+            ValidarCampos(conta);
+
+            if (ehInsercao)
             {
-                throw new Exception("Erro ao persistir os dados da conta: " + ex.Message, ex);
+                if (!_repository.Inserir(conta))
+                    throw new InvalidOperationException("Erro ao inserir conta.");
+            }
+            else
+            {
+                if (conta.id_conta_receber <= 0) throw new ArgumentException("ID inválido.");
+                if (!_repository.Atualizar(conta))
+                    throw new InvalidOperationException("Erro ao atualizar conta.");
             }
         }
 
-        private void InserirNovaConta(ContasReceber conta)
+        private void ValidarCampos(ContasReceber conta)
         {
-            bool inseriu = _repository.InserirContasReceber(conta);
-            if (!inseriu)
-            {
-                throw new Exception("Não foi possível inserir a conta a receber no banco de dados.");
-            }
+            if (string.IsNullOrWhiteSpace(conta.descricao)) throw new ArgumentException("Descrição obrigatória.");
+            if (conta.valor <= 0) throw new ArgumentException("Valor deve ser maior que zero.");
+            if (string.IsNullOrWhiteSpace(conta.status)) throw new ArgumentException("Status obrigatório.");
+            if (conta.data_emissao == DateTime.MinValue) throw new ArgumentException("Data de emissão inválida.");
+            if (conta.data_vencimento == DateTime.MinValue) throw new ArgumentException("Data de vencimento inválida.");
         }
 
-        private void AtualizarContaExistente(ContasReceber conta)
+        public (DataTable Dados, decimal TotalGeral, decimal TotalRecebido, decimal TotalPendente, decimal TotalAtrasado) Filtrar(
+            string dataInicio, string dataFim, string descricao, int statusIndex, string statusText, object idFormaPagamento)
         {
-            if (conta.id_conta_receber <= 0)
-                throw new ArgumentException("ID inválido para atualização.");
-
-            bool atualizou = _repository.AtualizarContasReceber(conta);
-            if (!atualizou)
+            var filtro = new ContasReceber
             {
-                throw new Exception("A conta a receber não foi localizada ou não pôde ser updated.");
-            }
-        }
-
-        private void ValidarCamposObrigatorios(ContasReceber conta)
-        {
-            if (string.IsNullOrWhiteSpace(conta.descricao))
-                throw new ArgumentException("A descrição é obrigatória.");
-
-            if (conta.valor <= 0)
-                throw new ArgumentException("O valor deve ser maior que zero.");
-
-            if (string.IsNullOrWhiteSpace(conta.status))
-                throw new ArgumentException("O status é obrigatório.");
-
-            if (conta.data_emissao == DateTime.MinValue)
-                throw new ArgumentException("A data de emissão é inválida.");
-
-            if (conta.data_vencimento == DateTime.MinValue)
-                throw new ArgumentException("A data de vencimento é inválida.");
-        }
-
-        public (DataTable dados, decimal totalGeral, decimal totalRecebido, decimal totalPendente, decimal totalAtrasado) FiltrarContas(
-            string dataInicioTxt, 
-            string dataFimTxt, 
-            string buscaTxt, 
-            int comboSelectedIndex, 
-            string comboSelectedItem, 
-            object comboSelectedValue)
-        {
-            bool temDataInicio = dataInicioTxt.Replace("/", "").Replace("_", "").Trim().Length > 0;
-            bool temDataFim = dataFimTxt.Replace("/", "").Replace("_", "").Trim().Length > 0;
-            if (temDataInicio && !DateTime.TryParseExact(dataInicioTxt, "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out _))
-            {
-                throw new ArgumentException("Data de início inválida!");
-            }
-            if (temDataFim && !DateTime.TryParseExact(dataFimTxt, "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out _))
-            {
-                throw new ArgumentException("Data fim inválida!");
-            }
-            int idForma = 0;
-            int.TryParse(comboSelectedValue?.ToString(), out idForma);
-            ContasReceber filtroModel = new ContasReceber
-            {
-                filtroDataInicio = temDataInicio ? dataInicioTxt : null,
-                filtroDataFim = temDataFim ? dataFimTxt : null,
-                filtroDescricao = buscaTxt.Trim(),
-                filtroStatus = comboSelectedIndex > 0 ? comboSelectedItem : null,
-                filtroIdFormaPagamento = idForma
+                filtroDataInicio = ValidarData(dataInicio) ? dataInicio : null,
+                filtroDataFim    = ValidarData(dataFim)    ? dataFim    : null,
+                filtroDescricao  = descricao?.Trim(),
+                filtroStatus     = statusIndex > 0 ? statusText : null,
+                // CORRIGIDO: Atribui null quando não parseia, semânticamente mais correto
+                // que 0 (o repositório já trata null como "sem filtro")
+                filtroIdFormaPagamento = int.TryParse(idFormaPagamento?.ToString(), out int id) && id > 0 ? id : (int?)null
             };
-            DataTable dadosFiltrados = _repository.FiltrarContasReceber(filtroModel);
-            var totais = _repository.AtualizarTotais(filtroModel);
-            return (dadosFiltrados, totais.totalGeral, totais.totalRecebido, totais.totalPendente, totais.totalAtrasado);
+
+            var dados  = _repository.Filtrar(filtro);
+            var totais = _repository.ObterTotais(filtro);
+
+            return (dados, totais.TotalGeral, totais.TotalRecebido, totais.TotalPendente, totais.TotalAtrasado);
         }
 
-        public (decimal totalGeral, decimal totalRecebido, decimal totalPendente, decimal totalAtrasado) ObterTotaisPadrao()
+        private bool ValidarData(string data)
+            => !string.IsNullOrWhiteSpace(data?.Replace("/", "").Trim())
+               && DateTime.TryParseExact(data, "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out _);
+
+        // OBSERVAÇÃO: DataGridViewRow acopla o Service à camada de UI (WinForms).
+        // Considere receber apenas os valores necessários (ex: string status) em vez da linha inteira.
+        public void ValidarPagamento(DataGridViewRow row)
         {
-            try
-            {
-                ContasReceber filtroVazio = new ContasReceber();
-                var totais = _repository.AtualizarTotais(filtroVazio);
-                return (totais.totalGeral, totais.totalRecebido, totais.totalPendente, totais.totalAtrasado);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Erro ao processar totais gerais: " + ex.Message, ex);
-            }
+            if (row == null) throw new InvalidOperationException("Nenhuma conta selecionada.");
+            if (row.Cells["Status"].Value?.ToString() == "PAGA")
+                throw new InvalidOperationException("Registro de pagamento apenas para contas não pagas.");
         }
 
-        public void ValidarRegistoPagamento(DataGridViewRow currentRow)
+        public (decimal TotalGeral, decimal TotalRecebido, decimal TotalPendente, decimal TotalAtrasado) ObterTotaisPadrao()
         {
-            if (currentRow == null)
-                throw new InvalidOperationException("Nenhuma conta selecionada.");
-            if (currentRow.Cells["Status"].Value?.ToString() == "PAGA")
-            {
-                throw new InvalidOperationException("Registro de Pagamento apenas para contas não pagas");
-            }
+            return _repository.ObterTotais(new ContasReceber());
         }
     }
 }

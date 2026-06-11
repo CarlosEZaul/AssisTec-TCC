@@ -119,7 +119,7 @@ namespace AssisTec
 
             Guna2Button btnContasReceber = CriarBotaoMenu(
                 "💰 Contas a receber",
-                (s, e) => AbrirUserControl(new ucContasReceber(), s)
+                (s, e) => AbrirUserControl(new ucContasReceber(null), s)
             );
 
             Guna2Button btnContasPagar = CriarBotaoMenu(

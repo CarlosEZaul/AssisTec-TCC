@@ -217,7 +217,6 @@ namespace AssisTec.UserControls
             this.btnBuscar.TabIndex = 157;
             this.btnBuscar.Text = "Buscar";
             this.btnBuscar.UseVisualStyleBackColor = false;
-            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
             // 
             // btnAtualizar
             // 
@@ -229,7 +228,6 @@ namespace AssisTec.UserControls
             this.btnAtualizar.Size = new System.Drawing.Size(38, 38);
             this.btnAtualizar.TabIndex = 158;
             this.btnAtualizar.TabStop = false;
-            this.btnAtualizar.Click += new System.EventHandler(this.btnAtualizar_Click);
             // 
             // cbFormaPagamento
             // 
@@ -446,7 +444,6 @@ namespace AssisTec.UserControls
             this.btnRelatorio.TabIndex = 103;
             this.btnRelatorio.Text = "Gerar Relatório";
             this.btnRelatorio.UseVisualStyleBackColor = false;
-            this.btnRelatorio.Click += new System.EventHandler(this.btnRelatorio_Click);
             // 
             // btnRecibo
             // 
@@ -463,7 +460,6 @@ namespace AssisTec.UserControls
             this.btnRecibo.TabIndex = 101;
             this.btnRecibo.Text = "Emitir Recibo";
             this.btnRecibo.UseVisualStyleBackColor = false;
-            this.btnRecibo.Click += new System.EventHandler(this.btnRecibo_Click);
             // 
             // btnRegistrar
             // 

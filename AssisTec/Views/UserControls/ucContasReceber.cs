@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
 using AssisTec.Service;
 using AssisTec.Models;
-using AssisTec.Reports;
 using AssisTec.UserControls.SubUserControl_do_Financeiro;
 
 namespace AssisTec.UserControls
@@ -16,29 +14,20 @@ namespace AssisTec.UserControls
         private int _idConta;
         private readonly List<Label> _listaLabelsTotais;
 
-        public ucContasReceber()
+        public ucContasReceber(ContasReceberService service)
         {
             InitializeComponent();
+            _service = service;
             
-            _service = new ContasReceberService();
-            
-            _listaLabelsTotais = new List<Label> 
-            { 
-                lblTotalReceber, 
-                lblRecebido, 
-                lblPendente, 
-                lblAtrasado 
-            };
+            _listaLabelsTotais = new List<Label> { lblTotalReceber, lblRecebido, lblPendente, lblAtrasado };
 
             ApplyDesignModerno();
             ConfigurarComboBox();
-            FormatGrid();
-            listGrid();
+            AtualizarGrid();
         }
 
         private void ApplyDesignModerno()
         {
-            this.Text = "Contas a Receber";
             this.BackColor = Color.FromArgb(39, 55, 76);
             DesingComponentes.StyleDataGridView(dgvContasReceber, DataGridViewAutoSizeColumnsMode.Fill);
             DesingComponentes.centralizarPanel(panelBotoes, this.Width);
@@ -48,227 +37,103 @@ namespace AssisTec.UserControls
 
         private void ConfigurarComboBox()
         {
-            try
-            {
-                cbFormaPagamento.DataSource = _service.CarregarFormasPagamentoComPadrao();
-                cbFormaPagamento.DisplayMember = "exibicao";
-                cbFormaPagamento.ValueMember = "id_forma_pagamento";
+            cbFormaPagamento.DataSource = _service.CarregarFormasPagamento(incluirOpcaoTodas: true);
+            cbFormaPagamento.DisplayMember = "exibicao";
+            cbFormaPagamento.ValueMember = "id_forma_pagamento";
 
-                cbFormaPagamento.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
-                cbFormaPagamento.AutoCompleteSource = AutoCompleteSource.ListItems;
-
-                cbStatus.Items.Clear();
-                cbStatus.Items.Add("Todos os Status");
-                cbStatus.Items.Add("PENDENTE");
-                cbStatus.Items.Add("PAGA");
-                cbStatus.Items.Add("ATRASADO");
-
-                cbStatus.SelectedIndex = 0;
-                cbFormaPagamento.SelectedIndex = 0;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            cbStatus.Items.AddRange(new[] { "Todos os Status", "PENDENTE", "PAGA", "ATRASADO" });
+            cbStatus.SelectedIndex = 0;
+            cbFormaPagamento.SelectedIndex = 0;
         }
 
         private void ExecutarFiltro()
         {
-            try
-            {
-                _service.CriarNovoContexto();
-                var (dados, totalGeral, totalRecebido, totalPendente, totalAtrasado) = _service.FiltrarContas(
-                    mtbDataInicio.Text,
-                    mtbDataFim.Text,
-                    txtBusca.Text,
-                    cbStatus.SelectedIndex,
-                    cbStatus.SelectedItem?.ToString(),
-                    cbFormaPagamento.SelectedValue
-                );
+            var resultado = _service.Filtrar(
+                mtbDataInicio.Text,
+                mtbDataFim.Text,
+                txtBusca.Text,
+                cbStatus.SelectedIndex,
+                cbStatus.SelectedItem?.ToString(),
+                cbFormaPagamento.SelectedValue
+            );
 
-                dgvContasReceber.DataSource = null;
-                dgvContasReceber.DataSource = dados;
-                FormatGrid();
-
-                lblTotalReceber.Text = totalGeral.ToString("C2");
-                lblRecebido.Text = totalRecebido.ToString("C2");
-                lblPendente.Text = totalPendente.ToString("C2");
-                lblAtrasado.Text = totalAtrasado.ToString("C2");
-            }
-            catch (ArgumentException ex)
-            {
-                MessageBox.Show(ex.Message, "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            dgvContasReceber.DataSource = resultado.Dados;
+            
+            lblTotalReceber.Text = resultado.TotalGeral.ToString("C2");
+            lblRecebido.Text = resultado.TotalRecebido.ToString("C2");
+            lblPendente.Text = resultado.TotalPendente.ToString("C2");
+            lblAtrasado.Text = resultado.TotalAtrasado.ToString("C2");
         }
 
-        private void FormatGrid()
+        private void AtualizarGrid()
         {
-            if (dgvContasReceber.Columns.Count <= 0) return;
-
-            dgvContasReceber.Columns[0].HeaderText = "ID_CONTA";
-            dgvContasReceber.Columns[1].HeaderText = "Descrição";
-            dgvContasReceber.Columns[2].HeaderText = "Valor";
-            dgvContasReceber.Columns[3].HeaderText = "Data de Emissão";
-            dgvContasReceber.Columns[4].HeaderText = "Data de Pagamento";
-            dgvContasReceber.Columns[5].HeaderText = "Data de Vencimento";
-            dgvContasReceber.Columns[6].HeaderText = "Status";
-            dgvContasReceber.Columns[7].HeaderText = "Observações";
-            dgvContasReceber.Columns[8].HeaderText = "Forma de Pagamento";
-            dgvContasReceber.Columns[9].HeaderText = "ID_OS";
-            dgvContasReceber.Columns[10].Visible = false;
-            dgvContasReceber.Columns[11].Visible = false;
-            dgvContasReceber.AutoGenerateColumns = false;
+            dgvContasReceber.DataSource = _service.CarregarTodas();
+            
+            var totais = _service.ObterTotaisPadrao();
+            _listaLabelsTotais[0].Text = totais.TotalGeral.ToString("C2");
+            _listaLabelsTotais[1].Text = totais.TotalRecebido.ToString("C2");
+            _listaLabelsTotais[2].Text = totais.TotalPendente.ToString("C2");
+            _listaLabelsTotais[3].Text = totais.TotalAtrasado.ToString("C2");
+            
+            MudarEstadoBotoes(false);
         }
 
-        private void listGrid()
+        private void MudarEstadoBotoes(bool ativo)
         {
-            try
-            {
-                _service.CriarNovoContexto();
-                dgvContasReceber.DataSource = null;
-                dgvContasReceber.DataSource = _service.CarregarTodasContas();
-                
-                cbStatus.SelectedIndex = 0;
-                cbFormaPagamento.SelectedIndex = 0;
-
-                var (totalGeral, totalRecebido, totalPendente, totalAtrasado) = _service.ObterTotaisPadrao();
-
-                _listaLabelsTotais[0].Text = totalGeral.ToString("C2");
-                _listaLabelsTotais[1].Text = totalRecebido.ToString("C2");
-                _listaLabelsTotais[2].Text = totalPendente.ToString("C2");
-                _listaLabelsTotais[3].Text = totalAtrasado.ToString("C2");
-                
-                FormatGrid();
-                DisableBtn();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        private void EnableBtn()
-        {
-            btnEditar.Enabled = true;
-            btnDelete.Enabled = true;
-            btnRecibo.Enabled = true;
-            btnRegistrarPagamento.Enabled = true;
-        }
-
-        private void DisableBtn()
-        {
-            btnEditar.Enabled = false;
-            btnDelete.Enabled = false;
-            btnRecibo.Enabled = false;
-            btnRegistrarPagamento.Enabled = false;
+            btnEditar.Enabled = ativo;
+            btnDelete.Enabled = ativo;
+            btnRecibo.Enabled = ativo;
+            btnRegistrarPagamento.Enabled = ativo;
         }
 
         private void dgvContasReceber_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            if (dgvContasReceber.Columns[e.ColumnIndex].Index == 6 && e.Value != null)
+            if (dgvContasReceber.Columns[e.ColumnIndex].Name == "status" && e.Value?.ToString() == "ATRASADO")
             {
-                if (e.Value.ToString() == "ATRASADO")
-                {
-                    dgvContasReceber.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.Red;
-                    dgvContasReceber.Rows[e.RowIndex].DefaultCellStyle.ForeColor = Color.White;
-                }
+                dgvContasReceber.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.Red;
+                dgvContasReceber.Rows[e.RowIndex].DefaultCellStyle.ForeColor = Color.White;
             }
         }
 
         private void dgvContasReceber_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex >= 0 && dgvContasReceber.Rows.Count > 0)
+            if (e.RowIndex >= 0)
             {
-                try
-                {
-                    EnableBtn();
-                    _idConta = Convert.ToInt32(dgvContasReceber.Rows[e.RowIndex].Cells[0].Value);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                MudarEstadoBotoes(true);
+                _idConta = (int)dgvContasReceber.Rows[e.RowIndex].Cells["id_conta_receber"].Value;
             }
-        }
-
-        private void btnBuscar_Click(object sender, EventArgs e)
-        {
-            ExecutarFiltro();
-        }
-
-        private void btnAtualizar_Click(object sender, EventArgs e)
-        {
-            listGrid();
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            try
-            {
-                _service.DeletarContasReceber(_idConta);
-                listGrid();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            _service.Excluir(_idConta);
+            AtualizarGrid();
         }
 
         private void btnRegistrar_Click(object sender, EventArgs e)
         {
-            ucRegistrarEntradaFinanceiro ucRegistrarEntrada = new ucRegistrarEntradaFinanceiro(dgvContasReceber, _idConta, 1, _listaLabelsTotais);
-            ConfigurarSubComponente(ucRegistrarEntrada);
+            // Passa 0 como ID para inserção
+            //ConfigurarSubComponente(new ucRegistrarEntradaFinanceiro(dgvContasReceber, 0, 1, _listaLabelsTotais, _service));
         }
 
         private void btnEditar_Click(object sender, EventArgs e)
         {
-            ucRegistrarEntradaFinanceiro ucRegistrarEntrada = new ucRegistrarEntradaFinanceiro(dgvContasReceber, _idConta, 2, _listaLabelsTotais);
-            ConfigurarSubComponente(ucRegistrarEntrada);
+            ConfigurarSubComponente(new ucRegistrarEntradaFinanceiro(_idConta, 2, _service));
         }
 
         private void btnRegistrarPagamento_Click(object sender, EventArgs e)
         {
-            try
-            {
-                _service.ValidarRegistoPagamento(dgvContasReceber.CurrentRow);
-                
-                ucRegistrarPagamento ucPagamento = new ucRegistrarPagamento(_idConta, dgvContasReceber, _listaLabelsTotais);
-                ConfigurarSubComponente(ucPagamento);
-            }
-            catch (InvalidOperationException ex)
-            {
-                MessageBox.Show(ex.Message, "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        private void btnRelatorio_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void btnRecibo_Click(object sender, EventArgs e)
-        {
+            _service.ValidarPagamento(dgvContasReceber.CurrentRow);
+            // Certifique-se que o construtor de ucRegistrarPagamento também receba o _service
+            ConfigurarSubComponente(new ucRegistrarPagamento(_idConta, dgvContasReceber, _listaLabelsTotais, _service));
         }
 
         private void ConfigurarSubComponente(UserControl uc)
         {
-            uc.Disposed += (sender, e) =>
-            {
-                listGrid();
-            };
-
+            uc.Disposed += (s, e) => AtualizarGrid();
             this.Controls.Add(uc);
             uc.BringToFront();
-            uc.Left = (this.ClientSize.Width - uc.Width) / 2;
-            uc.Top = (this.ClientSize.Height - uc.Height) / 2;
-            uc.Show();
+            uc.Location = new Point((this.Width - uc.Width) / 2, (this.Height - uc.Height) / 2);
         }
     }
 }

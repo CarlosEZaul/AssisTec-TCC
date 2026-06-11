@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Globalization;
 using System.Windows.Forms;
 using AssisTec.Service;
 using AssisTec.Models;
@@ -10,87 +11,66 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
     public partial class ucRegistrarEntradaFinanceiro : UserControl
     {
         private readonly ContasReceberService _service;
-        private readonly DataGridView _dgv;
         private readonly int _id;
-        private readonly int _modo;
-        private readonly List<Label> _listaLabels;
-        private DataTable _dtFormaPagamento;
+        private readonly bool _ehInsercao;
         private ContasReceber _contaAtual;
 
-        public ucRegistrarEntradaFinanceiro(DataGridView dgv, int id, int modo, List<Label> listaLabels)
+        // CORRIGIDO: Removidos parâmetros não utilizados (dgv e listaLabels).
+        // Se forem necessários futuramente, readicione com uso explícito.
+        public ucRegistrarEntradaFinanceiro(int id, int modo, ContasReceberService service)
         {
             InitializeComponent();
-            
-            _service = new ContasReceberService();
-            _dgv = dgv;
+
+            _service = service ?? throw new ArgumentNullException(nameof(service));
             _id = id;
-            _modo = modo;
-            _listaLabels = listaLabels;
-            _contaAtual = new ContasReceber();
+            _ehInsercao = modo == 1;
+
+            // CORRIGIDO: Garante que _contaAtual nunca seja null ao entrar no btnSave_Click
+            _contaAtual = _ehInsercao ? new ContasReceber() : new ContasReceber();
         }
 
         private void ucRegistrarEntradaFinanceiro_Load(object sender, EventArgs e)
         {
-            ConfigurarComponentesIniciais();
-            
-            if (_modo == 2)
-            {
-                CarregarDadosParaEdicao();
-            }
+            CarregarFormasPagamento();
+
+            cbStatus.Items.AddRange(new[] { "PENDENTE", "PAGA" });
+            cbStatus.SelectedIndex = 0;
+            mtbDataEmissao.Text = DateTime.Today.ToString("dd/MM/yyyy");
+
+            if (!_ehInsercao) CarregarDadosParaEdicao();
         }
 
-        private void ConfigurarComponentesIniciais()
+        private void CarregarFormasPagamento()
         {
-            try
-            {
-                _dtFormaPagamento = _service.CarregarFormasPagamentoApenasValidas();
-                cbFormaPagamento.DataSource = _dtFormaPagamento;
-                cbFormaPagamento.DisplayMember = "exibicao";
-                cbFormaPagamento.ValueMember = "id_forma_pagamento";
-
-                cbFormaPagamento.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
-                cbFormaPagamento.AutoCompleteSource = AutoCompleteSource.ListItems;
-
-                cbStatus.Items.Clear();
-                cbStatus.Items.Add("PENDENTE");
-                cbStatus.Items.Add("PAGA");
-
-                mtbDataEmissao.Text = DateTime.Today.ToString("dd/MM/yyyy");
-                cbStatus.SelectedIndex = 0;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Erro ao inicializar componentes: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            cbFormaPagamento.DataSource = _service.CarregarFormasPagamento(incluirOpcaoTodas: false);
+            cbFormaPagamento.DisplayMember = "exibicao";
+            cbFormaPagamento.ValueMember = "id_forma_pagamento";
         }
 
         private void CarregarDadosParaEdicao()
         {
+            // CORRIGIDO: try/catch para evitar crash silencioso deixando _contaAtual null
             try
             {
-                _contaAtual = _service.ObterContaPorId(_id);
+                _contaAtual = _service.ObterPorId(_id);
 
-                txtDescricao.Text = _contaAtual.descricao;
-                txtValor.Text = _contaAtual.valor.ToString("F2");
-                mtbDataEmissao.Text = _contaAtual.data_emissao.ToString("dd/MM/yyyy");
-                mtbDataVencimento.Text = _contaAtual.data_vencimento.ToString("dd/MM/yyyy");
-                txtObservacoes.Text = _contaAtual.observacoes;
-                cbStatus.Text = _contaAtual.status;
-                
+                txtDescricao.Text       = _contaAtual.descricao;
+                txtValor.Text           = _contaAtual.valor.ToString("F2");
+                mtbDataEmissao.Text     = _contaAtual.data_emissao.ToString("dd/MM/yyyy");
+                mtbDataVencimento.Text  = _contaAtual.data_vencimento.ToString("dd/MM/yyyy");
+                txtObservacoes.Text     = _contaAtual.observacoes;
+                cbStatus.Text           = _contaAtual.status;
+
                 if (_contaAtual.id_forma_pagamento_fk.HasValue)
-                {
                     cbFormaPagamento.SelectedValue = _contaAtual.id_forma_pagamento_fk.Value;
-                }
-                
+
                 if (_contaAtual.data_pagamento.HasValue)
-                {
                     mtbDataPagamento.Text = _contaAtual.data_pagamento.Value.ToString("dd/MM/yyyy");
-                }
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Erro ao carregar dados", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Fechar();
+                MessageBox.Show($"Erro ao carregar dados para edição: {ex.Message}", "Erro",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -98,63 +78,69 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
         {
             try
             {
-                _contaAtual.descricao = txtDescricao.Text.Trim();
+                _contaAtual.descricao   = txtDescricao.Text.Trim();
                 _contaAtual.observacoes = txtObservacoes.Text.Trim();
-                _contaAtual.status = cbStatus.Text;
+                _contaAtual.status      = cbStatus.Text;
 
-                if (decimal.TryParse(txtValor.Text, out decimal valorConvertido))
-                    _contaAtual.valor = valorConvertido;
+                // CORRIGIDO: CultureInfo explícito para garantir parse correto da vírgula decimal
+                _contaAtual.valor = decimal.TryParse(txtValor.Text,
+                    NumberStyles.Number, new CultureInfo("pt-BR"), out decimal v) ? v : 0;
 
-                if (DateTime.TryParse(mtbDataEmissao.Text, out DateTime emissao))
-                    _contaAtual.data_emissao = emissao;
+                // CORRIGIDO: ParseExact com formato e cultura explícitos para evitar ambiguidade
+                _contaAtual.data_emissao = DateTime.TryParseExact(mtbDataEmissao.Text, "dd/MM/yyyy",
+                    CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime em)
+                    ? em : DateTime.MinValue;
 
-                if (DateTime.TryParse(mtbDataVencimento.Text, out DateTime vencimento))
-                    _contaAtual.data_vencimento = vencimento;
+                _contaAtual.data_vencimento = DateTime.TryParseExact(mtbDataVencimento.Text, "dd/MM/yyyy",
+                    CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime ven)
+                    ? ven : DateTime.MinValue;
 
-                if (cbStatus.Text == "PAGA" && DateTime.TryParse(mtbDataPagamento.Text, out DateTime pagamento))
-                    _contaAtual.data_pagamento = pagamento;
-                else
-                    _contaAtual.data_pagamento = null;
+                _contaAtual.data_pagamento = (cbStatus.Text == "PAGA" &&
+                    DateTime.TryParseExact(mtbDataPagamento.Text, "dd/MM/yyyy",
+                    CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime pag))
+                    ? pag : (DateTime?)null;
 
-                int.TryParse(cbFormaPagamento.SelectedValue?.ToString(), out int idForma);
-                _contaAtual.id_forma_pagamento_fk = idForma > 0 ? (int?)idForma : null;
+                _contaAtual.id_forma_pagamento_fk = int.TryParse(
+                    cbFormaPagamento.SelectedValue?.ToString(), out int idF) ? idF : (int?)null;
 
-                _service.SalvarContaReceber(_contaAtual, _modo);
+                _service.Salvar(_contaAtual, _ehInsercao);
 
-                MessageBox.Show("Operação realizada com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                Fechar();
+                MessageBox.Show("Operação realizada com sucesso!", "Sucesso",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                // CORRIGIDO: Notifica o controle pai para fechar/remover este UserControl,
+                // em vez de chamar this.Dispose() diretamente.
+                ParentForm?.Close();
             }
             catch (ArgumentException ex)
             {
-                MessageBox.Show(ex.Message, "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(ex.Message, "Dados inválidos",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Erro ao salvar: {ex.Message}", "Erro",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private void cbStatus_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cbStatus.SelectedItem?.ToString() == "PENDENTE")
-            {
-                _dtFormaPagamento.DefaultView.RowFilter = "";
-                cbFormaPagamento.SelectedValue = 1; 
-                cbFormaPagamento.Enabled = false;
+            bool ehPendente = cbStatus.SelectedItem?.ToString() == "PENDENTE";
+            cbFormaPagamento.Enabled = !ehPendente;
+            mtbDataPagamento.Enabled = !ehPendente;
 
-                mtbDataPagamento.Text = null;
-                mtbDataPagamento.Enabled = false;
-            }
-            else 
+            if (ehPendente)
             {
-                _dtFormaPagamento.DefaultView.RowFilter = "id_forma_pagamento <> 1";
-                cbFormaPagamento.Enabled = true;
-                mtbDataPagamento.Enabled = true;
-
-                if (cbFormaPagamento.SelectedIndex == -1 && cbFormaPagamento.Items.Count > 0)
-                {
+                // CORRIGIDO: Removido SelectedValue = 1 (hardcoded e frágil).
+                // Reseta para o primeiro item disponível com segurança.
+                if (cbFormaPagamento.Items.Count > 0)
                     cbFormaPagamento.SelectedIndex = 0;
-                }
+
+                mtbDataPagamento.Clear();
+            }
+            else
+            {
                 mtbDataPagamento.Text = DateTime.Today.ToString("dd/MM/yyyy");
             }
         }
@@ -162,51 +148,18 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
         private void txtValor_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == '.') e.KeyChar = ',';
-
-            if (!char.IsDigit(e.KeyChar) && e.KeyChar != (char)8 && e.KeyChar != ',')
-            {
-                e.Handled = true;
-                return;
-            }
-
-            if (e.KeyChar == ',' && txtValor.Text.Contains(","))
-            {
-                e.Handled = true;
-                return;
-            }
-
-            if (txtValor.Text.Contains(","))
-            {
-                string[] partes = txtValor.Text.Split(',');
-                if (partes.Length > 1 && txtValor.SelectionStart > txtValor.Text.IndexOf(","))
-                {
-                    if (partes[1].Length >= 2)
-                    {
-                        e.Handled = true;
-                    }
-                }
-            }
+            if (!char.IsDigit(e.KeyChar) && e.KeyChar != 8 && e.KeyChar != ',') e.Handled = true;
+            if (e.KeyChar == ',' && txtValor.Text.Contains(",")) e.Handled = true;
         }
 
         private void btnLimpar_Click(object sender, EventArgs e)
         {
-            txtDescricao.Text = null;
-            txtValor.Text = null;
-            mtbDataPagamento.Text = null;
-            mtbDataVencimento.Text = null;
+            txtDescricao.Clear();
+            txtValor.Clear();
+            txtObservacoes.Clear();
             cbStatus.SelectedIndex = 0;
-            cbFormaPagamento.SelectedValue = 1;
-            txtObservacoes.Text = null;
         }
 
-        private void btnFechar_Click(object sender, EventArgs e)
-        {
-            Fechar();
-        }
-
-        private void Fechar()
-        {
-            this.Dispose();
-        }
+        private void btnFechar_Click(object sender, EventArgs e) => ParentForm?.Close();
     }
 }

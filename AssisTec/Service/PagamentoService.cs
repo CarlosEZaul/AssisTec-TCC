@@ -38,7 +38,7 @@ namespace AssisTec.Service
                 conta.id_forma_pagamento_fk = idFormaPagamento;
                 conta.data_pagamento = dataPagamento;
 
-                bool atualizou = _contasRepository.AtualizarContasReceber(conta);
+                bool atualizou = _contasRepository.Atualizar(conta);
                 if (!atualizou)
                 {
                     throw new Exception("Não foi possível persistir a baixa do pagamento no banco de dados.");
@@ -49,5 +49,7 @@ namespace AssisTec.Service
                 throw new Exception("Falha na camada de negócio ao registrar o pagamento: " + ex.Message, ex);
             }
         }
+        
+        
     }
 }

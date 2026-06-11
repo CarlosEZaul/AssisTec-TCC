@@ -6,15 +6,14 @@ namespace AssisTec.Repository
 {
     public interface IContaReceberRepository
     {
-        
-        bool InserirContasReceber(ContasReceber conta);
-        bool InserirContasReceberOS(ContasReceber conta, int idOs);
-        List<ContasReceber> ObterTodasContasReceber();
+        bool Inserir(ContasReceber conta);
+        bool InserirComVinculoOS(ContasReceber conta, int idOs);
+        IEnumerable<ContasReceber> ObterTodos();
         ContasReceber ObterPorId(int id);
-        bool AtualizarContasReceber(ContasReceber conta);
-        bool ExcluirContasReceber(int id);
-        bool AtualizarParaAtrasado(int id);
-        DataTable FiltrarContasReceber(ContasReceber filtro);
-        (decimal totalGeral, decimal totalRecebido, decimal totalPendente, decimal totalAtrasado) AtualizarTotais(ContasReceber filtro);
+        bool Atualizar(ContasReceber conta);
+        bool Excluir(int id);
+        bool MarcarComoAtrasado(int id);
+        DataTable Filtrar(ContasReceber filtro);
+        (decimal TotalGeral, decimal TotalRecebido, decimal TotalPendente, decimal TotalAtrasado) ObterTotais(ContasReceber filtro);
     }
 }
