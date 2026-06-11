@@ -43,7 +43,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
         {
             try
             {
-                _dtFormaPagamento = _service.CarregarFormasPagamentoComPadrao();
+                _dtFormaPagamento = _service.CarregarFormasPagamentoApenasValidas();
                 cbFormaPagamento.DataSource = _dtFormaPagamento;
                 cbFormaPagamento.DisplayMember = "exibicao";
                 cbFormaPagamento.ValueMember = "id_forma_pagamento";
@@ -122,7 +122,6 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
                 _service.SalvarContaReceber(_contaAtual, _modo);
 
                 MessageBox.Show("Operação realizada com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                AtualizarComponentesExternos();
                 Fechar();
             }
             catch (ArgumentException ex)
@@ -140,7 +139,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
             if (cbStatus.SelectedItem?.ToString() == "PENDENTE")
             {
                 _dtFormaPagamento.DefaultView.RowFilter = "";
-                cbFormaPagamento.SelectedValue = 0; 
+                cbFormaPagamento.SelectedValue = 1; 
                 cbFormaPagamento.Enabled = false;
 
                 mtbDataPagamento.Text = null;
@@ -148,27 +147,16 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
             }
             else 
             {
-                _dtFormaPagamento.DefaultView.RowFilter = "id_forma_pagamento <> 0";
+                _dtFormaPagamento.DefaultView.RowFilter = "id_forma_pagamento <> 1";
                 cbFormaPagamento.Enabled = true;
                 mtbDataPagamento.Enabled = true;
 
-                if (cbFormaPagamento.SelectedIndex == -1)
+                if (cbFormaPagamento.SelectedIndex == -1 && cbFormaPagamento.Items.Count > 0)
                 {
                     cbFormaPagamento.SelectedIndex = 0;
                 }
                 mtbDataPagamento.Text = DateTime.Today.ToString("dd/MM/yyyy");
             }
-        }
-
-        private void AtualizarComponentesExternos()
-        {
-            _dgv.DataSource = _service.CarregarTodasContas();
-            var totais = _service.ObterTotaisPadrao();
-
-            _listaLabels[0].Text = totais.totalGeral.ToString("C2");
-            _listaLabels[1].Text = totais.totalRecebido.ToString("C2");
-            _listaLabels[2].Text = totais.totalPendente.ToString("C2");
-            _listaLabels[3].Text = totais.totalAtrasado.ToString("C2");
         }
 
         private void txtValor_KeyPress(object sender, KeyPressEventArgs e)
@@ -207,7 +195,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
             mtbDataPagamento.Text = null;
             mtbDataVencimento.Text = null;
             cbStatus.SelectedIndex = 0;
-            cbFormaPagamento.SelectedIndex = 0;
+            cbFormaPagamento.SelectedValue = 1;
             txtObservacoes.Text = null;
         }
 
@@ -218,7 +206,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
 
         private void Fechar()
         {
-            this.Hide();
+            this.Dispose();
         }
     }
 }

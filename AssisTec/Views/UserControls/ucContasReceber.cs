@@ -13,7 +13,6 @@ namespace AssisTec.UserControls
     public partial class ucContasReceber : UserControl
     {
         private readonly ContasReceberService _service;
-        //private readonly ContasReceberRelatorio _relatorio;
         private int _idConta;
         private readonly List<Label> _listaLabelsTotais;
 
@@ -22,7 +21,6 @@ namespace AssisTec.UserControls
             InitializeComponent();
             
             _service = new ContasReceberService();
-            //_relatorio = new ContasReceberRelatorio();
             
             _listaLabelsTotais = new List<Label> 
             { 
@@ -78,6 +76,7 @@ namespace AssisTec.UserControls
         {
             try
             {
+                _service.CriarNovoContexto();
                 var (dados, totalGeral, totalRecebido, totalPendente, totalAtrasado) = _service.FiltrarContas(
                     mtbDataInicio.Text,
                     mtbDataFim.Text,
@@ -87,6 +86,7 @@ namespace AssisTec.UserControls
                     cbFormaPagamento.SelectedValue
                 );
 
+                dgvContasReceber.DataSource = null;
                 dgvContasReceber.DataSource = dados;
                 FormatGrid();
 
@@ -128,6 +128,8 @@ namespace AssisTec.UserControls
         {
             try
             {
+                _service.CriarNovoContexto();
+                dgvContasReceber.DataSource = null;
                 dgvContasReceber.DataSource = _service.CarregarTodasContas();
                 
                 cbStatus.SelectedIndex = 0;
@@ -249,37 +251,19 @@ namespace AssisTec.UserControls
 
         private void btnRelatorio_Click(object sender, EventArgs e)
         {
-            // try
-            // {
-            //     var (dados, totalGeral, totalRecebido, totalPendente, totalAtrasado) = _service.FiltrarContas(
-            //         mtbDataInicio.Text,
-            //         mtbDataFim.Text,
-            //         txtBusca.Text,
-            //         cbStatus.SelectedIndex,
-            //         cbStatus.SelectedItem?.ToString(),
-            //         cbFormaPagamento.SelectedValue
-            //     );
-            //
-            //     _relatorio.GerarRelatorioGeral(dados, totalGeral, totalRecebido, totalPendente, totalAtrasado);
-            // }
-            // catch (Exception ex)
-            // {
-            //     MessageBox.Show(ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            // }
         }
 
         private void btnRecibo_Click(object sender, EventArgs e)
         {
-            // var (sucesso, mensagem, _) = _relatorio.GerarRecibo(_idConta);
-            //
-            // if (sucesso)
-            //     MessageBox.Show(mensagem, "Recibo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            // else
-            //     MessageBox.Show(mensagem, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         private void ConfigurarSubComponente(UserControl uc)
         {
+            uc.Disposed += (sender, e) =>
+            {
+                listGrid();
+            };
+
             this.Controls.Add(uc);
             uc.BringToFront();
             uc.Left = (this.ClientSize.Width - uc.Width) / 2;

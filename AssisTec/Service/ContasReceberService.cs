@@ -10,10 +10,15 @@ namespace AssisTec.Service
 {
     public class ContasReceberService
     {
-        private readonly IContaReceberRepository _repository;
-        private readonly IPagamentoRepository _pagamentoRepository;
+        private IContaReceberRepository _repository;
+        private IPagamentoRepository _pagamentoRepository;
 
         public ContasReceberService()
+        {
+            CriarNovoContexto();
+        }
+
+        public void CriarNovoContexto()
         {
             var context = new AppDbContext();
             _repository = new ContasReceberRepository(context);
@@ -75,6 +80,18 @@ namespace AssisTec.Service
             }
         }
 
+        public DataTable CarregarFormasPagamentoApenasValidas()
+        {
+            try
+            {
+                return _pagamentoRepository.carregarFormasPamento();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Erro ao carregar formas de pagamento.", ex);
+            }
+        }
+
         public List<ContasReceber> CarregarTodasContas()
         {
             try
@@ -115,11 +132,11 @@ namespace AssisTec.Service
 
             try
             {
-                if (modo == 1) // Cadastro
+                if (modo == 1)
                 {
                     InserirNovaConta(conta);
                 }
-                else if (modo == 2) // Edição
+                else if (modo == 2)
                 {
                     AtualizarContaExistente(conta);
                 }
@@ -147,7 +164,7 @@ namespace AssisTec.Service
             bool atualizou = _repository.AtualizarContasReceber(conta);
             if (!atualizou)
             {
-                throw new Exception("A conta a receber não foi localizada ou não pôde ser atualizada.");
+                throw new Exception("A conta a receber não foi localizada ou não pôde ser updated.");
             }
         }
 
