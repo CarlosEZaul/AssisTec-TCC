@@ -7,7 +7,6 @@ using AssisTec.Service;
 using AssisTec.Models;
 using AssisTec.Repository;
 
-
 namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios
 {
     public partial class ucFormularioUsuarios : UserControl
@@ -16,11 +15,10 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios
         private int modo;
         private bool okCep;
         private readonly DataGridView dgv;
-        private readonly UsuarioService service;
+        private UsuarioService service;
         
         public ucFormularioUsuarios(int _id, int _modo, DataGridView _dgv)
         {
-            
             this.modo = _modo;
             this.dgv = _dgv;
             if (modo != 1)
@@ -29,6 +27,11 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios
             }
             InitializeComponent();
             
+            CriarNovoContexto();
+        }
+        
+        private void CriarNovoContexto()
+        {
             this.service = new UsuarioService(new UsuarioRepository(new AppDbContext()));
         }
         
@@ -186,20 +189,12 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios
         {
             this.Dispose();
         }
-        
-        private void AtualizarGrid()
-        {
-            if (dgv != null)
-            {
-                dgv.DataSource = service.ObterTodos();
-            }
-        }
         #endregion
 
         #region Eventos dos Componentes
         private async void mtbCep_Leave(object sender, EventArgs e)
         {
-            string cepLimpo = mtbCep.Text.Replace("-", "").Trim();
+            string cepLimpo = mtbCep.Text.Replace("-", "").Replace("_", "").Trim();
             if (!string.IsNullOrWhiteSpace(cepLimpo) && cepLimpo.Length == 8)
             {
                 try
@@ -233,25 +228,25 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios
             }
         }
 
-       
-
         private void btnSave_Click(object sender, EventArgs e)
         {
-            if(string.IsNullOrEmpty(txtNome.Text)   || !mtbCPF.MaskFull || 
-               !mtbTel.MaskFull || !mtbCep.MaskFull || string.IsNullOrEmpty(cbNivel.Text) || string.IsNullOrEmpty(cbStatus.Text))
+            if (string.IsNullOrEmpty(txtNome.Text) || !mtbCPF.MaskFull || 
+                !mtbTel.MaskFull || !mtbCep.MaskFull || string.IsNullOrEmpty(cbNivel.Text) || string.IsNullOrEmpty(cbStatus.Text))
             {
-                if (string.IsNullOrEmpty(txtSenha.Text) && modo == 1 || modo == 3)
-                {
-                    MessageBox.Show("Preencha todos os campos corretamente", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    txtNome.Focus();
-                    return;
-                }
-                
+                MessageBox.Show("Preencha todos os campos obrigatórios corretamente", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            if ((modo == 1 || modo == 3) && string.IsNullOrEmpty(txtSenha.Text))
+            {
+                MessageBox.Show("A senha é obrigatória para novos usuários", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtSenha.Focus();
+                return;
             }
 
             if (!okCep)
             {
-                MessageBox.Show("CEP inválido", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("CEP inválido ou não verificado", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -266,7 +261,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios
                     {
                         MessageBox.Show(resultado.messagem, "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         DeleteAll();
-                        if (modo == 3) Fechar();
+                        Fechar();
                     }
                     else
                     {
@@ -287,8 +282,6 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios
                         MessageBox.Show(resultado.mensagem, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
-
-                AtualizarGrid();
             }
             catch (Exception ex)
             {

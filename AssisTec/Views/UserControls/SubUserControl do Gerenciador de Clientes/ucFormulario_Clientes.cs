@@ -4,14 +4,13 @@ using System.Windows.Forms;
 using AssisTec.Service;
 using AssisTec.Repository;
 using AssisTec.Models;
-using AssisTec.Repository;
 
 namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Clientes.ucFormulario_Clientes
 {
     public partial class ucFormulario_Clientes : UserControl
     {
-        private readonly IClienteRepository repositoryCliente;
-        private readonly ClienteService serviceCliente;
+        private IClienteRepository repositoryCliente;
+        private ClienteService serviceCliente;
         
         private int id;
         private int modo;
@@ -21,11 +20,6 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Clientes.ucForm
         public ucFormulario_Clientes(int _id, int _modo, DataGridView _dgv)
         {
             InitializeComponent();
-
-            var context = new AppDbContext();
-            this.repositoryCliente = new ClienteRepository(context);
-            this.serviceCliente = new ClienteService(this.repositoryCliente);
-
             this.modo = _modo;
             
             if (modo != 1)
@@ -34,10 +28,17 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Clientes.ucForm
             }
             
             this.dgvClientes = _dgv;
+            CriarNovoContexto();
+        }
+
+        private void CriarNovoContexto()
+        {
+            var context = new AppDbContext();
+            this.repositoryCliente = new ClienteRepository(context);
+            this.serviceCliente = new ClienteService(this.repositoryCliente);
         }
 
         #region Métodos de Interface e Dados
-
         private void ucFormulario_Clientes_Load(object sender, EventArgs e)
         {
             ApplyModernDesign();
@@ -177,13 +178,25 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Clientes.ucForm
             }
         }
 
+        private void AtualizarGridPai()
+        {
+            if (dgvClientes != null)
+            {
+                using (var ctx = new AppDbContext())
+                {
+                    var repo = new ClienteRepository(ctx);
+                    var srv = new ClienteService(repo);
+                    dgvClientes.DataSource = null;
+                    dgvClientes.DataSource = srv.ObterTodos();
+                }
+            }
+        }
         #endregion
 
         #region Eventos dos Componentes
-
-        private async void mtbCep_Leave(object sender, EventArgs e)
+        private void mtbCep_Leave(object sender, EventArgs e)
         {
-            string valorCep = mtbCep.Text.Replace("-", "").Trim();
+            string valorCep = mtbCep.Text.Replace("-", "").Replace("_", "").Trim();
             if (valorCep.Length == 8)
             {
                 BuscarCep(mtbCep.Text);
@@ -223,6 +236,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Clientes.ucForm
                     if (sucesso)
                     {
                         MessageBox.Show(mensagem, "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        AtualizarGridPai();
                         DeleteAll();
                     }
                     else
@@ -236,6 +250,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Clientes.ucForm
                     if (sucesso)
                     {
                         MessageBox.Show(mensagem, "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        AtualizarGridPai();
                         DeleteAll();
                         Fechar();
                     }
@@ -244,8 +259,6 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Clientes.ucForm
                         MessageBox.Show(mensagem, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
-
-                dgvClientes.DataSource = serviceCliente.ObterTodos();
             }
             catch (Exception ex)
             {
@@ -266,7 +279,6 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Clientes.ucForm
         {
             Fechar();
         }
-
         #endregion
     }
 }

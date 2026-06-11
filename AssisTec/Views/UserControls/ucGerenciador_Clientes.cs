@@ -17,12 +17,16 @@ namespace AssisTec.UserControls
         public ucGerenciador_Clientes()
         {
             InitializeComponent();
-            this.service = new ClienteService(new ClienteRepository(new AppDbContext()));
+            CriarNovoContexto();
             btnNew.Focus();
             ListGrid(); 
-            FormartGrid();
             
             ApplyModernDesign();
+        }
+
+        private void CriarNovoContexto()
+        {
+            this.service = new ClienteService(new ClienteRepository(new AppDbContext()));
         }
 
         private void ucGerenciadorClientes_Load(object sender, EventArgs e)
@@ -31,7 +35,6 @@ namespace AssisTec.UserControls
         }
         
         #region Design Moderno
-        
         private void ApplyModernDesign()
         {
             try
@@ -51,11 +54,9 @@ namespace AssisTec.UserControls
                 MessageBox.Show("Erro ao aplicar design: " + ex.Message);
             }
         }
-        
         #endregion
 
         #region Métodos de Interface
-        
         private void FormartGrid()
         { 
             if (dgvClientes.Columns.Count <= 0) return;
@@ -74,14 +75,15 @@ namespace AssisTec.UserControls
             dgvClientes.Columns[10].HeaderText = "ESTADO";
             dgvClientes.Columns[11].HeaderText = "COMPLEMENTO";
         }
-
-        
         
         public void ListGrid()
         {
             try
             {
+                CriarNovoContexto();
+                dgvClientes.DataSource = null;
                 dgvClientes.DataSource = service.ObterTodos();
+                FormartGrid();
             }
             catch (Exception ex)
             {
@@ -93,13 +95,9 @@ namespace AssisTec.UserControls
         {
             try
             {
-                using (var context = new AppDbContext())
-                {
-                    var repository = new ClienteRepository(context);
-                    var service = new ClienteService(repository);
-                    
-                    dgvClientes.DataSource = service.FiltrarClientes(txtBusca.Text);
-                }
+                CriarNovoContexto();
+                dgvClientes.DataSource = null;
+                dgvClientes.DataSource = service.FiltrarClientes(txtBusca.Text);
                 FormartGrid();
             }
             catch (Exception ex)
@@ -136,11 +134,9 @@ namespace AssisTec.UserControls
             txtBusca.Enabled = ativo;
             dgvClientes.Enabled = ativo;
         }
-        
         #endregion
 
         #region Eventos dos Componentes
-        
         private void btnNew_Click(object sender, EventArgs e)
         {
             AbrirFormularioCliente(1);
@@ -190,9 +186,9 @@ namespace AssisTec.UserControls
             using (var context = new AppDbContext())
             {
                 var repository = new ClienteRepository(context);
-                var service = new ClienteService(repository);
+                var serviceCliente = new ClienteService(repository);
 
-                var (podeExcluir, mensagem) = service.ValidarExclusao(idSelected);
+                var (podeExcluir, mensagem) = serviceCliente.ValidarExclusao(idSelected);
 
                 if (!podeExcluir)
                 {
@@ -200,7 +196,7 @@ namespace AssisTec.UserControls
                     return;
                 }
 
-                if (service.DeletarCliente(idSelected))
+                if (serviceCliente.DeletarCliente(idSelected))
                 {
                     ControleEstadoComponentes(false);
                     MessageBox.Show("Cliente removido com sucesso.", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -238,7 +234,6 @@ namespace AssisTec.UserControls
         private void btnContato_Click(object sender, EventArgs e)
         {
         }
-        
         #endregion
     }
 }

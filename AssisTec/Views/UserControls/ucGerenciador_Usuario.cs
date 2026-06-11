@@ -8,17 +8,21 @@ using AssisTec.Repository;
 using AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Clientes.ucFormulario_Clientes;
 using AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios;
 
-
 namespace AssisTec.UserControls
 {
     public partial class ucGerenciador_Usuario : UserControl
     {
         private int idSelected;
-        private readonly UsuarioService service;
+        private UsuarioService service;
         
         public ucGerenciador_Usuario()
         {
             InitializeComponent();
+            CriarNovoContexto();
+        }
+
+        private void CriarNovoContexto()
+        {
             this.service = new UsuarioService(new UsuarioRepository(new AppDbContext()));
         }
 
@@ -31,7 +35,6 @@ namespace AssisTec.UserControls
         }
 
         #region Design Moderno
-        
         private void ApplyModernDesign()
         {
             try
@@ -50,11 +53,9 @@ namespace AssisTec.UserControls
                 MessageBox.Show("Erro ao aplicar design: " + ex.Message);
             }
         }
-
         #endregion
 
         #region Metodos de Interface
-
         private void ConfigurarComboBox()
         {
             cbNivel.Items.Clear();
@@ -84,7 +85,10 @@ namespace AssisTec.UserControls
         {
             try
             {
+                CriarNovoContexto();
+                dgvUsuarios.DataSource = null;
                 dgvUsuarios.DataSource = service.ObterTodos();
+                formartGrid();
             }
             catch (Exception ex)
             {
@@ -97,7 +101,6 @@ namespace AssisTec.UserControls
             if (dgvUsuarios.Columns.Count <= 0) return;
             
             dgvUsuarios.Columns[0].HeaderText = "ID";
-            dgvUsuarios.Columns[0].Visible = false;
             dgvUsuarios.Columns[1].HeaderText = "Nome";
             dgvUsuarios.Columns[2].HeaderText = "CPF";
             dgvUsuarios.Columns[3].HeaderText = "Senha";
@@ -116,7 +119,10 @@ namespace AssisTec.UserControls
 
         private void Filtro()
         {
+            CriarNovoContexto();
+            dgvUsuarios.DataSource = null;
             dgvUsuarios.DataSource = service.FiltrarUsuarios(txtBusca.Text, cbInativo.Checked, cbNivel.SelectedIndex);
+            formartGrid();
         }
         
         private void AbrirFormularioUsuario(int modoOperacao)
@@ -137,6 +143,7 @@ namespace AssisTec.UserControls
             ucFormularioUsuarios.Top = (this.ClientSize.Height - ucFormularioUsuarios.Height) / 2;
             ucFormularioUsuarios.Show();
         }
+
         private void ControleEstadoComponentes(bool ativo)
         {
             btnNew.Enabled = ativo;
@@ -146,11 +153,9 @@ namespace AssisTec.UserControls
             txtBusca.Enabled = ativo;
             dgvUsuarios.Enabled = ativo;
         }
-
         #endregion
 
         #region Eventos dos Componentes
-
         private void btnNew_Click(object sender, EventArgs e)
         {
             AbrirFormularioUsuario(1);
@@ -284,7 +289,6 @@ namespace AssisTec.UserControls
             var resultado = service.ExecutarRelatorioTecnico(idSelected);
             MessageBox.Show(resultado.mensagem);
         }
-
         #endregion
     }
 }
