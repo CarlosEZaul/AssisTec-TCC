@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Globalization;
 using System.Linq;
+using AssisTec.Dtos;
 using AssisTec.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -32,12 +33,27 @@ namespace AssisTec.Repository
             return _context.SaveChanges() > 0;
         }
 
-        // CORRIGIDO: Inclui navegações para evitar dados incompletos
-        public IEnumerable<ContasReceber> ObterTodos() =>
-            _context.ContasReceber
+        public IEnumerable<ContasReceberDto> ObterTodos()
+        {
+            return _context.ContasReceber
                 .Include(c => c.Pagamento)
                 .Include(c => c.OrdemServico)
+                .AsEnumerable() 
+                .Select(c => new ContasReceberDto
+                {
+                    IdContaReceber = c.id_conta_receber,
+                    Descricao = c.descricao,
+                    Valor = c.valor,
+                    DataEmissao = c.data_emissao,
+                    DataVencimento = c.data_vencimento,
+                    DataPagamento = c.data_pagamento,
+                    Status = c.status,
+                    Observacoes = c.observacoes,
+                    IdOrdemServico = c.id_os_fk,
+                    FormaPagamentoDescricao = c.Pagamento != null ? c.Pagamento.Descricao : "---"
+                })
                 .ToList();
+        }
 
         public ContasReceber ObterPorId(int id) => _context.ContasReceber.Find(id);
 
@@ -61,7 +77,6 @@ namespace AssisTec.Repository
             var conta = _context.ContasReceber.Find(id);
             if (conta == null) return false;
 
-            // CORRIGIDO: Evita SaveChanges desnecessário se já está ATRASADO
             if (conta.status == "ATRASADO") return true;
 
             conta.status = "ATRASADO";

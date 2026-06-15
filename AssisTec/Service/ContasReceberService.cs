@@ -6,6 +6,7 @@ using System.Linq;
 using System.Windows.Forms;
 using AssisTec.Models;
 using AssisTec.Repository;
+using AssisTec.Dtos;
 
 namespace AssisTec.Service
 {
@@ -22,17 +23,19 @@ namespace AssisTec.Service
 
         public void ProcessarContasAtrasadas()
         {
-            var contas = _repository.ObterTodos();
+            var contasDto = _repository.ObterTodos();
             var dataAtual = DateTime.Today;
 
-            foreach (var conta in contas)
+            foreach (var contaDto in contasDto)
             {
-                // CORRIGIDO: Atualiza direto no objeto em vez de chamar MarcarComoAtrasado(id),
-                // evitando N queries adicionais ao banco (uma por conta atrasada).
-                if (conta.status == "PENDENTE" && conta.data_vencimento.Date < dataAtual)
+                if (contaDto.Status == "PENDENTE" && contaDto.DataVencimento.HasValue && contaDto.DataVencimento.Value.Date < dataAtual)
                 {
-                    conta.status = "ATRASADO";
-                    _repository.Atualizar(conta);
+                    var conta = _repository.ObterPorId(contaDto.IdContaReceber);
+                    if (conta != null)
+                    {
+                        conta.status = "ATRASADO";
+                        _repository.Atualizar(conta);
+                    }
                 }
             }
         }
@@ -47,7 +50,6 @@ namespace AssisTec.Service
 
         public DataTable CarregarFormasPagamento(bool incluirOpcaoTodas = false)
         {
-            // CORRIGIDO: Erro de digitação no método original — "carregarFormasPamento" → "CarregarFormasPagamento"
             var dt = _pagamentoRepository.carregarFormasPamento();
 
             if (incluirOpcaoTodas)
@@ -60,23 +62,27 @@ namespace AssisTec.Service
             return dt;
         }
 
-        public IEnumerable<ContasReceber> CarregarTodas()
+        public IEnumerable<ContasReceberDto> CarregarTodas()
         {
-            // CORRIGIDO: Evita chamar ObterTodos() duas vezes (uma dentro de ProcessarContasAtrasadas
-            // e outra no retorno). Agora processa e retorna a mesma lista.
-            var contas = _repository.ObterTodos().ToList();
+            var contasDto = _repository.ObterTodos().ToList();
             var dataAtual = DateTime.Today;
 
-            foreach (var conta in contas)
+            foreach (var contaDto in contasDto)
             {
-                if (conta.status == "PENDENTE" && conta.data_vencimento.Date < dataAtual)
+                if (contaDto.Status == "PENDENTE" && contaDto.DataVencimento.HasValue && contaDto.DataVencimento.Value.Date < dataAtual)
                 {
-                    conta.status = "ATRASADO";
-                    _repository.Atualizar(conta);
+                    contaDto.Status = "ATRASADO";
+
+                    var contaDb = _repository.ObterPorId(contaDto.IdContaReceber);
+                    if (contaDb != null)
+                    {
+                        contaDb.status = "ATRASADO";
+                        _repository.Atualizar(contaDb);
+                    }
                 }
             }
 
-            return contas;
+            return contasDto;
         }
 
         public ContasReceber ObterPorId(int id)
@@ -106,11 +112,17 @@ namespace AssisTec.Service
 
         private void ValidarCampos(ContasReceber conta)
         {
-            if (string.IsNullOrWhiteSpace(conta.descricao)) throw new ArgumentException("Descrição obrigatória.");
-            if (conta.valor <= 0) throw new ArgumentException("Valor deve ser maior que zero.");
-            if (string.IsNullOrWhiteSpace(conta.status)) throw new ArgumentException("Status obrigatório.");
-            if (conta.data_emissao == DateTime.MinValue) throw new ArgumentException("Data de emissão inválida.");
-            if (conta.data_vencimento == DateTime.MinValue) throw new ArgumentException("Data de vencimento inválida.");
+            if (string.IsNullOrWhiteSpace(conta.descricao)) 
+                throw new ArgumentException("Descrição obrigatória.");
+            if (conta.valor <= 0) 
+                throw new ArgumentException("Valor deve ser maior que zero.");
+            if (string.IsNullOrWhiteSpace(conta.status)) 
+                throw new ArgumentException("Status obrigatório.");
+            if (conta.data_emissao == DateTime.MinValue) 
+                throw new ArgumentException("Data de emissão inválida.");
+            if (conta.data_vencimento == DateTime.MinValue) 
+                throw new ArgumentException("Data de vencimento inválida.");
+            
         }
 
         public (DataTable Dados, decimal TotalGeral, decimal TotalRecebido, decimal TotalPendente, decimal TotalAtrasado) Filtrar(
@@ -122,8 +134,6 @@ namespace AssisTec.Service
                 filtroDataFim    = ValidarData(dataFim)    ? dataFim    : null,
                 filtroDescricao  = descricao?.Trim(),
                 filtroStatus     = statusIndex > 0 ? statusText : null,
-                // CORRIGIDO: Atribui null quando não parseia, semânticamente mais correto
-                // que 0 (o repositório já trata null como "sem filtro")
                 filtroIdFormaPagamento = int.TryParse(idFormaPagamento?.ToString(), out int id) && id > 0 ? id : (int?)null
             };
 
@@ -137,8 +147,6 @@ namespace AssisTec.Service
             => !string.IsNullOrWhiteSpace(data?.Replace("/", "").Trim())
                && DateTime.TryParseExact(data, "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out _);
 
-        // OBSERVAÇÃO: DataGridViewRow acopla o Service à camada de UI (WinForms).
-        // Considere receber apenas os valores necessários (ex: string status) em vez da linha inteira.
         public void ValidarPagamento(DataGridViewRow row)
         {
             if (row == null) throw new InvalidOperationException("Nenhuma conta selecionada.");

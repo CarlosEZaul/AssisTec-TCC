@@ -2,6 +2,8 @@
 using System.Drawing;
 using System.Windows.Forms;
 using AssisTec.Models;
+using AssisTec.Repository;
+using AssisTec.Service;
 using AssisTec.UserControls;
 using AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Clientes.ucFormulario_Clientes;
 using Guna.UI2.WinForms;
@@ -11,6 +13,7 @@ namespace AssisTec
     public partial class FrmPrincipal : Form
     {
         private Guna2Button botaoAtivo;
+        private readonly ContasReceberService _contasReceberService;
 
         Panel panelUsuario;
         Label lblNome;
@@ -22,6 +25,14 @@ namespace AssisTec
         {
             this.WindowState = FormWindowState.Maximized;
             InitializeComponent();
+
+            // CORRIGIDO: Inicialização do serviço antes de configurar a navbar,
+            // pois ConfigurarNavbar() depende dele.
+            _contasReceberService = new ContasReceberService(
+                new ContasReceberRepository(new AppDbContext()),
+                new PagamentoRepository(new AppDbContext())
+            );
+
             ConfigurarPanelUsuario();
             ConfigurarNavbar();
         }
@@ -31,7 +42,7 @@ namespace AssisTec
             string[] partesNome = Sessao.usuarioLogado.Nome.Trim().Split(' ');
 
             string nomeExibicao = partesNome.Length >= 2 ? $"{partesNome[0]} {partesNome[1]}" : partesNome[0];
-            
+
             panelUsuario = new Panel
             {
                 Dock = DockStyle.Bottom,
@@ -39,7 +50,7 @@ namespace AssisTec
                 BackColor = Color.FromArgb(35, 35, 38),
                 Padding = new Padding(10)
             };
-            
+
             lblNome = new Label
             {
                 Text = nomeExibicao,
@@ -117,9 +128,10 @@ namespace AssisTec
                 (s, e) => AbrirUserControl(new ucGerenciadorOS(), s)
             );
 
+            // CORRIGIDO: Passa a instância real do serviço em vez de "null"
             Guna2Button btnContasReceber = CriarBotaoMenu(
                 "💰 Contas a receber",
-                (s, e) => AbrirUserControl(new ucContasReceber(null), s)
+                (s, e) => AbrirUserControl(new ucContasReceber(_contasReceberService), s)
             );
 
             Guna2Button btnContasPagar = CriarBotaoMenu(

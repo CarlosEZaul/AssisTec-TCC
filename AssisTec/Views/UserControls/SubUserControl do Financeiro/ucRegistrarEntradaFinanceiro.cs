@@ -15,8 +15,6 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
         private readonly bool _ehInsercao;
         private ContasReceber _contaAtual;
 
-        // CORRIGIDO: Removidos parâmetros não utilizados (dgv e listaLabels).
-        // Se forem necessários futuramente, readicione com uso explícito.
         public ucRegistrarEntradaFinanceiro(int id, int modo, ContasReceberService service)
         {
             InitializeComponent();
@@ -25,8 +23,16 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
             _id = id;
             _ehInsercao = modo == 1;
 
-            // CORRIGIDO: Garante que _contaAtual nunca seja null ao entrar no btnSave_Click
-            _contaAtual = _ehInsercao ? new ContasReceber() : new ContasReceber();
+            _contaAtual = new ContasReceber();
+
+            ConfigurarMascaraValor();
+        }
+
+        private void ConfigurarMascaraValor()
+        {
+            mtbValor.Mask = null; 
+            mtbValor.Text = "0,00";
+            mtbValor.Enabled = true;
         }
 
         private void ucRegistrarEntradaFinanceiro_Load(object sender, EventArgs e)
@@ -49,17 +55,16 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
 
         private void CarregarDadosParaEdicao()
         {
-            // CORRIGIDO: try/catch para evitar crash silencioso deixando _contaAtual null
             try
             {
                 _contaAtual = _service.ObterPorId(_id);
 
-                txtDescricao.Text       = _contaAtual.descricao;
-                txtValor.Text           = _contaAtual.valor.ToString("F2");
-                mtbDataEmissao.Text     = _contaAtual.data_emissao.ToString("dd/MM/yyyy");
+                txtDescricao.Text = _contaAtual.descricao;
+                mtbValor.Text  = _contaAtual.valor.ToString("N2", new CultureInfo("pt-BR"));
+                mtbDataEmissao.Text  = _contaAtual.data_emissao.ToString("dd/MM/yyyy");
                 mtbDataVencimento.Text  = _contaAtual.data_vencimento.ToString("dd/MM/yyyy");
-                txtObservacoes.Text     = _contaAtual.observacoes;
-                cbStatus.Text           = _contaAtual.status;
+                txtObservacoes.Text = _contaAtual.observacoes;
+                cbStatus.Text = _contaAtual.status;
 
                 if (_contaAtual.id_forma_pagamento_fk.HasValue)
                     cbFormaPagamento.SelectedValue = _contaAtual.id_forma_pagamento_fk.Value;
@@ -82,11 +87,16 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
                 _contaAtual.observacoes = txtObservacoes.Text.Trim();
                 _contaAtual.status      = cbStatus.Text;
 
-                // CORRIGIDO: CultureInfo explícito para garantir parse correto da vírgula decimal
-                _contaAtual.valor = decimal.TryParse(txtValor.Text,
-                    NumberStyles.Number, new CultureInfo("pt-BR"), out decimal v) ? v : 0;
+                string valorTexto = mtbValor.Text.Trim();
+                if (decimal.TryParse(valorTexto, NumberStyles.Currency, new CultureInfo("pt-BR"), out decimal v))
+                {
+                    _contaAtual.valor = v;
+                }
+                else
+                {
+                    throw new ArgumentException("O valor informado possui um formato inválido.");
+                }
 
-                // CORRIGIDO: ParseExact com formato e cultura explícitos para evitar ambiguidade
                 _contaAtual.data_emissao = DateTime.TryParseExact(mtbDataEmissao.Text, "dd/MM/yyyy",
                     CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime em)
                     ? em : DateTime.MinValue;
@@ -106,11 +116,8 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
                 _service.Salvar(_contaAtual, _ehInsercao);
 
                 MessageBox.Show("Operação realizada com sucesso!", "Sucesso",
-                    MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                // CORRIGIDO: Notifica o controle pai para fechar/remover este UserControl,
-                // em vez de chamar this.Dispose() diretamente.
-                ParentForm?.Close();
+                    MessageBoxButtons.OK, MessageBoxIcon.Information); 
+                this.Dispose();
             }
             catch (ArgumentException ex)
             {
@@ -132,8 +139,6 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
 
             if (ehPendente)
             {
-                // CORRIGIDO: Removido SelectedValue = 1 (hardcoded e frágil).
-                // Reseta para o primeiro item disponível com segurança.
                 if (cbFormaPagamento.Items.Count > 0)
                     cbFormaPagamento.SelectedIndex = 0;
 
@@ -145,21 +150,67 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
             }
         }
 
-        private void txtValor_KeyPress(object sender, KeyPressEventArgs e)
+        private void mtbValor_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == '.') e.KeyChar = ',';
-            if (!char.IsDigit(e.KeyChar) && e.KeyChar != 8 && e.KeyChar != ',') e.Handled = true;
-            if (e.KeyChar == ',' && txtValor.Text.Contains(",")) e.Handled = true;
+    
+            if (!char.IsDigit(e.KeyChar) && e.KeyChar != 8 && e.KeyChar != ',')
+            {
+                e.Handled = true;
+                return;
+            }
+
+            if (e.KeyChar == ',')
+            {
+                if (mtbValor.Text.Contains(","))
+                {
+                    e.Handled = true;
+                }
+                return;
+            }
+
+            if (char.IsDigit(e.KeyChar))
+            {
+                int posicaoVirgula = mtbValor.Text.IndexOf(',');
+                if (posicaoVirgula != -1 && mtbValor.SelectionStart > posicaoVirgula)
+                {
+                    string[] partes = mtbValor.Text.Split(',');
+                    if (partes.Length > 1 && partes[1].Length >= 2 && mtbValor.SelectionLength == 0)
+                    {
+                        e.Handled = true;
+                    }
+                }
+            }
+        }
+
+        private void mtbValor_Leave(object sender, EventArgs e)
+        {
+            string texto = mtbValor.Text.Trim();
+
+            if (string.IsNullOrWhiteSpace(texto))
+            {
+                mtbValor.Text = "0,00";
+                return;
+            }
+
+            if (decimal.TryParse(texto, NumberStyles.Currency, new CultureInfo("pt-BR"), out decimal valor))
+            {
+                mtbValor.Text = valor.ToString("N2", new CultureInfo("pt-BR"));
+            }
+            else
+            {
+                mtbValor.Text = "0,00";
+            }
         }
 
         private void btnLimpar_Click(object sender, EventArgs e)
         {
             txtDescricao.Clear();
-            txtValor.Clear();
+            ConfigurarMascaraValor();
             txtObservacoes.Clear();
             cbStatus.SelectedIndex = 0;
         }
 
-        private void btnFechar_Click(object sender, EventArgs e) => ParentForm?.Close();
+        private void btnFechar_Click(object sender, EventArgs e) => this.Dispose();
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Data;
+using AssisTec.Dtos;
 using AssisTec.Models;
 
 namespace AssisTec.Repository
@@ -8,7 +9,7 @@ namespace AssisTec.Repository
     {
         bool Inserir(ContasReceber conta);
         bool InserirComVinculoOS(ContasReceber conta, int idOs);
-        IEnumerable<ContasReceber> ObterTodos();
+        IEnumerable<ContasReceberDto> ObterTodos();
         ContasReceber ObterPorId(int id);
         bool Atualizar(ContasReceber conta);
         bool Excluir(int id);

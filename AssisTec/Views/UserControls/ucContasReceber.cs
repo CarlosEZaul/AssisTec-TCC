@@ -17,8 +17,8 @@ namespace AssisTec.UserControls
         public ucContasReceber(ContasReceberService service)
         {
             InitializeComponent();
-            _service = service;
-            
+            _service = service ?? throw new ArgumentNullException(nameof(service));
+
             _listaLabelsTotais = new List<Label> { lblTotalReceber, lblRecebido, lblPendente, lblAtrasado };
 
             ApplyDesignModerno();
@@ -46,8 +46,27 @@ namespace AssisTec.UserControls
             cbFormaPagamento.SelectedIndex = 0;
         }
 
+        private void FormatGrid()
+        {
+            if (dgvContasReceber.Columns.Count <= 0) return;
+
+            dgvContasReceber.Columns[0].HeaderText = "ID_CONTA";
+            dgvContasReceber.Columns[1].HeaderText = "Descricao";
+            dgvContasReceber.Columns[2].HeaderText = "Valor";
+            dgvContasReceber.Columns[3].HeaderText = "Data de Emissao";
+            dgvContasReceber.Columns[4].HeaderText = "Data de Vencimento";
+            dgvContasReceber.Columns[5].HeaderText = "Data de Pagamento";
+            dgvContasReceber.Columns[6].HeaderText = "Status";
+            dgvContasReceber.Columns[7].HeaderText = "Observacoes";
+            dgvContasReceber.Columns[8].HeaderText = "IdOrdemServico";
+            dgvContasReceber.Columns[9].HeaderText = "Forma de Pagamento";
+            
+        }
+
         private void ExecutarFiltro()
         {
+            // OBSERVAÇÃO: Verifique se algum botão "Filtrar" no designer está
+            // ligado a este método — ele não é chamado em nenhum outro ponto do código atual.
             var resultado = _service.Filtrar(
                 mtbDataInicio.Text,
                 mtbDataFim.Text,
@@ -58,7 +77,7 @@ namespace AssisTec.UserControls
             );
 
             dgvContasReceber.DataSource = resultado.Dados;
-            
+
             lblTotalReceber.Text = resultado.TotalGeral.ToString("C2");
             lblRecebido.Text = resultado.TotalRecebido.ToString("C2");
             lblPendente.Text = resultado.TotalPendente.ToString("C2");
@@ -68,14 +87,17 @@ namespace AssisTec.UserControls
         private void AtualizarGrid()
         {
             dgvContasReceber.DataSource = _service.CarregarTodas();
-            
+
             var totais = _service.ObterTotaisPadrao();
             _listaLabelsTotais[0].Text = totais.TotalGeral.ToString("C2");
             _listaLabelsTotais[1].Text = totais.TotalRecebido.ToString("C2");
             _listaLabelsTotais[2].Text = totais.TotalPendente.ToString("C2");
             _listaLabelsTotais[3].Text = totais.TotalAtrasado.ToString("C2");
-            
+
+            _idConta = 0;
             MudarEstadoBotoes(false);
+            FormatGrid();
+            _service.ProcessarContasAtrasadas();
         }
 
         private void MudarEstadoBotoes(bool ativo)
@@ -88,7 +110,10 @@ namespace AssisTec.UserControls
 
         private void dgvContasReceber_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            if (dgvContasReceber.Columns[e.ColumnIndex].Name == "status" && e.Value?.ToString() == "ATRASADO")
+            var nomeColuna = dgvContasReceber.Columns[e.ColumnIndex].Name;
+
+            if (string.Equals(nomeColuna, "status", StringComparison.OrdinalIgnoreCase)
+                && e.Value?.ToString() == "ATRASADO")
             {
                 dgvContasReceber.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.Red;
                 dgvContasReceber.Rows[e.RowIndex].DefaultCellStyle.ForeColor = Color.White;
@@ -97,23 +122,60 @@ namespace AssisTec.UserControls
 
         private void dgvContasReceber_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex >= 0)
+            if (e.RowIndex < 0) return;
+
+            var grid = dgvContasReceber;
+            var colunas = new[] { "IdContaReceber", "ID_CONTA" };
+
+            foreach (var nomeColuna in colunas)
             {
-                MudarEstadoBotoes(true);
-                _idConta = (int)dgvContasReceber.Rows[e.RowIndex].Cells["id_conta_receber"].Value;
+                if (!grid.Columns.Contains(nomeColuna)) continue;
+
+                var valor = grid.Rows[e.RowIndex].Cells[nomeColuna].Value;
+                if (valor != null && valor != DBNull.Value && int.TryParse(valor.ToString(), out int id))
+                {
+                    _idConta = id;
+                    MudarEstadoBotoes(true);
+                    return;
+                }
             }
+
+            // Se não conseguiu identificar o ID, mantém os botões desabilitados
+            _idConta = 0;
+            MudarEstadoBotoes(false);
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            _service.Excluir(_idConta);
-            AtualizarGrid();
+            if (_idConta <= 0) return;
+
+            // CORRIGIDO: Confirmação antes de excluir
+            var confirmacao = MessageBox.Show(
+                "Tem certeza que deseja excluir esta conta a receber?",
+                "Confirmar exclusão",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question);
+
+            if (confirmacao != DialogResult.Yes) return;
+
+            // CORRIGIDO: try/catch para evitar crash caso a exclusão falhe
+            try
+            {
+                _service.Excluir(_idConta);
+                AtualizarGrid();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao excluir: {ex.Message}", "Erro",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btnRegistrar_Click(object sender, EventArgs e)
         {
-            // Passa 0 como ID para inserção
-            //ConfigurarSubComponente(new ucRegistrarEntradaFinanceiro(dgvContasReceber, 0, 1, _listaLabelsTotais, _service));
+            // CORRIGIDO: Implementado com a assinatura atual do construtor
+            // (id=0 e modo=1 indicam inserção, conforme ucRegistrarEntradaFinanceiro)
+            ConfigurarSubComponente(new ucRegistrarEntradaFinanceiro(0, 1, _service));
         }
 
         private void btnEditar_Click(object sender, EventArgs e)
@@ -123,9 +185,17 @@ namespace AssisTec.UserControls
 
         private void btnRegistrarPagamento_Click(object sender, EventArgs e)
         {
-            _service.ValidarPagamento(dgvContasReceber.CurrentRow);
-            // Certifique-se que o construtor de ucRegistrarPagamento também receba o _service
-            ConfigurarSubComponente(new ucRegistrarPagamento(_idConta, dgvContasReceber, _listaLabelsTotais, _service));
+            try
+            {
+                _service.ValidarPagamento(dgvContasReceber.CurrentRow);
+                // Certifique-se que o construtor de ucRegistrarPagamento também receba o _service
+                ConfigurarSubComponente(new ucRegistrarPagamento(_idConta, dgvContasReceber, _listaLabelsTotais, _service));
+            }
+            catch (InvalidOperationException ex)
+            {
+                MessageBox.Show(ex.Message, "Operação não permitida",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
 
         private void ConfigurarSubComponente(UserControl uc)
@@ -134,6 +204,11 @@ namespace AssisTec.UserControls
             this.Controls.Add(uc);
             uc.BringToFront();
             uc.Location = new Point((this.Width - uc.Width) / 2, (this.Height - uc.Height) / 2);
+        }
+
+        private void btnBuscar_Click(object sender, EventArgs e)
+        {
+            ExecutarFiltro();
         }
     }
 }

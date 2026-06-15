@@ -85,7 +85,9 @@ namespace AssisTec.Repository
                 entity.Property(e => e.id_conta_receber).HasColumnName("id_conta_receber");
     
                 entity.Property(e => e.descricao).HasColumnName("descricao");
-                entity.Property(e => e.valor).HasColumnName("valor");
+                entity.Property(e => e.valor)
+                    .HasColumnName("valor")
+                    .HasColumnType("decimal(18,2)");
                 modelBuilder.Entity<ContasReceber>()
                     .Property(p => p.valor).HasMaxLength(18);
                 entity.Property(e => e.data_emissao).HasColumnName("data_emissao");

@@ -36,7 +36,6 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
             this.label4 = new System.Windows.Forms.Label();
             this.txtDescricao = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.txtValor = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
@@ -53,6 +52,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
             this.mtbDataVencimento = new System.Windows.Forms.MaskedTextBox();
             this.cbStatus = new System.Windows.Forms.ComboBox();
             this.label9 = new System.Windows.Forms.Label();
+            this.mtbValor = new System.Windows.Forms.MaskedTextBox();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -111,16 +111,6 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
             this.label1.Size = new System.Drawing.Size(44, 18);
             this.label1.TabIndex = 223;
             this.label1.Text = "Valor:";
-            // 
-            // txtValor
-            // 
-            this.txtValor.BackColor = System.Drawing.Color.White;
-            this.txtValor.Location = new System.Drawing.Point(64, 122);
-            this.txtValor.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.txtValor.Name = "txtValor";
-            this.txtValor.Size = new System.Drawing.Size(460, 20);
-            this.txtValor.TabIndex = 222;
-            this.txtValor.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtValor_KeyPress);
             // 
             // label3
             // 
@@ -304,11 +294,22 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
             this.label9.TabIndex = 239;
             this.label9.Text = "Status:";
             // 
+            // mtbValor
+            // 
+            this.mtbValor.Location = new System.Drawing.Point(64, 125);
+            this.mtbValor.Mask = "0.00";
+            this.mtbValor.Name = "mtbValor";
+            this.mtbValor.Size = new System.Drawing.Size(460, 20);
+            this.mtbValor.TabIndex = 241;
+            this.mtbValor.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.mtbValor_KeyPress);
+            this.mtbValor.Leave += new System.EventHandler(this.mtbValor_Leave);
+            // 
             // ucRegistrarEntradaFinanceiro
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(55)))), ((int)(((byte)(76)))));
+            this.Controls.Add(this.mtbValor);
             this.Controls.Add(this.cbStatus);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.mtbDataVencimento);
@@ -323,7 +324,6 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.txtValor);
             this.Controls.Add(this.label33);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label4);
@@ -335,6 +335,8 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
             this.ResumeLayout(false);
             this.PerformLayout();
         }
+
+        private System.Windows.Forms.MaskedTextBox mtbValor;
 
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.ComboBox cbStatus;
@@ -360,7 +362,6 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox txtDescricao;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox txtValor;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox txt;
         private System.Windows.Forms.Label label5;
