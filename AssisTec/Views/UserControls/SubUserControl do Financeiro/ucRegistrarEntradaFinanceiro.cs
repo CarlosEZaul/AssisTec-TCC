@@ -14,6 +14,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
         private readonly int _id;
         private readonly bool _ehInsercao;
         private ContasReceber _contaAtual;
+        private DataTable _dtFormasPagamento;
 
         public ucRegistrarEntradaFinanceiro(int id, int modo, ContasReceberService service)
         {
@@ -48,7 +49,8 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
 
         private void CarregarFormasPagamento()
         {
-            cbFormaPagamento.DataSource = _service.CarregarFormasPagamento(incluirOpcaoTodas: false);
+            _dtFormasPagamento = _service.CarregarFormasPagamento(incluirOpcaoTodas: false);
+            cbFormaPagamento.DataSource = _dtFormasPagamento;
             cbFormaPagamento.DisplayMember = "exibicao";
             cbFormaPagamento.ValueMember = "id_forma_pagamento";
         }
@@ -133,12 +135,16 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
 
         private void cbStatus_SelectedIndexChanged(object sender, EventArgs e)
         {
-            bool ehPendente = cbStatus.SelectedItem?.ToString() == "PENDENTE";
+            if (cbStatus.SelectedItem == null || _dtFormasPagamento == null) return;
+
+            bool ehPendente = cbStatus.SelectedItem.ToString() == "PENDENTE";
             cbFormaPagamento.Enabled = !ehPendente;
             mtbDataPagamento.Enabled = !ehPendente;
 
             if (ehPendente)
             {
+                _dtFormasPagamento.DefaultView.RowFilter = string.Empty;
+
                 if (cbFormaPagamento.Items.Count > 0)
                     cbFormaPagamento.SelectedIndex = 0;
 
@@ -146,6 +152,19 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
             }
             else
             {
+                object valorSelecionadoAntes = cbFormaPagamento.SelectedValue;
+
+                _dtFormasPagamento.DefaultView.RowFilter = "id_forma_pagamento <> 1";
+
+                if (valorSelecionadoAntes != null && valorSelecionadoAntes.ToString() != "1")
+                {
+                    cbFormaPagamento.SelectedValue = valorSelecionadoAntes;
+                }
+                else if (cbFormaPagamento.Items.Count > 0)
+                {
+                    cbFormaPagamento.SelectedIndex = 0; 
+                }
+
                 mtbDataPagamento.Text = DateTime.Today.ToString("dd/MM/yyyy");
             }
         }
