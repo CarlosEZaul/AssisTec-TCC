@@ -231,8 +231,51 @@ namespace AssisTec.UserControls
         {
         }
 
-        private void btnContato_Click(object sender, EventArgs e)
+        private async void btnContato_Click(object sender, EventArgs e)
         {
+            if (idSelected <= 0)
+            {
+                MessageBox.Show("Por favor, selecione um cliente válido.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            btnContato.Enabled = false;
+
+            try
+            {
+                Cliente cliente = service.ObterPorId(idSelected);
+
+                if (cliente == null)
+                {
+                    MessageBox.Show("Cliente não encontrado no sistema.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                if (string.IsNullOrWhiteSpace(cliente.Telefone))
+                {
+                    MessageBox.Show("Este cliente não possui um telefone cadastrado.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                bool sucesso = await ContatoWhatsApp.EntrarContato(cliente.Telefone);
+
+                if (sucesso)
+                {
+                    MessageBox.Show("Contato iniciado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("Falha ao iniciar contato. Verifique a conexão.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ocorreu um erro inesperado: {ex.Message}", "Erro Crítico", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                btnContato.Enabled = true;
+            }
         }
         #endregion
     }

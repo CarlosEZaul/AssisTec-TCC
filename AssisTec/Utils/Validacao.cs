@@ -76,7 +76,6 @@ namespace AssisTec
 
             digito = digito + resto.ToString();
 
-            // Retorna true se os dígitos calculados forem iguais aos do CPF informado
             return cpf.EndsWith(digito);
         }
 
