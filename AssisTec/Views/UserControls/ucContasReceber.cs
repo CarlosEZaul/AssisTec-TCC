@@ -39,7 +39,7 @@ namespace AssisTec.UserControls
 
         private void ConfigurarComboBox()
         {
-            cbFormaPagamento.DataSource = _service.CarregarFormasPagamento(incluirOpcaoTodas: true);
+            cbFormaPagamento.DataSource = _pagamentoService.CarregarFormasPagamento(incluirOpcaoTodas: true);
             cbFormaPagamento.DisplayMember = "exibicao";
             cbFormaPagamento.ValueMember = "id_forma_pagamento";
 
@@ -83,6 +83,14 @@ namespace AssisTec.UserControls
             lblAtrasado.Text = resultado.TotalAtrasado.ToString("C2");
         }
 
+        private void UpdateMascaraMonetariaGrid()
+        {
+            if (dgvContasReceber.Columns.Contains("Valor"))
+            {
+                dgvContasReceber.Columns["Valor"].DefaultCellStyle.Format = "C2";
+            }
+        }
+
         private void AtualizarGrid()
         {
             dgvContasReceber.DataSource = _service.CarregarTodas();
@@ -96,6 +104,7 @@ namespace AssisTec.UserControls
             _idConta = 0;
             MudarEstadoBotoes(false);
             FormatGrid();
+            UpdateMascaraMonetariaGrid();
             _service.ProcessarContasAtrasadas();
         }
 
@@ -169,12 +178,12 @@ namespace AssisTec.UserControls
 
         private void btnRegistrar_Click(object sender, EventArgs e)
         {
-            ConfigurarSubComponente(new ucRegistrarEntradaFinanceiro(0, 1, _service));
+            ConfigurarSubComponente(new ucRegistrarEntradaFinanceiro(0, 1, _service, _pagamentoService));
         }
 
         private void btnEditar_Click(object sender, EventArgs e)
         {
-            ConfigurarSubComponente(new ucRegistrarEntradaFinanceiro(_idConta, 2, _service));
+            ConfigurarSubComponente(new ucRegistrarEntradaFinanceiro(_idConta, 2, _service, _pagamentoService));
         }
 
         private void btnRegistrarPagamento_Click(object sender, EventArgs e)

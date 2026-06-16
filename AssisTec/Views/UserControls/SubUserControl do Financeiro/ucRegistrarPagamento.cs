@@ -37,7 +37,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
 
         private void CarregarFormasPagamento()
         {
-            var dt = _service.CarregarFormasPagamento(incluirOpcaoTodas: false);
+            var dt = _pagamentoService.CarregarFormasPagamento(incluirOpcaoTodas: false);
     
             if (dt != null && dt.Rows.Count > 0)
             {

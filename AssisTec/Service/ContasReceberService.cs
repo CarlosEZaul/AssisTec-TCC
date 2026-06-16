@@ -48,20 +48,6 @@ namespace AssisTec.Service
                 throw new InvalidOperationException("A conta informada não foi localizada para exclusão.");
         }
 
-        public DataTable CarregarFormasPagamento(bool incluirOpcaoTodas = false)
-        {
-            var dt = _pagamentoRepository.carregarFormasPamento();
-
-            if (incluirOpcaoTodas)
-            {
-                DataRow dr = dt.NewRow();
-                dr["id_forma_pagamento"] = 0;
-                dr["exibicao"] = "Todas as formas de pagamento";
-                dt.Rows.InsertAt(dr, 0);
-            }
-            return dt;
-        }
-
         public IEnumerable<ContasReceberDto> CarregarTodas()
         {
             var contasDto = _repository.ObterTodos().ToList();
@@ -122,7 +108,6 @@ namespace AssisTec.Service
                 throw new ArgumentException("Data de emissão inválida.");
             if (conta.data_vencimento == DateTime.MinValue) 
                 throw new ArgumentException("Data de vencimento inválida.");
-            
         }
 
         public (DataTable Dados, decimal TotalGeral, decimal TotalRecebido, decimal TotalPendente, decimal TotalAtrasado) Filtrar(

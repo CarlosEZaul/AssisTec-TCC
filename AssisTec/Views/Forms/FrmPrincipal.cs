@@ -32,7 +32,7 @@ namespace AssisTec
             var pagamentoRepository = new PagamentoRepository(context);
 
             _contasReceberService = new ContasReceberService(contasReceberRepository, pagamentoRepository);
-            _pagamentoService = new PagamentoService(contasReceberRepository);
+            _pagamentoService = new PagamentoService(contasReceberRepository, pagamentoRepository);
 
             ConfigurarPanelUsuario();
             ConfigurarNavbar();

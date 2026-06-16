@@ -5,26 +5,24 @@ using System.Globalization;
 using System.Windows.Forms;
 using AssisTec.Service;
 using AssisTec.Models;
-using AssisTec.Repository;
 
 namespace AssisTec.UserControls.SubUserControl_do_Financeiro
 {
     public partial class ucRegistrarEntradaFinanceiro : UserControl
     {
         private readonly ContasReceberService _service;
+        private readonly PagamentoService _pagamentoService;
         private readonly int _id;
         private readonly bool _ehInsercao;
         private ContasReceber _contaAtual;
         private DataTable _dtFormasPagamento;
 
-        private readonly PagamentoService _pagamentoService =
-            new PagamentoService(new ContasReceberRepository(new AppDbContext()));
-
-        public ucRegistrarEntradaFinanceiro(int id, int modo, ContasReceberService service)
+        public ucRegistrarEntradaFinanceiro(int id, int modo, ContasReceberService service, PagamentoService pagamentoService)
         {
             InitializeComponent();
 
             _service = service ?? throw new ArgumentNullException(nameof(service));
+            _pagamentoService = pagamentoService ?? throw new ArgumentNullException(nameof(pagamentoService));
             _id = id;
             _ehInsercao = modo == 1;
 
@@ -53,7 +51,8 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
 
         private void CarregarFormasPagamento()
         {
-            _dtFormasPagamento = _service.CarregarFormasPagamento(incluirOpcaoTodas: false);
+            _dtFormasPagamento = _pagamentoService.CarregarFormasPagamento(incluirOpcaoTodas: false);
+            
             cbFormaPagamento.DataSource = _dtFormasPagamento;
             cbFormaPagamento.DisplayMember = "exibicao";
             cbFormaPagamento.ValueMember = "id_forma_pagamento";
@@ -139,32 +138,39 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
 
         private void cbStatus_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cbStatus.SelectedItem == null || _dtFormasPagamento == null) return;
+            if (cbStatus.SelectedItem == null || _dtFormasPagamento == null || _dtFormasPagamento.Rows.Count == 0) return;
 
             bool ehPendente = cbStatus.SelectedItem.ToString() == "PENDENTE";
-            cbFormaPagamento.Enabled = !ehPendente;
+            
             mtbDataPagamento.Enabled = !ehPendente;
 
             if (ehPendente)
             {
-                _dtFormasPagamento.DefaultView.RowFilter = string.Empty;
+                cbFormaPagamento.Enabled = false;
+
+                if (_dtFormasPagamento.Columns.Contains("id_forma_pagamento"))
+                {
+                    _dtFormasPagamento.DefaultView.RowFilter = string.Empty;
+                }
 
                 if (cbFormaPagamento.Items.Count > 0)
+                {
                     cbFormaPagamento.SelectedIndex = 0;
+                }
 
                 mtbDataPagamento.Clear();
             }
             else
             {
-                object valorSelecionadoAntes = cbFormaPagamento.SelectedValue;
+                cbFormaPagamento.Enabled = true;
 
-                _dtFormasPagamento.DefaultView.RowFilter = "id_forma_pagamento <> 1";
-
-                if (valorSelecionadoAntes != null && valorSelecionadoAntes.ToString() != "1")
+                if (_dtFormasPagamento.Columns.Contains("id_forma_pagamento"))
                 {
-                    cbFormaPagamento.SelectedValue = valorSelecionadoAntes;
+                    object primeiroId = _dtFormasPagamento.Rows[0]["id_forma_pagamento"];
+                    _dtFormasPagamento.DefaultView.RowFilter = $"id_forma_pagamento <> {primeiroId}";
                 }
-                else if (cbFormaPagamento.Items.Count > 0)
+
+                if (cbFormaPagamento.Items.Count > 0)
                 {
                     cbFormaPagamento.SelectedIndex = 0; 
                 }

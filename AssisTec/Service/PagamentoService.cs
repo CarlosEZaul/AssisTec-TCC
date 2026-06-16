@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 using AssisTec.Repository;
 
 namespace AssisTec.Service
@@ -6,13 +7,27 @@ namespace AssisTec.Service
     public class PagamentoService
     {
         private readonly IContaReceberRepository _contasRepository;
+        private readonly IPagamentoRepository _pagamentoRepository;
 
-        public PagamentoService(IContaReceberRepository contasRepository)
+        public PagamentoService(IContaReceberRepository contasRepository, IPagamentoRepository pagamentoRepository)
         {
             _contasRepository = contasRepository ?? throw new ArgumentNullException(nameof(contasRepository));
+            _pagamentoRepository = pagamentoRepository ?? throw new ArgumentNullException(nameof(pagamentoRepository));
         }
 
-        
+        public DataTable CarregarFormasPagamento(bool incluirOpcaoTodas = false)
+        {
+            var dt = _pagamentoRepository.carregarFormasPamento();
+
+            if (incluirOpcaoTodas)
+            {
+                DataRow dr = dt.NewRow();
+                dr["id_forma_pagamento"] = 0;
+                dr["exibicao"] = "Todas as formas de pagamento";
+                dt.Rows.InsertAt(dr, 0);
+            }
+            return dt;
+        }
 
         public void RegistrarPagamentoEntrada(int idConta, int idFormaPagamento, DateTime dataPagamento)
         {
