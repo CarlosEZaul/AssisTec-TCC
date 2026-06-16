@@ -5,6 +5,7 @@ using System.Globalization;
 using System.Windows.Forms;
 using AssisTec.Service;
 using AssisTec.Models;
+using AssisTec.Repository;
 
 namespace AssisTec.UserControls.SubUserControl_do_Financeiro
 {
@@ -15,6 +16,9 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
         private readonly bool _ehInsercao;
         private ContasReceber _contaAtual;
         private DataTable _dtFormasPagamento;
+
+        private readonly PagamentoService _pagamentoService =
+            new PagamentoService(new ContasReceberRepository(new AppDbContext()));
 
         public ucRegistrarEntradaFinanceiro(int id, int modo, ContasReceberService service)
         {

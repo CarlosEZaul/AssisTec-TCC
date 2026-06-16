@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
@@ -12,24 +11,22 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
         private readonly ContasReceberService _service;
         private readonly PagamentoService _pagamentoService;
         private readonly int _idConta;
-        private readonly DataGridView _dgv;
-        private readonly List<Label> _listaLabels;
 
-        public ucRegistrarPagamento(int idConta, DataGridView dgv, List<Label> labels, ContasReceberService service)
+        public event EventHandler PagamentoRegistrado;
+
+        public ucRegistrarPagamento(int idConta, ContasReceberService service, PagamentoService pagamentoService)
         {
             InitializeComponent();
             
-            _service = service;
-            _service = service;
+            _service = service ?? throw new ArgumentNullException(nameof(service));
+            _pagamentoService = pagamentoService ?? throw new ArgumentNullException(nameof(pagamentoService));
             _idConta = idConta;
-            _dgv = dgv;
-            _listaLabels = labels;
 
-            ConfigurarInterface();
+            DesingModerno();
             CarregarFormasPagamento();
         }
 
-        private void ConfigurarInterface()
+        private void DesingModerno()
         {
             DesingComponentes.centralizarPanel(panelBotoes, this.Width);
             DesingComponentes.StyleButton(btnFechar, Color.Red);
@@ -41,6 +38,13 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
         private void CarregarFormasPagamento()
         {
             var dt = _service.CarregarFormasPagamento(incluirOpcaoTodas: false);
+    
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                dt.Rows[0].Delete();
+                dt.AcceptChanges();
+            }
+
             cbFormaPagamento.DataSource = dt;
             cbFormaPagamento.DisplayMember = "exibicao";
             cbFormaPagamento.ValueMember = "id_forma_pagamento";
@@ -48,26 +52,26 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            int.TryParse(cbFormaPagamento.SelectedValue?.ToString(), out int idForma);
+            if (!int.TryParse(cbFormaPagamento.SelectedValue?.ToString(), out int idForma))
+            {
+                MessageBox.Show("Forma de pagamento inválida.");
+                return;
+            }
+
             DateTime.TryParse(mtbDataPagamento.Text, out DateTime dataPagamento);
 
-            _pagamentoService.RegistrarPagamentoEntrada(_idConta, idForma, dataPagamento);
-
-            MessageBox.Show("Pagamento registrado com sucesso!");
-            
-            AtualizarComponentesExternos();
-            this.Dispose();
-        }
-
-        private void AtualizarComponentesExternos()
-        {
-            _dgv.DataSource = _service.CarregarTodas();
-            
-            var totais = _service.ObterTotaisPadrao();
-            _listaLabels[0].Text = totais.TotalGeral.ToString("C2");
-            _listaLabels[1].Text = totais.TotalRecebido.ToString("C2");
-            _listaLabels[2].Text = totais.TotalPendente.ToString("C2");
-            _listaLabels[3].Text = totais.TotalAtrasado.ToString("C2");
+            try
+            {
+                _pagamentoService.RegistrarPagamentoEntrada(_idConta, idForma, dataPagamento);
+                MessageBox.Show("Pagamento registrado com sucesso!");
+                
+                PagamentoRegistrado?.Invoke(this, EventArgs.Empty);
+                this.Dispose();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btnFechar_Click(object sender, EventArgs e) => this.Dispose();

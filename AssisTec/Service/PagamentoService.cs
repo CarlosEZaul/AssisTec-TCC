@@ -7,11 +7,12 @@ namespace AssisTec.Service
     {
         private readonly IContaReceberRepository _contasRepository;
 
-        public PagamentoService()
+        public PagamentoService(IContaReceberRepository contasRepository)
         {
-            var context = new AppDbContext();
-            _contasRepository = new ContasReceberRepository(context);
+            _contasRepository = contasRepository ?? throw new ArgumentNullException(nameof(contasRepository));
         }
+
+        
 
         public void RegistrarPagamentoEntrada(int idConta, int idFormaPagamento, DateTime dataPagamento)
         {
@@ -49,7 +50,5 @@ namespace AssisTec.Service
                 throw new Exception("Falha na camada de negócio ao registrar o pagamento: " + ex.Message, ex);
             }
         }
-        
-        
     }
 }

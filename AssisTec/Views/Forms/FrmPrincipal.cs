@@ -14,6 +14,7 @@ namespace AssisTec
     {
         private Guna2Button botaoAtivo;
         private readonly ContasReceberService _contasReceberService;
+        private readonly PagamentoService _pagamentoService;
 
         Panel panelUsuario;
         Label lblNome;
@@ -25,13 +26,13 @@ namespace AssisTec
         {
             this.WindowState = FormWindowState.Maximized;
             InitializeComponent();
+            
+            var context = new AppDbContext();
+            var contasReceberRepository = new ContasReceberRepository(context);
+            var pagamentoRepository = new PagamentoRepository(context);
 
-            // CORRIGIDO: Inicialização do serviço antes de configurar a navbar,
-            // pois ConfigurarNavbar() depende dele.
-            _contasReceberService = new ContasReceberService(
-                new ContasReceberRepository(new AppDbContext()),
-                new PagamentoRepository(new AppDbContext())
-            );
+            _contasReceberService = new ContasReceberService(contasReceberRepository, pagamentoRepository);
+            _pagamentoService = new PagamentoService(contasReceberRepository);
 
             ConfigurarPanelUsuario();
             ConfigurarNavbar();
@@ -128,10 +129,9 @@ namespace AssisTec
                 (s, e) => AbrirUserControl(new ucGerenciadorOS(), s)
             );
 
-            // CORRIGIDO: Passa a instância real do serviço em vez de "null"
             Guna2Button btnContasReceber = CriarBotaoMenu(
                 "💰 Contas a receber",
-                (s, e) => AbrirUserControl(new ucContasReceber(_contasReceberService), s)
+                (s, e) => AbrirUserControl(new ucContasReceber(_contasReceberService, _pagamentoService), s)
             );
 
             Guna2Button btnContasPagar = CriarBotaoMenu(

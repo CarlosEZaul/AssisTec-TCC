@@ -11,13 +11,15 @@ namespace AssisTec.UserControls
     public partial class ucContasReceber : UserControl
     {
         private readonly ContasReceberService _service;
+        private readonly PagamentoService _pagamentoService;
         private int _idConta;
         private readonly List<Label> _listaLabelsTotais;
 
-        public ucContasReceber(ContasReceberService service)
+        public ucContasReceber(ContasReceberService service, PagamentoService pagamentoService)
         {
             InitializeComponent();
             _service = service ?? throw new ArgumentNullException(nameof(service));
+            _pagamentoService = pagamentoService ?? throw new ArgumentNullException(nameof(pagamentoService));
 
             _listaLabelsTotais = new List<Label> { lblTotalReceber, lblRecebido, lblPendente, lblAtrasado };
 
@@ -60,13 +62,10 @@ namespace AssisTec.UserControls
             dgvContasReceber.Columns[7].HeaderText = "Observacoes";
             dgvContasReceber.Columns[8].HeaderText = "IdOrdemServico";
             dgvContasReceber.Columns[9].HeaderText = "Forma de Pagamento";
-            
         }
 
         private void ExecutarFiltro()
         {
-            // OBSERVAÇÃO: Verifique se algum botão "Filtrar" no designer está
-            // ligado a este método — ele não é chamado em nenhum outro ponto do código atual.
             var resultado = _service.Filtrar(
                 mtbDataInicio.Text,
                 mtbDataFim.Text,
@@ -140,7 +139,6 @@ namespace AssisTec.UserControls
                 }
             }
 
-            // Se não conseguiu identificar o ID, mantém os botões desabilitados
             _idConta = 0;
             MudarEstadoBotoes(false);
         }
@@ -149,7 +147,6 @@ namespace AssisTec.UserControls
         {
             if (_idConta <= 0) return;
 
-            // CORRIGIDO: Confirmação antes de excluir
             var confirmacao = MessageBox.Show(
                 "Tem certeza que deseja excluir esta conta a receber?",
                 "Confirmar exclusão",
@@ -158,7 +155,6 @@ namespace AssisTec.UserControls
 
             if (confirmacao != DialogResult.Yes) return;
 
-            // CORRIGIDO: try/catch para evitar crash caso a exclusão falhe
             try
             {
                 _service.Excluir(_idConta);
@@ -173,8 +169,6 @@ namespace AssisTec.UserControls
 
         private void btnRegistrar_Click(object sender, EventArgs e)
         {
-            // CORRIGIDO: Implementado com a assinatura atual do construtor
-            // (id=0 e modo=1 indicam inserção, conforme ucRegistrarEntradaFinanceiro)
             ConfigurarSubComponente(new ucRegistrarEntradaFinanceiro(0, 1, _service));
         }
 
@@ -185,16 +179,30 @@ namespace AssisTec.UserControls
 
         private void btnRegistrarPagamento_Click(object sender, EventArgs e)
         {
+            if (dgvContasReceber.CurrentRow == null)
+            {
+                MessageBox.Show("Selecione uma conta para registrar o pagamento.", "Aviso", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             try
             {
                 _service.ValidarPagamento(dgvContasReceber.CurrentRow);
-                // Certifique-se que o construtor de ucRegistrarPagamento também receba o _service
-                ConfigurarSubComponente(new ucRegistrarPagamento(_idConta, dgvContasReceber, _listaLabelsTotais, _service));
+
+                var ucPagamento = new ucRegistrarPagamento(_idConta, _service, _pagamentoService);
+
+                ConfigurarSubComponente(ucPagamento);
             }
             catch (InvalidOperationException ex)
             {
                 MessageBox.Show(ex.Message, "Operação não permitida",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro inesperado: " + ex.Message, "Erro", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
