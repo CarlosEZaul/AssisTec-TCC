@@ -199,7 +199,7 @@ namespace AssisTec.UserControls
             {
                 _service.ValidarPagamento(dgvContasReceber.CurrentRow);
 
-                var ucPagamento = new ucRegistrarPagamento(_idConta, _service, _pagamentoService);
+                var ucPagamento = new ucRegistrarPagamentoEntrada(_idConta, _service, _pagamentoService);
 
                 ConfigurarSubComponente(ucPagamento);
             }

@@ -6,7 +6,7 @@ using AssisTec.Service;
 
 namespace AssisTec.UserControls.SubUserControl_do_Financeiro
 {
-    public partial class ucRegistrarPagamento : UserControl
+    public partial class ucRegistrarPagamentoEntrada : UserControl
     {
         private readonly ContasReceberService _service;
         private readonly PagamentoService _pagamentoService;
@@ -14,7 +14,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
 
         public event EventHandler PagamentoRegistrado;
 
-        public ucRegistrarPagamento(int idConta, ContasReceberService service, PagamentoService pagamentoService)
+        public ucRegistrarPagamentoEntrada(int idConta, ContasReceberService service, PagamentoService pagamentoService)
         {
             InitializeComponent();
             

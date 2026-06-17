@@ -2,7 +2,7 @@
 
 namespace AssisTec.UserControls.SubUserControl_do_Financeiro
 {
-    partial class ucRegistrarPagamento
+    partial class ucRegistrarPagamentoEntrada
     {
         /// <summary> 
         /// Required designer variable.
@@ -148,7 +148,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label33);
-            this.Name = "ucRegistrarPagamento";
+            this.Name = "ucRegistrarPagamentoEntrada";
             this.Size = new System.Drawing.Size(339, 255);
             this.panelBotoes.ResumeLayout(false);
             this.ResumeLayout(false);

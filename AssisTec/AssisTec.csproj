@@ -298,16 +298,16 @@
     <Compile Include="Views\Forms\SubForms do Gerenciador de Pedidos\FrmEditarPedido.Designer.cs">
       <DependentUpon>FrmEditarPedido.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\UserControls\SubUserControl do Financeiro\ucRegistrarEntradaFinanceiro.cs" />
-    <Compile Include="Views\UserControls\SubUserControl do Financeiro\ucRegistrarEntradaFinanceiro.Designer.cs">
+    <Compile Include="Views\UserControls\SubUserControl do Financeiro\Entrada\ucRegistrarEntradaFinanceiro.cs" />
+    <Compile Include="Views\UserControls\SubUserControl do Financeiro\Entrada\ucRegistrarEntradaFinanceiro.Designer.cs">
       <DependentUpon>ucRegistrarEntradaFinanceiro.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\UserControls\SubUserControl do Financeiro\ucRegistrarPagamento.cs" />
-    <Compile Include="Views\UserControls\SubUserControl do Financeiro\ucRegistrarPagamento.Designer.cs">
-      <DependentUpon>ucRegistrarPagamento.cs</DependentUpon>
+    <Compile Include="Views\UserControls\SubUserControl do Financeiro\Entrada\ucRegistrarPagamentoEntrada.cs" />
+    <Compile Include="Views\UserControls\SubUserControl do Financeiro\Entrada\ucRegistrarPagamentoEntrada.Designer.cs">
+      <DependentUpon>ucRegistrarPagamentoEntrada.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\UserControls\SubUserControl do Financeiro\ucRegistrarSaidaFinanceiro.cs" />
-    <Compile Include="Views\UserControls\SubUserControl do Financeiro\ucRegistrarSaidaFinanceiro.Designer.cs">
+    <Compile Include="Views\UserControls\SubUserControl do Financeiro\Saida\ucRegistrarSaidaFinanceiro.cs" />
+    <Compile Include="Views\UserControls\SubUserControl do Financeiro\Saida\ucRegistrarSaidaFinanceiro.Designer.cs">
       <DependentUpon>ucRegistrarSaidaFinanceiro.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\UserControls\SubUserControl do Gerenciador de Clientes\ucFormulario_Clientes.cs" />
@@ -387,13 +387,13 @@
     <EmbeddedResource Include="Views\Forms\SubForms do Gerenciador de Pedidos\FrmEditarPedido.resx">
       <DependentUpon>FrmEditarPedido.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\UserControls\SubUserControl do Financeiro\ucRegistrarEntradaFinanceiro.resx">
+    <EmbeddedResource Include="Views\UserControls\SubUserControl do Financeiro\Entrada\ucRegistrarEntradaFinanceiro.resx">
       <DependentUpon>ucRegistrarEntradaFinanceiro.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\UserControls\SubUserControl do Financeiro\ucRegistrarPagamento.resx">
-      <DependentUpon>ucRegistrarPagamento.cs</DependentUpon>
+    <EmbeddedResource Include="Views\UserControls\SubUserControl do Financeiro\Entrada\ucRegistrarPagamentoEntrada.resx">
+      <DependentUpon>ucRegistrarPagamentoEntrada.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\UserControls\SubUserControl do Financeiro\ucRegistrarSaidaFinanceiro.resx">
+    <EmbeddedResource Include="Views\UserControls\SubUserControl do Financeiro\Saida\ucRegistrarSaidaFinanceiro.resx">
       <DependentUpon>ucRegistrarSaidaFinanceiro.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\UserControls\SubUserControl do Gerenciador de Clientes\ucFormulario_Clientes.resx">
