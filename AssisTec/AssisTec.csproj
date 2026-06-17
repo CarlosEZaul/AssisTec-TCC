@@ -238,6 +238,7 @@
     </Compile>
     <Compile Include="Migrations\AppDbContextModelSnapshot.cs" />
     <Compile Include="Models\Cliente.cs" />
+    <Compile Include="Models\ContasPagar.cs" />
     <Compile Include="Models\ContasReceber.cs" />
     <Compile Include="Models\Equipamento.cs" />
     <Compile Include="Models\OrdemServico.cs" />

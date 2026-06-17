@@ -7,16 +7,16 @@ using System.Threading.Tasks;
 using AssisTec.Models;
 using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 
-
 namespace AssisTec.Repository
 {
-    public class AppDbContext:DbContext
+    public class AppDbContext : DbContext
     {
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Cliente> Clientes { get; set; }
         public DbSet<OrdemServico> OrdemServicos { get; set; }
         public DbSet<Equipamento> Equipamentos { get; set; }
         public DbSet<ContasReceber> ContasReceber { get; set; }
+        public DbSet<ContasPagar> Contas_Pagar { get; set; }
         public DbSet<Pagamento> Pagamentos { get; set; }
         
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -30,8 +30,6 @@ namespace AssisTec.Repository
                 );
             }
         }
-
-        
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -88,8 +86,7 @@ namespace AssisTec.Repository
                 entity.Property(e => e.valor)
                     .HasColumnName("valor")
                     .HasColumnType("decimal(18,2)");
-                modelBuilder.Entity<ContasReceber>()
-                    .Property(p => p.valor).HasMaxLength(18);
+
                 entity.Property(e => e.data_emissao).HasColumnName("data_emissao");
                 entity.Property(e => e.data_pagamento).HasColumnName("data_pagamento");
                 entity.Property(e => e.data_vencimento).HasColumnName("data_vencimento");
@@ -100,6 +97,30 @@ namespace AssisTec.Repository
                     .WithMany()
                     .HasForeignKey(e => e.id_os_fk)
                     .OnDelete(DeleteBehavior.SetNull);
+
+                entity.HasOne(e => e.Pagamento)
+                    .WithMany()
+                    .HasForeignKey(e => e.id_forma_pagamento_fk)
+                    .OnDelete(DeleteBehavior.SetNull);
+            });
+            
+            modelBuilder.Entity<ContasPagar>(entity =>
+            {
+                entity.ToTable("contas_pagar");
+
+                entity.HasKey(e => e.id_conta_pagar);
+                entity.Property(e => e.id_conta_pagar).HasColumnName("id_conta_pagar");
+    
+                entity.Property(e => e.descricao).HasColumnName("descricao");
+                entity.Property(e => e.valor)
+                    .HasColumnName("valor")
+                    .HasColumnType("decimal(18,2)");
+
+                entity.Property(e => e.data_emissao).HasColumnName("data_emissao");
+                entity.Property(e => e.data_pagamento).HasColumnName("data_pagamento");
+                entity.Property(e => e.data_vencimento).HasColumnName("data_vencimento");
+                entity.Property(e => e.status).HasColumnName("status");
+                entity.Property(e => e.observacoes).HasColumnName("observacoes");
 
                 entity.HasOne(e => e.Pagamento)
                     .WithMany()
@@ -170,14 +191,12 @@ namespace AssisTec.Repository
                 entity.Property(e => e.Descricao).HasColumnName("descricao");
 
                 entity.HasData(
-                    new Pagamento{ Idforma_pagamento = 1, Descricao = "---"},
+                    new Pagamento { Idforma_pagamento = 1, Descricao = "---" },
                     new Pagamento { Idforma_pagamento = 2, Descricao = "Pix" },
                     new Pagamento { Idforma_pagamento = 3, Descricao = "Cartão de Crédito / Débito" },
                     new Pagamento { Idforma_pagamento = 4, Descricao = "Dinheiro" }
                 );
             });
-
         }
-        
     }
 }
