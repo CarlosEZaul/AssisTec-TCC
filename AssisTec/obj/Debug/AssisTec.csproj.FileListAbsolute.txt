@@ -2355,7 +2355,6 @@ C:\Users\Pc do estagiario\RiderProjects\AssisTec-TCC1106\AssisTec\obj\Debug\Assi
 C:\Users\Pc do estagiario\RiderProjects\AssisTec-TCC1106\AssisTec\obj\Debug\AssisTec.FrmPrincipal.resources
 C:\Users\Pc do estagiario\RiderProjects\AssisTec-TCC1106\AssisTec\obj\Debug\AssisTec.SubForms_do_Gerenciador_de_Pedidos.FrmEditarPedido.resources
 C:\Users\Pc do estagiario\RiderProjects\AssisTec-TCC1106\AssisTec\obj\Debug\AssisTec.UserControls.SubUserControl_do_Financeiro.ucRegistrarEntradaFinanceiro.resources
-C:\Users\Pc do estagiario\RiderProjects\AssisTec-TCC1106\AssisTec\obj\Debug\AssisTec.UserControls.SubUserControl_do_Financeiro.ucRegistrarPagamento.resources
 C:\Users\Pc do estagiario\RiderProjects\AssisTec-TCC1106\AssisTec\obj\Debug\AssisTec.UserControls.SubUserControl_do_Financeiro.ucRegistrarSaidaFinanceiro.resources
 C:\Users\Pc do estagiario\RiderProjects\AssisTec-TCC1106\AssisTec\obj\Debug\AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Clientes.ucFormulario_Clientes.ucFormulario_Clientes.resources
 C:\Users\Pc do estagiario\RiderProjects\AssisTec-TCC1106\AssisTec\obj\Debug\AssisTec.SubForms_do_Gerenciador_de_Pedidos.ucDetalhesPedidos.resources
@@ -2377,3 +2376,4 @@ C:\Users\Pc do estagiario\RiderProjects\AssisTec-TCC1106\AssisTec\obj\Debug\Assi
 C:\Users\Pc do estagiario\RiderProjects\AssisTec-TCC1106\AssisTec\obj\Debug\AssisTec.csproj.Up2Date
 C:\Users\Pc do estagiario\RiderProjects\AssisTec-TCC1106\AssisTec\obj\Debug\AssisTec.exe
 C:\Users\Pc do estagiario\RiderProjects\AssisTec-TCC1106\AssisTec\obj\Debug\AssisTec.pdb
+C:\Users\Pc do estagiario\RiderProjects\AssisTec-TCC1106\AssisTec\obj\Debug\AssisTec.UserControls.SubUserControl_do_Financeiro.ucRegistrarPagamentoEntrada.resources

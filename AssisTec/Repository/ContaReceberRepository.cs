@@ -98,7 +98,6 @@ namespace AssisTec.Repository
             dt.Columns.Add("DataVencimento", typeof(DateTime));
             dt.Columns.Add("Status", typeof(string));
             dt.Columns.Add("Observacoes", typeof(string));
-            // CORRIGIDO: IdOS como int? em vez de string para manter consistência com o model
             dt.Columns.Add("IdOS", typeof(int));
             dt.Columns.Add("FormaPagamento", typeof(string));
 
@@ -113,7 +112,6 @@ namespace AssisTec.Repository
                     item.data_vencimento,
                     item.status,
                     item.observacoes,
-                    // CORRIGIDO: Mantém DBNull quando nulo, em vez de "N/A" (incompatível com typeof(int))
                     (object)item.id_os_fk ?? DBNull.Value,
                     item.Pagamento?.Descricao ?? "NÃO DEFINIDA"
                 );
@@ -134,7 +132,7 @@ namespace AssisTec.Repository
             );
         }
 
-        private IQueryable<ContasReceber> AplicarFiltros(ContasReceber filtro)
+        public IQueryable<ContasReceber> AplicarFiltros(ContasReceber filtro)
         {
             var query = _context.ContasReceber.AsQueryable();
 
@@ -150,7 +148,6 @@ namespace AssisTec.Repository
             if (DateTime.TryParseExact(filtro.filtroDataInicio, "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime dtInicio))
                 query = query.Where(c => c.data_vencimento >= dtInicio.Date);
 
-            // CORRIGIDO: Inclui registros do próprio dia final (até 23:59:59)
             if (DateTime.TryParseExact(filtro.filtroDataFim, "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime dtFim))
                 query = query.Where(c => c.data_vencimento < dtFim.Date.AddDays(1));
 

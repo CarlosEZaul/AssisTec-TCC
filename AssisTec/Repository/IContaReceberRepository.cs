@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using AssisTec.Dtos;
 using AssisTec.Models;
 
@@ -16,5 +17,6 @@ namespace AssisTec.Repository
         bool MarcarComoAtrasado(int id);
         DataTable Filtrar(ContasReceber filtro);
         (decimal TotalGeral, decimal TotalRecebido, decimal TotalPendente, decimal TotalAtrasado) ObterTotais(ContasReceber filtro);
+        IQueryable<ContasReceber> AplicarFiltros(ContasReceber filtro);
     }
 }
