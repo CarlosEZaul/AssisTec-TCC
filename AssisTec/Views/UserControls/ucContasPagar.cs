@@ -177,6 +177,9 @@ namespace AssisTec.UserControls
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
+            if (MessageBox.Show("Deseja realmente excluir esta conta?", "Confirmação", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                return;
+
             try
             {
                 _contasPagarService.Excluir(idConta);
@@ -191,7 +194,9 @@ namespace AssisTec.UserControls
 
         private void btnRegistrar_Click(object sender, EventArgs e)
         {
-            ucRegistrarSaidaFinanceiro ucRegistrarSaida = new ucRegistrarSaidaFinanceiro(dgvContasPagar, idConta, 1, listaLabelsTotais);
+            ucRegistrarSaidaFinanceiro ucRegistrarSaida = new ucRegistrarSaidaFinanceiro(0, 1, _contasPagarService, _pagamentoService);
+            ucRegistrarSaida.Disposed += (s, ev) => atualizar();
+            
             this.Controls.Add(ucRegistrarSaida);
             ucRegistrarSaida.BringToFront();
             ucRegistrarSaida.Left = (this.ClientSize.Width - ucRegistrarSaida.Width) / 2;
@@ -236,7 +241,11 @@ namespace AssisTec.UserControls
 
         private void btnEditar_Click(object sender, EventArgs e)
         {
-            ucRegistrarSaidaFinanceiro ucRegistrarSaida = new ucRegistrarSaidaFinanceiro(dgvContasPagar, idConta, 2, listaLabelsTotais);
+            if (idConta <= 0) return;
+
+            ucRegistrarSaidaFinanceiro ucRegistrarSaida = new ucRegistrarSaidaFinanceiro(idConta, 2, _contasPagarService, _pagamentoService);
+            ucRegistrarSaida.Disposed += (s, ev) => atualizar();
+
             this.Controls.Add(ucRegistrarSaida);
             ucRegistrarSaida.BringToFront();
             ucRegistrarSaida.Left = (this.ClientSize.Width - ucRegistrarSaida.Width) / 2;
@@ -246,21 +255,6 @@ namespace AssisTec.UserControls
 
         private void btnRegistrarPagamento_Click(object sender, EventArgs e)
         {
-            /*try
-            {
-                _contasPagarService.ValidarPagamento(dgvContasPagar.CurrentRow);
-
-                ucRegistrarPagamento ucRegistrarPagamento = new ucRegistrarPagamento(idConta, dgvContasPagar, listaLabelsTotais);
-                this.Controls.Add(ucRegistrarPagamento);
-                ucRegistrarPagamento.BringToFront();
-                ucRegistrarPagamento.Left = (this.ClientSize.Width - ucRegistrarPagamento.Width) / 2;
-                ucRegistrarPagamento.Top = (this.ClientSize.Height - ucRegistrarPagamento.Height) / 2;
-                ucRegistrarPagamento.Show();
-            }
-            catch (InvalidOperationException ex)
-            {
-                MessageBox.Show(ex.Message, "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }*/
         }
 
         #endregion

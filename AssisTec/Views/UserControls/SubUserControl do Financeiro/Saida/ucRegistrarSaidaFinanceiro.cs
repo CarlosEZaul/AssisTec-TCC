@@ -1,261 +1,245 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Drawing;
+using System.Globalization;
 using System.Windows.Forms;
-using MySql.Data.MySqlClient;
+using AssisTec.Service;
+using AssisTec.Models;
 
 namespace AssisTec.UserControls.SubUserControl_do_Financeiro
 {
     public partial class ucRegistrarSaidaFinanceiro : UserControl
     {
-        
-        DataTable dtFormaPagamento;
-        private DataGridView dgv;
-        private int id;
-        private int modo;
-        private List<Label> listalabels = new List<Label>();
-        
-        public ucRegistrarSaidaFinanceiro(DataGridView _dgv, int _id, int _modo, List<Label> _listaLabels)
+        private readonly ContasPagarService _service;
+        private readonly PagamentoService _pagamentoService;
+        private readonly int _id;
+        private readonly bool _ehInsercao;
+        private ContasPagar _contaAtual;
+        private DataTable _dtFormasPagamento;
+
+        public ucRegistrarSaidaFinanceiro(int id, int modo, ContasPagarService service, PagamentoService pagamentoService)
         {
             InitializeComponent();
-            
-            dgv = _dgv;
-            id = _id;
-            modo = _modo;
-            listalabels= _listaLabels;
+
+            _service = service ?? throw new ArgumentNullException(nameof(service));
+            _pagamentoService = pagamentoService ?? throw new ArgumentNullException(nameof(pagamentoService));
+            _id = id;
+            _ehInsercao = modo == 1;
+
+            _contaAtual = new ContasPagar();
+
+            ConfigurarMascaraValor();
         }
 
-        // #region DesingModerno
-        //
-        // private void applyDesing()
-        // {
-        //     DesingComponentes.StyleButton(btnFechar, Color.Red);
-        // }
-        //
-        // #endregion
-        //
-        // #region metodos ou funcoes
-        // private void carregarDados()
-        // {
-        //     lf = lf.carregarContaPagar(id);
-        //
-        //     id = lf.id_conta;
-        //     txtDescricao.Text = lf.descricao;
-        //     txtValor.Text = lf.valor.ToString();
-        //     mtbDataEmissao.Text = lf.dataEmissao;
-        //     mtbDataPagamento.Text = lf.dataPagamento;
-        //     mtbDataVencimento.Text = lf.dataVencimento;
-        //     cbStatus.Text = lf.status;
-        //     cbFormaPagamento.Text = lf.pagamento.forma_pagamento;
-        //     txtObservacoes.Text = lf.obervacoes;
-        // }
-        // private void atualizarLabels()
-        // {
-        //     var totais = lf.AtualizarTotaisPagar();
-        //     listalabels[0].Text = totais.totalGeral.ToString("C2");
-        //     listalabels[1].Text = totais.totalPago.ToString("C2");
-        //     listalabels[2].Text = totais.totalPendente.ToString("C2");
-        //     listalabels[3].Text = totais.totalAtrasado.ToString("C2");
-        //     
-        // }
-        //
-        // private void ConfigurarCombobox()
-        // {
-        //     cbFormaPagamento.Items.Clear();
-        //     con.OpenConnection();
-        //
-        //     sql = @"SELECT id_forma_pagamento, CONCAT(descricao) AS exibicao 
-        //             FROM forma_pagamento 
-        //             ORDER BY descricao;";
-        //
-        //     cmd = new MySqlCommand(sql, con.con);
-        //     MySqlDataAdapter da = new MySqlDataAdapter(cmd);
-        //     dtFormaPagamento = new DataTable();
-        //     da.Fill(dtFormaPagamento);
-        //
-        //     cbFormaPagamento.DataSource = dtFormaPagamento;
-        //     cbFormaPagamento.DisplayMember = "exibicao";
-        //     cbFormaPagamento.ValueMember = "id_forma_pagamento";
-        //
-        //     cbFormaPagamento.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
-        //     cbFormaPagamento.AutoCompleteSource = AutoCompleteSource.ListItems;
-        //     
-        //     con.CloseConnection();
-        //     
-        //     cbStatus.Items.Clear();
-        //     cbStatus.Items.Add("PENDENTE");
-        //     cbStatus.Items.Add("PAGA");
-        //
-        // }
-        // private void fechar()
-        // {
-        //     this.Hide();
-        // }
-        //
-        //
-        //
-        // #endregion
-        //
-        // #region Função dos componentes
-        //
-        //
-        //
-        //
-        // private void btnSave_Click(object sender, EventArgs e)
-        // {
-        //     if (string.IsNullOrWhiteSpace(txtValor.Text) || string.IsNullOrWhiteSpace(txtDescricao.Text) ||
-        //         string.IsNullOrWhiteSpace(txtDescricao.Text) ||
-        //         string.IsNullOrWhiteSpace(mtbDataEmissao.Text) || string.IsNullOrWhiteSpace(mtbDataVencimento.Text) ||
-        //         string.IsNullOrWhiteSpace(mtbDataPagamento.Text)||
-        //         string.IsNullOrWhiteSpace(cbStatus.Text))
-        //     {
-        //         MessageBox.Show("Preencha todos os campos", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-        //         return;
-        //             
-        //     }
-        //
-        //     if (modo == 1)
-        //     {
-        //         try
-        //         {
-        //             lf.pagamento = new Pagamento();
-        //             lf.tipo = 2;
-        //             lf.valor = Convert.ToDecimal(txtValor.Text);
-        //             lf.descricao = txtDescricao.Text;
-        //             lf.dataEmissao = DateTime.Now.ToShortDateString();
-        //             lf.dataPagamento = mtbDataPagamento.Text;
-        //             lf.dataVencimento = mtbDataVencimento.Text;
-        //             lf.status = cbStatus.Text;
-        //             lf.obervacoes = txtObservacoes.Text;
-        //             lf.pagamento.id_pagamento = Convert.ToInt32(cbFormaPagamento.SelectedValue);
-        //     
-        //     
-        //             lf.SalvarSaida();
-        //             dgv.DataSource = lf.atualizarContasPagar();
-        //             atualizarLabels();
-        //         }
-        //         catch (Exception ex)
-        //         {
-        //             MessageBox.Show(ex.Message, "Erro ao registrar", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        //         }
-        //     }
-        //
-        //     if (modo ==2)
-        //     {
-        //         try
-        //         {
-        //             lf.pagamento = new Pagamento();
-        //             lf.tipo = 2;
-        //             lf.valor = Convert.ToDecimal(txtValor.Text);
-        //             lf.descricao = txtDescricao.Text;
-        //             lf.dataEmissao = DateTime.Now.ToShortDateString();
-        //             lf.dataPagamento = mtbDataPagamento.Text;
-        //             lf.dataVencimento = mtbDataVencimento.Text;
-        //             lf.status = cbStatus.Text;
-        //             lf.obervacoes = txtObservacoes.Text;
-        //             lf.pagamento.id_pagamento = Convert.ToInt32(cbFormaPagamento.SelectedValue);
-        //     
-        //             
-        //             lf.editarContaPagar(lf);
-        //             dgv.DataSource = lf.atualizarContasPagar();
-        //             atualizarLabels();
-        //         }
-        //         catch (Exception ex)
-        //         {
-        //             MessageBox.Show("Erro ao editar saída", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        //             throw;
-        //         }   
-        //     }
-        //     
-        //     
-        // }
-        //
-        // private void btnFechar_Click(object sender, EventArgs e)
-        // {
-        //     fechar();
-        // }
-        //
-        // private void ucRegistrarEntradaFinanceiro_Load(object sender, EventArgs e)
-        // {
-        //     mtbDataEmissao.Text = DateTime.Now.ToShortDateString();
-        //     mtbDataEmissao.Text = DateTime.Now.ToShortDateString();
-        //     if (modo == 2)
-        //     {
-        //         carregarDados();
-        //         
-        //     }
-        // }
-        //
-        //
-        // private void txtValor_KeyPress(object sender, KeyPressEventArgs e)
-        // {
-        //     if (e.KeyChar == '.')
-        //     {
-        //         e.KeyChar = ',';
-        //     }
-        //     
-        //     if (!char.IsDigit(e.KeyChar) &&
-        //         e.KeyChar != (char)8 &&
-        //         e.KeyChar != ',')
-        //     {
-        //         e.Handled = true;
-        //         return;
-        //     }
-        //     
-        //     if (e.KeyChar == ',' && txtValor.Text.Contains(","))
-        //     {
-        //         e.Handled = true;
-        //         return;
-        //     }
-        //     
-        //     if (txtValor.Text.Contains(","))
-        //     {
-        //         string[] partes = txtValor.Text.Split(',');
-        //         
-        //         if (partes.Length > 1)
-        //         {
-        //             if (txtValor.SelectionStart > txtValor.Text.IndexOf(","))
-        //             {
-        //                 if (partes[1].Length >= 2)
-        //                 {
-        //                     e.Handled = true;
-        //                 }
-        //             }
-        //         }
-        //     }
-        // }
-        //
-        // private void cbStatus_SelectedIndexChanged(object sender, EventArgs e)
-        // {
-        //     if (cbStatus.SelectedItem.ToString() == "PENDENTE")
-        //     {
-        //         // Mostra tudo (inclusive vazio)
-        //         dtFormaPagamento.DefaultView.RowFilter = "";
-        //
-        //         cbFormaPagamento.SelectedValue = 4;
-        //         cbFormaPagamento.Enabled = false;
-        //
-        //         mtbDataPagamento.Text = null;
-        //         mtbDataPagamento.Enabled = false;
-        //     }
-        //     else // PAGA
-        //     {
-        //         // Oculta o "___"
-        //         dtFormaPagamento.DefaultView.RowFilter = 
-        //             "exibicao IS NOT NULL AND exibicao <> '' AND exibicao <> '---'";
-        //
-        //         cbFormaPagamento.Enabled = true;
-        //         mtbDataPagamento.Enabled = true;
-        //
-        //         // Garante seleção válida
-        //         if (cbFormaPagamento.SelectedIndex == -1)
-        //             cbFormaPagamento.SelectedIndex = 0;
-        //     }
-        // }
-        // #endregion
+        private void ConfigurarMascaraValor()
+        {
+            mtbValor.Mask = null; 
+            mtbValor.Text = "0,00";
+            mtbValor.Enabled = true;
+        }
 
-        
-    }
+        private void ucRegistrarSaidaFinanceiro_Load(object sender, EventArgs e)
+        {
+            CarregarFormasPagamento();
+
+            cbStatus.Items.AddRange(new[] { "PENDENTE", "PAGA" });
+            cbStatus.SelectedIndex = 0;
+            mtbDataEmissao.Text = DateTime.Today.ToString("dd/MM/yyyy");
+
+            if (!_ehInsercao) CarregarDadosParaEdicao();
+        }
+
+        private void CarregarFormasPagamento()
+        {
+            _dtFormasPagamento = _pagamentoService.CarregarFormasPagamento(incluirOpcaoTodas: false);
+            
+            cbFormaPagamento.DataSource = _dtFormasPagamento;
+            cbFormaPagamento.DisplayMember = "exibicao";
+            cbFormaPagamento.ValueMember = "id_forma_pagamento";
+        }
+
+        private void CarregarDadosParaEdicao()
+        {
+            try
+            {
+                _contaAtual = _service.ObterPorId(_id);
+
+                txtDescricao.Text = _contaAtual.descricao;
+                mtbValor.Text = _contaAtual.valor.ToString("N2", new CultureInfo("pt-BR"));
+                mtbDataEmissao.Text = _contaAtual.data_emissao.ToString("dd/MM/yyyy");
+                mtbDataVencimento.Text = _contaAtual.data_vencimento.ToString("dd/MM/yyyy");
+                txtObservacoes.Text = _contaAtual.observacoes;
+                cbStatus.Text = _contaAtual.status;
+
+                if (_contaAtual.id_forma_pagamento_fk.HasValue)
+                    cbFormaPagamento.SelectedValue = _contaAtual.id_forma_pagamento_fk.Value;
+
+                if (_contaAtual.data_pagamento.HasValue)
+                    mtbDataPagamento.Text = _contaAtual.data_pagamento.Value.ToString("dd/MM/yyyy");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao carregar dados para edição: {ex.Message}", "Erro",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                _contaAtual.descricao = txtDescricao.Text.Trim();
+                _contaAtual.observacoes = txtObservacoes.Text.Trim();
+                _contaAtual.status = cbStatus.Text;
+
+                string valorTexto = mtbValor.Text.Trim();
+                if (decimal.TryParse(valorTexto, NumberStyles.Currency, new CultureInfo("pt-BR"), out decimal v))
+                {
+                    _contaAtual.valor = v;
+                }
+                else
+                {
+                    throw new ArgumentException("O valor informado possui um formato inválido.");
+                }
+
+                _contaAtual.data_emissao = DateTime.TryParseExact(mtbDataEmissao.Text, "dd/MM/yyyy",
+                    CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime em)
+                    ? em : DateTime.MinValue;
+
+                _contaAtual.data_vencimento = DateTime.TryParseExact(mtbDataVencimento.Text, "dd/MM/yyyy",
+                    CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime ven)
+                    ? ven : DateTime.MinValue;
+
+                _contaAtual.data_pagamento = (cbStatus.Text == "PAGA" &&
+                    DateTime.TryParseExact(mtbDataPagamento.Text, "dd/MM/yyyy",
+                    CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime pag))
+                    ? pag : (DateTime?)null;
+
+                _contaAtual.id_forma_pagamento_fk = int.TryParse(
+                    cbFormaPagamento.SelectedValue?.ToString(), out int idF) ? idF : (int?)null;
+
+                _service.Salvar(_contaAtual, _ehInsercao);
+
+                MessageBox.Show("Operação realizada com sucesso!", "Sucesso",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information); 
+                this.Dispose();
+            }
+            catch (ArgumentException ex)
+            {
+                MessageBox.Show(ex.Message, "Dados inválidos",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao salvar: {ex.Message}", "Erro",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void cbStatus_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cbStatus.SelectedItem == null || _dtFormasPagamento == null || _dtFormasPagamento.Rows.Count == 0) return;
+
+            bool ehPendente = cbStatus.SelectedItem.ToString() == "PENDENTE";
+            
+            mtbDataPagamento.Enabled = !ehPendente;
+
+            if (ehPendente)
+            {
+                cbFormaPagamento.Enabled = false;
+
+                if (_dtFormasPagamento.Columns.Contains("id_forma_pagamento"))
+                {
+                    _dtFormasPagamento.DefaultView.RowFilter = string.Empty;
+                }
+
+                if (cbFormaPagamento.Items.Count > 0)
+                {
+                    cbFormaPagamento.SelectedIndex = 0;
+                }
+
+                mtbDataPagamento.Clear();
+            }
+            else
+            {
+                cbFormaPagamento.Enabled = true;
+
+                if (_dtFormasPagamento.Columns.Contains("id_forma_pagamento"))
+                {
+                    object primeiroId = _dtFormasPagamento.Rows[0]["id_forma_pagamento"];
+                    _dtFormasPagamento.DefaultView.RowFilter = $"id_forma_pagamento <> {primeiroId}";
+                }
+
+                if (cbFormaPagamento.Items.Count > 0)
+                {
+                    cbFormaPagamento.SelectedIndex = 0; 
+                }
+
+                mtbDataPagamento.Text = DateTime.Today.ToString("dd/MM/yyyy");
+            }
+        }
+
+        private void mtbValor_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == '.') e.KeyChar = ',';
     
+            if (!char.IsDigit(e.KeyChar) && e.KeyChar != 8 && e.KeyChar != ',')
+            {
+                e.Handled = true;
+                return;
+            }
+
+            if (e.KeyChar == ',')
+            {
+                if (mtbValor.Text.Contains(","))
+                {
+                    e.Handled = true;
+                }
+                return;
+            }
+
+            if (char.IsDigit(e.KeyChar))
+            {
+                int posicaoVirgula = mtbValor.Text.IndexOf(',');
+                if (posicaoVirgula != -1 && mtbValor.SelectionStart > posicaoVirgula)
+                {
+                    string[] partes = mtbValor.Text.Split(',');
+                    if (partes.Length > 1 && partes[1].Length >= 2 && mtbValor.SelectionLength == 0)
+                    {
+                        e.Handled = true;
+                    }
+                }
+            }
+        }
+
+        private void mtbValor_Leave(object sender, EventArgs e)
+        {
+            string texto = mtbValor.Text.Trim();
+
+            if (string.IsNullOrWhiteSpace(texto))
+            {
+                mtbValor.Text = "0,00";
+                return;
+            }
+
+            if (decimal.TryParse(texto, NumberStyles.Currency, new CultureInfo("pt-BR"), out decimal valor))
+            {
+                mtbValor.Text = valor.ToString("N2", new CultureInfo("pt-BR"));
+            }
+            else
+            {
+                mtbValor.Text = "0,00";
+            }
+        }
+
+        private void btnLimpar_Click(object sender, EventArgs e)
+        {
+            txtDescricao.Clear();
+            ConfigurarMascaraValor();
+            txtObservacoes.Clear();
+            cbStatus.SelectedIndex = 0;
+        }
+
+        private void btnFechar_Click(object sender, EventArgs e) => this.Dispose();
+    }
 }

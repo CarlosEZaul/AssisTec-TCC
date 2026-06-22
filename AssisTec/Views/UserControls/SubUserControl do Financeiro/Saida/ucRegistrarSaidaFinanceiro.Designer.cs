@@ -46,13 +46,13 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
             this.label5 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.txtValor = new System.Windows.Forms.TextBox();
             this.label33 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.txtDescricao = new System.Windows.Forms.TextBox();
             this.mtbDataVencimento = new System.Windows.Forms.MaskedTextBox();
             this.label6 = new System.Windows.Forms.Label();
+            this.mtbValor = new System.Windows.Forms.MaskedTextBox();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -63,7 +63,6 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
             this.cbStatus.Name = "cbStatus";
             this.cbStatus.Size = new System.Drawing.Size(460, 21);
             this.cbStatus.TabIndex = 276;
-            
             // 
             // label9
             // 
@@ -128,7 +127,6 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
             this.btnFechar.TabIndex = 102;
             this.btnFechar.Text = "Fechar";
             this.btnFechar.UseVisualStyleBackColor = false;
-            
             // 
             // btnSave
             // 
@@ -143,7 +141,6 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
             this.btnSave.TabIndex = 100;
             this.btnSave.Text = "Salvar";
             this.btnSave.UseVisualStyleBackColor = false;
-            
             // 
             // btnLimpar
             // 
@@ -228,16 +225,6 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
             this.label1.TabIndex = 265;
             this.label1.Text = "Valor:";
             // 
-            // txtValor
-            // 
-            this.txtValor.BackColor = System.Drawing.Color.White;
-            this.txtValor.Location = new System.Drawing.Point(41, 114);
-            this.txtValor.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.txtValor.Name = "txtValor";
-            this.txtValor.Size = new System.Drawing.Size(460, 20);
-            this.txtValor.TabIndex = 264;
-            
-            // 
             // label33
             // 
             this.label33.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -303,11 +290,20 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
             this.label6.TabIndex = 277;
             this.label6.Text = "Data de Vencimento:";
             // 
+            // mtbValor
+            // 
+            this.mtbValor.Location = new System.Drawing.Point(41, 125);
+            this.mtbValor.Mask = "0.00";
+            this.mtbValor.Name = "mtbValor";
+            this.mtbValor.Size = new System.Drawing.Size(460, 20);
+            this.mtbValor.TabIndex = 279;
+            // 
             // ucRegistrarSaidaFinanceiro
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(55)))), ((int)(((byte)(76)))));
+            this.Controls.Add(this.mtbValor);
             this.Controls.Add(this.mtbDataVencimento);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.cbStatus);
@@ -322,18 +318,18 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.txtValor);
             this.Controls.Add(this.label33);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.txtDescricao);
             this.Name = "ucRegistrarSaidaFinanceiro";
             this.Size = new System.Drawing.Size(543, 563);
-            
             this.panel2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
         }
+
+        private System.Windows.Forms.MaskedTextBox mtbValor;
 
         private System.Windows.Forms.MaskedTextBox mtbDataVencimento;
         private System.Windows.Forms.Label label6;
@@ -353,7 +349,6 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox txtValor;
         private System.Windows.Forms.Label label33;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label4;
