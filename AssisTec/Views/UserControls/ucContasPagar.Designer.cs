@@ -94,6 +94,7 @@ namespace AssisTec.UserControls
             this.btnAtualizar.Size = new System.Drawing.Size(38, 38);
             this.btnAtualizar.TabIndex = 171;
             this.btnAtualizar.TabStop = false;
+            this.btnAtualizar.Click += new System.EventHandler(this.btnAtualizar_Click);
             // 
             // btnBuscar
             // 
@@ -109,6 +110,7 @@ namespace AssisTec.UserControls
             this.btnBuscar.TabIndex = 170;
             this.btnBuscar.Text = "Buscar";
             this.btnBuscar.UseVisualStyleBackColor = false;
+            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
             // 
             // label4
             // 
@@ -139,6 +141,8 @@ namespace AssisTec.UserControls
             this.dgvContasPagar.ReadOnly = true;
             this.dgvContasPagar.Size = new System.Drawing.Size(1138, 503);
             this.dgvContasPagar.TabIndex = 160;
+            this.dgvContasPagar.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvContasPagar_CellClick);
+            this.dgvContasPagar.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvContasPagar_CellFormatting);
             // 
             // panelExibicao
             // 
@@ -457,6 +461,7 @@ namespace AssisTec.UserControls
             this.btnRegistrarPagamento.TabIndex = 106;
             this.btnRegistrarPagamento.Text = "Registrar Pagamento";
             this.btnRegistrarPagamento.UseVisualStyleBackColor = false;
+            this.btnRegistrarPagamento.Click += new System.EventHandler(this.btnRegistrarPagamento_Click);
             // 
             // btnDelete
             // 
@@ -473,6 +478,7 @@ namespace AssisTec.UserControls
             this.btnDelete.TabIndex = 104;
             this.btnDelete.Text = "Excluir";
             this.btnDelete.UseVisualStyleBackColor = false;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // btnEditar
             // 
@@ -489,6 +495,7 @@ namespace AssisTec.UserControls
             this.btnEditar.TabIndex = 105;
             this.btnEditar.Text = "Gerenciar";
             this.btnEditar.UseVisualStyleBackColor = false;
+            this.btnEditar.Click += new System.EventHandler(this.btnEditar_Click);
             // 
             // btnRegistrar
             // 
@@ -504,6 +511,7 @@ namespace AssisTec.UserControls
             this.btnRegistrar.TabIndex = 99;
             this.btnRegistrar.Text = "Registrar Saída";
             this.btnRegistrar.UseVisualStyleBackColor = false;
+            this.btnRegistrar.Click += new System.EventHandler(this.btnRegistrar_Click);
             // 
             // btnRecibo
             // 

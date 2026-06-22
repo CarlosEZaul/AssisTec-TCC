@@ -15,6 +15,8 @@ namespace AssisTec
         private Guna2Button botaoAtivo;
         private readonly ContasReceberService _contasReceberService;
         private readonly PagamentoService _pagamentoService;
+        private readonly ContasPagarService _contasPagarService;
+        
 
         Panel panelUsuario;
         Label lblNome;
@@ -30,6 +32,10 @@ namespace AssisTec
             var context = new AppDbContext();
             var contasReceberRepository = new ContasReceberRepository(context);
             var pagamentoRepository = new PagamentoRepository(context);
+            
+            var contasPagarRepository = new ContasPagarRepository(context);
+
+            _contasPagarService = new ContasPagarService(contasPagarRepository, pagamentoRepository);
 
             _contasReceberService = new ContasReceberService(contasReceberRepository, pagamentoRepository);
             _pagamentoService = new PagamentoService(contasReceberRepository, pagamentoRepository);
@@ -136,7 +142,7 @@ namespace AssisTec
 
             Guna2Button btnContasPagar = CriarBotaoMenu(
                 "🧾 Contas a pagar",
-                (s, e) => AbrirUserControl(new ucContasPagar(), s)
+                (s, e) => AbrirUserControl(new ucContasPagar(_contasPagarService, _pagamentoService), s)
             );
 
             Guna2Button btnBackupImportar = CriarBotaoMenu(

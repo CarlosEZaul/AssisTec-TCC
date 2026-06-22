@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Globalization;
 using System.Linq;
 using AssisTec.Dtos;
 using AssisTec.Models;
@@ -91,18 +92,46 @@ namespace AssisTec.Repository
                     item.descricao,
                     item.valor,
                     item.data_emissao,
-                    )
+                    (object)item.data_pagamento ?? DBNull.Value,
+                    item.status,
+                    item.data_vencimento,
+                    item.Pagamento?.Descricao ?? "NÃO DEFINIDA"
+                );
             }
+            return dt;
         }
 
         public (decimal TotalGeral, decimal TotalPagar, decimal TotalPendente, decimal TotalAtrasado) ObterTotais(ContasPagar filtro)
         {
-            throw new System.NotImplementedException();
+            var dados = AplicarFiltros(filtro).Select(c=> new{c.status, c.valor}).ToList();
+            return (
+                dados.Sum(c => c.valor),
+                dados.Where(c => c.status == "PAGA").Sum(c => c.valor),
+                dados.Where(c => c.status == "PENDENTE").Sum(c => c.valor),
+                dados.Where(c => c.status == "ATRASADO").Sum(c => c.valor)
+            );
         }
 
         public IQueryable<ContasPagar> AplicarFiltros(ContasPagar filtro)
         {
-            throw new NotImplementedException();
+            var query = _context.Contas_Pagar.AsQueryable();
+            
+            if (!string.IsNullOrWhiteSpace(filtro.filtroDescricao))
+                query = query.Where(c => c.descricao.Contains(filtro.filtroDescricao));
+
+            if (!string.IsNullOrWhiteSpace(filtro.filtroStatus))
+                query = query.Where(c => c.status == filtro.filtroStatus);
+
+            if (filtro.filtroIdFormaPagamento.HasValue && filtro.filtroIdFormaPagamento.Value > 0)
+                query = query.Where(c => c.id_forma_pagamento_fk == filtro.filtroIdFormaPagamento.Value);
+
+            if (DateTime.TryParseExact(filtro.filtroDataInicio, "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime dtInicio))
+                query = query.Where(c => c.data_vencimento >= dtInicio.Date);
+
+            if (DateTime.TryParseExact(filtro.filtroDataFim, "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime dtFim))
+                query = query.Where(c => c.data_vencimento < dtFim.Date.AddDays(1));
+
+            return query;
         }
 
         
