@@ -2377,3 +2377,4 @@ C:\Users\Pc do estagiario\RiderProjects\AssisTec-TCC1106\AssisTec\obj\Debug\Assi
 C:\Users\Pc do estagiario\RiderProjects\AssisTec-TCC1106\AssisTec\obj\Debug\AssisTec.exe
 C:\Users\Pc do estagiario\RiderProjects\AssisTec-TCC1106\AssisTec\obj\Debug\AssisTec.pdb
 C:\Users\Pc do estagiario\RiderProjects\AssisTec-TCC1106\AssisTec\obj\Debug\AssisTec.UserControls.SubUserControl_do_Financeiro.ucRegistrarPagamentoEntrada.resources
+C:\Users\Pc do estagiario\RiderProjects\AssisTec-TCC1106\AssisTec\obj\Debug\AssisTec.UserControls.SubUserControl_do_Financeiro.ucRegistrarPagamentoSaida.resources

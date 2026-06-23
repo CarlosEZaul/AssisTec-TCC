@@ -21,7 +21,7 @@ namespace AssisTec.UserControls
             InitializeComponent();
             _contasPagarService = contasPagarService ?? throw new ArgumentNullException(nameof(contasPagarService));
             _pagamentoService = pagamentoService ?? throw new ArgumentNullException(nameof(pagamentoService));
-
+            
             listaLabelsTotais = new List<Label> { 
                 lblTotalPagar, 
                 lblPago, 
@@ -114,11 +114,14 @@ namespace AssisTec.UserControls
                 dgvContasPagar.Columns[1].HeaderText = "Descrição";
                 dgvContasPagar.Columns[2].HeaderText = "Valor";
                 dgvContasPagar.Columns[3].HeaderText = "Data de Emissão";
-                dgvContasPagar.Columns[4].HeaderText = "Data de Pagamento";
-                dgvContasPagar.Columns[5].HeaderText = "Data de Vencimento";
+                dgvContasPagar.Columns[4].HeaderText = "Data de Vencimento";
+                dgvContasPagar.Columns[5].HeaderText = "Data de Pagamento";
                 dgvContasPagar.Columns[6].HeaderText = "Status";
-                dgvContasPagar.Columns[7].HeaderText = "Forma de Pagamento";
-                dgvContasPagar.Columns[8].HeaderText = "Observações";
+                dgvContasPagar.Columns[7].HeaderText = "Observações";
+                dgvContasPagar.Columns[8].HeaderText = "Forma de Pagamento";
+                
+                
+                
             }
             catch (Exception e)
             {
@@ -255,6 +258,40 @@ namespace AssisTec.UserControls
 
         private void btnRegistrarPagamento_Click(object sender, EventArgs e)
         {
+            if (dgvContasPagar.CurrentRow == null)
+            {
+                MessageBox.Show("Selecione uma conta para registrar o pagamento.", "Aviso", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            try
+            {
+                _contasPagarService.ValidarPagamento(dgvContasPagar.CurrentRow);
+
+                var ucPagamento = new ucRegistrarPagamentoSaida(idConta, _contasPagarService, _pagamentoService);
+
+                ConfigurarSubComponente(ucPagamento);
+            }
+            catch (InvalidOperationException ex)
+            {
+                MessageBox.Show(ex.Message, "Operação não permitida",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro inesperado: " + ex.Message, "Erro", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            
+            
+        }
+        private void ConfigurarSubComponente(UserControl uc)
+        {
+            uc.Disposed += (s, e) => atualizar();
+            this.Controls.Add(uc);
+            uc.BringToFront();
+            uc.Location = new Point((this.Width - uc.Width) / 2, (this.Height - uc.Height) / 2);
         }
 
         #endregion

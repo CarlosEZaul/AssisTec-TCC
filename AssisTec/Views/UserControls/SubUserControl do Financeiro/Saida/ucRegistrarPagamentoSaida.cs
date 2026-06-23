@@ -6,15 +6,13 @@ using AssisTec.Service;
 
 namespace AssisTec.UserControls.SubUserControl_do_Financeiro
 {
-    public partial class ucRegistrarPagamentoEntrada : UserControl
+    public partial class ucRegistrarPagamentoSaida : UserControl
     {
-        private readonly ContasReceberService _service;
+        private readonly ContasPagarService _service;
         private readonly PagamentoService _pagamentoService;
         private readonly int _idConta;
 
-        public event EventHandler PagamentoRegistrado;
-
-        public ucRegistrarPagamentoEntrada(int idConta, ContasReceberService service, PagamentoService pagamentoService)
+        public ucRegistrarPagamentoSaida(int idConta, ContasPagarService service, PagamentoService pagamentoService)
         {
             InitializeComponent();
             _service = service ?? throw new ArgumentNullException(nameof(service));
@@ -56,9 +54,8 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
 
             try
             {
-                _pagamentoService.RegistrarPagamentoEntrada(_idConta, idForma, dataPagamento);
+                _pagamentoService.RegistrarPagamentoSaida(_idConta, idForma, dataPagamento);
                 MessageBox.Show("Pagamento registrado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                PagamentoRegistrado?.Invoke(this, EventArgs.Empty);
                 this.Dispose();
             }
             catch (Exception ex)
@@ -67,6 +64,9 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
             }
         }
 
-        private void btnFechar_Click(object sender, EventArgs e) => this.Dispose();
+        private void btnFechar_Click(object sender, EventArgs e)
+        {
+            this.Dispose();
+        }
     }
 }

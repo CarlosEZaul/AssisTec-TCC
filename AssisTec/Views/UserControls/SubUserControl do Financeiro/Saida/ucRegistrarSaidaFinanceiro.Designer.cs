@@ -63,6 +63,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
             this.cbStatus.Name = "cbStatus";
             this.cbStatus.Size = new System.Drawing.Size(460, 21);
             this.cbStatus.TabIndex = 276;
+            this.cbStatus.SelectedIndexChanged += new System.EventHandler(this.cbStatus_SelectedIndexChanged);
             // 
             // label9
             // 
@@ -127,6 +128,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
             this.btnFechar.TabIndex = 102;
             this.btnFechar.Text = "Fechar";
             this.btnFechar.UseVisualStyleBackColor = false;
+            this.btnFechar.Click += new System.EventHandler(this.btnFechar_Click);
             // 
             // btnSave
             // 
@@ -141,6 +143,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
             this.btnSave.TabIndex = 100;
             this.btnSave.Text = "Salvar";
             this.btnSave.UseVisualStyleBackColor = false;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // btnLimpar
             // 
@@ -155,6 +158,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
             this.btnLimpar.TabIndex = 101;
             this.btnLimpar.Text = "Limpar";
             this.btnLimpar.UseVisualStyleBackColor = false;
+            this.btnLimpar.Click += new System.EventHandler(this.btnLimpar_Click);
             // 
             // label8
             // 
@@ -297,6 +301,8 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
             this.mtbValor.Name = "mtbValor";
             this.mtbValor.Size = new System.Drawing.Size(460, 20);
             this.mtbValor.TabIndex = 279;
+            this.mtbValor.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.mtbValor_KeyPress);
+            this.mtbValor.Leave += new System.EventHandler(this.mtbValor_Leave);
             // 
             // ucRegistrarSaidaFinanceiro
             // 
@@ -324,6 +330,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
             this.Controls.Add(this.txtDescricao);
             this.Name = "ucRegistrarSaidaFinanceiro";
             this.Size = new System.Drawing.Size(543, 563);
+            this.Load += new System.EventHandler(this.ucRegistrarSaidaFinanceiro_Load);
             this.panel2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();

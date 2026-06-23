@@ -34,8 +34,8 @@ namespace AssisTec.Repository
                     Descricao = c.descricao,
                     Valor = c.valor,
                     DataEmissao = c.data_emissao,
-                    DataVencimento = c.data_vencimento,
                     DataPagamento = c.data_pagamento,
+                    DataVencimento = c.data_vencimento,
                     Status = c.status,
                     Observacoes = c.observacoes,
                     FormaPagamentoDescricao = c.Pagamento != null ? c.Pagamento.Descricao : "---"
@@ -46,6 +46,11 @@ namespace AssisTec.Repository
         public ContasPagar ObterPorId(int id)
         {
             return _context.Contas_Pagar.Find(id);
+        }
+
+        public bool Update(ContasPagar conta)
+        {
+            return Atualizar(conta);
         }
 
         public bool Atualizar(ContasPagar conta)
@@ -93,8 +98,9 @@ namespace AssisTec.Repository
                     item.valor,
                     item.data_emissao,
                     (object)item.data_pagamento ?? DBNull.Value,
-                    item.status,
                     item.data_vencimento,
+                    item.status,
+                    item.observacoes,
                     item.Pagamento?.Descricao ?? "NÃO DEFINIDA"
                 );
             }
@@ -133,9 +139,5 @@ namespace AssisTec.Repository
 
             return query;
         }
-
-        
-
-        
     }
 }

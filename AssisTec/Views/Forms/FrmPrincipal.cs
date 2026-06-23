@@ -38,7 +38,7 @@ namespace AssisTec
             _contasPagarService = new ContasPagarService(contasPagarRepository, pagamentoRepository);
 
             _contasReceberService = new ContasReceberService(contasReceberRepository, pagamentoRepository);
-            _pagamentoService = new PagamentoService(contasReceberRepository, pagamentoRepository);
+            _pagamentoService = new PagamentoService(contasReceberRepository,contasPagarRepository, pagamentoRepository);
 
             ConfigurarPanelUsuario();
             ConfigurarNavbar();

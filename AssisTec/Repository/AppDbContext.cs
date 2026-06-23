@@ -120,12 +120,12 @@ namespace AssisTec.Repository
                 entity.Property(e => e.data_pagamento).HasColumnName("data_pagamento");
                 entity.Property(e => e.data_vencimento).HasColumnName("data_vencimento");
                 entity.Property(e => e.status).HasColumnName("status");
-                entity.Property(e => e.observacoes).HasColumnName("observacoes");
-
                 entity.HasOne(e => e.Pagamento)
                     .WithMany()
                     .HasForeignKey(e => e.id_forma_pagamento_fk)
                     .OnDelete(DeleteBehavior.SetNull);
+                
+                entity.Property(e => e.observacoes).HasColumnName("observacoes");
             });
             
             modelBuilder.Entity<Equipamento>(entity =>

@@ -306,6 +306,12 @@
     <Compile Include="Views\UserControls\SubUserControl do Financeiro\Entrada\ucRegistrarPagamentoEntrada.Designer.cs">
       <DependentUpon>ucRegistrarPagamentoEntrada.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\UserControls\SubUserControl do Financeiro\Saida\ucRegistrarPagamentoSaida.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\UserControls\SubUserControl do Financeiro\Saida\ucRegistrarPagamentoSaida.Designer.cs">
+      <DependentUpon>ucRegistrarPagamentoSaida.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\UserControls\SubUserControl do Financeiro\Saida\ucRegistrarSaidaFinanceiro.cs" />
     <Compile Include="Views\UserControls\SubUserControl do Financeiro\Saida\ucRegistrarSaidaFinanceiro.Designer.cs">
       <DependentUpon>ucRegistrarSaidaFinanceiro.cs</DependentUpon>
@@ -392,6 +398,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\UserControls\SubUserControl do Financeiro\Entrada\ucRegistrarPagamentoEntrada.resx">
       <DependentUpon>ucRegistrarPagamentoEntrada.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\UserControls\SubUserControl do Financeiro\Saida\ucRegistrarPagamentoSaida.resx">
+      <DependentUpon>ucRegistrarPagamentoSaida.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\UserControls\SubUserControl do Financeiro\Saida\ucRegistrarSaidaFinanceiro.resx">
       <DependentUpon>ucRegistrarSaidaFinanceiro.cs</DependentUpon>

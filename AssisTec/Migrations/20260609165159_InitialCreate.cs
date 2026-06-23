@@ -143,9 +143,10 @@ namespace AssisTec.Migrations
                     data_pagamento = table.Column<DateTime>(nullable: true),
                     data_vencimento = table.Column<DateTime>(nullable: false),
                     status = table.Column<string>(maxLength: 30, nullable: false),
+                    id_forma_pagamento_fk = table.Column<int>(nullable: true),
                     observacoes = table.Column<string>(maxLength: 100, nullable: true),
-                    id_os_fk = table.Column<int>(nullable: true),
-                    id_forma_pagamento_fk = table.Column<int>(nullable: true)
+                    id_os_fk = table.Column<int>(nullable: true)
+                    
                 },
                 constraints: table =>
                 {

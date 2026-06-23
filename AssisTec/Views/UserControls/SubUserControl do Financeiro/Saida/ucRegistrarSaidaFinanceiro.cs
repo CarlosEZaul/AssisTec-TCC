@@ -240,6 +240,9 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
             cbStatus.SelectedIndex = 0;
         }
 
-        private void btnFechar_Click(object sender, EventArgs e) => this.Dispose();
+        private void btnFechar_Click(object sender, EventArgs e)
+        {
+            this.Dispose();
+        }
     }
 }

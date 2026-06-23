@@ -71,8 +71,8 @@ namespace AssisTec.UserControls
             dgvClientes.Columns[6].HeaderText = "RUA";
             dgvClientes.Columns[7].HeaderText = "NÚMERO";
             dgvClientes.Columns[8].HeaderText = "CIDADE";
-            dgvClientes.Columns[9].HeaderText = "BAIRRO";
-            dgvClientes.Columns[10].HeaderText = "ESTADO";
+            dgvClientes.Columns[9].HeaderText = "ESTADO";
+            dgvClientes.Columns[10].HeaderText = "BAIRRO";
             dgvClientes.Columns[11].HeaderText = "COMPLEMENTO";
         }
         
