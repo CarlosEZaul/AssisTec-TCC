@@ -35,6 +35,7 @@ namespace AssisTec.UserControls
             DesingComponentes.centralizarPanel(panelBotoes, this.Width);
             DesingComponentes.centralizarPanel(panelExibicao, this.Width);
             DesingComponentes.StyleButton(btnDelete, Color.Red);
+            DesingComponentes.centralizarPanel(panelFiltro, this.Width);
         }
 
         private void ConfigurarComboBox()
