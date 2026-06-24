@@ -141,6 +141,7 @@ namespace AssisTec.UserControls
             listaLabelsTotais[1].Text = totais.TotalPagar.ToString("C2");
             listaLabelsTotais[2].Text = totais.TotalPendente.ToString("C2");
             listaLabelsTotais[3].Text = totais.TotalAtrasado.ToString("C2");
+            _contasPagarService.ProcessarContasAtrasadas();
             formatgrid();
         }
 
