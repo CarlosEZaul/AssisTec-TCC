@@ -481,10 +481,14 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Properties\cifrao.png" />
+    <Content Include="Resources\abaixo_minimo.png" />
     <Content Include="Resources\aprovado.png" />
     <Content Include="Resources\atencao.png" />
     <Content Include="Resources\cifrao.png" />
+    <Content Include="Resources\fora_de_estoque.png" />
+    <Content Include="Resources\produto.png" />
     <Content Include="Resources\relogio_pendente.png" />
+    <Content Include="Resources\valor_estoque.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

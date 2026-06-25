@@ -45,9 +45,37 @@ namespace AssisTec.UserControls
             this.btnNew = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnEditar = new System.Windows.Forms.Button();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.panelExibicao = new System.Windows.Forms.Panel();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.lblSemEstoque = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.panel5 = new System.Windows.Forms.Panel();
+            this.lblValorEstoque = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.pictureBox4 = new System.Windows.Forms.PictureBox();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.lblMinimo = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.fifgurinha = new System.Windows.Forms.PictureBox();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.lblProdutosCadastrados = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvEstoque)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnAtualizar)).BeginInit();
             this.panelBotoes.SuspendLayout();
+            this.panel1.SuspendLayout();
+            this.panelExibicao.SuspendLayout();
+            this.panel4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
+            this.panel5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
+            this.panel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.fifgurinha)).BeginInit();
+            this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // label4
@@ -73,11 +101,11 @@ namespace AssisTec.UserControls
             this.dgvEstoque.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Sunken;
             this.dgvEstoque.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvEstoque.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.dgvEstoque.Location = new System.Drawing.Point(18, 85);
+            this.dgvEstoque.Location = new System.Drawing.Point(18, 179);
             this.dgvEstoque.MultiSelect = false;
             this.dgvEstoque.Name = "dgvEstoque";
             this.dgvEstoque.ReadOnly = true;
-            this.dgvEstoque.Size = new System.Drawing.Size(1138, 579);
+            this.dgvEstoque.Size = new System.Drawing.Size(1138, 503);
             this.dgvEstoque.TabIndex = 149;
             // 
             // label1
@@ -85,7 +113,7 @@ namespace AssisTec.UserControls
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label1.Font = new System.Drawing.Font("Comic Sans MS", 9.75F);
             this.label1.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label1.Location = new System.Drawing.Point(319, 59);
+            this.label1.Location = new System.Drawing.Point(356, 19);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(53, 18);
@@ -96,7 +124,7 @@ namespace AssisTec.UserControls
             // 
             this.txtBusca.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.txtBusca.BackColor = System.Drawing.Color.White;
-            this.txtBusca.Location = new System.Drawing.Point(380, 59);
+            this.txtBusca.Location = new System.Drawing.Point(417, 19);
             this.txtBusca.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtBusca.Name = "txtBusca";
             this.txtBusca.Size = new System.Drawing.Size(471, 20);
@@ -106,7 +134,7 @@ namespace AssisTec.UserControls
             // 
             this.cbConcluidas.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cbConcluidas.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.cbConcluidas.Location = new System.Drawing.Point(922, 53);
+            this.cbConcluidas.Location = new System.Drawing.Point(938, 17);
             this.cbConcluidas.Name = "cbConcluidas";
             this.cbConcluidas.Size = new System.Drawing.Size(190, 24);
             this.cbConcluidas.TabIndex = 155;
@@ -118,7 +146,7 @@ namespace AssisTec.UserControls
             this.btnAtualizar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnAtualizar.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnAtualizar.BackgroundImage")));
             this.btnAtualizar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnAtualizar.Location = new System.Drawing.Point(1118, 39);
+            this.btnAtualizar.Location = new System.Drawing.Point(1134, 3);
             this.btnAtualizar.Name = "btnAtualizar";
             this.btnAtualizar.Size = new System.Drawing.Size(38, 38);
             this.btnAtualizar.TabIndex = 154;
@@ -234,16 +262,210 @@ namespace AssisTec.UserControls
             this.btnEditar.Text = "Editar";
             this.btnEditar.UseVisualStyleBackColor = false;
             // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.btnAtualizar);
+            this.panel1.Controls.Add(this.cbConcluidas);
+            this.panel1.Controls.Add(this.label1);
+            this.panel1.Controls.Add(this.txtBusca);
+            this.panel1.Location = new System.Drawing.Point(0, 113);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(1175, 47);
+            this.panel1.TabIndex = 157;
+            // 
+            // panelExibicao
+            // 
+            this.panelExibicao.Controls.Add(this.panel4);
+            this.panelExibicao.Controls.Add(this.panel5);
+            this.panelExibicao.Controls.Add(this.panel3);
+            this.panelExibicao.Controls.Add(this.panel2);
+            this.panelExibicao.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelExibicao.Location = new System.Drawing.Point(0, 38);
+            this.panelExibicao.Name = "panelExibicao";
+            this.panelExibicao.Size = new System.Drawing.Size(1175, 75);
+            this.panelExibicao.TabIndex = 164;
+            // 
+            // panel4
+            // 
+            this.panel4.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel4.Controls.Add(this.lblSemEstoque);
+            this.panel4.Controls.Add(this.label11);
+            this.panel4.Controls.Add(this.pictureBox3);
+            this.panel4.Location = new System.Drawing.Point(582, 13);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(239, 56);
+            this.panel4.TabIndex = 164;
+            // 
+            // lblSemEstoque
+            // 
+            this.lblSemEstoque.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSemEstoque.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.lblSemEstoque.Location = new System.Drawing.Point(66, 26);
+            this.lblSemEstoque.Name = "lblSemEstoque";
+            this.lblSemEstoque.Size = new System.Drawing.Size(115, 23);
+            this.lblSemEstoque.TabIndex = 4;
+            this.lblSemEstoque.Text = "0";
+            // 
+            // label11
+            // 
+            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.label11.Location = new System.Drawing.Point(66, 3);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(115, 23);
+            this.label11.TabIndex = 1;
+            this.label11.Text = "Sem estoque";
+            // 
+            // pictureBox3
+            // 
+            this.pictureBox3.BackgroundImage = global::AssisTec.Properties.Resources.fora_de_estoque;
+            this.pictureBox3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pictureBox3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureBox3.Location = new System.Drawing.Point(3, 1);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(57, 51);
+            this.pictureBox3.TabIndex = 0;
+            this.pictureBox3.TabStop = false;
+            // 
+            // panel5
+            // 
+            this.panel5.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.panel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel5.Controls.Add(this.lblValorEstoque);
+            this.panel5.Controls.Add(this.label13);
+            this.panel5.Controls.Add(this.pictureBox4);
+            this.panel5.Location = new System.Drawing.Point(827, 13);
+            this.panel5.Name = "panel5";
+            this.panel5.Size = new System.Drawing.Size(239, 56);
+            this.panel5.TabIndex = 165;
+            // 
+            // lblValorEstoque
+            // 
+            this.lblValorEstoque.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblValorEstoque.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.lblValorEstoque.Location = new System.Drawing.Point(66, 26);
+            this.lblValorEstoque.Name = "lblValorEstoque";
+            this.lblValorEstoque.Size = new System.Drawing.Size(115, 23);
+            this.lblValorEstoque.TabIndex = 5;
+            this.lblValorEstoque.Text = "R$";
+            // 
+            // label13
+            // 
+            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.label13.Location = new System.Drawing.Point(66, 3);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(115, 23);
+            this.label13.TabIndex = 1;
+            this.label13.Text = "Valor em estoque";
+            // 
+            // pictureBox4
+            // 
+            this.pictureBox4.BackgroundImage = global::AssisTec.Properties.Resources.valor_estoque;
+            this.pictureBox4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pictureBox4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureBox4.Location = new System.Drawing.Point(3, 1);
+            this.pictureBox4.Name = "pictureBox4";
+            this.pictureBox4.Size = new System.Drawing.Size(57, 51);
+            this.pictureBox4.TabIndex = 0;
+            this.pictureBox4.TabStop = false;
+            // 
+            // panel3
+            // 
+            this.panel3.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel3.Controls.Add(this.lblMinimo);
+            this.panel3.Controls.Add(this.label9);
+            this.panel3.Controls.Add(this.fifgurinha);
+            this.panel3.Location = new System.Drawing.Point(337, 13);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(239, 56);
+            this.panel3.TabIndex = 163;
+            // 
+            // lblMinimo
+            // 
+            this.lblMinimo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMinimo.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.lblMinimo.Location = new System.Drawing.Point(66, 26);
+            this.lblMinimo.Name = "lblMinimo";
+            this.lblMinimo.Size = new System.Drawing.Size(115, 23);
+            this.lblMinimo.TabIndex = 3;
+            this.lblMinimo.Text = "0";
+            // 
+            // label9
+            // 
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.label9.Location = new System.Drawing.Point(66, 3);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(115, 23);
+            this.label9.TabIndex = 1;
+            this.label9.Text = "Abaixo do Mínimo";
+            // 
+            // fifgurinha
+            // 
+            this.fifgurinha.BackgroundImage = global::AssisTec.Properties.Resources.abaixo_minimo;
+            this.fifgurinha.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.fifgurinha.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.fifgurinha.Location = new System.Drawing.Point(3, 1);
+            this.fifgurinha.Name = "fifgurinha";
+            this.fifgurinha.Size = new System.Drawing.Size(57, 51);
+            this.fifgurinha.TabIndex = 0;
+            this.fifgurinha.TabStop = false;
+            // 
+            // panel2
+            // 
+            this.panel2.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel2.Controls.Add(this.lblProdutosCadastrados);
+            this.panel2.Controls.Add(this.label7);
+            this.panel2.Controls.Add(this.pictureBox1);
+            this.panel2.Location = new System.Drawing.Point(92, 13);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(239, 56);
+            this.panel2.TabIndex = 162;
+            // 
+            // lblProdutosCadastrados
+            // 
+            this.lblProdutosCadastrados.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblProdutosCadastrados.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.lblProdutosCadastrados.Location = new System.Drawing.Point(71, 26);
+            this.lblProdutosCadastrados.Name = "lblProdutosCadastrados";
+            this.lblProdutosCadastrados.Size = new System.Drawing.Size(115, 23);
+            this.lblProdutosCadastrados.TabIndex = 2;
+            this.lblProdutosCadastrados.Text = "0";
+            // 
+            // label7
+            // 
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.label7.Location = new System.Drawing.Point(66, 3);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(149, 23);
+            this.label7.TabIndex = 1;
+            this.label7.Text = "Produtos Cadastrados";
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackgroundImage = global::AssisTec.Properties.Resources.produto;
+            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureBox1.Image = global::AssisTec.Properties.Resources.produto;
+            this.pictureBox1.Location = new System.Drawing.Point(3, 1);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(57, 51);
+            this.pictureBox1.TabIndex = 0;
+            this.pictureBox1.TabStop = false;
+            // 
             // ucGerenciadorEstoque
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(55)))), ((int)(((byte)(76)))));
+            this.Controls.Add(this.panelExibicao);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.panelBotoes);
-            this.Controls.Add(this.cbConcluidas);
-            this.Controls.Add(this.btnAtualizar);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.txtBusca);
             this.Controls.Add(this.dgvEstoque);
             this.Controls.Add(this.label4);
             this.Name = "ucGerenciadorEstoque";
@@ -251,9 +473,43 @@ namespace AssisTec.UserControls
             ((System.ComponentModel.ISupportInitialize)(this.dgvEstoque)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnAtualizar)).EndInit();
             this.panelBotoes.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
+            this.panelExibicao.ResumeLayout(false);
+            this.panel4.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
+            this.panel5.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
+            this.panel3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.fifgurinha)).EndInit();
+            this.panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
         }
+
+        private System.Windows.Forms.Label lblMinimo;
+
+        private System.Windows.Forms.PictureBox fifgurinha;
+
+        private System.Windows.Forms.Panel panelExibicao;
+        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.Label lblSemEstoque;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.PictureBox pictureBox3;
+        private System.Windows.Forms.Panel panel5;
+        private System.Windows.Forms.Label lblValorEstoque;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.PictureBox pictureBox4;
+        private System.Windows.Forms.Panel panel3;
+
+        private System.Windows.Forms.Label label9;
+
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Label lblProdutosCadastrados;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.PictureBox pictureBox1;
+
+        private System.Windows.Forms.Panel panel1;
 
         private System.Windows.Forms.Panel panelBotoes;
         private System.Windows.Forms.Button btnSaida;
