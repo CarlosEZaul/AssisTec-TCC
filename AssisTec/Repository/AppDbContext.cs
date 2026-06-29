@@ -18,6 +18,7 @@ namespace AssisTec.Repository
         public DbSet<ContasReceber> ContasReceber { get; set; }
         public DbSet<ContasPagar> Contas_Pagar { get; set; }
         public DbSet<Pagamento> Pagamentos { get; set; }
+        public DbSet<Produto> Produtos { get; set; }
         
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -196,6 +197,19 @@ namespace AssisTec.Repository
                     new Pagamento { Idforma_pagamento = 3, Descricao = "Cartão de Crédito / Débito" },
                     new Pagamento { Idforma_pagamento = 4, Descricao = "Dinheiro" }
                 );
+            });
+
+            modelBuilder.Entity<Produto>(entity =>
+            {
+                entity.ToTable("produto");
+                entity.HasKey(e => e.idProduto);
+                entity.Property(e => e.idProduto).HasColumnName("idProduto");
+                entity.Property(e => e.descricao).HasColumnName("descricao");
+                entity.Property(e => e.unidade).HasColumnName("unidade");
+                entity.Property(e => e.preco_compra).HasColumnName("preco_compra");
+                entity.Property(e => e.preco_venda).HasColumnName("preco_venda");
+                entity.Property(e => e.quantidade).HasColumnName("quantidade");
+                entity.Property(e => e.quantidade_minima).HasColumnName("quantidade_minima");
             });
         }
     }
