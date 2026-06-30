@@ -25,11 +25,11 @@ namespace AssisTec.Repository
             }
             catch (DbUpdateException dbEx)
             {
-                throw new Exception("Erro ao persistir cliente no banco: " + (dbEx.InnerException?.Message ?? dbEx.Message), dbEx);
+                throw new Exception("Erro ao inserir cliente no banco: " + (dbEx.InnerException?.Message ?? dbEx.Message), dbEx);
             }
             catch (Exception ex)
             {
-                throw new Exception("Falha inesperada ao inserir cliente.", ex);
+                throw new Exception("Falha ao inserir cliente.", ex);
             }
         }
 

@@ -19,6 +19,7 @@ namespace AssisTec.Repository
         public DbSet<ContasPagar> Contas_Pagar { get; set; }
         public DbSet<Pagamento> Pagamentos { get; set; }
         public DbSet<Produto> Produtos { get; set; }
+        public DbSet<MovimentacaoEstoque> movimentacaoEstoque { get; set; }
         
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -210,6 +211,20 @@ namespace AssisTec.Repository
                 entity.Property(e => e.preco_venda).HasColumnName("preco_venda");
                 entity.Property(e => e.quantidade).HasColumnName("quantidade");
                 entity.Property(e => e.quantidade_minima).HasColumnName("quantidade_minima");
+            });
+
+            modelBuilder.Entity<MovimentacaoEstoque>(entity =>
+            {
+                entity.ToTable("movimentacao_estoque");
+                entity.HasKey(e => e.idMovimentacao);
+                entity.Property(e => e.idMovimentacao).HasColumnName("idMovimentacao");
+                entity.Property(e => e.descricao).HasColumnName("descricao");
+                entity.Property(e => e.quantidade).HasColumnName("quantidade");
+                entity.Property(e => e.data).HasColumnName("data");
+                entity.Property(e => e.tipoMovimentacao).HasColumnName("tipoMovimentacao");
+                entity.HasOne(e => e.produto).WithMany()
+                    .HasForeignKey(e=> e.idProduto)
+                    .OnDelete(DeleteBehavior.SetNull);
             });
         }
     }
