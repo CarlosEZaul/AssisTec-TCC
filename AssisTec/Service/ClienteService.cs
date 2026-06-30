@@ -26,7 +26,7 @@ namespace AssisTec.Service
 
         public Cliente ObterPorId(int id)
         {
-            if (id <= 0) return null;
+            if (id < 0) return null;
             return repository.ObterPorId(id);
         }
 
