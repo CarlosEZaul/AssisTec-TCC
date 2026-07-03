@@ -26,9 +26,11 @@ namespace AssisTec.Service
             return repository.ObterProdutoPorId(id);
         }
 
-        public bool InsertProduto(Produto produto)
+        public bool Salvar(Produto produto)
         {
             ValidarCampos(produto);
+            
+            
             if (produto.quantidade_minima < produto.quantidade)
             {
                 throw new ArgumentNullException("Quantidade minima não pode ser menor que a atual");

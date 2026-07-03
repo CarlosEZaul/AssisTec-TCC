@@ -44,11 +44,11 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
             this.txtQuantidade = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.txtQuantidadeMinima = new System.Windows.Forms.TextBox();
-            this.panel2 = new System.Windows.Forms.Panel();
+            this.panelBotoes = new System.Windows.Forms.Panel();
             this.btnFechar = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnLimpar = new System.Windows.Forms.Button();
-            this.panel2.SuspendLayout();
+            this.panelBotoes.SuspendLayout();
             this.SuspendLayout();
             // 
             // label33
@@ -186,16 +186,16 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
             this.txtQuantidadeMinima.Size = new System.Drawing.Size(460, 20);
             this.txtQuantidadeMinima.TabIndex = 249;
             // 
-            // panel2
+            // panelBotoes
             // 
-            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel2.Controls.Add(this.btnFechar);
-            this.panel2.Controls.Add(this.btnSave);
-            this.panel2.Controls.Add(this.btnLimpar);
-            this.panel2.Location = new System.Drawing.Point(127, 400);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(279, 61);
-            this.panel2.TabIndex = 251;
+            this.panelBotoes.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelBotoes.Controls.Add(this.btnFechar);
+            this.panelBotoes.Controls.Add(this.btnSave);
+            this.panelBotoes.Controls.Add(this.btnLimpar);
+            this.panelBotoes.Location = new System.Drawing.Point(127, 400);
+            this.panelBotoes.Name = "panelBotoes";
+            this.panelBotoes.Size = new System.Drawing.Size(279, 61);
+            this.panelBotoes.TabIndex = 251;
             // 
             // btnFechar
             // 
@@ -224,6 +224,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
             this.btnSave.TabIndex = 100;
             this.btnSave.Text = "Salvar";
             this.btnSave.UseVisualStyleBackColor = false;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // btnLimpar
             // 
@@ -244,7 +245,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(55)))), ((int)(((byte)(76)))));
-            this.Controls.Add(this.panel2);
+            this.Controls.Add(this.panelBotoes);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.txtQuantidadeMinima);
             this.Controls.Add(this.label4);
@@ -260,12 +261,12 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
             this.Controls.Add(this.label33);
             this.Name = "ucFormularioProduto";
             this.Size = new System.Drawing.Size(543, 477);
-            this.panel2.ResumeLayout(false);
+            this.panelBotoes.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
         }
 
-        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Panel panelBotoes;
         private System.Windows.Forms.Button btnFechar;
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Button btnLimpar;
