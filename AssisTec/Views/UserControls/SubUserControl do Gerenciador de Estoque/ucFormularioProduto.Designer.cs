@@ -192,7 +192,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
             this.panel2.Controls.Add(this.btnFechar);
             this.panel2.Controls.Add(this.btnSave);
             this.panel2.Controls.Add(this.btnLimpar);
-            this.panel2.Location = new System.Drawing.Point(127, 492);
+            this.panel2.Location = new System.Drawing.Point(127, 400);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(279, 61);
             this.panel2.TabIndex = 251;
@@ -259,7 +259,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
             this.Controls.Add(this.txtDescricao);
             this.Controls.Add(this.label33);
             this.Name = "ucFormularioProduto";
-            this.Size = new System.Drawing.Size(543, 569);
+            this.Size = new System.Drawing.Size(543, 477);
             this.panel2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
