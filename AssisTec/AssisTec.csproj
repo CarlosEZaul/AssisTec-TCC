@@ -329,7 +329,7 @@
       <DependentUpon>ucFormulario_Clientes.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\UserControls\SubUserControl do Gerenciador de Estoque\ucFormularioProduto.cs">
-      <SubType>Form</SubType>
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Views\UserControls\SubUserControl do Gerenciador de Estoque\ucFormularioProduto.Designer.cs">
       <DependentUpon>ucFormularioProduto.cs</DependentUpon>
@@ -421,6 +421,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\UserControls\SubUserControl do Gerenciador de Clientes\ucFormulario_Clientes.resx">
       <DependentUpon>ucFormulario_Clientes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\UserControls\SubUserControl do Gerenciador de Estoque\ucFormularioProduto.resx">
+      <DependentUpon>ucFormularioProduto.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\UserControls\SubUserControl do Gerenciador de Pedidos\ucDetalhesPedidos.resx">
       <DependentUpon>ucDetalhesPedidos.cs</DependentUpon>
