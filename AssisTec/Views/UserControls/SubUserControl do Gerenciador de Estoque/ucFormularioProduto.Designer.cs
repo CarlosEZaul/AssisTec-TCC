@@ -111,6 +111,8 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
             this.mtbPrecoCompra.Name = "mtbPrecoCompra";
             this.mtbPrecoCompra.Size = new System.Drawing.Size(460, 20);
             this.mtbPrecoCompra.TabIndex = 244;
+            this.mtbPrecoCompra.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.mtbPrecoCompra_KeyPress);
+            this.mtbPrecoCompra.Leave += new System.EventHandler(this.mtbPrecoCompra_Leave);
             // 
             // label1
             // 
@@ -131,6 +133,8 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
             this.mtbPrecoVenda.Name = "mtbPrecoVenda";
             this.mtbPrecoVenda.Size = new System.Drawing.Size(460, 20);
             this.mtbPrecoVenda.TabIndex = 246;
+            this.mtbPrecoVenda.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.mtbPrecoVenda_KeyPress);
+            this.mtbPrecoVenda.Leave += new System.EventHandler(this.mtbPrecoVenda_Leave);
             // 
             // label3
             // 
@@ -210,6 +214,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
             this.btnFechar.TabIndex = 102;
             this.btnFechar.Text = "Fechar";
             this.btnFechar.UseVisualStyleBackColor = false;
+            this.btnFechar.Click += new System.EventHandler(this.btnFechar_Click);
             // 
             // btnSave
             // 
@@ -239,6 +244,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
             this.btnLimpar.TabIndex = 101;
             this.btnLimpar.Text = "Limpar";
             this.btnLimpar.UseVisualStyleBackColor = false;
+            this.btnLimpar.Click += new System.EventHandler(this.btnLimpar_Click);
             // 
             // ucFormularioProduto
             // 
