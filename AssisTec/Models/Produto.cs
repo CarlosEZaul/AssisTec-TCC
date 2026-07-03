@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AssisTec.Models
@@ -29,6 +30,16 @@ namespace AssisTec.Models
         
         [Required]
         public int quantidade_minima { get; set; }
+        
+        [NotMapped]
+        [Browsable(false)]
+        public string filtroDescricao { get; set; }
+        
+        [NotMapped]
+        [Browsable(false)]
+        public bool filtroAbaixoMinimo { get; set; }
+        
+        
         
     }
 }

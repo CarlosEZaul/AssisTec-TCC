@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using AssisTec.Models;
 using AssisTec.Repository;
 
@@ -14,7 +15,7 @@ namespace AssisTec.Service
             this.repository = repository ?? throw new ArgumentNullException(nameof(repository));
         }
 
-        public List<Produto> ObterProdutos()
+        public IEnumerable<Produto> ObterProdutos()
         {
             return repository.ObterProdutos();
         }
@@ -82,6 +83,25 @@ namespace AssisTec.Service
             
             
         }
+
+        public (int totalCadastrado, int abaixoMinimo, int semEstoque, decimal valorEstoque) obterTotais(Produto produto)
+        {
+            return repository.obterTotais(new Produto());
+        }
+
+        public (DataTable dados, int totalCadastrado, int abaixoMinimo, int semEstoque, decimal valorEstoque) Filtrar(string descricao)
+        {
+            var filtro = new Produto()
+            {
+                filtroDescricao = descricao?.Trim(),
+            };
+            
+            var dados = repository.Filtrar(filtro);
+            var totais = repository.obterTotais(filtro);
+            
+            return (dados, totais.totalCadastrado,totais.abaixoMinimo, totais.semEstoque, totais.valorEstoque);
+        }
+        
 
         private bool ValidarCampos(Produto produto)
         {

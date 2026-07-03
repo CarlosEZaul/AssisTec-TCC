@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.Common;
 using System.Linq;
 using AssisTec.Models;
@@ -75,9 +76,63 @@ namespace AssisTec.Repository
             return context.Produtos.FirstOrDefault(p => p.idProduto == id);
         }
 
-        public List<Produto> ObterProdutos()
+        public IEnumerable<Produto> ObterProdutos()
         {
             return context.Produtos.ToList();
+        }
+
+        public DataTable Filtrar(Produto filtro)
+        {
+            var resultado = AplicarFiltro(filtro).ToList();
+            DataTable dataTable = new DataTable();
+            dataTable.Columns.Add("ID_PRODUTO", typeof(int));
+            dataTable.Columns.Add("DESCRIÇÃO", typeof(string));
+            dataTable.Columns.Add("UNIDADE", typeof(string));
+            dataTable.Columns.Add("PREÇO_VENDA", typeof(decimal));
+            dataTable.Columns.Add("PREÇO_COMPRA", typeof(decimal));
+            dataTable.Columns.Add("QUANTIDADE", typeof(int));
+            dataTable.Columns.Add("QUANTIDADE_MINIMA", typeof(string));
+
+            foreach (var produto in resultado)
+            {
+                dataTable.Rows.Add(
+                    produto.idProduto,
+                    produto.descricao,
+                    produto.unidade,
+                    produto.preco_venda,
+                    produto.preco_compra,
+                    produto.quantidade,
+                    produto.quantidade_minima
+                );
+            }
+            return dataTable;
+            
+        }
+
+        IQueryable<Produto> AplicarFiltro(Produto filtro)
+        {
+            var query = context.Produtos.AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(filtro.filtroDescricao))
+            {
+                query = query.Where(p=> p.descricao.Contains(filtro.filtroDescricao));
+            }
+
+            if (!filtro.filtroAbaixoMinimo == false)
+            {
+                query = query.Where(p => p.quantidade < p.quantidade_minima);
+            }
+            return query;
+        }
+
+        (int totalCadastrado, int abaixoMinimo, int semEstoque, decimal valorEstoque) obterTotais(Produto produto)
+        {
+            var dados = AplicarFiltro(produto).ToList();
+            int totalCadastrado = dados.Count;
+            int abaixoMinimo = dados.Count(p => p.quantidade < p.quantidade_minima & p.quantidade > 0);
+            int semEstoque = dados.Count(p => p.quantidade <= 0);
+            decimal valorEstoque = dados.Sum(p=> p.quantidade * p.preco_compra);
+            return (totalCadastrado, abaixoMinimo, semEstoque, valorEstoque);
         }
     }
 }
