@@ -7,7 +7,7 @@ namespace AssisTec.Repository
 {
     public interface IProdutoRepository
     {
-        bool InsertProduto(Produto produto);
+        bool InserirProduto(Produto produto);
         bool AtualizarProduto(Produto produto);
         bool ExcluirProduto(int id);
         Produto ObterProdutoPorId(int id);

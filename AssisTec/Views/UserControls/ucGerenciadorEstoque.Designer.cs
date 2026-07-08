@@ -107,6 +107,7 @@ namespace AssisTec.UserControls
             this.dgvEstoque.ReadOnly = true;
             this.dgvEstoque.Size = new System.Drawing.Size(1138, 503);
             this.dgvEstoque.TabIndex = 149;
+            this.dgvEstoque.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvEstoque_CellClick);
             // 
             // label1
             // 
@@ -261,9 +262,11 @@ namespace AssisTec.UserControls
             this.btnEditar.TabIndex = 103;
             this.btnEditar.Text = "Editar";
             this.btnEditar.UseVisualStyleBackColor = false;
+            this.btnEditar.Click += new System.EventHandler(this.btnEditar_Click);
             // 
             // panel1
             // 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.Controls.Add(this.btnAtualizar);
             this.panel1.Controls.Add(this.cbConcluidas);
             this.panel1.Controls.Add(this.label1);

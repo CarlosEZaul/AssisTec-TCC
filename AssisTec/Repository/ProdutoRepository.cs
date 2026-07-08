@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AssisTec.Repository
 {
-    public class ProdutoRepository
+    public class ProdutoRepository : IProdutoRepository
     {
         private readonly AppDbContext context;
         public ProdutoRepository(AppDbContext _context)
@@ -33,6 +33,8 @@ namespace AssisTec.Repository
                 throw new Exception("Falha ao inserir produto.", ex);
             }
         }
+
+        
 
         public bool AtualizarProduto(Produto produto)
         {
@@ -109,7 +111,7 @@ namespace AssisTec.Repository
             
         }
 
-        IQueryable<Produto> AplicarFiltro(Produto filtro)
+        public IQueryable<Produto> AplicarFiltro(Produto filtro)
         {
             var query = context.Produtos.AsQueryable();
 
@@ -125,7 +127,7 @@ namespace AssisTec.Repository
             return query;
         }
 
-        (int totalCadastrado, int abaixoMinimo, int semEstoque, decimal valorEstoque) obterTotais(Produto produto)
+        public (int totalCadastrado, int abaixoMinimo, int semEstoque, decimal valorEstoque) obterTotais(Produto produto)
         {
             var dados = AplicarFiltro(produto).ToList();
             int totalCadastrado = dados.Count;

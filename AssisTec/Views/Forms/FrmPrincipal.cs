@@ -16,6 +16,7 @@ namespace AssisTec
         private readonly ContasReceberService _contasReceberService;
         private readonly PagamentoService _pagamentoService;
         private readonly ContasPagarService _contasPagarService;
+        private readonly ProdutoService _produtoService;
         
 
         Panel panelUsuario;
@@ -34,9 +35,11 @@ namespace AssisTec
             var pagamentoRepository = new PagamentoRepository(context);
             
             var contasPagarRepository = new ContasPagarRepository(context);
+            
+            var produtoRepository = new ProdutoRepository(context);
 
+            _produtoService = new ProdutoService(produtoRepository);
             _contasPagarService = new ContasPagarService(contasPagarRepository, pagamentoRepository);
-
             _contasReceberService = new ContasReceberService(contasReceberRepository, pagamentoRepository);
             _pagamentoService = new PagamentoService(contasReceberRepository,contasPagarRepository, pagamentoRepository);
 
@@ -127,7 +130,7 @@ namespace AssisTec
 
             Guna2Button btnEstoque = CriarBotaoMenu(
                 "📦 Estoque",
-                (s, e) => AbrirUserControl(new ucGerenciadorEstoque(), s)
+                (s, e) => AbrirUserControl(new ucGerenciadorEstoque(_produtoService), s)
             );
 
             Guna2Button btnPedidos = CriarBotaoMenu(

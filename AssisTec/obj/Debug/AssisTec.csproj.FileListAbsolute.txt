@@ -2511,3 +2511,6 @@ C:\Users\Pc do estagiario\RiderProjects\AssisTec-TCC\AssisTec2406\AssisTec\obj\D
 C:\Users\Pc do estagiario\RiderProjects\AssisTec-TCC\AssisTec2406\AssisTec\obj\Debug\AssisTec.csproj.Up2Date
 C:\Users\Pc do estagiario\RiderProjects\AssisTec-TCC\AssisTec2406\AssisTec\obj\Debug\AssisTec.exe
 C:\Users\Pc do estagiario\RiderProjects\AssisTec-TCC\AssisTec2406\AssisTec\obj\Debug\AssisTec.pdb
+C:\Users\Pc do estagiario\RiderProjects\AssisTec-TCC\AssisTec2406\AssisTec\obj\Debug\AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque.ucFormularioProduto.resources
+C:\Users\Pc do estagiario\RiderProjects\AssisTec-TCC\AssisTec2406\AssisTec\obj\Debug\AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque.ucRegistrarEntrada.resources
+C:\Users\Pc do estagiario\RiderProjects\AssisTec-TCC\AssisTec2406\AssisTec\obj\Debug\AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque.ucRegistrarSaida.resources

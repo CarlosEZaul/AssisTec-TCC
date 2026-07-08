@@ -32,11 +32,25 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
             DesingComponentes.centralizarPanel(panelBotoes, this.Width);
         }
 
+        private void carregarProduto()
+        {
+            Produto produto = _produtoService.ObterProdutoPorId(idProduto);
+            txtDescricao.Text = produto.descricao;
+            cbUnidade.Text = produto.unidade;
+            txtQuantidade.Text = produto.quantidade.ToString();
+            txtQuantidadeMinima.Text = produto.quantidade_minima.ToString();
+            mtbPrecoCompra.Text = produto.preco_compra.ToString();
+            mtbPrecoVenda.Text = produto.preco_venda.ToString();
+
+
+        }
+
         private void ConfigurarComponentes()
         {
             if (modo == 2)
             {
                 txtQuantidade.Enabled = false;
+                carregarProduto();
             }
 
             cbUnidade.Items.Add("Quant.");
@@ -58,20 +72,46 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
         {
             try
             {
-                _produto.descricao = txtDescricao.Text.Trim();
-                _produto.unidade = cbUnidade.SelectedValue.ToString();
-                _produto.quantidade = Convert.ToInt32(txtQuantidade.Text);
-                _produto.quantidade_minima = Convert.ToInt32(txtQuantidadeMinima.Text);
-                _produto.preco_compra = Convert.ToDecimal(mtbPrecoCompra.Text);
-                _produto.preco_venda = Convert.ToDecimal(mtbPrecoVenda.Text);
-                if (modo == 1)
+                
+
+                if (cbUnidade.SelectedItem == null)
                 {
-                    _produtoService.Salvar(_produto);   
+                    MessageBox.Show("Por favor, selecione uma unidade.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
                 }
 
-                if (modo == 2)
+                if (!int.TryParse(txtQuantidade.Text, out int qtd) || 
+                    !int.TryParse(txtQuantidadeMinima.Text, out int qtdMin) ||
+                    !decimal.TryParse(mtbPrecoCompra.Text, out decimal precoCompra) || 
+                    !decimal.TryParse(mtbPrecoVenda.Text, out decimal precoVenda))
                 {
-                    _produtoService.atualizarProduto(_produto);
+                    MessageBox.Show("Preencha os campos numéricos e de preço corretamente.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                _produto.idProduto = idProduto;
+                _produto.descricao = txtDescricao.Text.Trim();
+                _produto.unidade = cbUnidade.SelectedItem.ToString();
+                _produto.quantidade = qtd;
+                _produto.quantidade_minima = qtdMin;
+                _produto.preco_compra = precoCompra;
+                _produto.preco_venda = precoVenda;
+        
+                bool sucesso = false;
+
+                if (modo == 1)
+                {
+                    sucesso = _produtoService.Salvar(_produto);
+                }
+                else if (modo == 2)
+                {
+                    sucesso = _produtoService.atualizarProduto(_produto);
+                }
+
+                if (sucesso)
+                {
+                    MessageBox.Show("Produto salvo com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    this.Dispose(); 
                 }
             }
             catch (Exception ex)

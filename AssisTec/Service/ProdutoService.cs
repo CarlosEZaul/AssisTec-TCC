@@ -6,7 +6,7 @@ using AssisTec.Repository;
 
 namespace AssisTec.Service
 {
-    public class ProdutoService
+    public class ProdutoService 
     {
         private readonly IProdutoRepository repository;
         
@@ -36,7 +36,7 @@ namespace AssisTec.Service
                 throw new ArgumentNullException("Quantidade minima não pode ser menor que a atual");
             }
 
-            var Inserir = repository.InsertProduto(produto);
+            var Inserir = repository.InserirProduto(produto);
 
             if (Inserir)
             {
@@ -86,7 +86,7 @@ namespace AssisTec.Service
             
         }
 
-        public (int totalCadastrado, int abaixoMinimo, int semEstoque, decimal valorEstoque) obterTotais(Produto produto)
+        public (int totalCadastrado, int abaixoMinimo, int semEstoque, decimal valorEstoque) obterTotais()
         {
             return repository.obterTotais(new Produto());
         }

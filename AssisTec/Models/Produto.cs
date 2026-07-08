@@ -14,7 +14,7 @@ namespace AssisTec.Models
         public string descricao { get; set; }
         
         [Required]
-        [StringLength(2)]
+        [StringLength(10)]
         public string unidade { get; set; }
         
         [Required]
