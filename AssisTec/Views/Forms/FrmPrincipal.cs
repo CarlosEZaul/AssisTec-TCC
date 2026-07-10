@@ -130,7 +130,7 @@ namespace AssisTec
 
             Guna2Button btnEstoque = CriarBotaoMenu(
                 "📦 Estoque",
-                (s, e) => AbrirUserControl(new ucGerenciadorEstoque(_produtoService), s)
+                (s, e) => AbrirUserControl(new ucGerenciadorEstoque(_produtoService,_contasPagarService), s)
             );
 
             Guna2Button btnPedidos = CriarBotaoMenu(

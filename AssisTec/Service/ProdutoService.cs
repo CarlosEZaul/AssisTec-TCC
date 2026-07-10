@@ -31,7 +31,7 @@ namespace AssisTec.Service
             ValidarCampos(produto);
             
             
-            if (produto.quantidade_minima < produto.quantidade)
+            if (produto.quantidade < produto.quantidade_minima)
             {
                 throw new ArgumentNullException("Quantidade minima não pode ser menor que a atual");
             }

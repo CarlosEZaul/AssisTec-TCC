@@ -9,21 +9,27 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
     public partial class ucFormularioProduto : UserControl
     {
         private readonly ProdutoService  _produtoService;
+        private readonly ContasPagarService _contasPagarService;
         private int idProduto;
         private readonly Produto _produto;
         private readonly int modo;
+        private readonly ContasPagar _contasPagar;
+        
             
             
-        public ucFormularioProduto(int idProduto, int modo, ProdutoService produtoService)
+        public ucFormularioProduto(int idProduto, int modo, ProdutoService produtoService,  ContasPagarService contasPagarService)
         {
             InitializeComponent();
             _produtoService =  produtoService ??  throw new ArgumentNullException(nameof(produtoService));
+            _contasPagarService = contasPagarService ?? throw new ArgumentNullException(nameof(contasPagarService));
             this.idProduto = idProduto;
             this.modo = modo;
             _produto = new Produto();
             ApplyDesing();
             ConfigurarMascaraValor();
             ConfigurarComponentes();
+            if (_produto == null) _produto = new Produto();
+            if (_contasPagar == null) _contasPagar = new ContasPagar();
         }
         
 
@@ -91,17 +97,29 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
 
                 _produto.idProduto = idProduto;
                 _produto.descricao = txtDescricao.Text.Trim();
-                _produto.unidade = cbUnidade.SelectedItem.ToString();
+                _produto.unidade = cbUnidade.SelectedIndex != -1 ? cbUnidade.SelectedItem.ToString() : cbUnidade.Text.Trim();
                 _produto.quantidade = qtd;
                 _produto.quantidade_minima = qtdMin;
                 _produto.preco_compra = precoCompra;
                 _produto.preco_venda = precoVenda;
-        
+                
+                
+                
+
                 bool sucesso = false;
 
                 if (modo == 1)
                 {
+                    _contasPagar.descricao = $"Registro do produto: {_produto.descricao} no estoque";
+                    _contasPagar.valor = _produto.preco_compra * _produto.quantidade;
+                    _contasPagar.status = "PAGA";
+                    _contasPagar.data_emissao = DateTime.Today;
+                    _contasPagar.data_pagamento = DateTime.Today;
+                    _contasPagar.data_vencimento = DateTime.Today;
+                    _contasPagar.id_forma_pagamento_fk = 1;
+                    _contasPagar.observacoes = "";
                     sucesso = _produtoService.Salvar(_produto);
+                    _contasPagarService.Salvar(_contasPagar, true);
                 }
                 else if (modo == 2)
                 {
@@ -111,7 +129,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
                 if (sucesso)
                 {
                     MessageBox.Show("Produto salvo com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    this.Dispose(); 
+                    this.Dispose();
                 }
             }
             catch (Exception ex)
