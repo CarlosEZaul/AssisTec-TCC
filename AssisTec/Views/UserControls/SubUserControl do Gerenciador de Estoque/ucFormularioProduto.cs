@@ -102,7 +102,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
                 _produto.quantidade_minima = qtdMin;
                 _produto.preco_compra = precoCompra;
                 _produto.preco_venda = precoVenda;
-                
+                _produto.status = "Ativado";
                 
                 
 

@@ -65,7 +65,7 @@ namespace AssisTec.UserControls
         private void MudarEstadoBotoes(bool ativo)
         {
             btnEditar.Enabled = ativo;
-            btnDelete.Enabled = ativo;
+            btnStatus.Enabled = ativo;
             btnEntrada.Enabled = ativo;
             btnSaida.Enabled = ativo;
         }
@@ -113,6 +113,32 @@ namespace AssisTec.UserControls
 
             idProduto = 0;
             MudarEstadoBotoes(false);
+        }
+
+        private void btnStatus_Click(object sender, EventArgs e)
+        {
+            if (_service.ObterProdutoPorId(idProduto).status == "Ativado")
+            {
+                DialogResult result = MessageBox.Show("Deseja desativar o produto ?", "Desativar", MessageBoxButtons.YesNo);
+                if (result == DialogResult.Yes)
+                {
+                    _service.alterarStatus(idProduto);
+                }
+            }
+            else
+            {
+                DialogResult result = MessageBox.Show("Deseja ativar o produto ?", "Ativar", MessageBoxButtons.YesNo);
+                if (result == DialogResult.Yes)
+                {
+                    _service.alterarStatus(idProduto);
+                }
+            }
+            AtualizarGrid();
+        }
+
+        private void btnAtualizar_Click(object sender, EventArgs e)
+        {
+            AtualizarGrid();
         }
     }
 }

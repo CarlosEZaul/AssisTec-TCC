@@ -31,6 +31,9 @@ namespace AssisTec.Models
         [Required]
         public int quantidade_minima { get; set; }
         
+        [Required]
+        public string status { get; set; }
+        
         [NotMapped]
         [Browsable(false)]
         public string filtroDescricao { get; set; }

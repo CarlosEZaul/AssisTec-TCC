@@ -73,6 +73,37 @@ namespace AssisTec.Repository
             }
         }
 
+        public bool darEntradaProduto(int id)
+        {
+            
+        }
+
+        public bool darSaidaProduto(int id)
+        {
+            
+        }
+
+        public bool alterarStatus(int id)
+        {
+            var produto = context.Produtos.FirstOrDefault(p => p.idProduto == id);
+            if (produto == null)
+            {
+                return false;
+            }
+
+            if (produto.status == "Ativado")
+            {
+                produto.status = "Desativado";
+            }
+            else
+            {
+                produto.status = "Ativado";
+            }
+            
+            context.SaveChanges();
+            return true;
+        }
+
         public Produto ObterProdutoPorId(int id)
         {
             return context.Produtos.FirstOrDefault(p => p.idProduto == id);

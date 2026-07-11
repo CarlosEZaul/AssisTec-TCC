@@ -25,6 +25,7 @@ namespace AssisTec.Service
             if(id < 0) return null;
             return repository.ObterProdutoPorId(id);
         }
+        
 
         public bool Salvar(Produto produto)
         {
@@ -84,6 +85,18 @@ namespace AssisTec.Service
             }
             
             
+        }
+
+        public bool alterarStatus(int id)
+        {
+            try
+            {
+                return repository.alterarStatus(id);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Erro ao alterar Status", ex);
+            }
         }
 
         public (int totalCadastrado, int abaixoMinimo, int semEstoque, decimal valorEstoque) obterTotais()

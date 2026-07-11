@@ -43,9 +43,11 @@ namespace AssisTec.UserControls
             this.btnVisualizacoes = new System.Windows.Forms.Button();
             this.btnEntrada = new System.Windows.Forms.Button();
             this.btnNew = new System.Windows.Forms.Button();
-            this.btnDelete = new System.Windows.Forms.Button();
+            this.btnStatus = new System.Windows.Forms.Button();
             this.btnEditar = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.cbDesativados = new System.Windows.Forms.CheckBox();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.panelExibicao = new System.Windows.Forms.Panel();
             this.panel4 = new System.Windows.Forms.Panel();
             this.lblSemEstoque = new System.Windows.Forms.Label();
@@ -135,11 +137,11 @@ namespace AssisTec.UserControls
             // 
             this.cbConcluidas.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cbConcluidas.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.cbConcluidas.Location = new System.Drawing.Point(938, 17);
+            this.cbConcluidas.Location = new System.Drawing.Point(938, 19);
             this.cbConcluidas.Name = "cbConcluidas";
             this.cbConcluidas.Size = new System.Drawing.Size(190, 24);
             this.cbConcluidas.TabIndex = 155;
-            this.cbConcluidas.Text = "Exibir produtos abaixo do minímo";
+            this.cbConcluidas.Text = "Exibir produtos sem estoque";
             this.cbConcluidas.UseVisualStyleBackColor = true;
             // 
             // btnAtualizar
@@ -152,6 +154,7 @@ namespace AssisTec.UserControls
             this.btnAtualizar.Size = new System.Drawing.Size(38, 38);
             this.btnAtualizar.TabIndex = 154;
             this.btnAtualizar.TabStop = false;
+            this.btnAtualizar.Click += new System.EventHandler(this.btnAtualizar_Click);
             // 
             // panelBotoes
             // 
@@ -160,11 +163,11 @@ namespace AssisTec.UserControls
             this.panelBotoes.Controls.Add(this.btnVisualizacoes);
             this.panelBotoes.Controls.Add(this.btnEntrada);
             this.panelBotoes.Controls.Add(this.btnNew);
-            this.panelBotoes.Controls.Add(this.btnDelete);
+            this.panelBotoes.Controls.Add(this.btnStatus);
             this.panelBotoes.Controls.Add(this.btnEditar);
             this.panelBotoes.Location = new System.Drawing.Point(240, 688);
             this.panelBotoes.Name = "panelBotoes";
-            this.panelBotoes.Size = new System.Drawing.Size(698, 61);
+            this.panelBotoes.Size = new System.Drawing.Size(721, 61);
             this.panelBotoes.TabIndex = 156;
             // 
             // btnSaida
@@ -176,7 +179,7 @@ namespace AssisTec.UserControls
             this.btnSaida.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSaida.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.btnSaida.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnSaida.Location = new System.Drawing.Point(408, 15);
+            this.btnSaida.Location = new System.Drawing.Point(427, 15);
             this.btnSaida.Name = "btnSaida";
             this.btnSaida.Size = new System.Drawing.Size(133, 33);
             this.btnSaida.TabIndex = 106;
@@ -192,7 +195,7 @@ namespace AssisTec.UserControls
             this.btnVisualizacoes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnVisualizacoes.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.btnVisualizacoes.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnVisualizacoes.Location = new System.Drawing.Point(547, 15);
+            this.btnVisualizacoes.Location = new System.Drawing.Point(566, 15);
             this.btnVisualizacoes.Name = "btnVisualizacoes";
             this.btnVisualizacoes.Size = new System.Drawing.Size(142, 33);
             this.btnVisualizacoes.TabIndex = 105;
@@ -208,7 +211,7 @@ namespace AssisTec.UserControls
             this.btnEntrada.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnEntrada.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnEntrada.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnEntrada.Location = new System.Drawing.Point(266, 15);
+            this.btnEntrada.Location = new System.Drawing.Point(285, 15);
             this.btnEntrada.Name = "btnEntrada";
             this.btnEntrada.Size = new System.Drawing.Size(136, 33);
             this.btnEntrada.TabIndex = 104;
@@ -231,21 +234,22 @@ namespace AssisTec.UserControls
             this.btnNew.UseVisualStyleBackColor = false;
             this.btnNew.Click += new System.EventHandler(this.btnNew_Click);
             // 
-            // btnDelete
+            // btnStatus
             // 
-            this.btnDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnDelete.BackColor = System.Drawing.Color.RoyalBlue;
-            this.btnDelete.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnDelete.Enabled = false;
-            this.btnDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnDelete.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.btnDelete.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnDelete.Location = new System.Drawing.Point(182, 15);
-            this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(78, 33);
-            this.btnDelete.TabIndex = 101;
-            this.btnDelete.Text = "Excluir";
-            this.btnDelete.UseVisualStyleBackColor = false;
+            this.btnStatus.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnStatus.BackColor = System.Drawing.Color.RoyalBlue;
+            this.btnStatus.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnStatus.Enabled = false;
+            this.btnStatus.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.btnStatus.ForeColor = System.Drawing.SystemColors.Control;
+            this.btnStatus.Location = new System.Drawing.Point(182, 15);
+            this.btnStatus.Name = "btnStatus";
+            this.btnStatus.Size = new System.Drawing.Size(97, 33);
+            this.btnStatus.TabIndex = 101;
+            this.btnStatus.Text = "Ativar/Desativar";
+            this.btnStatus.UseVisualStyleBackColor = false;
+            this.btnStatus.Click += new System.EventHandler(this.btnStatus_Click);
             // 
             // btnEditar
             // 
@@ -267,14 +271,38 @@ namespace AssisTec.UserControls
             // panel1
             // 
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.Controls.Add(this.cbDesativados);
+            this.panel1.Controls.Add(this.checkBox1);
             this.panel1.Controls.Add(this.btnAtualizar);
             this.panel1.Controls.Add(this.cbConcluidas);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.txtBusca);
             this.panel1.Location = new System.Drawing.Point(0, 113);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1175, 47);
+            this.panel1.Size = new System.Drawing.Size(1175, 60);
             this.panel1.TabIndex = 157;
+            // 
+            // cbDesativados
+            // 
+            this.cbDesativados.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cbDesativados.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.cbDesativados.Location = new System.Drawing.Point(938, 36);
+            this.cbDesativados.Name = "cbDesativados";
+            this.cbDesativados.Size = new System.Drawing.Size(190, 24);
+            this.cbDesativados.TabIndex = 157;
+            this.cbDesativados.Text = "Exibir produtos desativados";
+            this.cbDesativados.UseVisualStyleBackColor = true;
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkBox1.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.checkBox1.Location = new System.Drawing.Point(938, 0);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(190, 24);
+            this.checkBox1.TabIndex = 156;
+            this.checkBox1.Text = "Exibir produtos abaixo do minímo";
+            this.checkBox1.UseVisualStyleBackColor = true;
             // 
             // panelExibicao
             // 
@@ -490,6 +518,10 @@ namespace AssisTec.UserControls
             this.ResumeLayout(false);
         }
 
+        private System.Windows.Forms.CheckBox cbDesativados;
+
+        private System.Windows.Forms.CheckBox checkBox1;
+
         private System.Windows.Forms.Label lblMinimo;
 
         private System.Windows.Forms.PictureBox fifgurinha;
@@ -519,7 +551,7 @@ namespace AssisTec.UserControls
         private System.Windows.Forms.Button btnVisualizacoes;
         private System.Windows.Forms.Button btnEntrada;
         private System.Windows.Forms.Button btnNew;
-        private System.Windows.Forms.Button btnDelete;
+        private System.Windows.Forms.Button btnStatus;
         private System.Windows.Forms.Button btnEditar;
 
         private System.Windows.Forms.CheckBox cbConcluidas;

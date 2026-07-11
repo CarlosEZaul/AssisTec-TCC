@@ -90,6 +90,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
             this.btnFechar.TabIndex = 102;
             this.btnFechar.Text = "Fechar";
             this.btnFechar.UseVisualStyleBackColor = false;
+            this.btnFechar.Click += new System.EventHandler(this.btnFechar_Click);
             // 
             // btnSave
             // 
@@ -104,6 +105,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
             this.btnSave.TabIndex = 100;
             this.btnSave.Text = "Salvar";
             this.btnSave.UseVisualStyleBackColor = false;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // cbMotivo
             // 
