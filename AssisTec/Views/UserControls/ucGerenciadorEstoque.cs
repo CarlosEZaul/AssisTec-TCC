@@ -12,12 +12,14 @@ namespace AssisTec.UserControls
         private readonly List<Label> _listaLabelsTotais;
         private readonly ProdutoService _service;
         private readonly ContasPagarService _contasPagarService;
+        private readonly MovimentacaoEstoqueService _movimentacaoEstoqueService;
         private int idProduto;
-        public ucGerenciadorEstoque(ProdutoService service, ContasPagarService contasPagarService)
+        public ucGerenciadorEstoque(ProdutoService service, MovimentacaoEstoqueService movimentacaoEstoqueService , ContasPagarService contasPagarService)
         {
             InitializeComponent();
             _service = service;
             _contasPagarService = contasPagarService;
+            _movimentacaoEstoqueService = movimentacaoEstoqueService;
             DesingModerno();
             _listaLabelsTotais = new List<Label> { lblProdutosCadastrados, lblMinimo, lblSemEstoque, lblValorEstoque };
             AtualizarGrid();
@@ -80,7 +82,7 @@ namespace AssisTec.UserControls
         #region Funções dos botões
         private void btnNew_Click(object sender, EventArgs e)
         {
-            ConfigurarSubComponente(new ucFormularioProduto(idProduto, 1 , _service, _contasPagarService));           
+            ConfigurarSubComponente(new ucFormularioProduto(idProduto, 1 , _service, _contasPagarService,_movimentacaoEstoqueService));           
         }
         
 
@@ -88,7 +90,7 @@ namespace AssisTec.UserControls
 
         private void btnEditar_Click(object sender, EventArgs e)
         {
-            ConfigurarSubComponente(new ucFormularioProduto(idProduto, 2 , _service, _contasPagarService));
+            ConfigurarSubComponente(new ucFormularioProduto(idProduto, 2 , _service, _contasPagarService,_movimentacaoEstoqueService));
         }
 
         private void dgvEstoque_CellClick(object sender, DataGridViewCellEventArgs e)

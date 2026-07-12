@@ -99,6 +99,30 @@ namespace AssisTec.Service
             }
         }
 
+        public bool darEntradaProduto(int id, int quantidade)
+        {
+            try
+            {
+                return repository.darEntradaProduto(id, quantidade);
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Erro ao dar entrada no produto", e);
+            }
+        }
+
+        public bool darSaidaProduto(int id, int quantidade)
+        {
+            try
+            {
+                return repository.darSaidaProduto(id, quantidade);
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Erro ao dar saida no produto", e);
+            }
+        }
+
         public (int totalCadastrado, int abaixoMinimo, int semEstoque, decimal valorEstoque) obterTotais()
         {
             return repository.obterTotais(new Produto());

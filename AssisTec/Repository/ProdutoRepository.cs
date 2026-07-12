@@ -73,14 +73,46 @@ namespace AssisTec.Repository
             }
         }
 
-        public bool darEntradaProduto(int id)
+        public bool darEntradaProduto(int id, int quantidade)
         {
-            
+            try
+            {
+                var produto = context.Produtos.FirstOrDefault(p => p.idProduto == id);
+    
+                if (produto != null)
+                {
+                    produto.quantidade += quantidade;
+                    context.SaveChanges();
+                    return true;
+                }
+    
+                return false;
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Falha ao dar entrada no produto. Detalhes: " + e.Message, e);
+            }
         }
 
-        public bool darSaidaProduto(int id)
+        public bool darSaidaProduto(int id, int quantidade)
         {
-            
+            try
+            {
+                var produto = context.Produtos.FirstOrDefault(p => p.idProduto == id);
+    
+                if (produto != null)
+                {
+                    produto.quantidade -= quantidade;
+                    context.SaveChanges();
+                    return true;
+                }
+    
+                return false;
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Falha ao dar entrada no produto. Detalhes: " + e.Message, e);
+            }
         }
 
         public bool alterarStatus(int id)

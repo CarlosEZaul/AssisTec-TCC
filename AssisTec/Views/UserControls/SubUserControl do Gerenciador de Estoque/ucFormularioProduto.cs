@@ -14,22 +14,27 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
         private readonly Produto _produto;
         private readonly int modo;
         private readonly ContasPagar _contasPagar;
+        private readonly MovimentacaoEstoqueService _movimentacaoEstoqueService;
+        private readonly MovimentacaoEstoque _movimentacaoEstoque;
         
             
             
-        public ucFormularioProduto(int idProduto, int modo, ProdutoService produtoService,  ContasPagarService contasPagarService)
+        public ucFormularioProduto(int idProduto, int modo, ProdutoService produtoService,  ContasPagarService contasPagarService, MovimentacaoEstoqueService movimentacaoEstoqueService)
         {
             InitializeComponent();
             _produtoService =  produtoService ??  throw new ArgumentNullException(nameof(produtoService));
             _contasPagarService = contasPagarService ?? throw new ArgumentNullException(nameof(contasPagarService));
+            _movimentacaoEstoqueService = movimentacaoEstoqueService ?? throw new ArgumentNullException(nameof(movimentacaoEstoqueService));
             this.idProduto = idProduto;
             this.modo = modo;
             _produto = new Produto();
+            _movimentacaoEstoque = new MovimentacaoEstoque();
             ApplyDesing();
             ConfigurarMascaraValor();
             ConfigurarComponentes();
             if (_produto == null) _produto = new Produto();
             if (_contasPagar == null) _contasPagar = new ContasPagar();
+            if (_movimentacaoEstoque == null) _movimentacaoEstoque =  new MovimentacaoEstoque();
         }
         
 

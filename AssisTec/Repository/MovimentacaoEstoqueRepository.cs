@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AssisTec.Repository
 {
-    public class MovimentacaoEstoqueRepository
+    public class MovimentacaoEstoqueRepository : IMovimentacaoEstoqueRepository
     {
         private readonly AppDbContext context;
         public MovimentacaoEstoqueRepository(AppDbContext context)

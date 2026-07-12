@@ -11,8 +11,8 @@ namespace AssisTec.Repository
         bool AtualizarProduto(Produto produto);
         bool ExcluirProduto(int id);
         bool alterarStatus(int id);
-        bool darEntradaProduto(int id);
-        bool darSaidaProduto(int id);
+        bool darEntradaProduto(int id, int quantidade);
+        bool darSaidaProduto(int id, int quantidade);
         Produto ObterProdutoPorId(int id);
         IEnumerable<Produto> ObterProdutos();
         DataTable Filtrar(Produto produto);
