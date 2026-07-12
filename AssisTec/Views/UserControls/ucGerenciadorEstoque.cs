@@ -142,5 +142,10 @@ namespace AssisTec.UserControls
         {
             AtualizarGrid();
         }
+
+        private void btnEntrada_Click(object sender, EventArgs e)
+        {
+            ConfigurarSubComponente(new ucRegistrarEntrada(idProduto, _service, _movimentacaoEstoqueService));
+        }
     }
 }

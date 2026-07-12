@@ -217,6 +217,7 @@ namespace AssisTec.UserControls
             this.btnEntrada.TabIndex = 104;
             this.btnEntrada.Text = "Registrar Entrada";
             this.btnEntrada.UseVisualStyleBackColor = false;
+            this.btnEntrada.Click += new System.EventHandler(this.btnEntrada_Click);
             // 
             // btnNew
             // 

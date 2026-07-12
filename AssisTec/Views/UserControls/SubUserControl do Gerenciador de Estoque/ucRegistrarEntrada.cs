@@ -8,11 +8,13 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
     {
         private readonly int _idProduto;
         private readonly MovimentacaoEstoqueService _movimentacaoEstoqueService;
-        public ucRegistrarEntrada(int idProduto, MovimentacaoEstoqueService movimentacaoEstoqueService)
+        private readonly ProdutoService _produtoService;
+        public ucRegistrarEntrada(int idProduto,ProdutoService produtoService, MovimentacaoEstoqueService movimentacaoEstoqueService)
         {
             InitializeComponent();
             _idProduto = idProduto;
             _movimentacaoEstoqueService = movimentacaoEstoqueService ?? throw new ArgumentNullException(nameof(movimentacaoEstoqueService));
+            _produtoService = produtoService ?? throw new ArgumentNullException(nameof(produtoService));
         }
 
         #region Funções

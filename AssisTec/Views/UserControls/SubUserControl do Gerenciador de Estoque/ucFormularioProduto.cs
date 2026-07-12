@@ -110,6 +110,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
                 _produto.status = "Ativado";
                 
                 
+                
 
                 bool sucesso = false;
 
@@ -125,6 +126,13 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
                     _contasPagar.observacoes = "";
                     sucesso = _produtoService.Salvar(_produto);
                     _contasPagarService.Salvar(_contasPagar, true);
+                    
+                    _movimentacaoEstoque.descricao = $"Registro do produto: {_produto.descricao} no estoque";
+                    _movimentacaoEstoque.data = DateTime.Today;
+                    _movimentacaoEstoque.quantidade = _produto.quantidade;
+                    _movimentacaoEstoque.tipoMovimentacao = "ENTRADA";
+                    _movimentacaoEstoque.idProduto = _produto.idProduto;
+                    _movimentacaoEstoqueService.NovaMovimentacaoEstoque(_movimentacaoEstoque);
                 }
                 else if (modo == 2)
                 {
