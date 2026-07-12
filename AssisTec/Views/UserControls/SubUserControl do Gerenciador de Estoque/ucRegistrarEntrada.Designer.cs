@@ -31,7 +31,6 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
         /// </summary>
         private void InitializeComponent()
         {
-            this.txtValor = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.panelBotoes = new System.Windows.Forms.Panel();
             this.btnFechar = new System.Windows.Forms.Button();
@@ -45,15 +44,9 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
             this.txtNomeProduto = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label33 = new System.Windows.Forms.Label();
+            this.mtbValor = new System.Windows.Forms.MaskedTextBox();
             this.panelBotoes.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // txtValor
-            // 
-            this.txtValor.Location = new System.Drawing.Point(16, 232);
-            this.txtValor.Name = "txtValor";
-            this.txtValor.Size = new System.Drawing.Size(306, 20);
-            this.txtValor.TabIndex = 261;
             // 
             // label4
             // 
@@ -133,6 +126,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
             this.txtQuantidade.Name = "txtQuantidade";
             this.txtQuantidade.Size = new System.Drawing.Size(306, 20);
             this.txtQuantidade.TabIndex = 256;
+            this.txtQuantidade.TextChanged += new System.EventHandler(this.txtQuantidade_TextChanged);
             // 
             // label2
             // 
@@ -197,12 +191,21 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
             this.label33.Text = "REGISTRAR ENTRADA DO PRODUTO";
             this.label33.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // mtbValor
+            // 
+            this.mtbValor.Location = new System.Drawing.Point(16, 232);
+            this.mtbValor.Name = "mtbValor";
+            this.mtbValor.Size = new System.Drawing.Size(306, 20);
+            this.mtbValor.TabIndex = 261;
+            this.mtbValor.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.mtbValor_KeyPress);
+            this.mtbValor.Leave += new System.EventHandler(this.mtbValor_Leave);
+            // 
             // ucRegistrarEntrada
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(55)))), ((int)(((byte)(76)))));
-            this.Controls.Add(this.txtValor);
+            this.Controls.Add(this.mtbValor);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.panelBotoes);
             this.Controls.Add(this.cbMotivo);
@@ -221,7 +224,8 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
             this.PerformLayout();
         }
 
-        private System.Windows.Forms.TextBox txtValor;
+        private System.Windows.Forms.MaskedTextBox mtbValor;
+
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Panel panelBotoes;
         private System.Windows.Forms.Button btnFechar;

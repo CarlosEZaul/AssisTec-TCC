@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
+using AssisTec.Models;
 using AssisTec.Service;
 using AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque;
 
@@ -14,6 +15,7 @@ namespace AssisTec.UserControls
         private readonly ContasPagarService _contasPagarService;
         private readonly MovimentacaoEstoqueService _movimentacaoEstoqueService;
         private int idProduto;
+        private Produto _produto;
         public ucGerenciadorEstoque(ProdutoService service, MovimentacaoEstoqueService movimentacaoEstoqueService , ContasPagarService contasPagarService)
         {
             InitializeComponent();
@@ -145,6 +147,12 @@ namespace AssisTec.UserControls
 
         private void btnEntrada_Click(object sender, EventArgs e)
         {
+            _produto = _service.ObterProdutoPorId(idProduto);
+            if (_produto.status != "Ativado")
+            {
+                MessageBox.Show("Produto está desativado", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
             ConfigurarSubComponente(new ucRegistrarEntrada(idProduto, _service, _movimentacaoEstoqueService));
         }
     }

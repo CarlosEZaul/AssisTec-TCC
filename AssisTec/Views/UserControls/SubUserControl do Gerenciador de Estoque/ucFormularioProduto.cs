@@ -130,6 +130,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
                     _movimentacaoEstoque.descricao = $"Registro do produto: {_produto.descricao} no estoque";
                     _movimentacaoEstoque.data = DateTime.Today;
                     _movimentacaoEstoque.quantidade = _produto.quantidade;
+                    _movimentacaoEstoque.valor = _produto.preco_compra;
                     _movimentacaoEstoque.tipoMovimentacao = "ENTRADA";
                     _movimentacaoEstoque.idProduto = _produto.idProduto;
                     _movimentacaoEstoqueService.NovaMovimentacaoEstoque(_movimentacaoEstoque);

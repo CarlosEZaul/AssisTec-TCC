@@ -221,6 +221,7 @@ namespace AssisTec.Repository
                 entity.Property(e => e.idMovimentacao).HasColumnName("idMovimentacao");
                 entity.Property(e => e.descricao).HasColumnName("descricao");
                 entity.Property(e => e.quantidade).HasColumnName("quantidade");
+                entity.Property(e=> e.valor).HasColumnName("valor");
                 entity.Property(e => e.data).HasColumnName("data");
                 entity.Property(e => e.tipoMovimentacao).HasColumnName("tipoMovimentacao");
                 entity.HasOne(e => e.produto).WithMany()

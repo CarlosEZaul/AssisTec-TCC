@@ -21,6 +21,10 @@ namespace AssisTec.Models
         public int quantidade { get; set; }
         
         [Required]
+        [Column(TypeName = "decimal(18,2)")]
+        public decimal valor { get; set; }
+        
+        [Required]
         [StringLength(100)]
         public string descricao { get; set; }
         
