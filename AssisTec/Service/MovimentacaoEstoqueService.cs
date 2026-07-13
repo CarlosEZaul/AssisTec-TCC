@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using AssisTec.Models;
 using AssisTec.Repository;
 
@@ -23,6 +25,19 @@ namespace AssisTec.Service
             {
                 return false;
             }
+        }
+
+        public IEnumerable<MovimentacaoEstoque> ListarMovimentacaoEstoque()
+        {
+            try
+            {
+                return _movimentacaoEstoqueRepository.ListarMovimentacaoEstoque();
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            
         }
     }
 }

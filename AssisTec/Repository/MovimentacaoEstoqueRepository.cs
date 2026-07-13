@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using AssisTec.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -24,5 +26,18 @@ namespace AssisTec.Repository
                 throw new Exception("Erro ao inserir movimentação do estoque no banco de dados", e);
             }
         }
+
+        public IEnumerable<MovimentacaoEstoque> ListarMovimentacaoEstoque()
+        {
+            try
+            {
+                return context.movimentacaoEstoque.ToList();
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Erro ao carregar movimentação do estoque", e);
+            }
+        }
+        
     }
 }

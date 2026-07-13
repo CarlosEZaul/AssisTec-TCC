@@ -57,9 +57,9 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
             this.panelBotoes.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.panelBotoes.Controls.Add(this.btnRelatorio);
             this.panelBotoes.Controls.Add(this.btnFechar);
-            this.panelBotoes.Location = new System.Drawing.Point(477, 623);
+            this.panelBotoes.Location = new System.Drawing.Point(477, 619);
             this.panelBotoes.Name = "panelBotoes";
-            this.panelBotoes.Size = new System.Drawing.Size(176, 61);
+            this.panelBotoes.Size = new System.Drawing.Size(172, 61);
             this.panelBotoes.TabIndex = 252;
             // 
             // btnRelatorio
@@ -98,7 +98,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
             this.label33.Location = new System.Drawing.Point(0, 0);
             this.label33.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label33.Name = "label33";
-            this.label33.Size = new System.Drawing.Size(1156, 28);
+            this.label33.Size = new System.Drawing.Size(1152, 28);
             this.label33.TabIndex = 223;
             this.label33.Text = "MOVIMENTAÇÃO DO ESTOQUE";
             this.label33.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -117,7 +117,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
             this.dgvMovimentacao.MultiSelect = false;
             this.dgvMovimentacao.Name = "dgvMovimentacao";
             this.dgvMovimentacao.ReadOnly = true;
-            this.dgvMovimentacao.Size = new System.Drawing.Size(1123, 532);
+            this.dgvMovimentacao.Size = new System.Drawing.Size(1119, 528);
             this.dgvMovimentacao.TabIndex = 253;
             // 
             // panel1
@@ -133,7 +133,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 28);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1156, 48);
+            this.panel1.Size = new System.Drawing.Size(1152, 48);
             this.panel1.TabIndex = 254;
             // 
             // btnAtualizar
@@ -141,7 +141,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
             this.btnAtualizar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnAtualizar.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnAtualizar.BackgroundImage")));
             this.btnAtualizar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnAtualizar.Location = new System.Drawing.Point(1104, 7);
+            this.btnAtualizar.Location = new System.Drawing.Point(1100, 7);
             this.btnAtualizar.Name = "btnAtualizar";
             this.btnAtualizar.Size = new System.Drawing.Size(38, 38);
             this.btnAtualizar.TabIndex = 166;
@@ -155,7 +155,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
             this.btnBuscar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnBuscar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.btnBuscar.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnBuscar.Location = new System.Drawing.Point(1021, 9);
+            this.btnBuscar.Location = new System.Drawing.Point(1017, 9);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(77, 33);
             this.btnBuscar.TabIndex = 165;
@@ -167,7 +167,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
             // 
             this.cbStatus.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.cbStatus.FormattingEnabled = true;
-            this.cbStatus.Location = new System.Drawing.Point(604, 22);
+            this.cbStatus.Location = new System.Drawing.Point(602, 22);
             this.cbStatus.Name = "cbStatus";
             this.cbStatus.Size = new System.Drawing.Size(296, 21);
             this.cbStatus.TabIndex = 164;
@@ -177,7 +177,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
             this.label3.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label3.Font = new System.Drawing.Font("Comic Sans MS", 9.75F);
             this.label3.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label3.Location = new System.Drawing.Point(725, 3);
+            this.label3.Location = new System.Drawing.Point(723, 3);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(55, 18);
@@ -187,7 +187,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
             // mtbDataFim
             // 
             this.mtbDataFim.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.mtbDataFim.Location = new System.Drawing.Point(498, 22);
+            this.mtbDataFim.Location = new System.Drawing.Point(496, 22);
             this.mtbDataFim.Mask = "00/00/0000";
             this.mtbDataFim.Name = "mtbDataFim";
             this.mtbDataFim.Size = new System.Drawing.Size(100, 20);
@@ -199,7 +199,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
             this.label2.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label2.Font = new System.Drawing.Font("Comic Sans MS", 9.75F);
             this.label2.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label2.Location = new System.Drawing.Point(515, 4);
+            this.label2.Location = new System.Drawing.Point(513, 4);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(67, 18);
@@ -209,7 +209,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
             // mtbDataInicio
             // 
             this.mtbDataInicio.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.mtbDataInicio.Location = new System.Drawing.Point(392, 21);
+            this.mtbDataInicio.Location = new System.Drawing.Point(390, 21);
             this.mtbDataInicio.Mask = "00/00/0000";
             this.mtbDataInicio.Name = "mtbDataInicio";
             this.mtbDataInicio.Size = new System.Drawing.Size(100, 20);
@@ -221,7 +221,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label1.Font = new System.Drawing.Font("Comic Sans MS", 9.75F);
             this.label1.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label1.Location = new System.Drawing.Point(393, 3);
+            this.label1.Location = new System.Drawing.Point(391, 3);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(99, 18);
@@ -233,12 +233,13 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(55)))), ((int)(((byte)(76)))));
+            this.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.dgvMovimentacao);
             this.Controls.Add(this.label33);
             this.Controls.Add(this.panelBotoes);
             this.Name = "ucMovimentaçãoEstoque";
-            this.Size = new System.Drawing.Size(1156, 684);
+            this.Size = new System.Drawing.Size(1152, 680);
             this.panelBotoes.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvMovimentacao)).EndInit();
             this.panel1.ResumeLayout(false);

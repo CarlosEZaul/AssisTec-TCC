@@ -117,7 +117,7 @@ namespace AssisTec.UserControls
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label1.Font = new System.Drawing.Font("Comic Sans MS", 9.75F);
             this.label1.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label1.Location = new System.Drawing.Point(356, 19);
+            this.label1.Location = new System.Drawing.Point(338, 19);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(53, 18);
@@ -128,7 +128,7 @@ namespace AssisTec.UserControls
             // 
             this.txtBusca.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.txtBusca.BackColor = System.Drawing.Color.White;
-            this.txtBusca.Location = new System.Drawing.Point(417, 19);
+            this.txtBusca.Location = new System.Drawing.Point(399, 19);
             this.txtBusca.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtBusca.Name = "txtBusca";
             this.txtBusca.Size = new System.Drawing.Size(471, 20);
@@ -139,9 +139,9 @@ namespace AssisTec.UserControls
             // 
             this.cbSemEstoque.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cbSemEstoque.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.cbSemEstoque.Location = new System.Drawing.Point(938, 19);
+            this.cbSemEstoque.Location = new System.Drawing.Point(888, 21);
             this.cbSemEstoque.Name = "cbSemEstoque";
-            this.cbSemEstoque.Size = new System.Drawing.Size(190, 24);
+            this.cbSemEstoque.Size = new System.Drawing.Size(190, 25);
             this.cbSemEstoque.TabIndex = 155;
             this.cbSemEstoque.Text = "Exibir produtos sem estoque";
             this.cbSemEstoque.UseVisualStyleBackColor = true;
@@ -152,7 +152,7 @@ namespace AssisTec.UserControls
             this.btnAtualizar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnAtualizar.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnAtualizar.BackgroundImage")));
             this.btnAtualizar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnAtualizar.Location = new System.Drawing.Point(1134, 3);
+            this.btnAtualizar.Location = new System.Drawing.Point(1100, 5);
             this.btnAtualizar.Name = "btnAtualizar";
             this.btnAtualizar.Size = new System.Drawing.Size(38, 38);
             this.btnAtualizar.TabIndex = 154;
@@ -195,7 +195,6 @@ namespace AssisTec.UserControls
             this.btnVisualizacoes.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnVisualizacoes.BackColor = System.Drawing.Color.RoyalBlue;
             this.btnVisualizacoes.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnVisualizacoes.Enabled = false;
             this.btnVisualizacoes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnVisualizacoes.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.btnVisualizacoes.ForeColor = System.Drawing.SystemColors.Control;
@@ -205,6 +204,7 @@ namespace AssisTec.UserControls
             this.btnVisualizacoes.TabIndex = 105;
             this.btnVisualizacoes.Text = "Visualizar Movimentações";
             this.btnVisualizacoes.UseVisualStyleBackColor = false;
+            this.btnVisualizacoes.Click += new System.EventHandler(this.btnVisualizacoes_Click);
             // 
             // btnEntrada
             // 
@@ -282,18 +282,18 @@ namespace AssisTec.UserControls
             this.panel1.Controls.Add(this.cbSemEstoque);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.txtBusca);
-            this.panel1.Location = new System.Drawing.Point(0, 113);
+            this.panel1.Location = new System.Drawing.Point(18, 110);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1175, 60);
+            this.panel1.Size = new System.Drawing.Size(1138, 63);
             this.panel1.TabIndex = 157;
             // 
             // cbDesativados
             // 
             this.cbDesativados.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cbDesativados.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.cbDesativados.Location = new System.Drawing.Point(938, 39);
+            this.cbDesativados.Location = new System.Drawing.Point(888, 41);
             this.cbDesativados.Name = "cbDesativados";
-            this.cbDesativados.Size = new System.Drawing.Size(190, 21);
+            this.cbDesativados.Size = new System.Drawing.Size(190, 19);
             this.cbDesativados.TabIndex = 157;
             this.cbDesativados.Text = "Exibir produtos desativados";
             this.cbDesativados.UseVisualStyleBackColor = true;
@@ -303,9 +303,9 @@ namespace AssisTec.UserControls
             // 
             this.cbAbaixoMinimo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cbAbaixoMinimo.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.cbAbaixoMinimo.Location = new System.Drawing.Point(938, 0);
+            this.cbAbaixoMinimo.Location = new System.Drawing.Point(888, 2);
             this.cbAbaixoMinimo.Name = "cbAbaixoMinimo";
-            this.cbAbaixoMinimo.Size = new System.Drawing.Size(190, 24);
+            this.cbAbaixoMinimo.Size = new System.Drawing.Size(190, 25);
             this.cbAbaixoMinimo.TabIndex = 156;
             this.cbAbaixoMinimo.Text = "Exibir produtos abaixo do minímo";
             this.cbAbaixoMinimo.UseVisualStyleBackColor = true;
@@ -320,7 +320,7 @@ namespace AssisTec.UserControls
             this.panelExibicao.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelExibicao.Location = new System.Drawing.Point(0, 38);
             this.panelExibicao.Name = "panelExibicao";
-            this.panelExibicao.Size = new System.Drawing.Size(1175, 75);
+            this.panelExibicao.Size = new System.Drawing.Size(1175, 69);
             this.panelExibicao.TabIndex = 164;
             // 
             // panel4
@@ -508,6 +508,7 @@ namespace AssisTec.UserControls
             this.Controls.Add(this.label4);
             this.Name = "ucGerenciadorEstoque";
             this.Size = new System.Drawing.Size(1175, 749);
+            this.Load += new System.EventHandler(this.ucGerenciadorEstoque_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvEstoque)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnAtualizar)).EndInit();
             this.panelBotoes.ResumeLayout(false);

@@ -28,6 +28,7 @@ namespace AssisTec.UserControls
             DesingModerno();
             _listaLabelsTotais = new List<Label> { lblProdutosCadastrados, lblMinimo, lblSemEstoque, lblValorEstoque };
             AtualizarGrid();
+            
         }
 
         #region DesingModerno
@@ -52,6 +53,7 @@ namespace AssisTec.UserControls
             dgvEstoque.Columns[5].HeaderText = "Quantidade";
             dgvEstoque.Columns[6].HeaderText = "Quantidade Minima";
             dgvEstoque.Columns[7].HeaderText = "Status";
+            
         }
 
         
@@ -114,6 +116,10 @@ namespace AssisTec.UserControls
         
 
         #endregion
+        private void ucGerenciadorEstoque_Load(object sender, EventArgs e)
+        {
+            btnVisualizacoes.Enabled = true;
+        }
 
         private void btnEditar_Click(object sender, EventArgs e)
         {
@@ -237,5 +243,12 @@ namespace AssisTec.UserControls
         {
             FiltrarProdutos();
         }
+
+        private void btnVisualizacoes_Click(object sender, EventArgs e)
+        {
+            ConfigurarSubComponente(new ucMovimentaçãoEstoque(_movimentacaoEstoqueService));
+        }
+
+        
     }
 }
