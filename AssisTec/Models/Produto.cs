@@ -42,6 +42,15 @@ namespace AssisTec.Models
         [Browsable(false)]
         public bool filtroAbaixoMinimo { get; set; }
         
+        [NotMapped]
+        [Browsable(false)]
+        public bool filtroSemEstoque { get; set; }
+        
+        [NotMapped]
+        [Browsable(false)]
+        public bool filtroProdutosDesativados { get; set; }
+        
+        
         
         
     }

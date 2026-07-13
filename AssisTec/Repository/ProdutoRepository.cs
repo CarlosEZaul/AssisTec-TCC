@@ -156,7 +156,8 @@ namespace AssisTec.Repository
             dataTable.Columns.Add("PREÇO_VENDA", typeof(decimal));
             dataTable.Columns.Add("PREÇO_COMPRA", typeof(decimal));
             dataTable.Columns.Add("QUANTIDADE", typeof(int));
-            dataTable.Columns.Add("QUANTIDADE_MINIMA", typeof(string));
+            dataTable.Columns.Add("QUANTIDADE_MINIMA", typeof(int));
+            dataTable.Columns.Add("STATUS", typeof(string));
 
             foreach (var produto in resultado)
             {
@@ -167,11 +168,11 @@ namespace AssisTec.Repository
                     produto.preco_venda,
                     produto.preco_compra,
                     produto.quantidade,
-                    produto.quantidade_minima
+                    produto.quantidade_minima,
+                    produto.status
                 );
             }
             return dataTable;
-            
         }
 
         public IQueryable<Produto> AplicarFiltro(Produto filtro)
@@ -180,13 +181,24 @@ namespace AssisTec.Repository
 
             if (!string.IsNullOrWhiteSpace(filtro.filtroDescricao))
             {
-                query = query.Where(p=> p.descricao.Contains(filtro.filtroDescricao));
+                query = query.Where(p => p.descricao.Contains(filtro.filtroDescricao));
             }
 
-            if (!filtro.filtroAbaixoMinimo == false)
+            if (filtro.filtroAbaixoMinimo)
             {
-                query = query.Where(p => p.quantidade < p.quantidade_minima);
+                query = query.Where(p => p.quantidade <= p.quantidade_minima);
             }
+
+            if (filtro.filtroSemEstoque)
+            {
+                query = query.Where(p => p.quantidade <= 0);
+            }
+
+            if (filtro.filtroProdutosDesativados)
+            {
+                query = query.Where(p => p.status == "Desativado");
+            }
+
             return query;
         }
 

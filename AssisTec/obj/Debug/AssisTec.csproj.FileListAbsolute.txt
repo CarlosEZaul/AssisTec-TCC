@@ -2779,3 +2779,4 @@ C:\Users\Pc do estagiario\RiderProjects\AssisTec-TCC\AssisTec13-07\AssisTec\obj\
 C:\Users\Pc do estagiario\RiderProjects\AssisTec-TCC\AssisTec13-07\AssisTec\obj\Debug\AssisTec.csproj.Up2Date
 C:\Users\Pc do estagiario\RiderProjects\AssisTec-TCC\AssisTec13-07\AssisTec\obj\Debug\AssisTec.exe
 C:\Users\Pc do estagiario\RiderProjects\AssisTec-TCC\AssisTec13-07\AssisTec\obj\Debug\AssisTec.pdb
+C:\Users\Pc do estagiario\RiderProjects\AssisTec-TCC\AssisTec13-07\AssisTec\obj\Debug\AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque.ucMovimentaçãoEstoque.resources

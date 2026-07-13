@@ -128,17 +128,20 @@ namespace AssisTec.Service
             return repository.obterTotais(new Produto());
         }
 
-        public (DataTable dados, int totalCadastrado, int abaixoMinimo, int semEstoque, decimal valorEstoque) Filtrar(string descricao)
+        public (DataTable dados, int totalCadastrado, int abaixoMinimo, int semEstoque, decimal valorEstoque) Filtrar(string descricao, bool abaixoMinimo, bool semEstoque, bool desativados)
         {
             var filtro = new Produto()
             {
                 filtroDescricao = descricao?.Trim(),
+                filtroAbaixoMinimo = abaixoMinimo,
+                filtroSemEstoque = semEstoque,
+                filtroProdutosDesativados = desativados
             };
-            
+    
             var dados = repository.Filtrar(filtro);
             var totais = repository.obterTotais(filtro);
-            
-            return (dados, totais.totalCadastrado,totais.abaixoMinimo, totais.semEstoque, totais.valorEstoque);
+    
+            return (dados, totais.totalCadastrado, totais.abaixoMinimo, totais.semEstoque, totais.valorEstoque);
         }
         
 

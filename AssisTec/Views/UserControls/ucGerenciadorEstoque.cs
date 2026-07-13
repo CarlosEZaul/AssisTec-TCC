@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Globalization;
 using System.Windows.Forms;
 using AssisTec.Models;
 using AssisTec.Service;
@@ -50,6 +51,7 @@ namespace AssisTec.UserControls
             dgvEstoque.Columns[4].HeaderText = "Preço de Compra";
             dgvEstoque.Columns[5].HeaderText = "Quantidade";
             dgvEstoque.Columns[6].HeaderText = "Quantidade Minima";
+            dgvEstoque.Columns[7].HeaderText = "Status";
         }
 
         
@@ -82,8 +84,29 @@ namespace AssisTec.UserControls
             uc.BringToFront();
             uc.Location = new Point((this.Width - uc.Width) / 2, (this.Height - uc.Height) / 2);
         }
+        
+        private void FiltrarProdutos()
+        {
+            string termoBusca = txtBusca.Text.Trim();
+            bool abaixoMinimo = cbAbaixoMinimo.Checked;
+            bool semEstoque = cbSemEstoque.Checked;
+            bool desativados = cbDesativados.Checked;
 
-        #region Funções dos botões
+            var resultado = _service.Filtrar(termoBusca, abaixoMinimo, semEstoque, desativados);
+
+            dgvEstoque.DataSource = resultado.dados;
+
+            _listaLabelsTotais[0].Text = resultado.totalCadastrado.ToString();
+            _listaLabelsTotais[1].Text = resultado.abaixoMinimo.ToString();
+            _listaLabelsTotais[2].Text = resultado.semEstoque.ToString();
+            _listaLabelsTotais[3].Text = resultado.valorEstoque.ToString("N2", new CultureInfo("pt-BR"));
+
+            idProduto = 0;
+            MudarEstadoBotoes(false);
+            FormatGrid();
+        }
+
+        #region Funções dos Componentes
         private void btnNew_Click(object sender, EventArgs e)
         {
             ConfigurarSubComponente(new ucFormularioProduto(0, 1 , _service, _contasPagarService,_movimentacaoEstoqueService));           
@@ -145,6 +168,9 @@ namespace AssisTec.UserControls
         private void btnAtualizar_Click(object sender, EventArgs e)
         {
             AtualizarGrid();
+            cbAbaixoMinimo.Checked = false;
+            cbDesativados.Checked = false;
+            cbSemEstoque.Checked = false;
         }
 
         private void btnEntrada_Click(object sender, EventArgs e)
@@ -167,6 +193,49 @@ namespace AssisTec.UserControls
                 return;
             }
             ConfigurarSubComponente(new ucRegistrarSaida(idProduto, _service, _movimentacaoEstoqueService, _contasReceberService));
+        }
+
+        private void dgvEstoque_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (e.RowIndex < 0) return;
+
+            var grid = (DataGridView)sender;
+            var linha = grid.Rows[e.RowIndex];
+            var produto = linha.DataBoundItem as Produto;
+
+            if (produto != null)
+            {
+                if (produto.quantidade <= produto.quantidade_minima)
+                {
+                    linha.DefaultCellStyle.BackColor = Color.Red;
+                    linha.DefaultCellStyle.ForeColor = Color.White;
+                }
+                else
+                {
+                    linha.DefaultCellStyle.BackColor = grid.DefaultCellStyle.BackColor;
+                    linha.DefaultCellStyle.ForeColor = grid.DefaultCellStyle.ForeColor;
+                }
+            }
+        }
+
+        private void txtBusca_TextChanged(object sender, EventArgs e)
+        {
+            FiltrarProdutos();
+        }
+
+        private void cbAbaixoMinimo_CheckedChanged(object sender, EventArgs e)
+        {
+            FiltrarProdutos();
+        }
+
+        private void cbSemEstoque_CheckedChanged(object sender, EventArgs e)
+        {
+            FiltrarProdutos();
+        }
+
+        private void cbDesativados_CheckedChanged(object sender, EventArgs e)
+        {
+            FiltrarProdutos();
         }
     }
 }

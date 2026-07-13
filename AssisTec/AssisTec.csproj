@@ -334,6 +334,12 @@
     <Compile Include="Views\UserControls\SubUserControl do Gerenciador de Estoque\ucFormularioProduto.Designer.cs">
       <DependentUpon>ucFormularioProduto.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\UserControls\SubUserControl do Gerenciador de Estoque\ucMovimentaçãoEstoque.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\UserControls\SubUserControl do Gerenciador de Estoque\ucMovimentaçãoEstoque.Designer.cs">
+      <DependentUpon>ucMovimentaçãoEstoque.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\UserControls\SubUserControl do Gerenciador de Estoque\ucRegistrarEntrada.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -436,6 +442,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\UserControls\SubUserControl do Gerenciador de Estoque\ucFormularioProduto.resx">
       <DependentUpon>ucFormularioProduto.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\UserControls\SubUserControl do Gerenciador de Estoque\ucMovimentaçãoEstoque.resx">
+      <DependentUpon>ucMovimentaçãoEstoque.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\UserControls\SubUserControl do Gerenciador de Estoque\ucRegistrarEntrada.resx">
       <DependentUpon>ucRegistrarEntrada.cs</DependentUpon>

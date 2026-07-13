@@ -36,7 +36,7 @@ namespace AssisTec.UserControls
             this.dgvEstoque = new System.Windows.Forms.DataGridView();
             this.label1 = new System.Windows.Forms.Label();
             this.txtBusca = new System.Windows.Forms.TextBox();
-            this.cbConcluidas = new System.Windows.Forms.CheckBox();
+            this.cbSemEstoque = new System.Windows.Forms.CheckBox();
             this.btnAtualizar = new System.Windows.Forms.PictureBox();
             this.panelBotoes = new System.Windows.Forms.Panel();
             this.btnSaida = new System.Windows.Forms.Button();
@@ -47,7 +47,7 @@ namespace AssisTec.UserControls
             this.btnEditar = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.cbDesativados = new System.Windows.Forms.CheckBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.cbAbaixoMinimo = new System.Windows.Forms.CheckBox();
             this.panelExibicao = new System.Windows.Forms.Panel();
             this.panel4 = new System.Windows.Forms.Panel();
             this.lblSemEstoque = new System.Windows.Forms.Label();
@@ -110,6 +110,7 @@ namespace AssisTec.UserControls
             this.dgvEstoque.Size = new System.Drawing.Size(1138, 503);
             this.dgvEstoque.TabIndex = 149;
             this.dgvEstoque.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvEstoque_CellClick);
+            this.dgvEstoque.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvEstoque_CellFormatting);
             // 
             // label1
             // 
@@ -132,17 +133,19 @@ namespace AssisTec.UserControls
             this.txtBusca.Name = "txtBusca";
             this.txtBusca.Size = new System.Drawing.Size(471, 20);
             this.txtBusca.TabIndex = 151;
+            this.txtBusca.TextChanged += new System.EventHandler(this.txtBusca_TextChanged);
             // 
-            // cbConcluidas
+            // cbSemEstoque
             // 
-            this.cbConcluidas.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cbConcluidas.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.cbConcluidas.Location = new System.Drawing.Point(938, 19);
-            this.cbConcluidas.Name = "cbConcluidas";
-            this.cbConcluidas.Size = new System.Drawing.Size(190, 24);
-            this.cbConcluidas.TabIndex = 155;
-            this.cbConcluidas.Text = "Exibir produtos sem estoque";
-            this.cbConcluidas.UseVisualStyleBackColor = true;
+            this.cbSemEstoque.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cbSemEstoque.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.cbSemEstoque.Location = new System.Drawing.Point(938, 19);
+            this.cbSemEstoque.Name = "cbSemEstoque";
+            this.cbSemEstoque.Size = new System.Drawing.Size(190, 24);
+            this.cbSemEstoque.TabIndex = 155;
+            this.cbSemEstoque.Text = "Exibir produtos sem estoque";
+            this.cbSemEstoque.UseVisualStyleBackColor = true;
+            this.cbSemEstoque.CheckedChanged += new System.EventHandler(this.cbSemEstoque_CheckedChanged);
             // 
             // btnAtualizar
             // 
@@ -274,9 +277,9 @@ namespace AssisTec.UserControls
             // 
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.Controls.Add(this.cbDesativados);
-            this.panel1.Controls.Add(this.checkBox1);
+            this.panel1.Controls.Add(this.cbAbaixoMinimo);
             this.panel1.Controls.Add(this.btnAtualizar);
-            this.panel1.Controls.Add(this.cbConcluidas);
+            this.panel1.Controls.Add(this.cbSemEstoque);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.txtBusca);
             this.panel1.Location = new System.Drawing.Point(0, 113);
@@ -288,23 +291,25 @@ namespace AssisTec.UserControls
             // 
             this.cbDesativados.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cbDesativados.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.cbDesativados.Location = new System.Drawing.Point(938, 36);
+            this.cbDesativados.Location = new System.Drawing.Point(938, 39);
             this.cbDesativados.Name = "cbDesativados";
-            this.cbDesativados.Size = new System.Drawing.Size(190, 24);
+            this.cbDesativados.Size = new System.Drawing.Size(190, 21);
             this.cbDesativados.TabIndex = 157;
             this.cbDesativados.Text = "Exibir produtos desativados";
             this.cbDesativados.UseVisualStyleBackColor = true;
+            this.cbDesativados.CheckedChanged += new System.EventHandler(this.cbDesativados_CheckedChanged);
             // 
-            // checkBox1
+            // cbAbaixoMinimo
             // 
-            this.checkBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.checkBox1.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.checkBox1.Location = new System.Drawing.Point(938, 0);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(190, 24);
-            this.checkBox1.TabIndex = 156;
-            this.checkBox1.Text = "Exibir produtos abaixo do minímo";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.cbAbaixoMinimo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cbAbaixoMinimo.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.cbAbaixoMinimo.Location = new System.Drawing.Point(938, 0);
+            this.cbAbaixoMinimo.Name = "cbAbaixoMinimo";
+            this.cbAbaixoMinimo.Size = new System.Drawing.Size(190, 24);
+            this.cbAbaixoMinimo.TabIndex = 156;
+            this.cbAbaixoMinimo.Text = "Exibir produtos abaixo do minímo";
+            this.cbAbaixoMinimo.UseVisualStyleBackColor = true;
+            this.cbAbaixoMinimo.CheckedChanged += new System.EventHandler(this.cbAbaixoMinimo_CheckedChanged);
             // 
             // panelExibicao
             // 
@@ -522,7 +527,7 @@ namespace AssisTec.UserControls
 
         private System.Windows.Forms.CheckBox cbDesativados;
 
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox cbAbaixoMinimo;
 
         private System.Windows.Forms.Label lblMinimo;
 
@@ -556,7 +561,7 @@ namespace AssisTec.UserControls
         private System.Windows.Forms.Button btnStatus;
         private System.Windows.Forms.Button btnEditar;
 
-        private System.Windows.Forms.CheckBox cbConcluidas;
+        private System.Windows.Forms.CheckBox cbSemEstoque;
         private System.Windows.Forms.PictureBox btnAtualizar;
 
         private System.Windows.Forms.Label label1;
