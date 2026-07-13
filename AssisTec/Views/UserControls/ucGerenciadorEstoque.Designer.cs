@@ -185,6 +185,7 @@ namespace AssisTec.UserControls
             this.btnSaida.TabIndex = 106;
             this.btnSaida.Text = "Registrar Saida";
             this.btnSaida.UseVisualStyleBackColor = false;
+            this.btnSaida.Click += new System.EventHandler(this.btnSaida_Click);
             // 
             // btnVisualizacoes
             // 

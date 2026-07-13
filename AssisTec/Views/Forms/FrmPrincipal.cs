@@ -19,7 +19,6 @@ namespace AssisTec
         private readonly ProdutoService _produtoService;
         private readonly MovimentacaoEstoqueService _movimentacaoEstoqueService;
         
-
         Panel panelUsuario;
         Label lblNome;
         Label lblFuncao;
@@ -134,7 +133,7 @@ namespace AssisTec
 
             Guna2Button btnEstoque = CriarBotaoMenu(
                 "📦 Estoque",
-                (s, e) => AbrirUserControl(new ucGerenciadorEstoque(_produtoService,_movimentacaoEstoqueService,_contasPagarService), s)
+                (s, e) => AbrirUserControl(new ucGerenciadorEstoque(_produtoService,_movimentacaoEstoqueService,_contasPagarService, _contasReceberService), s)
             );
 
             Guna2Button btnPedidos = CriarBotaoMenu(

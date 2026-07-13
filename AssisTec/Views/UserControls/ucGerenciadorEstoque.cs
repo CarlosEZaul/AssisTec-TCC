@@ -13,14 +13,16 @@ namespace AssisTec.UserControls
         private readonly List<Label> _listaLabelsTotais;
         private readonly ProdutoService _service;
         private readonly ContasPagarService _contasPagarService;
+        private readonly ContasReceberService _contasReceberService;
         private readonly MovimentacaoEstoqueService _movimentacaoEstoqueService;
         private int idProduto;
         private Produto _produto;
-        public ucGerenciadorEstoque(ProdutoService service, MovimentacaoEstoqueService movimentacaoEstoqueService , ContasPagarService contasPagarService)
+        public ucGerenciadorEstoque(ProdutoService service, MovimentacaoEstoqueService movimentacaoEstoqueService , ContasPagarService contasPagarService, ContasReceberService contasReceberService)
         {
             InitializeComponent();
             _service = service;
             _contasPagarService = contasPagarService;
+            _contasReceberService =  contasReceberService;
             _movimentacaoEstoqueService = movimentacaoEstoqueService;
             DesingModerno();
             _listaLabelsTotais = new List<Label> { lblProdutosCadastrados, lblMinimo, lblSemEstoque, lblValorEstoque };
@@ -84,7 +86,7 @@ namespace AssisTec.UserControls
         #region Funções dos botões
         private void btnNew_Click(object sender, EventArgs e)
         {
-            ConfigurarSubComponente(new ucFormularioProduto(idProduto, 1 , _service, _contasPagarService,_movimentacaoEstoqueService));           
+            ConfigurarSubComponente(new ucFormularioProduto(0, 1 , _service, _contasPagarService,_movimentacaoEstoqueService));           
         }
         
 
@@ -153,7 +155,18 @@ namespace AssisTec.UserControls
                 MessageBox.Show("Produto está desativado", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
-            ConfigurarSubComponente(new ucRegistrarEntrada(idProduto, _service, _movimentacaoEstoqueService));
+            ConfigurarSubComponente(new ucRegistrarEntrada(idProduto, _service, _movimentacaoEstoqueService, _contasPagarService));
+        }
+
+        private void btnSaida_Click(object sender, EventArgs e)
+        {
+            _produto = _service.ObterProdutoPorId(idProduto);
+            if (_produto.status != "Ativado")
+            {
+                MessageBox.Show("Produto está desativado", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+            ConfigurarSubComponente(new ucRegistrarSaida(idProduto, _service, _movimentacaoEstoqueService, _contasReceberService));
         }
     }
 }

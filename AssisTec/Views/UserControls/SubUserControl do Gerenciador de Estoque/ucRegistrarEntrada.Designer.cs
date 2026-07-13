@@ -107,6 +107,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
             this.cbMotivo.Name = "cbMotivo";
             this.cbMotivo.Size = new System.Drawing.Size(306, 21);
             this.cbMotivo.TabIndex = 258;
+            this.cbMotivo.SelectedIndexChanged += new System.EventHandler(this.cbMotivo_SelectedIndexChanged);
             // 
             // label3
             // 

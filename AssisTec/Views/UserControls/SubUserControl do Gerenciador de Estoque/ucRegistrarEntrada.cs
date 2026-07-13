@@ -10,47 +10,80 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
     {
         private readonly int _idProduto;
         private readonly MovimentacaoEstoqueService _movimentacaoEstoqueService;
-        private readonly MovimentacaoEstoque _MovimentacaoEstoque;
         private readonly ProdutoService _produtoService;
+        private readonly ContasPagarService _contasPagarService;
         private Produto _produto;
         private decimal _valor;
-        public ucRegistrarEntrada(int idProduto,ProdutoService produtoService, MovimentacaoEstoqueService movimentacaoEstoqueService)
+
+        public ucRegistrarEntrada(int idProduto, ProdutoService produtoService, MovimentacaoEstoqueService movimentacaoEstoqueService, ContasPagarService contasPagarService)
         {
             InitializeComponent();
-            _idProduto = idProduto;
-            _MovimentacaoEstoque = new MovimentacaoEstoque();
-            _movimentacaoEstoqueService = movimentacaoEstoqueService ?? throw new ArgumentNullException(nameof(movimentacaoEstoqueService));
             _produtoService = produtoService ?? throw new ArgumentNullException(nameof(produtoService));
+            _movimentacaoEstoqueService = movimentacaoEstoqueService ?? throw new ArgumentNullException(nameof(movimentacaoEstoqueService));
+            _contasPagarService = contasPagarService ?? throw new ArgumentNullException(nameof(contasPagarService));
+            _idProduto = idProduto;
             _produto = _produtoService.ObterProdutoPorId(idProduto);
+            
             configurarComponentes();
         }
 
-        #region Funções
+        #region Funções ou métodos
 
         private void configurarComponentes()
         {
+            cbMotivo.Items.Clear();
             cbMotivo.Items.Add("Compra de mercadoria");
             cbMotivo.Items.Add("Devolução de Cliente");
+            cbMotivo.Items.Add("Retorno de Consignação / Demonstração");
             cbMotivo.Items.Add("Ajuste de Inventário / Correção de Saldo");
 
             mtbValor.Enabled = false;
             txtEstoque.Enabled = false;
+            txtNomeProduto.Enabled = false;
             
             mtbValor.Mask = null; 
             mtbValor.Text = "0,00";
-            mtbValor.Enabled = true;
             
-            txtNomeProduto.Text = _produto.descricao;
-            txtEstoque.Text = _produto.quantidade.ToString();
-            
+            if (_produto != null)
+            {
+                txtNomeProduto.Text = _produto.descricao;
+                txtEstoque.Text = _produto.quantidade.ToString();
+            }
         }
 
-        
-        
-        
-        
+        private void RecalcularTotalEntrada()
+        {
+            if (!int.TryParse(txtQuantidade.Text, out int quantidade) || cbMotivo.SelectedItem == null)
+            {
+                mtbValor.Text = "0,00";
+                _valor = 0;
+                return;
+            }
+
+            string motivo = cbMotivo.SelectedItem.ToString();
+
+            if (motivo == "Devolução de Cliente")
+            {
+                _valor = quantidade * _produto.preco_venda;
+                mtbValor.Enabled = false;
+            }
+            else if (motivo == "Compra de mercadoria" || motivo == "Retorno de Consignação / Demonstração")
+            {
+                _valor = quantidade * _produto.preco_compra;
+                mtbValor.Enabled = false;
+            }
+            else
+            {
+                _valor = 0;
+                mtbValor.Enabled = true;
+            }
+
+            mtbValor.Text = _valor.ToString("N2", new CultureInfo("pt-BR"));
+        }
 
         #endregion
+
+        #region Funções dos componentes
 
         private void btnSave_Click(object sender, EventArgs e)
         {
@@ -66,12 +99,21 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
                 return;
             }
 
+            if (!decimal.TryParse(mtbValor.Text, out decimal valorDigitado))
+            {
+                MessageBox.Show("Por favor, insira um valor válido.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            _valor = valorDigitado;
+
+            string motivoSelecionado = cbMotivo.SelectedItem.ToString();
+
             var novaMovimentacao = new MovimentacaoEstoque
             {
                 valor = _valor,
                 quantidade = quantidade,
                 data = DateTime.Now,
-                descricao = cbMotivo.SelectedItem.ToString(),
+                descricao = motivoSelecionado,
                 tipoMovimentacao = "ENTRADA",
                 idProduto = _idProduto
             };
@@ -79,12 +121,26 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
             if (_produtoService.darEntradaProduto(_idProduto, quantidade))
             {
                 _movimentacaoEstoqueService.NovaMovimentacaoEstoque(novaMovimentacao);
-        
+
+                if (motivoSelecionado == "Compra de mercadoria")
+                {
+                    var contaPagar = new ContasPagar
+                    {
+                        descricao = motivoSelecionado,
+                        valor = _valor,
+                        data_emissao = DateTime.Today,
+                        data_pagamento = DateTime.Today,
+                        data_vencimento = DateTime.Today,
+                        status = "PAGA",
+                        observacoes = $"Entrada no estoque do produto {_produto.descricao}",
+                        id_forma_pagamento_fk = 1
+                    };
+                    _contasPagarService.Salvar(contaPagar, true);
+                }
+
                 MessageBox.Show("Entrada de estoque realizada com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        
                 this.Dispose();
             }
-            
         }
 
         private void btnFechar_Click(object sender, EventArgs e)
@@ -94,16 +150,12 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
 
         private void txtQuantidade_TextChanged(object sender, EventArgs e)
         {
-            if (int.TryParse(txtQuantidade.Text, out int quantidade))
-            {
-                _valor = quantidade * _produto.preco_compra;
-                mtbValor.Text = _valor.ToString("F2");
-            }
-            else
-            {
-                mtbValor.Text = "0,00";
-            }
-            
+            RecalcularTotalEntrada();
+        }
+
+        private void cbMotivo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            RecalcularTotalEntrada();
         }
 
         private void mtbValor_KeyPress(object sender, KeyPressEventArgs e)
@@ -152,11 +204,15 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
             if (decimal.TryParse(texto, NumberStyles.Currency, new CultureInfo("pt-BR"), out decimal valor))
             {
                 mtbValor.Text = valor.ToString("N2", new CultureInfo("pt-BR"));
+                _valor = valor;
             }
             else
             {
                 mtbValor.Text = "0,00";
+                _valor = 0;
             }
         }
+
+        #endregion
     }
 }

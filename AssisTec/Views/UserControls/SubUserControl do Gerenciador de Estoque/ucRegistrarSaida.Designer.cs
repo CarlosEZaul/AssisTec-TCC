@@ -43,8 +43,8 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
             this.panelBotoes = new System.Windows.Forms.Panel();
             this.btnFechar = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
-            this.txtValor = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
+            this.mtbValor = new System.Windows.Forms.MaskedTextBox();
             this.panelBotoes.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -105,6 +105,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
             this.txtQuantidade.Name = "txtQuantidade";
             this.txtQuantidade.Size = new System.Drawing.Size(306, 20);
             this.txtQuantidade.TabIndex = 244;
+            this.txtQuantidade.TextChanged += new System.EventHandler(this.txtQuantidade_TextChanged);
             // 
             // label2
             // 
@@ -137,6 +138,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
             this.cbMotivo.Name = "cbMotivo";
             this.cbMotivo.Size = new System.Drawing.Size(306, 21);
             this.cbMotivo.TabIndex = 246;
+            this.cbMotivo.SelectedIndexChanged += new System.EventHandler(this.cbMotivo_SelectedIndexChanged);
             // 
             // panelBotoes
             // 
@@ -161,6 +163,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
             this.btnFechar.TabIndex = 102;
             this.btnFechar.Text = "Fechar";
             this.btnFechar.UseVisualStyleBackColor = false;
+            this.btnFechar.Click += new System.EventHandler(this.btnFechar_Click);
             // 
             // btnSave
             // 
@@ -175,13 +178,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
             this.btnSave.TabIndex = 100;
             this.btnSave.Text = "Salvar";
             this.btnSave.UseVisualStyleBackColor = false;
-            // 
-            // txtValor
-            // 
-            this.txtValor.Location = new System.Drawing.Point(16, 232);
-            this.txtValor.Name = "txtValor";
-            this.txtValor.Size = new System.Drawing.Size(306, 20);
-            this.txtValor.TabIndex = 249;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // label4
             // 
@@ -195,12 +192,21 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
             this.label4.TabIndex = 248;
             this.label4.Text = "Valor:";
             // 
+            // mtbValor
+            // 
+            this.mtbValor.Location = new System.Drawing.Point(16, 232);
+            this.mtbValor.Name = "mtbValor";
+            this.mtbValor.Size = new System.Drawing.Size(306, 20);
+            this.mtbValor.TabIndex = 262;
+            this.mtbValor.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.mtbValor_KeyPress);
+            this.mtbValor.Leave += new System.EventHandler(this.mtbValor_Leave);
+            // 
             // ucRegistrarSaida
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(55)))), ((int)(((byte)(76)))));
-            this.Controls.Add(this.txtValor);
+            this.Controls.Add(this.mtbValor);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.panelBotoes);
             this.Controls.Add(this.cbMotivo);
@@ -219,7 +225,8 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
             this.PerformLayout();
         }
 
-        private System.Windows.Forms.TextBox txtValor;
+        private System.Windows.Forms.MaskedTextBox mtbValor;
+
         private System.Windows.Forms.Label label4;
 
         private System.Windows.Forms.Panel panelBotoes;
