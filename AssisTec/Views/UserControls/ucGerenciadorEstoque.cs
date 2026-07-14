@@ -67,6 +67,10 @@ namespace AssisTec.UserControls
             _listaLabelsTotais[2].Text = totais.semEstoque.ToString();
             _listaLabelsTotais[3].Text = totais.valorEstoque.ToString();
 
+            cbAbaixoMinimo.Checked = false;
+            cbDesativados.Checked = false;
+            cbSemEstoque.Checked = false;
+            
             idProduto = 0;
             MudarEstadoBotoes(false);
             FormatGrid();
@@ -174,9 +178,7 @@ namespace AssisTec.UserControls
         private void btnAtualizar_Click(object sender, EventArgs e)
         {
             AtualizarGrid();
-            cbAbaixoMinimo.Checked = false;
-            cbDesativados.Checked = false;
-            cbSemEstoque.Checked = false;
+            
         }
 
         private void btnEntrada_Click(object sender, EventArgs e)
@@ -249,6 +251,36 @@ namespace AssisTec.UserControls
             ConfigurarSubComponente(new ucMovimentaçãoEstoque(_movimentacaoEstoqueService, _service));
         }
 
-        
+
+        private void btnRelatorio_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Produto filtro = new Produto
+                {
+                    filtroDescricao = txtBusca.Text.Trim(),
+                    filtroAbaixoMinimo = cbAbaixoMinimo.Checked,
+                    filtroSemEstoque = cbSemEstoque.Checked,
+                    filtroProdutosDesativados = cbDesativados.Checked
+                };
+
+                using (SaveFileDialog saveFileDialog = new SaveFileDialog())
+                {
+                    saveFileDialog.Filter = "Arquivos PDF (*.pdf)|*.pdf";
+                    saveFileDialog.FileName = "Relatorio_Estoque_" + DateTime.Now.ToString("yyyyMMdd") + ".pdf";
+                    saveFileDialog.Title = "Salvar Relatório de Estoque";
+
+                    if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        _service.GerarRelatorioEstoquePdf(filtro, saveFileDialog.FileName);
+                        MessageBox.Show("Relatório de estoque gerado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao gerar o relatório de estoque: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
     }
 }

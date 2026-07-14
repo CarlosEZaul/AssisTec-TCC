@@ -234,6 +234,7 @@
     <Compile Include="DTO\ContasPagarDto.cs" />
     <Compile Include="DTO\ContasReceberDto.cs" />
     <Compile Include="DTO\MovimentacoesEstoqueDTO.cs" />
+    <Compile Include="DTO\ProdutoDTO.cs" />
     <Compile Include="Migrations\20260609165159_InitialCreate.cs" />
     <Compile Include="Migrations\20260609165159_InitialCreate.Designer.cs">
       <DependentUpon>20260609165159_InitialCreate.cs</DependentUpon>

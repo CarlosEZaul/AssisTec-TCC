@@ -65,6 +65,7 @@ namespace AssisTec.UserControls
             this.lblProdutosCadastrados = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.btnRelatorio = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvEstoque)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnAtualizar)).BeginInit();
             this.panelBotoes.SuspendLayout();
@@ -162,6 +163,7 @@ namespace AssisTec.UserControls
             // panelBotoes
             // 
             this.panelBotoes.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.panelBotoes.Controls.Add(this.btnRelatorio);
             this.panelBotoes.Controls.Add(this.btnSaida);
             this.panelBotoes.Controls.Add(this.btnVisualizacoes);
             this.panelBotoes.Controls.Add(this.btnEntrada);
@@ -170,7 +172,7 @@ namespace AssisTec.UserControls
             this.panelBotoes.Controls.Add(this.btnEditar);
             this.panelBotoes.Location = new System.Drawing.Point(240, 688);
             this.panelBotoes.Name = "panelBotoes";
-            this.panelBotoes.Size = new System.Drawing.Size(721, 61);
+            this.panelBotoes.Size = new System.Drawing.Size(826, 61);
             this.panelBotoes.TabIndex = 156;
             // 
             // btnSaida
@@ -198,7 +200,7 @@ namespace AssisTec.UserControls
             this.btnVisualizacoes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnVisualizacoes.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.btnVisualizacoes.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnVisualizacoes.Location = new System.Drawing.Point(566, 15);
+            this.btnVisualizacoes.Location = new System.Drawing.Point(675, 15);
             this.btnVisualizacoes.Name = "btnVisualizacoes";
             this.btnVisualizacoes.Size = new System.Drawing.Size(142, 33);
             this.btnVisualizacoes.TabIndex = 105;
@@ -496,6 +498,22 @@ namespace AssisTec.UserControls
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             // 
+            // btnRelatorio
+            // 
+            this.btnRelatorio.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnRelatorio.BackColor = System.Drawing.Color.RoyalBlue;
+            this.btnRelatorio.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnRelatorio.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRelatorio.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.btnRelatorio.ForeColor = System.Drawing.SystemColors.Control;
+            this.btnRelatorio.Location = new System.Drawing.Point(566, 15);
+            this.btnRelatorio.Name = "btnRelatorio";
+            this.btnRelatorio.Size = new System.Drawing.Size(103, 33);
+            this.btnRelatorio.TabIndex = 107;
+            this.btnRelatorio.Text = "Gerar relatório";
+            this.btnRelatorio.UseVisualStyleBackColor = false;
+            this.btnRelatorio.Click += new System.EventHandler(this.btnRelatorio_Click);
+            // 
             // ucGerenciadorEstoque
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -525,6 +543,8 @@ namespace AssisTec.UserControls
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
         }
+
+        private System.Windows.Forms.Button btnRelatorio;
 
         private System.Windows.Forms.CheckBox cbDesativados;
 
