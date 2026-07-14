@@ -38,9 +38,11 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
             this.label33 = new System.Windows.Forms.Label();
             this.dgvMovimentacao = new System.Windows.Forms.DataGridView();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.cbTipoMovimentação = new System.Windows.Forms.ComboBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.btnAtualizar = new System.Windows.Forms.PictureBox();
             this.btnBuscar = new System.Windows.Forms.Button();
-            this.cbStatus = new System.Windows.Forms.ComboBox();
+            this.cbProduto = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.mtbDataFim = new System.Windows.Forms.MaskedTextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -89,6 +91,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
             this.btnFechar.TabIndex = 102;
             this.btnFechar.Text = "Fechar";
             this.btnFechar.UseVisualStyleBackColor = false;
+            this.btnFechar.Click += new System.EventHandler(this.btnFechar_Click);
             // 
             // label33
             // 
@@ -122,9 +125,11 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.cbTipoMovimentação);
+            this.panel1.Controls.Add(this.label4);
             this.panel1.Controls.Add(this.btnAtualizar);
             this.panel1.Controls.Add(this.btnBuscar);
-            this.panel1.Controls.Add(this.cbStatus);
+            this.panel1.Controls.Add(this.cbProduto);
             this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.mtbDataFim);
             this.panel1.Controls.Add(this.label2);
@@ -136,6 +141,27 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
             this.panel1.Size = new System.Drawing.Size(1152, 48);
             this.panel1.TabIndex = 254;
             // 
+            // cbTipoMovimentação
+            // 
+            this.cbTipoMovimentação.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.cbTipoMovimentação.FormattingEnabled = true;
+            this.cbTipoMovimentação.Location = new System.Drawing.Point(687, 21);
+            this.cbTipoMovimentação.Name = "cbTipoMovimentação";
+            this.cbTipoMovimentação.Size = new System.Drawing.Size(296, 21);
+            this.cbTipoMovimentação.TabIndex = 168;
+            // 
+            // label4
+            // 
+            this.label4.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.label4.Font = new System.Drawing.Font("Comic Sans MS", 9.75F);
+            this.label4.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.label4.Location = new System.Drawing.Point(787, 2);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(124, 18);
+            this.label4.TabIndex = 167;
+            this.label4.Text = "Tipo Movimentação";
+            // 
             // btnAtualizar
             // 
             this.btnAtualizar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -146,6 +172,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
             this.btnAtualizar.Size = new System.Drawing.Size(38, 38);
             this.btnAtualizar.TabIndex = 166;
             this.btnAtualizar.TabStop = false;
+            this.btnAtualizar.Click += new System.EventHandler(this.btnAtualizar_Click);
             // 
             // btnBuscar
             // 
@@ -163,21 +190,21 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
             this.btnBuscar.UseVisualStyleBackColor = false;
             this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
             // 
-            // cbStatus
+            // cbProduto
             // 
-            this.cbStatus.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.cbStatus.FormattingEnabled = true;
-            this.cbStatus.Location = new System.Drawing.Point(602, 22);
-            this.cbStatus.Name = "cbStatus";
-            this.cbStatus.Size = new System.Drawing.Size(296, 21);
-            this.cbStatus.TabIndex = 164;
+            this.cbProduto.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.cbProduto.FormattingEnabled = true;
+            this.cbProduto.Location = new System.Drawing.Point(385, 21);
+            this.cbProduto.Name = "cbProduto";
+            this.cbProduto.Size = new System.Drawing.Size(296, 21);
+            this.cbProduto.TabIndex = 164;
             // 
             // label3
             // 
             this.label3.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label3.Font = new System.Drawing.Font("Comic Sans MS", 9.75F);
             this.label3.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label3.Location = new System.Drawing.Point(723, 3);
+            this.label3.Location = new System.Drawing.Point(506, 2);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(55, 18);
@@ -187,7 +214,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
             // mtbDataFim
             // 
             this.mtbDataFim.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.mtbDataFim.Location = new System.Drawing.Point(496, 22);
+            this.mtbDataFim.Location = new System.Drawing.Point(279, 21);
             this.mtbDataFim.Mask = "00/00/0000";
             this.mtbDataFim.Name = "mtbDataFim";
             this.mtbDataFim.Size = new System.Drawing.Size(100, 20);
@@ -199,7 +226,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
             this.label2.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label2.Font = new System.Drawing.Font("Comic Sans MS", 9.75F);
             this.label2.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label2.Location = new System.Drawing.Point(513, 4);
+            this.label2.Location = new System.Drawing.Point(296, 3);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(67, 18);
@@ -209,7 +236,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
             // mtbDataInicio
             // 
             this.mtbDataInicio.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.mtbDataInicio.Location = new System.Drawing.Point(390, 21);
+            this.mtbDataInicio.Location = new System.Drawing.Point(173, 21);
             this.mtbDataInicio.Mask = "00/00/0000";
             this.mtbDataInicio.Name = "mtbDataInicio";
             this.mtbDataInicio.Size = new System.Drawing.Size(100, 20);
@@ -221,7 +248,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label1.Font = new System.Drawing.Font("Comic Sans MS", 9.75F);
             this.label1.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label1.Location = new System.Drawing.Point(391, 3);
+            this.label1.Location = new System.Drawing.Point(174, 3);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(99, 18);
@@ -248,9 +275,12 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
             this.ResumeLayout(false);
         }
 
+        private System.Windows.Forms.ComboBox cbTipoMovimentação;
+        private System.Windows.Forms.Label label4;
+
         private System.Windows.Forms.PictureBox btnAtualizar;
         private System.Windows.Forms.Button btnBuscar;
-        private System.Windows.Forms.ComboBox cbStatus;
+        private System.Windows.Forms.ComboBox cbProduto;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.MaskedTextBox mtbDataFim;
         private System.Windows.Forms.Label label2;

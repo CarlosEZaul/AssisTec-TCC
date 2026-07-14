@@ -146,6 +146,21 @@ namespace AssisTec.Repository
             return context.Produtos.ToList();
         }
 
+        public object ObterDescricaoProdutos()
+        {
+            try
+            {
+                return context.Produtos.Select(p => new
+                {
+                    Produto = Convert.ToString(p.idProduto) + " - " + p.descricao,
+                }).ToList();
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Falha ao obter produtos do DB.", e);
+            }
+        }
+
         public DataTable Filtrar(Produto filtro)
         {
             var resultado = AplicarFiltro(filtro).ToList();

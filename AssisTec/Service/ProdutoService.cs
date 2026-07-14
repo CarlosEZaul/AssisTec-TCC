@@ -143,6 +143,19 @@ namespace AssisTec.Service
     
             return (dados, totais.totalCadastrado, totais.abaixoMinimo, totais.semEstoque, totais.valorEstoque);
         }
+
+        public object obterDescricaoProdutos()
+        {
+            try
+            {
+                return repository.ObterDescricaoProdutos();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
         
 
         private bool ValidarCampos(Produto produto)
@@ -181,5 +194,7 @@ namespace AssisTec.Service
             return true;
 
         }
+        
+        
     }
 }

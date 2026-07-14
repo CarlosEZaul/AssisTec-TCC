@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using AssisTec.Models;
 
 namespace AssisTec.Repository
@@ -7,7 +8,8 @@ namespace AssisTec.Repository
     public interface IMovimentacaoEstoqueRepository
     {
         bool InserirMovimentacao(MovimentacaoEstoque movimentacaoEstoque);
-        IEnumerable<MovimentacaoEstoque> ListarMovimentacaoEstoque();
-        
+        object ListarMovimentacaoEstoque();
+        object Filtrar(DateTime? dataInicio, DateTime? dataFim, string produtoSelecionado, string tipoMovimentacao);
+
     }
 }

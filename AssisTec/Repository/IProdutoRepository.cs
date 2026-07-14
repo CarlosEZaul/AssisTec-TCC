@@ -15,6 +15,7 @@ namespace AssisTec.Repository
         bool darSaidaProduto(int id, int quantidade);
         Produto ObterProdutoPorId(int id);
         IEnumerable<Produto> ObterProdutos();
+        object ObterDescricaoProdutos();
         DataTable Filtrar(Produto produto);
         (int totalCadastrado, int abaixoMinimo, int semEstoque, decimal valorEstoque) obterTotais(Produto produto);
         IQueryable<Produto> AplicarFiltro(Produto produto);

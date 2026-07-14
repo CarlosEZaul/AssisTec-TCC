@@ -204,7 +204,7 @@ namespace AssisTec.Repository
             {
                 entity.ToTable("produto");
                 entity.HasKey(e => e.idProduto);
-                entity.Property(e => e.idProduto).HasColumnName("idProduto");
+                entity.Property(e => e.idProduto).HasColumnName("id_Produto");
                 entity.Property(e => e.descricao).HasColumnName("descricao");
                 entity.Property(e => e.unidade).HasColumnName("unidade");
                 entity.Property(e => e.preco_compra).HasColumnName("preco_compra");
@@ -218,7 +218,7 @@ namespace AssisTec.Repository
             {
                 entity.ToTable("movimentacao_estoque");
                 entity.HasKey(e => e.idMovimentacao);
-                entity.Property(e => e.idMovimentacao).HasColumnName("idMovimentacao");
+                entity.Property(e => e.idMovimentacao).HasColumnName("id_Movimentacao");
                 entity.Property(e => e.descricao).HasColumnName("descricao");
                 entity.Property(e => e.quantidade).HasColumnName("quantidade");
                 entity.Property(e=> e.valor).HasColumnName("valor");

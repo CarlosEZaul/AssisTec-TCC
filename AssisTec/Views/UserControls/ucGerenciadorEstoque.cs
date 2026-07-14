@@ -246,7 +246,7 @@ namespace AssisTec.UserControls
 
         private void btnVisualizacoes_Click(object sender, EventArgs e)
         {
-            ConfigurarSubComponente(new ucMovimentaçãoEstoque(_movimentacaoEstoqueService));
+            ConfigurarSubComponente(new ucMovimentaçãoEstoque(_movimentacaoEstoqueService, _service));
         }
 
         

@@ -167,7 +167,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
             }
         }
 
-        private void ValidarPrecoKeyPress(TextBox txt, KeyPressEventArgs e)
+        private void ValidarPrecoKeyPress(TextBoxBase txt, KeyPressEventArgs e)
         {
             if (e.KeyChar == '.') e.KeyChar = ',';
 
@@ -200,7 +200,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
             }
         }
 
-        private void FormatarPrecoLeave(TextBox txt)
+        private void FormatarPrecoLeave(TextBoxBase txt)
         {
             string texto = txt.Text.Trim();
 
@@ -222,22 +222,22 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
 
         private void mtbPrecoCompra_KeyPress(object sender, KeyPressEventArgs e)
         {
-            ValidarPrecoKeyPress((TextBox)sender, e);
+            ValidarPrecoKeyPress((TextBoxBase)sender, e);
         }
 
         private void mtbPrecoVenda_KeyPress(object sender, KeyPressEventArgs e)
         {
-            ValidarPrecoKeyPress((TextBox)sender, e);
+            ValidarPrecoKeyPress((TextBoxBase)sender, e);
         }
 
         private void mtbPrecoVenda_Leave(object sender, EventArgs e)
         {
-            FormatarPrecoLeave((TextBox)sender);
+            FormatarPrecoLeave((TextBoxBase)sender);
         }
 
         private void mtbPrecoCompra_Leave(object sender, EventArgs e)
         {
-            FormatarPrecoLeave((TextBox)sender);
+            FormatarPrecoLeave((TextBoxBase)sender);
         }
 
         private void btnLimpar_Click(object sender, EventArgs e)

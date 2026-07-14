@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -31,5 +32,19 @@ namespace AssisTec.Models
         [Required]
         [StringLength(10)]
         public string tipoMovimentacao { get; set; }
+        
+        [NotMapped]
+        [Browsable(false)]
+        public string filtroDescricao { get; set; } = string.Empty;
+        
+        [NotMapped]
+        [Browsable(false)]
+        public string filtroDataInicio { get; set; } = string.Empty;
+        
+        [NotMapped]
+        [Browsable(false)]
+        public string filtroDataFim { get; set; } = string.Empty;
+        
+        
     }
 }

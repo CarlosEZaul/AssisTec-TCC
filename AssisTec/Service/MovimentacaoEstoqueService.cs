@@ -27,7 +27,7 @@ namespace AssisTec.Service
             }
         }
 
-        public IEnumerable<MovimentacaoEstoque> ListarMovimentacaoEstoque()
+        public object ListarMovimentacaoEstoque()
         {
             try
             {
@@ -38,6 +38,11 @@ namespace AssisTec.Service
                 throw new Exception(e.Message);
             }
             
+        }
+        
+        public object Filtrar(DateTime? dataInicio, DateTime? dataFim, string produtoSelecionado, string tipoMovimentacao)
+        {
+            return _movimentacaoEstoqueRepository.Filtrar(dataInicio, dataFim, produtoSelecionado,tipoMovimentacao);
         }
     }
 }
