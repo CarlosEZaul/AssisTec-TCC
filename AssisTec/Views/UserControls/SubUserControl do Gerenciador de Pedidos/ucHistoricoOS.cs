@@ -3,7 +3,7 @@ using System.Data;
 using System.Windows.Forms;
 
 using AssisTec.Models;
-using AssisTec.Reports;
+
 using AssisTec.Repository;
 using AssisTec.Service;
 using MySql.Data.MySqlClient;

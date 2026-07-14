@@ -5,19 +5,19 @@ using System.Text;
 using System.Threading.Tasks;
 using AssisTec.Repository;
 using AssisTec.Models;
-using AssisTec.Reports;
+
 
 namespace AssisTec.Service
 {
     public class UsuarioService
     {
         private readonly IUsuarioReposity repository;
-        private readonly UsuarioRelatorio relatorio;
+        
 
         public UsuarioService(IUsuarioReposity _repository)
         {
             this.repository = _repository ?? throw new ArgumentNullException(nameof(_repository));
-            this.relatorio = new UsuarioRelatorio(repository);
+            
         }
 
         public List<Usuario> ObterTodos()
@@ -194,21 +194,7 @@ namespace AssisTec.Service
             }
         }
 
-        public void ExecutarRelatorioGeral(string busca, bool apenasInativos, int nivel)
-        {
-            relatorio.GerarRelatorioGeral(busca, apenasInativos, nivel);
-        }
-
-        public (bool sucesso, string mensagem) ExecutarRelatorioTecnico(int id)
-        {
-            if (id <= 0)
-            {
-                return (false, "Selecione um técnico válido para gerar o relatório.");
-            }
-
-            var resultado = relatorio.GerarRelatorioTecnico(id);
-            return (resultado.Item1, resultado.Item2);
-        }
+       
 
         private string GerarHashSHA256(string senhaTextoClaro)
         {

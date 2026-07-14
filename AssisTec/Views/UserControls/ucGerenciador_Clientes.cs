@@ -3,7 +3,7 @@ using System.Windows.Forms;
 using System.Drawing;
 using AssisTec.Models;
 using AssisTec.Repository;
-using AssisTec.Reports;
+
 using AssisTec.Service;
 using AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Clientes.ucFormulario_Clientes;
 

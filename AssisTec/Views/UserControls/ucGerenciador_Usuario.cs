@@ -275,7 +275,7 @@ namespace AssisTec.UserControls
 
         private void btnRelatorio_Click(object sender, EventArgs e)
         {
-            service.ExecutarRelatorioGeral(txtBusca.Text, cbInativo.Checked, cbNivel.SelectedIndex);
+            
         }
 
         private void btnImprimir_Click(object sender, EventArgs e)
@@ -285,9 +285,6 @@ namespace AssisTec.UserControls
                 MessageBox.Show("Selecione um técnico na tabela para gerar o relatório.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-
-            var resultado = service.ExecutarRelatorioTecnico(idSelected);
-            MessageBox.Show(resultado.mensagem);
         }
         #endregion
 

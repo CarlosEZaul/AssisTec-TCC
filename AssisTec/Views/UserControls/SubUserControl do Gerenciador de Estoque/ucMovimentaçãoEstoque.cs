@@ -134,5 +134,47 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
             AplicarFiltro();
             AtualizarGrid();
         }
+
+        private void btnRelatorio_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                
+                DateTime? dataInicio = null;
+                DateTime? dataFim = null;
+
+                if (DateTime.TryParse(mtbDataInicio.Text, out DateTime dtIni))
+                {
+                    dataInicio = dtIni;
+                }
+
+                if (DateTime.TryParse(mtbDataFim.Text, out DateTime dtFim))
+                {
+                    dataFim = dtFim;
+                }
+
+                string produtoSelecionado = cbProduto.Text;
+                string tipoMovimentacao = cbTipoMovimentação.Text;
+
+                using (SaveFileDialog saveFileDialog = new SaveFileDialog())
+                {
+                    saveFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+                    saveFileDialog.FileName = "Relatorio_Movimentacoes_" + DateTime.Now.ToString("yyyyMMdd") + ".pdf";
+                    saveFileDialog.Title = "Relatorio Movimentacoes";
+
+                    if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        _movimentacaoEstoqueService.GerarRelatorioPdf(dataInicio, dataFim, produtoSelecionado, tipoMovimentacao,  saveFileDialog.FileName);
+                        MessageBox.Show("Relatório gerado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+                
+                
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show("Falha ao gerar relatório: " + exception.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
     }
 }
