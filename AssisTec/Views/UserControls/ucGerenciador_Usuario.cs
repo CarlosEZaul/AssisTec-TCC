@@ -14,7 +14,7 @@ namespace AssisTec.UserControls
     {
         private int idSelected;
         private UsuarioService service;
-        
+        private UsuarioService serviceRelatorio;
         public ucGerenciador_Usuario()
         {
             InitializeComponent();
@@ -24,6 +24,7 @@ namespace AssisTec.UserControls
         private void CriarNovoContexto()
         {
             this.service = new UsuarioService(new UsuarioRepository(new AppDbContext()));
+            this.serviceRelatorio =  new UsuarioService(new UsuarioRepository(new AppDbContext()), new OrdemServicoRepository(new AppDbContext()));
         }
 
         private void ucGerenciador_Usuario_Load(object sender, EventArgs e)
@@ -275,7 +276,34 @@ namespace AssisTec.UserControls
 
         private void btnRelatorio_Click(object sender, EventArgs e)
         {
-            
+            try
+            {
+                string nome = txtBusca.Text.Trim();
+                bool apenasInativos = cbInativo.Checked;
+        
+                int nivel = 0;
+                if (cbNivel.SelectedValue != null && int.TryParse(cbNivel.SelectedValue.ToString(), out int valNivel))
+                {
+                    nivel = valNivel;
+                }
+
+                using (SaveFileDialog saveFileDialog = new SaveFileDialog())
+                {
+                    saveFileDialog.Filter = "Arquivos PDF (*.pdf)|*.pdf";
+                    saveFileDialog.FileName = "Relatorio_Usuarios_" + DateTime.Now.ToString("yyyyMMdd") + ".pdf";
+                    saveFileDialog.Title = "Salvar Relatório de Usuários";
+
+                    if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        serviceRelatorio.GerarRelatorioUsuariosPdf(nome, apenasInativos, nivel, saveFileDialog.FileName);
+                        MessageBox.Show("Relatório de usuários gerado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao gerar o relatório: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btnImprimir_Click(object sender, EventArgs e)
@@ -284,6 +312,26 @@ namespace AssisTec.UserControls
             {
                 MessageBox.Show("Selecione um técnico na tabela para gerar o relatório.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
+            }
+
+            try
+            {
+                using (SaveFileDialog saveFileDialog = new SaveFileDialog())
+                {
+                    saveFileDialog.Filter = "Arquivos PDF (*.pdf)|*.pdf";
+                    saveFileDialog.FileName = $"Relatorio_Produtividade_Tecnico_{idSelected}_{DateTime.Now:yyyyMMdd}.pdf";
+                    saveFileDialog.Title = "Salvar Relatório de Produtividade";
+
+                    if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        serviceRelatorio.GerarRelatorioIndividualPdf(idSelected, saveFileDialog.FileName);
+                        MessageBox.Show("Relatório de produtividade gerado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao gerar o relatório: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         #endregion

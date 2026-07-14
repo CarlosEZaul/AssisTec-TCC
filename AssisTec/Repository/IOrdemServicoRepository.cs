@@ -1,7 +1,9 @@
-﻿namespace AssisTec.Repository
+﻿using System.Data;
+
+namespace AssisTec.Repository
 {
-    public class IOrdemServicoRepository
+    public interface IOrdemServicoRepository
     {
-        
+        DataTable ObterPorUsuario(int idUsuario);
     }
 }
