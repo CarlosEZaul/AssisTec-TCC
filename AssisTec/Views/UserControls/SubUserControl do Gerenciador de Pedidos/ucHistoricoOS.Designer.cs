@@ -50,7 +50,7 @@ namespace AssisTec.UserControls
             this.dgvOS.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Sunken;
             this.dgvOS.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvOS.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.dgvOS.Location = new System.Drawing.Point(43, 54);
+            this.dgvOS.Location = new System.Drawing.Point(44, 81);
             this.dgvOS.MultiSelect = false;
             this.dgvOS.Name = "dgvOS";
             this.dgvOS.ReadOnly = true;
@@ -86,7 +86,6 @@ namespace AssisTec.UserControls
             this.btnFechar.TabIndex = 107;
             this.btnFechar.Text = "Fechar";
             this.btnFechar.UseVisualStyleBackColor = false;
-            
             // 
             // label4
             // 

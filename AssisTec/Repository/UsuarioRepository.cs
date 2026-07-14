@@ -117,6 +117,34 @@ namespace AssisTec.Repository
             }
         }
 
+        public bool AlterarStatus(int id)
+        {
+            try
+            {
+                var usuario = context.Usuarios.FirstOrDefault(u => u.Id == id);
+                if (usuario == null)
+                {
+                    return false;
+                }
+
+                if (usuario.Status == "Ativo")
+                {
+                    usuario.Status = "Inativo";
+                }
+                else
+                {
+                    usuario.Status = "Ativo";
+                }
+
+                context.SaveChanges();
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
+
         public bool CpfExiste(string cpf)
         {
             try

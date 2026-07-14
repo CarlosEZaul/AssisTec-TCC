@@ -36,7 +36,6 @@ namespace AssisTec.UserControls
             this.lblbairro = new System.Windows.Forms.Label();
             this.lblcidade = new System.Windows.Forms.Label();
             this.btnNew = new System.Windows.Forms.Button();
-            this.btnDelete = new System.Windows.Forms.Button();
             this.btnEditar = new System.Windows.Forms.Button();
             this.lblcpf = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
@@ -52,12 +51,13 @@ namespace AssisTec.UserControls
             this.label1 = new System.Windows.Forms.Label();
             this.dgvUsuarios = new System.Windows.Forms.DataGridView();
             this.panelBotoes = new System.Windows.Forms.Panel();
+            this.btnContato = new System.Windows.Forms.Button();
             this.btnImprimir = new System.Windows.Forms.Button();
             this.btnRelatorio = new System.Windows.Forms.Button();
             this.btnHistorico = new System.Windows.Forms.Button();
+            this.btnStatus = new System.Windows.Forms.Button();
             this.btnAtualizar = new System.Windows.Forms.PictureBox();
             this.txtBusca = new System.Windows.Forms.TextBox();
-            this.btnContato = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvUsuarios)).BeginInit();
             this.panelBotoes.SuspendLayout();
@@ -112,23 +112,6 @@ namespace AssisTec.UserControls
             this.btnNew.Text = "Novo";
             this.btnNew.UseVisualStyleBackColor = false;
             this.btnNew.Click += new System.EventHandler(this.btnNew_Click);
-            // 
-            // btnDelete
-            // 
-            this.btnDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnDelete.BackColor = System.Drawing.Color.RoyalBlue;
-            this.btnDelete.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnDelete.Enabled = false;
-            this.btnDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnDelete.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.btnDelete.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnDelete.Location = new System.Drawing.Point(182, 15);
-            this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(78, 33);
-            this.btnDelete.TabIndex = 101;
-            this.btnDelete.Text = "Excluir";
-            this.btnDelete.UseVisualStyleBackColor = false;
-            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // btnEditar
             // 
@@ -327,12 +310,27 @@ namespace AssisTec.UserControls
             this.panelBotoes.Controls.Add(this.btnRelatorio);
             this.panelBotoes.Controls.Add(this.btnHistorico);
             this.panelBotoes.Controls.Add(this.btnNew);
-            this.panelBotoes.Controls.Add(this.btnDelete);
+            this.panelBotoes.Controls.Add(this.btnStatus);
             this.panelBotoes.Controls.Add(this.btnEditar);
             this.panelBotoes.Location = new System.Drawing.Point(296, 688);
             this.panelBotoes.Name = "panelBotoes";
-            this.panelBotoes.Size = new System.Drawing.Size(737, 61);
+            this.panelBotoes.Size = new System.Drawing.Size(761, 61);
             this.panelBotoes.TabIndex = 132;
+            // 
+            // btnContato
+            // 
+            this.btnContato.BackColor = System.Drawing.Color.RoyalBlue;
+            this.btnContato.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnContato.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnContato.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.btnContato.ForeColor = System.Drawing.SystemColors.Control;
+            this.btnContato.Location = new System.Drawing.Point(635, 15);
+            this.btnContato.Name = "btnContato";
+            this.btnContato.Size = new System.Drawing.Size(110, 33);
+            this.btnContato.TabIndex = 147;
+            this.btnContato.Text = "Entrar em Contato";
+            this.btnContato.UseVisualStyleBackColor = false;
+            this.btnContato.Click += new System.EventHandler(this.btnContato_Click);
             // 
             // btnImprimir
             // 
@@ -342,7 +340,7 @@ namespace AssisTec.UserControls
             this.btnImprimir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnImprimir.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.btnImprimir.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnImprimir.Location = new System.Drawing.Point(408, 15);
+            this.btnImprimir.Location = new System.Drawing.Point(430, 15);
             this.btnImprimir.Name = "btnImprimir";
             this.btnImprimir.Size = new System.Drawing.Size(104, 33);
             this.btnImprimir.TabIndex = 107;
@@ -357,7 +355,7 @@ namespace AssisTec.UserControls
             this.btnRelatorio.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRelatorio.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.btnRelatorio.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnRelatorio.Location = new System.Drawing.Point(518, 15);
+            this.btnRelatorio.Location = new System.Drawing.Point(540, 15);
             this.btnRelatorio.Name = "btnRelatorio";
             this.btnRelatorio.Size = new System.Drawing.Size(90, 33);
             this.btnRelatorio.TabIndex = 106;
@@ -374,13 +372,30 @@ namespace AssisTec.UserControls
             this.btnHistorico.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnHistorico.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnHistorico.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnHistorico.Location = new System.Drawing.Point(266, 15);
+            this.btnHistorico.Location = new System.Drawing.Point(288, 15);
             this.btnHistorico.Name = "btnHistorico";
             this.btnHistorico.Size = new System.Drawing.Size(136, 33);
             this.btnHistorico.TabIndex = 104;
             this.btnHistorico.Text = "Visualizar histórico de OS";
             this.btnHistorico.UseVisualStyleBackColor = false;
             this.btnHistorico.Click += new System.EventHandler(this.btnHistorico_Click);
+            // 
+            // btnStatus
+            // 
+            this.btnStatus.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnStatus.BackColor = System.Drawing.Color.RoyalBlue;
+            this.btnStatus.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnStatus.Enabled = false;
+            this.btnStatus.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.btnStatus.ForeColor = System.Drawing.SystemColors.Control;
+            this.btnStatus.Location = new System.Drawing.Point(182, 15);
+            this.btnStatus.Name = "btnStatus";
+            this.btnStatus.Size = new System.Drawing.Size(100, 33);
+            this.btnStatus.TabIndex = 101;
+            this.btnStatus.Text = "Ativar/Desativar";
+            this.btnStatus.UseVisualStyleBackColor = false;
+            this.btnStatus.Click += new System.EventHandler(this.btnStatus_Click);
             // 
             // btnAtualizar
             // 
@@ -404,21 +419,6 @@ namespace AssisTec.UserControls
             this.txtBusca.Size = new System.Drawing.Size(471, 20);
             this.txtBusca.TabIndex = 53;
             this.txtBusca.TextChanged += new System.EventHandler(this.txtBusca_TextChanged);
-            // 
-            // btnContato
-            // 
-            this.btnContato.BackColor = System.Drawing.Color.RoyalBlue;
-            this.btnContato.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnContato.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnContato.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.btnContato.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnContato.Location = new System.Drawing.Point(613, 15);
-            this.btnContato.Name = "btnContato";
-            this.btnContato.Size = new System.Drawing.Size(110, 33);
-            this.btnContato.TabIndex = 147;
-            this.btnContato.Text = "Entrar em Contato";
-            this.btnContato.UseVisualStyleBackColor = false;
-            this.btnContato.Click += new System.EventHandler(this.btnContato_Click);
             // 
             // ucGerenciador_Usuario
             // 
@@ -466,7 +466,7 @@ namespace AssisTec.UserControls
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label lblcpf;
         private System.Windows.Forms.Button btnEditar;
-        private System.Windows.Forms.Button btnDelete;
+        private System.Windows.Forms.Button btnStatus;
         private System.Windows.Forms.Button btnNew;
         private System.Windows.Forms.Label lblcidade;
         private System.Windows.Forms.Label lblbairro;

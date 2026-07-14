@@ -11,8 +11,10 @@ namespace AssisTec.Repository
         Usuario ObterPorCpf(string cpf);
         bool AtualizarUsuario(Usuario usuario);
         bool ExcluirUsuario(int id);
+        bool AlterarStatus(int id);
         bool CpfExiste(string cpf);
         bool ExisteGerenteAtivo();
+        
         List<Usuario> ObterComFiltros(string nome, bool apenasInativos, int nivel);
     }
 }

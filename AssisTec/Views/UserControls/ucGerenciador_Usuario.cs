@@ -46,7 +46,7 @@ namespace AssisTec.UserControls
                 DesingComponentes.StyleTextBox(txtBusca);
                 DesingComponentes.centralizarPanel(panelBotoes, this.Width);
                 DesingComponentes.StyleButton(btnNew, Color.FromArgb(0, 120, 215));
-                DesingComponentes.StyleButton(btnDelete, Color.FromArgb(209, 17, 65));
+                DesingComponentes.StyleButton(btnStatus, Color.FromArgb(0, 120, 215));
                 DesingComponentes.StyleDataGridView(dgvUsuarios, DataGridViewAutoSizeColumnsMode.Fill);
             }
             catch (Exception ex)
@@ -76,7 +76,7 @@ namespace AssisTec.UserControls
         private void enableBtn()
         {
             btnNew.Enabled = true;
-            btnDelete.Enabled = true;
+            btnStatus.Enabled = true;
             btnEditar.Enabled = true;
             btnHistorico.Enabled = true;
             btnImprimir.Enabled = true;
@@ -149,7 +149,7 @@ namespace AssisTec.UserControls
         {
             btnNew.Enabled = ativo;
             btnEditar.Enabled = ativo;
-            btnDelete.Enabled = ativo;
+            btnStatus.Enabled = ativo;
             btnAtualizar.Enabled = ativo;
             txtBusca.Enabled = ativo;
             dgvUsuarios.Enabled = ativo;
@@ -188,15 +188,28 @@ namespace AssisTec.UserControls
             }
         }
 
-        private void btnDelete_Click(object sender, EventArgs e)
+        private void btnStatus_Click(object sender, EventArgs e)
         {
             if (idSelected <= 0)
             {
-                MessageBox.Show("Selecione um usuário válido para realizar a exclusão.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Selecione um usuário válido.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
+            
+            var usuario = service.ObterPorId(idSelected);
+            
+            string mensagem = "";
 
-            DialogResult primeiroDialogo = MessageBox.Show("Deseja realmente excluir o usuário selecionado?", "Excluir", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (usuario.Status == "Ativo")
+            {
+                mensagem = "Deseja desativar o usuário?";
+            }
+            else
+            {
+                mensagem = "Deseja ativar o usuário?";
+            }
+
+            DialogResult primeiroDialogo = MessageBox.Show(mensagem, "Alterar Status", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (primeiroDialogo == DialogResult.No)
             {
                 MessageBox.Show("Operação cancelada");
@@ -204,7 +217,7 @@ namespace AssisTec.UserControls
             }
 
             int idLogado = Sessao.usuarioLogado.Id;
-            var validacao = service.ValidarAntesDeExcluir(idSelected, idLogado);
+            var validacao = service.ValidarAntesDeDeativar(idSelected, idLogado);
 
             if (!string.IsNullOrEmpty(validacao.mensagem) && !validacao.sucesso)
             {
@@ -214,7 +227,7 @@ namespace AssisTec.UserControls
 
             if (validacao.sucesso)
             {
-                DialogResult segundoDialogo = MessageBox.Show(validacao.mensagem, "Excluir Conta Atual", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                DialogResult segundoDialogo = MessageBox.Show(validacao.mensagem, "Desativar Conta Atual", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                 if (segundoDialogo == DialogResult.No)
                 {
                     MessageBox.Show("Operação cancelada");
@@ -222,13 +235,11 @@ namespace AssisTec.UserControls
                 }
             }
 
-            var resultado = service.ConfirmarExclusao(idSelected);
+            var resultado = service.AlterarStatus(idSelected);
 
-            if (resultado.sucesso)
+            if (resultado)
             {
-                btnDelete.Enabled = false;
-                btnEditar.Enabled = false;
-                MessageBox.Show(resultado.mensagem, "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Status alterado!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 if (idSelected == idLogado)
                 {
@@ -236,12 +247,21 @@ namespace AssisTec.UserControls
                 }
                 else
                 {
+                    idSelected = 0;
+                    btnStatus.Enabled = false;
+                    btnEditar.Enabled = false;
+                    
+                    if (dgvUsuarios != null && dgvUsuarios.Rows.Count > 0)
+                    {
+                        dgvUsuarios.ClearSelection();
+                    }
+
                     listGrid();
                 }
             }
             else
             {
-                MessageBox.Show(resultado.mensagem, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Erro ao alterar status", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

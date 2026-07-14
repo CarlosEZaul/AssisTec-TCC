@@ -46,6 +46,11 @@ namespace AssisTec.Service
             return repository.ObterPorId(id);
         }
 
+        public bool AlterarStatus(int id)
+        {
+            return repository.AlterarStatus(id);
+        }
+
         public (bool sucesso, string mensagem, Usuario usuario) RealizarLogin(string cpf, string senha)
         {
             if (string.IsNullOrWhiteSpace(cpf) || string.IsNullOrWhiteSpace(senha))
@@ -87,7 +92,7 @@ namespace AssisTec.Service
             }
         }
 
-        public (bool sucesso, string mensagem) ValidarAntesDeExcluir(int id, int idUsuarioLogado)
+        public (bool sucesso, string mensagem) ValidarAntesDeDeativar(int id, int idUsuarioLogado)
         {
             if (id <= 0)
             {
@@ -96,7 +101,7 @@ namespace AssisTec.Service
 
             if (idUsuarioLogado == id)
             {
-                return (true, "Deseja excluir a sua própria conta do sistema?");
+                return (true, "Deseja desativar a sua própria conta do sistema?");
             }
 
             return (false, string.Empty);
