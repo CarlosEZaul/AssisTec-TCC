@@ -13,6 +13,7 @@ namespace AssisTec.UserControls
     {
         private int idSelected;
         private ClienteService service;
+        private ClienteService clienteServiceOs;
  
         public ucGerenciador_Clientes()
         {
@@ -27,6 +28,7 @@ namespace AssisTec.UserControls
         private void CriarNovoContexto()
         {
             this.service = new ClienteService(new ClienteRepository(new AppDbContext()));
+            this.clienteServiceOs = new ClienteService(new ClienteRepository(new AppDbContext()), new OrdemServicoRepository(new AppDbContext()));
         }
 
         private void ucGerenciadorClientes_Load(object sender, EventArgs e)
@@ -133,6 +135,7 @@ namespace AssisTec.UserControls
             btnAtualizar.Enabled = ativo;
             txtBusca.Enabled = ativo;
             dgvClientes.Enabled = ativo;
+            btnOS.Enabled = ativo;
         }
         #endregion
 
@@ -221,6 +224,12 @@ namespace AssisTec.UserControls
 
         private void btnOS_Click(object sender, EventArgs e)
         {
+            ucHistoricoOS historicoOs = new ucHistoricoOS(idSelected, clienteServiceOs);
+            this.Controls.Add(historicoOs);
+            historicoOs.BringToFront();
+            historicoOs.Left = (this.ClientSize.Width - historicoOs.Width) / 2;
+            historicoOs.Top = (this.ClientSize.Height - historicoOs.Height) / 2;
+            historicoOs.Show();
         }
 
         private void btnImprimir_Click(object sender, EventArgs e)

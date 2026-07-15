@@ -278,6 +278,11 @@ namespace AssisTec.Service
                 throw new Exception("Falha ao gerar o relatório de usuários em PDF.", ex);
             }
         }
+
+        public DataTable obterHistoricoOs(int id)
+        {
+            return ordemServicoRepository.ObterHistoricoUsuario(id);
+        }
         
 
         private void ExecutarGeracaoPdfUsuarios(UsuarioDTO.UsuariosRelatorioDTO dados, string caminhoDestino)
@@ -420,7 +425,7 @@ namespace AssisTec.Service
                     throw new Exception("Usuário não encontrado para a geração do relatório.");
                 }
 
-                DataTable tabelaOS = ordemServicoRepository.ObterPorUsuario(idUsuario);
+                DataTable tabelaOS = ordemServicoRepository.ObterHistoricoUsuario(idUsuario);
 
                 UsuarioDTO.UsuarioComOrdemServicoDTO relatorio = new UsuarioDTO.UsuarioComOrdemServicoDTO
                 {

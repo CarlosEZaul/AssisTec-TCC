@@ -40,8 +40,9 @@ namespace AssisTec.UserControls
             this.panel1 = new System.Windows.Forms.Panel();
             this.button3 = new System.Windows.Forms.Button();
             this.btnRelatorio = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnFecha = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.txtTecnico = new System.Windows.Forms.TextBox();
             this.cbTipoMovimentação = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.btnAtualizar = new System.Windows.Forms.PictureBox();
@@ -51,7 +52,6 @@ namespace AssisTec.UserControls
             this.label2 = new System.Windows.Forms.Label();
             this.mtbDataInicio = new System.Windows.Forms.MaskedTextBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.txtTecnico = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvOS)).BeginInit();
             this.panelBotoes.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -69,11 +69,11 @@ namespace AssisTec.UserControls
             this.dgvOS.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Sunken;
             this.dgvOS.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvOS.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.dgvOS.Location = new System.Drawing.Point(19, 82);
+            this.dgvOS.Location = new System.Drawing.Point(19, 92);
             this.dgvOS.MultiSelect = false;
             this.dgvOS.Name = "dgvOS";
             this.dgvOS.ReadOnly = true;
-            this.dgvOS.Size = new System.Drawing.Size(1119, 528);
+            this.dgvOS.Size = new System.Drawing.Size(1119, 518);
             this.dgvOS.TabIndex = 53;
             // 
             // button2
@@ -134,7 +134,7 @@ namespace AssisTec.UserControls
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.Controls.Add(this.button3);
             this.panel1.Controls.Add(this.btnRelatorio);
-            this.panel1.Controls.Add(this.button1);
+            this.panel1.Controls.Add(this.btnFecha);
             this.panel1.Location = new System.Drawing.Point(415, 616);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(293, 61);
@@ -168,19 +168,20 @@ namespace AssisTec.UserControls
             this.btnRelatorio.Text = "Relatório";
             this.btnRelatorio.UseVisualStyleBackColor = false;
             // 
-            // button1
+            // btnFecha
             // 
-            this.button1.BackColor = System.Drawing.Color.RoyalBlue;
-            this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.button1.ForeColor = System.Drawing.SystemColors.Control;
-            this.button1.Location = new System.Drawing.Point(209, 14);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(79, 33);
-            this.button1.TabIndex = 102;
-            this.button1.Text = "Fechar";
-            this.button1.UseVisualStyleBackColor = false;
+            this.btnFecha.BackColor = System.Drawing.Color.RoyalBlue;
+            this.btnFecha.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnFecha.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnFecha.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.btnFecha.ForeColor = System.Drawing.SystemColors.Control;
+            this.btnFecha.Location = new System.Drawing.Point(209, 14);
+            this.btnFecha.Name = "btnFecha";
+            this.btnFecha.Size = new System.Drawing.Size(79, 33);
+            this.btnFecha.TabIndex = 102;
+            this.btnFecha.Text = "Fechar";
+            this.btnFecha.UseVisualStyleBackColor = false;
+            this.btnFecha.Click += new System.EventHandler(this.button1_Click);
             // 
             // panel2
             // 
@@ -199,6 +200,13 @@ namespace AssisTec.UserControls
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(1152, 48);
             this.panel2.TabIndex = 255;
+            // 
+            // txtTecnico
+            // 
+            this.txtTecnico.Location = new System.Drawing.Point(398, 21);
+            this.txtTecnico.Name = "txtTecnico";
+            this.txtTecnico.Size = new System.Drawing.Size(269, 20);
+            this.txtTecnico.TabIndex = 169;
             // 
             // cbTipoMovimentação
             // 
@@ -303,13 +311,6 @@ namespace AssisTec.UserControls
             this.label5.TabIndex = 159;
             this.label5.Text = "Data de início:";
             // 
-            // txtTecnico
-            // 
-            this.txtTecnico.Location = new System.Drawing.Point(398, 21);
-            this.txtTecnico.Name = "txtTecnico";
-            this.txtTecnico.Size = new System.Drawing.Size(269, 20);
-            this.txtTecnico.TabIndex = 169;
-            // 
             // ucHistoricoOS
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -347,7 +348,7 @@ namespace AssisTec.UserControls
 
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button btnRelatorio;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnFecha;
         private System.Windows.Forms.Button button3;
 
         private System.Windows.Forms.Panel panelBotoes;

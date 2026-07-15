@@ -4,6 +4,8 @@ namespace AssisTec.Repository
 {
     public interface IOrdemServicoRepository
     {
-        DataTable ObterPorUsuario(int idUsuario);
+        DataTable ObterHistoricoUsuario(int idUsuario);
+        DataTable ObterHistoricoCliente(int idCliente);
+        
     }
 }

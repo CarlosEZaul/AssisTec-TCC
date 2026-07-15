@@ -14,7 +14,7 @@ namespace AssisTec.UserControls
     {
         private int idSelected;
         private UsuarioService service;
-        private UsuarioService serviceRelatorio;
+        private UsuarioService serviceOs;
         public ucGerenciador_Usuario()
         {
             InitializeComponent();
@@ -24,7 +24,7 @@ namespace AssisTec.UserControls
         private void CriarNovoContexto()
         {
             this.service = new UsuarioService(new UsuarioRepository(new AppDbContext()));
-            this.serviceRelatorio =  new UsuarioService(new UsuarioRepository(new AppDbContext()), new OrdemServicoRepository(new AppDbContext()));
+            this.serviceOs =  new UsuarioService(new UsuarioRepository(new AppDbContext()), new OrdemServicoRepository(new AppDbContext()));
         }
 
         private void ucGerenciador_Usuario_Load(object sender, EventArgs e)
@@ -292,6 +292,12 @@ namespace AssisTec.UserControls
 
         private void btnHistorico_Click(object sender, EventArgs e)
         {
+            ucHistoricoOS historicoOs = new ucHistoricoOS(idSelected, serviceOs);
+            this.Controls.Add(historicoOs);
+            historicoOs.BringToFront();
+            historicoOs.Left = (this.ClientSize.Width - historicoOs.Width) / 2;
+            historicoOs.Top = (this.ClientSize.Height - historicoOs.Height) / 2;
+            historicoOs.Show();
         }
 
         private void btnRelatorio_Click(object sender, EventArgs e)
@@ -315,7 +321,7 @@ namespace AssisTec.UserControls
 
                     if (saveFileDialog.ShowDialog() == DialogResult.OK)
                     {
-                        serviceRelatorio.GerarRelatorioUsuariosPdf(nome, apenasInativos, nivel, saveFileDialog.FileName);
+                        serviceOs.GerarRelatorioUsuariosPdf(nome, apenasInativos, nivel, saveFileDialog.FileName);
                         MessageBox.Show("Relatório de usuários gerado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }
@@ -344,7 +350,7 @@ namespace AssisTec.UserControls
 
                     if (saveFileDialog.ShowDialog() == DialogResult.OK)
                     {
-                        serviceRelatorio.GerarRelatorioIndividualPdf(idSelected, saveFileDialog.FileName);
+                        serviceOs.GerarRelatorioIndividualPdf(idSelected, saveFileDialog.FileName);
                         MessageBox.Show("Relatório de produtividade gerado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }

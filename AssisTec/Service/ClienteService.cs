@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using AssisTec.Models;
 using AssisTec.Repository;
 
@@ -8,11 +9,19 @@ namespace AssisTec.Service
     public class ClienteService
     {
         private readonly IClienteRepository repository;
+        private readonly IOrdemServicoRepository ordemServicoRepository;
 
         public ClienteService(IClienteRepository _repository)
         {
             this.repository = _repository ?? throw new ArgumentNullException(nameof(_repository));
         }
+        public ClienteService(IClienteRepository _repository,  IOrdemServicoRepository _ordemServicoRepository)
+        {
+            this.repository = _repository ?? throw new ArgumentNullException(nameof(_repository));
+            this.ordemServicoRepository  = _ordemServicoRepository ?? throw new ArgumentNullException(nameof(_ordemServicoRepository));
+        }
+        
+        
 
         public List<Cliente> ObterTodos()
         {
@@ -167,6 +176,11 @@ namespace AssisTec.Service
             {
                 return (false, $"Erro ao consultar o CEP: {ex.Message}", null, null, null, null);
             }
+        }
+
+        public DataTable ObterHistoricoOS(int id)
+        {
+            return ordemServicoRepository.ObterHistoricoCliente(id);
         }
     }
 }
