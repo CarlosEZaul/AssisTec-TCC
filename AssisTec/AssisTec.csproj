@@ -231,6 +231,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>wscep.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="DTO\ClienteDTO.cs" />
     <Compile Include="DTO\ContasPagarDto.cs" />
     <Compile Include="DTO\ContasReceberDto.cs" />
     <Compile Include="DTO\MovimentacoesEstoqueDTO.cs" />

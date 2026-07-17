@@ -137,6 +137,9 @@ namespace AssisTec.UserControls
             txtBusca.Enabled = ativo;
             dgvClientes.Enabled = ativo;
             btnOS.Enabled = ativo;
+            btnRelatorio.Enabled = ativo;
+            btnContato.Enabled = ativo;
+            btnImprimirCliente.Enabled = ativo;
         }
         #endregion
 
@@ -212,14 +215,7 @@ namespace AssisTec.UserControls
             historicoOs.Top = (this.ClientSize.Height - historicoOs.Height) / 2;
             historicoOs.Show();
         }
-
-        private void btnImprimir_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void btnRelatorio_Click(object sender, EventArgs e)
-        {
-        }
+        
 
         private async void btnContato_Click(object sender, EventArgs e)
         {
@@ -272,6 +268,68 @@ namespace AssisTec.UserControls
         private void cbDesativado_CheckedChanged(object sender, EventArgs e)
         {
             Filtro();
+        }
+
+        private void btnImprimir_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                CriarNovoContexto();
+                int idCliente = Convert.ToInt32(dgvClientes.CurrentRow.Cells["Id"].Value);
+                string nomeCliente = dgvClientes.CurrentRow.Cells["Nome"].Value.ToString();
+
+                using (SaveFileDialog sfd = new SaveFileDialog())
+                {
+                    sfd.Filter = "Arquivo PDF (*.pdf)|*.pdf";
+                    sfd.FileName = $"Relatorio_Individual_{nomeCliente.Replace(" ", "_")}_{DateTime.Now:yyyyMMdd}";
+                    sfd.Title = "Salvar Relatório Individual do Cliente";
+
+                    if (sfd.ShowDialog() == DialogResult.OK)
+                    {
+                        Cursor = Cursors.WaitCursor;
+                        clienteServiceOs.GerarRelatorioIndividualClientePdf(idCliente, sfd.FileName);
+
+                        Cursor = Cursors.Default;
+                        MessageBox.Show("Relatório individual gerado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show($"Erro ao gerar o relatório: {exception.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnRelatorio_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string filtroNome = txtBusca.Text.Trim();
+                bool exibirDesativados = cbDesativado.Checked;
+
+                using (SaveFileDialog sfd = new SaveFileDialog())
+                {
+                    sfd.Filter = "Arquivo PDF (*.pdf)|*.pdf";
+                    sfd.FileName = $"Relatorio_Geral_Clientes_{DateTime.Now:yyyyMMdd}";
+                    sfd.Title = "Salvar Relatório Geral de Clientes";
+
+                    if (sfd.ShowDialog() == DialogResult.OK)
+                    {
+                        Cursor = Cursors.WaitCursor;
+
+                        
+                        clienteServiceOs.GerarRelatorioClientesPdf(filtroNome, exibirDesativados, sfd.FileName);
+
+                        Cursor = Cursors.Default;
+                        MessageBox.Show("Relatório geral gerado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Cursor = Cursors.Default;
+                MessageBox.Show($"Erro ao gerar o relatório geral: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

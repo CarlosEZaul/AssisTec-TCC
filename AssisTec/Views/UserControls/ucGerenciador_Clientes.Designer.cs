@@ -35,7 +35,7 @@ namespace AssisTec.UserControls
             this.panelBotoes = new System.Windows.Forms.Panel();
             this.btnContato = new System.Windows.Forms.Button();
             this.btnRelatorio = new System.Windows.Forms.Button();
-            this.btnImprimir = new System.Windows.Forms.Button();
+            this.btnImprimirCliente = new System.Windows.Forms.Button();
             this.btnOS = new System.Windows.Forms.Button();
             this.btnEditar = new System.Windows.Forms.Button();
             this.btnNew = new System.Windows.Forms.Button();
@@ -56,7 +56,7 @@ namespace AssisTec.UserControls
             this.panelBotoes.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.panelBotoes.Controls.Add(this.btnContato);
             this.panelBotoes.Controls.Add(this.btnRelatorio);
-            this.panelBotoes.Controls.Add(this.btnImprimir);
+            this.panelBotoes.Controls.Add(this.btnImprimirCliente);
             this.panelBotoes.Controls.Add(this.btnOS);
             this.panelBotoes.Controls.Add(this.btnEditar);
             this.panelBotoes.Controls.Add(this.btnNew);
@@ -85,6 +85,7 @@ namespace AssisTec.UserControls
             // 
             this.btnRelatorio.BackColor = System.Drawing.Color.RoyalBlue;
             this.btnRelatorio.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnRelatorio.Enabled = false;
             this.btnRelatorio.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRelatorio.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.btnRelatorio.ForeColor = System.Drawing.SystemColors.Control;
@@ -96,21 +97,21 @@ namespace AssisTec.UserControls
             this.btnRelatorio.UseVisualStyleBackColor = false;
             this.btnRelatorio.Click += new System.EventHandler(this.btnRelatorio_Click);
             // 
-            // btnImprimir
+            // btnImprimirCliente
             // 
-            this.btnImprimir.BackColor = System.Drawing.Color.RoyalBlue;
-            this.btnImprimir.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnImprimir.Enabled = false;
-            this.btnImprimir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnImprimir.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.btnImprimir.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnImprimir.Location = new System.Drawing.Point(446, 15);
-            this.btnImprimir.Name = "btnImprimir";
-            this.btnImprimir.Size = new System.Drawing.Size(90, 33);
-            this.btnImprimir.TabIndex = 104;
-            this.btnImprimir.Text = "Imprimir Cliente";
-            this.btnImprimir.UseVisualStyleBackColor = false;
-            this.btnImprimir.Click += new System.EventHandler(this.btnImprimir_Click);
+            this.btnImprimirCliente.BackColor = System.Drawing.Color.RoyalBlue;
+            this.btnImprimirCliente.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnImprimirCliente.Enabled = false;
+            this.btnImprimirCliente.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnImprimirCliente.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.btnImprimirCliente.ForeColor = System.Drawing.SystemColors.Control;
+            this.btnImprimirCliente.Location = new System.Drawing.Point(446, 15);
+            this.btnImprimirCliente.Name = "btnImprimirCliente";
+            this.btnImprimirCliente.Size = new System.Drawing.Size(90, 33);
+            this.btnImprimirCliente.TabIndex = 104;
+            this.btnImprimirCliente.Text = "Imprimir Cliente";
+            this.btnImprimirCliente.UseVisualStyleBackColor = false;
+            this.btnImprimirCliente.Click += new System.EventHandler(this.btnImprimir_Click);
             // 
             // btnOS
             // 
@@ -283,7 +284,7 @@ namespace AssisTec.UserControls
         private System.Windows.Forms.Button btnRelatorio;
 
         private System.Windows.Forms.Panel panelBotoes;
-        private System.Windows.Forms.Button btnImprimir;
+        private System.Windows.Forms.Button btnImprimirCliente;
         private System.Windows.Forms.Button btnOS;
         private System.Windows.Forms.Button btnEditar;
         private System.Windows.Forms.Button btnNew;
