@@ -64,14 +64,12 @@ namespace AssisTec.UserControls
                     dgvOS.Columns[coluna].Visible = false;
             }
 
-            // Renomeia os headers das colunas combinadas
             if (dgvOS.Columns.Contains("CLIENTE_EXIBICAO"))
                 dgvOS.Columns["CLIENTE_EXIBICAO"].HeaderText = "Cliente";
 
             if (dgvOS.Columns.Contains("TECNICO_EXIBICAO"))
                 dgvOS.Columns["TECNICO_EXIBICAO"].HeaderText = "Técnico Responsável";
 
-            // ComboBox usa as colunas cruas (ID + Nome), sem precisar das colunas de exibição
             var listaClientes = dtHistorico.AsEnumerable()
                 .Select(row => $"{row.Field<int>("ID_CLIENTE")} - {row.Field<string>("CLIENTE")}")
                 .Distinct()

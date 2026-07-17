@@ -15,6 +15,6 @@ namespace AssisTec.Repository
         bool CpfExiste(string cpf);
         bool ExisteGerenteAtivo();
         
-        List<Usuario> ObterComFiltros(string nome, bool apenasInativos, int nivel);
+        List<Usuario> ObterComFiltros(string nome, bool exibirDesativados, int nivel);
     }
 }

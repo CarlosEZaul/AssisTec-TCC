@@ -241,11 +241,11 @@ namespace AssisTec.UserControls
             this.cbInativo.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.cbInativo.Font = new System.Drawing.Font("Ebrima", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbInativo.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.cbInativo.Location = new System.Drawing.Point(967, 76);
+            this.cbInativo.Location = new System.Drawing.Point(955, 76);
             this.cbInativo.Name = "cbInativo";
-            this.cbInativo.Size = new System.Drawing.Size(104, 24);
+            this.cbInativo.Size = new System.Drawing.Size(161, 24);
             this.cbInativo.TabIndex = 136;
-            this.cbInativo.Text = "Exibir Inativos";
+            this.cbInativo.Text = "Exibir desativados";
             this.cbInativo.UseVisualStyleBackColor = true;
             this.cbInativo.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 

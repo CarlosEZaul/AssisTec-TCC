@@ -90,7 +90,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios
         private void ConfigurarComboBox()
         {
             cbStatus.Items.Clear();
-            cbStatus.Items.Add("Ativo");
+            cbStatus.Items.Add("Ativado");
             cbStatus.Items.Add("Desativado");
             cbStatus.DropDownStyle = ComboBoxStyle.DropDownList;
 

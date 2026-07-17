@@ -90,6 +90,8 @@ namespace AssisTec.UserControls
                 dgvUsuarios.DataSource = null;
                 dgvUsuarios.DataSource = service.ObterTodos();
                 formartGrid();
+                cbInativo.Checked = false;
+                cbNivel.SelectedIndex = 0;
             }
             catch (Exception ex)
             {

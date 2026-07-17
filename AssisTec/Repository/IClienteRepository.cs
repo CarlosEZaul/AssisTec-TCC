@@ -14,5 +14,8 @@ namespace AssisTec.Repository
         Cliente ObterPorCpf(string cpf);
         bool CpfExiste(string cpf); 
         List<Cliente> ObterComFiltros(string busca);
+        bool AlterarStatus(int id);
+        List<Cliente> ObterComFiltros(string nome, bool exibirDesativados);
+        
     }
 }

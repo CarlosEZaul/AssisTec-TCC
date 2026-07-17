@@ -17,6 +17,10 @@ namespace AssisTec.Models
 
         [StringLength(20)]
         public string Telefone { get; set; }
+        
+        [Required]
+        [StringLength(20)]
+        public string Status { get; set; } = string.Empty;
 
         public DateTime? DataNascimento { get; set; }
 

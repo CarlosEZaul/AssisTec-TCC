@@ -73,7 +73,7 @@ namespace AssisTec.Service
                     return (false, "Usuário não encontrado no sistema.", null);
                 }
 
-                if (usuario.Status != "Ativo")
+                if (usuario.Status != "Ativado")
                 {
                     return (false, "Este usuário está desativado. Entre em contato com o administrador.", null);
                 }
@@ -239,7 +239,7 @@ namespace AssisTec.Service
                 {
                     FiltroNome = string.IsNullOrEmpty(nome) ? "Todos" : nome,
                     FiltroNivel = nivel == 0 ? "Todos" : ObterDescricaoNivel(nivel),
-                    FiltroStatus = apenasInativos ? "Apenas Inativos" : "Todos (Ativos/Inativos)",
+                    FiltroStatus = apenasInativos ? "Apenas Deativado" : "Todos (Ativado/Desativado)",
                     TotalAtivos = 0,
                     TotalInativos = 0,
                     Itens = new List<UsuarioDTO.UsuarioRelatorioDTO>()
@@ -247,7 +247,7 @@ namespace AssisTec.Service
 
                 foreach (var usuario in usuariosFiltrados)
                 {
-                    bool inativo = usuario.Status.Equals("Inativo", StringComparison.OrdinalIgnoreCase);
+                    bool inativo = usuario.Status.Equals("Desativado", StringComparison.OrdinalIgnoreCase);
                     
                     if (inativo)
                     {

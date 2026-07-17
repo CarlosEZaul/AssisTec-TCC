@@ -37,7 +37,7 @@ namespace AssisTec.Repository
         {
             try
             {
-                return context.Clientes.ToList();
+                return context.Clientes.ToList().Where(u => u.Status == "Ativado").ToList();
             }
             catch (Exception ex)
             {
@@ -139,6 +139,58 @@ namespace AssisTec.Repository
             catch (Exception ex)
             {
                 throw new Exception("Falha ao filtrar clientes.", ex);
+            }
+        }
+
+        public bool AlterarStatus(int id)
+        {
+            try
+            {
+                var cliente = context.Clientes.FirstOrDefault(u => u.Id == id);
+                if (cliente == null)
+                {
+                    return false;
+                }
+
+                if (cliente.Status == "Ativado")
+                {
+                    cliente.Status = "Desativado";
+                }
+                else
+                {
+                    cliente.Status = "Ativado";
+                }
+
+                context.SaveChanges();
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
+
+        public List<Cliente> ObterComFiltros(string nome, bool exibirDesativados)
+        {
+            try
+            {
+                IQueryable<Cliente> query = context.Clientes;
+
+                if (!string.IsNullOrEmpty(nome))
+                {
+                    query = query.Where(u => u.Nome.StartsWith(nome));
+                }
+
+                if (!exibirDesativados)
+                {
+                    query = query.Where(u => u.Status == "Ativado");
+                }
+
+                return query.OrderBy(u => u.Nome).ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Falha ao obter clientes com filtros.", ex);
             }
         }
     }

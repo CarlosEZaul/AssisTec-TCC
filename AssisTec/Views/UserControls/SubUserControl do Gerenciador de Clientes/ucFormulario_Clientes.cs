@@ -137,6 +137,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Clientes.ucForm
                 Cpf = mtbCPF.Text,
                 DataNascimento = dataNasc,
                 Telefone = mtbTel.Text,
+                Status = "Ativado",
                 Cep = mtbCep.Text,
                 Rua = txtRua.Text,
                 Numero = txtNumber.Text,

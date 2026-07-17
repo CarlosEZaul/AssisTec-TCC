@@ -47,7 +47,7 @@ namespace AssisTec.UserControls
                 DesingComponentes.StyleTextBox(txtBusca);
                 DesingComponentes.centralizarPanel(panelBotoes, this.Width);
                 DesingComponentes.StyleButton(btnNew, Color.FromArgb(0, 120, 215));
-                DesingComponentes.StyleButton(btnDelete, Color.FromArgb(209, 17, 65));
+                
 
                 DesingComponentes.StyleDataGridView(dgvClientes, DataGridViewAutoSizeColumnsMode.Fill);
             }
@@ -68,14 +68,15 @@ namespace AssisTec.UserControls
             dgvClientes.Columns[1].HeaderText = "NOME";
             dgvClientes.Columns[2].HeaderText = "CPF";
             dgvClientes.Columns[3].HeaderText = "TELEFONE";
-            dgvClientes.Columns[4].HeaderText = "DATA DE NASC.";
-            dgvClientes.Columns[5].HeaderText = "CEP";
-            dgvClientes.Columns[6].HeaderText = "RUA";
-            dgvClientes.Columns[7].HeaderText = "NÚMERO";
-            dgvClientes.Columns[8].HeaderText = "CIDADE";
-            dgvClientes.Columns[9].HeaderText = "ESTADO";
-            dgvClientes.Columns[10].HeaderText = "BAIRRO";
-            dgvClientes.Columns[11].HeaderText = "COMPLEMENTO";
+            dgvClientes.Columns[4].HeaderText = "STATUS";
+            dgvClientes.Columns[5].HeaderText = "DATA DE NASC.";
+            dgvClientes.Columns[6].HeaderText = "CEP";
+            dgvClientes.Columns[7].HeaderText = "RUA";
+            dgvClientes.Columns[8].HeaderText = "NÚMERO";
+            dgvClientes.Columns[9].HeaderText = "CIDADE";
+            dgvClientes.Columns[10].HeaderText = "ESTADO";
+            dgvClientes.Columns[11].HeaderText = "BAIRRO";
+            dgvClientes.Columns[12].HeaderText = "COMPLEMENTO";
         }
         
         public void ListGrid()
@@ -99,7 +100,7 @@ namespace AssisTec.UserControls
             {
                 CriarNovoContexto();
                 dgvClientes.DataSource = null;
-                dgvClientes.DataSource = service.FiltrarClientes(txtBusca.Text);
+                dgvClientes.DataSource = service.ObterComFiltros(txtBusca.Text, cbDesativado.Checked);
                 FormartGrid();
             }
             catch (Exception ex)
@@ -131,7 +132,7 @@ namespace AssisTec.UserControls
         {
             btnNew.Enabled = ativo;
             btnEditar.Enabled = ativo;
-            btnDelete.Enabled = ativo;
+            btnStatus.Enabled = ativo;
             btnAtualizar.Enabled = ativo;
             txtBusca.Enabled = ativo;
             dgvClientes.Enabled = ativo;
@@ -171,45 +172,25 @@ namespace AssisTec.UserControls
             }
         }
 
-        private void btnDelete_Click(object sender, EventArgs e)
+        private void btnStatus_Click(object sender, EventArgs e)
         {
-            if (idSelected <= 0)
+            if (service.ObterPorId(idSelected).Status == "Ativado")
             {
-                MessageBox.Show("Selecione um cliente válido para realizar a exclusão.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            DialogResult primeiroDialogo = MessageBox.Show("Deseja realmente deletar o cliente selecionado?", "Excluir", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (primeiroDialogo == DialogResult.No)
-            {
-                MessageBox.Show("Operação cancelada");
-                return;
-            }
-
-            using (var context = new AppDbContext())
-            {
-                var repository = new ClienteRepository(context);
-                var serviceCliente = new ClienteService(repository);
-
-                var (podeExcluir, mensagem) = serviceCliente.ValidarExclusao(idSelected);
-
-                if (!podeExcluir)
+                DialogResult result = MessageBox.Show("Deseja desativar o cliente ?", "Desativar", MessageBoxButtons.YesNo);
+                if (result == DialogResult.Yes)
                 {
-                    MessageBox.Show(mensagem, "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
-
-                if (serviceCliente.DeletarCliente(idSelected))
-                {
-                    ControleEstadoComponentes(false);
-                    MessageBox.Show("Cliente removido com sucesso.", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    ListGrid();
-                }
-                else
-                {
-                    MessageBox.Show("Falha ao tentar excluir o cliente.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    service.AlterarStatus(idSelected);
                 }
             }
+            else
+            {
+                DialogResult result = MessageBox.Show("Deseja ativar o cliente ?", "Ativar", MessageBoxButtons.YesNo);
+                if (result == DialogResult.Yes)
+                {
+                    service.AlterarStatus(idSelected);
+                }
+            }
+            ListGrid();
         }
 
         private void btnAtualizar_Click(object sender, EventArgs e)
@@ -287,5 +268,10 @@ namespace AssisTec.UserControls
             }
         }
         #endregion
+
+        private void cbDesativado_CheckedChanged(object sender, EventArgs e)
+        {
+            Filtro();
+        }
     }
 }

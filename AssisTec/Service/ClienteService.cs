@@ -182,5 +182,29 @@ namespace AssisTec.Service
         {
             return ordemServicoRepository.ObterHistoricoCliente(id);
         }
+
+        public bool AlterarStatus(int id)
+        {
+            try
+            {
+                return repository.AlterarStatus(id);
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Erro ao alterar o status do cliente.", e);
+            }
+        }
+
+        public List<Cliente> ObterComFiltros(string busca, bool ApenasInativos)
+        {
+            try
+            {
+                return repository.ObterComFiltros(busca, ApenasInativos);
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Erro ao obter os clientes.", e);
+            }
+        }
     }
 }

@@ -33,7 +33,7 @@ namespace AssisTec.Repository
         {
             try
             {
-                return context.Usuarios.ToList();
+                return context.Usuarios.Where(u => u.Status=="Ativado").ToList();
             }
             catch (Exception ex)
             {
@@ -68,7 +68,7 @@ namespace AssisTec.Repository
                     .ToList()
                     .FirstOrDefault(u =>
                         u.Cpf.Replace(".", "").Replace("-", "").Replace(",", "").Trim() == cpfDigitadoLimpo &&
-                        u.Status.Trim().ToLower() == "ativo"
+                        u.Status.Trim().ToLower() == "ativado"
                     );
             }
             catch (Exception ex)
@@ -127,13 +127,13 @@ namespace AssisTec.Repository
                     return false;
                 }
 
-                if (usuario.Status == "Ativo")
+                if (usuario.Status == "Ativado")
                 {
-                    usuario.Status = "Inativo";
+                    usuario.Status = "Desativado";
                 }
                 else
                 {
-                    usuario.Status = "Ativo";
+                    usuario.Status = "Ativado";
                 }
 
                 context.SaveChanges();
@@ -170,7 +170,7 @@ namespace AssisTec.Repository
         {
             try
             {
-                return context.Usuarios.Any(u => u.Nivel == 1 && u.Status.Trim().ToLower() == "ativo");
+                return context.Usuarios.Any(u => u.Nivel == 1 && u.Status.Trim().ToLower() == "Ativado");
             }
             catch (Exception ex)
             {
@@ -178,7 +178,7 @@ namespace AssisTec.Repository
             }
         }
 
-        public List<Usuario> ObterComFiltros(string nome, bool apenasInativos, int nivel)
+        public List<Usuario> ObterComFiltros(string nome, bool exibirDesativados, int nivel)
         {
             try
             {
@@ -188,14 +188,12 @@ namespace AssisTec.Repository
                 {
                     query = query.Where(u => u.Nome.StartsWith(nome));
                 }
-                if (apenasInativos)
+
+                if (!exibirDesativados)
                 {
-                    query = query.Where(u => u.Status == "Inativo");
+                    query = query.Where(u => u.Status == "Ativado");
                 }
-                else
-                {
-                    query = query.Where(u => u.Status == "Ativo");
-                }
+
                 if (nivel > 0)
                 {
                     query = query.Where(u => u.Nivel == nivel);
