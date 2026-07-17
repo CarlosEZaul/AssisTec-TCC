@@ -12,13 +12,19 @@ namespace AssisTec.Repository
         {
             this.context = context;
         }
+        
         public DataTable ObterHistoricoUsuario(int idUsuario)
         {
             try
             {
                 DataTable dataTable = new DataTable();
                 dataTable.Columns.Add("ID_ORDEM", typeof(int));
+                dataTable.Columns.Add("ID_CLIENTE", typeof(int));
                 dataTable.Columns.Add("CLIENTE", typeof(string));
+                dataTable.Columns.Add("CLIENTE_EXIBICAO", typeof(string));
+                dataTable.Columns.Add("ID_TECNICO", typeof(int));
+                dataTable.Columns.Add("Técnico Responsável", typeof(string));
+                dataTable.Columns.Add("TECNICO_EXIBICAO", typeof(string));
                 dataTable.Columns.Add("EQUIPAMENTO", typeof(string));
                 dataTable.Columns.Add("DATA_ABERTURA", typeof(DateTime));
                 dataTable.Columns.Add("DATA_FECHAMENTO", typeof(object));
@@ -30,7 +36,10 @@ namespace AssisTec.Repository
                     .Select(os => new
                     {
                         os.id_os,
+                        ClienteId = os.Cliente != null ? os.Cliente.Id : 0,
                         ClienteNome = os.Cliente != null ? os.Cliente.Nome : "Sem Cliente",
+                        TecnicoId = os.Tecnico != null ? os.Tecnico.Id : 0,
+                        TecnicoNome = os.Tecnico != null ? os.Tecnico.Nome : "Sem Tecnico",
                         EquipamentoDescricao = os.Equipamento != null ? os.Equipamento.Descricao : "Sem Equipamento",
                         os.data_abertura,
                         os.data_fechamento,
@@ -43,7 +52,12 @@ namespace AssisTec.Repository
                 {
                     dataTable.Rows.Add(
                         os.id_os,
+                        os.ClienteId,
                         os.ClienteNome,
+                        $"ID: {os.ClienteId} - Nome: {os.ClienteNome}",
+                        os.TecnicoId,
+                        os.TecnicoNome,
+                        $"ID: {os.TecnicoId} - Nome: {os.TecnicoNome}",
                         os.EquipamentoDescricao,
                         os.data_abertura,
                         (object)os.data_fechamento ?? DBNull.Value,
@@ -66,7 +80,12 @@ namespace AssisTec.Repository
             {
                 DataTable dataTable = new DataTable();
                 dataTable.Columns.Add("ID_ORDEM", typeof(int));
+                dataTable.Columns.Add("ID_CLIENTE", typeof(int));
                 dataTable.Columns.Add("CLIENTE", typeof(string));
+                dataTable.Columns.Add("CLIENTE_EXIBICAO", typeof(string));
+                dataTable.Columns.Add("ID_TECNICO", typeof(int));
+                dataTable.Columns.Add("Técnico Responsável", typeof(string));
+                dataTable.Columns.Add("TECNICO_EXIBICAO", typeof(string));
                 dataTable.Columns.Add("EQUIPAMENTO", typeof(string));
                 dataTable.Columns.Add("DATA_ABERTURA", typeof(DateTime));
                 dataTable.Columns.Add("DATA_FECHAMENTO", typeof(object));
@@ -78,7 +97,10 @@ namespace AssisTec.Repository
                     .Select(os => new
                     {
                         os.id_os,
+                        ClienteId = os.Cliente != null ? os.Cliente.Id : 0,
                         ClienteNome = os.Cliente != null ? os.Cliente.Nome : "Sem Cliente",
+                        TecnicoId = os.Tecnico != null ? os.Tecnico.Id : 0,
+                        TecnicoNome = os.Tecnico != null ? os.Tecnico.Nome : "Sem Tecnico",
                         EquipamentoDescricao = os.Equipamento != null ? os.Equipamento.Descricao : "Sem Equipamento",
                         os.data_abertura,
                         os.data_fechamento,
@@ -91,7 +113,12 @@ namespace AssisTec.Repository
                 {
                     dataTable.Rows.Add(
                         os.id_os,
+                        os.ClienteId,
                         os.ClienteNome,
+                        $"ID: {os.ClienteId} - Nome: {os.ClienteNome}",
+                        os.TecnicoId,
+                        os.TecnicoNome,
+                        $"ID: {os.TecnicoId} - Nome: {os.TecnicoNome}",
                         os.EquipamentoDescricao,
                         os.data_abertura,
                         (object)os.data_fechamento ?? DBNull.Value,

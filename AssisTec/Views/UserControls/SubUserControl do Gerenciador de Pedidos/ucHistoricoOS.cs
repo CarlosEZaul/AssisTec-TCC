@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+using System.Linq;
 using System.Windows.Forms;
 
 using AssisTec.Models;
@@ -42,17 +43,63 @@ namespace AssisTec.UserControls
             DesingComponentes.centralizarPanel(panelBotoes, this.Width);
         }
         
-
         #endregion
+        
+
+        private void ConfigurarComponentes(DataTable dtHistorico)
+        {
+            if (dtHistorico == null || dtHistorico.Rows.Count == 0)
+            {
+                dgvOS.DataSource = null;
+                cbClientes.DataSource = null;
+                cbTécnico.DataSource = null;
+                return;
+            }
+
+            dgvOS.DataSource = dtHistorico;
+
+            foreach (var coluna in new[] { "ID_CLIENTE", "CLIENTE", "ID_TECNICO", "Técnico Responsável" })
+            {
+                if (dgvOS.Columns.Contains(coluna))
+                    dgvOS.Columns[coluna].Visible = false;
+            }
+
+            // Renomeia os headers das colunas combinadas
+            if (dgvOS.Columns.Contains("CLIENTE_EXIBICAO"))
+                dgvOS.Columns["CLIENTE_EXIBICAO"].HeaderText = "Cliente";
+
+            if (dgvOS.Columns.Contains("TECNICO_EXIBICAO"))
+                dgvOS.Columns["TECNICO_EXIBICAO"].HeaderText = "Técnico Responsável";
+
+            // ComboBox usa as colunas cruas (ID + Nome), sem precisar das colunas de exibição
+            var listaClientes = dtHistorico.AsEnumerable()
+                .Select(row => $"{row.Field<int>("ID_CLIENTE")} - {row.Field<string>("CLIENTE")}")
+                .Distinct()
+                .OrderBy(texto => texto)
+                .ToList();
+
+            cbClientes.DataSource = listaClientes;
+
+            var listaTecnicos = dtHistorico.AsEnumerable()
+                .Select(row => $"{row.Field<int>("ID_TECNICO")} - {row.Field<string>("Técnico Responsável")}")
+                .Distinct()
+                .OrderBy(texto => texto)
+                .ToList();
+
+            cbTécnico.DataSource = listaTecnicos;
+        }
 
         private void listGridUsuario(int id)
         {
-            dgvOS.DataSource = _usuarioService.obterHistoricoOs(id);
+            DataTable dtHistorico = _usuarioService.obterHistoricoOs(id);
+            ConfigurarComponentes(dtHistorico);
+            
         }
 
         private void listGridCliente(int id)
         {
-            dgvOS.DataSource = _clienteService.ObterHistoricoOS(id);
+            DataTable dtHistorico = _clienteService.ObterHistoricoOS(id);
+            ConfigurarComponentes(dtHistorico);
         } 
         
        
@@ -61,30 +108,5 @@ namespace AssisTec.UserControls
             this.Dispose();
         }
         
-        private void formatGrid()
-        {
-            if (dgvOS.Columns.Count <= 0) return;
-            // Headers
-            dgvOS.Columns[0].HeaderText = "ID_OS";
-            dgvOS.Columns[1].HeaderText = "Cliente";
-            dgvOS.Columns[2].HeaderText = "Técnico Responsável";
-            
-            dgvOS.Columns[3].HeaderText = "Equipamento";
-            dgvOS.Columns[4].HeaderText = "Status";
-            dgvOS.Columns[5].HeaderText = "Data de abertura";
-            dgvOS.Columns[6].HeaderText = "Última Atualização";
-            dgvOS.Columns[7].HeaderText = "Data de Encerramento";
-            dgvOS.Columns[8].HeaderText = "Valor Mão de Obra";
-            dgvOS.Columns[9].HeaderText = "Valor p/ peça";
-            dgvOS.Columns[10].HeaderText = "Valor total";
-            dgvOS.Columns[11].HeaderText = "Problema relatado";
-            dgvOS.Columns[11].HeaderText = "Diagnóstico";
-            dgvOS.Columns[11].HeaderText = "Observações";
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            this.Dispose();
-        }
     }
 }

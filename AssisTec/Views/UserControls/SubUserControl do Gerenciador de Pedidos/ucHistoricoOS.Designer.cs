@@ -42,8 +42,7 @@ namespace AssisTec.UserControls
             this.btnRelatorio = new System.Windows.Forms.Button();
             this.btnFecha = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.txtTecnico = new System.Windows.Forms.TextBox();
-            this.cbTipoMovimentação = new System.Windows.Forms.ComboBox();
+            this.cbClientes = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.btnAtualizar = new System.Windows.Forms.PictureBox();
             this.btnBuscar = new System.Windows.Forms.Button();
@@ -52,6 +51,7 @@ namespace AssisTec.UserControls
             this.label2 = new System.Windows.Forms.Label();
             this.mtbDataInicio = new System.Windows.Forms.MaskedTextBox();
             this.label5 = new System.Windows.Forms.Label();
+            this.cbTécnico = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvOS)).BeginInit();
             this.panelBotoes.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -181,12 +181,12 @@ namespace AssisTec.UserControls
             this.btnFecha.TabIndex = 102;
             this.btnFecha.Text = "Fechar";
             this.btnFecha.UseVisualStyleBackColor = false;
-            this.btnFecha.Click += new System.EventHandler(this.button1_Click);
+            this.btnFecha.Click += new System.EventHandler(this.btnFechar_Click);
             // 
             // panel2
             // 
-            this.panel2.Controls.Add(this.txtTecnico);
-            this.panel2.Controls.Add(this.cbTipoMovimentação);
+            this.panel2.Controls.Add(this.cbTécnico);
+            this.panel2.Controls.Add(this.cbClientes);
             this.panel2.Controls.Add(this.label1);
             this.panel2.Controls.Add(this.btnAtualizar);
             this.panel2.Controls.Add(this.btnBuscar);
@@ -201,21 +201,14 @@ namespace AssisTec.UserControls
             this.panel2.Size = new System.Drawing.Size(1152, 48);
             this.panel2.TabIndex = 255;
             // 
-            // txtTecnico
+            // cbClientes
             // 
-            this.txtTecnico.Location = new System.Drawing.Point(398, 21);
-            this.txtTecnico.Name = "txtTecnico";
-            this.txtTecnico.Size = new System.Drawing.Size(269, 20);
-            this.txtTecnico.TabIndex = 169;
-            // 
-            // cbTipoMovimentação
-            // 
-            this.cbTipoMovimentação.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.cbTipoMovimentação.FormattingEnabled = true;
-            this.cbTipoMovimentação.Location = new System.Drawing.Point(687, 21);
-            this.cbTipoMovimentação.Name = "cbTipoMovimentação";
-            this.cbTipoMovimentação.Size = new System.Drawing.Size(296, 21);
-            this.cbTipoMovimentação.TabIndex = 168;
+            this.cbClientes.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.cbClientes.FormattingEnabled = true;
+            this.cbClientes.Location = new System.Drawing.Point(687, 21);
+            this.cbClientes.Name = "cbClientes";
+            this.cbClientes.Size = new System.Drawing.Size(296, 21);
+            this.cbClientes.TabIndex = 168;
             // 
             // label1
             // 
@@ -311,6 +304,15 @@ namespace AssisTec.UserControls
             this.label5.TabIndex = 159;
             this.label5.Text = "Data de início:";
             // 
+            // cbTécnico
+            // 
+            this.cbTécnico.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.cbTécnico.FormattingEnabled = true;
+            this.cbTécnico.Location = new System.Drawing.Point(385, 21);
+            this.cbTécnico.Name = "cbTécnico";
+            this.cbTécnico.Size = new System.Drawing.Size(296, 21);
+            this.cbTécnico.TabIndex = 169;
+            // 
             // ucHistoricoOS
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -333,10 +335,10 @@ namespace AssisTec.UserControls
             this.ResumeLayout(false);
         }
 
-        private System.Windows.Forms.TextBox txtTecnico;
+        private System.Windows.Forms.ComboBox cbTécnico;
 
         private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.ComboBox cbTipoMovimentação;
+        private System.Windows.Forms.ComboBox cbClientes;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.PictureBox btnAtualizar;
         private System.Windows.Forms.Button btnBuscar;
