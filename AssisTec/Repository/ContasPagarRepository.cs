@@ -12,9 +12,10 @@ namespace AssisTec.Repository
     public class ContasPagarRepository : IContasPagarRepository
     {
         private readonly AppDbContext _context;
+
         public ContasPagarRepository(AppDbContext context)
         {
-            _context = context ?? throw  new System.ArgumentNullException(nameof(context));
+            _context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
         public bool Inserir(ContasPagar conta)
@@ -25,9 +26,13 @@ namespace AssisTec.Repository
 
         public IEnumerable<ContasPagarDto> ObterTodos()
         {
+            var hoje = DateTime.Today;
+            var inicioMes = new DateTime(hoje.Year, hoje.Month, 1);
+            var fimMes = inicioMes.AddMonths(1);
+
             return _context.Contas_Pagar
-                .Include(c => c.Pagamento)
-                .AsEnumerable() 
+                .Where(c => (c.data_vencimento >= inicioMes && c.data_vencimento < fimMes)
+                         || (c.data_vencimento < inicioMes && c.status != "PAGA"))
                 .Select(c => new ContasPagarDto
                 {
                     IdContaReceber = c.id_conta_pagar,
@@ -48,10 +53,7 @@ namespace AssisTec.Repository
             return _context.Contas_Pagar.Find(id);
         }
 
-        public bool Update(ContasPagar conta)
-        {
-            return Atualizar(conta);
-        }
+        
 
         public bool Atualizar(ContasPagar conta)
         {
@@ -71,7 +73,8 @@ namespace AssisTec.Repository
         {
             var conta = _context.Contas_Pagar.Find(id);
             if (conta == null) return false;
-            if(conta.status == "PENDENTE") return true;
+            if (conta.status == "ATRASADO") return true;
+
             conta.status = "ATRASADO";
             return _context.SaveChanges() > 0;
         }
@@ -109,33 +112,52 @@ namespace AssisTec.Repository
 
         public (decimal TotalGeral, decimal TotalPagar, decimal TotalPendente, decimal TotalAtrasado) ObterTotais(ContasPagar filtro)
         {
-            var dados = AplicarFiltros(filtro).Select(c=> new{c.status, c.valor}).ToList();
+            var hoje = DateTime.Today;
+            var inicioMes = new DateTime(hoje.Year, hoje.Month, 1);
+
+            var dados = AplicarFiltros(filtro)
+                .Select(c => new { c.status, c.valor, c.data_vencimento })
+                .ToList();
+
             return (
                 dados.Sum(c => c.valor),
                 dados.Where(c => c.status == "PAGA").Sum(c => c.valor),
-                dados.Where(c => c.status == "PENDENTE").Sum(c => c.valor),
-                dados.Where(c => c.status == "ATRASADO").Sum(c => c.valor)
+                dados.Where(c => c.status == "PENDENTE" && c.data_vencimento >= inicioMes).Sum(c => c.valor),
+                dados.Where(c => c.status == "ATRASADO" || (c.data_vencimento < inicioMes && c.status != "PAGA")).Sum(c => c.valor)
             );
         }
 
         public IQueryable<ContasPagar> AplicarFiltros(ContasPagar filtro)
         {
             var query = _context.Contas_Pagar.AsQueryable();
-            
-            if (!string.IsNullOrWhiteSpace(filtro.filtroDescricao))
-                query = query.Where(c => c.descricao.Contains(filtro.filtroDescricao));
 
-            if (!string.IsNullOrWhiteSpace(filtro.filtroStatus))
-                query = query.Where(c => c.status == filtro.filtroStatus);
+            var hoje = DateTime.Today;
+            var inicioMes = new DateTime(hoje.Year, hoje.Month, 1);
+            var fimMes = inicioMes.AddMonths(1);
 
-            if (filtro.filtroIdFormaPagamento.HasValue && filtro.filtroIdFormaPagamento.Value > 0)
-                query = query.Where(c => c.id_forma_pagamento_fk == filtro.filtroIdFormaPagamento.Value);
+            bool possuiFiltroDataInicio = DateTime.TryParseExact(filtro?.filtroDataInicio, "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime dtInicio);
+            bool possuiFiltroDataFim = DateTime.TryParseExact(filtro?.filtroDataFim, "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime dtFim);
 
-            if (DateTime.TryParseExact(filtro.filtroDataInicio, "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime dtInicio))
+            if (possuiFiltroDataInicio)
                 query = query.Where(c => c.data_vencimento >= dtInicio.Date);
 
-            if (DateTime.TryParseExact(filtro.filtroDataFim, "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime dtFim))
+            if (possuiFiltroDataFim)
                 query = query.Where(c => c.data_vencimento < dtFim.Date.AddDays(1));
+
+            if (!possuiFiltroDataInicio && !possuiFiltroDataFim)
+            {
+                query = query.Where(c => (c.data_vencimento >= inicioMes && c.data_vencimento < fimMes)
+                                      || (c.data_vencimento < inicioMes && c.status != "PAGA"));
+            }
+
+            if (!string.IsNullOrWhiteSpace(filtro?.filtroDescricao))
+                query = query.Where(c => c.descricao.Contains(filtro.filtroDescricao));
+
+            if (!string.IsNullOrWhiteSpace(filtro?.filtroStatus))
+                query = query.Where(c => c.status == filtro.filtroStatus);
+
+            if (filtro?.filtroIdFormaPagamento.HasValue == true && filtro.filtroIdFormaPagamento.Value > 0)
+                query = query.Where(c => c.id_forma_pagamento_fk == filtro.filtroIdFormaPagamento.Value);
 
             return query;
         }

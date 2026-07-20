@@ -35,10 +35,12 @@ namespace AssisTec.Repository
 
         public IEnumerable<ContasReceberDto> ObterTodos()
         {
+            var hoje = DateTime.Today;
+            var inicioMes = new DateTime(hoje.Year, hoje.Month, 1);
+            var fimMes = inicioMes.AddMonths(1);
+
             return _context.ContasReceber
-                .Include(c => c.Pagamento)
-                .Include(c => c.OrdemServico)
-                .AsEnumerable() 
+                .Where(c => (c.data_vencimento >= inicioMes && c.data_vencimento < fimMes) || c.status == "ATRASADO")
                 .Select(c => new ContasReceberDto
                 {
                     IdContaReceber = c.id_conta_receber,
@@ -53,6 +55,34 @@ namespace AssisTec.Repository
                     FormaPagamentoDescricao = c.Pagamento != null ? c.Pagamento.Descricao : "---"
                 })
                 .ToList();
+        }
+        
+        public (decimal TotalGeral, decimal TotalRecebido, decimal TotalPendente, decimal TotalAtrasado) ObterTotais(ContasReceber filtro)
+        {
+            var hoje = DateTime.Today;
+            var inicioMes = new DateTime(hoje.Year, hoje.Month, 1);
+            var fimMes = inicioMes.AddMonths(1);
+
+            var query = _context.ContasReceber.AsQueryable();
+
+            if (filtro != null && (!string.IsNullOrWhiteSpace(filtro.filtroDataInicio) || !string.IsNullOrWhiteSpace(filtro.filtroDescricao) || !string.IsNullOrWhiteSpace(filtro.filtroStatus)))
+            {
+                query = AplicarFiltros(filtro);
+            }
+            else
+            {
+                query = query.Where(c => (c.data_vencimento >= inicioMes && c.data_vencimento < fimMes) 
+                                         || (c.data_vencimento < inicioMes && c.status != "PAGA"));
+            }
+
+            var dados = query.Select(c => new { c.status, c.valor, c.data_vencimento }).ToList();
+
+            return (
+                dados.Sum(c => c.valor),
+                dados.Where(c => c.status == "PAGA").Sum(c => c.valor),
+                dados.Where(c => c.status == "PENDENTE" && c.data_vencimento >= inicioMes).Sum(c => c.valor),
+                dados.Where(c => c.status == "ATRASADO" || (c.data_vencimento < inicioMes && c.status != "PAGA")).Sum(c => c.valor)
+            );
         }
 
         public ContasReceber ObterPorId(int id) => _context.ContasReceber.Find(id);
@@ -118,18 +148,6 @@ namespace AssisTec.Repository
             }
 
             return dt;
-        }
-
-        public (decimal TotalGeral, decimal TotalRecebido, decimal TotalPendente, decimal TotalAtrasado) ObterTotais(ContasReceber filtro)
-        {
-            var dados = AplicarFiltros(filtro).Select(c => new { c.status, c.valor }).ToList();
-
-            return (
-                dados.Sum(c => c.valor),
-                dados.Where(c => c.status == "PAGA").Sum(c => c.valor),
-                dados.Where(c => c.status == "PENDENTE").Sum(c => c.valor),
-                dados.Where(c => c.status == "ATRASADO").Sum(c => c.valor)
-            );
         }
 
         public IQueryable<ContasReceber> AplicarFiltros(ContasReceber filtro)
