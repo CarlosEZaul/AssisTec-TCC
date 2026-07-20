@@ -7,7 +7,7 @@ namespace AssisTec.DTO
     public class LucroMesDTO
     {
         AppDbContext _context = new AppDbContext();
-        public (decimal TotalRecebido, decimal TotalPago, decimal LucroLiquido) ObterLucroDoMes(int mes, int ano)
+        public (decimal TotalRecebido, decimal TotalPago,decimal totalPagar, decimal LucroLiquido) ObterLucroDoMes(int mes, int ano)
         {
             var inicioMes = new DateTime(ano, mes, 1);
             var fimMes = inicioMes.AddMonths(1);
@@ -23,10 +23,15 @@ namespace AssisTec.DTO
                             && c.data_pagamento >= inicioMes 
                             && c.data_pagamento < fimMes)
                 .Sum(c => (decimal?)c.valor) ?? 0m;
+            
+            decimal totalPagar = _context.Contas_Pagar.Where(c => c.status == "PENDENTE" && c.data_pagamento >= inicioMes
+                    && c.data_pagamento < fimMes || c.status == "ATRASADO" && c.data_pagamento >= inicioMes
+                                                                          && c.data_pagamento < fimMes)
+                .Sum(c => (decimal?)c.valor) ?? 0m;
 
             decimal lucroLiquido = totalRecebido - totalPago;
 
-            return (totalRecebido, totalPago, lucroLiquido);
+            return (totalRecebido, totalPago,totalPagar, lucroLiquido);
         }
     }
 }

@@ -40,13 +40,13 @@ namespace AssisTec.UserControls
             this.label11 = new System.Windows.Forms.Label();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.panel5 = new System.Windows.Forms.Panel();
-            this.lblValorEstoque = new System.Windows.Forms.Label();
+            this.lblContaPagar = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.panel3 = new System.Windows.Forms.Panel();
             this.lblMinimo = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
-            this.fifgurinha = new System.Windows.Forms.PictureBox();
+            this.picturebox = new System.Windows.Forms.PictureBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.lblOrdemServico = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
@@ -58,7 +58,7 @@ namespace AssisTec.UserControls
             this.panel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             this.panel3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.fifgurinha)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picturebox)).BeginInit();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -126,7 +126,7 @@ namespace AssisTec.UserControls
             this.lblFaturamento.Name = "lblFaturamento";
             this.lblFaturamento.Size = new System.Drawing.Size(115, 23);
             this.lblFaturamento.TabIndex = 4;
-            this.lblFaturamento.Text = "0";
+            this.lblFaturamento.Text = "R$";
             // 
             // label11
             // 
@@ -140,8 +140,10 @@ namespace AssisTec.UserControls
             // 
             // pictureBox3
             // 
+            this.pictureBox3.BackgroundImage = global::AssisTec.Properties.Resources.cifrao;
             this.pictureBox3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pictureBox3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureBox3.Image = global::AssisTec.Properties.Resources.cifrao;
             this.pictureBox3.Location = new System.Drawing.Point(3, 1);
             this.pictureBox3.Name = "pictureBox3";
             this.pictureBox3.Size = new System.Drawing.Size(57, 51);
@@ -152,7 +154,7 @@ namespace AssisTec.UserControls
             // 
             this.panel5.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.panel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel5.Controls.Add(this.lblValorEstoque);
+            this.panel5.Controls.Add(this.lblContaPagar);
             this.panel5.Controls.Add(this.label13);
             this.panel5.Controls.Add(this.pictureBox4);
             this.panel5.Location = new System.Drawing.Point(827, 13);
@@ -160,15 +162,15 @@ namespace AssisTec.UserControls
             this.panel5.Size = new System.Drawing.Size(239, 56);
             this.panel5.TabIndex = 165;
             // 
-            // lblValorEstoque
+            // lblContaPagar
             // 
-            this.lblValorEstoque.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblValorEstoque.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.lblValorEstoque.Location = new System.Drawing.Point(66, 26);
-            this.lblValorEstoque.Name = "lblValorEstoque";
-            this.lblValorEstoque.Size = new System.Drawing.Size(115, 23);
-            this.lblValorEstoque.TabIndex = 5;
-            this.lblValorEstoque.Text = "R$";
+            this.lblContaPagar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblContaPagar.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.lblContaPagar.Location = new System.Drawing.Point(66, 26);
+            this.lblContaPagar.Name = "lblContaPagar";
+            this.lblContaPagar.Size = new System.Drawing.Size(115, 23);
+            this.lblContaPagar.TabIndex = 5;
+            this.lblContaPagar.Text = "R$";
             // 
             // label13
             // 
@@ -178,10 +180,11 @@ namespace AssisTec.UserControls
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(115, 23);
             this.label13.TabIndex = 1;
-            this.label13.Text = "Valor em estoque";
+            this.label13.Text = "Contas a Pagar";
             // 
             // pictureBox4
             // 
+            this.pictureBox4.BackgroundImage = global::AssisTec.Properties.Resources.cifrao_vermelho_removebg_preview;
             this.pictureBox4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pictureBox4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pictureBox4.Location = new System.Drawing.Point(3, 1);
@@ -196,7 +199,7 @@ namespace AssisTec.UserControls
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel3.Controls.Add(this.lblMinimo);
             this.panel3.Controls.Add(this.label9);
-            this.panel3.Controls.Add(this.fifgurinha);
+            this.panel3.Controls.Add(this.picturebox);
             this.panel3.Location = new System.Drawing.Point(337, 13);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(239, 56);
@@ -222,15 +225,16 @@ namespace AssisTec.UserControls
             this.label9.TabIndex = 1;
             this.label9.Text = "Produtos Abaixo do Mínimo";
             // 
-            // fifgurinha
+            // picturebox
             // 
-            this.fifgurinha.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.fifgurinha.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.fifgurinha.Location = new System.Drawing.Point(3, 1);
-            this.fifgurinha.Name = "fifgurinha";
-            this.fifgurinha.Size = new System.Drawing.Size(57, 51);
-            this.fifgurinha.TabIndex = 0;
-            this.fifgurinha.TabStop = false;
+            this.picturebox.BackgroundImage = global::AssisTec.Properties.Resources.abaixo_minimo;
+            this.picturebox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.picturebox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picturebox.Location = new System.Drawing.Point(3, 1);
+            this.picturebox.Name = "picturebox";
+            this.picturebox.Size = new System.Drawing.Size(57, 51);
+            this.picturebox.TabIndex = 0;
+            this.picturebox.TabStop = false;
             // 
             // panel2
             // 
@@ -266,6 +270,7 @@ namespace AssisTec.UserControls
             // 
             // pictureBox1
             // 
+            this.pictureBox1.BackgroundImage = global::AssisTec.Properties.Resources.ordemServico;
             this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pictureBox1.Location = new System.Drawing.Point(3, 1);
@@ -290,7 +295,7 @@ namespace AssisTec.UserControls
             this.panel5.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             this.panel3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.fifgurinha)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picturebox)).EndInit();
             this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
@@ -302,13 +307,13 @@ namespace AssisTec.UserControls
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.PictureBox pictureBox3;
         private System.Windows.Forms.Panel panel5;
-        private System.Windows.Forms.Label lblValorEstoque;
+        private System.Windows.Forms.Label lblContaPagar;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.PictureBox pictureBox4;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Label lblMinimo;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.PictureBox fifgurinha;
+        private System.Windows.Forms.PictureBox picturebox;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Label lblOrdemServico;
         private System.Windows.Forms.Label label7;

@@ -220,10 +220,12 @@ namespace AssisTec.Repository
         public (int totalCadastrado, int abaixoMinimo, int semEstoque, decimal valorEstoque) obterTotais(Produto produto)
         {
             var dados = AplicarFiltro(produto).ToList();
+    
             int totalCadastrado = dados.Count;
-            int abaixoMinimo = dados.Count(p => p.quantidade < p.quantidade_minima & p.quantidade > 0);
+            int abaixoMinimo = dados.Count(p => p.quantidade < p.quantidade_minima);
             int semEstoque = dados.Count(p => p.quantidade <= 0);
-            decimal valorEstoque = dados.Sum(p=> p.quantidade * p.preco_compra);
+            decimal valorEstoque = dados.Sum(p => p.quantidade * p.preco_compra);
+
             return (totalCadastrado, abaixoMinimo, semEstoque, valorEstoque);
         }
     }

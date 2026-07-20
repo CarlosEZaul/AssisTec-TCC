@@ -10,14 +10,16 @@ namespace AssisTec.UserControls
     public partial class ucHome : UserControl
     {
         private readonly OrdemServicoService _ordemServicoService;
+        private readonly ProdutoService _produtoService;
         CultureInfo culturaBrasil = new CultureInfo("pt-BR");
         private LucroMesDTO _lucroMesDTO = new LucroMesDTO();
 
-        public ucHome(OrdemServicoService  ordemServicoService)
+        public ucHome(OrdemServicoService  ordemServicoService, ProdutoService produtoService)
         {
             InitializeComponent();
            
             _ordemServicoService = ordemServicoService ??  throw new ArgumentNullException(nameof(ordemServicoService));
+            _produtoService = produtoService ?? throw new ArgumentNullException(nameof(produtoService));
             ConfigurarComponentes();
         }
 
@@ -32,11 +34,19 @@ namespace AssisTec.UserControls
 
             lblOrdemServico.Text = _ordemServicoService.obterOsAbertas().ToString();
             
-            var (totalRecebido, totalPago, lucroLiquido) = _lucroMesDTO.ObterLucroDoMes(DateTime.Now.Month, DateTime.Now.Year);
+            var (totalRecebido, totalPago, totalPagar, lucroLiquido) = _lucroMesDTO.ObterLucroDoMes(DateTime.Now.Month, DateTime.Now.Year);
             
-            lblFaturamento.Text = totalRecebido.ToString("C", culturaBrasil);
+            lblFaturamento.Text = lucroLiquido.ToString("C", culturaBrasil);
+            lblContaPagar.Text = totalPagar.ToString("C", culturaBrasil);
+
+            var abaixoMinimo = _produtoService.obterTotais().abaixoMinimo;
+            lblMinimo.Text = abaixoMinimo.ToString();
         }
-        
-        
+
+
+        private void ucHome_Load(object sender, EventArgs e)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

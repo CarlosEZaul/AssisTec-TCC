@@ -122,6 +122,26 @@ namespace AssisTec.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap cifrao_vermelho {
+            get {
+                object obj = ResourceManager.GetObject("cifrao_vermelho", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap cifrao_vermelho_removebg_preview {
+            get {
+                object obj = ResourceManager.GetObject("cifrao_vermelho_removebg_preview", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap fora_de_estoque {
             get {
                 object obj = ResourceManager.GetObject("fora_de_estoque", resourceCulture);
@@ -145,6 +165,16 @@ namespace AssisTec.Properties {
         internal static System.Drawing.Bitmap logopng {
             get {
                 object obj = ResourceManager.GetObject("logopng", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ordemServico {
+            get {
+                object obj = ResourceManager.GetObject("ordemServico", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
