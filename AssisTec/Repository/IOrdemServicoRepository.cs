@@ -6,6 +6,7 @@ namespace AssisTec.Repository
     {
         DataTable ObterHistoricoUsuario(int idUsuario);
         DataTable ObterHistoricoCliente(int idCliente);
-        
+        int ObterOsAbertas();
+
     }
 }

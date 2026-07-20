@@ -18,6 +18,7 @@ namespace AssisTec
         private readonly ContasPagarService _contasPagarService;
         private readonly ProdutoService _produtoService;
         private readonly MovimentacaoEstoqueService _movimentacaoEstoqueService;
+        private readonly OrdemServicoService _ordemServicoService;
         
         Panel panelUsuario;
         Label lblNome;
@@ -39,15 +40,19 @@ namespace AssisTec
             var produtoRepository = new ProdutoRepository(context);
             
             var movimentacaoEstoqueRepository = new MovimentacaoEstoqueRepository(context);
+            
+            var OrdemServicoRepository = new OrdemServicoRepository(context);
 
             _produtoService = new ProdutoService(produtoRepository);
             _contasPagarService = new ContasPagarService(contasPagarRepository, pagamentoRepository);
             _contasReceberService = new ContasReceberService(contasReceberRepository, pagamentoRepository);
             _pagamentoService = new PagamentoService(contasReceberRepository,contasPagarRepository, pagamentoRepository);
             _movimentacaoEstoqueService = new MovimentacaoEstoqueService(movimentacaoEstoqueRepository);
+            _ordemServicoService = new OrdemServicoService(OrdemServicoRepository);
 
             ConfigurarPanelUsuario();
             ConfigurarNavbar();
+            AbrirUserControl(new ucHome(_ordemServicoService), null);
         }
 
         private void ConfigurarPanelUsuario()
@@ -119,7 +124,7 @@ namespace AssisTec
 
             Guna2Button btnHome = CriarBotaoMenu(
                 "🏠 Home",
-                (s, e) => AbrirUserControl(new ucHome(), s));
+                (s, e) => AbrirUserControl(new ucHome(_ordemServicoService), s));
 
             Guna2Button btnUsuario = CriarBotaoMenu(
                 "👤 Usuários",

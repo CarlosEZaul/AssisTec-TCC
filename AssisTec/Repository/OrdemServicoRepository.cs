@@ -134,5 +134,10 @@ namespace AssisTec.Repository
                 throw new Exception(e.Message, e);
             }
         }
+
+        public int ObterOsAbertas()
+        {
+            return context.OrdemServicos.Count(os => os.status == "ABERTA");
+        }
     }
 }

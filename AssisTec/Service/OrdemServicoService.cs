@@ -17,5 +17,18 @@ namespace AssisTec.Service
         {
             return ordemServicoRepository.ObterHistoricoUsuario(id);
         }
+
+        public int obterOsAbertas()
+        {
+            try
+            {
+                return ordemServicoRepository.ObterOsAbertas();
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            
+        }
     }
 }

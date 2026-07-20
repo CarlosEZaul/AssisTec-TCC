@@ -234,6 +234,7 @@
     <Compile Include="DTO\ClienteDTO.cs" />
     <Compile Include="DTO\ContasPagarDto.cs" />
     <Compile Include="DTO\ContasReceberDto.cs" />
+    <Compile Include="DTO\LucroMesDTO.cs" />
     <Compile Include="DTO\MovimentacoesEstoqueDTO.cs" />
     <Compile Include="DTO\ProdutoDTO.cs" />
     <Compile Include="DTO\UsuarioDTO.cs" />
