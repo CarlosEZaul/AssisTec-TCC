@@ -19,8 +19,9 @@ namespace AssisTec.Repository
         DataTable Filtrar(Produto produto);
         (int totalCadastrado, int abaixoMinimo, int semEstoque, decimal valorEstoque) obterTotais(Produto produto);
         IQueryable<Produto> AplicarFiltro(Produto produto);
-        
-        
-        
+        DataTable ProdutosAbaixoMinimo();
+
+
+
     }
 }

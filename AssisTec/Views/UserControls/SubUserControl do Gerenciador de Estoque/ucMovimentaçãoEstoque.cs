@@ -25,9 +25,9 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
 
         private void DesingModerno()
         {
-            DesingComponentes.centralizarPanel(panelBotoes, this.Width);
-            DesingComponentes.StyleDataGridView(dgvMovimentacao,DataGridViewAutoSizeColumnsMode.Fill);
-            DesingComponentes.StyleButton(btnFechar, Color.Red);
+            DesignComponentes.centralizarPanel(panelBotoes, this.Width);
+            DesignComponentes.StyleDataGridView(dgvMovimentacao,DataGridViewAutoSizeColumnsMode.Fill);
+            DesignComponentes.StyleButton(btnFechar, Color.Red);
         }
 
         private void ConfigurarComponentes()

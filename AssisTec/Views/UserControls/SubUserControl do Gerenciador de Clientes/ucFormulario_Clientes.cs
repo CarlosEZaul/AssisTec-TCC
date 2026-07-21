@@ -53,20 +53,20 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Clientes.ucForm
             try
             {
                 this.BackColor = System.Drawing.Color.FromArgb(39, 55, 76);
-                DesingComponentes.StyleTextBox(txtNome);
-                DesingComponentes.StyleTextBox(txtRua);
-                DesingComponentes.StyleTextBox(txtBairro);
-                DesingComponentes.StyleTextBox(txtCidade);
-                DesingComponentes.StyleTextBox(txtEstado);
-                DesingComponentes.StyleTextBox(txtNumber);
-                DesingComponentes.StyleTextBox(txtComp);
-                DesingComponentes.StyleMaskedTextBox(mtbCPF);
-                DesingComponentes.StyleMaskedTextBox(mtbTel);
-                DesingComponentes.StyleMaskedTextBox(mtbNasc);
-                DesingComponentes.StyleMaskedTextBox(mtbCep);
-                DesingComponentes.StyleButton(btnSave, System.Drawing.Color.FromArgb(0, 153, 76));
-                DesingComponentes.StyleButton(btnLimpar, System.Drawing.Color.FromArgb(0, 120, 215));
-                DesingComponentes.StyleButton(btnFechar, System.Drawing.Color.FromArgb(209, 17, 65));
+                DesignComponentes.StyleTextBox(txtNome);
+                DesignComponentes.StyleTextBox(txtRua);
+                DesignComponentes.StyleTextBox(txtBairro);
+                DesignComponentes.StyleTextBox(txtCidade);
+                DesignComponentes.StyleTextBox(txtEstado);
+                DesignComponentes.StyleTextBox(txtNumber);
+                DesignComponentes.StyleTextBox(txtComp);
+                DesignComponentes.StyleMaskedTextBox(mtbCPF);
+                DesignComponentes.StyleMaskedTextBox(mtbTel);
+                DesignComponentes.StyleMaskedTextBox(mtbNasc);
+                DesignComponentes.StyleMaskedTextBox(mtbCep);
+                DesignComponentes.StyleButton(btnSave, System.Drawing.Color.FromArgb(0, 153, 76));
+                DesignComponentes.StyleButton(btnLimpar, System.Drawing.Color.FromArgb(0, 120, 215));
+                DesignComponentes.StyleButton(btnFechar, System.Drawing.Color.FromArgb(209, 17, 65));
             }
             catch (Exception ex)
             {

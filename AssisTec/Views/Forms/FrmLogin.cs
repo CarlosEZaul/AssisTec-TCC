@@ -69,7 +69,7 @@ namespace AssisTec
 
         private void ApplyDesign()
         {
-            DesingComponentes.StyleButton(btnLogin, Color.FromArgb(0, 120, 215));
+            DesignComponentes.StyleButton(btnLogin, Color.FromArgb(0, 120, 215));
         }
 
         private void cbSenha_CheckedChanged(object sender, EventArgs e)

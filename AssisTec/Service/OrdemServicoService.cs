@@ -30,5 +30,17 @@ namespace AssisTec.Service
             }
             
         }
+
+        public DataTable OrdensRecentes()
+        {
+            try
+            {
+                return ordemServicoRepository.OrdensRecentes();
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
     }
 }

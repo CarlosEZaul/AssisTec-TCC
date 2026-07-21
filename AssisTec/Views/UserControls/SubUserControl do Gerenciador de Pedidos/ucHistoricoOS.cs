@@ -39,8 +39,8 @@ namespace AssisTec.UserControls
 
         private void DesingModerno()
         {
-            DesingComponentes.StyleDataGridView(dgvOS, DataGridViewAutoSizeColumnsMode.Fill);
-            DesingComponentes.centralizarPanel(panelBotoes, this.Width);
+            DesignComponentes.StyleDataGridView(dgvOS, DataGridViewAutoSizeColumnsMode.Fill);
+            DesignComponentes.centralizarPanel(panelBotoes, this.Width);
         }
         
         #endregion

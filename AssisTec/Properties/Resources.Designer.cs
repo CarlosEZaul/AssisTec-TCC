@@ -72,6 +72,25 @@ namespace AssisTec.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap AdicionarEntidade {
+            get {
+                object obj = ResourceManager.GetObject("AdicionarEntidade", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string adiconarEntidade {
+            get {
+                return ResourceManager.GetString("adiconarEntidade", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap aprovado {
             get {
                 object obj = ResourceManager.GetObject("aprovado", resourceCulture);
@@ -142,6 +161,16 @@ namespace AssisTec.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap EntradaEstoque {
+            get {
+                object obj = ResourceManager.GetObject("EntradaEstoque", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap fora_de_estoque {
             get {
                 object obj = ResourceManager.GetObject("fora_de_estoque", resourceCulture);
@@ -195,6 +224,16 @@ namespace AssisTec.Properties {
         internal static System.Drawing.Bitmap relogio_pendente {
             get {
                 object obj = ResourceManager.GetObject("relogio_pendente", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap SaidaEstoque {
+            get {
+                object obj = ResourceManager.GetObject("SaidaEstoque", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -26,8 +26,8 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
 
         private void DesingModerno()
         {
-            DesingComponentes.centralizarPanel(panelBotoes, this.Width);
-            DesingComponentes.StyleButton(btnFechar, Color.Red);
+            DesignComponentes.centralizarPanel(panelBotoes, this.Width);
+            DesignComponentes.StyleButton(btnFechar, Color.Red);
             mtbDataPagamento.Text = DateTime.Today.ToString("dd/MM/yyyy");
             mtbDataPagamento.Enabled = false;
         }

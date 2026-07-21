@@ -31,11 +31,11 @@ namespace AssisTec.UserControls
         private void ApplyDesignModerno()
         {
             this.BackColor = Color.FromArgb(39, 55, 76);
-            DesingComponentes.StyleDataGridView(dgvContasReceber, DataGridViewAutoSizeColumnsMode.Fill);
-            DesingComponentes.centralizarPanel(panelBotoes, this.Width);
-            DesingComponentes.centralizarPanel(panelExibicao, this.Width);
-            DesingComponentes.StyleButton(btnDelete, Color.Red);
-            DesingComponentes.centralizarPanel(panelFiltro, this.Width);
+            DesignComponentes.StyleDataGridView(dgvContasReceber, DataGridViewAutoSizeColumnsMode.Fill);
+            DesignComponentes.centralizarPanel(panelBotoes, this.Width);
+            DesignComponentes.centralizarPanel(panelExibicao, this.Width);
+            DesignComponentes.StyleButton(btnDelete, Color.Red);
+            DesignComponentes.centralizarPanel(panelFiltro, this.Width);
         }
 
         private void ConfigurarComboBox()

@@ -63,21 +63,21 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios
                 this.Text = "Gerenciador de Usuários";
                 this.BackColor = Color.FromArgb(39, 55, 76);
 
-                DesingComponentes.StyleTextBox(txtNome);
-                DesingComponentes.StyleTextBox(txtSenha);
-                DesingComponentes.StyleTextBox(txtRua);
-                DesingComponentes.StyleTextBox(txtCidade);
-                DesingComponentes.StyleTextBox(txtBairro);
-                DesingComponentes.StyleTextBox(txtNumber);
-                DesingComponentes.StyleTextBox(txtEstado);
-                DesingComponentes.StyleTextBox(txtComp);
+                DesignComponentes.StyleTextBox(txtNome);
+                DesignComponentes.StyleTextBox(txtSenha);
+                DesignComponentes.StyleTextBox(txtRua);
+                DesignComponentes.StyleTextBox(txtCidade);
+                DesignComponentes.StyleTextBox(txtBairro);
+                DesignComponentes.StyleTextBox(txtNumber);
+                DesignComponentes.StyleTextBox(txtEstado);
+                DesignComponentes.StyleTextBox(txtComp);
                 
-                DesingComponentes.StyleMaskedTextBox(mtbCPF);
-                DesingComponentes.StyleMaskedTextBox(mtbCep);
-                DesingComponentes.StyleMaskedTextBox(mtbTel);
+                DesignComponentes.StyleMaskedTextBox(mtbCPF);
+                DesignComponentes.StyleMaskedTextBox(mtbCep);
+                DesignComponentes.StyleMaskedTextBox(mtbTel);
 
-                DesingComponentes.StyleButton(btnLimpar, Color.FromArgb(0, 120, 215));
-                DesingComponentes.StyleButton(btnFechar, Color.FromArgb(209, 17, 65));
+                DesignComponentes.StyleButton(btnLimpar, Color.FromArgb(0, 120, 215));
+                DesignComponentes.StyleButton(btnFechar, Color.FromArgb(209, 17, 65));
             }
             catch (Exception ex)
             {

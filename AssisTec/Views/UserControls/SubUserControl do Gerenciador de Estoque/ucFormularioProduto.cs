@@ -31,7 +31,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
 
         private void ApplyDesing()
         {
-            DesingComponentes.centralizarPanel(panelBotoes, this.Width);
+            DesignComponentes.centralizarPanel(panelBotoes, this.Width);
         }
 
         private void carregarProduto()

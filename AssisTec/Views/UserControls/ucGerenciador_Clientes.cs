@@ -44,12 +44,12 @@ namespace AssisTec.UserControls
                 this.Text = "Gerenciador de Clientes";
                 this.BackColor = Color.FromArgb(39, 55, 76);
 
-                DesingComponentes.StyleTextBox(txtBusca);
-                DesingComponentes.centralizarPanel(panelBotoes, this.Width);
-                DesingComponentes.StyleButton(btnNew, Color.FromArgb(0, 120, 215));
+                DesignComponentes.StyleTextBox(txtBusca);
+                DesignComponentes.centralizarPanel(panelBotoes, this.Width);
+                DesignComponentes.StyleButton(btnNew, Color.FromArgb(0, 120, 215));
                 
 
-                DesingComponentes.StyleDataGridView(dgvClientes, DataGridViewAutoSizeColumnsMode.Fill);
+                DesignComponentes.StyleDataGridView(dgvClientes, DataGridViewAutoSizeColumnsMode.Fill);
             }
             catch (Exception ex)
             {

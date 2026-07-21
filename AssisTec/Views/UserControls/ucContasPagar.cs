@@ -40,10 +40,10 @@ namespace AssisTec.UserControls
         {
             this.Text = "Contas a Pagar";
             this.BackColor = Color.FromArgb(39, 55, 76);
-            DesingComponentes.StyleDataGridView(dgvContasPagar, DataGridViewAutoSizeColumnsMode.Fill);
-            DesingComponentes.centralizarPanel(panelBotoes, this.Width);
-            DesingComponentes.centralizarPanel(panelExibicao, this.Width);
-            DesingComponentes.StyleButton(btnDelete, Color.Red);
+            DesignComponentes.StyleDataGridView(dgvContasPagar, DataGridViewAutoSizeColumnsMode.Fill);
+            DesignComponentes.centralizarPanel(panelBotoes, this.Width);
+            DesignComponentes.centralizarPanel(panelExibicao, this.Width);
+            DesignComponentes.StyleButton(btnDelete, Color.Red);
         }
 
         #endregion

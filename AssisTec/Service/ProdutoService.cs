@@ -199,6 +199,18 @@ namespace AssisTec.Service
             return true;
 
         }
+
+        public DataTable ProdutosAbaixoMinimo()
+        {
+            try
+            {
+                return repository.ProdutosAbaixoMinimo();
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Erro ao dar abaixo do produto", e);
+            }
+        }
         
         public void GerarRelatorioEstoquePdf(Produto filtro, string caminhoDestino)
         {

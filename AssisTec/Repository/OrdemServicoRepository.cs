@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Data;
 using System.Linq;
+using AssisTec.Models;
 
 namespace AssisTec.Repository
 {
     public class OrdemServicoRepository : IOrdemServicoRepository
     {
         private readonly AppDbContext context;
-        
+        private IOrdemServicoRepository _ordemServicoRepositoryImplementation;
+
         public OrdemServicoRepository(AppDbContext context)
         {
             this.context = context;
@@ -138,6 +140,52 @@ namespace AssisTec.Repository
         public int ObterOsAbertas()
         {
             return context.OrdemServicos.Count(os => os.status == "ABERTA");
+        }
+
+        public DataTable OrdensRecentes()
+        {
+            var ordens = context.OrdemServicos
+                .OrderByDescending(os => os.data_abertura)
+                .Take(15);
+
+            return MontarDataTableOrdemServico(ordens);
+        }
+
+        private DataTable MontarDataTableOrdemServico(IQueryable<OrdemServico> query)
+        {
+            DataTable dataTable = new DataTable();
+            dataTable.Columns.Add("ID_OS", typeof(int));
+            dataTable.Columns.Add("Cliente", typeof(string));
+            dataTable.Columns.Add("Técnico", typeof(string));
+            dataTable.Columns.Add("Equipamento", typeof(string));
+            dataTable.Columns.Add("Valor Total", typeof(decimal));
+            dataTable.Columns.Add("Status", typeof(string));
+
+            var dadosProjetados = query
+                .Select(os => new
+                {
+                    os.id_os,
+                    ClienteNome = os.Cliente != null ? os.Cliente.Nome : "Sem Cliente",
+                    TecnicoNome = os.Tecnico != null ? os.Tecnico.Nome : "Sem Tecnico",
+                    EquipamentoDescricao = os.Equipamento != null ? os.Equipamento.Descricao : "Sem Equipamento",
+                    os.valor_total,
+                    os.status
+                })
+                .ToList();
+
+            foreach (var os in dadosProjetados)
+            {
+                dataTable.Rows.Add(
+                    os.id_os,
+                    os.ClienteNome,
+                    os.TecnicoNome,
+                    os.EquipamentoDescricao,
+                    os.valor_total,
+                    os.status ?? "ABERTA"
+                );
+            }
+
+            return dataTable;
         }
     }
 }

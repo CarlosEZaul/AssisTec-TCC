@@ -217,6 +217,43 @@ namespace AssisTec.Repository
             return query;
         }
 
+        public DataTable ProdutosAbaixoMinimo()
+        {
+            var produtos = context.Produtos.Where(p => p.quantidade < p.quantidade_minima).OrderBy(p => p.quantidade);
+            return MontarDataTableAbaixoMinimo(produtos);
+            
+        }
+
+        private DataTable MontarDataTableAbaixoMinimo(IQueryable<Produto> query)
+        {
+            DataTable dataTable = new DataTable();
+            dataTable.Columns.Add("ID_PRODUTO", typeof(int));
+            dataTable.Columns.Add("Descrção", typeof(string));
+            dataTable.Columns.Add("Quantidade", typeof(string));
+            dataTable.Columns.Add("Quantidade mínima", typeof(int));
+
+            var dadosProjetados = query.Select(p => new
+                {
+                    p.idProduto,
+                    p.descricao,
+                    p.quantidade,
+                    p.quantidade_minima,
+                }
+            ).ToList();
+
+            foreach (var produto in dadosProjetados)
+            {
+                dataTable.Rows.Add(
+                    produto.idProduto,
+                    produto.descricao,
+                    produto.quantidade,
+                    produto.quantidade_minima
+                );
+            }
+            
+            return dataTable;
+        }
+
         public (int totalCadastrado, int abaixoMinimo, int semEstoque, decimal valorEstoque) obterTotais(Produto produto)
         {
             var dados = AplicarFiltro(produto).ToList();

@@ -284,7 +284,7 @@
     <Compile Include="Service\UsuarioService.cs" />
     <Compile Include="Utils\BuscaCEP.cs" />
     <Compile Include="Utils\ContatoWhatsApp.cs" />
-    <Compile Include="Utils\DesingComponentes.cs" />
+    <Compile Include="Utils\DesignComponentes.cs" />
     <Compile Include="Utils\Validacao.cs" />
     <Compile Include="Views\Forms\formSubs.cs" />
     <Compile Include="Views\Forms\formSubs.Designer.cs">
@@ -528,15 +528,18 @@
   <ItemGroup>
     <Content Include="Properties\cifrao.png" />
     <Content Include="Resources\abaixo_minimo.png" />
+    <Content Include="Resources\AdicionarEntidade.png" />
     <Content Include="Resources\aprovado.png" />
     <Content Include="Resources\atencao.png" />
     <Content Include="Resources\cifrao.png" />
     <Content Include="Resources\cifrao_vermelho.png" />
     <Content Include="Resources\cifrao_vermelho_removebg_preview.png" />
+    <Content Include="Resources\EntradaEstoque.png" />
     <Content Include="Resources\fora_de_estoque.png" />
     <Content Include="Resources\ordemServico.png" />
     <Content Include="Resources\produto.png" />
     <Content Include="Resources\relogio_pendente.png" />
+    <Content Include="Resources\SaidaEstoque.png" />
     <Content Include="Resources\valor_estoque.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

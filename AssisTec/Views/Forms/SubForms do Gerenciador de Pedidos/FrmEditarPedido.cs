@@ -82,8 +82,8 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
                 // Estilo dos botões: Usando o método estático para cada controle
                 
                 ;
-                DesingComponentes.StyleButton(btnImprimir, Color.FromArgb(0, 120, 215));
-                DesingComponentes.StyleButton(btnFechar, Color.FromArgb(209, 17, 65));
+                DesignComponentes.StyleButton(btnImprimir, Color.FromArgb(0, 120, 215));
+                DesignComponentes.StyleButton(btnFechar, Color.FromArgb(209, 17, 65));
                 // ... (outros Buttons)
 
 

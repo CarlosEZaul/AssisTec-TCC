@@ -31,15 +31,15 @@ namespace AssisTec.UserControls
                 // DesingComponentes.ApplyLabelStyles(this);
 
                 // TextBox
-                DesingComponentes.StyleTextBox(txtBusca);
+                DesignComponentes.StyleTextBox(txtBusca);
                  
-                DesingComponentes.centralizarPanel(panelBotoes, this.Width);
+                DesignComponentes.centralizarPanel(panelBotoes, this.Width);
                 // Botões
-                DesingComponentes.StyleButton(btnNew, Color.FromArgb(0, 120, 215));
-                DesingComponentes.StyleButton(btnDelete, Color.FromArgb(209, 17, 65));
+                DesignComponentes.StyleButton(btnNew, Color.FromArgb(0, 120, 215));
+                DesignComponentes.StyleButton(btnDelete, Color.FromArgb(209, 17, 65));
 
                 // DataGridView
-                DesingComponentes.StyleDataGridView(dgvOS, DataGridViewAutoSizeColumnsMode.Fill);
+                DesignComponentes.StyleDataGridView(dgvOS, DataGridViewAutoSizeColumnsMode.Fill);
 
             }
             catch (Exception ex)
