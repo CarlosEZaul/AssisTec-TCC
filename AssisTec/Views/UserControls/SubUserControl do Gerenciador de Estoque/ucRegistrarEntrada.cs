@@ -51,6 +51,10 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
             cbProduto.DisplayMember = "descricao";
             cbProduto.ValueMember = "idProduto";
             cbProduto.DataSource = produtos;
+            
+            cbProduto.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            cbProduto.AutoCompleteSource = AutoCompleteSource.ListItems;
+            cbProduto.DropDownStyle = ComboBoxStyle.DropDown;
     
             if (_idProduto > 0)
             {

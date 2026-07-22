@@ -38,8 +38,6 @@ namespace AssisTec.UserControls
 
         private void DesingModerno()
         {
-            
-            
             //Ordens de servico
             DesignComponentes.ApplyLabelStyles(lblOsRecentes);
             DesignComponentes.StyleDataGridView(dgvOS);

@@ -58,6 +58,10 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
                 cbProduto.DisplayMember = "Produto";
                 cbProduto.DataSource = listaExibicao;
             }
+            
+            cbProduto.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            cbProduto.AutoCompleteSource = AutoCompleteSource.ListItems;
+            cbProduto.DropDownStyle = ComboBoxStyle.DropDown;
 
             cbTipoMovimentação.Items.Add("Todos");
             cbTipoMovimentação.Items.Add("ENTRADA");

@@ -65,9 +65,9 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
             this.panelBotoes.Controls.Add(this.btnFechar);
             this.panelBotoes.Controls.Add(this.btnSave);
             this.panelBotoes.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelBotoes.Location = new System.Drawing.Point(0, 258);
+            this.panelBotoes.Location = new System.Drawing.Point(0, 256);
             this.panelBotoes.Name = "panelBotoes";
-            this.panelBotoes.Size = new System.Drawing.Size(339, 62);
+            this.panelBotoes.Size = new System.Drawing.Size(337, 62);
             this.panelBotoes.TabIndex = 259;
             // 
             // btnFechar
@@ -180,7 +180,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
             this.label33.Location = new System.Drawing.Point(0, 0);
             this.label33.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label33.Name = "label33";
-            this.label33.Size = new System.Drawing.Size(339, 34);
+            this.label33.Size = new System.Drawing.Size(337, 34);
             this.label33.TabIndex = 250;
             this.label33.Text = "REGISTRAR ENTRADA DO PRODUTO";
             this.label33.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -208,6 +208,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(55)))), ((int)(((byte)(76)))));
+            this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.Controls.Add(this.cbProduto);
             this.Controls.Add(this.mtbValor);
             this.Controls.Add(this.label4);
@@ -221,7 +222,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label33);
             this.Name = "ucRegistrarEntrada";
-            this.Size = new System.Drawing.Size(339, 320);
+            this.Size = new System.Drawing.Size(337, 318);
             this.panelBotoes.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
