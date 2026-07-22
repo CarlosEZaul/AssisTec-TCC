@@ -52,7 +52,7 @@ namespace AssisTec
 
             ConfigurarPanelUsuario();
             ConfigurarNavbar();
-            AbrirUserControl(new ucHome(_ordemServicoService, _produtoService), null);
+            AbrirUserControl(new ucHome(_ordemServicoService, _produtoService,_movimentacaoEstoqueService, _contasPagarService,_contasReceberService), null);
         }
 
         private void ConfigurarPanelUsuario()
@@ -124,7 +124,7 @@ namespace AssisTec
 
             Guna2Button btnHome = CriarBotaoMenu(
                 "🏠 Home",
-                (s, e) => AbrirUserControl(new ucHome(_ordemServicoService,_produtoService), s));
+                (s, e) => AbrirUserControl(new ucHome(_ordemServicoService,_produtoService, _movimentacaoEstoqueService, _contasPagarService,_contasReceberService), s));
 
             Guna2Button btnUsuario = CriarBotaoMenu(
                 "👤 Usuários",

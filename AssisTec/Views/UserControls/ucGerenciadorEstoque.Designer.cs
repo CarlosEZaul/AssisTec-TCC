@@ -39,6 +39,7 @@ namespace AssisTec.UserControls
             this.cbSemEstoque = new System.Windows.Forms.CheckBox();
             this.btnAtualizar = new System.Windows.Forms.PictureBox();
             this.panelBotoes = new System.Windows.Forms.Panel();
+            this.btnRelatorio = new System.Windows.Forms.Button();
             this.btnSaida = new System.Windows.Forms.Button();
             this.btnVisualizacoes = new System.Windows.Forms.Button();
             this.btnEntrada = new System.Windows.Forms.Button();
@@ -65,7 +66,6 @@ namespace AssisTec.UserControls
             this.lblProdutosCadastrados = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.btnRelatorio = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvEstoque)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnAtualizar)).BeginInit();
             this.panelBotoes.SuspendLayout();
@@ -175,12 +175,27 @@ namespace AssisTec.UserControls
             this.panelBotoes.Size = new System.Drawing.Size(826, 61);
             this.panelBotoes.TabIndex = 156;
             // 
+            // btnRelatorio
+            // 
+            this.btnRelatorio.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnRelatorio.BackColor = System.Drawing.Color.RoyalBlue;
+            this.btnRelatorio.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnRelatorio.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRelatorio.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.btnRelatorio.ForeColor = System.Drawing.SystemColors.Control;
+            this.btnRelatorio.Location = new System.Drawing.Point(566, 15);
+            this.btnRelatorio.Name = "btnRelatorio";
+            this.btnRelatorio.Size = new System.Drawing.Size(103, 33);
+            this.btnRelatorio.TabIndex = 107;
+            this.btnRelatorio.Text = "Gerar relatório";
+            this.btnRelatorio.UseVisualStyleBackColor = false;
+            this.btnRelatorio.Click += new System.EventHandler(this.btnRelatorio_Click);
+            // 
             // btnSaida
             // 
             this.btnSaida.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnSaida.BackColor = System.Drawing.Color.RoyalBlue;
             this.btnSaida.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnSaida.Enabled = false;
             this.btnSaida.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSaida.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.btnSaida.ForeColor = System.Drawing.SystemColors.Control;
@@ -213,7 +228,6 @@ namespace AssisTec.UserControls
             this.btnEntrada.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnEntrada.BackColor = System.Drawing.Color.RoyalBlue;
             this.btnEntrada.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnEntrada.Enabled = false;
             this.btnEntrada.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnEntrada.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnEntrada.ForeColor = System.Drawing.SystemColors.Control;
@@ -497,22 +511,6 @@ namespace AssisTec.UserControls
             this.pictureBox1.Size = new System.Drawing.Size(57, 51);
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
-            // 
-            // btnRelatorio
-            // 
-            this.btnRelatorio.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnRelatorio.BackColor = System.Drawing.Color.RoyalBlue;
-            this.btnRelatorio.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnRelatorio.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnRelatorio.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.btnRelatorio.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnRelatorio.Location = new System.Drawing.Point(566, 15);
-            this.btnRelatorio.Name = "btnRelatorio";
-            this.btnRelatorio.Size = new System.Drawing.Size(103, 33);
-            this.btnRelatorio.TabIndex = 107;
-            this.btnRelatorio.Text = "Gerar relatório";
-            this.btnRelatorio.UseVisualStyleBackColor = false;
-            this.btnRelatorio.Click += new System.EventHandler(this.btnRelatorio_Click);
             // 
             // ucGerenciadorEstoque
             // 

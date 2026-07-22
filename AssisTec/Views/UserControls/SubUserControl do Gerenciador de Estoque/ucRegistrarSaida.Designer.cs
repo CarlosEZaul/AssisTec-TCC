@@ -33,7 +33,6 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
         {
             this.label33 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.txtNomeProduto = new System.Windows.Forms.TextBox();
             this.txtEstoque = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.txtQuantidade = new System.Windows.Forms.TextBox();
@@ -45,6 +44,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
             this.btnSave = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.mtbValor = new System.Windows.Forms.MaskedTextBox();
+            this.cbProduto = new System.Windows.Forms.ComboBox();
             this.panelBotoes.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -72,13 +72,6 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
             this.label5.Size = new System.Drawing.Size(59, 18);
             this.label5.TabIndex = 239;
             this.label5.Text = "Produto:";
-            // 
-            // txtNomeProduto
-            // 
-            this.txtNomeProduto.Location = new System.Drawing.Point(16, 55);
-            this.txtNomeProduto.Name = "txtNomeProduto";
-            this.txtNomeProduto.Size = new System.Drawing.Size(306, 20);
-            this.txtNomeProduto.TabIndex = 240;
             // 
             // txtEstoque
             // 
@@ -201,11 +194,20 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
             this.mtbValor.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.mtbValor_KeyPress);
             this.mtbValor.Leave += new System.EventHandler(this.mtbValor_Leave);
             // 
+            // cbProduto
+            // 
+            this.cbProduto.FormattingEnabled = true;
+            this.cbProduto.Location = new System.Drawing.Point(16, 55);
+            this.cbProduto.Name = "cbProduto";
+            this.cbProduto.Size = new System.Drawing.Size(306, 21);
+            this.cbProduto.TabIndex = 263;
+            // 
             // ucRegistrarSaida
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(55)))), ((int)(((byte)(76)))));
+            this.Controls.Add(this.cbProduto);
             this.Controls.Add(this.mtbValor);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.panelBotoes);
@@ -215,7 +217,6 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
             this.Controls.Add(this.label2);
             this.Controls.Add(this.txtEstoque);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.txtNomeProduto);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label33);
             this.Name = "ucRegistrarSaida";
@@ -224,6 +225,8 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
             this.ResumeLayout(false);
             this.PerformLayout();
         }
+
+        private System.Windows.Forms.ComboBox cbProduto;
 
         private System.Windows.Forms.MaskedTextBox mtbValor;
 
@@ -234,7 +237,6 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
         private System.Windows.Forms.Button btnSave;
 
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox txtNomeProduto;
         private System.Windows.Forms.TextBox txtEstoque;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtQuantidade;

@@ -41,6 +41,8 @@ namespace AssisTec.UserControls
         
 
         #endregion
+
+        #region Funções ou métodos
         private void FormatGrid()
         {
             if (dgvEstoque.Columns.Count <= 0) return;
@@ -55,8 +57,6 @@ namespace AssisTec.UserControls
             dgvEstoque.Columns[7].HeaderText = "Status";
             
         }
-
-        
         private void AtualizarGrid()
         {
             dgvEstoque.DataSource = _service.ObterProdutos();
@@ -80,8 +80,8 @@ namespace AssisTec.UserControls
         {
             btnEditar.Enabled = ativo;
             btnStatus.Enabled = ativo;
-            btnEntrada.Enabled = ativo;
-            btnSaida.Enabled = ativo;
+            //btnEntrada.Enabled = ativo;
+            //btnSaida.Enabled = ativo;
         }
         private void ConfigurarSubComponente(UserControl uc)
         {
@@ -111,15 +111,19 @@ namespace AssisTec.UserControls
             MudarEstadoBotoes(false);
             FormatGrid();
         }
+        
+
+        #endregion
+        
+
+        
+        
 
         #region Funções dos Componentes
         private void btnNew_Click(object sender, EventArgs e)
         {
             ConfigurarSubComponente(new ucFormularioProduto(0, 1 , _service, _contasPagarService,_movimentacaoEstoqueService));           
         }
-        
-
-        #endregion
         private void ucGerenciadorEstoque_Load(object sender, EventArgs e)
         {
             btnVisualizacoes.Enabled = true;
@@ -183,23 +187,32 @@ namespace AssisTec.UserControls
 
         private void btnEntrada_Click(object sender, EventArgs e)
         {
-            _produto = _service.ObterProdutoPorId(idProduto);
-            if (_produto.status != "Ativado")
+            if (idProduto > 0)
             {
-                MessageBox.Show("Produto está desativado", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                return;
+                _produto = _service.ObterProdutoPorId(idProduto);
+                if (_produto != null && _produto.status != "Ativado")
+                {
+                    MessageBox.Show("Produto está desativado", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    return;
+                }
             }
+
             ConfigurarSubComponente(new ucRegistrarEntrada(idProduto, _service, _movimentacaoEstoqueService, _contasPagarService));
         }
+        
 
         private void btnSaida_Click(object sender, EventArgs e)
         {
-            _produto = _service.ObterProdutoPorId(idProduto);
-            if (_produto.status != "Ativado")
+            if (idProduto > 0)
             {
-                MessageBox.Show("Produto está desativado", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                return;
+                _produto = _service.ObterProdutoPorId(idProduto);
+                if (_produto != null && _produto.status != "Ativado")
+                {
+                    MessageBox.Show("Produto está desativado", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    return;
+                }
             }
+
             ConfigurarSubComponente(new ucRegistrarSaida(idProduto, _service, _movimentacaoEstoqueService, _contasReceberService));
         }
 
@@ -282,5 +295,6 @@ namespace AssisTec.UserControls
                 MessageBox.Show("Erro ao gerar o relatório de estoque: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        #endregion
     }
 }

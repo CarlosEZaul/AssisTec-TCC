@@ -474,6 +474,7 @@ namespace AssisTec.UserControls
             this.btnSaidaEstoque.TabIndex = 107;
             this.btnSaidaEstoque.Text = "Saída no estoque";
             this.btnSaidaEstoque.UseVisualStyleBackColor = false;
+            this.btnSaidaEstoque.Click += new System.EventHandler(this.btnSaidaEstoque_Click);
             // 
             // btnCliente
             // 
@@ -489,6 +490,7 @@ namespace AssisTec.UserControls
             this.btnCliente.TabIndex = 105;
             this.btnCliente.Text = "Cadastrar Cliente";
             this.btnCliente.UseVisualStyleBackColor = false;
+            this.btnCliente.Click += new System.EventHandler(this.btnCliente_Click);
             // 
             // btnEntradaEstoque
             // 
@@ -504,6 +506,7 @@ namespace AssisTec.UserControls
             this.btnEntradaEstoque.TabIndex = 106;
             this.btnEntradaEstoque.Text = "Entrada no estoque";
             this.btnEntradaEstoque.UseVisualStyleBackColor = false;
+            this.btnEntradaEstoque.Click += new System.EventHandler(this.btnEntradaEstoque_Click);
             // 
             // label1
             // 

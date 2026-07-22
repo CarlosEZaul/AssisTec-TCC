@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Windows.Forms;
 using AssisTec.Models;
 using AssisTec.Service;
@@ -8,7 +10,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
 {
     public partial class ucRegistrarEntrada : UserControl
     {
-        private readonly int _idProduto;
+        private int _idProduto;
         private readonly MovimentacaoEstoqueService _movimentacaoEstoqueService;
         private readonly ProdutoService _produtoService;
         private readonly ContasPagarService _contasPagarService;
@@ -22,8 +24,16 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
             _movimentacaoEstoqueService = movimentacaoEstoqueService ?? throw new ArgumentNullException(nameof(movimentacaoEstoqueService));
             _contasPagarService = contasPagarService ?? throw new ArgumentNullException(nameof(contasPagarService));
             _idProduto = idProduto;
-            _produto = _produtoService.ObterProdutoPorId(idProduto);
-            
+    
+            configurarComponentes();
+        }
+        public ucRegistrarEntrada(ProdutoService produtoService, MovimentacaoEstoqueService movimentacaoEstoqueService, ContasPagarService contasPagarService)
+        {
+            InitializeComponent();
+            _produtoService = produtoService ?? throw new ArgumentNullException(nameof(produtoService));
+            _movimentacaoEstoqueService = movimentacaoEstoqueService ?? throw new ArgumentNullException(nameof(movimentacaoEstoqueService));
+            _contasPagarService = contasPagarService ?? throw new ArgumentNullException(nameof(contasPagarService));
+    
             configurarComponentes();
         }
 
@@ -31,6 +41,28 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
 
         private void configurarComponentes()
         {
+            List<Produto> produtos = _produtoService.ObterProdutos()
+                .Where(p => p.status == "Ativado")
+                .ToList();
+    
+            cbProduto.SelectedIndexChanged -= cbProduto_SelectedIndexChanged;
+
+            cbProduto.DataSource = null;
+            cbProduto.DisplayMember = "descricao";
+            cbProduto.ValueMember = "idProduto";
+            cbProduto.DataSource = produtos;
+    
+            if (_idProduto > 0)
+            {
+                cbProduto.SelectedValue = _idProduto;
+            }
+            else
+            {
+                cbProduto.SelectedIndex = -1;
+            }
+
+            cbProduto.SelectedIndexChanged += cbProduto_SelectedIndexChanged;
+
             cbMotivo.Items.Clear();
             cbMotivo.Items.Add("Compra de mercadoria");
             cbMotivo.Items.Add("Devolução de Cliente");
@@ -39,21 +71,39 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
 
             mtbValor.Enabled = false;
             txtEstoque.Enabled = false;
-            txtNomeProduto.Enabled = false;
-            
+    
             mtbValor.Mask = null; 
             mtbValor.Text = "0,00";
-            
-            if (_produto != null)
+
+            AtualizarProdutoSelecionado();
+        }
+
+        private void AtualizarProdutoSelecionado()
+        {
+            if (cbProduto.SelectedValue != null && int.TryParse(cbProduto.SelectedValue.ToString(), out int idSelecionado) && idSelecionado > 0)
             {
-                txtNomeProduto.Text = _produto.descricao;
-                txtEstoque.Text = _produto.quantidade.ToString();
+                _idProduto = idSelecionado;
+                _produto = _produtoService.ObterProdutoPorId(_idProduto);
+
+                if (_produto != null)
+                {
+                    txtEstoque.Text = _produto.quantidade.ToString();
+                    RecalcularTotalEntrada();
+                }
+            }
+            else
+            {
+                _idProduto = 0;
+                _produto = null;
+                txtEstoque.Text = "0";
+                mtbValor.Text = "0,00";
+                _valor = 0;
             }
         }
 
         private void RecalcularTotalEntrada()
         {
-            if (!int.TryParse(txtQuantidade.Text, out int quantidade) || cbMotivo.SelectedItem == null)
+            if (_produto == null || !int.TryParse(txtQuantidade.Text, out int quantidade) || cbMotivo.SelectedItem == null)
             {
                 mtbValor.Text = "0,00";
                 _valor = 0;
@@ -85,8 +135,19 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
 
         #region Funções dos componentes
 
+        private void cbProduto_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            AtualizarProdutoSelecionado();
+        }
+
         private void btnSave_Click(object sender, EventArgs e)
         {
+            if (_idProduto <= 0 || _produto == null)
+            {
+                MessageBox.Show("Por favor, selecione um produto válido.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             if (!int.TryParse(txtQuantidade.Text, out int quantidade) || quantidade <= 0)
             {
                 MessageBox.Show("Por favor, insira uma quantidade válida maior que zero.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);

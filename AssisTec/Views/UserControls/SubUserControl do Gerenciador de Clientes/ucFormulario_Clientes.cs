@@ -31,6 +31,14 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Clientes.ucForm
             CriarNovoContexto();
         }
 
+        public ucFormulario_Clientes(int _modo, DataGridView _dgv)
+        {
+            InitializeComponent();
+            this.modo = _modo;
+            this.dgvClientes = _dgv;
+            CriarNovoContexto();
+        }
+
         private void CriarNovoContexto()
         {
             var context = new AppDbContext();

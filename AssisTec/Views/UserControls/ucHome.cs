@@ -5,6 +5,8 @@ using System.Windows.Forms;
 using AssisTec.DTO;
 using AssisTec.Models;
 using AssisTec.Service;
+using AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Clientes.ucFormulario_Clientes;
+using AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque;
 
 namespace AssisTec.UserControls
 {
@@ -12,18 +14,24 @@ namespace AssisTec.UserControls
     {
         private readonly OrdemServicoService _ordemServicoService;
         private readonly ProdutoService _produtoService;
+        private readonly MovimentacaoEstoqueService _movimentacaoEstoqueService;
+        private readonly ContasPagarService _contasPagarService;
+        private readonly ContasReceberService  _contasReceberService;
         CultureInfo culturaBrasil = new CultureInfo("pt-BR");
         private LucroMesDTO _lucroMesDTO = new LucroMesDTO();
 
-        public ucHome(OrdemServicoService  ordemServicoService, ProdutoService produtoService)
+        public ucHome(OrdemServicoService ordemServicoService, ProdutoService produtoService, MovimentacaoEstoqueService movimentacaoEstoqueService, ContasPagarService contasPagarService, ContasReceberService contasReceberService)
         {
             InitializeComponent();
            
             _ordemServicoService = ordemServicoService ??  throw new ArgumentNullException(nameof(ordemServicoService));
             _produtoService = produtoService ?? throw new ArgumentNullException(nameof(produtoService));
-            ConfigurarComponentes();
+            _movimentacaoEstoqueService =  movimentacaoEstoqueService ?? throw new ArgumentNullException(nameof(movimentacaoEstoqueService));
+            _contasPagarService = contasPagarService ?? throw new ArgumentNullException(nameof(contasPagarService));
+            _contasReceberService = contasReceberService ?? throw new ArgumentNullException(nameof(contasReceberService));
+            ConfigurarData();
             DesingModerno();
-            listGrid();
+            AtualizarGrid();
         }
 
         #region DesingModerno
@@ -49,6 +57,7 @@ namespace AssisTec.UserControls
             DesignComponentes.centralizarWidthControl(lblEstoque, panel7.Width);
             
             //Botoes
+            DesignComponentes.ArredondarPainel(panelBotoes,15,Color.FromArgb(50, 50, 50), 1 );
             DesignComponentes.AdicionarImagemNoBotao(btnOs, Properties.Resources.ordemServico);
             DesignComponentes.AdicionarImagemNoBotao(btnCliente, Properties.Resources.AdicionarEntidade);
             DesignComponentes.AdicionarImagemNoBotao(btnEntradaEstoque, Properties.Resources.EntradaEstoque);
@@ -62,8 +71,16 @@ namespace AssisTec.UserControls
         
 
         #endregion
+        
+        private void ConfigurarSubComponente(UserControl uc)
+        {
+            uc.Disposed += (s, e) => AtualizarGrid();
+            this.Controls.Add(uc);
+            uc.BringToFront();
+            uc.Location = new Point((this.Width - uc.Width) / 2, (this.Height - uc.Height) / 2);
+        }
 
-        private void ConfigurarComponentes()
+        private void ConfigurarData()
         {
             string dia = DateTime.Now.Day.ToString();
             string mes = DateTime.Now.ToString("MMMM",  culturaBrasil);
@@ -72,6 +89,11 @@ namespace AssisTec.UserControls
             lblNome.Text = $"Bem-vindo de volta, {Sessao.usuarioLogado.Nome}";
             lblData.Text = $"{diaDaSemana}, {dia} De {mes} De {ano}";
 
+            
+        }
+
+        private void ConfigurarCards()
+        {
             lblOrdemServico.Text = _ordemServicoService.obterOsAbertas().ToString();
             
             var (totalRecebido, totalPago, totalPagar, lucroLiquido) = _lucroMesDTO.ObterLucroDoMes(DateTime.Now.Month, DateTime.Now.Year);
@@ -83,8 +105,9 @@ namespace AssisTec.UserControls
             lblMinimo.Text = abaixoMinimo.ToString();
         }
 
-        private void listGrid()
+        private void AtualizarGrid()
         {
+            ConfigurarCards();
             dgvOS.DataSource = _ordemServicoService.OrdensRecentes();
             dataGridView1.DataSource = _produtoService.ProdutosAbaixoMinimo();
         }
@@ -93,6 +116,21 @@ namespace AssisTec.UserControls
         private void btnOs_Click(object sender, EventArgs e)
         {
             throw new System.NotImplementedException();
+        }
+
+        private void btnCliente_Click(object sender, EventArgs e)
+        {
+            ConfigurarSubComponente(new ucFormulario_Clientes(1,null));
+        }
+
+        private void btnEntradaEstoque_Click(object sender, EventArgs e)
+        {
+            ConfigurarSubComponente(new ucRegistrarEntrada( _produtoService, _movimentacaoEstoqueService, _contasPagarService));
+        }
+
+        private void btnSaidaEstoque_Click(object sender, EventArgs e)
+        {
+            ConfigurarSubComponente(new ucRegistrarSaida( _produtoService, _movimentacaoEstoqueService, _contasReceberService));
         }
     }
 }
