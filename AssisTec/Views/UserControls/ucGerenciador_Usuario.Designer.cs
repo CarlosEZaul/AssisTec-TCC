@@ -44,11 +44,14 @@ namespace AssisTec.UserControls
             this.label18 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.label4 = new System.Windows.Forms.Label();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.btnAtualizar = new System.Windows.Forms.PictureBox();
+            this.txtBusca = new System.Windows.Forms.TextBox();
             this.cbInativo = new System.Windows.Forms.CheckBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.cbNivel = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             this.dgvUsuarios = new System.Windows.Forms.DataGridView();
             this.panelBotoes = new System.Windows.Forms.Panel();
             this.btnContato = new System.Windows.Forms.Button();
@@ -56,12 +59,11 @@ namespace AssisTec.UserControls
             this.btnRelatorio = new System.Windows.Forms.Button();
             this.btnHistorico = new System.Windows.Forms.Button();
             this.btnStatus = new System.Windows.Forms.Button();
-            this.btnAtualizar = new System.Windows.Forms.PictureBox();
-            this.txtBusca = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
+            this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnAtualizar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvUsuarios)).BeginInit();
             this.panelBotoes.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.btnAtualizar)).BeginInit();
             this.SuspendLayout();
             // 
             // lblrua
@@ -200,15 +202,10 @@ namespace AssisTec.UserControls
             // 
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(55)))), ((int)(((byte)(76)))));
+            this.panel1.Controls.Add(this.panel2);
             this.panel1.Controls.Add(this.label4);
-            this.panel1.Controls.Add(this.cbInativo);
-            this.panel1.Controls.Add(this.cbNivel);
-            this.panel1.Controls.Add(this.label2);
-            this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.dgvUsuarios);
             this.panel1.Controls.Add(this.panelBotoes);
-            this.panel1.Controls.Add(this.btnAtualizar);
-            this.panel1.Controls.Add(this.txtBusca);
             this.panel1.Controls.Add(this.label15);
             this.panel1.Controls.Add(this.label18);
             this.panel1.Controls.Add(this.label8);
@@ -223,6 +220,92 @@ namespace AssisTec.UserControls
             this.panel1.Size = new System.Drawing.Size(1175, 749);
             this.panel1.TabIndex = 4;
             // 
+            // panel2
+            // 
+            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel2.Controls.Add(this.btnAtualizar);
+            this.panel2.Controls.Add(this.txtBusca);
+            this.panel2.Controls.Add(this.cbInativo);
+            this.panel2.Controls.Add(this.label1);
+            this.panel2.Controls.Add(this.cbNivel);
+            this.panel2.Controls.Add(this.label2);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel2.Location = new System.Drawing.Point(0, 38);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(1175, 46);
+            this.panel2.TabIndex = 147;
+            // 
+            // btnAtualizar
+            // 
+            this.btnAtualizar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAtualizar.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnAtualizar.BackgroundImage")));
+            this.btnAtualizar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnAtualizar.Location = new System.Drawing.Point(1121, 0);
+            this.btnAtualizar.Name = "btnAtualizar";
+            this.btnAtualizar.Size = new System.Drawing.Size(38, 38);
+            this.btnAtualizar.TabIndex = 50;
+            this.btnAtualizar.TabStop = false;
+            this.btnAtualizar.Click += new System.EventHandler(this.btnAtualizar_Click);
+            // 
+            // txtBusca
+            // 
+            this.txtBusca.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.txtBusca.BackColor = System.Drawing.Color.White;
+            this.txtBusca.Location = new System.Drawing.Point(88, 18);
+            this.txtBusca.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.txtBusca.Name = "txtBusca";
+            this.txtBusca.Size = new System.Drawing.Size(471, 20);
+            this.txtBusca.TabIndex = 53;
+            this.txtBusca.TextChanged += new System.EventHandler(this.txtBusca_TextChanged);
+            // 
+            // cbInativo
+            // 
+            this.cbInativo.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.cbInativo.Font = new System.Drawing.Font("Ebrima", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbInativo.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.cbInativo.Location = new System.Drawing.Point(954, 20);
+            this.cbInativo.Name = "cbInativo";
+            this.cbInativo.Size = new System.Drawing.Size(161, 24);
+            this.cbInativo.TabIndex = 136;
+            this.cbInativo.Text = "Exibir desativados";
+            this.cbInativo.UseVisualStyleBackColor = true;
+            this.cbInativo.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            // 
+            // label1
+            // 
+            this.label1.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.label1.Font = new System.Drawing.Font("Ebrima", 8.25F);
+            this.label1.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.label1.Location = new System.Drawing.Point(39, 20);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(41, 18);
+            this.label1.TabIndex = 54;
+            this.label1.Text = "Buscar:";
+            // 
+            // cbNivel
+            // 
+            this.cbNivel.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.cbNivel.FormattingEnabled = true;
+            this.cbNivel.Location = new System.Drawing.Point(733, 17);
+            this.cbNivel.Name = "cbNivel";
+            this.cbNivel.Size = new System.Drawing.Size(158, 21);
+            this.cbNivel.TabIndex = 135;
+            this.cbNivel.SelectedIndexChanged += new System.EventHandler(this.cbNivel_SelectedIndexChanged);
+            this.cbNivel.SelectionChangeCommitted += new System.EventHandler(this.cbNivel_SelectionChangeCommitted);
+            // 
+            // label2
+            // 
+            this.label2.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.label2.Font = new System.Drawing.Font("Ebrima", 8.25F);
+            this.label2.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.label2.Location = new System.Drawing.Point(632, 20);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(94, 18);
+            this.label2.TabIndex = 134;
+            this.label2.Text = "Nível de Usuário:";
+            // 
             // label4
             // 
             this.label4.BackColor = System.Drawing.Color.Transparent;
@@ -235,54 +318,6 @@ namespace AssisTec.UserControls
             this.label4.TabIndex = 146;
             this.label4.Text = "Gerenciador de Usuários";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // cbInativo
-            // 
-            this.cbInativo.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.cbInativo.Font = new System.Drawing.Font("Ebrima", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbInativo.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.cbInativo.Location = new System.Drawing.Point(955, 76);
-            this.cbInativo.Name = "cbInativo";
-            this.cbInativo.Size = new System.Drawing.Size(161, 24);
-            this.cbInativo.TabIndex = 136;
-            this.cbInativo.Text = "Exibir desativados";
-            this.cbInativo.UseVisualStyleBackColor = true;
-            this.cbInativo.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
-            // 
-            // cbNivel
-            // 
-            this.cbNivel.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.cbNivel.FormattingEnabled = true;
-            this.cbNivel.Location = new System.Drawing.Point(734, 73);
-            this.cbNivel.Name = "cbNivel";
-            this.cbNivel.Size = new System.Drawing.Size(158, 21);
-            this.cbNivel.TabIndex = 135;
-            this.cbNivel.SelectedIndexChanged += new System.EventHandler(this.cbNivel_SelectedIndexChanged);
-            this.cbNivel.SelectionChangeCommitted += new System.EventHandler(this.cbNivel_SelectionChangeCommitted);
-            // 
-            // label2
-            // 
-            this.label2.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.label2.Font = new System.Drawing.Font("Ebrima", 8.25F);
-            this.label2.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label2.Location = new System.Drawing.Point(633, 76);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(94, 18);
-            this.label2.TabIndex = 134;
-            this.label2.Text = "Nível de Usuário:";
-            // 
-            // label1
-            // 
-            this.label1.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.label1.Font = new System.Drawing.Font("Ebrima", 8.25F);
-            this.label1.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label1.Location = new System.Drawing.Point(40, 76);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(41, 18);
-            this.label1.TabIndex = 54;
-            this.label1.Text = "Buscar:";
             // 
             // dgvUsuarios
             // 
@@ -397,29 +432,6 @@ namespace AssisTec.UserControls
             this.btnStatus.UseVisualStyleBackColor = false;
             this.btnStatus.Click += new System.EventHandler(this.btnStatus_Click);
             // 
-            // btnAtualizar
-            // 
-            this.btnAtualizar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAtualizar.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnAtualizar.BackgroundImage")));
-            this.btnAtualizar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnAtualizar.Location = new System.Drawing.Point(1122, 56);
-            this.btnAtualizar.Name = "btnAtualizar";
-            this.btnAtualizar.Size = new System.Drawing.Size(38, 38);
-            this.btnAtualizar.TabIndex = 50;
-            this.btnAtualizar.TabStop = false;
-            this.btnAtualizar.Click += new System.EventHandler(this.btnAtualizar_Click);
-            // 
-            // txtBusca
-            // 
-            this.txtBusca.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.txtBusca.BackColor = System.Drawing.Color.White;
-            this.txtBusca.Location = new System.Drawing.Point(89, 74);
-            this.txtBusca.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.txtBusca.Name = "txtBusca";
-            this.txtBusca.Size = new System.Drawing.Size(471, 20);
-            this.txtBusca.TabIndex = 53;
-            this.txtBusca.TextChanged += new System.EventHandler(this.txtBusca_TextChanged);
-            // 
             // ucGerenciador_Usuario
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -432,11 +444,15 @@ namespace AssisTec.UserControls
             this.Load += new System.EventHandler(this.ucGerenciador_Usuario_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnAtualizar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvUsuarios)).EndInit();
             this.panelBotoes.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.btnAtualizar)).EndInit();
             this.ResumeLayout(false);
         }
+
+        private System.Windows.Forms.Panel panel2;
 
         private System.Windows.Forms.Button btnContato;
 

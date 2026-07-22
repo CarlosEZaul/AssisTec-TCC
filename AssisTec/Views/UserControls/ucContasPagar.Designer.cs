@@ -91,7 +91,7 @@ namespace AssisTec.UserControls
             this.btnAtualizar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnAtualizar.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnAtualizar.BackgroundImage")));
             this.btnAtualizar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnAtualizar.Location = new System.Drawing.Point(1119, 20);
+            this.btnAtualizar.Location = new System.Drawing.Point(1117, 5);
             this.btnAtualizar.Name = "btnAtualizar";
             this.btnAtualizar.Size = new System.Drawing.Size(38, 38);
             this.btnAtualizar.TabIndex = 171;
@@ -106,7 +106,7 @@ namespace AssisTec.UserControls
             this.btnBuscar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnBuscar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.btnBuscar.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnBuscar.Location = new System.Drawing.Point(1036, 24);
+            this.btnBuscar.Location = new System.Drawing.Point(1034, 9);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(77, 33);
             this.btnBuscar.TabIndex = 170;
@@ -148,6 +148,7 @@ namespace AssisTec.UserControls
             // 
             // panelExibicao
             // 
+            this.panelExibicao.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelExibicao.Controls.Add(this.panel4);
             this.panelExibicao.Controls.Add(this.panel5);
             this.panelExibicao.Controls.Add(this.panel3);
@@ -165,7 +166,7 @@ namespace AssisTec.UserControls
             this.panel4.Controls.Add(this.lblPendente);
             this.panel4.Controls.Add(this.label11);
             this.panel4.Controls.Add(this.pictureBox3);
-            this.panel4.Location = new System.Drawing.Point(576, 16);
+            this.panel4.Location = new System.Drawing.Point(581, 9);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(239, 56);
             this.panel4.TabIndex = 164;
@@ -208,7 +209,7 @@ namespace AssisTec.UserControls
             this.panel5.Controls.Add(this.lblAtrasado);
             this.panel5.Controls.Add(this.label13);
             this.panel5.Controls.Add(this.pictureBox4);
-            this.panel5.Location = new System.Drawing.Point(821, 16);
+            this.panel5.Location = new System.Drawing.Point(826, 9);
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(239, 56);
             this.panel5.TabIndex = 165;
@@ -251,7 +252,7 @@ namespace AssisTec.UserControls
             this.panel3.Controls.Add(this.lblPago);
             this.panel3.Controls.Add(this.label9);
             this.panel3.Controls.Add(this.pictureBox2);
-            this.panel3.Location = new System.Drawing.Point(331, 16);
+            this.panel3.Location = new System.Drawing.Point(332, 9);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(239, 56);
             this.panel3.TabIndex = 163;
@@ -294,7 +295,7 @@ namespace AssisTec.UserControls
             this.panel1.Controls.Add(this.lblTotalPagar);
             this.panel1.Controls.Add(this.label7);
             this.panel1.Controls.Add(this.pictureBox1);
-            this.panel1.Location = new System.Drawing.Point(86, 16);
+            this.panel1.Location = new System.Drawing.Point(87, 9);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(239, 56);
             this.panel1.TabIndex = 162;
@@ -334,7 +335,7 @@ namespace AssisTec.UserControls
             // 
             this.cbFormaPagamento.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.cbFormaPagamento.FormattingEnabled = true;
-            this.cbFormaPagamento.Location = new System.Drawing.Point(804, 38);
+            this.cbFormaPagamento.Location = new System.Drawing.Point(803, 23);
             this.cbFormaPagamento.Name = "cbFormaPagamento";
             this.cbFormaPagamento.Size = new System.Drawing.Size(158, 21);
             this.cbFormaPagamento.TabIndex = 175;
@@ -344,7 +345,7 @@ namespace AssisTec.UserControls
             this.label6.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label6.Font = new System.Drawing.Font("Comic Sans MS", 9.75F);
             this.label6.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label6.Location = new System.Drawing.Point(813, 20);
+            this.label6.Location = new System.Drawing.Point(812, 5);
             this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(141, 18);
@@ -356,7 +357,7 @@ namespace AssisTec.UserControls
             this.label5.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label5.Font = new System.Drawing.Font("Comic Sans MS", 9.75F);
             this.label5.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label5.Location = new System.Drawing.Point(436, 20);
+            this.label5.Location = new System.Drawing.Point(435, 5);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(134, 18);
@@ -367,7 +368,7 @@ namespace AssisTec.UserControls
             // 
             this.txtBusca.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.txtBusca.BackColor = System.Drawing.Color.White;
-            this.txtBusca.Location = new System.Drawing.Point(365, 38);
+            this.txtBusca.Location = new System.Drawing.Point(364, 23);
             this.txtBusca.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtBusca.Name = "txtBusca";
             this.txtBusca.Size = new System.Drawing.Size(268, 20);
@@ -377,7 +378,7 @@ namespace AssisTec.UserControls
             // 
             this.cbStatus.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.cbStatus.FormattingEnabled = true;
-            this.cbStatus.Location = new System.Drawing.Point(640, 38);
+            this.cbStatus.Location = new System.Drawing.Point(639, 23);
             this.cbStatus.Name = "cbStatus";
             this.cbStatus.Size = new System.Drawing.Size(158, 21);
             this.cbStatus.TabIndex = 171;
@@ -387,7 +388,7 @@ namespace AssisTec.UserControls
             this.label3.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label3.Font = new System.Drawing.Font("Comic Sans MS", 9.75F);
             this.label3.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label3.Location = new System.Drawing.Point(684, 20);
+            this.label3.Location = new System.Drawing.Point(683, 5);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(55, 18);
@@ -397,7 +398,7 @@ namespace AssisTec.UserControls
             // mtbDataFim
             // 
             this.mtbDataFim.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.mtbDataFim.Location = new System.Drawing.Point(243, 38);
+            this.mtbDataFim.Location = new System.Drawing.Point(242, 23);
             this.mtbDataFim.Mask = "00/00/0000";
             this.mtbDataFim.Name = "mtbDataFim";
             this.mtbDataFim.Size = new System.Drawing.Size(100, 20);
@@ -409,7 +410,7 @@ namespace AssisTec.UserControls
             this.label2.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label2.Font = new System.Drawing.Font("Comic Sans MS", 9.75F);
             this.label2.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label2.Location = new System.Drawing.Point(260, 20);
+            this.label2.Location = new System.Drawing.Point(259, 5);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(67, 18);
@@ -419,7 +420,7 @@ namespace AssisTec.UserControls
             // mtbDataInicio
             // 
             this.mtbDataInicio.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.mtbDataInicio.Location = new System.Drawing.Point(128, 38);
+            this.mtbDataInicio.Location = new System.Drawing.Point(127, 23);
             this.mtbDataInicio.Mask = "00/00/0000";
             this.mtbDataInicio.Name = "mtbDataInicio";
             this.mtbDataInicio.Size = new System.Drawing.Size(100, 20);
@@ -431,7 +432,7 @@ namespace AssisTec.UserControls
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label1.Font = new System.Drawing.Font("Comic Sans MS", 9.75F);
             this.label1.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label1.Location = new System.Drawing.Point(128, 17);
+            this.label1.Location = new System.Drawing.Point(127, 2);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(99, 18);
@@ -552,6 +553,7 @@ namespace AssisTec.UserControls
             // 
             // panel2
             // 
+            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel2.Controls.Add(this.cbFormaPagamento);
             this.panel2.Controls.Add(this.label6);
             this.panel2.Controls.Add(this.label5);

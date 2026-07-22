@@ -116,4 +116,10 @@
   <data name="SaidaEstoque" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\SaidaEstoque.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="EmAndamento" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\EmAndamento.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ParaRetirada" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ParaRetirada.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

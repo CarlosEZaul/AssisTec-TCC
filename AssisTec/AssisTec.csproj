@@ -534,9 +534,11 @@
     <Content Include="Resources\cifrao.png" />
     <Content Include="Resources\cifrao_vermelho.png" />
     <Content Include="Resources\cifrao_vermelho_removebg_preview.png" />
+    <Content Include="Resources\EmAndamento.png" />
     <Content Include="Resources\EntradaEstoque.png" />
     <Content Include="Resources\fora_de_estoque.png" />
     <Content Include="Resources\ordemServico.png" />
+    <Content Include="Resources\ParaRetirada.png" />
     <Content Include="Resources\produto.png" />
     <Content Include="Resources\relogio_pendente.png" />
     <Content Include="Resources\SaidaEstoque.png" />

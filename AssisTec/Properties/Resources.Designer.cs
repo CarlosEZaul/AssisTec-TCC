@@ -161,6 +161,16 @@ namespace AssisTec.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap EmAndamento {
+            get {
+                object obj = ResourceManager.GetObject("EmAndamento", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap EntradaEstoque {
             get {
                 object obj = ResourceManager.GetObject("EntradaEstoque", resourceCulture);
@@ -204,6 +214,16 @@ namespace AssisTec.Properties {
         internal static System.Drawing.Bitmap ordemServico {
             get {
                 object obj = ResourceManager.GetObject("ordemServico", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ParaRetirada {
+            get {
+                object obj = ResourceManager.GetObject("ParaRetirada", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

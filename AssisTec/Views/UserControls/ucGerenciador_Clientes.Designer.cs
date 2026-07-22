@@ -46,9 +46,11 @@ namespace AssisTec.UserControls
             this.btnAtualizar = new System.Windows.Forms.PictureBox();
             this.txtBusca = new System.Windows.Forms.TextBox();
             this.cbDesativado = new System.Windows.Forms.CheckBox();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.panelBotoes.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvClientes)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnAtualizar)).BeginInit();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelBotoes
@@ -199,7 +201,7 @@ namespace AssisTec.UserControls
             this.dgvClientes.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Sunken;
             this.dgvClientes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvClientes.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.dgvClientes.Location = new System.Drawing.Point(21, 85);
+            this.dgvClientes.Location = new System.Drawing.Point(22, 100);
             this.dgvClientes.MultiSelect = false;
             this.dgvClientes.Name = "dgvClientes";
             this.dgvClientes.ReadOnly = true;
@@ -212,7 +214,7 @@ namespace AssisTec.UserControls
             this.label14.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label14.Font = new System.Drawing.Font("Comic Sans MS", 9.75F);
             this.label14.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label14.Location = new System.Drawing.Point(301, 61);
+            this.label14.Location = new System.Drawing.Point(267, 17);
             this.label14.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(53, 18);
@@ -224,7 +226,7 @@ namespace AssisTec.UserControls
             this.btnAtualizar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnAtualizar.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnAtualizar.BackgroundImage")));
             this.btnAtualizar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnAtualizar.Location = new System.Drawing.Point(1121, 41);
+            this.btnAtualizar.Location = new System.Drawing.Point(1119, 5);
             this.btnAtualizar.Name = "btnAtualizar";
             this.btnAtualizar.Size = new System.Drawing.Size(38, 38);
             this.btnAtualizar.TabIndex = 141;
@@ -235,7 +237,7 @@ namespace AssisTec.UserControls
             // 
             this.txtBusca.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.txtBusca.BackColor = System.Drawing.Color.White;
-            this.txtBusca.Location = new System.Drawing.Point(377, 59);
+            this.txtBusca.Location = new System.Drawing.Point(343, 15);
             this.txtBusca.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtBusca.Name = "txtBusca";
             this.txtBusca.Size = new System.Drawing.Size(471, 20);
@@ -247,7 +249,7 @@ namespace AssisTec.UserControls
             this.cbDesativado.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.cbDesativado.Font = new System.Drawing.Font("Ebrima", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbDesativado.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.cbDesativado.Location = new System.Drawing.Point(876, 55);
+            this.cbDesativado.Location = new System.Drawing.Point(860, 13);
             this.cbDesativado.Name = "cbDesativado";
             this.cbDesativado.Size = new System.Drawing.Size(158, 24);
             this.cbDesativado.TabIndex = 147;
@@ -255,27 +257,40 @@ namespace AssisTec.UserControls
             this.cbDesativado.UseVisualStyleBackColor = true;
             this.cbDesativado.CheckedChanged += new System.EventHandler(this.cbDesativado_CheckedChanged);
             // 
+            // panel1
+            // 
+            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.btnAtualizar);
+            this.panel1.Controls.Add(this.cbDesativado);
+            this.panel1.Controls.Add(this.txtBusca);
+            this.panel1.Controls.Add(this.label14);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel1.Location = new System.Drawing.Point(0, 38);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(1175, 46);
+            this.panel1.TabIndex = 148;
+            // 
             // ucGerenciador_Clientes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(55)))), ((int)(((byte)(76)))));
-            this.Controls.Add(this.cbDesativado);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.panelBotoes);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.dgvClientes);
-            this.Controls.Add(this.label14);
-            this.Controls.Add(this.btnAtualizar);
-            this.Controls.Add(this.txtBusca);
             this.Name = "ucGerenciador_Clientes";
             this.Size = new System.Drawing.Size(1175, 749);
             this.Load += new System.EventHandler(this.ucGerenciadorClientes_Load);
             this.panelBotoes.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvClientes)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnAtualizar)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
         }
+
+        private System.Windows.Forms.Panel panel1;
 
         private System.Windows.Forms.CheckBox cbDesativado;
 
