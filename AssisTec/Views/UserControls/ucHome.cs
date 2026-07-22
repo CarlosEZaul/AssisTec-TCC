@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using AssisTec.DTO;
 using AssisTec.Models;
 using AssisTec.Service;
+using AssisTec.SubForms_do_Gerenciador_de_Pedidos;
 using AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Clientes.ucFormulario_Clientes;
 using AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque;
 
@@ -17,10 +18,12 @@ namespace AssisTec.UserControls
         private readonly MovimentacaoEstoqueService _movimentacaoEstoqueService;
         private readonly ContasPagarService _contasPagarService;
         private readonly ContasReceberService  _contasReceberService;
+        private readonly UsuarioService _usuarioService;
+        private readonly ClienteService _clienteService;
         CultureInfo culturaBrasil = new CultureInfo("pt-BR");
         private LucroMesDTO _lucroMesDTO = new LucroMesDTO();
 
-        public ucHome(OrdemServicoService ordemServicoService, ProdutoService produtoService, MovimentacaoEstoqueService movimentacaoEstoqueService, ContasPagarService contasPagarService, ContasReceberService contasReceberService)
+        public ucHome(OrdemServicoService ordemServicoService, ProdutoService produtoService, MovimentacaoEstoqueService movimentacaoEstoqueService, ContasPagarService contasPagarService, ContasReceberService contasReceberService, ClienteService clienteService, UsuarioService usuarioService)
         {
             InitializeComponent();
            
@@ -29,6 +32,8 @@ namespace AssisTec.UserControls
             _movimentacaoEstoqueService =  movimentacaoEstoqueService ?? throw new ArgumentNullException(nameof(movimentacaoEstoqueService));
             _contasPagarService = contasPagarService ?? throw new ArgumentNullException(nameof(contasPagarService));
             _contasReceberService = contasReceberService ?? throw new ArgumentNullException(nameof(contasReceberService));
+            _clienteService =  clienteService ?? throw new ArgumentNullException(nameof(clienteService));
+            _usuarioService = usuarioService ?? throw new ArgumentNullException(nameof(usuarioService));
             ConfigurarData();
             DesingModerno();
             AtualizarGrid();
@@ -113,7 +118,7 @@ namespace AssisTec.UserControls
 
         private void btnOs_Click(object sender, EventArgs e)
         {
-            throw new System.NotImplementedException();
+            ConfigurarSubComponente(new ucFormularioOS(_ordemServicoService, _clienteService,  _usuarioService));
         }
 
         private void btnCliente_Click(object sender, EventArgs e)

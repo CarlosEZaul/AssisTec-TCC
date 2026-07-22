@@ -19,6 +19,8 @@ namespace AssisTec
         private readonly ProdutoService _produtoService;
         private readonly MovimentacaoEstoqueService _movimentacaoEstoqueService;
         private readonly OrdemServicoService _ordemServicoService;
+        private readonly ClienteService _clienteService;
+        private readonly UsuarioService _usuarioService;
         
         Panel panelUsuario;
         Label lblNome;
@@ -34,7 +36,8 @@ namespace AssisTec
             var context = new AppDbContext();
             var contasReceberRepository = new ContasReceberRepository(context);
             var pagamentoRepository = new PagamentoRepository(context);
-            
+            var clienteRepository = new ClienteRepository(context);
+            var usuarioRepository = new UsuarioRepository(context);
             var contasPagarRepository = new ContasPagarRepository(context);
             
             var produtoRepository = new ProdutoRepository(context);
@@ -49,10 +52,12 @@ namespace AssisTec
             _pagamentoService = new PagamentoService(contasReceberRepository,contasPagarRepository, pagamentoRepository);
             _movimentacaoEstoqueService = new MovimentacaoEstoqueService(movimentacaoEstoqueRepository);
             _ordemServicoService = new OrdemServicoService(OrdemServicoRepository);
+            _clienteService = new ClienteService(clienteRepository);
+            _usuarioService = new UsuarioService(usuarioRepository);
 
             ConfigurarPanelUsuario();
             ConfigurarNavbar();
-            AbrirUserControl(new ucHome(_ordemServicoService, _produtoService,_movimentacaoEstoqueService, _contasPagarService,_contasReceberService), null);
+            AbrirUserControl(new ucHome(_ordemServicoService, _produtoService,_movimentacaoEstoqueService, _contasPagarService,_contasReceberService, _clienteService,_usuarioService), null);
         }
 
         private void ConfigurarPanelUsuario()
@@ -124,7 +129,7 @@ namespace AssisTec
 
             Guna2Button btnHome = CriarBotaoMenu(
                 "🏠 Home",
-                (s, e) => AbrirUserControl(new ucHome(_ordemServicoService,_produtoService, _movimentacaoEstoqueService, _contasPagarService,_contasReceberService), s));
+                (s, e) => AbrirUserControl(new ucHome(_ordemServicoService,_produtoService, _movimentacaoEstoqueService, _contasPagarService,_contasReceberService,_clienteService,_usuarioService), s));
 
             Guna2Button btnUsuario = CriarBotaoMenu(
                 "👤 Usuários",
@@ -143,7 +148,7 @@ namespace AssisTec
 
             Guna2Button btnPedidos = CriarBotaoMenu(
                 "📨 Ordens de Serviço",
-                (s, e) => AbrirUserControl(new ucGerenciadorOS(), s)
+                (s, e) => AbrirUserControl(new ucGerenciadorOS(_ordemServicoService, _usuarioService, _clienteService), s)
             );
 
             Guna2Button btnContasReceber = CriarBotaoMenu(

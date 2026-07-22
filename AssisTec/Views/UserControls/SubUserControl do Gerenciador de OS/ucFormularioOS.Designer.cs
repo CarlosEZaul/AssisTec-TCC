@@ -77,13 +77,14 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             // 
             // panel3
             // 
+            this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel3.Controls.Add(this.btnLimpar);
             this.panel3.Controls.Add(this.btnFechar);
             this.panel3.Controls.Add(this.btnSalvar);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel3.Location = new System.Drawing.Point(0, 251);
+            this.panel3.Location = new System.Drawing.Point(0, 249);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(877, 31);
+            this.panel3.Size = new System.Drawing.Size(880, 31);
             this.panel3.TabIndex = 66;
             // 
             // btnLimpar
@@ -134,6 +135,7 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(44)))), ((int)(((byte)(64)))));
+            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel2.Controls.Add(this.label24);
             this.panel2.Controls.Add(this.label23);
             this.panel2.Controls.Add(this.label22);
@@ -163,9 +165,9 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             this.panel2.Controls.Add(this.txtDescricao);
             this.panel2.Controls.Add(this.lblEnd);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel2.Location = new System.Drawing.Point(0, 55);
+            this.panel2.Location = new System.Drawing.Point(0, 51);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(877, 282);
+            this.panel2.Size = new System.Drawing.Size(882, 282);
             this.panel2.TabIndex = 70;
             // 
             // label24
@@ -186,7 +188,7 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             this.label23.AutoSize = true;
             this.label23.Font = new System.Drawing.Font("Comic Sans MS", 9.75F);
             this.label23.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label23.Location = new System.Drawing.Point(0, 122);
+            this.label23.Location = new System.Drawing.Point(6, 122);
             this.label23.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label23.Name = "label23";
             this.label23.Size = new System.Drawing.Size(89, 18);
@@ -261,7 +263,7 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             this.label16.AutoSize = true;
             this.label16.Font = new System.Drawing.Font("Comic Sans MS", 9.75F);
             this.label16.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label16.Location = new System.Drawing.Point(4, 56);
+            this.label16.Location = new System.Drawing.Point(6, 56);
             this.label16.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(72, 18);
@@ -465,6 +467,7 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             // panel4
             // 
             this.panel4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(55)))), ((int)(((byte)(76)))));
+            this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel4.Controls.Add(this.label14);
             this.panel4.Controls.Add(this.label13);
             this.panel4.Controls.Add(this.cbTecnico);
@@ -474,7 +477,7 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel4.Location = new System.Drawing.Point(0, 0);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(877, 337);
+            this.panel4.Size = new System.Drawing.Size(882, 333);
             this.panel4.TabIndex = 71;
             // 
             // label14
@@ -543,10 +546,11 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel4);
             this.Name = "ucFormularioOS";
-            this.Size = new System.Drawing.Size(877, 337);
+            this.Size = new System.Drawing.Size(882, 333);
             this.panel3.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();

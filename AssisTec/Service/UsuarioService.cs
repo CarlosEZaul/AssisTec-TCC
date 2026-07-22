@@ -283,6 +283,19 @@ namespace AssisTec.Service
         {
             return ordemServicoRepository.ObterHistoricoUsuario(id);
         }
+
+        public List<Usuario> obterTodosTecnicos()
+        {
+            try
+            {
+                return repository.ObterTodosTecnicosAtivados();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
         
 
         private void ExecutarGeracaoPdfUsuarios(UsuarioDTO.UsuariosRelatorioDTO dados, string caminhoDestino)

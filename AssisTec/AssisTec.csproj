@@ -354,24 +354,24 @@
     <Compile Include="Views\UserControls\SubUserControl do Gerenciador de Estoque\ucRegistrarSaida.Designer.cs">
       <DependentUpon>ucRegistrarSaida.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\UserControls\SubUserControl do Gerenciador de Pedidos\ucDetalhesPedidos.cs" />
-    <Compile Include="Views\UserControls\SubUserControl do Gerenciador de Pedidos\ucDetalhesPedidos.Designer.cs">
+    <Compile Include="Views\UserControls\SubUserControl do Gerenciador de OS\ucDetalhesPedidos.cs" />
+    <Compile Include="Views\UserControls\SubUserControl do Gerenciador de OS\ucDetalhesPedidos.Designer.cs">
       <DependentUpon>ucDetalhesPedidos.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\UserControls\SubUserControl do Gerenciador de Pedidos\ucFormularioOS.cs" />
-    <Compile Include="Views\UserControls\SubUserControl do Gerenciador de Pedidos\ucFormularioOS.Designer.cs">
+    <Compile Include="Views\UserControls\SubUserControl do Gerenciador de OS\ucFormularioOS.cs" />
+    <Compile Include="Views\UserControls\SubUserControl do Gerenciador de OS\ucFormularioOS.Designer.cs">
       <DependentUpon>ucFormularioOS.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\UserControls\SubUserControl do Gerenciador de Pedidos\ucHistoricoOS.cs" />
-    <Compile Include="Views\UserControls\SubUserControl do Gerenciador de Pedidos\ucHistoricoOS.Designer.cs">
+    <Compile Include="Views\UserControls\SubUserControl do Gerenciador de OS\ucHistoricoOS.cs" />
+    <Compile Include="Views\UserControls\SubUserControl do Gerenciador de OS\ucHistoricoOS.Designer.cs">
       <DependentUpon>ucHistoricoOS.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\UserControls\SubUserControl do Gerenciador de Pedidos\ucProdutosUtilizados.cs" />
-    <Compile Include="Views\UserControls\SubUserControl do Gerenciador de Pedidos\ucProdutosUtilizados.Designer.cs">
+    <Compile Include="Views\UserControls\SubUserControl do Gerenciador de OS\ucProdutosUtilizados.cs" />
+    <Compile Include="Views\UserControls\SubUserControl do Gerenciador de OS\ucProdutosUtilizados.Designer.cs">
       <DependentUpon>ucProdutosUtilizados.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\UserControls\SubUserControl do Gerenciador de Pedidos\ucServicos.cs" />
-    <Compile Include="Views\UserControls\SubUserControl do Gerenciador de Pedidos\ucServicos.Designer.cs">
+    <Compile Include="Views\UserControls\SubUserControl do Gerenciador de OS\ucServicos.cs" />
+    <Compile Include="Views\UserControls\SubUserControl do Gerenciador de OS\ucServicos.Designer.cs">
       <DependentUpon>ucServicos.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\UserControls\SubUserControl do Gerenciador de Usuarios\ucFormularioUsuarios.cs" />
@@ -454,19 +454,19 @@
     <EmbeddedResource Include="Views\UserControls\SubUserControl do Gerenciador de Estoque\ucRegistrarSaida.resx">
       <DependentUpon>ucRegistrarSaida.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\UserControls\SubUserControl do Gerenciador de Pedidos\ucDetalhesPedidos.resx">
+    <EmbeddedResource Include="Views\UserControls\SubUserControl do Gerenciador de OS\ucDetalhesPedidos.resx">
       <DependentUpon>ucDetalhesPedidos.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\UserControls\SubUserControl do Gerenciador de Pedidos\ucFormularioOS.resx">
+    <EmbeddedResource Include="Views\UserControls\SubUserControl do Gerenciador de OS\ucFormularioOS.resx">
       <DependentUpon>ucFormularioOS.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\UserControls\SubUserControl do Gerenciador de Pedidos\ucHistoricoOS.resx">
+    <EmbeddedResource Include="Views\UserControls\SubUserControl do Gerenciador de OS\ucHistoricoOS.resx">
       <DependentUpon>ucHistoricoOS.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\UserControls\SubUserControl do Gerenciador de Pedidos\ucProdutosUtilizados.resx">
+    <EmbeddedResource Include="Views\UserControls\SubUserControl do Gerenciador de OS\ucProdutosUtilizados.resx">
       <DependentUpon>ucProdutosUtilizados.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\UserControls\SubUserControl do Gerenciador de Pedidos\ucServicos.resx">
+    <EmbeddedResource Include="Views\UserControls\SubUserControl do Gerenciador de OS\ucServicos.resx">
       <DependentUpon>ucServicos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\UserControls\SubUserControl do Gerenciador de Usuarios\ucFormularioUsuarios.resx">

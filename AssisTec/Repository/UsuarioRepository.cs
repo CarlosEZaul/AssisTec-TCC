@@ -41,6 +41,20 @@ namespace AssisTec.Repository
             }
         }
 
+        public List<Usuario> ObterTodosTecnicosAtivados()
+        {
+            try
+            {
+                return context.Usuarios
+                    .Where(u => u.Status == "Ativado" && (u.Nivel == 1 || u.Nivel == 3))
+                    .ToList();
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Falha ao consultar técnicos no BD.");
+            }
+        }
+
         public Usuario ObterPorId(int id)
         {
             try

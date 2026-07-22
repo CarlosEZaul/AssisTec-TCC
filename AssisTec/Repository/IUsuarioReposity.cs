@@ -7,6 +7,7 @@ namespace AssisTec.Repository
     {
         bool InserirUsuario(Usuario usuario);
         List<Usuario> ObterTodosUsuarios();
+        List<Usuario> ObterTodosTecnicosAtivados();
         Usuario ObterPorId(int id);
         Usuario ObterPorCpf(string cpf);
         bool AtualizarUsuario(Usuario usuario);
