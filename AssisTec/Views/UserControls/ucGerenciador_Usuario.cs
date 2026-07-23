@@ -219,7 +219,7 @@ namespace AssisTec.UserControls
             }
 
             int idLogado = Sessao.usuarioLogado.Id;
-            var validacao = service.ValidarAntesDeDeativar(idSelected, idLogado);
+            var validacao = service.ValidarAntesDeDesativar(idSelected, idLogado);
 
             if (!string.IsNullOrEmpty(validacao.mensagem) && !validacao.sucesso)
             {

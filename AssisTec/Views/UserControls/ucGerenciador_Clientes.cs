@@ -177,23 +177,35 @@ namespace AssisTec.UserControls
 
         private void btnStatus_Click(object sender, EventArgs e)
         {
-            if (service.ObterPorId(idSelected).Status == "Ativado")
+            try
             {
-                DialogResult result = MessageBox.Show("Deseja desativar o cliente ?", "Desativar", MessageBoxButtons.YesNo);
-                if (result == DialogResult.Yes)
+                if (service.ObterPorId(idSelected).Status == "Ativado")
                 {
-                    service.AlterarStatus(idSelected);
+                    DialogResult result = MessageBox.Show("Deseja desativar o cliente ?", "Desativar", MessageBoxButtons.YesNo);
+                    if (result == DialogResult.Yes)
+                    {
+                        clienteServiceOs.AlterarStatus(idSelected);
+                    }
                 }
+                else
+                {
+                    DialogResult result = MessageBox.Show("Deseja ativar o cliente ?", "Ativar", MessageBoxButtons.YesNo);
+                    if (result == DialogResult.Yes)
+                    {
+                        service.AlterarStatus(idSelected);
+                    }
+                }
+                ListGrid();
             }
-            else
+            catch (ArgumentException ex)
             {
-                DialogResult result = MessageBox.Show("Deseja ativar o cliente ?", "Ativar", MessageBoxButtons.YesNo);
-                if (result == DialogResult.Yes)
-                {
-                    service.AlterarStatus(idSelected);
-                }
+                MessageBox.Show(ex.Message, "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
-            ListGrid();
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ocorreu um erro ao alterar o status: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            
         }
 
         private void btnAtualizar_Click(object sender, EventArgs e)

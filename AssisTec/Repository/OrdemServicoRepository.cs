@@ -14,7 +14,20 @@ namespace AssisTec.Repository
         {
             this.context = context;
         }
-        
+
+        public bool SalvarOrdemServico(OrdemServico ordemServico)
+        {
+            try
+            {
+                context.OrdemServicos.Add(ordemServico);
+                return context.SaveChanges()>0;
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Falha ao salvar ordemServico no BD" + e.Message);
+            }
+        }
+
         public DataTable ObterHistoricoUsuario(int idUsuario)
         {
             try
@@ -149,6 +162,16 @@ namespace AssisTec.Repository
                 .Take(15);
 
             return MontarDataTableOrdemServico(ordens);
+        }
+
+        public bool ExisteOSAbertaPorTecnico(int idTecnico)
+        {
+            return context.OrdemServicos.Any(os => os.id_tecnico == idTecnico && os.status == "ABERTA");
+        }
+
+        public bool ExisteOSAbertaPorCliente(int idCliente)
+        {
+            return context.OrdemServicos.Any(os => os.id_cliente == idCliente && os.status == "ABERTA");
         }
 
         private DataTable MontarDataTableOrdemServico(IQueryable<OrdemServico> query)

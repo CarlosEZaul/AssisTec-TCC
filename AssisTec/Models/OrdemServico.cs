@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AssisTec.Models
 {
@@ -21,19 +22,25 @@ namespace AssisTec.Models
         public string status { get; set; } = "ABERTA";
 
         [Required]
+        [Column(TypeName = "datetime(6)")]
         public DateTime data_abertura { get; set; } = DateTime.Now;
-
+        
+        [Column(TypeName = "datetime(6)")]
         public DateTime? data_atualizacao { get; set; }
 
+        [Column(TypeName = "datetime(6)")]
         public DateTime? data_fechamento { get; set; }
 
         [Required]
+        [Column(TypeName = "decimal(18,2)")]
         public decimal valor_mao_obra { get; set; } = 0.00m;
 
         [Required]
+        [Column(TypeName = "decimal(18,2)")]
         public decimal valor_pecas { get; set; } = 0.00m;
 
         [Required]
+        [Column(TypeName = "decimal(18,2)")]
         public decimal valor_total { get; set; } = 0.00m;
 
         [StringLength(500)]

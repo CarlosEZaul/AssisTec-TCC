@@ -260,10 +260,12 @@
     <Compile Include="Repository\ClienteRepository.cs" />
     <Compile Include="Repository\ContaReceberRepository.cs" />
     <Compile Include="Repository\ContasPagarRepository.cs" />
+    <Compile Include="Repository\EquipamentoRepository.cs" />
     <Compile Include="Repository\IBackupRepository.cs" />
     <Compile Include="Repository\IClienteRepository.cs" />
     <Compile Include="Repository\IContaReceberRepository.cs" />
     <Compile Include="Repository\IContasPagarRepository.cs" />
+    <Compile Include="Repository\IEquipamentoRepository.cs" />
     <Compile Include="Repository\IMovimentacaoEstoqueRepository.cs" />
     <Compile Include="Repository\IOrdemServicoRepository.cs" />
     <Compile Include="Repository\IPagamentoRepository.cs" />
@@ -277,6 +279,7 @@
     <Compile Include="Service\ClienteService.cs" />
     <Compile Include="Service\ContasPagarService.cs" />
     <Compile Include="Service\ContasReceberService.cs" />
+    <Compile Include="Service\EquipamentoService.cs" />
     <Compile Include="Service\MovimentacaoEstoqueService.cs" />
     <Compile Include="Service\OrdemServicoService.cs" />
     <Compile Include="Service\PagamentoService.cs" />

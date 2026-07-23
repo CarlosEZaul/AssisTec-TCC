@@ -187,16 +187,37 @@ namespace AssisTec.Service
         {
             return ordemServicoRepository.ObterHistoricoCliente(id);
         }
+        public (bool sucesso, string mensagem) ValidarAntesDeDesativarCliente(int idCliente)
+        {
+            if (idCliente <= 0)
+            {
+                return (false, "Selecione um cliente válido.");
+            }
+
+            bool possuiOsAberta = ordemServicoRepository.ExisteOSAbertaPorCliente(idCliente);
+            if (possuiOsAberta)
+            {
+                return (false, "Não é possível alterar o status do cliente pois ele possui Ordens de Serviço em ABERTA.");
+            }
+
+            return (true, string.Empty);
+        }
 
         public bool AlterarStatus(int id)
         {
+            var validacao = ValidarAntesDeDesativarCliente(id);
+            if (!validacao.sucesso)
+            {
+                throw new ArgumentException(validacao.mensagem);
+            }
+
             try
             {
                 return repository.AlterarStatus(id);
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                throw new Exception("Erro ao alterar o status do cliente.", e);
+                throw new Exception("Erro ao alterar o status do cliente.", ex);
             }
         }
 

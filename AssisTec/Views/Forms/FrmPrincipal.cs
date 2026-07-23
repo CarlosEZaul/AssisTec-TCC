@@ -39,19 +39,17 @@ namespace AssisTec
             var clienteRepository = new ClienteRepository(context);
             var usuarioRepository = new UsuarioRepository(context);
             var contasPagarRepository = new ContasPagarRepository(context);
-            
             var produtoRepository = new ProdutoRepository(context);
-            
             var movimentacaoEstoqueRepository = new MovimentacaoEstoqueRepository(context);
-            
             var OrdemServicoRepository = new OrdemServicoRepository(context);
+            var EquipamentoRepository = new EquipamentoRepository(context);
 
             _produtoService = new ProdutoService(produtoRepository);
             _contasPagarService = new ContasPagarService(contasPagarRepository, pagamentoRepository);
             _contasReceberService = new ContasReceberService(contasReceberRepository, pagamentoRepository);
             _pagamentoService = new PagamentoService(contasReceberRepository,contasPagarRepository, pagamentoRepository);
             _movimentacaoEstoqueService = new MovimentacaoEstoqueService(movimentacaoEstoqueRepository);
-            _ordemServicoService = new OrdemServicoService(OrdemServicoRepository);
+            _ordemServicoService = new OrdemServicoService(OrdemServicoRepository, EquipamentoRepository);
             _clienteService = new ClienteService(clienteRepository);
             _usuarioService = new UsuarioService(usuarioRepository);
 

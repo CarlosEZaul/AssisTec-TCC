@@ -92,16 +92,23 @@ namespace AssisTec.Service
             }
         }
 
-        public (bool sucesso, string mensagem) ValidarAntesDeDeativar(int id, int idUsuarioLogado)
+        public (bool sucesso, string mensagem) ValidarAntesDeDesativar(int id, int idUsuarioLogado)
         {
             if (id <= 0)
             {
                 return (false, "Selecione um usuário válido para realizar a exclusão.");
             }
-
+            
+            
             if (idUsuarioLogado == id)
             {
                 return (true, "Deseja desativar a sua própria conta do sistema?");
+            }
+            
+            bool possuiOsAberta = ordemServicoRepository.ExisteOSAbertaPorTecnico(id);
+            if (possuiOsAberta)
+            {
+                return (false, "Não é possível desativar este usuário pois ele possui Ordens de Serviço em ABERTA.");
             }
 
             return (false, string.Empty);

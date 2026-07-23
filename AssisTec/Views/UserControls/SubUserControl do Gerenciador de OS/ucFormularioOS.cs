@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using System.Windows.Forms;
 
 using AssisTec.Models;
@@ -14,20 +15,20 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
     public partial class ucFormularioOS : UserControl
     {
         
-        private readonly OrdemServicoService _ordemServico;
+        private readonly OrdemServicoService _ordemServicoService;
         private readonly ClienteService _clienteService;
         private readonly UsuarioService _usuarioService;
         
         public ucFormularioOS(OrdemServicoService ordemServico, ClienteService clienteService, UsuarioService usuarioService)
         {
             InitializeComponent();
-            _ordemServico = ordemServico ?? throw new ArgumentNullException(nameof(ordemServico));
+            _ordemServicoService = ordemServico ?? throw new ArgumentNullException(nameof(ordemServico));
             _clienteService = clienteService ?? throw new ArgumentNullException(nameof(clienteService));
             _usuarioService = usuarioService ?? throw new ArgumentNullException(nameof(usuarioService));
-            configurarComponentes();
+            configurarComboBox();
         }
 
-        private void configurarComponentes()
+        private void configurarComboBox()
         {
             List<Usuario> tecnicos = _usuarioService.obterTodosTecnicos();
             cbTecnico.DataSource = null;
@@ -39,7 +40,7 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             cbTecnico.DropDownStyle = ComboBoxStyle.DropDown;
             cbTecnico.SelectedIndex = -1;
 
-            List<Cliente> clientes = _clienteService.ObterTodos();
+            List<Cliente> clientes = _clienteService.ObterTodos().Where(c=> c.Status == "Ativado").ToList();
             cbCliente.DataSource = null;
             cbCliente.DisplayMember = "nome";
             cbCliente.ValueMember = "Id";
@@ -48,17 +49,24 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             cbCliente.AutoCompleteSource = AutoCompleteSource.ListItems;
             cbCliente.DropDownStyle = ComboBoxStyle.DropDown;
             cbCliente.SelectedIndex = -1;
+
+            cbEstado.Items.Add("Perfeito");
+            cbEstado.Items.Add("Marcas de Uso");
+            cbEstado.Items.Add("Danificado");
+            cbEstado.Items.Add("Incompleto");
         }
         
 
         private void LimparTxt()
         {
+            cbTecnico.SelectedIndex = -1;
+            cbCliente.SelectedIndex = -1;
             txtDescricao.Text = "";
             txtMarca.Text = "";
             txtModelo.Text = "";
             txtNdeSerie.Text = "";
             txtAcessorio.Text = "";
-            cbEstado.Text = "";
+            cbEstado.SelectedIndex = -1;
             txtObservacoes.Text = "";
             txtProblemas.Text="";
         }
@@ -68,44 +76,37 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(cbCliente.Text) || string.IsNullOrWhiteSpace(cbTecnico.Text) ||
-                    string.IsNullOrWhiteSpace(txtDescricao.Text) ||
-                    string.IsNullOrWhiteSpace(txtModelo.Text) ||
-                    string.IsNullOrWhiteSpace(txtNdeSerie.Text) || string.IsNullOrWhiteSpace(txtAcessorio.Text) ||
-                    string.IsNullOrWhiteSpace(cbEstado.Text) ||
-                    string.IsNullOrWhiteSpace(txtObservacoes.Text) || string.IsNullOrWhiteSpace(txtProblemas.Text))
+                Equipamento equipamento = new Equipamento
                 {
-                    MessageBox.Show("Preencha todos os campos", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
+                    Descricao = txtDescricao.Text.Trim(),
+                    Marca = txtMarca.Text.Trim(),
+                    Modelo = txtModelo.Text.Trim(),
+                    Numero_Serie = txtNdeSerie.Text.Trim(),
+                    estado_entrada = cbEstado.SelectedValue?.ToString() ?? cbEstado.Text,
+                    acessorios = txtAcessorio.Text.Trim(),
+                    Observacoes = txtObservacoes.Text.Trim()
+                };
 
-                OrdemServico  os = new OrdemServico();
-                if (cbCliente.SelectedValue == null)
+                OrdemServico os = new OrdemServico
                 {
-                    MessageBox.Show("Cliente não selecionado", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
-                
-                if (cbTecnico.SelectedValue == null)
+                    id_cliente = cbCliente.SelectedValue != null ? Convert.ToInt32(cbCliente.SelectedValue) : (int?)null,
+                    id_tecnico = cbTecnico.SelectedValue != null ? Convert.ToInt32(cbTecnico.SelectedValue) : (int?)null,
+                    problema_relatado = txtProblemas.Text.Trim()
+                };
+
+                if (_ordemServicoService.SalvarOS(os, equipamento))
                 {
-                    MessageBox.Show("Técnico não selecionado", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
+                    MessageBox.Show("Ordem de Serviço salva com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    this.Dispose();
                 }
-                
-                os.Cliente.Id = Convert.ToInt32(cbCliente.SelectedValue);
-                os.Tecnico.Id = Convert.ToInt32(cbTecnico.SelectedValue);
-                os.Equipamento.Descricao = txtDescricao.Text;
-                os.Equipamento.Marca = txtMarca.Text;
-                os.Equipamento.Modelo = txtMarca.Text;
-                os.Equipamento.estado_entrada = cbEstado.Text;
-                os.Equipamento.Numero_Serie = txtNdeSerie.Text;
-                os.Equipamento.acessorios = txtAcessorio.Text;
-                os.problema_relatado = txtProblemas.Text;
-                // os();
-                // os.atualizarDados(dgvOS);
+            }
+            catch (ArgumentException ex)
+            {
+                MessageBox.Show(ex.Message, "Validação", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             catch (Exception ex)
             {
-                
+                MessageBox.Show("Erro ao salvar os dados: " , "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             
 
