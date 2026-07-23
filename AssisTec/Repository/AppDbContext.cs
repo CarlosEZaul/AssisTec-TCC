@@ -44,6 +44,7 @@ namespace AssisTec.Repository
     
                 entity.Property(e => e.Nome).HasColumnName("nome");
                 entity.Property(e => e.Cpf).HasColumnName("cpf");
+                entity.Property(e => e.Email).HasColumnName("email");
                 entity.Property(e => e.Senha).HasColumnName("senha");
                 entity.Property(e => e.Telefone).HasColumnName("telefone");
                 entity.Property(e => e.Nivel).HasColumnName("nivel");

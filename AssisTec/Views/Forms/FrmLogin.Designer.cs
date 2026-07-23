@@ -40,6 +40,7 @@
             this.cbSenha = new System.Windows.Forms.CheckBox();
             this.btnLogin = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.lblEsqueciASenha = new System.Windows.Forms.Label();
             this.mtbCPF = new System.Windows.Forms.MaskedTextBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -133,6 +134,7 @@
             // 
             this.cbSenha.AutoSize = true;
             this.cbSenha.BackColor = System.Drawing.Color.Transparent;
+            this.cbSenha.Cursor = System.Windows.Forms.Cursors.Hand;
             this.cbSenha.Font = new System.Drawing.Font("Comic Sans MS", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbSenha.ForeColor = System.Drawing.Color.White;
             this.cbSenha.Location = new System.Drawing.Point(281, 251);
@@ -159,6 +161,7 @@
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(44)))), ((int)(((byte)(64)))));
+            this.panel2.Controls.Add(this.lblEsqueciASenha);
             this.panel2.Controls.Add(this.btnLogin);
             this.panel2.Controls.Add(this.mtbCPF);
             this.panel2.Controls.Add(this.cbSenha);
@@ -170,6 +173,20 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(435, 380);
             this.panel2.TabIndex = 7;
+            // 
+            // lblEsqueciASenha
+            // 
+            this.lblEsqueciASenha.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.lblEsqueciASenha.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(44)))), ((int)(((byte)(64)))));
+            this.lblEsqueciASenha.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lblEsqueciASenha.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
+            this.lblEsqueciASenha.ForeColor = System.Drawing.Color.White;
+            this.lblEsqueciASenha.Location = new System.Drawing.Point(104, 254);
+            this.lblEsqueciASenha.Name = "lblEsqueciASenha";
+            this.lblEsqueciASenha.Size = new System.Drawing.Size(171, 16);
+            this.lblEsqueciASenha.TabIndex = 7;
+            this.lblEsqueciASenha.Text = "Esqueci a minha senha";
+            this.lblEsqueciASenha.Click += new System.EventHandler(this.lblEsqueciASenha_Click);
             // 
             // mtbCPF
             // 
@@ -205,6 +222,8 @@
             this.panel2.PerformLayout();
             this.ResumeLayout(false);
         }
+
+        private System.Windows.Forms.Label lblEsqueciASenha;
 
         private System.Windows.Forms.MaskedTextBox mtbCPF;
 

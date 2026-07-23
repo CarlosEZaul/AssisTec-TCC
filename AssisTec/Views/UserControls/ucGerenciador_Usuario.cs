@@ -106,18 +106,20 @@ namespace AssisTec.UserControls
             dgvUsuarios.Columns[0].HeaderText = "ID";
             dgvUsuarios.Columns[1].HeaderText = "Nome";
             dgvUsuarios.Columns[2].HeaderText = "CPF";
-            dgvUsuarios.Columns[3].HeaderText = "Senha";
-            dgvUsuarios.Columns[3].Visible = false;
-            dgvUsuarios.Columns[4].HeaderText = "Telefone";
-            dgvUsuarios.Columns[5].HeaderText = "Nível";
-            dgvUsuarios.Columns[6].HeaderText = "Status";
-            dgvUsuarios.Columns[7].HeaderText = "CEP";
-            dgvUsuarios.Columns[8].HeaderText = "Rua";
-            dgvUsuarios.Columns[9].HeaderText = "Número";
-            dgvUsuarios.Columns[10].HeaderText = "Cidade";
-            dgvUsuarios.Columns[11].HeaderText = "Bairro";
-            dgvUsuarios.Columns[12].HeaderText = "Estado";
-            dgvUsuarios.Columns[13].HeaderText = "Complemento";
+            dgvUsuarios.Columns[3].HeaderText = "Email";
+            dgvUsuarios.Columns[4].HeaderText = "Senha";
+            dgvUsuarios.Columns[5].HeaderText = "Telefone";
+            dgvUsuarios.Columns[6].HeaderText = "Nível";
+            dgvUsuarios.Columns[7].HeaderText = "Status";
+            dgvUsuarios.Columns[8].HeaderText = "CEP";
+            dgvUsuarios.Columns[9].HeaderText = "Rua";
+            dgvUsuarios.Columns[10].HeaderText = "Número";
+            dgvUsuarios.Columns[11].HeaderText = "Cidade";
+            dgvUsuarios.Columns[12].HeaderText = "Bairro";
+            dgvUsuarios.Columns[13].HeaderText = "Estado";
+            dgvUsuarios.Columns[14].HeaderText = "Complemento";
+            
+            dgvUsuarios.Columns[4].Visible = false;
         }
 
         private void Filtro()

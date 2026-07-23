@@ -67,9 +67,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios
             this.txtRua = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.cbStatus = new System.Windows.Forms.ComboBox();
-            this.label6 = new System.Windows.Forms.Label();
             this.cbNivel = new System.Windows.Forms.ComboBox();
-            this.label5 = new System.Windows.Forms.Label();
             this.txtSenha = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.mtbTel = new System.Windows.Forms.MaskedTextBox();
@@ -82,6 +80,8 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios
             this.btnLimpar = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnFechar = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.txtEmail = new System.Windows.Forms.TextBox();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -197,7 +197,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios
             // 
             this.label25.Font = new System.Drawing.Font("Comic Sans MS", 9.75F);
             this.label25.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label25.Location = new System.Drawing.Point(363, 253);
+            this.label25.Location = new System.Drawing.Point(363, 271);
             this.label25.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label25.Name = "label25";
             this.label25.Size = new System.Drawing.Size(69, 18);
@@ -209,7 +209,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios
             // 
             this.label24.Font = new System.Drawing.Font("Comic Sans MS", 9.75F);
             this.label24.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label24.Location = new System.Drawing.Point(131, 253);
+            this.label24.Location = new System.Drawing.Point(131, 271);
             this.label24.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label24.Name = "label24";
             this.label24.Size = new System.Drawing.Size(69, 18);
@@ -221,7 +221,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios
             // 
             this.label23.Font = new System.Drawing.Font("Comic Sans MS", 9.75F);
             this.label23.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label23.Location = new System.Drawing.Point(131, 186);
+            this.label23.Location = new System.Drawing.Point(129, 225);
             this.label23.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label23.Name = "label23";
             this.label23.Size = new System.Drawing.Size(69, 18);
@@ -482,40 +482,22 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios
             // cbStatus
             // 
             this.cbStatus.FormattingEnabled = true;
-            this.cbStatus.Location = new System.Drawing.Point(363, 274);
+            this.cbStatus.Location = new System.Drawing.Point(363, 292);
             this.cbStatus.Name = "cbStatus";
             this.cbStatus.Size = new System.Drawing.Size(230, 21);
             this.cbStatus.TabIndex = 143;
             // 
-            // label6
-            // 
-            this.label6.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.label6.ForeColor = System.Drawing.Color.White;
-            this.label6.Location = new System.Drawing.Point(363, 248);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(166, 23);
-            this.label6.TabIndex = 142;
-            // 
             // cbNivel
             // 
             this.cbNivel.FormattingEnabled = true;
-            this.cbNivel.Location = new System.Drawing.Point(133, 274);
+            this.cbNivel.Location = new System.Drawing.Point(133, 292);
             this.cbNivel.Name = "cbNivel";
             this.cbNivel.Size = new System.Drawing.Size(214, 21);
             this.cbNivel.TabIndex = 141;
             // 
-            // label5
-            // 
-            this.label5.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.label5.ForeColor = System.Drawing.Color.White;
-            this.label5.Location = new System.Drawing.Point(133, 248);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(100, 23);
-            this.label5.TabIndex = 140;
-            // 
             // txtSenha
             // 
-            this.txtSenha.Location = new System.Drawing.Point(133, 207);
+            this.txtSenha.Location = new System.Drawing.Point(133, 246);
             this.txtSenha.Name = "txtSenha";
             this.txtSenha.Size = new System.Drawing.Size(460, 20);
             this.txtSenha.TabIndex = 139;
@@ -637,12 +619,33 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios
             this.btnFechar.UseVisualStyleBackColor = false;
             this.btnFechar.Click += new System.EventHandler(this.btnFechar_Click);
             // 
+            // label1
+            // 
+            this.label1.Font = new System.Drawing.Font("Comic Sans MS", 9.75F);
+            this.label1.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.label1.Location = new System.Drawing.Point(129, 174);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(69, 18);
+            this.label1.TabIndex = 181;
+            this.label1.Text = "E-mail:";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // txtEmail
+            // 
+            this.txtEmail.Location = new System.Drawing.Point(133, 195);
+            this.txtEmail.Name = "txtEmail";
+            this.txtEmail.Size = new System.Drawing.Size(460, 20);
+            this.txtEmail.TabIndex = 180;
+            // 
             // ucFormularioUsuarios
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(55)))), ((int)(((byte)(76)))));
             this.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.txtEmail);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.label34);
             this.Controls.Add(this.label33);
@@ -680,9 +683,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios
             this.Controls.Add(this.txtRua);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.cbStatus);
-            this.Controls.Add(this.label6);
             this.Controls.Add(this.cbNivel);
-            this.Controls.Add(this.label5);
             this.Controls.Add(this.txtSenha);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.mtbTel);
@@ -698,6 +699,9 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios
             this.ResumeLayout(false);
             this.PerformLayout();
         }
+
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox txtEmail;
 
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Button btnLimpar;
@@ -740,9 +744,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios
         private System.Windows.Forms.TextBox txtRua;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.ComboBox cbStatus;
-        private System.Windows.Forms.Label label6;
         private System.Windows.Forms.ComboBox cbNivel;
-        private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox txtSenha;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.MaskedTextBox mtbTel;

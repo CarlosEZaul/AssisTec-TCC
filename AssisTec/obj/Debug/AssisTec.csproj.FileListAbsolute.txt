@@ -2780,3 +2780,14 @@ C:\Users\Pc do estagiario\RiderProjects\AssisTec-TCC\AssisTec13-07\AssisTec\obj\
 C:\Users\Pc do estagiario\RiderProjects\AssisTec-TCC\AssisTec13-07\AssisTec\obj\Debug\AssisTec.exe
 C:\Users\Pc do estagiario\RiderProjects\AssisTec-TCC\AssisTec13-07\AssisTec\obj\Debug\AssisTec.pdb
 C:\Users\Pc do estagiario\RiderProjects\AssisTec-TCC\AssisTec13-07\AssisTec\obj\Debug\AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque.ucMovimentaçãoEstoque.resources
+C:\Users\Pc do estagiario\RiderProjects\AssisTec-TCC\AssisTec13-07\AssisTec\obj\Debug\AssisTec.UserControls.SubUserControl_do_Login.ucEsqueciASenha.resources
+C:\Users\Pc do estagiario\RiderProjects\AssisTec-TCC\AssisTec13-07\AssisTec\bin\Debug\MailKit.dll
+C:\Users\Pc do estagiario\RiderProjects\AssisTec-TCC\AssisTec13-07\AssisTec\bin\Debug\MimeKit.dll
+C:\Users\Pc do estagiario\RiderProjects\AssisTec-TCC\AssisTec13-07\AssisTec\bin\Debug\System.Formats.Asn1.dll
+C:\Users\Pc do estagiario\RiderProjects\AssisTec-TCC\AssisTec13-07\AssisTec\bin\Debug\MailKit.pdb
+C:\Users\Pc do estagiario\RiderProjects\AssisTec-TCC\AssisTec13-07\AssisTec\bin\Debug\MailKit.xml
+C:\Users\Pc do estagiario\RiderProjects\AssisTec-TCC\AssisTec13-07\AssisTec\bin\Debug\MailKit.dll.config
+C:\Users\Pc do estagiario\RiderProjects\AssisTec-TCC\AssisTec13-07\AssisTec\bin\Debug\MimeKit.pdb
+C:\Users\Pc do estagiario\RiderProjects\AssisTec-TCC\AssisTec13-07\AssisTec\bin\Debug\MimeKit.xml
+C:\Users\Pc do estagiario\RiderProjects\AssisTec-TCC\AssisTec13-07\AssisTec\bin\Debug\MimeKit.dll.config
+C:\Users\Pc do estagiario\RiderProjects\AssisTec-TCC\AssisTec13-07\AssisTec\bin\Debug\System.Formats.Asn1.xml

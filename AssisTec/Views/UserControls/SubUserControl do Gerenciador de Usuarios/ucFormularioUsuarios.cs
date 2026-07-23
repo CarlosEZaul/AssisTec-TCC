@@ -71,6 +71,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios
                 DesignComponentes.StyleTextBox(txtNumber);
                 DesignComponentes.StyleTextBox(txtEstado);
                 DesignComponentes.StyleTextBox(txtComp);
+                DesignComponentes.StyleTextBox(txtEmail);
                 
                 DesignComponentes.StyleMaskedTextBox(mtbCPF);
                 DesignComponentes.StyleMaskedTextBox(mtbCep);
@@ -106,6 +107,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios
             txtNome.Text = string.Empty;
             txtSenha.Text = string.Empty;
             mtbCPF.Text = string.Empty;
+            txtEmail.Text = string.Empty;
             mtbTel.Text = string.Empty;
             mtbCep.Text = string.Empty;
             txtRua.Text = string.Empty;
@@ -134,6 +136,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios
                 id = usuario.Id;
                 txtNome.Text = usuario.Nome;
                 mtbCPF.Text = usuario.Cpf;
+                txtEmail.Text = usuario.Email;
                 txtSenha.Text = string.Empty; 
                 mtbTel.Text = usuario.Telefone;
                 int indexNivel = (usuario.Nivel >= 1 && usuario.Nivel <= 3) ? usuario.Nivel - 1 : 1;
@@ -162,6 +165,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios
             user.Cpf = mtbCPF.Text;
             user.Telefone = mtbTel.Text;
             user.Senha = txtSenha.Text;
+            user.Email = txtEmail.Text;
             
             if (cbNivel.SelectedItem != null)
             {
@@ -231,7 +235,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios
         private void btnSave_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(txtNome.Text) || !mtbCPF.MaskFull || 
-                !mtbTel.MaskFull || !mtbCep.MaskFull || string.IsNullOrEmpty(cbNivel.Text) || string.IsNullOrEmpty(cbStatus.Text))
+                !mtbTel.MaskFull || !mtbCep.MaskFull || string.IsNullOrEmpty(txtEmail.Text) || string.IsNullOrEmpty(cbNivel.Text) || string.IsNullOrEmpty(cbStatus.Text))
             {
                 MessageBox.Show("Preencha todos os campos obrigatórios corretamente", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;

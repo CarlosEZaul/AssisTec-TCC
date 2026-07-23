@@ -10,10 +10,12 @@ namespace AssisTec.Repository
         List<Usuario> ObterTodosTecnicosAtivados();
         Usuario ObterPorId(int id);
         Usuario ObterPorCpf(string cpf);
+        Usuario ObterPorEmail(string email);
         bool AtualizarUsuario(Usuario usuario);
         bool ExcluirUsuario(int id);
         bool AlterarStatus(int id);
         bool CpfExiste(string cpf);
+        bool EmailExiste(string email);
         bool ExisteGerenteAtivo();
         
         List<Usuario> ObterComFiltros(string nome, bool exibirDesativados, int nivel);

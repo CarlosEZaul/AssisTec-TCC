@@ -6,6 +6,7 @@ using AssisTec.Repository;
 using AssisTec.Models;
 using AssisTec.Repository;
 using AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios;
+using AssisTec.UserControls.SubUserControl_do_Login;
 
 namespace AssisTec
 {
@@ -95,6 +96,25 @@ namespace AssisTec
                 txtPassword.Clear();
                 mtbCPF.Focus();
             }
+        }
+
+
+        private void lblEsqueciASenha_Click(object sender, EventArgs e)
+        {
+            ucEsqueciASenha ucEsqueciASenha = new ucEsqueciASenha(service);
+                
+            this.Width = ucEsqueciASenha.Width;
+            this.Height = ucEsqueciASenha.Height + 35;
+                
+            this.Controls.Add(ucEsqueciASenha);
+            ucEsqueciASenha.BringToFront();
+            ucEsqueciASenha.Left = (this.ClientSize.Width - ucEsqueciASenha.Width) / 2;
+            ucEsqueciASenha.Top = (this.ClientSize.Height - ucEsqueciASenha.Height) / 2;
+            
+            ucEsqueciASenha.Disposed += (s, ev) =>
+            {
+                Application.Restart();
+            };
         }
     }
 }

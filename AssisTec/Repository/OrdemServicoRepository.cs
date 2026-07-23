@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using AssisTec.Models;
@@ -8,11 +9,46 @@ namespace AssisTec.Repository
     public class OrdemServicoRepository : IOrdemServicoRepository
     {
         private readonly AppDbContext context;
-        private IOrdemServicoRepository _ordemServicoRepositoryImplementation;
+        private IOrdemServicoRepository _ordemServicoRepository;
 
         public OrdemServicoRepository(AppDbContext context)
         {
             this.context = context;
+        }
+
+        public IEnumerable<dynamic> ObterTodasOSAtuais()
+        {
+            try
+            {
+                DateTime dataAtual = DateTime.Now;
+                int mesAtual = dataAtual.Month;
+                int anoAtual = dataAtual.Year;
+
+                return context.OrdemServicos
+                    .Where(os => 
+                        ((os.status == "CONCLUIDA" || os.status == "CANCELADA") 
+                         && os.data_abertura.Month == mesAtual 
+                         && os.data_abertura.Year == anoAtual)
+                        ||
+                        (os.status != "CONCLUIDA" && os.status != "CANCELADA")
+                    )
+                    .Select(os => new
+                    {
+                        ID = os.id_os,
+                        Tecnico = os.Tecnico != null ? os.Tecnico.Nome : "Não informado",
+                        Cliente = os.Cliente != null ? os.Cliente.Nome : "Não informado",
+                        Equipamento = os.Equipamento != null ? os.Equipamento.Descricao : "Não informado",
+                        Status = os.status,
+                        DataAbertura = os.data_abertura,
+                        DataConclusao = os.data_fechamento,
+                        ValorTotal = os.valor_total
+                    })
+                    .ToList();
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Erro ao consultar a lista de Ordens de Serviço.", e);
+            }
         }
 
         public bool SalvarOrdemServico(OrdemServico ordemServico)
@@ -150,7 +186,7 @@ namespace AssisTec.Repository
             }
         }
 
-        public int ObterOsAbertas()
+        public int ObterQntOsAbertas()
         {
             return context.OrdemServicos.Count(os => os.status == "ABERTA");
         }

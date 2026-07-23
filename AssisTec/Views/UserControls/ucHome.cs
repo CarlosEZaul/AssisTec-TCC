@@ -97,7 +97,7 @@ namespace AssisTec.UserControls
 
         private void ConfigurarCards()
         {
-            lblOrdemServico.Text = _ordemServicoService.obterOsAbertas().ToString();
+            lblOrdemServico.Text = _ordemServicoService.ObterQntOsAbertas().ToString();
             
             var (totalRecebido, totalPago, totalPagar, lucroLiquido) = _lucroMesDTO.ObterLucroDoMes(DateTime.Now.Month, DateTime.Now.Year);
             

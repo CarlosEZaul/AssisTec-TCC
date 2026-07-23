@@ -14,6 +14,10 @@ namespace AssisTec.Models
         [Required]
         [StringLength(14)]
         public string Cpf { get; set; } = string.Empty;
+        
+        [Required]
+        [StringLength(100)]
+        public string Email { get; set; } = string.Empty;
 
         [Required]
         [StringLength(255)]

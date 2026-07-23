@@ -1,15 +1,31 @@
 ﻿using System;
 using System.Linq;
+using System.Net.Mail;
 
 namespace AssisTec
 {
     public static class Validacao
     {
+        public static bool ValidarEmail(string email)
+        {
+            if (string.IsNullOrWhiteSpace(email))
+                return false;
+
+            try
+            {
+                var addr = new MailAddress(email);
+                return addr.Address == email;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         public static bool ValidarTelefone(string telefone)
         {
             if (string.IsNullOrWhiteSpace(telefone))
                 return false;
-
 
             telefone = new string(telefone.Where(char.IsDigit).ToArray());
 
@@ -34,18 +50,14 @@ namespace AssisTec
             if (string.IsNullOrWhiteSpace(cpf))
                 return false;
 
-            // Remove qualquer caractere que não seja número
             cpf = new string(cpf.Where(char.IsDigit).ToArray());
 
-            // O CPF deve ter exatamente 11 dígitos
             if (cpf.Length != 11)
                 return false;
 
-            // Evita CPFs com todos os números iguais
             if (cpf.Distinct().Count() == 1)
                 return false;
 
-            // Validação do primeiro dígito verificador
             int[] multiplicador1 = new int[9] { 10, 9, 8, 7, 6, 5, 4, 3, 2 };
             string tempCpf = cpf.Substring(0, 9);
             int soma = 0;
@@ -62,7 +74,6 @@ namespace AssisTec
             string digito = resto.ToString();
             tempCpf = tempCpf + digito;
 
-            // Validação do segundo dígito verificador
             int[] multiplicador2 = new int[10] { 11, 10, 9, 8, 7, 6, 5, 4, 3, 2 };
             soma = 0;
             for (int i = 0; i < 10; i++)

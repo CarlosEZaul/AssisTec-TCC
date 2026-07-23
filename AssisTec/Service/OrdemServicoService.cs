@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using AssisTec.Models;
 using AssisTec.Repository;
 
@@ -73,11 +75,11 @@ namespace AssisTec.Service
             return ordemServicoRepository.ObterHistoricoUsuario(id);
         }
 
-        public int obterOsAbertas()
+        public int ObterQntOsAbertas()
         {
             try
             {
-                return ordemServicoRepository.ObterOsAbertas();
+                return ordemServicoRepository.ObterQntOsAbertas();
             }
             catch(Exception ex)
             {
@@ -95,6 +97,19 @@ namespace AssisTec.Service
             catch (Exception e)
             {
                 throw new Exception(e.Message);
+            }
+        }
+
+        public IEnumerable<dynamic> ObterTodasOSAtuais()
+        {
+            try
+            {
+                return ordemServicoRepository.ObterTodasOSAtuais();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
             }
         }
     }

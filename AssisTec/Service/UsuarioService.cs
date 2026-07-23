@@ -114,17 +114,6 @@ namespace AssisTec.Service
             return (false, string.Empty);
         }
 
-        public (bool sucesso, string mensagem) ConfirmarExclusao(int id)
-        {
-            bool deletou = repository.ExcluirUsuario(id);
-            if (deletou)
-            {
-                return (true, "Usuário deletado com sucesso.");
-            }
-
-            return (false, "Não foi possível concluir a exclusão do usuário selecionado.");
-        }
-
         public (bool sucesso, string messagem) CadastrarUsuario(Usuario usuario)
         {
             if (usuario == null) 
@@ -139,9 +128,17 @@ namespace AssisTec.Service
             if (!Validacao.ValidarTelefone(usuario.Telefone))
                 return (false, "Formato do telefone inválido");
 
+            if (!Validacao.ValidarEmail(usuario.Email))
+                return (false, "Formato do Email inválido");
+
             if (repository.CpfExiste(usuario.Cpf))
             {
                 return (false, "O CPF informado já está cadastrado no sistema.");
+            }
+
+            if (repository.EmailExiste(usuario.Email))
+            {
+                return (false, "E-mail já cadastrado");
             }
 
             usuario.Senha = GerarHashSHA256(usuario.Senha);

@@ -91,6 +91,11 @@ namespace AssisTec.Repository
             }
         }
 
+        public Usuario ObterPorEmail(string email)
+        {
+            throw new NotImplementedException();
+        }
+
         public bool AtualizarUsuario(Usuario usuario)
         {
             try
@@ -177,6 +182,24 @@ namespace AssisTec.Repository
             catch (Exception ex)
             {
                 throw new Exception("Falha ao verificar existência do CPF no banco de dados.", ex);
+            }
+        }
+
+        public bool EmailExiste(string email)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(email)) return false;
+
+                string emailTratado = email.Trim().ToLower();
+
+                return context.Usuarios
+                    .AsNoTracking()
+                    .Any(u => u.Email.ToLower() == emailTratado);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Falha ao verificar existência do E-mail no banco de dados.", ex);
             }
         }
 

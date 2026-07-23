@@ -59,6 +59,10 @@ namespace AssisTec.UserControls
             this.label7 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panelFiltro = new System.Windows.Forms.Panel();
+            this.mtbDataFim = new System.Windows.Forms.MaskedTextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.mtbDataInicio = new System.Windows.Forms.MaskedTextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.btnAtualizar = new System.Windows.Forms.PictureBox();
             this.txtBusca = new System.Windows.Forms.TextBox();
@@ -408,6 +412,10 @@ namespace AssisTec.UserControls
             // panelFiltro
             // 
             this.panelFiltro.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelFiltro.Controls.Add(this.mtbDataFim);
+            this.panelFiltro.Controls.Add(this.label2);
+            this.panelFiltro.Controls.Add(this.mtbDataInicio);
+            this.panelFiltro.Controls.Add(this.label1);
             this.panelFiltro.Controls.Add(this.label5);
             this.panelFiltro.Controls.Add(this.btnAtualizar);
             this.panelFiltro.Controls.Add(this.txtBusca);
@@ -420,12 +428,56 @@ namespace AssisTec.UserControls
             this.panelFiltro.Size = new System.Drawing.Size(1175, 59);
             this.panelFiltro.TabIndex = 165;
             // 
+            // mtbDataFim
+            // 
+            this.mtbDataFim.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.mtbDataFim.Location = new System.Drawing.Point(184, 32);
+            this.mtbDataFim.Mask = "00/00/0000";
+            this.mtbDataFim.Name = "mtbDataFim";
+            this.mtbDataFim.Size = new System.Drawing.Size(136, 20);
+            this.mtbDataFim.TabIndex = 162;
+            this.mtbDataFim.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label2
+            // 
+            this.label2.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.label2.Font = new System.Drawing.Font("Comic Sans MS", 9.75F);
+            this.label2.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.label2.Location = new System.Drawing.Point(193, 14);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(127, 18);
+            this.label2.TabIndex = 161;
+            this.label2.Text = "Data de Conclusão:";
+            // 
+            // mtbDataInicio
+            // 
+            this.mtbDataInicio.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.mtbDataInicio.Location = new System.Drawing.Point(53, 32);
+            this.mtbDataInicio.Mask = "00/00/0000";
+            this.mtbDataInicio.Name = "mtbDataInicio";
+            this.mtbDataInicio.Size = new System.Drawing.Size(125, 20);
+            this.mtbDataInicio.TabIndex = 160;
+            this.mtbDataInicio.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label1
+            // 
+            this.label1.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.label1.Font = new System.Drawing.Font("Comic Sans MS", 9.75F);
+            this.label1.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.label1.Location = new System.Drawing.Point(54, 14);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(124, 18);
+            this.label1.TabIndex = 159;
+            this.label1.Text = "Data de Abertura:";
+            // 
             // label5
             // 
             this.label5.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label5.Font = new System.Drawing.Font("Comic Sans MS", 9.75F);
             this.label5.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label5.Location = new System.Drawing.Point(158, 14);
+            this.label5.Location = new System.Drawing.Point(395, 14);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(306, 18);
@@ -447,7 +499,7 @@ namespace AssisTec.UserControls
             // 
             this.txtBusca.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.txtBusca.BackColor = System.Drawing.Color.White;
-            this.txtBusca.Location = new System.Drawing.Point(91, 32);
+            this.txtBusca.Location = new System.Drawing.Point(328, 32);
             this.txtBusca.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtBusca.Name = "txtBusca";
             this.txtBusca.Size = new System.Drawing.Size(440, 20);
@@ -472,7 +524,7 @@ namespace AssisTec.UserControls
             // 
             this.cbStatus.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.cbStatus.FormattingEnabled = true;
-            this.cbStatus.Location = new System.Drawing.Point(538, 31);
+            this.cbStatus.Location = new System.Drawing.Point(775, 31);
             this.cbStatus.Name = "cbStatus";
             this.cbStatus.Size = new System.Drawing.Size(158, 21);
             this.cbStatus.TabIndex = 154;
@@ -482,7 +534,7 @@ namespace AssisTec.UserControls
             this.label3.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label3.Font = new System.Drawing.Font("Comic Sans MS", 9.75F);
             this.label3.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label3.Location = new System.Drawing.Point(587, 11);
+            this.label3.Location = new System.Drawing.Point(824, 11);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(55, 18);
@@ -518,6 +570,11 @@ namespace AssisTec.UserControls
             ((System.ComponentModel.ISupportInitialize)(this.btnAtualizar)).EndInit();
             this.ResumeLayout(false);
         }
+
+        private System.Windows.Forms.MaskedTextBox mtbDataFim;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.MaskedTextBox mtbDataInicio;
+        private System.Windows.Forms.Label label1;
 
         private System.Windows.Forms.Panel panelFiltro;
         private System.Windows.Forms.Label label5;
