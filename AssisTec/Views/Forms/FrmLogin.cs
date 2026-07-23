@@ -4,7 +4,6 @@ using System.Windows.Forms;
 using AssisTec.Service;
 using AssisTec.Repository;
 using AssisTec.Models;
-using AssisTec.Repository;
 using AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios;
 using AssisTec.UserControls.SubUserControl_do_Login;
 
@@ -80,7 +79,7 @@ namespace AssisTec
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            var (sucesso, mensagem, usuario) = service.RealizarLogin(mtbCPF.Text,txtPassword.Text);
+            var (sucesso, mensagem, usuario) = service.RealizarLogin(mtbCPF.Text, txtPassword.Text);
            
             if (sucesso)
             {
@@ -98,9 +97,11 @@ namespace AssisTec
             }
         }
 
-
         private void lblEsqueciASenha_Click(object sender, EventArgs e)
         {
+            int larguraOriginal = this.Width;
+            int alturaOriginal = this.Height;
+
             ucEsqueciASenha ucEsqueciASenha = new ucEsqueciASenha(service);
                 
             this.Width = ucEsqueciASenha.Width;
@@ -113,7 +114,8 @@ namespace AssisTec
             
             ucEsqueciASenha.Disposed += (s, ev) =>
             {
-                Application.Restart();
+                this.Width = larguraOriginal;
+                this.Height = alturaOriginal;
             };
         }
     }

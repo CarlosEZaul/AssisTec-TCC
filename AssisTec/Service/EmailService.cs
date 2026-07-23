@@ -4,7 +4,7 @@ using MailKit.Net.Smtp;
 using MailKit.Security;
 using MimeKit;
 
-namespace AssisTec
+namespace AssisTec.Service
 {
     public class EmailService
     {
@@ -38,6 +38,10 @@ namespace AssisTec
         {
             try
             {
+                string codigoExibicao = (codigo.Length == 6) 
+                    ? $"{codigo.Substring(0, 3)}-{codigo.Substring(3, 3)}" 
+                    : codigo;
+
                 var message = new MimeMessage();
                 message.From.Add(new MailboxAddress(_remetenteNome, _remetenteEmail));
                 message.To.Add(new MailboxAddress("", emailDestino));
@@ -47,12 +51,12 @@ namespace AssisTec
                 {
                     HtmlBody = $@"
                         <div style='font-family: Arial, sans-serif; padding: 20px; color: #333;'>
-                            <h2 style='color: #0056b3;'>Verificação de Segurança</h2>
-                            <p>Utilize o código abaixo para prosseguir com a sua solicitação no sistema AssisTec:</p>
+                            <h2 style='color: #0056b3;'>Redefinição de Senha</h2>
+                            <p>Utilize o código abaixo para redefinir sua senha no sistema AssisTec:</p>
                             <div style='background-color: #f4f4f4; padding: 10px 20px; display: inline-block; border-radius: 5px; margin: 10px 0;'>
-                                <h1 style='color: #0056b3; letter-spacing: 5px; margin: 0;'>{codigo}</h1>
+                                <h1 style='color: #0056b3; letter-spacing: 5px; margin: 0;'>{codigoExibicao}</h1>
                             </div>
-                            <p style='font-size: 12px; color: #777;'>Se você não solicitou este código, por favor ignore este e-mail.</p>
+                            <p style='font-size: 12px; color: #777;'>Se você não solicitou este código, ignore este e-mail.</p>
                         </div>"
                 };
 
@@ -68,8 +72,9 @@ namespace AssisTec
 
                 return true;
             }
-            catch
+            catch (Exception ex)
             {
+                Console.WriteLine($"Erro ao enviar e-mail: {ex.Message}");
                 return false;
             }
         }

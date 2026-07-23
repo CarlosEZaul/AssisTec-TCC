@@ -93,7 +93,7 @@ namespace AssisTec.Repository
 
         public Usuario ObterPorEmail(string email)
         {
-            throw new NotImplementedException();
+            return context.Usuarios.FirstOrDefault(u => u.Email.ToLower() == email.ToLower());
         }
 
         public bool AtualizarUsuario(Usuario usuario)
@@ -212,6 +212,27 @@ namespace AssisTec.Repository
             catch (Exception ex)
             {
                 throw new Exception("Falha ao verificar existência de gerente ativo no MySQL.", ex);
+            }
+        }
+
+        public bool AlterarSenha(Usuario usuario)
+        {
+            try
+            {
+                var user = context.Usuarios.Find(usuario.Id);
+
+                if (user == null)
+                {
+                    return false;
+                }
+
+                user.Senha = usuario.Senha;
+                return context.SaveChanges() > 0;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Erro ao alterar senha no repositório: {ex.Message}");
+                return false;
             }
         }
 

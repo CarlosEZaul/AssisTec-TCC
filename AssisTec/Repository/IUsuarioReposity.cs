@@ -17,6 +17,7 @@ namespace AssisTec.Repository
         bool CpfExiste(string cpf);
         bool EmailExiste(string email);
         bool ExisteGerenteAtivo();
+        bool AlterarSenha(Usuario usuario);
         
         List<Usuario> ObterComFiltros(string nome, bool exibirDesativados, int nivel);
     }

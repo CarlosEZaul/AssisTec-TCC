@@ -37,16 +37,16 @@ namespace AssisTec.UserControls.SubUserControl_do_Login
             this.label1 = new System.Windows.Forms.Label();
             this.txtEmail = new System.Windows.Forms.TextBox();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnVerificarCodigo = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.mtbCodigo = new System.Windows.Forms.MaskedTextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.txtSenha = new System.Windows.Forms.TextBox();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.button2 = new System.Windows.Forms.Button();
+            this.btnAlterarSenha = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
+            this.lblReenviarCodigo = new System.Windows.Forms.Label();
+            this.lblAlterarEmail = new System.Windows.Forms.Label();
             this.btnFechar = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -88,6 +88,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Login
             this.btnBuscar.TabIndex = 184;
             this.btnBuscar.Text = "Solicitar Código";
             this.btnBuscar.UseVisualStyleBackColor = true;
+            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
             // 
             // label1
             // 
@@ -111,7 +112,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Login
             // panel2
             // 
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel2.Controls.Add(this.button1);
+            this.panel2.Controls.Add(this.btnVerificarCodigo);
             this.panel2.Controls.Add(this.label3);
             this.panel2.Controls.Add(this.mtbCodigo);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
@@ -120,16 +121,17 @@ namespace AssisTec.UserControls.SubUserControl_do_Login
             this.panel2.Size = new System.Drawing.Size(652, 100);
             this.panel2.TabIndex = 151;
             // 
-            // button1
+            // btnVerificarCodigo
             // 
-            this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button1.Font = new System.Drawing.Font("Comic Sans MS", 9F);
-            this.button1.Location = new System.Drawing.Point(510, 57);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(121, 23);
-            this.button1.TabIndex = 185;
-            this.button1.Text = "Verificar Código";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnVerificarCodigo.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnVerificarCodigo.Font = new System.Drawing.Font("Comic Sans MS", 9F);
+            this.btnVerificarCodigo.Location = new System.Drawing.Point(510, 57);
+            this.btnVerificarCodigo.Name = "btnVerificarCodigo";
+            this.btnVerificarCodigo.Size = new System.Drawing.Size(121, 23);
+            this.btnVerificarCodigo.TabIndex = 185;
+            this.btnVerificarCodigo.Text = "Verificar Código";
+            this.btnVerificarCodigo.UseVisualStyleBackColor = true;
+            this.btnVerificarCodigo.Click += new System.EventHandler(this.btnVerificarCodigo_Click);
             // 
             // label3
             // 
@@ -147,12 +149,11 @@ namespace AssisTec.UserControls.SubUserControl_do_Login
             // 
             this.mtbCodigo.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.mtbCodigo.Location = new System.Drawing.Point(209, 44);
-            this.mtbCodigo.Mask = "____-___";
+            this.mtbCodigo.Mask = "___-___";
             this.mtbCodigo.Name = "mtbCodigo";
             this.mtbCodigo.Size = new System.Drawing.Size(209, 38);
             this.mtbCodigo.TabIndex = 0;
             this.mtbCodigo.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.mtbCodigo.MaskInputRejected += new System.Windows.Forms.MaskInputRejectedEventHandler(this.mtbCodigo_MaskInputRejected);
             // 
             // label2
             // 
@@ -176,7 +177,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Login
             // panel3
             // 
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel3.Controls.Add(this.button2);
+            this.panel3.Controls.Add(this.btnAlterarSenha);
             this.panel3.Controls.Add(this.label2);
             this.panel3.Controls.Add(this.txtSenha);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
@@ -185,16 +186,17 @@ namespace AssisTec.UserControls.SubUserControl_do_Login
             this.panel3.Size = new System.Drawing.Size(652, 81);
             this.panel3.TabIndex = 186;
             // 
-            // button2
+            // btnAlterarSenha
             // 
-            this.button2.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button2.Font = new System.Drawing.Font("Comic Sans MS", 9F);
-            this.button2.Location = new System.Drawing.Point(510, 33);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(121, 23);
-            this.button2.TabIndex = 186;
-            this.button2.Text = "Alterar senha";
-            this.button2.UseVisualStyleBackColor = true;
+            this.btnAlterarSenha.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnAlterarSenha.Font = new System.Drawing.Font("Comic Sans MS", 9F);
+            this.btnAlterarSenha.Location = new System.Drawing.Point(510, 33);
+            this.btnAlterarSenha.Name = "btnAlterarSenha";
+            this.btnAlterarSenha.Size = new System.Drawing.Size(121, 23);
+            this.btnAlterarSenha.TabIndex = 186;
+            this.btnAlterarSenha.Text = "Alterar senha";
+            this.btnAlterarSenha.UseVisualStyleBackColor = true;
+            this.btnAlterarSenha.Click += new System.EventHandler(this.btnAlterarSenha_Click);
             // 
             // label5
             // 
@@ -208,29 +210,33 @@ namespace AssisTec.UserControls.SubUserControl_do_Login
             this.label5.Text = "Não recebeu o código?";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label6
+            // lblReenviarCodigo
             // 
-            this.label6.Font = new System.Drawing.Font("Comic Sans MS", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label6.Location = new System.Drawing.Point(197, 332);
-            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(146, 18);
-            this.label6.TabIndex = 187;
-            this.label6.Text = "Enviar novo código";
-            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblReenviarCodigo.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lblReenviarCodigo.Font = new System.Drawing.Font("Comic Sans MS", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblReenviarCodigo.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.lblReenviarCodigo.Location = new System.Drawing.Point(197, 332);
+            this.lblReenviarCodigo.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblReenviarCodigo.Name = "lblReenviarCodigo";
+            this.lblReenviarCodigo.Size = new System.Drawing.Size(146, 18);
+            this.lblReenviarCodigo.TabIndex = 187;
+            this.lblReenviarCodigo.Text = "Enviar novo código";
+            this.lblReenviarCodigo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblReenviarCodigo.Click += new System.EventHandler(this.lblReenviarCodigo_Click);
             // 
-            // label7
+            // lblAlterarEmail
             // 
-            this.label7.Font = new System.Drawing.Font("Comic Sans MS", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label7.Location = new System.Drawing.Point(341, 332);
-            this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(110, 18);
-            this.label7.TabIndex = 188;
-            this.label7.Text = "Alterar E-mail";
-            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblAlterarEmail.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lblAlterarEmail.Font = new System.Drawing.Font("Comic Sans MS", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAlterarEmail.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.lblAlterarEmail.Location = new System.Drawing.Point(341, 332);
+            this.lblAlterarEmail.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblAlterarEmail.Name = "lblAlterarEmail";
+            this.lblAlterarEmail.Size = new System.Drawing.Size(110, 18);
+            this.lblAlterarEmail.TabIndex = 188;
+            this.lblAlterarEmail.Text = "Alterar E-mail";
+            this.lblAlterarEmail.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblAlterarEmail.Click += new System.EventHandler(this.lblAlterarEmail_Click);
             // 
             // btnFechar
             // 
@@ -245,6 +251,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Login
             this.btnFechar.TabIndex = 189;
             this.btnFechar.Text = "Fechar";
             this.btnFechar.UseVisualStyleBackColor = false;
+            this.btnFechar.Click += new System.EventHandler(this.btnFechar_Click);
             // 
             // ucEsqueciASenha
             // 
@@ -252,8 +259,8 @@ namespace AssisTec.UserControls.SubUserControl_do_Login
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(55)))), ((int)(((byte)(76)))));
             this.Controls.Add(this.btnFechar);
-            this.Controls.Add(this.label7);
-            this.Controls.Add(this.label6);
+            this.Controls.Add(this.lblAlterarEmail);
+            this.Controls.Add(this.lblReenviarCodigo);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
@@ -272,14 +279,14 @@ namespace AssisTec.UserControls.SubUserControl_do_Login
 
         private System.Windows.Forms.Button btnFechar;
 
-        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label lblAlterarEmail;
 
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label lblReenviarCodigo;
 
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button btnAlterarSenha;
 
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnVerificarCodigo;
 
         private System.Windows.Forms.Button btnBuscar;
 
