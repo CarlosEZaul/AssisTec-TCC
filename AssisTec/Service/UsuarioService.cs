@@ -66,11 +66,6 @@ namespace AssisTec.Service
                     return (false, "A nova senha não pode estar em branco.");
                 }
 
-                if (novaSenha.Length < 6)
-                {
-                    return (false, "A senha deve ter no mínimo 6 caracteres.");
-                }
-
                 var usuario = repository.ObterPorEmail(email);
 
                 if (usuario == null)
