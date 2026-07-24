@@ -300,10 +300,6 @@
     <Compile Include="Utils\ContatoWhatsApp.cs" />
     <Compile Include="Utils\DesignComponentes.cs" />
     <Compile Include="Utils\Validacao.cs" />
-    <Compile Include="Views\Forms\formSubs.cs" />
-    <Compile Include="Views\Forms\formSubs.Designer.cs">
-      <DependentUpon>formSubs.cs</DependentUpon>
-    </Compile>
     <Compile Include="Views\Forms\FrmLogin.cs" />
     <Compile Include="Views\Forms\FrmLogin.Designer.cs">
       <DependentUpon>FrmLogin.cs</DependentUpon>
@@ -318,9 +314,9 @@
     <Compile Include="Views\Forms\PasswordForm .Designer.cs">
       <DependentUpon>PasswordForm .cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\Forms\SubForms do Gerenciador de Pedidos\FrmEditarPedido.cs" />
-    <Compile Include="Views\Forms\SubForms do Gerenciador de Pedidos\FrmEditarPedido.Designer.cs">
-      <DependentUpon>FrmEditarPedido.cs</DependentUpon>
+    <Compile Include="Views\Forms\SubForms do Gerenciador de Pedidos\FrmGerenciarOS.cs" />
+    <Compile Include="Views\Forms\SubForms do Gerenciador de Pedidos\FrmGerenciarOS.Designer.cs">
+      <DependentUpon>FrmGerenciarOS.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\UserControls\SubUserControl do Financeiro\Entrada\ucRegistrarEntradaFinanceiro.cs" />
     <Compile Include="Views\UserControls\SubUserControl do Financeiro\Entrada\ucRegistrarEntradaFinanceiro.Designer.cs">
@@ -368,9 +364,9 @@
     <Compile Include="Views\UserControls\SubUserControl do Gerenciador de Estoque\ucRegistrarSaida.Designer.cs">
       <DependentUpon>ucRegistrarSaida.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\UserControls\SubUserControl do Gerenciador de OS\ucDetalhesPedidos.cs" />
-    <Compile Include="Views\UserControls\SubUserControl do Gerenciador de OS\ucDetalhesPedidos.Designer.cs">
-      <DependentUpon>ucDetalhesPedidos.cs</DependentUpon>
+    <Compile Include="Views\UserControls\SubUserControl do Gerenciador de OS\ucDetalhesOS.cs" />
+    <Compile Include="Views\UserControls\SubUserControl do Gerenciador de OS\ucDetalhesOS.Designer.cs">
+      <DependentUpon>ucDetalhesOS.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\UserControls\SubUserControl do Gerenciador de OS\ucFormularioOS.cs" />
     <Compile Include="Views\UserControls\SubUserControl do Gerenciador de OS\ucFormularioOS.Designer.cs">
@@ -435,17 +431,14 @@
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\Forms\formSubs.resx">
-      <DependentUpon>formSubs.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Views\Forms\FrmLogin.resx">
       <DependentUpon>FrmLogin.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Forms\FrmPrincipal.resx">
       <DependentUpon>FrmPrincipal.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\Forms\SubForms do Gerenciador de Pedidos\FrmEditarPedido.resx">
-      <DependentUpon>FrmEditarPedido.cs</DependentUpon>
+    <EmbeddedResource Include="Views\Forms\SubForms do Gerenciador de Pedidos\FrmGerenciarOS.resx">
+      <DependentUpon>FrmGerenciarOS.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\UserControls\SubUserControl do Financeiro\Entrada\ucRegistrarEntradaFinanceiro.resx">
       <DependentUpon>ucRegistrarEntradaFinanceiro.cs</DependentUpon>
@@ -474,8 +467,8 @@
     <EmbeddedResource Include="Views\UserControls\SubUserControl do Gerenciador de Estoque\ucRegistrarSaida.resx">
       <DependentUpon>ucRegistrarSaida.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\UserControls\SubUserControl do Gerenciador de OS\ucDetalhesPedidos.resx">
-      <DependentUpon>ucDetalhesPedidos.cs</DependentUpon>
+    <EmbeddedResource Include="Views\UserControls\SubUserControl do Gerenciador de OS\ucDetalhesOS.resx">
+      <DependentUpon>ucDetalhesOS.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\UserControls\SubUserControl do Gerenciador de OS\ucFormularioOS.resx">
       <DependentUpon>ucFormularioOS.cs</DependentUpon>

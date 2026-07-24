@@ -2,7 +2,7 @@
 
 namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
 {
-    partial class FrmEditarPedido
+    partial class FrmGerenciarOS
     {
         /// <summary>
         /// Required designer variable.
@@ -36,6 +36,9 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             this.btnProdutos = new System.Windows.Forms.Button();
             this.btnDetalhes = new System.Windows.Forms.Button();
             this.panelBotoes = new System.Windows.Forms.Panel();
+            this.btnDesfazer = new System.Windows.Forms.Button();
+            this.btnSalvar = new System.Windows.Forms.Button();
+            this.btnCancelar = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.btnFechar = new System.Windows.Forms.Button();
             this.btnImprimir = new System.Windows.Forms.Button();
@@ -94,6 +97,9 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             // 
             this.panelBotoes.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(55)))), ((int)(((byte)(76)))));
             this.panelBotoes.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelBotoes.Controls.Add(this.btnDesfazer);
+            this.panelBotoes.Controls.Add(this.btnSalvar);
+            this.panelBotoes.Controls.Add(this.btnCancelar);
             this.panelBotoes.Controls.Add(this.button1);
             this.panelBotoes.Controls.Add(this.btnFechar);
             this.panelBotoes.Controls.Add(this.btnImprimir);
@@ -103,6 +109,52 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             this.panelBotoes.Size = new System.Drawing.Size(679, 38);
             this.panelBotoes.TabIndex = 75;
             // 
+            // btnDesfazer
+            // 
+            this.btnDesfazer.BackColor = System.Drawing.Color.RoyalBlue;
+            this.btnDesfazer.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnDesfazer.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDesfazer.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.btnDesfazer.ForeColor = System.Drawing.SystemColors.Control;
+            this.btnDesfazer.Location = new System.Drawing.Point(147, 5);
+            this.btnDesfazer.Name = "btnDesfazer";
+            this.btnDesfazer.Size = new System.Drawing.Size(75, 23);
+            this.btnDesfazer.TabIndex = 104;
+            this.btnDesfazer.Text = "Desfazer";
+            this.btnDesfazer.UseVisualStyleBackColor = false;
+            this.btnDesfazer.Click += new System.EventHandler(this.btnDesfazer_Click);
+            // 
+            // btnSalvar
+            // 
+            this.btnSalvar.BackColor = System.Drawing.Color.RoyalBlue;
+            this.btnSalvar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnSalvar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSalvar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.btnSalvar.ForeColor = System.Drawing.SystemColors.Control;
+            this.btnSalvar.Location = new System.Drawing.Point(228, 5);
+            this.btnSalvar.Name = "btnSalvar";
+            this.btnSalvar.Size = new System.Drawing.Size(75, 23);
+            this.btnSalvar.TabIndex = 103;
+            this.btnSalvar.Text = "Salvar";
+            this.btnSalvar.UseVisualStyleBackColor = false;
+            this.btnSalvar.Click += new System.EventHandler(this.btnSalvar_Click);
+            // 
+            // btnCancelar
+            // 
+            this.btnCancelar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnCancelar.BackColor = System.Drawing.Color.RoyalBlue;
+            this.btnCancelar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnCancelar.Enabled = false;
+            this.btnCancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCancelar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.btnCancelar.ForeColor = System.Drawing.SystemColors.Control;
+            this.btnCancelar.Location = new System.Drawing.Point(588, 5);
+            this.btnCancelar.Name = "btnCancelar";
+            this.btnCancelar.Size = new System.Drawing.Size(86, 23);
+            this.btnCancelar.TabIndex = 102;
+            this.btnCancelar.Text = "Cancelar OS";
+            this.btnCancelar.UseVisualStyleBackColor = false;
+            // 
             // button1
             // 
             this.button1.BackColor = System.Drawing.Color.RoyalBlue;
@@ -110,7 +162,7 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.button1.ForeColor = System.Drawing.SystemColors.Control;
-            this.button1.Location = new System.Drawing.Point(370, 6);
+            this.button1.Location = new System.Drawing.Point(471, 5);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(111, 23);
             this.button1.TabIndex = 48;
@@ -124,7 +176,7 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             this.btnFechar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnFechar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.btnFechar.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnFechar.Location = new System.Drawing.Point(289, 6);
+            this.btnFechar.Location = new System.Drawing.Point(390, 5);
             this.btnFechar.Name = "btnFechar";
             this.btnFechar.Size = new System.Drawing.Size(75, 23);
             this.btnFechar.TabIndex = 47;
@@ -139,7 +191,7 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             this.btnImprimir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnImprimir.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.btnImprimir.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnImprimir.Location = new System.Drawing.Point(208, 6);
+            this.btnImprimir.Location = new System.Drawing.Point(309, 5);
             this.btnImprimir.Name = "btnImprimir";
             this.btnImprimir.Size = new System.Drawing.Size(75, 23);
             this.btnImprimir.TabIndex = 46;
@@ -157,7 +209,7 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             this.panelConteudo.Size = new System.Drawing.Size(679, 441);
             this.panelConteudo.TabIndex = 77;
             // 
-            // FrmEditarPedido
+            // FrmGerenciarOS
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -170,15 +222,21 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "FrmEditarPedido";
+            this.Name = "FrmGerenciarOS";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Load += new System.EventHandler(this.FrmEditarPedido_Load);
+            this.Load += new System.EventHandler(this.FrmGerenciarOS_Load);
             this.panel2.ResumeLayout(false);
             this.panelBotoes.ResumeLayout(false);
             this.ResumeLayout(false);
         }
+
+        private System.Windows.Forms.Button btnSalvar;
+
+        private System.Windows.Forms.Button btnDesfazer;
+
+        private System.Windows.Forms.Button btnCancelar;
 
         private System.Windows.Forms.Button button1;
 

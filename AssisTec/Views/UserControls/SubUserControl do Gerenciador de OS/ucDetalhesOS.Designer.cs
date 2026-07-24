@@ -2,7 +2,7 @@
 
 namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
 {
-    partial class ucDetalhesPedidos
+    partial class ucDetalhesOS
     {
         /// <summary> 
         /// Required designer variable.
@@ -51,12 +51,12 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             this.txtStatus = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.txtEquipamento = new System.Windows.Forms.TextBox();
-            this.txtTecnico = new System.Windows.Forms.TextBox();
-            this.txtCliente = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.cbCliente = new System.Windows.Forms.ComboBox();
+            this.cbTecnico = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // txtId
@@ -144,6 +144,7 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             this.txtValorTotal.Name = "txtValorTotal";
             this.txtValorTotal.Size = new System.Drawing.Size(142, 20);
             this.txtValorTotal.TabIndex = 117;
+            this.txtValorTotal.Text = "R$";
             // 
             // label11
             // 
@@ -166,6 +167,7 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             this.txtValorPecas.Name = "txtValorPecas";
             this.txtValorPecas.Size = new System.Drawing.Size(126, 20);
             this.txtValorPecas.TabIndex = 115;
+            this.txtValorPecas.Text = "R$";
             // 
             // txtValorMaoObra
             // 
@@ -176,6 +178,7 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             this.txtValorMaoObra.Name = "txtValorMaoObra";
             this.txtValorMaoObra.Size = new System.Drawing.Size(101, 20);
             this.txtValorMaoObra.TabIndex = 114;
+            this.txtValorMaoObra.Text = "R$";
             // 
             // label10
             // 
@@ -277,26 +280,6 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             this.txtEquipamento.Size = new System.Drawing.Size(358, 20);
             this.txtEquipamento.TabIndex = 105;
             // 
-            // txtTecnico
-            // 
-            this.txtTecnico.BackColor = System.Drawing.Color.White;
-            this.txtTecnico.Enabled = false;
-            this.txtTecnico.Location = new System.Drawing.Point(284, 47);
-            this.txtTecnico.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.txtTecnico.Name = "txtTecnico";
-            this.txtTecnico.Size = new System.Drawing.Size(150, 20);
-            this.txtTecnico.TabIndex = 104;
-            // 
-            // txtCliente
-            // 
-            this.txtCliente.BackColor = System.Drawing.Color.White;
-            this.txtCliente.Enabled = false;
-            this.txtCliente.Location = new System.Drawing.Point(66, 45);
-            this.txtCliente.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.txtCliente.Name = "txtCliente";
-            this.txtCliente.Size = new System.Drawing.Size(142, 20);
-            this.txtCliente.TabIndex = 103;
-            // 
             // label8
             // 
             this.label8.AutoSize = true;
@@ -345,11 +328,29 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             this.label1.TabIndex = 99;
             this.label1.Text = "ID do Pedido:";
             // 
-            // ucDetalhesPedidos
+            // cbCliente
+            // 
+            this.cbCliente.FormattingEnabled = true;
+            this.cbCliente.Location = new System.Drawing.Point(65, 47);
+            this.cbCliente.Name = "cbCliente";
+            this.cbCliente.Size = new System.Drawing.Size(144, 21);
+            this.cbCliente.TabIndex = 125;
+            // 
+            // cbTecnico
+            // 
+            this.cbTecnico.FormattingEnabled = true;
+            this.cbTecnico.Location = new System.Drawing.Point(274, 47);
+            this.cbTecnico.Name = "cbTecnico";
+            this.cbTecnico.Size = new System.Drawing.Size(163, 21);
+            this.cbTecnico.TabIndex = 126;
+            // 
+            // ucDetalhesOS
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(44)))), ((int)(((byte)(64)))));
+            this.Controls.Add(this.cbTecnico);
+            this.Controls.Add(this.cbCliente);
             this.Controls.Add(this.txtId);
             this.Controls.Add(this.txtProblema);
             this.Controls.Add(this.label14);
@@ -370,18 +371,18 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             this.Controls.Add(this.txtStatus);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.txtEquipamento);
-            this.Controls.Add(this.txtTecnico);
-            this.Controls.Add(this.txtCliente);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label1);
-            this.Name = "ucDetalhesPedidos";
-            this.Size = new System.Drawing.Size(685, 442);
-            this.Load += new System.EventHandler(this.ucDetalhesPedidos_Load);
+            this.Name = "ucDetalhesOS";
+            this.Size = new System.Drawing.Size(685, 436);
             this.ResumeLayout(false);
             this.PerformLayout();
         }
+
+        private System.Windows.Forms.ComboBox cbCliente;
+        private System.Windows.Forms.ComboBox cbTecnico;
 
         private System.Windows.Forms.TextBox txtId;
         private System.Windows.Forms.TextBox txtProblema;
@@ -403,8 +404,6 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
         private System.Windows.Forms.TextBox txtStatus;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox txtEquipamento;
-        private System.Windows.Forms.TextBox txtTecnico;
-        private System.Windows.Forms.TextBox txtCliente;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label3;

@@ -7,7 +7,9 @@ namespace AssisTec.Repository
     public interface IOrdemServicoRepository
     {
         IEnumerable<dynamic> ObterTodasOSAtuais();
+        OrdemServico ObterPorId(int idOrdemServico);
         bool SalvarOrdemServico(OrdemServico ordemServico);
+        bool SalvarAlteracoesOS(OrdemServico ordemServico);
         DataTable ObterHistoricoUsuario(int idUsuario);
         DataTable ObterHistoricoCliente(int idCliente);
         int ObterQntOsAbertas();

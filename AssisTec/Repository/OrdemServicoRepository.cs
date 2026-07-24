@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using AssisTec.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace AssisTec.Repository
 {
@@ -51,12 +52,46 @@ namespace AssisTec.Repository
             }
         }
 
+        public OrdemServico ObterPorId(int idOrdemServico)
+        {
+            try
+            {
+                return context.OrdemServicos
+                    .Include(os => os.Cliente)
+                    .Include(os => os.Tecnico)
+                    .Include(os => os.Equipamento)
+                    .FirstOrDefault(os => os.id_os == idOrdemServico);
+            }
+            catch (Exception ex)
+            {
+                throw new ArgumentNullException("Erro ao obter OS do BD.");
+            }
+        }
+
         public bool SalvarOrdemServico(OrdemServico ordemServico)
         {
             try
             {
                 context.OrdemServicos.Add(ordemServico);
                 return context.SaveChanges()>0;
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Falha ao salvar ordemServico no BD" + e.Message);
+            }
+        }
+
+        public bool SalvarAlteracoesOS(OrdemServico ordemServico)
+        {
+            try
+            {
+                var local = context.OrdemServicos.Local.FirstOrDefault( o => o.id_os == ordemServico.id_os );
+                if (local != null)
+                {
+                    context.Entry(local).State = EntityState.Detached;
+                }
+                context.Entry(ordemServico).State = EntityState.Modified;
+                return context.SaveChanges() > 0;
             }
             catch (Exception e)
             {

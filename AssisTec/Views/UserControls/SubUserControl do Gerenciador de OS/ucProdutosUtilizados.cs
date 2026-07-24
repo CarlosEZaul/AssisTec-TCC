@@ -9,38 +9,15 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
 {
     public partial class ucProdutosUtilizados : UserControl
     {
-        private OrdemServico _ordemServico;
         
-        private int id;
-        
-        public ucProdutosUtilizados(OrdemServico ordemServico)
+        public ucProdutosUtilizados()
         {
             InitializeComponent();
-            _ordemServico = ordemServico;
+            
             
             
         }
         
-        // private void ConfigurarComboBox()
-        // {
-        //     con.OpenConnection();
-        //     string sql = "SELECT id_produto, CONCAT(descricao, ' - Qnt: ', estoque, ' - Preço de Compra: R$', preco_compra) AS exibicao FROM produtos ORDER BY descricao";
-        //
-        //     MySqlCommand cmd = new MySqlCommand(sql, con.con);
-        //     MySqlDataAdapter da = new MySqlDataAdapter(cmd);
-        //     DataTable dt = new DataTable();
-        //     da.Fill(dt);
-        //
-        //     cbProduto.DataSource = dt;
-        //     cbProduto.DisplayMember = "exibicao";
-        //     cbProduto.ValueMember = "id_produto";
-        //
-        //     cbProduto.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
-        //     cbProduto.AutoCompleteSource = AutoCompleteSource.ListItems;
-        //     cbProduto.SelectedIndex = -1;
-        //     con.CloseConnection();
-        //     
-        // }
 
         private void txtQntd_KeyPress(object sender, KeyPressEventArgs e)
         {

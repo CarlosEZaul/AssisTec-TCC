@@ -6,6 +6,7 @@ namespace AssisTec.Models
 {
     public class OrdemServico
     {
+        
         public int id_os { get; set; }
 
         public int? id_tecnico { get; set; }
@@ -41,7 +42,13 @@ namespace AssisTec.Models
 
         [Required]
         [Column(TypeName = "decimal(18,2)")]
-        public decimal valor_total { get; set; } = 0.00m;
+        public decimal valor_total { 
+            get 
+            { 
+                return valor_mao_obra + valor_pecas; 
+            }
+            private set { } 
+        }
 
         [StringLength(500)]
         public string problema_relatado { get; set; } = string.Empty;

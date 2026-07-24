@@ -16,77 +16,53 @@ using iTextSharp.text;
 using System.Diagnostics;
 using System.IO;
 using AssisTec.Models;
+using AssisTec.Service;
 using Exception = System.Exception;
 using Font = System.Drawing.Font;
 using Image = iTextSharp.text.Image;
 
 namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
 {
-    public partial class FrmEditarPedido : Form
+    public partial class FrmGerenciarOS : Form
     {
-        private ucDetalhesPedidos detalhes; 
+        
+        
+        private readonly OrdemServicoService _ordemServicoService;
+        private int _id;
+        private ucDetalhesOS detalhes;
         private ucProdutosUtilizados produtos;
         private ucServicos servicos;
-        OrdemServico ordemServico;
-        private int id;
-        
-        public FrmEditarPedido(OrdemServico _ordemServico)
+        public FrmGerenciarOS(int id,OrdemServicoService ordemServicoService)
         {
             InitializeComponent();
+            _ordemServicoService = ordemServicoService ?? throw new ArgumentNullException(nameof(ordemServicoService));
+            _id = id;
+            IniciarUserControls();
             ApplyModernDesign();
-            ordemServico = _ordemServico;
+           
         }
 
-        private void FrmEditarPedido_Load(object sender, EventArgs e)
+        
+        private void FrmGerenciarOS_Load(object sender, EventArgs e)
         {
-            //detalhes = new ucDetalhesPedidos(ordemServico);
-            //produtos = new ucProdutosUtilizados(ordemServico);
-            //servicos = new ucServicos(ordemServico);
-            detalhes.Dock = DockStyle.Fill;
-            produtos.Dock = DockStyle.Fill;
-            panelConteudo.Controls.Add(detalhes);
-            panelConteudo.Controls.Add(produtos);
-            panelConteudo.Controls.Add(servicos);
             MostrarTela(detalhes);
         }
-        private void MostrarTela(UserControl tela)
-        {
-            foreach (Control ctrl in panelConteudo.Controls)
-                ctrl.Visible = false;
 
-            tela.Visible = true;
-            tela.BringToFront();
-        }
-
+        
         #region Desing Moderno
+        
 
         private void ApplyModernDesign()
         {
             try
             {
-                // Propriedades do formulário (específicas deste form)
                 this.BackColor = Color.FromArgb(240, 240, 240);
                 this.Font = new Font("Segoe UI", 9F);
-                
-
-                // Estilo dos painéis (específicos deste form)
-                //panel1.BackColor = Color.FromArgb(39, 54, 77);
                 panel2.BackColor = Color.FromArgb(32, 45, 64);
-
-                // Estilo das labels: Usando o método estático
-                //DesingComponentes.ApplyLabelStyles(this);
-
-                // Estilo das caixas de texto com máscara: Usando o método estático para cada controle
-
-
-                // Estilo dos botões: Usando o método estático para cada controle
                 
-                ;
                 DesignComponentes.StyleButton(btnImprimir, Color.FromArgb(0, 120, 215));
                 DesignComponentes.StyleButton(btnFechar, Color.FromArgb(209, 17, 65));
-                // ... (outros Buttons)
-
-
+            
             }
             catch (Exception ex)
             {
@@ -96,6 +72,36 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
         }
 
         #endregion
+        private void IniciarUserControls()
+        {
+            detalhes = new ucDetalhesOS(_id, _ordemServicoService);
+            produtos = new ucProdutosUtilizados();
+            servicos = new ucServicos();
+
+            detalhes.Dock = DockStyle.Fill;
+            produtos.Dock = DockStyle.Fill;
+            servicos.Dock = DockStyle.Fill;
+
+            panelConteudo.Controls.Add(detalhes);
+            panelConteudo.Controls.Add(produtos);
+            panelConteudo.Controls.Add(servicos);
+        }
+        private void MostrarTela(UserControl tela)
+        {
+            if (tela == null) return;
+
+            foreach (Control ctrl in panelConteudo.Controls)
+                ctrl.Visible = false;
+
+            tela.Visible = true;
+            tela.BringToFront();
+        }
+
+        private void MudarVisibilidadeBotoes(bool ativo)
+        {
+            btnDesfazer.Visible = ativo;
+            btnSalvar.Visible = ativo;
+        }
         
         private void btnFechar_Click(object sender, EventArgs e)
         {
@@ -111,18 +117,32 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
 
         private void btnDetalhes_Click(object sender, EventArgs e)
         {
+            MudarVisibilidadeBotoes(true);
             MostrarTela(detalhes);
         }
 
 
         private void btnProdutos_Click(object sender, EventArgs e)
         {
+            MudarVisibilidadeBotoes(false);
             MostrarTela(produtos);
         }
 
         private void btnServiços_Click(object sender, EventArgs e)
         {
+            MudarVisibilidadeBotoes(false);
             MostrarTela(servicos);
+        }
+
+
+        private void btnDesfazer_Click(object sender, EventArgs e)
+        {
+            detalhes.CarregarDetalhesOS();
+        }
+
+        private void btnSalvar_Click(object sender, EventArgs e)
+        {
+            detalhes.SalvarAlteracoes();
         }
     }
 }

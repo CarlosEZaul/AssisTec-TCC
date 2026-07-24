@@ -39,7 +39,6 @@ namespace AssisTec.UserControls
             this.btnRecibo = new System.Windows.Forms.Button();
             this.btnPagamento = new System.Windows.Forms.Button();
             this.btnNew = new System.Windows.Forms.Button();
-            this.btnDelete = new System.Windows.Forms.Button();
             this.btnGerenciar = new System.Windows.Forms.Button();
             this.panelExibicao = new System.Windows.Forms.Panel();
             this.panel4 = new System.Windows.Forms.Panel();
@@ -100,6 +99,7 @@ namespace AssisTec.UserControls
             this.dgvOS.ReadOnly = true;
             this.dgvOS.Size = new System.Drawing.Size(1138, 503);
             this.dgvOS.TabIndex = 53;
+            this.dgvOS.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvOS_CellClick);
             // 
             // label4
             // 
@@ -121,11 +121,10 @@ namespace AssisTec.UserControls
             this.panelBotoes.Controls.Add(this.btnRecibo);
             this.panelBotoes.Controls.Add(this.btnPagamento);
             this.panelBotoes.Controls.Add(this.btnNew);
-            this.panelBotoes.Controls.Add(this.btnDelete);
             this.panelBotoes.Controls.Add(this.btnGerenciar);
-            this.panelBotoes.Location = new System.Drawing.Point(229, 688);
+            this.panelBotoes.Location = new System.Drawing.Point(234, 688);
             this.panelBotoes.Name = "panelBotoes";
-            this.panelBotoes.Size = new System.Drawing.Size(692, 61);
+            this.panelBotoes.Size = new System.Drawing.Size(595, 61);
             this.panelBotoes.TabIndex = 148;
             // 
             // btnRelatorio
@@ -137,7 +136,7 @@ namespace AssisTec.UserControls
             this.btnRelatorio.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRelatorio.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.btnRelatorio.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnRelatorio.Location = new System.Drawing.Point(408, 15);
+            this.btnRelatorio.Location = new System.Drawing.Point(315, 15);
             this.btnRelatorio.Name = "btnRelatorio";
             this.btnRelatorio.Size = new System.Drawing.Size(133, 33);
             this.btnRelatorio.TabIndex = 106;
@@ -153,7 +152,7 @@ namespace AssisTec.UserControls
             this.btnRecibo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRecibo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.btnRecibo.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnRecibo.Location = new System.Drawing.Point(547, 15);
+            this.btnRecibo.Location = new System.Drawing.Point(454, 15);
             this.btnRecibo.Name = "btnRecibo";
             this.btnRecibo.Size = new System.Drawing.Size(133, 33);
             this.btnRecibo.TabIndex = 105;
@@ -169,7 +168,7 @@ namespace AssisTec.UserControls
             this.btnPagamento.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnPagamento.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnPagamento.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnPagamento.Location = new System.Drawing.Point(266, 15);
+            this.btnPagamento.Location = new System.Drawing.Point(173, 15);
             this.btnPagamento.Name = "btnPagamento";
             this.btnPagamento.Size = new System.Drawing.Size(136, 33);
             this.btnPagamento.TabIndex = 104;
@@ -184,29 +183,13 @@ namespace AssisTec.UserControls
             this.btnNew.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnNew.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.btnNew.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnNew.Location = new System.Drawing.Point(14, 15);
+            this.btnNew.Location = new System.Drawing.Point(3, 15);
             this.btnNew.Name = "btnNew";
             this.btnNew.Size = new System.Drawing.Size(78, 33);
             this.btnNew.TabIndex = 99;
             this.btnNew.Text = "Novo";
             this.btnNew.UseVisualStyleBackColor = false;
             this.btnNew.Click += new System.EventHandler(this.btnNew_Click);
-            // 
-            // btnDelete
-            // 
-            this.btnDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnDelete.BackColor = System.Drawing.Color.RoyalBlue;
-            this.btnDelete.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnDelete.Enabled = false;
-            this.btnDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnDelete.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.btnDelete.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnDelete.Location = new System.Drawing.Point(182, 15);
-            this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(78, 33);
-            this.btnDelete.TabIndex = 101;
-            this.btnDelete.Text = "Excluir";
-            this.btnDelete.UseVisualStyleBackColor = false;
             // 
             // btnGerenciar
             // 
@@ -217,12 +200,13 @@ namespace AssisTec.UserControls
             this.btnGerenciar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnGerenciar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.btnGerenciar.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnGerenciar.Location = new System.Drawing.Point(100, 15);
+            this.btnGerenciar.Location = new System.Drawing.Point(89, 15);
             this.btnGerenciar.Name = "btnGerenciar";
             this.btnGerenciar.Size = new System.Drawing.Size(78, 33);
             this.btnGerenciar.TabIndex = 103;
             this.btnGerenciar.Text = "Gerenciar";
             this.btnGerenciar.UseVisualStyleBackColor = false;
+            this.btnGerenciar.Click += new System.EventHandler(this.btnGerenciar_Click);
             // 
             // panelExibicao
             // 
@@ -606,7 +590,6 @@ namespace AssisTec.UserControls
         private System.Windows.Forms.Button btnRecibo;
         private System.Windows.Forms.Button btnPagamento;
         private System.Windows.Forms.Button btnNew;
-        private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.Button btnGerenciar;
         private System.Windows.Forms.Button btnRelatorio;
 

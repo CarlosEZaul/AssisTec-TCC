@@ -3049,10 +3049,8 @@ C:\Users\Pc do estagiario\Desktop\AssisTec24-07\AssisTec\bin\Debug\System.Thread
 C:\Users\Pc do estagiario\Desktop\AssisTec24-07\AssisTec\bin\Debug\System.ValueTuple.xml
 C:\Users\Pc do estagiario\Desktop\AssisTec24-07\AssisTec\obj\Debug\AssisTec.csproj.AssemblyReference.cache
 C:\Users\Pc do estagiario\Desktop\AssisTec24-07\AssisTec\obj\Debug\AssisTec.Properties.Resources.resources
-C:\Users\Pc do estagiario\Desktop\AssisTec24-07\AssisTec\obj\Debug\AssisTec.formSubs.resources
 C:\Users\Pc do estagiario\Desktop\AssisTec24-07\AssisTec\obj\Debug\AssisTec.FrmLogin.resources
 C:\Users\Pc do estagiario\Desktop\AssisTec24-07\AssisTec\obj\Debug\AssisTec.FrmPrincipal.resources
-C:\Users\Pc do estagiario\Desktop\AssisTec24-07\AssisTec\obj\Debug\AssisTec.SubForms_do_Gerenciador_de_Pedidos.FrmEditarPedido.resources
 C:\Users\Pc do estagiario\Desktop\AssisTec24-07\AssisTec\obj\Debug\AssisTec.UserControls.SubUserControl_do_Financeiro.ucRegistrarEntradaFinanceiro.resources
 C:\Users\Pc do estagiario\Desktop\AssisTec24-07\AssisTec\obj\Debug\AssisTec.UserControls.SubUserControl_do_Financeiro.ucRegistrarPagamentoEntrada.resources
 C:\Users\Pc do estagiario\Desktop\AssisTec24-07\AssisTec\obj\Debug\AssisTec.UserControls.SubUserControl_do_Financeiro.ucRegistrarPagamentoSaida.resources
@@ -3062,7 +3060,6 @@ C:\Users\Pc do estagiario\Desktop\AssisTec24-07\AssisTec\obj\Debug\AssisTec.User
 C:\Users\Pc do estagiario\Desktop\AssisTec24-07\AssisTec\obj\Debug\AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque.ucMovimentaçãoEstoque.resources
 C:\Users\Pc do estagiario\Desktop\AssisTec24-07\AssisTec\obj\Debug\AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque.ucRegistrarEntrada.resources
 C:\Users\Pc do estagiario\Desktop\AssisTec24-07\AssisTec\obj\Debug\AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque.ucRegistrarSaida.resources
-C:\Users\Pc do estagiario\Desktop\AssisTec24-07\AssisTec\obj\Debug\AssisTec.SubForms_do_Gerenciador_de_Pedidos.ucDetalhesPedidos.resources
 C:\Users\Pc do estagiario\Desktop\AssisTec24-07\AssisTec\obj\Debug\AssisTec.SubForms_do_Gerenciador_de_Pedidos.ucFormularioOS.resources
 C:\Users\Pc do estagiario\Desktop\AssisTec24-07\AssisTec\obj\Debug\AssisTec.UserControls.ucHistoricoOS.resources
 C:\Users\Pc do estagiario\Desktop\AssisTec24-07\AssisTec\obj\Debug\AssisTec.SubForms_do_Gerenciador_de_Pedidos.ucProdutosUtilizados.resources
@@ -3082,3 +3079,5 @@ C:\Users\Pc do estagiario\Desktop\AssisTec24-07\AssisTec\obj\Debug\AssisTec.cspr
 C:\Users\Pc do estagiario\Desktop\AssisTec24-07\AssisTec\obj\Debug\AssisTec.csproj.Up2Date
 C:\Users\Pc do estagiario\Desktop\AssisTec24-07\AssisTec\obj\Debug\AssisTec.exe
 C:\Users\Pc do estagiario\Desktop\AssisTec24-07\AssisTec\obj\Debug\AssisTec.pdb
+C:\Users\Pc do estagiario\Desktop\AssisTec24-07\AssisTec\obj\Debug\AssisTec.SubForms_do_Gerenciador_de_Pedidos.FrmGerenciarOS.resources
+C:\Users\Pc do estagiario\Desktop\AssisTec24-07\AssisTec\obj\Debug\AssisTec.SubForms_do_Gerenciador_de_Pedidos.ucDetalhesOS.resources

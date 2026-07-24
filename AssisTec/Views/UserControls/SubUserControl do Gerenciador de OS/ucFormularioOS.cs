@@ -16,21 +16,17 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
     {
         
         private readonly OrdemServicoService _ordemServicoService;
-        private readonly ClienteService _clienteService;
-        private readonly UsuarioService _usuarioService;
         
-        public ucFormularioOS(OrdemServicoService ordemServico, ClienteService clienteService, UsuarioService usuarioService)
+        public ucFormularioOS(OrdemServicoService ordemServico)
         {
             InitializeComponent();
             _ordemServicoService = ordemServico ?? throw new ArgumentNullException(nameof(ordemServico));
-            _clienteService = clienteService ?? throw new ArgumentNullException(nameof(clienteService));
-            _usuarioService = usuarioService ?? throw new ArgumentNullException(nameof(usuarioService));
             configurarComboBox();
         }
 
         private void configurarComboBox()
         {
-            List<Usuario> tecnicos = _usuarioService.obterTodosTecnicos();
+            List<Usuario> tecnicos = _ordemServicoService.ObterTecnicosAtivados();
             cbTecnico.DataSource = null;
             cbTecnico.DisplayMember = "nome";
             cbTecnico.ValueMember = "Id";
@@ -40,7 +36,7 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             cbTecnico.DropDownStyle = ComboBoxStyle.DropDown;
             cbTecnico.SelectedIndex = -1;
 
-            List<Cliente> clientes = _clienteService.ObterTodos().Where(c=> c.Status == "Ativado").ToList();
+            List<Cliente> clientes = _ordemServicoService.ObterClientes().Where(c=> c.Status == "Ativado").ToList();
             cbCliente.DataSource = null;
             cbCliente.DisplayMember = "nome";
             cbCliente.ValueMember = "Id";

@@ -11,11 +11,37 @@ namespace AssisTec.Service
     {
         private readonly IOrdemServicoRepository ordemServicoRepository;
         private readonly IEquipamentoRepository equipamentoRepository;
+        private readonly IUsuarioReposity usuarioRepository;
+        private readonly IClienteRepository clienteRepository;
 
-        public OrdemServicoService(IOrdemServicoRepository _ordemServicoRepository,  IEquipamentoRepository _equipamentoRepository)
+        public OrdemServicoService(IOrdemServicoRepository _ordemServicoRepository,  IEquipamentoRepository _equipamentoRepository,   IUsuarioReposity _usuarioRepository, IClienteRepository _clienteRepository)
         {
             ordemServicoRepository = _ordemServicoRepository ??  throw new ArgumentNullException(nameof(_ordemServicoRepository));
             equipamentoRepository = _equipamentoRepository ??  throw new ArgumentNullException(nameof(_equipamentoRepository));
+            usuarioRepository = _usuarioRepository ??  throw new ArgumentNullException(nameof(_usuarioRepository));
+            clienteRepository = _clienteRepository ??  throw new ArgumentNullException(nameof(_clienteRepository));
+        }
+
+        public List<Cliente> ObterClientes()
+        {
+            return clienteRepository.ObterTodosClientes();
+        }
+
+        public List<Usuario> ObterTecnicosAtivados()
+        {
+            return usuarioRepository.ObterTodosTecnicosAtivados();
+        }
+
+        public OrdemServico ObterPorId(int id)
+        {
+            try
+            {
+                return ordemServicoRepository.ObterPorId(id);
+            }
+            catch (Exception e)
+            {
+                throw new ArgumentNullException("Falha ao obter a OS.");
+            }
         }
 
         public bool SalvarOS(OrdemServico ordemServico, Equipamento equipamento)
@@ -41,6 +67,18 @@ namespace AssisTec.Service
                 throw new Exception("Falha ao salvar OS "+e.Message);
             }
             
+        }
+
+        public bool SalvarAlteracoesOS(OrdemServico os)
+        {
+            try
+            {
+                return  ordemServicoRepository.SalvarAlteracoesOS(os);
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Falha ao salvar OS " + e.Message);
+            }
         }
 
         private void ValidarEntidades(OrdemServico os, Equipamento eq)
