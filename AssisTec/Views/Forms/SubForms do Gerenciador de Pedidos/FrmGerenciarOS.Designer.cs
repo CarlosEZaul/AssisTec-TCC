@@ -97,11 +97,11 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             // 
             this.panelBotoes.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(55)))), ((int)(((byte)(76)))));
             this.panelBotoes.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panelBotoes.Controls.Add(this.btnDesfazer);
-            this.panelBotoes.Controls.Add(this.btnSalvar);
+            this.panelBotoes.Controls.Add(this.btnFechar);
             this.panelBotoes.Controls.Add(this.btnCancelar);
             this.panelBotoes.Controls.Add(this.button1);
-            this.panelBotoes.Controls.Add(this.btnFechar);
+            this.panelBotoes.Controls.Add(this.btnDesfazer);
+            this.panelBotoes.Controls.Add(this.btnSalvar);
             this.panelBotoes.Controls.Add(this.btnImprimir);
             this.panelBotoes.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panelBotoes.Location = new System.Drawing.Point(0, 487);
@@ -148,7 +148,7 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             this.btnCancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancelar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.btnCancelar.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnCancelar.Location = new System.Drawing.Point(588, 5);
+            this.btnCancelar.Location = new System.Drawing.Point(507, 5);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(86, 23);
             this.btnCancelar.TabIndex = 102;
@@ -162,7 +162,7 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.button1.ForeColor = System.Drawing.SystemColors.Control;
-            this.button1.Location = new System.Drawing.Point(471, 5);
+            this.button1.Location = new System.Drawing.Point(390, 5);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(111, 23);
             this.button1.TabIndex = 48;
@@ -176,7 +176,7 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             this.btnFechar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnFechar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.btnFechar.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnFechar.Location = new System.Drawing.Point(390, 5);
+            this.btnFechar.Location = new System.Drawing.Point(599, 5);
             this.btnFechar.Name = "btnFechar";
             this.btnFechar.Size = new System.Drawing.Size(75, 23);
             this.btnFechar.TabIndex = 47;
