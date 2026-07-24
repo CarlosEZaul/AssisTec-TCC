@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using AssisTec.Service;
 
@@ -72,7 +73,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Login
             AtualizarVisibilidadeLinks();
         }
 
-        private void btnBuscar_Click(object sender, EventArgs e)
+        private async void btnBuscar_Click(object sender, EventArgs e)
         {
             _emailDestino = txtEmail.Text.Trim();
 
@@ -82,22 +83,39 @@ namespace AssisTec.UserControls.SubUserControl_do_Login
                 return;
             }
 
-            if (!_usuarioService.ExisteEmail(_emailDestino))
+            try
             {
-                MessageBox.Show("E-mail não cadastrado no sistema.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
+                this.Cursor = Cursors.WaitCursor;
+                btnBuscar.Enabled = false;
 
-            _codigoGerado = _emailService.GerarCodigoVerificacao();
-            
-            if (_emailService.EnviarCodigoVerificacao(_emailDestino, _codigoGerado))
-            {
-                MessageBox.Show("Código enviado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                EstadoCodigoEnviado();
+                if (!_usuarioService.ExisteEmail(_emailDestino))
+                {
+                    MessageBox.Show("E-mail não cadastrado no sistema.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                _codigoGerado = _emailService.GerarCodigoVerificacao();
+
+                bool enviado = await Task.Run(() => _emailService.EnviarCodigoVerificacao(_emailDestino, _codigoGerado));
+
+                if (enviado)
+                {
+                    MessageBox.Show("Código enviado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    EstadoCodigoEnviado();
+                }
+                else
+                {
+                    MessageBox.Show("Falha ao enviar e-mail. Verifique a conexão e as credenciais do remetente.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("Falha ao enviar e-mail. Verifique a conexão e as credenciais do remetente.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Ocorreu um erro ao processar a solicitação: {ex.Message}", "Erro inesperado", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                this.Cursor = Cursors.Default;
+                btnBuscar.Enabled = true;
             }
         }
 

@@ -79,7 +79,6 @@
             this.txtPassword.PasswordChar = '*';
             this.txtPassword.Size = new System.Drawing.Size(227, 26);
             this.txtPassword.TabIndex = 3;
-            this.txtPassword.Text = "000";
             this.txtPassword.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // panel1
@@ -197,7 +196,6 @@
             this.mtbCPF.Name = "mtbCPF";
             this.mtbCPF.Size = new System.Drawing.Size(227, 26);
             this.mtbCPF.TabIndex = 1;
-            this.mtbCPF.Text = "00000000000";
             this.mtbCPF.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.mtbCPF.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals;
             // 
