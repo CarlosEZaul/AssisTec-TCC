@@ -35,12 +35,6 @@ namespace AssisTec.Service
         public bool Salvar(Produto produto)
         {
             ValidarCampos(produto);
-            
-            
-            if (produto.quantidade < produto.quantidade_minima)
-            {
-                throw new ArgumentNullException("Quantidade minima não pode ser menor que a atual");
-            }
 
             var Inserir = repository.InserirProduto(produto);
 
