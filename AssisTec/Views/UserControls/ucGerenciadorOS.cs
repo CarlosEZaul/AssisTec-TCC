@@ -79,7 +79,7 @@ namespace AssisTec.UserControls
 
         private void btnGerenciar_Click(object sender, EventArgs e)
         {
-            FrmGerenciarOS frmGerenciarOs = new FrmGerenciarOS(_idOS, _ordemServicoService, _produtoService);
+            FrmGerenciarOS frmGerenciarOs = new FrmGerenciarOS(_idOS, _ordemServicoService);
             frmGerenciarOs.ShowDialog();
         }
 

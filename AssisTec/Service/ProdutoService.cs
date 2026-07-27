@@ -14,7 +14,7 @@ namespace AssisTec.Service
     public class ProdutoService 
     {
         private readonly IProdutoRepository repository;
-        private IitemOSRepository itemOSRepository;
+        private IItemOSRepository itemOSRepository;
         
         public ProdutoService(IProdutoRepository repository)
         {

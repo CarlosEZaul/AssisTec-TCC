@@ -44,6 +44,7 @@ namespace AssisTec
             var OrdemServicoRepository = new OrdemServicoRepository(context);
             var EquipamentoRepository = new EquipamentoRepository(context);
             var ItemOSRepository = new ItemOSRepository(context);
+            var ServicosOSRepository = new ServicosOSRepository(context);
 
             _produtoService = new ProdutoService(produtoRepository);
             _contasPagarService = new ContasPagarService(contasPagarRepository, pagamentoRepository);
@@ -55,6 +56,7 @@ namespace AssisTec
                 usuarioRepository,
                 clienteRepository,
                 ItemOSRepository,
+                ServicosOSRepository,
                 produtoRepository,
                 movimentacaoEstoqueRepository);
             _clienteService = new ClienteService(clienteRepository);

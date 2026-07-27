@@ -52,7 +52,7 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             // txtQntd
             // 
             this.txtQntd.BackColor = System.Drawing.Color.White;
-            this.txtQntd.Location = new System.Drawing.Point(258, 39);
+            this.txtQntd.Location = new System.Drawing.Point(258, 41);
             this.txtQntd.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtQntd.Name = "txtQntd";
             this.txtQntd.Size = new System.Drawing.Size(83, 20);
@@ -65,7 +65,7 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             this.label14.AutoSize = true;
             this.label14.Font = new System.Drawing.Font("Comic Sans MS", 9.75F);
             this.label14.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label14.Location = new System.Drawing.Point(258, 17);
+            this.label14.Location = new System.Drawing.Point(258, 20);
             this.label14.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(83, 18);
@@ -77,7 +77,7 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Comic Sans MS", 9.75F);
             this.label1.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label1.Location = new System.Drawing.Point(0, 18);
+            this.label1.Location = new System.Drawing.Point(4, 20);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(59, 18);
@@ -87,7 +87,7 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             // cbProduto
             // 
             this.cbProduto.FormattingEnabled = true;
-            this.cbProduto.Location = new System.Drawing.Point(3, 39);
+            this.cbProduto.Location = new System.Drawing.Point(3, 41);
             this.cbProduto.Name = "cbProduto";
             this.cbProduto.Size = new System.Drawing.Size(248, 21);
             this.cbProduto.TabIndex = 125;
@@ -100,7 +100,7 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             this.btnAdicionar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAdicionar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.btnAdicionar.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnAdicionar.Location = new System.Drawing.Point(471, 37);
+            this.btnAdicionar.Location = new System.Drawing.Point(471, 39);
             this.btnAdicionar.Name = "btnAdicionar";
             this.btnAdicionar.Size = new System.Drawing.Size(96, 23);
             this.btnAdicionar.TabIndex = 126;
@@ -155,7 +155,7 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             this.btnRemover.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRemover.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.btnRemover.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnRemover.Location = new System.Drawing.Point(573, 36);
+            this.btnRemover.Location = new System.Drawing.Point(573, 39);
             this.btnRemover.Name = "btnRemover";
             this.btnRemover.Size = new System.Drawing.Size(109, 23);
             this.btnRemover.TabIndex = 129;
@@ -168,7 +168,7 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Comic Sans MS", 9.75F);
             this.label3.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label3.Location = new System.Drawing.Point(349, 17);
+            this.label3.Location = new System.Drawing.Point(349, 20);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(40, 18);
@@ -178,7 +178,7 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             // txtValor
             // 
             this.txtValor.BackColor = System.Drawing.Color.White;
-            this.txtValor.Location = new System.Drawing.Point(349, 39);
+            this.txtValor.Location = new System.Drawing.Point(349, 41);
             this.txtValor.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtValor.Name = "txtValor";
             this.txtValor.Size = new System.Drawing.Size(115, 20);

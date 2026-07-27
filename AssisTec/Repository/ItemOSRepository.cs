@@ -8,7 +8,7 @@ using Exception = AssisTec.AtendeClienteService.Exception;
 
 namespace AssisTec.Repository
 {
-    public class ItemOSRepository: IitemOSRepository
+    public class ItemOSRepository: IItemOSRepository
     {
         private readonly AppDbContext _context;
 

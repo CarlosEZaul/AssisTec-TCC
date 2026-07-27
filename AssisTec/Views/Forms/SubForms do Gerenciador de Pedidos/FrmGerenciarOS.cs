@@ -28,15 +28,13 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
         
         
         private readonly OrdemServicoService _ordemServicoService;
-        private readonly ProdutoService _produtoService;
         private int _id;
         private ucDetalhesOS detalhes;
         private ucProdutosUtilizados produtos;
         private ucServicos servicos;
-        public FrmGerenciarOS(int id,OrdemServicoService ordemServicoService, ProdutoService produtoService)
+        public FrmGerenciarOS(int id,OrdemServicoService ordemServicoService)
         {
             InitializeComponent();
-            _produtoService = produtoService ?? throw new ArgumentNullException(nameof(produtoService));
             _ordemServicoService = ordemServicoService ?? throw new ArgumentNullException(nameof(ordemServicoService));
             _id = id;
             IniciarUserControls();
@@ -78,7 +76,7 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
         {
             detalhes = new ucDetalhesOS(_id, _ordemServicoService);
             produtos = new ucProdutosUtilizados(_ordemServicoService, _id);
-            servicos = new ucServicos();
+            servicos = new ucServicos(_ordemServicoService, _id);
 
             detalhes.Dock = DockStyle.Fill;
             produtos.Dock = DockStyle.Fill;
@@ -101,7 +99,6 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
 
         private void MudarVisibilidadeBotoes(bool ativo)
         {
-            btnDesfazer.Visible = ativo;
             btnSalvar.Visible = ativo;
         }
         
@@ -137,10 +134,17 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             MostrarTela(servicos);
         }
 
+        public void Atualizar()
+        {
+            detalhes.CarregarDetalhesOS();
+            produtos.AtualizarDados();
+            servicos.AtualizarDados();
+        }
+
 
         private void btnDesfazer_Click(object sender, EventArgs e)
         {
-            detalhes.CarregarDetalhesOS();
+            Atualizar();
         }
 
         private void btnSalvar_Click(object sender, EventArgs e)

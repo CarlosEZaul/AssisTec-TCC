@@ -21,6 +21,7 @@ namespace AssisTec.Repository
         public DbSet<Produto> Produtos { get; set; }
         public DbSet<MovimentacaoEstoque> movimentacaoEstoque { get; set; }
         public DbSet<ItemOS>  ItemOS { get; set; }
+        public DbSet<ServicosOS> ServicosOS { get; set; }
         
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -32,6 +33,7 @@ namespace AssisTec.Repository
                     mysqlOptions.ServerVersion(new Version(10, 4, 32), ServerType.MariaDb)
                 );
             }
+            
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -204,6 +206,18 @@ namespace AssisTec.Repository
                     .HasForeignKey(e => e.id_produto)
                     .OnDelete(DeleteBehavior.SetNull);
 
+            });
+            modelBuilder.Entity<ServicosOS>(entity =>
+            {
+                entity.ToTable("servico_os");
+                entity.HasKey(e => e.idServico);
+                entity.Property(e => e.idServico).HasColumnName("idServicoOS");
+                entity.Property(e=> e.descricao).HasColumnName("descricao");
+                entity.Property(e=>e.valor_cobrado).HasColumnName("valor_cobrado");
+                entity.HasOne(e => e.OrdemServico)
+                    .WithMany()
+                    .HasForeignKey(e => e.id_OS)
+                    .OnDelete(DeleteBehavior.SetNull);
             });
             
             modelBuilder.Entity<Pagamento>(entity =>

@@ -253,6 +253,7 @@
       <DependentUpon>20260609165159_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\AppDbContextModelSnapshot.cs" />
+    <Compile Include="Models\ServicosOS.cs" />
     <Compile Include="Models\Cliente.cs" />
     <Compile Include="Models\ContasPagar.cs" />
     <Compile Include="Models\ContasReceber.cs" />
@@ -266,18 +267,20 @@
     <Compile Include="Models\Usuario.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\ServicosOSRepository.cs" />
     <Compile Include="Repository\AppDbContext.cs" />
     <Compile Include="Repository\BackupXamppAutomated.cs" />
     <Compile Include="Repository\ClienteRepository.cs" />
     <Compile Include="Repository\ContaReceberRepository.cs" />
     <Compile Include="Repository\ContasPagarRepository.cs" />
     <Compile Include="Repository\EquipamentoRepository.cs" />
+    <Compile Include="Repository\IServicosOSRepository.cs" />
     <Compile Include="Repository\IBackupRepository.cs" />
     <Compile Include="Repository\IClienteRepository.cs" />
     <Compile Include="Repository\IContaReceberRepository.cs" />
     <Compile Include="Repository\IContasPagarRepository.cs" />
     <Compile Include="Repository\IEquipamentoRepository.cs" />
-    <Compile Include="Repository\IitemOSRepository.cs" />
+    <Compile Include="Repository\IItemOSRepository.cs" />
     <Compile Include="Repository\IMovimentacaoEstoqueRepository.cs" />
     <Compile Include="Repository\IOrdemServicoRepository.cs" />
     <Compile Include="Repository\IPagamentoRepository.cs" />
@@ -289,6 +292,7 @@
     <Compile Include="Repository\PagamentoRepository.cs" />
     <Compile Include="Repository\ProdutoRepository.cs" />
     <Compile Include="Repository\UsuarioRepository.cs" />
+    <Compile Include="Service\ServicosOSService.cs" />
     <Compile Include="Service\ClienteService.cs" />
     <Compile Include="Service\ContasPagarService.cs" />
     <Compile Include="Service\ContasReceberService.cs" />

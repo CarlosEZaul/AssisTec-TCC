@@ -4,7 +4,7 @@ using AssisTec.Models;
 
 namespace AssisTec.Repository
 {
-    public interface IitemOSRepository
+    public interface IItemOSRepository
     {
         bool SalvarItemOS(ItemOS item);
         ItemOS ObterPorId(int idItem);

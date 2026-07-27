@@ -36,11 +36,11 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             this.btnProdutos = new System.Windows.Forms.Button();
             this.btnDetalhes = new System.Windows.Forms.Button();
             this.panelBotoes = new System.Windows.Forms.Panel();
-            this.btnDesfazer = new System.Windows.Forms.Button();
-            this.btnSalvar = new System.Windows.Forms.Button();
+            this.btnFechar = new System.Windows.Forms.Button();
             this.btnCancelar = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
-            this.btnFechar = new System.Windows.Forms.Button();
+            this.btnAtualizar = new System.Windows.Forms.Button();
+            this.btnSalvar = new System.Windows.Forms.Button();
             this.btnImprimir = new System.Windows.Forms.Button();
             this.panelConteudo = new System.Windows.Forms.Panel();
             this.panel2.SuspendLayout();
@@ -100,7 +100,7 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             this.panelBotoes.Controls.Add(this.btnFechar);
             this.panelBotoes.Controls.Add(this.btnCancelar);
             this.panelBotoes.Controls.Add(this.button1);
-            this.panelBotoes.Controls.Add(this.btnDesfazer);
+            this.panelBotoes.Controls.Add(this.btnAtualizar);
             this.panelBotoes.Controls.Add(this.btnSalvar);
             this.panelBotoes.Controls.Add(this.btnImprimir);
             this.panelBotoes.Dock = System.Windows.Forms.DockStyle.Bottom;
@@ -109,35 +109,20 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             this.panelBotoes.Size = new System.Drawing.Size(679, 38);
             this.panelBotoes.TabIndex = 75;
             // 
-            // btnDesfazer
+            // btnFechar
             // 
-            this.btnDesfazer.BackColor = System.Drawing.Color.RoyalBlue;
-            this.btnDesfazer.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnDesfazer.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnDesfazer.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.btnDesfazer.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnDesfazer.Location = new System.Drawing.Point(147, 5);
-            this.btnDesfazer.Name = "btnDesfazer";
-            this.btnDesfazer.Size = new System.Drawing.Size(75, 23);
-            this.btnDesfazer.TabIndex = 104;
-            this.btnDesfazer.Text = "Desfazer";
-            this.btnDesfazer.UseVisualStyleBackColor = false;
-            this.btnDesfazer.Click += new System.EventHandler(this.btnDesfazer_Click);
-            // 
-            // btnSalvar
-            // 
-            this.btnSalvar.BackColor = System.Drawing.Color.RoyalBlue;
-            this.btnSalvar.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnSalvar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSalvar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.btnSalvar.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnSalvar.Location = new System.Drawing.Point(228, 5);
-            this.btnSalvar.Name = "btnSalvar";
-            this.btnSalvar.Size = new System.Drawing.Size(75, 23);
-            this.btnSalvar.TabIndex = 103;
-            this.btnSalvar.Text = "Salvar";
-            this.btnSalvar.UseVisualStyleBackColor = false;
-            this.btnSalvar.Click += new System.EventHandler(this.btnSalvar_Click);
+            this.btnFechar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(209)))), ((int)(((byte)(17)))), ((int)(((byte)(65)))));
+            this.btnFechar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnFechar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnFechar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.btnFechar.ForeColor = System.Drawing.SystemColors.Control;
+            this.btnFechar.Location = new System.Drawing.Point(599, 5);
+            this.btnFechar.Name = "btnFechar";
+            this.btnFechar.Size = new System.Drawing.Size(75, 23);
+            this.btnFechar.TabIndex = 47;
+            this.btnFechar.Text = "Fechar";
+            this.btnFechar.UseVisualStyleBackColor = false;
+            this.btnFechar.Click += new System.EventHandler(this.btnFechar_Click);
             // 
             // btnCancelar
             // 
@@ -169,20 +154,35 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             this.button1.Text = "Definir para retirada";
             this.button1.UseVisualStyleBackColor = false;
             // 
-            // btnFechar
+            // btnAtualizar
             // 
-            this.btnFechar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(209)))), ((int)(((byte)(17)))), ((int)(((byte)(65)))));
-            this.btnFechar.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnFechar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnFechar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.btnFechar.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnFechar.Location = new System.Drawing.Point(599, 5);
-            this.btnFechar.Name = "btnFechar";
-            this.btnFechar.Size = new System.Drawing.Size(75, 23);
-            this.btnFechar.TabIndex = 47;
-            this.btnFechar.Text = "Fechar";
-            this.btnFechar.UseVisualStyleBackColor = false;
-            this.btnFechar.Click += new System.EventHandler(this.btnFechar_Click);
+            this.btnAtualizar.BackColor = System.Drawing.Color.RoyalBlue;
+            this.btnAtualizar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnAtualizar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAtualizar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.btnAtualizar.ForeColor = System.Drawing.SystemColors.Control;
+            this.btnAtualizar.Location = new System.Drawing.Point(228, 5);
+            this.btnAtualizar.Name = "btnAtualizar";
+            this.btnAtualizar.Size = new System.Drawing.Size(75, 23);
+            this.btnAtualizar.TabIndex = 104;
+            this.btnAtualizar.Text = "Atualizar";
+            this.btnAtualizar.UseVisualStyleBackColor = false;
+            this.btnAtualizar.Click += new System.EventHandler(this.btnDesfazer_Click);
+            // 
+            // btnSalvar
+            // 
+            this.btnSalvar.BackColor = System.Drawing.Color.RoyalBlue;
+            this.btnSalvar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnSalvar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSalvar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.btnSalvar.ForeColor = System.Drawing.SystemColors.Control;
+            this.btnSalvar.Location = new System.Drawing.Point(147, 5);
+            this.btnSalvar.Name = "btnSalvar";
+            this.btnSalvar.Size = new System.Drawing.Size(75, 23);
+            this.btnSalvar.TabIndex = 103;
+            this.btnSalvar.Text = "Salvar";
+            this.btnSalvar.UseVisualStyleBackColor = false;
+            this.btnSalvar.Click += new System.EventHandler(this.btnSalvar_Click);
             // 
             // btnImprimir
             // 
@@ -234,7 +234,7 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
 
         private System.Windows.Forms.Button btnSalvar;
 
-        private System.Windows.Forms.Button btnDesfazer;
+        private System.Windows.Forms.Button btnAtualizar;
 
         private System.Windows.Forms.Button btnCancelar;
 
