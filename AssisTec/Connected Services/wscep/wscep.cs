@@ -227,7 +227,12 @@ namespace AssisTec.AtendeClienteService
     {
         
         private string messageField;
-        
+
+        public Exception(string erroAoBuscarOsItensDaOsNoBancoDeDados, Exception exception)
+        {
+            throw new System.NotImplementedException();
+        }
+
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=0)]
         public string message

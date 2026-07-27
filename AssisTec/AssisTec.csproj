@@ -257,6 +257,7 @@
     <Compile Include="Models\ContasPagar.cs" />
     <Compile Include="Models\ContasReceber.cs" />
     <Compile Include="Models\Equipamento.cs" />
+    <Compile Include="Models\ItemOS.cs" />
     <Compile Include="Models\MovimentacaoEstoque.cs" />
     <Compile Include="Models\OrdemServico.cs" />
     <Compile Include="Models\Pagamento.cs" />
@@ -276,10 +277,12 @@
     <Compile Include="Repository\IContaReceberRepository.cs" />
     <Compile Include="Repository\IContasPagarRepository.cs" />
     <Compile Include="Repository\IEquipamentoRepository.cs" />
+    <Compile Include="Repository\IitemOSRepository.cs" />
     <Compile Include="Repository\IMovimentacaoEstoqueRepository.cs" />
     <Compile Include="Repository\IOrdemServicoRepository.cs" />
     <Compile Include="Repository\IPagamentoRepository.cs" />
     <Compile Include="Repository\IProdutoRepository.cs" />
+    <Compile Include="Repository\ItemOSRepository.cs" />
     <Compile Include="Repository\IUsuarioReposity.cs" />
     <Compile Include="Repository\MovimentacaoEstoqueRepository.cs" />
     <Compile Include="Repository\OrdemServicoRepository.cs" />

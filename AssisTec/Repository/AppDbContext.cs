@@ -20,6 +20,7 @@ namespace AssisTec.Repository
         public DbSet<Pagamento> Pagamentos { get; set; }
         public DbSet<Produto> Produtos { get; set; }
         public DbSet<MovimentacaoEstoque> movimentacaoEstoque { get; set; }
+        public DbSet<ItemOS>  ItemOS { get; set; }
         
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -184,6 +185,25 @@ namespace AssisTec.Repository
                     .WithMany()
                     .HasForeignKey(e => e.id_equipamento)
                     .OnDelete(DeleteBehavior.SetNull);
+            });
+
+            modelBuilder.Entity<ItemOS>(entity =>
+            {
+                entity.ToTable("item_os");
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.Id).HasColumnName("id");
+                entity.Property(e => e.Quantidade).HasColumnName("Quantidade");
+                entity.Property(e => e.ValorUnitario).HasColumnName("ValorUnitario");
+                entity.Property(e => e.ValorTotal).HasColumnName("ValorTotal");
+                entity.HasOne(e => e.OrdemServico)
+                    .WithMany()
+                    .HasForeignKey(e => e.id_OS)
+                    .OnDelete(DeleteBehavior.SetNull);
+                entity.HasOne(e => e.Produto)
+                    .WithMany()
+                    .HasForeignKey(e => e.id_produto)
+                    .OnDelete(DeleteBehavior.SetNull);
+
             });
             
             modelBuilder.Entity<Pagamento>(entity =>

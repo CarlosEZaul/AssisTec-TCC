@@ -9,7 +9,7 @@ namespace AssisTec.Models
     {
         public int idMovimentacao { get; set; }
         
-        [NotMapped]
+       
         public virtual Produto produto { get; set; }
         
         public int? idProduto { get; set; }

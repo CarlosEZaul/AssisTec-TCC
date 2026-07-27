@@ -43,13 +43,20 @@ namespace AssisTec
             var movimentacaoEstoqueRepository = new MovimentacaoEstoqueRepository(context);
             var OrdemServicoRepository = new OrdemServicoRepository(context);
             var EquipamentoRepository = new EquipamentoRepository(context);
+            var ItemOSRepository = new ItemOSRepository(context);
 
             _produtoService = new ProdutoService(produtoRepository);
             _contasPagarService = new ContasPagarService(contasPagarRepository, pagamentoRepository);
             _contasReceberService = new ContasReceberService(contasReceberRepository, pagamentoRepository);
             _pagamentoService = new PagamentoService(contasReceberRepository,contasPagarRepository, pagamentoRepository);
             _movimentacaoEstoqueService = new MovimentacaoEstoqueService(movimentacaoEstoqueRepository);
-            _ordemServicoService = new OrdemServicoService(OrdemServicoRepository, EquipamentoRepository, usuarioRepository, clienteRepository);
+            _ordemServicoService = new OrdemServicoService(OrdemServicoRepository,
+                EquipamentoRepository,
+                usuarioRepository,
+                clienteRepository,
+                ItemOSRepository,
+                produtoRepository,
+                movimentacaoEstoqueRepository);
             _clienteService = new ClienteService(clienteRepository);
             _usuarioService = new UsuarioService(usuarioRepository);
 
@@ -146,7 +153,7 @@ namespace AssisTec
 
             Guna2Button btnPedidos = CriarBotaoMenu(
                 "📨 Ordens de Serviço",
-                (s, e) => AbrirUserControl(new ucGerenciadorOS(_ordemServicoService, _usuarioService, _clienteService), s)
+                (s, e) => AbrirUserControl(new ucGerenciadorOS(_ordemServicoService, _usuarioService, _clienteService,_produtoService), s)
             );
 
             Guna2Button btnContasReceber = CriarBotaoMenu(

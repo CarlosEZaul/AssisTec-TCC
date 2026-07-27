@@ -12,16 +12,18 @@ namespace AssisTec.UserControls
     public partial class ucGerenciadorOS : UserControl
     {
         private readonly OrdemServicoService  _ordemServicoService;
+        private readonly ProdutoService _produtoService;
         private readonly UsuarioService _usuarioService;
         private readonly ClienteService _clienteService;
         private int _idOS;
-        public ucGerenciadorOS(OrdemServicoService ordemServico, UsuarioService usuarioService, ClienteService clienteService)
+        public ucGerenciadorOS(OrdemServicoService ordemServico, UsuarioService usuarioService, ClienteService clienteService, ProdutoService produtoService)
         {
             InitializeComponent();
             DesignModerno();
             _ordemServicoService = ordemServico ?? throw new ArgumentNullException(nameof(ordemServico));
             _usuarioService = usuarioService ?? throw new ArgumentNullException(nameof(usuarioService));
             _clienteService = clienteService ?? throw new ArgumentNullException(nameof(clienteService));
+            _produtoService = produtoService ?? throw new ArgumentNullException(nameof(produtoService));
             AtualizarGrid();
             
         }
@@ -77,7 +79,7 @@ namespace AssisTec.UserControls
 
         private void btnGerenciar_Click(object sender, EventArgs e)
         {
-            FrmGerenciarOS frmGerenciarOs = new FrmGerenciarOS(_idOS, _ordemServicoService);
+            FrmGerenciarOS frmGerenciarOs = new FrmGerenciarOS(_idOS, _ordemServicoService, _produtoService);
             frmGerenciarOs.ShowDialog();
         }
 
