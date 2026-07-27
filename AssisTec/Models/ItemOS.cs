@@ -11,8 +11,8 @@ public class ItemOS
     [Column(TypeName = "decimal(18,2)")]
     public decimal ValorTotal 
     { 
-        get => Quantidade * ValorUnitario; 
-        private set { } 
+        get => Quantidade * ValorUnitario;
+        set { } 
     }
 
     public int? id_OS { get; set; }

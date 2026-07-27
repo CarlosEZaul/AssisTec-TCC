@@ -370,6 +370,7 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             this.pictureBox2.Size = new System.Drawing.Size(37, 30);
             this.pictureBox2.TabIndex = 128;
             this.pictureBox2.TabStop = false;
+            this.pictureBox2.Click += new System.EventHandler(this.pictureBox2_Click);
             // 
             // ucDetalhesOS
             // 

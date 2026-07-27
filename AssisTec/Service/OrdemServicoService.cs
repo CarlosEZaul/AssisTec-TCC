@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
 using System.Transactions;
 using AssisTec.Models;
@@ -64,7 +63,7 @@ namespace AssisTec.Service
             }
             catch (Exception e)
             {
-                throw new Exception("Falha ao carregar equipamento" + e.Message);
+                throw new Exception("Falha ao carregar equipamento: " + e.Message);
             }
         }
 
@@ -77,7 +76,7 @@ namespace AssisTec.Service
             }
             catch (Exception e)
             {
-                throw new Exception("Falha ao atualizar equipamento" + e);
+                throw new Exception("Falha ao atualizar equipamento: " + e.Message);
             }
         }
 
@@ -97,7 +96,6 @@ namespace AssisTec.Service
         {
             ValidarOS(ordemServico);
             ValidarEquipamento(equipamento);
-            
 
             using (var scope = new TransactionScope())
             {
@@ -146,28 +144,15 @@ namespace AssisTec.Service
             if (produto.quantidade < quantidadeAdicionar)
                 throw new InvalidOperationException($"Estoque insuficiente. Disponível: {produto.quantidade}");
 
-            DataTable dtItens = _itemOSRepository.ObterPorOrdemServico(idOS);
-            DataRow itemExistente = null;
-
-            if (dtItens != null)
-            {
-                foreach (DataRow row in dtItens.Rows)
-                {
-                    if (row.RowState == DataRowState.Deleted) continue;
-                    if (dtItens.Columns.Contains("idProduto") && Convert.ToInt32(row["idProduto"]) == idProduto)
-                    {
-                        itemExistente = row;
-                        break;
-                    }
-                }
-            }
+            List<ItemOS> itens = _itemOSRepository.ObterPorOrdemServico(idOS);
+            ItemOS itemExistente = itens?.FirstOrDefault(x => x.id_produto == idProduto);
 
             using (var scope = new TransactionScope())
             {
                 if (itemExistente != null)
                 {
-                    int idItemExistente = Convert.ToInt32(itemExistente["Id"]);
-                    int quantidadeAtual = Convert.ToInt32(itemExistente["Quantidade"]);
+                    int idItemExistente = itemExistente.Id;
+                    int quantidadeAtual = itemExistente.Quantidade;
                     int novaQuantidade = quantidadeAtual + quantidadeAdicionar;
 
                     if (!RemoverItemDirect(idItemExistente))
@@ -285,24 +270,8 @@ namespace AssisTec.Service
             var os = _ordemServicoRepository.ObterPorId(idOS);
             if (os == null) return;
 
-            DataTable dtItens = _itemOSRepository.ObterPorOrdemServico(idOS);
-            decimal totalPecas = 0;
-
-            if (dtItens != null)
-            {
-                foreach (DataRow row in dtItens.Rows)
-                {
-                    if (row.RowState == DataRowState.Deleted) continue;
-
-                    if (dtItens.Columns.Contains("ValorTotal") && row["ValorTotal"] != DBNull.Value)
-                    {
-                        if (decimal.TryParse(row["ValorTotal"].ToString(), out decimal val))
-                        {
-                            totalPecas += val;
-                        }
-                    }
-                }
-            }
+            List<ItemOS> itens = _itemOSRepository.ObterPorOrdemServico(idOS);
+            decimal totalPecas = itens != null ? itens.Sum(i => i.ValorTotal) : 0;
 
             os.valor_pecas = totalPecas;
             os.data_atualizacao = DateTime.Now;
@@ -338,7 +307,7 @@ namespace AssisTec.Service
 
             return ReduzirOuRemoverItemOS(idItem, item.Quantidade);
         }
-        
+
         public bool SalvarServicoOS(ServicosOS servico)
         {
             ValidarServicoOS(servico);
@@ -396,7 +365,7 @@ namespace AssisTec.Service
             if (os == null) return;
 
             var acoes = _servicosOSRepository.ListarAcaoOSPorOS(idOS);
-            decimal totalMaoObra = acoes.Sum(a => a.valor_cobrado);
+            decimal totalMaoObra = acoes != null ? acoes.Sum(a => a.valor_cobrado) : 0;
 
             os.valor_mao_obra = totalMaoObra;
             os.data_atualizacao = DateTime.Now;
@@ -422,7 +391,7 @@ namespace AssisTec.Service
                 throw new ArgumentException("O valor cobrado não pode ser negativo.");
         }
 
-        public DataTable ObterItensDaOS(int idOS)
+        public List<ItemOS> ObterItensDaOS(int idOS)
         {
             return _itemOSRepository.ObterPorOrdemServico(idOS);
         }
@@ -462,7 +431,7 @@ namespace AssisTec.Service
                 throw new ArgumentException("O estado de entrada do equipamento é obrigatório.");
         }
 
-        public DataTable ObterHistoricoOsTecnico(int id)
+        public System.Data.DataTable ObterHistoricoOsTecnico(int id)
         {
             return _ordemServicoRepository.ObterHistoricoUsuario(id);
         }
@@ -472,7 +441,7 @@ namespace AssisTec.Service
             return _ordemServicoRepository.ObterQntOsAbertas();
         }
 
-        public DataTable OrdensRecentes()
+        public System.Data.DataTable OrdensRecentes()
         {
             return _ordemServicoRepository.OrdensRecentes();
         }

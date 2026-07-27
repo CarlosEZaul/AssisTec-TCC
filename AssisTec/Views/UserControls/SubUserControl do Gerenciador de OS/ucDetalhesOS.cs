@@ -123,5 +123,10 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
         {
             ConfigurarSubComponente(new ucDetalhesEquipamento(_ordemServicoService, _idOS));
         }
+
+        private void pictureBox2_Click(object sender, EventArgs e)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

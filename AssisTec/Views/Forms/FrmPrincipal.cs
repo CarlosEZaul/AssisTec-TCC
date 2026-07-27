@@ -155,7 +155,7 @@ namespace AssisTec
 
             Guna2Button btnPedidos = CriarBotaoMenu(
                 "📨 Ordens de Serviço",
-                (s, e) => AbrirUserControl(new ucGerenciadorOS(_ordemServicoService, _usuarioService, _clienteService,_produtoService), s)
+                (s, e) => AbrirUserControl(new ucGerenciadorOS(_ordemServicoService), s)
             );
 
             Guna2Button btnContasReceber = CriarBotaoMenu(

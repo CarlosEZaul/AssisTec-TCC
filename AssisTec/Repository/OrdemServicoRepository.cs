@@ -41,6 +41,7 @@ namespace AssisTec.Repository
                         Equipamento = os.Equipamento != null ? os.Equipamento.Descricao : "Não informado",
                         Status = os.status,
                         DataAbertura = os.data_abertura,
+                        UltimaAtulizacao = os.data_atualizacao,
                         DataConclusao = os.data_fechamento,
                         ValorTotal = os.valor_total
                     })

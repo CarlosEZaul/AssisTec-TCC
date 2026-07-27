@@ -50,6 +50,13 @@ namespace AssisTec.Repository
             return _context.ServicosOS
                 .AsNoTracking()
                 .Where(a => a.id_OS == idOS)
+                .Select(a => new ServicosOS
+                {
+                    id_OS = a.id_OS,
+                    descricao = a.descricao,
+                    valor_cobrado = a.valor_cobrado,
+                    OrdemServico = a.OrdemServico
+                })
                 .ToList();
         }
     }

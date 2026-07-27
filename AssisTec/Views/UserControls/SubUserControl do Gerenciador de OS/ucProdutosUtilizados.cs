@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Windows.Forms;
 using AssisTec.Models;
@@ -98,11 +99,11 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
 
             try
             {
-                DataTable dtItens = _ordemServicoService.ObterItensDaOS(_idOrdemServico);
+                List<ItemOS> listaItens = _ordemServicoService.ObterItensDaOS(_idOrdemServico);
 
                 dgvItensOS.DataSource = null;
                 dgvItensOS.AutoGenerateColumns = true;
-                dgvItensOS.DataSource = dtItens;
+                dgvItensOS.DataSource = listaItens;
                 dgvItensOS.Refresh();
 
                 FormatadorGrid();

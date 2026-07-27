@@ -63,37 +63,24 @@ namespace AssisTec.Repository
                 throw new ArgumentNullException(e.Message);
             }
         }
-        public DataTable ObterPorOrdemServico(int idOS)
+        public List<ItemOS> ObterPorOrdemServico(int idOS)
         {
             try
             {
-                var dt = new DataTable("ItensOS");
-                dt.Columns.Add("Id", typeof(int));
-                dt.Columns.Add("idProduto", typeof(int));
-                dt.Columns.Add("Produto", typeof(string));
-                dt.Columns.Add("Quantidade", typeof(int));
-                dt.Columns.Add("ValorUnitario", typeof(decimal));
-                dt.Columns.Add("ValorTotal", typeof(decimal));
-        
-                var itens = _context.ItemOS
+                return _context.ItemOS
                     .AsNoTracking()
                     .Include(x => x.Produto)
                     .Where(x => x.id_OS == idOS)
+                    .Select(x => new ItemOS
+                    {
+                        id_OS = x.id_OS,
+                        id_produto = x.id_produto,
+                        Produto = x.Produto,
+                        Quantidade = x.Quantidade,
+                        ValorUnitario = x.ValorUnitario,
+                        ValorTotal = x.ValorTotal
+                    })
                     .ToList();
-        
-                foreach (var item in itens)
-                {
-                    dt.Rows.Add(
-                        item.Id,
-                        item.id_produto,
-                        item.Produto != null ? item.Produto.descricao : "Sem Produto",
-                        item.Quantidade,
-                        item.ValorUnitario,
-                        item.ValorTotal
-                    );
-                }
-
-                return dt;
             }
             catch (Exception e)
             {

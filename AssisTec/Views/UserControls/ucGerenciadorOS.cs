@@ -12,18 +12,12 @@ namespace AssisTec.UserControls
     public partial class ucGerenciadorOS : UserControl
     {
         private readonly OrdemServicoService  _ordemServicoService;
-        private readonly ProdutoService _produtoService;
-        private readonly UsuarioService _usuarioService;
-        private readonly ClienteService _clienteService;
         private int _idOS;
-        public ucGerenciadorOS(OrdemServicoService ordemServico, UsuarioService usuarioService, ClienteService clienteService, ProdutoService produtoService)
+        public ucGerenciadorOS(OrdemServicoService ordemServico)
         {
             InitializeComponent();
             DesignModerno();
             _ordemServicoService = ordemServico ?? throw new ArgumentNullException(nameof(ordemServico));
-            _usuarioService = usuarioService ?? throw new ArgumentNullException(nameof(usuarioService));
-            _clienteService = clienteService ?? throw new ArgumentNullException(nameof(clienteService));
-            _produtoService = produtoService ?? throw new ArgumentNullException(nameof(produtoService));
             AtualizarGrid();
             
         }
@@ -57,8 +51,9 @@ namespace AssisTec.UserControls
             dgvOS.Columns[3].HeaderText = "Equipamento";
             dgvOS.Columns[4].HeaderText = "Status";
             dgvOS.Columns[5].HeaderText = "Data de Abertura";
-            dgvOS.Columns[6].HeaderText = "Data de Conclusão";
-            dgvOS.Columns[7].HeaderText = "Valor Total";
+            dgvOS.Columns[6].HeaderText = "Ultima Atualização";
+            dgvOS.Columns[7].HeaderText = "Data de Conclusão";
+            dgvOS.Columns[8].HeaderText = "Valor Total";
             
         }
         

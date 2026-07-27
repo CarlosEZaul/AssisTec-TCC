@@ -9,6 +9,6 @@ namespace AssisTec.Repository
         bool SalvarItemOS(ItemOS item);
         ItemOS ObterPorId(int idItem);
         bool Remover(int idItem);
-        DataTable ObterPorOrdemServico(int idOS);
+        List<ItemOS> ObterPorOrdemServico(int idOS);
     }
 }
