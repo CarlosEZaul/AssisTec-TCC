@@ -54,6 +54,35 @@ namespace AssisTec.Service
             return _ordemServicoRepository.ObterPorId(id);
         }
 
+        #region Equipamento
+
+        public Equipamento ObterEquipamentoPorId(int id)
+        {
+            try
+            {
+                return _equipamentoRepository.ObterEquipamentoPorId(id);
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Falha ao carregar equipamento" + e.Message);
+            }
+        }
+
+        public bool AtualizarEquipamento(Equipamento equipamento)
+        {
+            try
+            {
+                ValidarEquipamento(equipamento);
+                return _equipamentoRepository.AtualzarEquipamento(equipamento);
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Falha ao atualizar equipamento" + e);
+            }
+        }
+
+        #endregion
+
         public List<Produto> ObterProdutos()
         {
             return _produtoRepository.ObterProdutos().Where(p => p.status == "Ativado").ToList();
@@ -66,7 +95,9 @@ namespace AssisTec.Service
 
         public bool SalvarOS(OrdemServico ordemServico, Equipamento equipamento)
         {
-            ValidarEntidades(ordemServico, equipamento);
+            ValidarOS(ordemServico);
+            ValidarEquipamento(equipamento);
+            
 
             using (var scope = new TransactionScope())
             {
@@ -310,7 +341,7 @@ namespace AssisTec.Service
         
         public bool SalvarServicoOS(ServicosOS servico)
         {
-            ValidarAcaoOS(servico);
+            ValidarServicoOS(servico);
 
             var os = _ordemServicoRepository.ObterPorId(servico.id_OS.GetValueOrDefault());
             if (os == null)
@@ -373,21 +404,21 @@ namespace AssisTec.Service
             _ordemServicoRepository.SalvarAlteracoesOS(os);
         }
 
-        private void ValidarAcaoOS(ServicosOS acao)
+        private void ValidarServicoOS(ServicosOS servico)
         {
-            if (acao == null)
-                throw new ArgumentNullException(nameof(acao));
+            if (servico == null)
+                throw new ArgumentNullException(nameof(servico));
 
-            if (acao.id_OS <= 0)
+            if (servico.id_OS <= 0)
                 throw new ArgumentException("Selecione uma Ordem de Serviço válida.");
 
-            if (string.IsNullOrWhiteSpace(acao.descricao))
+            if (string.IsNullOrWhiteSpace(servico.descricao))
                 throw new ArgumentException("A descrição da ação é obrigatória.");
 
-            if (acao.descricao.Length > 150)
+            if (servico.descricao.Length > 150)
                 throw new ArgumentException("A descrição não pode ter mais de 150 caracteres.");
 
-            if (acao.valor_cobrado < 0)
+            if (servico.valor_cobrado < 0)
                 throw new ArgumentException("O valor cobrado não pode ser negativo.");
         }
 
@@ -396,13 +427,10 @@ namespace AssisTec.Service
             return _itemOSRepository.ObterPorOrdemServico(idOS);
         }
 
-        private void ValidarEntidades(OrdemServico os, Equipamento eq)
+        private void ValidarOS(OrdemServico os)
         {
             if (os == null)
                 throw new ArgumentNullException(nameof(os));
-
-            if (eq == null)
-                throw new ArgumentNullException(nameof(eq));
 
             if (!os.id_cliente.HasValue || os.id_cliente.Value <= 0)
                 throw new ArgumentException("Selecione um cliente válido.");
@@ -412,7 +440,12 @@ namespace AssisTec.Service
 
             if (string.IsNullOrWhiteSpace(os.problema_relatado))
                 throw new ArgumentException("O problema relatado deve ser preenchido.");
+        }
 
+        private void ValidarEquipamento(Equipamento eq)
+        {
+            if (eq == null)
+                throw new ArgumentNullException(nameof(eq));
             if (string.IsNullOrWhiteSpace(eq.Descricao))
                 throw new ArgumentException("A descrição do equipamento é obrigatória.");
 

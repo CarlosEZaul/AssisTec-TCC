@@ -17,6 +17,7 @@ using System.Diagnostics;
 using System.IO;
 using AssisTec.Models;
 using AssisTec.Service;
+using AssisTec.Views.UserControls.SubUserControl_do_Gerenciador_de_OS;
 using Exception = System.Exception;
 using Font = System.Drawing.Font;
 using Image = iTextSharp.text.Image;
@@ -77,7 +78,7 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             detalhes = new ucDetalhesOS(_id, _ordemServicoService);
             produtos = new ucProdutosUtilizados(_ordemServicoService, _id);
             servicos = new ucServicos(_ordemServicoService, _id);
-
+            
             detalhes.Dock = DockStyle.Fill;
             produtos.Dock = DockStyle.Fill;
             servicos.Dock = DockStyle.Fill;
@@ -86,6 +87,9 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             panelConteudo.Controls.Add(produtos);
             panelConteudo.Controls.Add(servicos);
         }
+        
+        
+        
         private void MostrarTela(UserControl tela)
         {
             if (tela == null) return;

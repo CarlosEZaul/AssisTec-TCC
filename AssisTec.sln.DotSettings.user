@@ -86,6 +86,7 @@
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=AssisTec_002FUserControls_002FucGerenciador_005Fde_005FUsuarios/@EntryIndexedValue">False</s:Boolean>
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=AssisTec_002FUserControls_002FucGerenciador_005Fde_005FUsuarios/@EntryIndexRemoved">True</s:Boolean>
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=AssisTec_002FUserControls_002FucGerenciador_005FUsuario/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=AssisTec_002FViews_002FUserControls_002FSubUserControl_0020do_0020Gerenciador_0020de_0020OS_002FucDetalhesEquipamento/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=AssisTec_002FViews_002FUserControls_002FSubUserControl_0020do_0020Gerenciador_0020de_0020OS_002FucDetalhesPedidos/@EntryIndexedValue">False</s:Boolean>
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=AssisTec_002FViews_002FUserControls_002FSubUserControl_0020do_0020Gerenciador_0020de_0020OS_002FucFormularioOS/@EntryIndexedValue">False</s:Boolean>
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=AssisTec_002FViews_002FUserControls_002FSubUserControl_0020do_0020Gerenciador_0020de_0020OS_002FucHistoricoOS/@EntryIndexedValue">False</s:Boolean>

@@ -371,6 +371,12 @@
     <Compile Include="Views\UserControls\SubUserControl do Gerenciador de Estoque\ucRegistrarSaida.Designer.cs">
       <DependentUpon>ucRegistrarSaida.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\UserControls\SubUserControl do Gerenciador de OS\ucDetalhesEquipamento.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\UserControls\SubUserControl do Gerenciador de OS\ucDetalhesEquipamento.Designer.cs">
+      <DependentUpon>ucDetalhesEquipamento.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\UserControls\SubUserControl do Gerenciador de OS\ucDetalhesOS.cs" />
     <Compile Include="Views\UserControls\SubUserControl do Gerenciador de OS\ucDetalhesOS.Designer.cs">
       <DependentUpon>ucDetalhesOS.cs</DependentUpon>
@@ -474,6 +480,9 @@
     <EmbeddedResource Include="Views\UserControls\SubUserControl do Gerenciador de Estoque\ucRegistrarSaida.resx">
       <DependentUpon>ucRegistrarSaida.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\UserControls\SubUserControl do Gerenciador de OS\ucDetalhesEquipamento.resx">
+      <DependentUpon>ucDetalhesEquipamento.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\UserControls\SubUserControl do Gerenciador de OS\ucDetalhesOS.resx">
       <DependentUpon>ucDetalhesOS.cs</DependentUpon>
     </EmbeddedResource>
@@ -559,7 +568,10 @@
     <Content Include="Resources\cifrao_vermelho_removebg_preview.png" />
     <Content Include="Resources\EmAndamento.png" />
     <Content Include="Resources\EntradaEstoque.png" />
+    <Content Include="Resources\Eye_PNG_Image.png" />
     <Content Include="Resources\fora_de_estoque.png" />
+    <Content Include="Resources\Lapis_Branco.png" />
+    <Content Include="Resources\Olho_Branco.png" />
     <Content Include="Resources\ordemServico.png" />
     <Content Include="Resources\ParaRetirada.png" />
     <Content Include="Resources\produto.png" />

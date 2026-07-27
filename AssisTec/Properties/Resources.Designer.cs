@@ -181,9 +181,29 @@ namespace AssisTec.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Eye_PNG_Image {
+            get {
+                object obj = ResourceManager.GetObject("Eye_PNG_Image", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap fora_de_estoque {
             get {
                 object obj = ResourceManager.GetObject("fora_de_estoque", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Lapis_Branco {
+            get {
+                object obj = ResourceManager.GetObject("Lapis_Branco", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -204,6 +224,16 @@ namespace AssisTec.Properties {
         internal static System.Drawing.Bitmap logopng {
             get {
                 object obj = ResourceManager.GetObject("logopng", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Olho_Branco {
+            get {
+                object obj = ResourceManager.GetObject("Olho_Branco", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -57,6 +57,10 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             this.label1 = new System.Windows.Forms.Label();
             this.cbCliente = new System.Windows.Forms.ComboBox();
             this.cbTecnico = new System.Windows.Forms.ComboBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
             // 
             // txtId
@@ -277,7 +281,7 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             this.txtEquipamento.Location = new System.Drawing.Point(318, 12);
             this.txtEquipamento.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtEquipamento.Name = "txtEquipamento";
-            this.txtEquipamento.Size = new System.Drawing.Size(358, 20);
+            this.txtEquipamento.Size = new System.Drawing.Size(240, 20);
             this.txtEquipamento.TabIndex = 105;
             // 
             // label8
@@ -344,11 +348,36 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             this.cbTecnico.Size = new System.Drawing.Size(163, 21);
             this.cbTecnico.TabIndex = 126;
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackgroundImage = global::AssisTec.Properties.Resources.Lapis_Branco;
+            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pictureBox1.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pictureBox1.Location = new System.Drawing.Point(565, 7);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(37, 30);
+            this.pictureBox1.TabIndex = 127;
+            this.pictureBox1.TabStop = false;
+            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.BackgroundImage = global::AssisTec.Properties.Resources.Olho_Branco;
+            this.pictureBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pictureBox2.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pictureBox2.Location = new System.Drawing.Point(565, 76);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(37, 30);
+            this.pictureBox2.TabIndex = 128;
+            this.pictureBox2.TabStop = false;
+            // 
             // ucDetalhesOS
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(44)))), ((int)(((byte)(64)))));
+            this.Controls.Add(this.pictureBox2);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.cbTecnico);
             this.Controls.Add(this.cbCliente);
             this.Controls.Add(this.txtId);
@@ -376,10 +405,15 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label1);
             this.Name = "ucDetalhesOS";
-            this.Size = new System.Drawing.Size(685, 436);
+            this.Size = new System.Drawing.Size(683, 436);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
         }
+
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox pictureBox2;
 
         private System.Windows.Forms.ComboBox cbCliente;
         private System.Windows.Forms.ComboBox cbTecnico;

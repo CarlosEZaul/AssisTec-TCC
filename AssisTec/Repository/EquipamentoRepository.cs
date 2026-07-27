@@ -37,5 +37,19 @@ namespace AssisTec.Repository
                 throw new Exception("Falha ao salvar equipamento no BD. " + e.Message);
             }
         }
+
+        public bool AtualzarEquipamento(Equipamento equipamento)
+        {
+            try
+            {
+                _context.Equipamentos.Update(equipamento);
+                return _context.SaveChanges() > 0;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
     }
 }

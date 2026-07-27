@@ -13,17 +13,7 @@ namespace AssisTec.Service
             this.repository = repository ?? throw new ArgumentNullException(nameof(repository));
         }
 
-        public Equipamento ObterEquipamentoPorId(int id)
-        {
-            try
-            {
-                return repository.ObterEquipamentoPorId(id);
-            }
-            catch (Exception e)
-            {
-                throw new Exception("Falha ao carregar equipamento" + e.Message);
-            }
-        }
+        
 
         public bool Salvar(Equipamento equipamento)
         {

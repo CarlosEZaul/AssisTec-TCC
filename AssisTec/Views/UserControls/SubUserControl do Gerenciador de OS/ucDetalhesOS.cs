@@ -9,7 +9,9 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using AssisTec.Models;
+using AssisTec.Properties;
 using AssisTec.Service;
+using AssisTec.Views.UserControls.SubUserControl_do_Gerenciador_de_OS;
 using Exception = System.Exception;
 using Font = System.Drawing.Font;
 using Image = iTextSharp.text.Image;
@@ -20,20 +22,16 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
     {
         private readonly OrdemServicoService _ordemServicoService;
         private readonly int _idOS;
-        
         public ucDetalhesOS(int IdOS, OrdemServicoService ordemServicoService)
         {
             InitializeComponent();
             _idOS = IdOS;
             _ordemServicoService = ordemServicoService ??  throw new ArgumentNullException(nameof(ordemServicoService));
             ConfigurarComboBox();
-            
             CarregarDetalhesOS();
             
-        }
 
-        
-        
+        }
 
         #region Metodos de Manipulação de Dados
 
@@ -107,11 +105,23 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
                 throw new ArgumentNullException("Falha ao salvar altereções");
             }
         }
+        
+        private void ConfigurarSubComponente(UserControl uc)
+        {
+            uc.Disposed += (s, e) => CarregarDetalhesOS();
+            this.Controls.Add(uc);
+            uc.BringToFront();
+            uc.Location = new Point((this.Width - uc.Width) / 2, (this.Height - uc.Height) / 2);
+        }
 
         
 
         #endregion
-            
-       
+
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            ConfigurarSubComponente(new ucDetalhesEquipamento(_ordemServicoService, _idOS));
+        }
     }
 }

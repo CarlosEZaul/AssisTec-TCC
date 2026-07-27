@@ -7,5 +7,6 @@ namespace AssisTec.Repository
     {
         Equipamento ObterEquipamentoPorId(int id);
         bool SalvarEquipamento(Equipamento equipamento);
+        bool AtualzarEquipamento(Equipamento equipamento);
     }
 }
