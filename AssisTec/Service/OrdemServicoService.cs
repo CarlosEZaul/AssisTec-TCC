@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Transactions;
@@ -17,6 +18,7 @@ namespace AssisTec.Service
         private readonly IServicosOSRepository _servicosOSRepository;
         private readonly IProdutoRepository _produtoRepository;
         private readonly IMovimentacaoEstoqueRepository _movimentacaoEstoqueRepository;
+        private readonly IHistoricoAlteracaoOSRepository  _historicoAlteracaoOSRepository;
 
         public OrdemServicoService(
             IOrdemServicoRepository ordemServicoRepository,
@@ -26,7 +28,9 @@ namespace AssisTec.Service
             IItemOSRepository itemOSRepository,
             IServicosOSRepository servicosOSRepository,
             IProdutoRepository produtoRepository,
-            IMovimentacaoEstoqueRepository movimentacaoEstoqueRepository)
+            IMovimentacaoEstoqueRepository movimentacaoEstoqueRepository,
+            IHistoricoAlteracaoOSRepository historicoAlteracaoOSRepository
+            )
         {
             _ordemServicoRepository = ordemServicoRepository ?? throw new ArgumentNullException(nameof(ordemServicoRepository));
             _equipamentoRepository = equipamentoRepository ?? throw new ArgumentNullException(nameof(equipamentoRepository));
@@ -36,6 +40,7 @@ namespace AssisTec.Service
             _servicosOSRepository =  servicosOSRepository ?? throw new ArgumentNullException(nameof(servicosOSRepository));
             _produtoRepository = produtoRepository ?? throw new ArgumentNullException(nameof(produtoRepository));
             _movimentacaoEstoqueRepository = movimentacaoEstoqueRepository ?? throw new ArgumentNullException(nameof(movimentacaoEstoqueRepository));
+            _historicoAlteracaoOSRepository = historicoAlteracaoOSRepository ?? throw new ArgumentNullException(nameof(historicoAlteracaoOSRepository));
         }
 
         public List<Cliente> ObterClientes()
@@ -82,6 +87,7 @@ namespace AssisTec.Service
 
         #endregion
 
+        #region Produtos
         public List<Produto> ObterProdutos()
         {
             return _produtoRepository.ObterProdutos().Where(p => p.status == "Ativado").ToList();
@@ -91,41 +97,7 @@ namespace AssisTec.Service
         {
             return _produtoRepository.ObterProdutoPorId(id);
         }
-
-        public bool SalvarOS(OrdemServico ordemServico, Equipamento equipamento)
-        {
-            ValidarOS(ordemServico);
-            ValidarEquipamento(equipamento);
-
-            using (var scope = new TransactionScope())
-            {
-                bool equipamentoSalvo = _equipamentoRepository.SalvarEquipamento(equipamento);
-                if (!equipamentoSalvo || equipamento.Id_equipamento <= 0)
-                {
-                    throw new InvalidOperationException("Não foi possível cadastrar o equipamento no sistema.");
-                }
-
-                ordemServico.id_equipamento = equipamento.Id_equipamento;
-                ordemServico.data_abertura = DateTime.Now;
-                ordemServico.status = "ABERTA";
-
-                bool osSalva = _ordemServicoRepository.SalvarOrdemServico(ordemServico);
-
-                if (osSalva)
-                {
-                    scope.Complete();
-                    return true;
-                }
-
-                return false;
-            }
-        }
-
-        public bool SalvarAlteracoesOS(OrdemServico os)
-        {
-            return _ordemServicoRepository.SalvarAlteracoesOS(os);
-        }
-
+        
         public bool AdicionarOuAtualizarItemOS(int idOS, int idProduto, int quantidadeAdicionar)
         {
             if (idOS <= 0)
@@ -144,7 +116,7 @@ namespace AssisTec.Service
             if (produto.quantidade < quantidadeAdicionar)
                 throw new InvalidOperationException($"Estoque insuficiente. Disponível: {produto.quantidade}");
 
-            List<ItemOS> itens = _itemOSRepository.ObterPorOrdemServico(idOS);
+            IEnumerable<dynamic> itens = _itemOSRepository.ObterPorOrdemServico(idOS);
             ItemOS itemExistente = itens?.FirstOrDefault(x => x.id_produto == idProduto);
 
             using (var scope = new TransactionScope())
@@ -270,8 +242,8 @@ namespace AssisTec.Service
             var os = _ordemServicoRepository.ObterPorId(idOS);
             if (os == null) return;
 
-            List<ItemOS> itens = _itemOSRepository.ObterPorOrdemServico(idOS);
-            decimal totalPecas = itens != null ? itens.Sum(i => i.ValorTotal) : 0;
+            IEnumerable<dynamic> itens = _itemOSRepository.ObterPorOrdemServico(idOS);
+            decimal totalPecas = itens != null ? itens.Sum(i => (decimal)i.ValorTotal) : 0;
 
             os.valor_pecas = totalPecas;
             os.data_atualizacao = DateTime.Now;
@@ -307,6 +279,76 @@ namespace AssisTec.Service
 
             return ReduzirOuRemoverItemOS(idItem, item.Quantidade);
         }
+        
+
+        #endregion
+
+        #region Historico de Alterações
+
+        public bool RegistrarHistoricoOS(HistoricoAlteracaoOS historicoAlteracaoOs)
+        {
+            if (historicoAlteracaoOs.idOS <= 0)
+                throw new ArgumentException("Ordem de Serviço inválida.");
+
+            if (historicoAlteracaoOs.idUsuario <= 0)
+                throw new ArgumentException("Usuário inválido.");
+
+            if (string.IsNullOrWhiteSpace(historicoAlteracaoOs.tipo))
+                throw new ArgumentException("O tipo de alteração é obrigatório.");
+
+            if (string.IsNullOrWhiteSpace(historicoAlteracaoOs.descricao))
+                throw new ArgumentException("A descrição é obrigatória.");
+
+            return _historicoAlteracaoOSRepository.RegistrarHistorico(historicoAlteracaoOs);
+        }
+        
+        public IEnumerable ObterPorOrdemServico(int idOS)
+        {
+            if (idOS <= 0)
+                throw new ArgumentException("Ordem de Serviço inválida.");
+
+            return _historicoAlteracaoOSRepository.ObterPorOrdemServico(idOS);
+        }
+
+        #endregion
+
+        
+
+        public bool SalvarOS(OrdemServico ordemServico, Equipamento equipamento)
+        {
+            ValidarOS(ordemServico);
+            ValidarEquipamento(equipamento);
+
+            using (var scope = new TransactionScope())
+            {
+                bool equipamentoSalvo = _equipamentoRepository.SalvarEquipamento(equipamento);
+                if (!equipamentoSalvo || equipamento.Id_equipamento <= 0)
+                {
+                    throw new InvalidOperationException("Não foi possível cadastrar o equipamento no sistema.");
+                }
+
+                ordemServico.id_equipamento = equipamento.Id_equipamento;
+                ordemServico.data_abertura = DateTime.Now;
+                ordemServico.status = "ABERTA";
+
+                bool osSalva = _ordemServicoRepository.SalvarOrdemServico(ordemServico);
+
+                if (osSalva)
+                {
+                    scope.Complete();
+                    return true;
+                }
+
+                return false;
+            }
+        }
+
+        public bool SalvarAlteracoesOS(OrdemServico os)
+        {
+            return _ordemServicoRepository.SalvarAlteracoesOS(os);
+        }
+
+        
 
         public bool SalvarServicoOS(ServicosOS servico)
         {
@@ -391,7 +433,7 @@ namespace AssisTec.Service
                 throw new ArgumentException("O valor cobrado não pode ser negativo.");
         }
 
-        public List<ItemOS> ObterItensDaOS(int idOS)
+        public IEnumerable<dynamic> ObterItensDaOS(int idOS)
         {
             return _itemOSRepository.ObterPorOrdemServico(idOS);
         }

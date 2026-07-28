@@ -100,6 +100,7 @@ namespace AssisTec.UserControls
             this.dgvOS.Size = new System.Drawing.Size(1138, 503);
             this.dgvOS.TabIndex = 53;
             this.dgvOS.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvOS_CellClick);
+            this.dgvOS.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvOS_CellDoubleClick);
             // 
             // label4
             // 

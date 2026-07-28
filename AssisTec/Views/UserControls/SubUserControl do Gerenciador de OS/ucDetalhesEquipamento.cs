@@ -48,8 +48,18 @@ namespace AssisTec.Views.UserControls.SubUserControl_do_Gerenciador_de_OS
             equipamento.Marca = txtMarca.Text;
             equipamento.Modelo = txtModelo.Text;
             equipamento.Observacoes = txtObservacoes.Text;
+            
+            var HistoricoAlteracaoOS = new HistoricoAlteracaoOS
+            {
+                idOS = idOS,
+                idUsuario = _ordemServicoService.ObterPorId(idOS).id_tecnico.GetValueOrDefault(),
+                tipo = "Alteracao de Dados",
+                descricao = $"Alteração de dados do equipamento {equipamento.Descricao}",
+                dataAlteracao = DateTime.Now
+            };
             if (_ordemServicoService.AtualizarEquipamento(equipamento))
             {
+                _ordemServicoService.RegistrarHistoricoOS(HistoricoAlteracaoOS);
                 MessageBox.Show("Equipamento atualizado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 CarregarEquipamento();
             }
@@ -61,6 +71,7 @@ namespace AssisTec.Views.UserControls.SubUserControl_do_Gerenciador_de_OS
 
         private void btnSalvar_Click(object sender, EventArgs e)
         {
+           
             SalvarEquipamento();
         }
 

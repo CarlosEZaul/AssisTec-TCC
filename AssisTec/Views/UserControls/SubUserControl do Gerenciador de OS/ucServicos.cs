@@ -20,7 +20,6 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             this.Load += ucServicos_Load;
             DesignModerno();
         }
-        
 
         private void DesignModerno()
         {
@@ -29,6 +28,8 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             dgvServicosOS.AllowUserToAddRows = false;
             dgvServicosOS.AllowUserToDeleteRows = false;
             dgvServicosOS.EditMode = DataGridViewEditMode.EditProgrammatically;
+            dgvServicosOS.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvServicosOS.MultiSelect = false;
         }
 
         private void ucServicos_Load(object sender, EventArgs e)
@@ -73,22 +74,28 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
 
         private void FormatadorGrid()
         {
-            if (dgvServicosOS.Columns["idAcao"] != null)
-                dgvServicosOS.Columns["idAcao"].Visible = false;
+            if (dgvServicosOS.Columns.Count == 0) return;
 
-            if (dgvServicosOS.Columns["id_OS"] != null)
+            if (dgvServicosOS.Columns.Contains("idServico"))
+                dgvServicosOS.Columns["idServico"].Visible = false;
+
+            if (dgvServicosOS.Columns.Contains("id_OS"))
                 dgvServicosOS.Columns["id_OS"].Visible = false;
 
-            if (dgvServicosOS.Columns["OrdemServico"] != null)
+            if (dgvServicosOS.Columns.Contains("OrdemServico"))
                 dgvServicosOS.Columns["OrdemServico"].Visible = false;
 
-            if (dgvServicosOS.Columns["descricao"] != null)
+            if (dgvServicosOS.Columns.Contains("descricao"))
+            {
                 dgvServicosOS.Columns["descricao"].HeaderText = "Serviço / Ação";
+                dgvServicosOS.Columns["descricao"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            }
 
-            if (dgvServicosOS.Columns["valor_cobrado"] != null)
+            if (dgvServicosOS.Columns.Contains("valor_cobrado"))
             {
                 dgvServicosOS.Columns["valor_cobrado"].HeaderText = "Valor (R$)";
                 dgvServicosOS.Columns["valor_cobrado"].DefaultCellStyle.Format = "C2";
+                dgvServicosOS.Columns["valor_cobrado"].Width = 120;
             }
         }
 
@@ -139,9 +146,23 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
                     valor_cobrado = valorCobrado
                 };
 
+                var ordemServico = _ordemServicoService.ObterPorId(_idOrdemServico);
+
+                var historicoAlteracaoOS = new HistoricoAlteracaoOS
+                {
+                    idOS = _idOrdemServico,
+                    idUsuario = ordemServico != null ? ordemServico.id_tecnico.GetValueOrDefault() : 0,
+                    tipo = _idAcaoSelecionada > 0 ? "ALTERACAO_SERVICO" : "INCLUSAO_SERVICO",
+                    descricao = _idAcaoSelecionada > 0 
+                        ? $"Alterado serviço para: {servico.descricao} na Ordem de Serviço" 
+                        : $"Adicionado {servico.descricao} na Ordem de Serviço",
+                    dataAlteracao = DateTime.Now
+                };
+
                 bool sucesso = _ordemServicoService.SalvarServicoOS(servico);
                 if (sucesso)
                 {
+                    _ordemServicoService.RegistrarHistoricoOS(historicoAlteracaoOS);
                     MessageBox.Show("Serviço registrado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     LimparCampos();
                     CarregarGrid();
@@ -171,7 +192,20 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
                 bool sucesso = _ordemServicoService.ExcluirServicoOS(_idAcaoSelecionada);
                 if (sucesso)
                 {
+                    var ordemServico = _ordemServicoService.ObterPorId(_idOrdemServico);
+
+                    var historicoAlteracaoOS = new HistoricoAlteracaoOS
+                    {
+                        idOS = _idOrdemServico,
+                        idUsuario = ordemServico != null ? ordemServico.id_tecnico.GetValueOrDefault() : 0,
+                        tipo = "REMOCAO_SERVICO",
+                        descricao = $"Removido o serviço de {txtServico.Text} na Ordem de Serviço",
+                        dataAlteracao = DateTime.Now
+                    };
+
+                    _ordemServicoService.RegistrarHistoricoOS(historicoAlteracaoOS);
                     MessageBox.Show("Serviço removido com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
                     LimparCampos();
                     CarregarGrid();
                 }
@@ -189,11 +223,40 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             DataGridViewRow row = dgvServicosOS.Rows[e.RowIndex];
             if (row.IsNewRow) return;
 
-            if (row.DataBoundItem is ServicosOS acao)
+            if (row.DataBoundItem != null)
             {
-                _idAcaoSelecionada = acao.idServico;
-                txtServico.Text = acao.descricao;
-                txtValorServico.Text = acao.valor_cobrado.ToString("F2");
+                dynamic item = row.DataBoundItem;
+
+                try
+                {
+                    _idAcaoSelecionada = item.idServico != null ? Convert.ToInt32(item.idServico) : (item.ID != null ? Convert.ToInt32(item.ID) : 0);
+                }
+                catch
+                {
+                    _idAcaoSelecionada = 0;
+                }
+
+                try
+                {
+                    txtServico.Text = item.descricao != null ? Convert.ToString(item.descricao) : (item.Descricao != null ? Convert.ToString(item.Descricao) : string.Empty);
+                }
+                catch
+                {
+                    txtServico.Text = string.Empty;
+                }
+
+                try
+                {
+                    decimal valor = 0;
+                    if (item.valor_cobrado != null) valor = Convert.ToDecimal(item.valor_cobrado);
+                    else if (item.ValorCobrado != null) valor = Convert.ToDecimal(item.ValorCobrado);
+
+                    txtValorServico.Text = valor.ToString("F2");
+                }
+                catch
+                {
+                    txtValorServico.Text = "0,00";
+                }
             }
         }
 

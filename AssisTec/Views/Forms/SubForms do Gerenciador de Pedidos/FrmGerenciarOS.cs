@@ -99,6 +99,7 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
 
             tela.Visible = true;
             tela.BringToFront();
+            Atualizar();
         }
 
         private void MudarVisibilidadeBotoes(bool ativo)
@@ -122,6 +123,7 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
         {
             MudarVisibilidadeBotoes(true);
             MostrarTela(detalhes);
+            
         }
 
 

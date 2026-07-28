@@ -106,13 +106,7 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             }
         }
         
-        private void ConfigurarSubComponente(UserControl uc)
-        {
-            uc.Disposed += (s, e) => CarregarDetalhesOS();
-            this.Controls.Add(uc);
-            uc.BringToFront();
-            uc.Location = new Point((this.Width - uc.Width) / 2, (this.Height - uc.Height) / 2);
-        }
+        
 
         
 
@@ -121,12 +115,25 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
 
         private void pictureBox1_Click(object sender, EventArgs e)
         {
-            ConfigurarSubComponente(new ucDetalhesEquipamento(_ordemServicoService, _idOS));
+            var uc = new ucDetalhesEquipamento(_ordemServicoService, _idOS);
+            uc.Disposed += (s, e2) => CarregarDetalhesOS();
+    
+            this.Controls.Add(uc);
+            uc.BringToFront();
+            uc.Location = new Point((this.Width - uc.Width) / 2, (this.Height - uc.Height) / 2);
         }
+        
 
         private void pictureBox2_Click(object sender, EventArgs e)
         {
-            throw new System.NotImplementedException();
+            var uc = new ucHistoricoAlteracao(_ordemServicoService, _idOS);
+            uc.Disposed += (s, e2) => CarregarDetalhesOS();
+    
+            uc.Dock = DockStyle.Fill;
+            this.Controls.Add(uc);
+            uc.BringToFront();
+            uc.Visible = true;
+            uc.Focus();
         }
     }
 }

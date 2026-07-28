@@ -22,6 +22,7 @@ namespace AssisTec.Repository
         public DbSet<MovimentacaoEstoque> movimentacaoEstoque { get; set; }
         public DbSet<ItemOS>  ItemOS { get; set; }
         public DbSet<ServicosOS> ServicosOS { get; set; }
+        public DbSet<HistoricoAlteracaoOS>  HistoricoAlteracaoOS { get; set; }
         
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -263,6 +264,28 @@ namespace AssisTec.Repository
                 entity.HasOne(e => e.produto).WithMany()
                     .HasForeignKey(e=> e.idProduto)
                     .OnDelete(DeleteBehavior.SetNull);
+            });
+            
+            modelBuilder.Entity<HistoricoAlteracaoOS>(entity =>
+            {
+                entity.ToTable("historico_alteracao_os");
+                entity.HasKey(e => e.id);
+                entity.Property(e => e.id).HasColumnName("id");
+                entity.Property(e => e.idUsuario).HasColumnName("id_usuario");
+                entity.Property(e => e.idOS).HasColumnName("id_os");
+                entity.Property(e => e.descricao).HasColumnName("descricao");
+                entity.Property(e => e.tipo).HasColumnName("tipo");
+                entity.Property(e => e.dataAlteracao).HasColumnName("data_alteracao");
+
+                entity.HasOne(e => e.usuario)
+                    .WithMany()
+                    .HasForeignKey(e => e.idUsuario)
+                    .OnDelete(DeleteBehavior.Restrict);
+
+                entity.HasOne(e => e.ordemServico)
+                    .WithMany()
+                    .HasForeignKey(e => e.idOS)
+                    .OnDelete(DeleteBehavior.Cascade);
             });
         }
     }

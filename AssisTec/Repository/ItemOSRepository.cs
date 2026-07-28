@@ -63,7 +63,7 @@ namespace AssisTec.Repository
                 throw new ArgumentNullException(e.Message);
             }
         }
-        public List<ItemOS> ObterPorOrdemServico(int idOS)
+        public IEnumerable<dynamic> ObterPorOrdemServico(int idOS)
         {
             try
             {
@@ -71,11 +71,11 @@ namespace AssisTec.Repository
                     .AsNoTracking()
                     .Include(x => x.Produto)
                     .Where(x => x.id_OS == idOS)
-                    .Select(x => new ItemOS
+                    .Select(x => new
                     {
-                        id_OS = x.id_OS,
-                        id_produto = x.id_produto,
-                        Produto = x.Produto,
+                        Id = x.Id,                    
+                        IdProduto = x.id_produto,     
+                        Produto = x.Produto != null ? x.Produto.descricao : "Não informado",
                         Quantidade = x.Quantidade,
                         ValorUnitario = x.ValorUnitario,
                         ValorTotal = x.ValorTotal

@@ -253,6 +253,7 @@
       <DependentUpon>20260609165159_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\AppDbContextModelSnapshot.cs" />
+    <Compile Include="Models\HistoricoAlteracaoOS.cs" />
     <Compile Include="Models\ServicosOS.cs" />
     <Compile Include="Models\Cliente.cs" />
     <Compile Include="Models\ContasPagar.cs" />
@@ -267,6 +268,8 @@
     <Compile Include="Models\Usuario.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\HistoricoAlteracaoOSRepository.cs" />
+    <Compile Include="Repository\IHistoricoAlteracaoOSRepository.cs" />
     <Compile Include="Repository\ServicosOSRepository.cs" />
     <Compile Include="Repository\AppDbContext.cs" />
     <Compile Include="Repository\BackupXamppAutomated.cs" />
@@ -385,6 +388,12 @@
     <Compile Include="Views\UserControls\SubUserControl do Gerenciador de OS\ucFormularioOS.Designer.cs">
       <DependentUpon>ucFormularioOS.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\UserControls\SubUserControl do Gerenciador de OS\ucHistoricoAlteracao.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\UserControls\SubUserControl do Gerenciador de OS\ucHistoricoAlteracao.Designer.cs">
+      <DependentUpon>ucHistoricoAlteracao.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\UserControls\SubUserControl do Gerenciador de OS\ucHistoricoOS.cs" />
     <Compile Include="Views\UserControls\SubUserControl do Gerenciador de OS\ucHistoricoOS.Designer.cs">
       <DependentUpon>ucHistoricoOS.cs</DependentUpon>
@@ -488,6 +497,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\UserControls\SubUserControl do Gerenciador de OS\ucFormularioOS.resx">
       <DependentUpon>ucFormularioOS.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\UserControls\SubUserControl do Gerenciador de OS\ucHistoricoAlteracao.resx">
+      <DependentUpon>ucHistoricoAlteracao.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\UserControls\SubUserControl do Gerenciador de OS\ucHistoricoOS.resx">
       <DependentUpon>ucHistoricoOS.cs</DependentUpon>

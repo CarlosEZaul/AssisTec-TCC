@@ -102,5 +102,8 @@ namespace AssisTec.UserControls
             btnRelatorio.Enabled = ativo;
             btnRecibo.Enabled = ativo;
         }
+
+        private void dgvOS_CellDoubleClick(object sender, DataGridViewCellEventArgs e) => btnGerenciar_Click(sender, e);
+        
     }
 }

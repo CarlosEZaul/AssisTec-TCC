@@ -99,7 +99,7 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
 
             try
             {
-                List<ItemOS> listaItens = _ordemServicoService.ObterItensDaOS(_idOrdemServico);
+                IEnumerable<dynamic> listaItens = _ordemServicoService.ObterItensDaOS(_idOrdemServico);
 
                 dgvItensOS.DataSource = null;
                 dgvItensOS.AutoGenerateColumns = true;
@@ -120,8 +120,8 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             if (dgvItensOS.Columns["Id"] != null)
                 dgvItensOS.Columns["Id"].Visible = false;
 
-            if (dgvItensOS.Columns["idProduto"] != null)
-                dgvItensOS.Columns["idProduto"].Visible = false;
+            if (dgvItensOS.Columns["IdProduto"] != null)
+                dgvItensOS.Columns["IdProduto"].Visible = false;
 
             if (dgvItensOS.Columns["ValorUnitario"] != null)
                 dgvItensOS.Columns["ValorUnitario"].DefaultCellStyle.Format = "C2";
@@ -184,12 +184,22 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             try
             {
                 bool sucesso = _ordemServicoService.AdicionarOuAtualizarItemOS(_idOrdemServico, _idProduto, quantidade);
+                var HistoricoAlteracaoOS = new HistoricoAlteracaoOS
+                {
+                    idOS = _idOrdemServico,
+                    idUsuario = _ordemServicoService.ObterPorId(_idOrdemServico).id_tecnico.GetValueOrDefault(),
+                    tipo = "INCLUSAO_PRODUTO",
+                    descricao = $"Adicionado {quantidade} do produto {_produto.descricao} na Ordem de Serviço",
+                    dataAlteracao = DateTime.Now
+                };
                 if (sucesso)
                 {
+                    _ordemServicoService.RegistrarHistoricoOS(HistoricoAlteracaoOS);
                     MessageBox.Show("Produto processado com sucesso na Ordem de Serviço!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     LimparSelecaoProduto();
                     CarregarProdutos();
                     CarregarItensGrid();
+                    
                 }
             }
             catch (Exception ex)
@@ -234,6 +244,15 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
                 bool sucesso = _ordemServicoService.ReduzirOuRemoverItemOS(idItem, qtdRemover);
                 if (sucesso)
                 {
+                    var HistoricoAlteracaoOS = new HistoricoAlteracaoOS
+                    {
+                        idOS = _idOrdemServico,
+                        idUsuario = _ordemServicoService.ObterPorId(_idOrdemServico).id_tecnico.GetValueOrDefault(),
+                        tipo = "REMOCAO_PRODUTO",
+                        descricao = $"Removido {qtdRemover} do produto {_produto.descricao} na Ordem de Serviço",
+                        dataAlteracao = DateTime.Now
+                    };
+                    _ordemServicoService.RegistrarHistoricoOS(HistoricoAlteracaoOS);
                     MessageBox.Show("Operação de remoção/redução realizada com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     LimparSelecaoProduto();
                     CarregarProdutos();
@@ -317,13 +336,13 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
 
             int idProd = 0;
 
-            if (row.DataBoundItem is DataRowView rowView && rowView.Row.Table.Columns.Contains("idProduto"))
+            if (row.DataBoundItem is DataRowView rowView && rowView.Row.Table.Columns.Contains("IdProduto"))
             {
-                idProd = ConverterParaInt(rowView["idProduto"]);
+                idProd = ConverterParaInt(rowView["IdProduto"]);
             }
-            else if (dgvItensOS.Columns.Contains("idProduto") && row.Cells["idProduto"].Value != null)
+            else if (dgvItensOS.Columns.Contains("IdProduto") && row.Cells["IdProduto"].Value != null)
             {
-                idProd = ConverterParaInt(row.Cells["idProduto"].Value);
+                idProd = ConverterParaInt(row.Cells["IdProduto"].Value);
             }
 
             if (idProd > 0)
