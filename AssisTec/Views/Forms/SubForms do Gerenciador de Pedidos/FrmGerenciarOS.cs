@@ -97,7 +97,7 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             {
                 if (ordemServico.status == "ABERTA")
                 {
-                    btnStatus.Text = "Cancelar";
+                    btnStatus.Text = "Cancelar OS";
                 }
 
                 if (ordemServico.status == "CANCELADA")
