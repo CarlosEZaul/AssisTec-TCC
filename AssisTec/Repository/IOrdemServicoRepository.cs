@@ -16,6 +16,8 @@ namespace AssisTec.Repository
         DataTable OrdensRecentes();
         bool ExisteOSAbertaPorTecnico(int idTecnico);
         bool ExisteOSAbertaPorCliente(int idCliente);
+        bool CancelarOrdemServico(int idOS);
+        bool ReabrirOrdemServico(int idOS);
 
     }
 }

@@ -147,7 +147,7 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
                 };
 
                 var ordemServico = _ordemServicoService.ObterPorId(_idOrdemServico);
-
+                
                 var historicoAlteracaoOS = new HistoricoAlteracaoOS
                 {
                     idOS = _idOrdemServico,

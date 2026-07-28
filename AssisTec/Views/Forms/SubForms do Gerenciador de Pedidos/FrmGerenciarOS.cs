@@ -40,7 +40,8 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             _id = id;
             IniciarUserControls();
             ApplyModernDesign();
-           
+            ConfigurarBotaoStatus(_ordemServicoService.ObterPorId(id));
+
         }
 
         
@@ -73,6 +74,8 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
         }
 
         #endregion
+
+        #region Métodos ou funcoes
         private void IniciarUserControls()
         {
             detalhes = new ucDetalhesOS(_id, _ordemServicoService);
@@ -87,7 +90,22 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             panelConteudo.Controls.Add(produtos);
             panelConteudo.Controls.Add(servicos);
         }
-        
+
+        private void ConfigurarBotaoStatus(OrdemServico ordemServico)
+        {
+            if (ordemServico != null)
+            {
+                if (ordemServico.status == "ABERTA")
+                {
+                    btnStatus.Text = "Cancelar";
+                }
+
+                if (ordemServico.status == "CANCELADA")
+                {
+                    btnStatus.Text = "Reabrir OS";
+                }
+            }
+        }
         
         
         private void MostrarTela(UserControl tela)
@@ -106,6 +124,17 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
         {
             btnSalvar.Visible = ativo;
         }
+        public void Atualizar()
+        {
+            detalhes.CarregarDetalhesOS();
+            produtos.AtualizarDados();
+            servicos.AtualizarDados();
+        }
+        
+
+        #endregion
+
+        #region Funções dos componentes
         
         private void btnFechar_Click(object sender, EventArgs e)
         {
@@ -140,12 +169,7 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             MostrarTela(servicos);
         }
 
-        public void Atualizar()
-        {
-            detalhes.CarregarDetalhesOS();
-            produtos.AtualizarDados();
-            servicos.AtualizarDados();
-        }
+        
 
 
         private void btnDesfazer_Click(object sender, EventArgs e)
@@ -156,6 +180,65 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
         private void btnSalvar_Click(object sender, EventArgs e)
         {
             detalhes.SalvarAlteracoes();
+        }
+        #endregion
+
+
+        
+
+        private void btnStatus_Click(object sender, EventArgs e)
+        {
+            if (_id <= 0)
+            {
+                MessageBox.Show("Nenhuma Ordem de Serviço selecionada.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            try
+            {
+                var ordem = _ordemServicoService.ObterPorId(_id);
+                if (ordem == null)
+                {
+                    MessageBox.Show("Ordem de Serviço não encontrada.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                int idTecnico = ordem.id_tecnico.GetValueOrDefault();
+                bool isCancelada = ordem.status == "CANCELADA";
+
+                string acao = isCancelada ? "reabrir" : "cancelar";
+                
+                string mensagemConfirmacao = isCancelada
+                    ? $"Deseja realmente reabrir a OS #{_id}?\nOs produtos serão debitados do estoque novamente."
+                    : $"Deseja realmente cancelar a OS #{_id}?\nOs produtos utilizados serão devolvidos ao estoque.";
+
+                var confirmacao = MessageBox.Show(
+                    mensagemConfirmacao,
+                    $"Confirmação de {char.ToUpper(acao[0]) + acao.Substring(1)}",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question
+                );
+
+                if (confirmacao == DialogResult.No) return;
+
+                bool sucesso = isCancelada
+                    ? _ordemServicoService.ReabrirOrdemServico(_id, idTecnico)
+                    : _ordemServicoService.CancelarOrdemServico(_id, idTecnico);
+
+                if (sucesso)
+                {
+                    MessageBox.Show($"Ordem de Serviço {acao}da com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    this.FindForm()?.Close();
+                }
+                else
+                {
+                    MessageBox.Show($"Não foi possível {acao} a Ordem de Serviço.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao processar a solicitação: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

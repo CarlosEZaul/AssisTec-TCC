@@ -37,8 +37,7 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             this.btnDetalhes = new System.Windows.Forms.Button();
             this.panelBotoes = new System.Windows.Forms.Panel();
             this.btnFechar = new System.Windows.Forms.Button();
-            this.btnCancelar = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnStatus = new System.Windows.Forms.Button();
             this.btnAtualizar = new System.Windows.Forms.Button();
             this.btnSalvar = new System.Windows.Forms.Button();
             this.btnImprimir = new System.Windows.Forms.Button();
@@ -98,8 +97,7 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             this.panelBotoes.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(55)))), ((int)(((byte)(76)))));
             this.panelBotoes.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelBotoes.Controls.Add(this.btnFechar);
-            this.panelBotoes.Controls.Add(this.btnCancelar);
-            this.panelBotoes.Controls.Add(this.button1);
+            this.panelBotoes.Controls.Add(this.btnStatus);
             this.panelBotoes.Controls.Add(this.btnAtualizar);
             this.panelBotoes.Controls.Add(this.btnSalvar);
             this.panelBotoes.Controls.Add(this.btnImprimir);
@@ -124,35 +122,21 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             this.btnFechar.UseVisualStyleBackColor = false;
             this.btnFechar.Click += new System.EventHandler(this.btnFechar_Click);
             // 
-            // btnCancelar
+            // btnStatus
             // 
-            this.btnCancelar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnCancelar.BackColor = System.Drawing.Color.RoyalBlue;
-            this.btnCancelar.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnCancelar.Enabled = false;
-            this.btnCancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCancelar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.btnCancelar.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnCancelar.Location = new System.Drawing.Point(507, 5);
-            this.btnCancelar.Name = "btnCancelar";
-            this.btnCancelar.Size = new System.Drawing.Size(86, 23);
-            this.btnCancelar.TabIndex = 102;
-            this.btnCancelar.Text = "Cancelar OS";
-            this.btnCancelar.UseVisualStyleBackColor = false;
-            // 
-            // button1
-            // 
-            this.button1.BackColor = System.Drawing.Color.RoyalBlue;
-            this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.button1.ForeColor = System.Drawing.SystemColors.Control;
-            this.button1.Location = new System.Drawing.Point(390, 5);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(111, 23);
-            this.button1.TabIndex = 48;
-            this.button1.Text = "Definir para retirada";
-            this.button1.UseVisualStyleBackColor = false;
+            this.btnStatus.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnStatus.BackColor = System.Drawing.Color.RoyalBlue;
+            this.btnStatus.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnStatus.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.btnStatus.ForeColor = System.Drawing.SystemColors.Control;
+            this.btnStatus.Location = new System.Drawing.Point(507, 5);
+            this.btnStatus.Name = "btnStatus";
+            this.btnStatus.Size = new System.Drawing.Size(86, 23);
+            this.btnStatus.TabIndex = 102;
+            this.btnStatus.Text = "Cancelar OS";
+            this.btnStatus.UseVisualStyleBackColor = false;
+            this.btnStatus.Click += new System.EventHandler(this.btnStatus_Click);
             // 
             // btnAtualizar
             // 
@@ -236,9 +220,7 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
 
         private System.Windows.Forms.Button btnAtualizar;
 
-        private System.Windows.Forms.Button btnCancelar;
-
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnStatus;
 
         private System.Windows.Forms.Panel panelConteudo;
 

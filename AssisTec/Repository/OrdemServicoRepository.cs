@@ -10,12 +10,13 @@ namespace AssisTec.Repository
     public class OrdemServicoRepository : IOrdemServicoRepository
     {
         private readonly AppDbContext context;
-        private IOrdemServicoRepository _ordemServicoRepository;
 
         public OrdemServicoRepository(AppDbContext context)
         {
             this.context = context;
         }
+
+        #region Consultas e Leitura
 
         public IEnumerable<dynamic> ObterTodasOSAtuais()
         {
@@ -69,36 +70,24 @@ namespace AssisTec.Repository
             }
         }
 
-        public bool SalvarOrdemServico(OrdemServico ordemServico)
+        public int ObterQntOsAbertas()
         {
-            try
-            {
-                context.OrdemServicos.Add(ordemServico);
-                return context.SaveChanges()>0;
-            }
-            catch (Exception e)
-            {
-                throw new Exception("Falha ao salvar ordemServico no BD" + e.Message);
-            }
+            return context.OrdemServicos.Count(os => os.status == "ABERTA");
         }
 
-        public bool SalvarAlteracoesOS(OrdemServico ordemServico)
+        public bool ExisteOSAbertaPorTecnico(int idTecnico)
         {
-            try
-            {
-                var local = context.OrdemServicos.Local.FirstOrDefault( o => o.id_os == ordemServico.id_os );
-                if (local != null)
-                {
-                    context.Entry(local).State = EntityState.Detached;
-                }
-                context.Entry(ordemServico).State = EntityState.Modified;
-                return context.SaveChanges() > 0;
-            }
-            catch (Exception e)
-            {
-                throw new Exception("Falha ao salvar ordemServico no BD" + e.Message);
-            }
+            return context.OrdemServicos.Any(os => os.id_tecnico == idTecnico && os.status == "ABERTA");
         }
+
+        public bool ExisteOSAbertaPorCliente(int idCliente)
+        {
+            return context.OrdemServicos.Any(os => os.id_cliente == idCliente && os.status == "ABERTA");
+        }
+
+        #endregion
+
+        #region Relatórios e DataTables
 
         public DataTable ObterHistoricoUsuario(int idUsuario)
         {
@@ -222,11 +211,6 @@ namespace AssisTec.Repository
             }
         }
 
-        public int ObterQntOsAbertas()
-        {
-            return context.OrdemServicos.Count(os => os.status == "ABERTA");
-        }
-
         public DataTable OrdensRecentes()
         {
             var ordens = context.OrdemServicos
@@ -234,16 +218,6 @@ namespace AssisTec.Repository
                 .Take(15);
 
             return MontarDataTableOrdemServico(ordens);
-        }
-
-        public bool ExisteOSAbertaPorTecnico(int idTecnico)
-        {
-            return context.OrdemServicos.Any(os => os.id_tecnico == idTecnico && os.status == "ABERTA");
-        }
-
-        public bool ExisteOSAbertaPorCliente(int idCliente)
-        {
-            return context.OrdemServicos.Any(os => os.id_cliente == idCliente && os.status == "ABERTA");
         }
 
         private DataTable MontarDataTableOrdemServico(IQueryable<OrdemServico> query)
@@ -282,5 +256,151 @@ namespace AssisTec.Repository
 
             return dataTable;
         }
+
+        #endregion
+
+        #region Persistência e Alterações de Estado
+
+        public bool SalvarOrdemServico(OrdemServico ordemServico)
+        {
+            try
+            {
+                context.OrdemServicos.Add(ordemServico);
+                return context.SaveChanges() > 0;
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Falha ao salvar ordemServico no BD" + e.Message);
+            }
+        }
+
+        public bool SalvarAlteracoesOS(OrdemServico ordemServico)
+        {
+            try
+            {
+                var local = context.OrdemServicos.Local.FirstOrDefault(o => o.id_os == ordemServico.id_os);
+                if (local != null)
+                {
+                    context.Entry(local).State = EntityState.Detached;
+                }
+                context.Entry(ordemServico).State = EntityState.Modified;
+                return context.SaveChanges() > 0;
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Falha ao salvar ordemServico no BD" + e.Message);
+            }
+        }
+
+        public bool ReabrirOrdemServico(int idOS)
+        {
+            if (idOS <= 0) return false;
+
+            using (var transaction = context.Database.BeginTransaction())
+            {
+                try
+                {
+                    var ordemServico = context.OrdemServicos
+                        .FirstOrDefault(x => x.id_os == idOS);
+
+                    if (ordemServico == null) return false;
+
+                    ordemServico.status = "ABERTA";
+
+                    var itensOS = context.ItemOS
+                        .Include(x => x.Produto)
+                        .Where(x => x.id_OS == idOS)
+                        .ToList();
+
+                    foreach (var item in itensOS)
+                    {
+                        if (item.Produto != null)
+                        {
+                            if (item.Produto.quantidade < item.Quantidade)
+                            {
+                                throw new InvalidOperationException($"Estoque insuficiente para o produto '{item.Produto.descricao}'. Disponível: {item.Produto.quantidade}, Necessário: {item.Quantidade}");
+                            }
+
+                            item.Produto.quantidade -= item.Quantidade;
+
+                            var movimentacao = new MovimentacaoEstoque
+                            {
+                                idProduto = item.id_produto,
+                                quantidade = item.Quantidade,
+                                valor = item.ValorUnitario,
+                                tipoMovimentacao = "Saída",
+                                descricao = $"Saída de estoque por reabertura da OS #{idOS}",
+                                data = DateTime.Now
+                            };
+
+                            context.movimentacaoEstoque.Add(movimentacao);
+                        }
+                    }
+
+                    context.SaveChanges();
+                    transaction.Commit();
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    throw new Exception("Erro ao reabrir a Ordem de Serviço no banco de dados.", ex);
+                }
+            }
+        }
+
+        public bool CancelarOrdemServico(int idOS)
+        {
+            if (idOS <= 0) return false;
+
+            using (var transaction = context.Database.BeginTransaction())
+            {
+                try
+                {
+                    var ordemServico = context.OrdemServicos
+                        .FirstOrDefault(x => x.id_os == idOS);
+
+                    if (ordemServico == null) return false;
+
+                    ordemServico.status = "CANCELADA";
+
+                    var itensOS = context.ItemOS
+                        .Include(x => x.Produto)
+                        .Where(x => x.id_OS == idOS)
+                        .ToList();
+
+                    foreach (var item in itensOS)
+                    {
+                        if (item.Produto != null)
+                        {
+                            item.Produto.quantidade += item.Quantidade;
+
+                            var movimentacao = new MovimentacaoEstoque
+                            {
+                                idProduto = item.id_produto,
+                                quantidade = item.Quantidade,
+                                valor = item.ValorUnitario,
+                                tipoMovimentacao = "Entrada",
+                                descricao = $"Devolução de estoque por cancelamento da OS #{idOS}",
+                                data = DateTime.Now
+                            };
+
+                            context.movimentacaoEstoque.Add(movimentacao);
+                        }
+                    }
+
+                    context.SaveChanges();
+                    transaction.Commit();
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    throw new Exception("Erro ao cancelar a Ordem de Serviço no banco de dados.", ex);
+                }
+            }
+        }
+
+        #endregion
     }
 }

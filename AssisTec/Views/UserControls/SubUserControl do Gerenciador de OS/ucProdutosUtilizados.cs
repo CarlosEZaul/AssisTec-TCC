@@ -10,8 +10,8 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
     public partial class ucProdutosUtilizados : UserControl
     {
         private readonly OrdemServicoService _ordemServicoService;
+        private readonly OrdemServico _ordemServico;
         private int _idProduto;
-        private int _idOrdemServico;
         private Produto _produto;
 
         public ucProdutosUtilizados()
@@ -24,7 +24,7 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
         public ucProdutosUtilizados(OrdemServicoService ordemServicoService, int idOrdemServico) : this()
         {
             _ordemServicoService = ordemServicoService ?? throw new ArgumentNullException(nameof(ordemServicoService));
-            _idOrdemServico = idOrdemServico;
+            _ordemServico = _ordemServicoService.ObterPorId(idOrdemServico);
         }
 
         private void DesignModerno()
@@ -43,7 +43,7 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             if (_ordemServicoService != null)
             {
                 CarregarProdutos();
-                if (_idOrdemServico > 0)
+                if (_ordemServico.id_os > 0)
                 {
                     CarregarItensGrid(); 
                 }
@@ -53,7 +53,7 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
         public void AtualizarDados()
         {
             CarregarProdutos();
-            if (_idOrdemServico > 0)
+            if (_ordemServico.id_os > 0)
             {
                 CarregarItensGrid();
             }
@@ -95,11 +95,11 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
 
         private void CarregarItensGrid()
         {
-            if (_idOrdemServico <= 0) return;
+            if (_ordemServico.id_os <= 0) return;
 
             try
             {
-                IEnumerable<dynamic> listaItens = _ordemServicoService.ObterItensDaOS(_idOrdemServico);
+                IEnumerable<dynamic> listaItens = _ordemServicoService.ObterItensDaOS(_ordemServico.id_os);
 
                 dgvItensOS.DataSource = null;
                 dgvItensOS.AutoGenerateColumns = true;
@@ -183,11 +183,11 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
 
             try
             {
-                bool sucesso = _ordemServicoService.AdicionarOuAtualizarItemOS(_idOrdemServico, _idProduto, quantidade);
+                bool sucesso = _ordemServicoService.AdicionarOuAtualizarItemOS(_ordemServico, _idProduto, quantidade);
                 var HistoricoAlteracaoOS = new HistoricoAlteracaoOS
                 {
-                    idOS = _idOrdemServico,
-                    idUsuario = _ordemServicoService.ObterPorId(_idOrdemServico).id_tecnico.GetValueOrDefault(),
+                    idOS = _ordemServico.id_os,
+                    idUsuario = _ordemServico.id_tecnico.GetValueOrDefault(),
                     tipo = "INCLUSAO_PRODUTO",
                     descricao = $"Adicionado {quantidade} do produto {_produto.descricao} na Ordem de Serviço",
                     dataAlteracao = DateTime.Now
@@ -246,8 +246,8 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
                 {
                     var HistoricoAlteracaoOS = new HistoricoAlteracaoOS
                     {
-                        idOS = _idOrdemServico,
-                        idUsuario = _ordemServicoService.ObterPorId(_idOrdemServico).id_tecnico.GetValueOrDefault(),
+                        idOS = _ordemServico.id_os,
+                        idUsuario =_ordemServico.id_tecnico.GetValueOrDefault(),
                         tipo = "REMOCAO_PRODUTO",
                         descricao = $"Removido {qtdRemover} do produto {_produto.descricao} na Ordem de Serviço",
                         dataAlteracao = DateTime.Now

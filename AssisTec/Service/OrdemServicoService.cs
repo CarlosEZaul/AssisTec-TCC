@@ -18,7 +18,7 @@ namespace AssisTec.Service
         private readonly IServicosOSRepository _servicosOSRepository;
         private readonly IProdutoRepository _produtoRepository;
         private readonly IMovimentacaoEstoqueRepository _movimentacaoEstoqueRepository;
-        private readonly IHistoricoAlteracaoOSRepository  _historicoAlteracaoOSRepository;
+        private readonly IHistoricoAlteracaoOSRepository _historicoAlteracaoOSRepository;
 
         public OrdemServicoService(
             IOrdemServicoRepository ordemServicoRepository,
@@ -37,11 +37,13 @@ namespace AssisTec.Service
             _usuarioRepository = usuarioRepository ?? throw new ArgumentNullException(nameof(usuarioRepository));
             _clienteRepository = clienteRepository ?? throw new ArgumentNullException(nameof(clienteRepository));
             _itemOSRepository = itemOSRepository ?? throw new ArgumentNullException(nameof(itemOSRepository));
-            _servicosOSRepository =  servicosOSRepository ?? throw new ArgumentNullException(nameof(servicosOSRepository));
+            _servicosOSRepository = servicosOSRepository ?? throw new ArgumentNullException(nameof(servicosOSRepository));
             _produtoRepository = produtoRepository ?? throw new ArgumentNullException(nameof(produtoRepository));
             _movimentacaoEstoqueRepository = movimentacaoEstoqueRepository ?? throw new ArgumentNullException(nameof(movimentacaoEstoqueRepository));
             _historicoAlteracaoOSRepository = historicoAlteracaoOSRepository ?? throw new ArgumentNullException(nameof(historicoAlteracaoOSRepository));
         }
+
+        #region Consultas e Leitura
 
         public List<Cliente> ObterClientes()
         {
@@ -57,6 +59,18 @@ namespace AssisTec.Service
         {
             return _ordemServicoRepository.ObterPorId(id);
         }
+
+        public int ObterQntOsAbertas()
+        {
+            return _ordemServicoRepository.ObterQntOsAbertas();
+        }
+
+        public IEnumerable<dynamic> ObterTodasOSAtuais()
+        {
+            return _ordemServicoRepository.ObterTodasOSAtuais();
+        }
+
+        #endregion
 
         #region Equipamento
 
@@ -87,7 +101,8 @@ namespace AssisTec.Service
 
         #endregion
 
-        #region Produtos
+        #region Produtos e Itens da OS
+
         public List<Produto> ObterProdutos()
         {
             return _produtoRepository.ObterProdutos().Where(p => p.status == "Ativado").ToList();
@@ -97,11 +112,19 @@ namespace AssisTec.Service
         {
             return _produtoRepository.ObterProdutoPorId(id);
         }
-        
-        public bool AdicionarOuAtualizarItemOS(int idOS, int idProduto, int quantidadeAdicionar)
+
+        public IEnumerable<dynamic> ObterItensDaOS(int idOS)
         {
-            if (idOS <= 0)
+            return _itemOSRepository.ObterPorOrdemServico(idOS);
+        }
+
+        public bool AdicionarOuAtualizarItemOS(OrdemServico os, int idProduto, int quantidadeAdicionar)
+        {
+            if (os.id_os <= 0)
                 throw new ArgumentException("Ordem de Serviço inválida.");
+            
+            if (os.status != "ABERTA")
+                throw new InvalidOperationException("Ordem de Serviço não está aberta para alterações");
 
             if (idProduto <= 0)
                 throw new ArgumentException("Selecione um produto válido.");
@@ -116,7 +139,7 @@ namespace AssisTec.Service
             if (produto.quantidade < quantidadeAdicionar)
                 throw new InvalidOperationException($"Estoque insuficiente. Disponível: {produto.quantidade}");
 
-            IEnumerable<dynamic> itens = _itemOSRepository.ObterPorOrdemServico(idOS);
+            IEnumerable<dynamic> itens = _itemOSRepository.ObterPorOrdemServico(os.id_os);
             ItemOS itemExistente = itens?.FirstOrDefault(x => x.id_produto == idProduto);
 
             using (var scope = new TransactionScope())
@@ -132,7 +155,7 @@ namespace AssisTec.Service
 
                     var novoItem = new ItemOS
                     {
-                        id_OS = idOS,
+                        id_OS = os.id_os,
                         id_produto = idProduto,
                         Quantidade = novaQuantidade,
                         ValorUnitario = produto.preco_venda
@@ -145,13 +168,13 @@ namespace AssisTec.Service
                     _produtoRepository.AtualizarProduto(produto);
 
                     RegistrarMovimentacao(idProduto, quantidadeAdicionar, produto.preco_venda * quantidadeAdicionar,
-                        $"Saída de estoque (Adição) na OS #{idOS}", "Saída");
+                        $"Saída de estoque (Adição) na OS #{os.id_os}", "Saída");
                 }
                 else
                 {
                     var novoItem = new ItemOS
                     {
-                        id_OS = idOS,
+                        id_OS = os.id_os,
                         id_produto = idProduto,
                         Quantidade = quantidadeAdicionar,
                         ValorUnitario = produto.preco_venda
@@ -164,10 +187,10 @@ namespace AssisTec.Service
                     _produtoRepository.AtualizarProduto(produto);
 
                     RegistrarMovimentacao(idProduto, quantidadeAdicionar, produto.preco_venda * quantidadeAdicionar,
-                        $"Saída de estoque por inclusão na OS #{idOS}", "Saída");
+                        $"Saída de estoque por inclusão na OS #{os.id_os}", "Saída");
                 }
 
-                RecalcularEAtualizarValorPecas(idOS);
+                RecalcularEAtualizarValorPecas(os.id_os);
 
                 scope.Complete();
                 return true;
@@ -190,7 +213,12 @@ namespace AssisTec.Service
             if (produto == null)
                 throw new InvalidOperationException("Produto associado ao item não foi encontrado.");
 
-            int idOS = item.id_OS.GetValueOrDefault();
+            OrdemServico ordemServico = ObterPorId(item.id_OS.GetValueOrDefault());
+            if (ordemServico == null)
+                throw new InvalidOperationException("OS não encontrada.");
+
+            if (ordemServico.status != "ABERTA")
+                throw new InvalidOperationException("Ordem de Serviço não está aberta para alterações");
 
             using (var scope = new TransactionScope())
             {
@@ -230,11 +258,25 @@ namespace AssisTec.Service
                         $"Entrada em estoque por redução do item da OS #{item.id_OS}", "Entrada");
                 }
 
-                RecalcularEAtualizarValorPecas(idOS);
+                RecalcularEAtualizarValorPecas(ordemServico.id_os);
 
                 scope.Complete();
                 return true;
             }
+        }
+
+        public bool RemoverItemOS(int idItem)
+        {
+            var item = _itemOSRepository.ObterPorId(idItem);
+            if (item == null)
+                throw new InvalidOperationException("Item da OS não encontrado.");
+
+            return ReduzirOuRemoverItemOS(idItem, item.Quantidade);
+        }
+
+        private bool RemoverItemDirect(int idItem)
+        {
+            return _itemOSRepository.Remover(idItem);
         }
 
         private void RecalcularEAtualizarValorPecas(int idOS)
@@ -249,11 +291,6 @@ namespace AssisTec.Service
             os.data_atualizacao = DateTime.Now;
 
             _ordemServicoRepository.SalvarAlteracoesOS(os);
-        }
-
-        private bool RemoverItemDirect(int idItem)
-        {
-            return _itemOSRepository.Remover(idItem);
         }
 
         private void RegistrarMovimentacao(int idProduto, int quantidade, decimal valorTotal, string descricao, string tipo)
@@ -271,19 +308,89 @@ namespace AssisTec.Service
             _movimentacaoEstoqueRepository.InserirMovimentacao(movimentacao);
         }
 
-        public bool RemoverItemOS(int idItem)
-        {
-            var item = _itemOSRepository.ObterPorId(idItem);
-            if (item == null)
-                throw new InvalidOperationException("Item da OS não encontrado.");
+        #endregion
 
-            return ReduzirOuRemoverItemOS(idItem, item.Quantidade);
+        #region Serviços e Mão de Obra
+
+        public bool SalvarServicoOS(ServicosOS servico)
+        {
+            ValidarServicoOS(servico);
+
+            var os = _ordemServicoRepository.ObterPorId(servico.id_OS.GetValueOrDefault());
+            if (os == null)
+                throw new InvalidOperationException("A Ordem de Serviço informada não foi encontrada.");
+
+            if (os.status != "ABERTA")
+            {
+                throw new InvalidOperationException("Ordem de Serviço não está aberta para alterações.");
+            }
+
+            bool salvou = _servicosOSRepository.SalvarAcaoOS(servico);
+            if (!salvou)
+                return false;
+
+            RecalcularEAtualizarValorMaoObra(servico.id_OS.GetValueOrDefault());
+            return true;
         }
-        
+
+        public ServicosOS ObterServicoOSPorID(int idAcao)
+        {
+            if (idAcao <= 0)
+                throw new ArgumentException("ID da Ação inválido.");
+
+            return _servicosOSRepository.ObterAcaoOSPorID(idAcao);
+        }
+
+        public bool ExcluirServicoOS(int idAcao)
+        {
+            if (idAcao <= 0)
+                throw new ArgumentException("ID da Ação inválido.");
+
+            var acao = _servicosOSRepository.ObterAcaoOSPorID(idAcao);
+            if (acao == null)
+                throw new InvalidOperationException("Ação não encontrada.");
+
+            var os = _ordemServicoRepository.ObterPorId(acao.id_OS.GetValueOrDefault());
+            int idOS = acao.id_OS.GetValueOrDefault();
+
+            if (os.status != "ABERTA")
+            {
+                throw new InvalidOperationException("Ordem de Serviço não está aberta para alterações");
+            }
+
+            bool excluiu = _servicosOSRepository.ExcluirAcaoOS(idAcao);
+            if (!excluiu)
+                return false;
+
+            RecalcularEAtualizarValorMaoObra(idOS);
+            return true;
+        }
+
+        public List<ServicosOS> ListarAcaoOSPorOS(int idOS)
+        {
+            if (idOS <= 0)
+                throw new ArgumentException("Ordem de Serviço inválida.");
+
+            return _servicosOSRepository.ListarAcaoOSPorOS(idOS);
+        }
+
+        private void RecalcularEAtualizarValorMaoObra(int idOS)
+        {
+            var os = _ordemServicoRepository.ObterPorId(idOS);
+            if (os == null) return;
+
+            var acoes = _servicosOSRepository.ListarAcaoOSPorOS(idOS);
+            decimal totalMaoObra = acoes != null ? acoes.Sum(a => a.valor_cobrado) : 0;
+
+            os.valor_mao_obra = totalMaoObra;
+            os.data_atualizacao = DateTime.Now;
+
+            _ordemServicoRepository.SalvarAlteracoesOS(os);
+        }
 
         #endregion
 
-        #region Historico de Alterações
+        #region Histórico de Alterações
 
         public bool RegistrarHistoricoOS(HistoricoAlteracaoOS historicoAlteracaoOs)
         {
@@ -301,7 +408,7 @@ namespace AssisTec.Service
 
             return _historicoAlteracaoOSRepository.RegistrarHistorico(historicoAlteracaoOs);
         }
-        
+
         public IEnumerable ObterPorOrdemServico(int idOS)
         {
             if (idOS <= 0)
@@ -312,7 +419,21 @@ namespace AssisTec.Service
 
         #endregion
 
-        
+        #region Relatórios e DataTables
+
+        public System.Data.DataTable ObterHistoricoOsTecnico(int id)
+        {
+            return _ordemServicoRepository.ObterHistoricoUsuario(id);
+        }
+
+        public System.Data.DataTable OrdensRecentes()
+        {
+            return _ordemServicoRepository.OrdensRecentes();
+        }
+
+        #endregion
+
+        #region Fluxo da OS e Alterações de Estado
 
         public bool SalvarOS(OrdemServico ordemServico, Equipamento equipamento)
         {
@@ -348,72 +469,74 @@ namespace AssisTec.Service
             return _ordemServicoRepository.SalvarAlteracoesOS(os);
         }
 
-        
-
-        public bool SalvarServicoOS(ServicosOS servico)
-        {
-            ValidarServicoOS(servico);
-
-            var os = _ordemServicoRepository.ObterPorId(servico.id_OS.GetValueOrDefault());
-            if (os == null)
-                throw new InvalidOperationException("A Ordem de Serviço informada não foi encontrada.");
-
-            bool salvou = _servicosOSRepository.SalvarAcaoOS(servico);
-            if (!salvou)
-                return false;
-
-            RecalcularEAtualizarValorMaoObra(servico.id_OS.GetValueOrDefault());
-            return true;
-        }
-
-        public ServicosOS ObterServicoOSPorID(int idAcao)
-        {
-            if (idAcao <= 0)
-                throw new ArgumentException("ID da Ação inválido.");
-
-            return _servicosOSRepository.ObterAcaoOSPorID(idAcao);
-        }
-
-        public bool ExcluirServicoOS(int idAcao)
-        {
-            if (idAcao <= 0)
-                throw new ArgumentException("ID da Ação inválido.");
-
-            var acao = _servicosOSRepository.ObterAcaoOSPorID(idAcao);
-            if (acao == null)
-                throw new InvalidOperationException("Ação não encontrada.");
-
-            int idOS = acao.id_OS.GetValueOrDefault();
-
-            bool excluiu = _servicosOSRepository.ExcluirAcaoOS(idAcao);
-            if (!excluiu)
-                return false;
-
-            RecalcularEAtualizarValorMaoObra(idOS);
-            return true;
-        }
-
-        public List<ServicosOS> ListarAcaoOSPorOS(int idOS)
+        public bool CancelarOrdemServico(int idOS, int idUsuario)
         {
             if (idOS <= 0)
                 throw new ArgumentException("Ordem de Serviço inválida.");
 
-            return _servicosOSRepository.ListarAcaoOSPorOS(idOS);
-        }
-
-        private void RecalcularEAtualizarValorMaoObra(int idOS)
-        {
             var os = _ordemServicoRepository.ObterPorId(idOS);
-            if (os == null) return;
+            if (os.status == "CANCELADA")
+            {
+                throw new ArgumentException("A Ordem de Serviço já foi cancelada.");
+            }
 
-            var acoes = _servicosOSRepository.ListarAcaoOSPorOS(idOS);
-            decimal totalMaoObra = acoes != null ? acoes.Sum(a => a.valor_cobrado) : 0;
+            bool sucesso = _ordemServicoRepository.CancelarOrdemServico(idOS);
 
-            os.valor_mao_obra = totalMaoObra;
-            os.data_atualizacao = DateTime.Now;
+            if (sucesso)
+            {
+                var historico = new HistoricoAlteracaoOS
+                {
+                    idOS = idOS,
+                    idUsuario = idUsuario,
+                    tipo = "CANCELAMENTO_OS",
+                    descricao = $"Ordem de Serviço #{idOS} foi cancelada.",
+                    dataAlteracao = DateTime.Now
+                };
 
-            _ordemServicoRepository.SalvarAlteracoesOS(os);
+                _historicoAlteracaoOSRepository.RegistrarHistorico(historico);
+            }
+
+            return sucesso;
         }
+
+        public bool ReabrirOrdemServico(int idOS, int idUsuario)
+        {
+            if (idOS <= 0)
+                throw new ArgumentException("Ordem de Serviço inválida.");
+
+            var os = _ordemServicoRepository.ObterPorId(idOS);
+            if (os == null)
+            {
+                throw new ArgumentException("Ordem de Serviço não encontrada.");
+            }
+
+            if (os.status != "CANCELADA")
+            {
+                throw new ArgumentException("Apenas Ordens de Serviço canceladas podem ser reabertas.");
+            }
+
+            bool sucesso = _ordemServicoRepository.ReabrirOrdemServico(idOS);
+
+            if (sucesso)
+            {
+                var historico = new HistoricoAlteracaoOS
+                {
+                    idOS = idOS,
+                    idUsuario = idUsuario,
+                    tipo = "REABERTURA_OS",
+                    descricao = $"Ordem de Serviço #{idOS} foi reaberta.",
+                    dataAlteracao = DateTime.Now
+                };
+
+                _historicoAlteracaoOSRepository.RegistrarHistorico(historico);
+            }
+
+            return sucesso;
+        }
+
+        #endregion
+
+        #region Validações Internas
 
         private void ValidarServicoOS(ServicosOS servico)
         {
@@ -431,11 +554,6 @@ namespace AssisTec.Service
 
             if (servico.valor_cobrado < 0)
                 throw new ArgumentException("O valor cobrado não pode ser negativo.");
-        }
-
-        public IEnumerable<dynamic> ObterItensDaOS(int idOS)
-        {
-            return _itemOSRepository.ObterPorOrdemServico(idOS);
         }
 
         private void ValidarOS(OrdemServico os)
@@ -457,6 +575,7 @@ namespace AssisTec.Service
         {
             if (eq == null)
                 throw new ArgumentNullException(nameof(eq));
+
             if (string.IsNullOrWhiteSpace(eq.Descricao))
                 throw new ArgumentException("A descrição do equipamento é obrigatória.");
 
@@ -473,24 +592,6 @@ namespace AssisTec.Service
                 throw new ArgumentException("O estado de entrada do equipamento é obrigatório.");
         }
 
-        public System.Data.DataTable ObterHistoricoOsTecnico(int id)
-        {
-            return _ordemServicoRepository.ObterHistoricoUsuario(id);
-        }
-
-        public int ObterQntOsAbertas()
-        {
-            return _ordemServicoRepository.ObterQntOsAbertas();
-        }
-
-        public System.Data.DataTable OrdensRecentes()
-        {
-            return _ordemServicoRepository.OrdensRecentes();
-        }
-
-        public IEnumerable<dynamic> ObterTodasOSAtuais()
-        {
-            return _ordemServicoRepository.ObterTodasOSAtuais();
-        }
+        #endregion
     }
 }

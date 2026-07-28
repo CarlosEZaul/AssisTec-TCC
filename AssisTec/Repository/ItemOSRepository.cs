@@ -73,8 +73,7 @@ namespace AssisTec.Repository
                     .Where(x => x.id_OS == idOS)
                     .Select(x => new
                     {
-                        Id = x.Id,                    
-                        IdProduto = x.id_produto,     
+                        id_produto = x.id_produto,
                         Produto = x.Produto != null ? x.Produto.descricao : "Não informado",
                         Quantidade = x.Quantidade,
                         ValorUnitario = x.ValorUnitario,
