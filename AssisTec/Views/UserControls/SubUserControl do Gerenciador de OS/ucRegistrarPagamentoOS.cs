@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Diagnostics;
+using System.IO;
 using System.Windows.Forms;
 using AssisTec.Models;
 using AssisTec.Service;
+using AssisTec.Utils;
 
 namespace AssisTec.Views.UserControls.SubUserControl_do_Gerenciador_de_OS
 {
@@ -62,7 +65,7 @@ namespace AssisTec.Views.UserControls.SubUserControl_do_Gerenciador_de_OS
                 }
 
                 int idFormaPagamento = Convert.ToInt32(cbFormaPagamento.SelectedValue);
-                
+        
                 int idUsuarioAtual = Sessao.usuarioLogado.Id;
 
                 bool sucesso = _ordemServicoService.RegistrarPagamento(_idOS, idUsuarioAtual, idFormaPagamento);
@@ -70,6 +73,19 @@ namespace AssisTec.Views.UserControls.SubUserControl_do_Gerenciador_de_OS
                 if (sucesso)
                 {
                     MessageBox.Show("Pagamento registrado e OS finalizada com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            
+                    var dadosRelatorio = _ordemServicoService.GerarReciboOS(_idOS);
+
+                    string caminhoPdf = Path.Combine(Path.GetTempPath(), $"Recibo_OS_{_idOS}_{DateTime.Now:yyyyMMdd_HHmmss}.pdf");
+            
+                    GeradorPdfOS.GerarRecibo(dadosRelatorio, caminhoPdf);
+
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = caminhoPdf,
+                        UseShellExecute = true
+                    });
+
                     this.Dispose();
                 }
                 else

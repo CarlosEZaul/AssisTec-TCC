@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
 using AssisTec.Models;
@@ -137,7 +138,12 @@ namespace AssisTec.UserControls
                     if (sfd.ShowDialog() == DialogResult.OK)
                     {
                         GeradorPdfOS.GerarRecibo(dadosRelatorio, sfd.FileName);
-                        MessageBox.Show("Relatório Gerado com sucesso!");
+
+                        Process.Start(new ProcessStartInfo
+                        {
+                            FileName = sfd.FileName,
+                            UseShellExecute = true
+                        });
                     }
                 }
             }

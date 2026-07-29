@@ -10,7 +10,7 @@ namespace AssisTec.Utils
 {
     public static class GeradorPdfOS
     {
-        public static void GerarRecibo(OrdemServicoRelatorioDTO dados, string caminhoDestino, string caminhoLogo = null)
+        public static string GerarRecibo(OrdemServicoRelatorioDTO dados, string caminhoDestino, string caminhoLogo = null)
         {
             Document doc = new Document(PageSize.A4, 36, 36, 36, 36);
 
@@ -158,7 +158,9 @@ namespace AssisTec.Utils
                 tblAssinaturas.AddCell(cellAssinatura2);
 
                 doc.Add(tblAssinaturas);
-                
+
+                return caminhoDestino;
+
             }
             finally
             {
