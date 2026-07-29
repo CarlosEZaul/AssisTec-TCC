@@ -296,7 +296,6 @@
     <Compile Include="Repository\PagamentoRepository.cs" />
     <Compile Include="Repository\ProdutoRepository.cs" />
     <Compile Include="Repository\UsuarioRepository.cs" />
-    <Compile Include="Service\ServicosOSService.cs" />
     <Compile Include="Service\ClienteService.cs" />
     <Compile Include="Service\ContasPagarService.cs" />
     <Compile Include="Service\ContasReceberService.cs" />
@@ -586,6 +585,7 @@
     <Content Include="Resources\AdicionarEntidade.png" />
     <Content Include="Resources\aprovado.png" />
     <Content Include="Resources\atencao.png" />
+    <Content Include="Resources\cancelado.png" />
     <Content Include="Resources\cifrao.png" />
     <Content Include="Resources\cifrao_vermelho.png" />
     <Content Include="Resources\cifrao_vermelho_removebg_preview.png" />

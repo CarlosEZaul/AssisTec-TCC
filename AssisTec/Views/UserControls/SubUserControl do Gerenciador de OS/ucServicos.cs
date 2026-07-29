@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 using AssisTec.Models;
 using AssisTec.Service;
@@ -19,6 +20,7 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             _idOrdemServico = idOrdemServico;
             this.Load += ucServicos_Load;
             DesignModerno();
+            ConfigurarCampoValor();
         }
 
         private void DesignModerno()
@@ -129,10 +131,10 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
                 return;
             }
 
-            if (!decimal.TryParse(txtValorServico.Text, out decimal valorCobrado) || valorCobrado < 0)
+            if (!decimal.TryParse(txtValor.Text, out decimal valorCobrado) || valorCobrado < 0)
             {
                 MessageBox.Show("Informe um valor válido para o serviço.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                txtValorServico.Focus();
+                txtValor.Focus();
                 return;
             }
 
@@ -251,11 +253,11 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
                     if (item.valor_cobrado != null) valor = Convert.ToDecimal(item.valor_cobrado);
                     else if (item.ValorCobrado != null) valor = Convert.ToDecimal(item.ValorCobrado);
 
-                    txtValorServico.Text = valor.ToString("F2");
+                    txtValor.Text = valor.ToString("F2");
                 }
                 catch
                 {
-                    txtValorServico.Text = "0,00";
+                    txtValor.Text = "0,00";
                 }
             }
         }
@@ -264,7 +266,7 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
         {
             _idAcaoSelecionada = 0;
             txtServico.Text = string.Empty;
-            txtValorServico.Text = string.Empty;
+            txtValor.Text = string.Empty;
         }
 
         private void txtValorServico_KeyPress(object sender, KeyPressEventArgs e)
@@ -283,6 +285,41 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             {
                 e.Handled = true;
             }
+        }
+        
+        private void ConfigurarCampoValor()
+        {
+            txtValor.Text = 0.ToString("C2");
+            txtValor.TextAlign = HorizontalAlignment.Right;
+
+            txtValor.TextChanged += TxtValor_TextChanged;
+            txtValor.Click += TxtValor_Click;
+        }
+
+        private void TxtValor_TextChanged(object sender, EventArgs e)
+        {
+            txtValor.TextChanged -= TxtValor_TextChanged;
+
+            string apenasNumeros = new string(txtValor.Text.Where(char.IsDigit).ToArray());
+
+            if (decimal.TryParse(apenasNumeros, out decimal valorSemVirgula))
+            {
+                decimal valorFinal = valorSemVirgula / 100m;
+                txtValor.Text = valorFinal.ToString("C2");
+            }
+            else
+            {
+                txtValor.Text = 0.ToString("C2");
+            }
+
+            txtValor.SelectionStart = txtValor.Text.Length;
+
+            txtValor.TextChanged += TxtValor_TextChanged;
+        }
+
+        private void TxtValor_Click(object sender, EventArgs e)
+        {
+            txtValor.SelectionStart = txtValor.Text.Length;
         }
     }
 }

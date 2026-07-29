@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using System.Windows.Forms;
 using AssisTec.Models;
 using AssisTec.Service;
@@ -25,6 +26,7 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
         {
             _ordemServicoService = ordemServicoService ?? throw new ArgumentNullException(nameof(ordemServicoService));
             _ordemServico = _ordemServicoService.ObterPorId(idOrdemServico);
+            ConfigurarCampoValor();
         }
 
         private void DesignModerno()
@@ -358,6 +360,38 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
                 _produto = _ordemServicoService.ObterProdutoPorId(_idProduto);
                 CalcularValorTotal();
             }
+        }
+        
+        private void ConfigurarCampoValor()
+        {
+            txtValor.Text = 0.ToString("C2");
+            txtValor.TextAlign = HorizontalAlignment.Right;
+        }
+
+        private void TxtValor_TextChanged(object sender, EventArgs e)
+        {
+            txtValor.TextChanged -= TxtValor_TextChanged;
+
+            string apenasNumeros = new string(txtValor.Text.Where(char.IsDigit).ToArray());
+
+            if (decimal.TryParse(apenasNumeros, out decimal valorSemVirgula))
+            {
+                decimal valorFinal = valorSemVirgula / 100m;
+                txtValor.Text = valorFinal.ToString("C2");
+            }
+            else
+            {
+                txtValor.Text = 0.ToString("C2");
+            }
+
+            txtValor.SelectionStart = txtValor.Text.Length;
+
+            txtValor.TextChanged += TxtValor_TextChanged;
+        }
+
+        private void TxtValor_Click(object sender, EventArgs e)
+        {
+            txtValor.SelectionStart = txtValor.Text.Length;
         }
     }
 }

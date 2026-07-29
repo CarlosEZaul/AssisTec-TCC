@@ -284,7 +284,7 @@ namespace AssisTec.UserControls
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(115, 23);
             this.label7.TabIndex = 1;
-            this.label7.Text = "Total a receber";
+            this.label7.Text = "Total a Receber";
             // 
             // pictureBox1
             // 

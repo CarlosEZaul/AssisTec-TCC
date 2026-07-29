@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
+using System.Globalization;
 using System.Linq;
 using System.Transactions;
 using AssisTec.DTO;
@@ -74,10 +75,7 @@ namespace AssisTec.Service
             return _ordemServicoRepository.ObterQntOsAbertas();
         }
 
-        public IEnumerable<dynamic> ObterTodasOSAtuais()
-        {
-            return _ordemServicoRepository.ObterTodasOSAtuais();
-        }
+        
 
         #endregion
 
@@ -744,7 +742,50 @@ namespace AssisTec.Service
 
         #endregion
 
+        #region Filtro
+        
+
+        public (DataTable Dados, int TotalOS, int EmAtendimento, int ParaRetirada, decimal TotalAReceber, decimal TotalRecebido, int QntRecebido, decimal TotalCancelado, int QntCancelado) Filtrar(
+            string dataInicio, string dataFim, string busca, int statusIndex, string statusText)
+        {
+            var filtro = new OrdemServico
+            {
+                filtroDataInicio = ValidarData(dataInicio) ? dataInicio : null,
+                filtroDataConclusao = ValidarData(dataFim) ? dataFim : null,
+                filtroBusca = busca?.Trim(),
+                filtroStatus = statusIndex > 0 ? statusText : null
+            };
+
+            var dados = _ordemServicoRepository.Filtrar(filtro);
+            var totais = _ordemServicoRepository.ObterTotais(filtro);
+
+            return (dados, totais.TotalOS, totais.EmAtendimento, totais.ParaRetirada, totais.TotalAReceber, totais.TotalRecebido, totais.QntRecebido, totais.TotalCancelado, totais.QntCancelado);
+        }
+
+        public (int TotalOS, int EmAtendimento, int ParaRetirada, decimal TotalAReceber, decimal TotalRecebido, int QntRecebido, decimal TotalCancelado, int QntCancelado) ObterTotaisPadrao()
+        {
+            return _ordemServicoRepository.ObterTotais(new OrdemServico());
+        }
+        public (DataTable Dados, int TotalOS, int EmAtendimento, int ParaRetirada, decimal TotalAReceber, decimal TotalRecebido, int QntRecebido, decimal TotalCancelado, int QntCancelado) ObterDadosAtuais()
+        {
+            var filtro = new OrdemServico();
+            var dados = _ordemServicoRepository.ObterTodasOSAtuais();
+            var totais = _ordemServicoRepository.ObterTotais(filtro);
+
+            return (dados, totais.TotalOS, totais.EmAtendimento, totais.ParaRetirada, totais.TotalAReceber, totais.TotalRecebido, totais.QntRecebido, totais.TotalCancelado, totais.QntCancelado);
+        }
+        
+
+        
+
+        #endregion
+
         #region Validações Internas
+        private bool ValidarData(string data)
+        {
+            if (string.IsNullOrWhiteSpace(data)) return false;
+            return DateTime.TryParseExact(data.Trim(), "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out _);
+        }
 
         private void ValidarServicoOS(ServicosOS servico)
         {

@@ -184,6 +184,8 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             this.txtValor.Size = new System.Drawing.Size(115, 20);
             this.txtValor.TabIndex = 127;
             this.txtValor.Text = "R$";
+            this.txtValor.Click += new System.EventHandler(this.TxtValor_Click);
+            this.txtValor.TextChanged += new System.EventHandler(this.TxtValor_TextChanged);
             // 
             // panel2
             // 

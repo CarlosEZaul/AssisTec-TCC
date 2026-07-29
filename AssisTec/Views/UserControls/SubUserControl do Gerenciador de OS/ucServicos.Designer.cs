@@ -35,7 +35,7 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             this.label1 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.txtServico = new System.Windows.Forms.TextBox();
-            this.txtValorServico = new System.Windows.Forms.TextBox();
+            this.txtValor = new System.Windows.Forms.TextBox();
             this.lblTotal = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -95,15 +95,16 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             this.txtServico.Size = new System.Drawing.Size(313, 20);
             this.txtServico.TabIndex = 127;
             // 
-            // txtValorServico
+            // txtValor
             // 
-            this.txtValorServico.BackColor = System.Drawing.Color.White;
-            this.txtValorServico.Location = new System.Drawing.Point(325, 38);
-            this.txtValorServico.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.txtValorServico.Name = "txtValorServico";
-            this.txtValorServico.Size = new System.Drawing.Size(110, 20);
-            this.txtValorServico.TabIndex = 132;
-            this.txtValorServico.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtValorServico_KeyPress);
+            this.txtValor.BackColor = System.Drawing.Color.White;
+            this.txtValor.Location = new System.Drawing.Point(325, 38);
+            this.txtValor.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.txtValor.Name = "txtValor";
+            this.txtValor.Size = new System.Drawing.Size(110, 20);
+            this.txtValor.TabIndex = 132;
+            this.txtValor.Text = "R$";
+            this.txtValor.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtValorServico_KeyPress);
             // 
             // lblTotal
             // 
@@ -132,7 +133,7 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             // panel1
             // 
             this.panel1.Controls.Add(this.btnRemover);
-            this.panel1.Controls.Add(this.txtValorServico);
+            this.panel1.Controls.Add(this.txtValor);
             this.panel1.Controls.Add(this.label14);
             this.panel1.Controls.Add(this.txtServico);
             this.panel1.Controls.Add(this.btnSalvar);
@@ -211,7 +212,7 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.TextBox txtServico;
-        private System.Windows.Forms.TextBox txtValorServico;
+        private System.Windows.Forms.TextBox txtValor;
 
         #endregion
     }

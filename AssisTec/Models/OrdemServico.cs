@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -58,5 +59,21 @@ namespace AssisTec.Models
 
         [StringLength(500)]
         public string observacoes { get; set; } = string.Empty;
+        
+        [NotMapped]
+        [Browsable(false)]
+        public string filtroDataInicio { get; set; } = string.Empty;
+
+        [NotMapped]
+        [Browsable(false)]
+        public string filtroDataConclusao { get; set; } = string.Empty;
+
+        [NotMapped]
+        [Browsable(false)]
+        public string filtroBusca { get; set; } = string.Empty;
+
+        [NotMapped]
+        [Browsable(false)]
+        public string filtroStatus { get; set; } = string.Empty;
     }
 }

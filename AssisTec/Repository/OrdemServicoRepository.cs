@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Globalization;
 using System.Linq;
 using AssisTec.DTO;
 using AssisTec.Models;
@@ -19,40 +20,47 @@ namespace AssisTec.Repository
 
         #region Consultas e Leitura
 
-        public IEnumerable<dynamic> ObterTodasOSAtuais()
+        public DataTable ObterTodasOSAtuais()
         {
-            try
-            {
-                DateTime dataAtual = DateTime.Now;
-                int mesAtual = dataAtual.Month;
-                int anoAtual = dataAtual.Year;
+            var hoje = DateTime.Today;
+            var inicioMes = new DateTime(hoje.Year, hoje.Month, 1);
+            var fimMes = inicioMes.AddMonths(1);
 
-                return context.OrdemServicos
-                    .Where(os => 
-                        ((os.status == "CONCLUIDA" || os.status == "CANCELADA") 
-                         && os.data_abertura.Month == mesAtual 
-                         && os.data_abertura.Year == anoAtual)
-                        ||
-                        (os.status != "CONCLUIDA" && os.status != "CANCELADA")
-                    )
-                    .Select(os => new
-                    {
-                        ID = os.id_os,
-                        Tecnico = os.Tecnico != null ? os.Tecnico.Nome : "Não informado",
-                        Cliente = os.Cliente != null ? os.Cliente.Nome : "Não informado",
-                        Equipamento = os.Equipamento != null ? os.Equipamento.Descricao : "Não informado",
-                        Status = os.status,
-                        DataAbertura = os.data_abertura,
-                        UltimaAtulizacao = os.data_atualizacao,
-                        DataConclusao = os.data_fechamento,
-                        ValorTotal = os.valor_total
-                    })
-                    .ToList();
-            }
-            catch (Exception e)
+            var query = context.OrdemServicos
+                .Include(o => o.Cliente)
+                .Include(o => o.Tecnico)
+                .Include(o => o.Equipamento)
+                .Where(o => o.data_abertura >= inicioMes && o.data_abertura < fimMes);
+
+            var ordens = query.ToList();
+
+            DataTable tabela = new DataTable();
+            tabela.Columns.Add("ID", typeof(int));
+            tabela.Columns.Add("Cliente", typeof(string));
+            tabela.Columns.Add("Tecnico", typeof(string));
+            tabela.Columns.Add("Equipamento", typeof(string));
+            tabela.Columns.Add("Status", typeof(string));
+            tabela.Columns.Add("DataAbertura", typeof(DateTime));
+            tabela.Columns.Add("UltimaAtulizacao", typeof(DateTime));
+            tabela.Columns.Add("DataConclusao", typeof(DateTime));
+            tabela.Columns.Add("ValorTotal", typeof(decimal));
+
+            foreach (var o in ordens)
             {
-                throw new Exception("Erro ao consultar a lista de Ordens de Serviço.", e);
+                tabela.Rows.Add(
+                    o.id_os,
+                    o.Cliente != null ? o.Cliente.Nome : string.Empty,
+                    o.Tecnico != null ? o.Tecnico.Nome : string.Empty,
+                    o.Equipamento != null ? o.Equipamento.Descricao : string.Empty,
+                    o.status,
+                    o.data_abertura,
+                    o.data_atualizacao,
+                    o.data_fechamento,
+                    o.valor_total
+                );
             }
+
+            return tabela;
         }
 
         public OrdemServico ObterPorId(int idOrdemServico)
@@ -88,38 +96,35 @@ namespace AssisTec.Repository
         
         public List<ItemOSRelatorioDTO> ObterItensPorOSId(int idOS)
         {
-            
-            
-                var pecas = context.ItemOS
-                    .Where(i => i.id_OS == idOS)
-                    .Select(i => new ItemOSRelatorioDTO
-                    {
-                        Descricao = i.Produto != null ? i.Produto.descricao : "Peça",
-                        Quantidade = i.Quantidade,
-                        ValorUnitario = i.ValorUnitario,
-                        ValorTotal = i.Quantidade * i.ValorUnitario,
-                        Tipo = "PECA"
-                    })
-                    .ToList();
+            var pecas = context.ItemOS
+                .Where(i => i.id_OS == idOS)
+                .Select(i => new ItemOSRelatorioDTO
+                {
+                    Descricao = i.Produto != null ? i.Produto.descricao : "Peça",
+                    Quantidade = i.Quantidade,
+                    ValorUnitario = i.ValorUnitario,
+                    ValorTotal = i.Quantidade * i.ValorUnitario,
+                    Tipo = "PECA"
+                })
+                .ToList();
 
-                var servicos = context.ServicosOS
-                    .Where(s => s.id_OS == idOS)
-                    .Select(s => new ItemOSRelatorioDTO
-                    {
-                        Descricao = s.descricao,
-                        Quantidade = 1,
-                        ValorUnitario = s.valor_cobrado,
-                        ValorTotal = s.valor_cobrado,
-                        Tipo = "SERVICO"
-                    })
-                    .ToList();
+            var servicos = context.ServicosOS
+                .Where(s => s.id_OS == idOS)
+                .Select(s => new ItemOSRelatorioDTO
+                {
+                    Descricao = s.descricao,
+                    Quantidade = 1,
+                    ValorUnitario = s.valor_cobrado,
+                    ValorTotal = s.valor_cobrado,
+                    Tipo = "SERVICO"
+                })
+                .ToList();
 
-                var resultado = new List<ItemOSRelatorioDTO>();
-                resultado.AddRange(pecas);
-                resultado.AddRange(servicos);
+            var resultado = new List<ItemOSRelatorioDTO>();
+            resultado.AddRange(pecas);
+            resultado.AddRange(servicos);
 
-                return resultado;
-            
+            return resultado;
         }
 
         #endregion
@@ -436,6 +441,140 @@ namespace AssisTec.Repository
                     throw new Exception("Erro ao cancelar a Ordem de Serviço no banco de dados.", ex);
                 }
             }
+        }
+
+        #endregion
+
+        #region Filtros e Totais Dashboard
+
+        public DataTable Filtrar(OrdemServico filtro)
+        {
+            var query = AplicarFiltros(filtro);
+            var ordens = query.ToList();
+
+            DataTable tabela = new DataTable();
+            tabela.Columns.Add("ID", typeof(int));
+            tabela.Columns.Add("Cliente", typeof(string));
+            tabela.Columns.Add("Tecnico", typeof(string));
+            tabela.Columns.Add("Equipamento", typeof(string));
+            tabela.Columns.Add("Status", typeof(string));
+            tabela.Columns.Add("DataAbertura", typeof(DateTime));
+            tabela.Columns.Add("UltimaAtulizacao", typeof(DateTime));
+            tabela.Columns.Add("DataConclusao", typeof(DateTime));
+            tabela.Columns.Add("ValorTotal", typeof(decimal));
+
+            foreach (var o in ordens)
+            {
+                tabela.Rows.Add(
+                    o.id_os,
+                    o.Cliente != null ? o.Cliente.Nome : string.Empty,
+                    o.Tecnico != null ? o.Tecnico.Nome : string.Empty,
+                    o.Equipamento != null ? o.Equipamento.Descricao : string.Empty,
+                    o.status,
+                    o.data_abertura,
+                    o.data_atualizacao,
+                    o.data_fechamento,
+                    o.valor_total
+                );
+            }
+
+            return tabela;
+        }
+
+        public (int TotalOS, int EmAtendimento, int ParaRetirada, decimal TotalAReceber, decimal TotalRecebido, int QntRecebido, decimal TotalCancelado, int QntCancelado) ObterTotais(OrdemServico filtro)
+        {
+            var hoje = DateTime.Today;
+            var inicioMes = new DateTime(hoje.Year, hoje.Month, 1);
+            var fimMes = inicioMes.AddMonths(1);
+
+            IQueryable<OrdemServico> query;
+
+            if (filtro != null && (!string.IsNullOrWhiteSpace(filtro.filtroDataInicio) || 
+                                   !string.IsNullOrWhiteSpace(filtro.filtroDataConclusao) || 
+                                   !string.IsNullOrWhiteSpace(filtro.filtroBusca) || 
+                                   !string.IsNullOrWhiteSpace(filtro.filtroStatus)))
+            {
+                query = AplicarFiltros(filtro);
+            }
+            else
+            {
+                query = context.OrdemServicos.Where(o => o.data_abertura >= inicioMes && o.data_abertura < fimMes);
+            }
+
+            var dados = query.Select(o => new 
+            { 
+                Status = o.status != null ? o.status.Trim().ToUpper() : string.Empty, 
+                ValorTotal = o.valor_total, 
+                MaoDeObra = o.valor_mao_obra, 
+                Pecas = o.valor_pecas 
+            }).ToList();
+
+            int totalOS = dados.Count;
+
+            int emAtendimento = dados.Count(o => o.Status == "ABERTA");
+
+            int paraRetirada = dados.Count(o => o.Status == "AGUARDANDO_RETIRADA" || 
+                                                o.Status == "AGUARDANDO RETIRADA" ||
+                                                o.Status == "PARA RETIRADA" || 
+                                                o.Status == "CONCLUIDA" ||
+                                                o.Status == "CONCLUÍDA");
+
+            decimal totalAReceber = dados.Where(o => o.Status == "ABERTA" || 
+                                                     o.Status == "AGUARDANDO_RETIRADA" || 
+                                                     o.Status == "AGUARDANDO RETIRADA" || 
+                                                     o.Status == "PARA RETIRADA")
+                                         .Sum(o => o.ValorTotal > 0 ? o.ValorTotal : (o.MaoDeObra + o.Pecas));
+
+            var osFinalizadas = dados.Where(o => o.Status == "FINALIZADA").ToList();
+            decimal totalRecebido = osFinalizadas.Sum(o => o.ValorTotal > 0 ? o.ValorTotal : (o.MaoDeObra + o.Pecas));
+            int qntRecebido = osFinalizadas.Count;
+
+            var osCanceladas = dados.Where(o => o.Status == "CANCELADA").ToList();
+            decimal totalCancelado = osCanceladas.Sum(o => o.ValorTotal > 0 ? o.ValorTotal : (o.MaoDeObra + o.Pecas));
+            int qntCancelado = osCanceladas.Count;
+
+            return (totalOS, emAtendimento, paraRetirada, totalAReceber, totalRecebido, qntRecebido, totalCancelado, qntCancelado);
+        }
+
+        public IQueryable<OrdemServico> AplicarFiltros(OrdemServico filtro)
+        {
+            var query = context.OrdemServicos
+                .Include(o => o.Cliente)
+                .Include(o => o.Tecnico)
+                .Include(o => o.Equipamento)
+                .AsQueryable();
+
+            if (filtro == null) return query;
+
+            if (!string.IsNullOrWhiteSpace(filtro.filtroStatus))
+            {
+                query = query.Where(o => o.status == filtro.filtroStatus);
+            }
+
+            if (!string.IsNullOrWhiteSpace(filtro.filtroBusca))
+            {
+                string termo = filtro.filtroBusca.Trim().ToLower();
+                bool ehNumero = int.TryParse(termo, out int idBusca);
+
+                query = query.Where(o =>
+                    (ehNumero && o.id_os == idBusca) ||
+                    (o.Cliente != null && o.Cliente.Nome.ToLower().Contains(termo)) ||
+                    (o.Tecnico != null && o.Tecnico.Nome.ToLower().Contains(termo)) ||
+                    (o.Equipamento != null && o.Equipamento.Descricao.ToLower().Contains(termo))
+                );
+            }
+
+            if (DateTime.TryParseExact(filtro.filtroDataInicio, "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime dtInicio))
+            {
+                query = query.Where(o => o.data_abertura >= dtInicio.Date);
+            }
+
+            if (DateTime.TryParseExact(filtro.filtroDataConclusao, "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime dtFim))
+            {
+                query = query.Where(o => o.data_fechamento < dtFim.Date.AddDays(1));
+            }
+
+            return query;
         }
 
         #endregion
