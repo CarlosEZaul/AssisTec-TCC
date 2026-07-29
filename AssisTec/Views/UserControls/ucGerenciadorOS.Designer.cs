@@ -175,6 +175,7 @@ namespace AssisTec.UserControls
             this.btnPagamento.TabIndex = 104;
             this.btnPagamento.Text = "Registrar Pagamento";
             this.btnPagamento.UseVisualStyleBackColor = false;
+            this.btnPagamento.Click += new System.EventHandler(this.btnPagamento_Click);
             // 
             // btnNew
             // 

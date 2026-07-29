@@ -24,14 +24,7 @@ namespace AssisTec.Repository
             return _context.SaveChanges() > 0;
         }
 
-        public bool InserirComVinculoOS(ContasReceber conta, int idOs)
-        {
-            if (!_context.OrdemServicos.Any(o => o.id_os == idOs)) return false;
-
-            conta.id_os_fk = idOs;
-            _context.ContasReceber.Add(conta);
-            return _context.SaveChanges() > 0;
-        }
+        
 
         public IEnumerable<ContasReceberDto> ObterTodos()
         {

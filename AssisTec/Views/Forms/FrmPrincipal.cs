@@ -60,7 +60,9 @@ namespace AssisTec
                 ServicosOSRepository,
                 produtoRepository,
                 movimentacaoEstoqueRepository,
-                HistoricoAlteracaoOSRepository);
+                HistoricoAlteracaoOSRepository,
+                contasReceberRepository,
+                pagamentoRepository);
             _clienteService = new ClienteService(clienteRepository);
             _usuarioService = new UsuarioService(usuarioRepository);
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Transactions;
 using AssisTec.Models;
@@ -19,6 +20,8 @@ namespace AssisTec.Service
         private readonly IProdutoRepository _produtoRepository;
         private readonly IMovimentacaoEstoqueRepository _movimentacaoEstoqueRepository;
         private readonly IHistoricoAlteracaoOSRepository _historicoAlteracaoOSRepository;
+        private readonly IPagamentoRepository _pagamentoRepository;
+        private readonly IContaReceberRepository _contaReceberRepository;
 
         public OrdemServicoService(
             IOrdemServicoRepository ordemServicoRepository,
@@ -29,7 +32,9 @@ namespace AssisTec.Service
             IServicosOSRepository servicosOSRepository,
             IProdutoRepository produtoRepository,
             IMovimentacaoEstoqueRepository movimentacaoEstoqueRepository,
-            IHistoricoAlteracaoOSRepository historicoAlteracaoOSRepository
+            IHistoricoAlteracaoOSRepository historicoAlteracaoOSRepository,
+            IContaReceberRepository contaReceberRepository,
+            IPagamentoRepository pagamentoRepository
             )
         {
             _ordemServicoRepository = ordemServicoRepository ?? throw new ArgumentNullException(nameof(ordemServicoRepository));
@@ -41,6 +46,8 @@ namespace AssisTec.Service
             _produtoRepository = produtoRepository ?? throw new ArgumentNullException(nameof(produtoRepository));
             _movimentacaoEstoqueRepository = movimentacaoEstoqueRepository ?? throw new ArgumentNullException(nameof(movimentacaoEstoqueRepository));
             _historicoAlteracaoOSRepository = historicoAlteracaoOSRepository ?? throw new ArgumentNullException(nameof(historicoAlteracaoOSRepository));
+            _pagamentoRepository = pagamentoRepository ?? throw new ArgumentNullException(nameof(pagamentoRepository));
+            _contaReceberRepository = contaReceberRepository ?? throw new ArgumentNullException(nameof(contaReceberRepository));
         }
 
         #region Consultas e Leitura
@@ -468,6 +475,48 @@ namespace AssisTec.Service
         {
             return _ordemServicoRepository.SalvarAlteracoesOS(os);
         }
+        public bool DefinirParaRetirada(int idOS, int idUsuario)
+        {
+            if (idOS <= 0)
+                throw new ArgumentException("Ordem de Serviço inválida.");
+
+            var os = _ordemServicoRepository.ObterPorId(idOS);
+            if (os == null)
+            {
+                throw new ArgumentException("Ordem de Serviço não encontrada.");
+            }
+
+            if (os.status == "CANCELADA")
+            {
+                throw new InvalidOperationException("Não é possível alterar o status de uma Ordem de Serviço cancelada por aqui.");
+            }
+
+            if (os.status == "AGUARDANDO_RETIRADA")
+            {
+                throw new InvalidOperationException("A Ordem de Serviço já está aguardando retirada.");
+            }
+
+            os.status = "AGUARDANDO_RETIRADA";
+            os.data_atualizacao = DateTime.Now;
+
+            bool sucesso = _ordemServicoRepository.SalvarAlteracoesOS(os);
+
+            if (sucesso)
+            {
+                var historico = new HistoricoAlteracaoOS
+                {
+                    idOS = idOS,
+                    idUsuario = idUsuario,
+                    tipo = "ALTERACAO_STATUS",
+                    descricao = $"Status da Ordem de Serviço #{idOS} alterado para AGUARDANDO_RETIRADA.",
+                    dataAlteracao = DateTime.Now
+                };
+
+                _historicoAlteracaoOSRepository.RegistrarHistorico(historico);
+            }
+
+            return sucesso;
+        }
 
         public bool CancelarOrdemServico(int idOS, int idUsuario)
         {
@@ -510,12 +559,23 @@ namespace AssisTec.Service
                 throw new ArgumentException("Ordem de Serviço não encontrada.");
             }
 
-            if (os.status != "CANCELADA")
+            if (os.status != "CANCELADA" && os.status != "AGUARDANDO_RETIRADA")
             {
-                throw new ArgumentException("Apenas Ordens de Serviço canceladas podem ser reabertas.");
+                throw new InvalidOperationException("Apenas Ordens de Serviço canceladas ou aguardando retirada podem ser reabertas.");
             }
 
-            bool sucesso = _ordemServicoRepository.ReabrirOrdemServico(idOS);
+            bool sucesso = false;
+
+            if (os.status == "CANCELADA")
+            {
+                sucesso = _ordemServicoRepository.ReabrirOrdemServico(idOS);
+            }
+            else if (os.status == "AGUARDANDO_RETIRADA")
+            {
+                os.status = "ABERTA";
+                os.data_atualizacao = DateTime.Now;
+                sucesso = _ordemServicoRepository.SalvarAlteracoesOS(os);
+            }
 
             if (sucesso)
             {
@@ -532,6 +592,89 @@ namespace AssisTec.Service
             }
 
             return sucesso;
+        }
+
+        #endregion
+
+        #region Pagamento
+
+        public DataTable CarregarFormasPagamento(bool incluirOpcaoTodas = false)
+        {
+            var dt = _pagamentoRepository.carregarFormasPamento();
+
+            if (incluirOpcaoTodas)
+            {
+                DataRow dr = dt.NewRow();
+                dr["id_forma_pagamento"] = 0;
+                dr["exibicao"] = "Todas as formas de pagamento";
+                dt.Rows.InsertAt(dr, 0);
+            }
+            return dt;
+        }
+        
+        public bool RegistrarPagamento(int idOS, int idUsuario, int formaPagamento)
+        {
+            try
+            {
+if (idOS <= 0)
+                throw new ArgumentException("Ordem de Serviço inválida.");
+
+            var os = _ordemServicoRepository.ObterPorId(idOS);
+            if (os == null)
+                throw new ArgumentException("Ordem de Serviço não encontrada.");
+
+            if (os.status == "CANCELADA")
+                throw new InvalidOperationException("Não é possível registrar pagamento para uma OS cancelada.");
+
+            if (os.status == "FINALIZADA")
+                throw new InvalidOperationException("Esta Ordem de Serviço já foi finalizada.");
+
+            if (os.valor_total <= 0)
+                throw new InvalidOperationException("A Ordem de Serviço não possui um valor total válido para pagamento.");
+
+            os.status = "FINALIZADA";
+            os.data_atualizacao = DateTime.Now;
+
+            var contaReceber = new ContasReceber
+            {
+                id_os_fk = idOS,
+                descricao = $"Recebimento referente à OS #{idOS}",
+                valor = os.valor_total,
+                data_vencimento = DateTime.Now.Date,
+                data_emissao = DateTime.Now.Date,
+                data_pagamento = DateTime.Now.Date,
+                status = "PAGA",
+                id_forma_pagamento_fk = formaPagamento,
+                observacoes = ""
+            };
+
+            bool contaSalva = _contaReceberRepository.Inserir(contaReceber);
+            if (!contaSalva) return false;
+
+            bool osAtualizada = _ordemServicoRepository.SalvarAlteracoesOS(os);
+
+            if (osAtualizada)
+            {
+                var historico = new HistoricoAlteracaoOS
+                {
+                    idOS = idOS,
+                    idUsuario = idUsuario,
+                    tipo = "PAGAMENTO_REGISTRADO",
+                    descricao = $"Pagamento de {contaReceber.valor:C2} registrado e conta baixada em Contas a Receber. OS #{idOS} finalizada.",
+                    dataAlteracao = DateTime.Now
+                };
+
+                _historicoAlteracaoOSRepository.RegistrarHistorico(historico);
+                return true;
+            }
+
+            return false;
+            }
+            catch (Exception ex)
+            {
+                throw new ArgumentNullException("Falha ao registrar pagamento" + ex.Message);
+            }
+            
         }
 
         #endregion

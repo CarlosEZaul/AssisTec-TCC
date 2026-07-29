@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using AssisTec.Models;
 using AssisTec.Service;
 using AssisTec.SubForms_do_Gerenciador_de_Pedidos;
+using AssisTec.Views.UserControls.SubUserControl_do_Gerenciador_de_OS;
 using MySql.Data.MySqlClient;
 
 namespace AssisTec.UserControls
@@ -76,6 +77,7 @@ namespace AssisTec.UserControls
         {
             FrmGerenciarOS frmGerenciarOs = new FrmGerenciarOS(_idOS, _ordemServicoService);
             frmGerenciarOs.ShowDialog();
+            AtualizarGrid();
         }
 
         private void dgvOS_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -104,6 +106,20 @@ namespace AssisTec.UserControls
         }
 
         private void dgvOS_CellDoubleClick(object sender, DataGridViewCellEventArgs e) => btnGerenciar_Click(sender, e);
-        
+
+        private void btnPagamento_Click(object sender, EventArgs e)
+        {
+            if (_ordemServicoService.ObterPorId(_idOS).status != "AGUARDANDO_RETIRADA")
+            {
+                MessageBox.Show("Somente OS para retirada podem registrar o pagamento",  "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+            ConfigurarSubComponente(new ucRegistrarPagamentoOS(_idOS, _ordemServicoService));
+            
+                
+            
+            
+            
+        }
     }
 }

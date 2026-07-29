@@ -402,6 +402,12 @@
     <Compile Include="Views\UserControls\SubUserControl do Gerenciador de OS\ucProdutosUtilizados.Designer.cs">
       <DependentUpon>ucProdutosUtilizados.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\UserControls\SubUserControl do Gerenciador de OS\ucRegistrarPagamentoOS.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\UserControls\SubUserControl do Gerenciador de OS\ucRegistrarPagamentoOS.Designer.cs">
+      <DependentUpon>ucRegistrarPagamentoOS.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\UserControls\SubUserControl do Gerenciador de OS\ucServicos.cs" />
     <Compile Include="Views\UserControls\SubUserControl do Gerenciador de OS\ucServicos.Designer.cs">
       <DependentUpon>ucServicos.cs</DependentUpon>
@@ -506,6 +512,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\UserControls\SubUserControl do Gerenciador de OS\ucProdutosUtilizados.resx">
       <DependentUpon>ucProdutosUtilizados.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\UserControls\SubUserControl do Gerenciador de OS\ucRegistrarPagamentoOS.resx">
+      <DependentUpon>ucRegistrarPagamentoOS.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\UserControls\SubUserControl do Gerenciador de OS\ucServicos.resx">
       <DependentUpon>ucServicos.cs</DependentUpon>

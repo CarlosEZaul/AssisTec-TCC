@@ -3372,3 +3372,4 @@ C:\Users\Pc do estagiario\Desktop\AssisTec-27-07\AssisTec\obj\Debug\AssisTec.exe
 C:\Users\Pc do estagiario\Desktop\AssisTec-27-07\AssisTec\obj\Debug\AssisTec.pdb
 C:\Users\Pc do estagiario\Desktop\AssisTec-27-07\AssisTec\obj\Debug\AssisTec.Views.UserControls.SubUserControl_do_Gerenciador_de_OS.ucDetalhesEquipamento.resources
 C:\Users\Pc do estagiario\Desktop\AssisTec-27-07\AssisTec\obj\Debug\AssisTec.Views.UserControls.SubUserControl_do_Gerenciador_de_OS.ucHistoricoAlteracao.resources
+C:\Users\Pc do estagiario\Desktop\AssisTec-27-07\AssisTec\obj\Debug\AssisTec.Views.UserControls.SubUserControl_do_Gerenciador_de_OS.ucRegistrarPagamentoOS.resources

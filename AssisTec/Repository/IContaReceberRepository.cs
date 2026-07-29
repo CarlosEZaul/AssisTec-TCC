@@ -9,7 +9,6 @@ namespace AssisTec.Repository
     public interface IContaReceberRepository
     {
         bool Inserir(ContasReceber conta);
-        bool InserirComVinculoOS(ContasReceber conta, int idOs);
         IEnumerable<ContasReceberDto> ObterTodos();
         ContasReceber ObterPorId(int id);
         bool Atualizar(ContasReceber conta);

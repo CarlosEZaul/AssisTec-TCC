@@ -93,17 +93,37 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
 
         private void ConfigurarBotaoStatus(OrdemServico ordemServico)
         {
-            if (ordemServico != null)
-            {
-                if (ordemServico.status == "ABERTA")
-                {
-                    btnStatus.Text = "Cancelar OS";
-                }
+            if (ordemServico == null) return;
 
-                if (ordemServico.status == "CANCELADA")
-                {
+            btnStatus.Enabled = true;
+            btnRetirada.Enabled = true;
+
+            switch (ordemServico.status)
+            {
+                case "ABERTA":
+                    btnStatus.Text = "Cancelar OS";
+                    btnRetirada.Text = "Definir para retirada";
+                    break;
+
+                case "CANCELADA":
                     btnStatus.Text = "Reabrir OS";
-                }
+                    btnRetirada.Enabled = false;
+                    break;
+
+                case "AGUARDANDO_RETIRADA":
+                    btnStatus.Enabled = false;
+                    btnRetirada.Text = "Reabrir OS";
+                    break;
+                case "FINALIZADA":
+                    btnRetirada.Enabled = false;
+                    btnStatus.Enabled = false;
+                    btnSalvar.Enabled = false;
+                    break;
+
+                default:
+                    btnStatus.Enabled = false;
+                    btnRetirada.Enabled = false;
+                    break;
             }
         }
         
@@ -238,6 +258,72 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             catch (Exception ex)
             {
                 MessageBox.Show($"Erro ao processar a solicitação: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnRetirada_Click(object sender, EventArgs e)
+        {
+            if (_id <= 0)
+            {
+                MessageBox.Show("Nenhuma Ordem de Serviço selecionada.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            try
+            {
+                var ordem = _ordemServicoService.ObterPorId(_id);
+                if (ordem == null)
+                {
+                    MessageBox.Show("Ordem de Serviço não encontrada.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                int idTecnico = ordem.id_tecnico.GetValueOrDefault();
+                bool isAguardandoRetirada = ordem.status == "AGUARDANDO_RETIRADA";
+
+                string mensagemConfirmacao = isAguardandoRetirada
+                    ? $"Deseja reabrir a OS #{_id} e retornar o status para ABERTA?"
+                    : $"Deseja definir a OS #{_id} como 'Aguardando Retirada'?";
+
+                string tituloConfirmacao = isAguardandoRetirada ? "Confirmação de Reabertura" : "Confirmação de Retirada";
+
+                var confirmacao = MessageBox.Show(
+                    mensagemConfirmacao,
+                    tituloConfirmacao,
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question
+                );
+
+                if (confirmacao == DialogResult.No) return;
+
+                bool sucesso;
+
+                if (isAguardandoRetirada)
+                {
+                    sucesso = _ordemServicoService.ReabrirOrdemServico(_id, idTecnico);
+                }
+                else
+                {
+                    sucesso = _ordemServicoService.DefinirParaRetirada(_id, idTecnico);
+                }
+
+                if (sucesso)
+                {
+                    string mensagemSucesso = isAguardandoRetirada
+                        ? "Ordem de Serviço reaberta com sucesso!"
+                        : "Status alterado para Aguardando Retirada com sucesso!";
+
+                    MessageBox.Show(mensagemSucesso, "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    this.FindForm()?.Close();
+                }
+                else
+                {
+                    MessageBox.Show("Não foi possível alterar o status da Ordem de Serviço.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao alterar status: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

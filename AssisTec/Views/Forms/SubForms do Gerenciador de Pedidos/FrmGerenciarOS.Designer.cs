@@ -36,6 +36,7 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             this.btnProdutos = new System.Windows.Forms.Button();
             this.btnDetalhes = new System.Windows.Forms.Button();
             this.panelBotoes = new System.Windows.Forms.Panel();
+            this.btnRetirada = new System.Windows.Forms.Button();
             this.btnFechar = new System.Windows.Forms.Button();
             this.btnStatus = new System.Windows.Forms.Button();
             this.btnAtualizar = new System.Windows.Forms.Button();
@@ -96,6 +97,7 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             // 
             this.panelBotoes.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(55)))), ((int)(((byte)(76)))));
             this.panelBotoes.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelBotoes.Controls.Add(this.btnRetirada);
             this.panelBotoes.Controls.Add(this.btnFechar);
             this.panelBotoes.Controls.Add(this.btnStatus);
             this.panelBotoes.Controls.Add(this.btnAtualizar);
@@ -106,6 +108,21 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             this.panelBotoes.Name = "panelBotoes";
             this.panelBotoes.Size = new System.Drawing.Size(679, 38);
             this.panelBotoes.TabIndex = 75;
+            // 
+            // btnRetirada
+            // 
+            this.btnRetirada.BackColor = System.Drawing.Color.RoyalBlue;
+            this.btnRetirada.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnRetirada.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRetirada.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.btnRetirada.ForeColor = System.Drawing.SystemColors.Control;
+            this.btnRetirada.Location = new System.Drawing.Point(389, 5);
+            this.btnRetirada.Name = "btnRetirada";
+            this.btnRetirada.Size = new System.Drawing.Size(112, 23);
+            this.btnRetirada.TabIndex = 105;
+            this.btnRetirada.Text = "Definir para retirada";
+            this.btnRetirada.UseVisualStyleBackColor = false;
+            this.btnRetirada.Click += new System.EventHandler(this.btnRetirada_Click);
             // 
             // btnFechar
             // 
@@ -145,7 +162,7 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             this.btnAtualizar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAtualizar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.btnAtualizar.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnAtualizar.Location = new System.Drawing.Point(228, 5);
+            this.btnAtualizar.Location = new System.Drawing.Point(227, 5);
             this.btnAtualizar.Name = "btnAtualizar";
             this.btnAtualizar.Size = new System.Drawing.Size(75, 23);
             this.btnAtualizar.TabIndex = 104;
@@ -160,7 +177,7 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             this.btnSalvar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSalvar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.btnSalvar.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnSalvar.Location = new System.Drawing.Point(147, 5);
+            this.btnSalvar.Location = new System.Drawing.Point(146, 5);
             this.btnSalvar.Name = "btnSalvar";
             this.btnSalvar.Size = new System.Drawing.Size(75, 23);
             this.btnSalvar.TabIndex = 103;
@@ -175,7 +192,7 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             this.btnImprimir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnImprimir.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.btnImprimir.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnImprimir.Location = new System.Drawing.Point(309, 5);
+            this.btnImprimir.Location = new System.Drawing.Point(308, 5);
             this.btnImprimir.Name = "btnImprimir";
             this.btnImprimir.Size = new System.Drawing.Size(75, 23);
             this.btnImprimir.TabIndex = 46;
@@ -215,6 +232,8 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             this.panelBotoes.ResumeLayout(false);
             this.ResumeLayout(false);
         }
+
+        private System.Windows.Forms.Button btnRetirada;
 
         private System.Windows.Forms.Button btnSalvar;
 
