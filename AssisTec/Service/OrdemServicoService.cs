@@ -4,8 +4,10 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Transactions;
+using AssisTec.DTO;
 using AssisTec.Models;
 using AssisTec.Repository;
+using Microsoft.EntityFrameworkCore;
 
 namespace AssisTec.Service
 {
@@ -113,6 +115,11 @@ namespace AssisTec.Service
         public List<Produto> ObterProdutos()
         {
             return _produtoRepository.ObterProdutos().Where(p => p.status == "Ativado").ToList();
+        }
+
+        List<ItemOSRelatorioDTO> ObterItensPorOSId(int idOS)
+        {
+            return _ordemServicoRepository.ObterItensPorOSId(idOS);
         }
 
         public Produto ObterProdutoPorId(int id)
@@ -616,65 +623,123 @@ namespace AssisTec.Service
         {
             try
             {
-if (idOS <= 0)
-                throw new ArgumentException("Ordem de Serviço inválida.");
+                if (idOS <= 0)
+                    throw new ArgumentException("Ordem de Serviço inválida.");
 
-            var os = _ordemServicoRepository.ObterPorId(idOS);
-            if (os == null)
-                throw new ArgumentException("Ordem de Serviço não encontrada.");
+                var os = _ordemServicoRepository.ObterPorId(idOS);
+                if (os == null)
+                    throw new ArgumentException("Ordem de Serviço não encontrada.");
 
-            if (os.status == "CANCELADA")
-                throw new InvalidOperationException("Não é possível registrar pagamento para uma OS cancelada.");
+                if (os.status == "CANCELADA")
+                    throw new InvalidOperationException("Não é possível registrar pagamento para uma OS cancelada.");
 
-            if (os.status == "FINALIZADA")
-                throw new InvalidOperationException("Esta Ordem de Serviço já foi finalizada.");
+                if (os.status == "FINALIZADA")
+                    throw new InvalidOperationException("Esta Ordem de Serviço já foi finalizada.");
 
-            if (os.valor_total <= 0)
-                throw new InvalidOperationException("A Ordem de Serviço não possui um valor total válido para pagamento.");
+                if (os.valor_total <= 0)
+                    throw new InvalidOperationException("A Ordem de Serviço não possui um valor total válido para pagamento.");
 
-            os.status = "FINALIZADA";
-            os.data_atualizacao = DateTime.Now;
+                os.status = "FINALIZADA";
+                os.data_atualizacao = DateTime.Now;
 
-            var contaReceber = new ContasReceber
-            {
-                id_os_fk = idOS,
-                descricao = $"Recebimento referente à OS #{idOS}",
-                valor = os.valor_total,
-                data_vencimento = DateTime.Now.Date,
-                data_emissao = DateTime.Now.Date,
-                data_pagamento = DateTime.Now.Date,
-                status = "PAGA",
-                id_forma_pagamento_fk = formaPagamento,
-                observacoes = ""
-            };
-
-            bool contaSalva = _contaReceberRepository.Inserir(contaReceber);
-            if (!contaSalva) return false;
-
-            bool osAtualizada = _ordemServicoRepository.SalvarAlteracoesOS(os);
-
-            if (osAtualizada)
-            {
-                var historico = new HistoricoAlteracaoOS
+                var contaReceber = new ContasReceber
                 {
-                    idOS = idOS,
-                    idUsuario = idUsuario,
-                    tipo = "PAGAMENTO_REGISTRADO",
-                    descricao = $"Pagamento de {contaReceber.valor:C2} registrado e conta baixada em Contas a Receber. OS #{idOS} finalizada.",
-                    dataAlteracao = DateTime.Now
+                    id_os_fk = idOS,
+                    descricao = $"Recebimento referente à OS #{idOS}",
+                    valor = os.valor_total,
+                    data_vencimento = DateTime.Now.Date,
+                    data_emissao = DateTime.Now.Date,
+                    data_pagamento = DateTime.Now.Date,
+                    status = "PAGA",
+                    id_forma_pagamento_fk = formaPagamento,
+                    observacoes = ""
                 };
 
-                _historicoAlteracaoOSRepository.RegistrarHistorico(historico);
-                return true;
-            }
+                bool contaSalva = _contaReceberRepository.Inserir(contaReceber);
+                if (!contaSalva) return false;
 
-            return false;
+                bool osAtualizada = _ordemServicoRepository.SalvarAlteracoesOS(os);
+
+                if (osAtualizada)
+                {
+                    var historico = new HistoricoAlteracaoOS
+                    {
+                        idOS = idOS,
+                        idUsuario = idUsuario,
+                        tipo = "PAGAMENTO_REGISTRADO",
+                        descricao = $"Pagamento de {contaReceber.valor:C2} registrado e conta baixada em Contas a Receber. OS #{idOS} finalizada.",
+                        dataAlteracao = DateTime.Now
+                    };
+
+                    _historicoAlteracaoOSRepository.RegistrarHistorico(historico);
+                    return true;
+                }
+
+                return false;
             }
             catch (Exception ex)
             {
                 throw new ArgumentNullException("Falha ao registrar pagamento" + ex.Message);
             }
             
+        }
+
+        #endregion
+
+        #region RelatórioPDF
+
+        public OrdemServicoRelatorioDTO GerarReciboOS(int idOS)
+        {
+            if (idOS <= 0)
+                throw new ArgumentException("Identificador da Ordem de Serviço inválido.");
+
+            using (var context = new AppDbContext())
+            {
+                var os = context.OrdemServicos
+                    .Include(o => o.Cliente)
+                    .Include(o => o.Equipamento)
+                    .FirstOrDefault(o => o.id_os == idOS);
+
+                if (os == null)
+                    throw new InvalidOperationException($"Ordem de Serviço #{idOS} não encontrada.");
+
+                var conta = _contaReceberRepository.ObterPorOSId(idOS);
+                var itens = ObterItensPorOSId(idOS);
+
+                string formaPagamentoTexto = "Não registrado";
+                if (conta != null && conta.Pagamento != null)
+                {
+                    formaPagamentoTexto = conta.Pagamento.Descricao;
+                }
+
+                var relatorio = new OrdemServicoRelatorioDTO
+                {
+                    IdOS = os.id_os,
+                    DataAbertura = os.data_abertura,
+                    DataAtualizacao = os.data_atualizacao,
+                    Status = os.status,
+
+                    NomeCliente = os.Cliente != null ? os.Cliente.Nome : "Cliente não informado",
+                    DocumentoCliente = os.Cliente != null ? os.Cliente.Cpf : "-",
+                    TelefoneCliente = os.Cliente != null ? os.Cliente.Telefone : "-",
+                    EnderecoCliente = os.Cliente != null ? $"{os.Cliente.Rua}, {os.Cliente.Numero} - {os.Cliente.Bairro}" : "-",
+
+                    Equipamento = os.Equipamento != null ? os.Equipamento.Descricao : "Não informado",
+                    MarcaModelo = os.Equipamento != null ? $"{os.Equipamento.Marca} {os.Equipamento.Modelo}".Trim() : "-",
+                    NumeroSerie = os.Equipamento != null ? os.Equipamento.Numero_Serie : "-",
+                    DefeitoRelatado = os.problema_relatado,
+                    LaudoTecnico = os.diagnostico,
+
+                    ValorPecas = os.valor_pecas,
+                    ValorMaoObra = os.valor_mao_obra,
+                    ValorTotal = os.valor_total,
+                    FormaPagamento = formaPagamentoTexto,
+
+                    Itens = itens
+                };
+
+                return relatorio;
+            }
         }
 
         #endregion

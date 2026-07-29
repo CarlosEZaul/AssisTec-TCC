@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using AssisTec.DTO;
 using AssisTec.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -83,6 +84,42 @@ namespace AssisTec.Repository
         public bool ExisteOSAbertaPorCliente(int idCliente)
         {
             return context.OrdemServicos.Any(os => os.id_cliente == idCliente && os.status == "ABERTA");
+        }
+        
+        public List<ItemOSRelatorioDTO> ObterItensPorOSId(int idOS)
+        {
+            
+            
+                var pecas = context.ItemOS
+                    .Where(i => i.id_OS == idOS)
+                    .Select(i => new ItemOSRelatorioDTO
+                    {
+                        Descricao = i.Produto != null ? i.Produto.descricao : "Peça",
+                        Quantidade = i.Quantidade,
+                        ValorUnitario = i.ValorUnitario,
+                        ValorTotal = i.Quantidade * i.ValorUnitario,
+                        Tipo = "PECA"
+                    })
+                    .ToList();
+
+                var servicos = context.ServicosOS
+                    .Where(s => s.id_OS == idOS)
+                    .Select(s => new ItemOSRelatorioDTO
+                    {
+                        Descricao = s.descricao,
+                        Quantidade = 1,
+                        ValorUnitario = s.valor_cobrado,
+                        ValorTotal = s.valor_cobrado,
+                        Tipo = "SERVICO"
+                    })
+                    .ToList();
+
+                var resultado = new List<ItemOSRelatorioDTO>();
+                resultado.AddRange(pecas);
+                resultado.AddRange(servicos);
+
+                return resultado;
+            
         }
 
         #endregion

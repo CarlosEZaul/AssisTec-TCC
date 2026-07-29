@@ -246,6 +246,7 @@
     <Compile Include="DTO\ContasReceberDto.cs" />
     <Compile Include="DTO\LucroMesDTO.cs" />
     <Compile Include="DTO\MovimentacoesEstoqueDTO.cs" />
+    <Compile Include="DTO\OrdemServicoRelatorioDTO.cs" />
     <Compile Include="DTO\ProdutoDTO.cs" />
     <Compile Include="DTO\UsuarioDTO.cs" />
     <Compile Include="Migrations\20260609165159_InitialCreate.cs" />
@@ -309,6 +310,7 @@
     <Compile Include="Utils\BuscaCEP.cs" />
     <Compile Include="Utils\ContatoWhatsApp.cs" />
     <Compile Include="Utils\DesignComponentes.cs" />
+    <Compile Include="Utils\GeradorPdfOS.cs" />
     <Compile Include="Utils\Validacao.cs" />
     <Compile Include="Views\Forms\FrmLogin.cs" />
     <Compile Include="Views\Forms\FrmLogin.Designer.cs">

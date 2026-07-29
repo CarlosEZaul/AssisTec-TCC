@@ -24,7 +24,11 @@ namespace AssisTec.Repository
             return _context.SaveChanges() > 0;
         }
 
-        
+        public ContasReceber ObterPorOSId(int idOS)
+        {
+            return _context.ContasReceber.Include(cr => cr.Pagamento).FirstOrDefault(cr => cr.id_os_fk == idOS);
+            
+        }
 
         public IEnumerable<ContasReceberDto> ObterTodos()
         {

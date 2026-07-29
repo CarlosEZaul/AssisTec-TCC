@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Data;
+using AssisTec.DTO;
 using AssisTec.Models;
 
 namespace AssisTec.Repository
@@ -7,6 +8,7 @@ namespace AssisTec.Repository
     public interface IOrdemServicoRepository
     {
         IEnumerable<dynamic> ObterTodasOSAtuais();
+        List<ItemOSRelatorioDTO> ObterItensPorOSId(int idOS);
         OrdemServico ObterPorId(int idOrdemServico);
         bool SalvarOrdemServico(OrdemServico ordemServico);
         bool SalvarAlteracoesOS(OrdemServico ordemServico);

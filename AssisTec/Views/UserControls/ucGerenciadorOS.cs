@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using AssisTec.Models;
 using AssisTec.Service;
 using AssisTec.SubForms_do_Gerenciador_de_Pedidos;
+using AssisTec.Utils;
 using AssisTec.Views.UserControls.SubUserControl_do_Gerenciador_de_OS;
 using MySql.Data.MySqlClient;
 
@@ -101,7 +102,6 @@ namespace AssisTec.UserControls
         {
             btnGerenciar.Enabled = ativo;
             btnPagamento.Enabled = ativo;
-            btnRelatorio.Enabled = ativo;
             btnRecibo.Enabled = ativo;
         }
 
@@ -115,11 +115,36 @@ namespace AssisTec.UserControls
                 return;
             }
             ConfigurarSubComponente(new ucRegistrarPagamentoOS(_idOS, _ordemServicoService));
-            
-                
-            
-            
-            
+        }
+        
+        private void btnRecibo_Click_1(object sender, EventArgs e)
+        {
+            if (_idOS <= 0)
+            {
+                MessageBox.Show("Selecione uma Ordem de Serviço válida.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            try
+            {
+                var dadosRelatorio = _ordemServicoService.GerarReciboOS(_idOS);
+
+                using (SaveFileDialog sfd = new SaveFileDialog())
+                {
+                    sfd.Filter = "Arquivo PDF (*.pdf)|*.pdf";
+                    sfd.FileName = $"OS_{_idOS}_{DateTime.Now:yyyyMMdd_HHmmss}.pdf";
+
+                    if (sfd.ShowDialog() == DialogResult.OK)
+                    {
+                        GeradorPdfOS.GerarRecibo(dadosRelatorio, sfd.FileName);
+                        MessageBox.Show("Relatório Gerado com sucesso!");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao gerar PDF: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

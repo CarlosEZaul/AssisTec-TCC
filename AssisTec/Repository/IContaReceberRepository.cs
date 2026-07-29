@@ -10,6 +10,7 @@ namespace AssisTec.Repository
     {
         bool Inserir(ContasReceber conta);
         IEnumerable<ContasReceberDto> ObterTodos();
+        ContasReceber ObterPorOSId(int idOS);
         ContasReceber ObterPorId(int id);
         bool Atualizar(ContasReceber conta);
         bool Excluir(int id);
