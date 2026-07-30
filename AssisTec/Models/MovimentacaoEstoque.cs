@@ -15,7 +15,7 @@ namespace AssisTec.Models
         public int? idProduto { get; set; }
         
         [Required]
-        [Column(TypeName = "datetime(6)")]
+        [Column(TypeName = "timestamp")]
         public DateTime data { get; set; }
         
         [Required]

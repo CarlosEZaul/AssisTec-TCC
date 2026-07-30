@@ -207,7 +207,7 @@ namespace AssisTec.Repository
         {
             try
             {
-                return context.Usuarios.Any(u => u.Nivel == 1 && u.Status.Trim().ToLower() == "Ativado");
+                return context.Usuarios.Any(u => u.Nivel == 1 && u.Status.Trim().ToLower() == "ativado");
             }
             catch (Exception ex)
             {

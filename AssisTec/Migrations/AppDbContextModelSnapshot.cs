@@ -4,6 +4,7 @@ using AssisTec.Repository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace AssisTec.Migrations
 {
@@ -14,76 +15,84 @@ namespace AssisTec.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
+                .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn)
                 .HasAnnotation("ProductVersion", "3.1.32")
-                .HasAnnotation("Relational:MaxIdentifierLength", 64);
+                .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             modelBuilder.Entity("AssisTec.Models.Cliente", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnName("id_cliente")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<string>("Bairro")
                         .IsRequired()
                         .HasColumnName("bairro")
-                        .HasColumnType("varchar(60) CHARACTER SET utf8mb4")
+                        .HasColumnType("character varying(60)")
                         .HasMaxLength(60);
 
                     b.Property<string>("Cep")
                         .IsRequired()
                         .HasColumnName("cep")
-                        .HasColumnType("varchar(9) CHARACTER SET utf8mb4")
+                        .HasColumnType("character varying(9)")
                         .HasMaxLength(9);
 
                     b.Property<string>("Cidade")
                         .IsRequired()
                         .HasColumnName("cidade")
-                        .HasColumnType("varchar(60) CHARACTER SET utf8mb4")
+                        .HasColumnType("character varying(60)")
                         .HasMaxLength(60);
 
                     b.Property<string>("Complemento")
                         .HasColumnName("complemento")
-                        .HasColumnType("varchar(100) CHARACTER SET utf8mb4")
+                        .HasColumnType("character varying(100)")
                         .HasMaxLength(100);
 
                     b.Property<string>("Cpf")
                         .IsRequired()
                         .HasColumnName("cpf")
-                        .HasColumnType("varchar(14) CHARACTER SET utf8mb4")
+                        .HasColumnType("character varying(14)")
                         .HasMaxLength(14);
 
                     b.Property<DateTime?>("DataNascimento")
                         .HasColumnName("datanasc")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("timestamp");
 
                     b.Property<string>("Estado")
                         .IsRequired()
                         .HasColumnName("estado")
-                        .HasColumnType("varchar(100) CHARACTER SET utf8mb4")
+                        .HasColumnType("character varying(100)")
                         .HasMaxLength(100);
 
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasColumnName("nome")
-                        .HasColumnType("varchar(100) CHARACTER SET utf8mb4")
+                        .HasColumnType("character varying(100)")
                         .HasMaxLength(100);
 
                     b.Property<string>("Numero")
                         .IsRequired()
                         .HasColumnName("numero")
-                        .HasColumnType("varchar(10) CHARACTER SET utf8mb4")
+                        .HasColumnType("character varying(10)")
                         .HasMaxLength(10);
 
                     b.Property<string>("Rua")
                         .IsRequired()
                         .HasColumnName("rua")
-                        .HasColumnType("varchar(100) CHARACTER SET utf8mb4")
+                        .HasColumnType("character varying(100)")
                         .HasMaxLength(100);
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnName("status")
+                        .HasColumnType("character varying(20)")
+                        .HasMaxLength(20);
 
                     b.Property<string>("Telefone")
                         .HasColumnName("telefone")
-                        .HasColumnType("varchar(20) CHARACTER SET utf8mb4")
+                        .HasColumnType("character varying(20)")
                         .HasMaxLength(20);
 
                     b.HasKey("Id");
@@ -91,52 +100,103 @@ namespace AssisTec.Migrations
                     b.ToTable("clientes");
                 });
 
-            modelBuilder.Entity("AssisTec.Models.ContasReceber", b =>
+            modelBuilder.Entity("AssisTec.Models.ContasPagar", b =>
                 {
-                    b.Property<int>("id_conta_receber")
+                    b.Property<int>("id_conta_pagar")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("id_conta_receber")
-                        .HasColumnType("int");
+                        .HasColumnName("id_conta_pagar")
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<DateTime>("data_emissao")
                         .HasColumnName("data_emissao")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("timestamp");
 
                     b.Property<DateTime?>("data_pagamento")
                         .HasColumnName("data_pagamento")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("timestamp");
 
                     b.Property<DateTime>("data_vencimento")
                         .HasColumnName("data_vencimento")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("timestamp");
 
                     b.Property<string>("descricao")
                         .IsRequired()
                         .HasColumnName("descricao")
-                        .HasColumnType("varchar(100) CHARACTER SET utf8mb4")
+                        .HasColumnType("varchar(100)")
                         .HasMaxLength(100);
 
                     b.Property<int?>("id_forma_pagamento_fk")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("id_os_fk")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<string>("observacoes")
                         .HasColumnName("observacoes")
-                        .HasColumnType("varchar(100) CHARACTER SET utf8mb4")
+                        .HasColumnType("varchar(100)")
                         .HasMaxLength(100);
 
                     b.Property<string>("status")
                         .IsRequired()
                         .HasColumnName("status")
-                        .HasColumnType("varchar(30) CHARACTER SET utf8mb4")
+                        .HasColumnType("varchar(30)")
                         .HasMaxLength(30);
 
                     b.Property<decimal>("valor")
                         .HasColumnName("valor")
-                        .HasColumnType("decimal(18,2)")
-                        .HasMaxLength(18);
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("id_conta_pagar");
+
+                    b.HasIndex("id_forma_pagamento_fk");
+
+                    b.ToTable("contas_pagar");
+                });
+
+            modelBuilder.Entity("AssisTec.Models.ContasReceber", b =>
+                {
+                    b.Property<int>("id_conta_receber")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("id_conta_receber")
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<DateTime>("data_emissao")
+                        .HasColumnName("data_emissao")
+                        .HasColumnType("timestamp");
+
+                    b.Property<DateTime?>("data_pagamento")
+                        .HasColumnName("data_pagamento")
+                        .HasColumnType("timestamp");
+
+                    b.Property<DateTime>("data_vencimento")
+                        .HasColumnName("data_vencimento")
+                        .HasColumnType("timestamp");
+
+                    b.Property<string>("descricao")
+                        .IsRequired()
+                        .HasColumnName("descricao")
+                        .HasColumnType("varchar(100)")
+                        .HasMaxLength(100);
+
+                    b.Property<int?>("id_forma_pagamento_fk")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("id_os_fk")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("observacoes")
+                        .HasColumnName("observacoes")
+                        .HasColumnType("varchar(100)")
+                        .HasMaxLength(100);
+
+                    b.Property<string>("status")
+                        .IsRequired()
+                        .HasColumnName("status")
+                        .HasColumnType("varchar(30)")
+                        .HasMaxLength(30);
+
+                    b.Property<decimal>("valor")
+                        .HasColumnName("valor")
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("id_conta_receber");
 
@@ -152,30 +212,31 @@ namespace AssisTec.Migrations
                     b.Property<int>("Id_equipamento")
                         .ValueGeneratedOnAdd()
                         .HasColumnName("id_equipamento")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<string>("Descricao")
                         .IsRequired()
                         .HasColumnName("descricao")
-                        .HasColumnType("varchar(150) CHARACTER SET utf8mb4")
+                        .HasColumnType("character varying(150)")
                         .HasMaxLength(150);
 
                     b.Property<string>("Marca")
                         .IsRequired()
                         .HasColumnName("marca")
-                        .HasColumnType("varchar(50) CHARACTER SET utf8mb4")
+                        .HasColumnType("character varying(50)")
                         .HasMaxLength(50);
 
                     b.Property<string>("Modelo")
                         .IsRequired()
                         .HasColumnName("modelo")
-                        .HasColumnType("varchar(50) CHARACTER SET utf8mb4")
+                        .HasColumnType("character varying(50)")
                         .HasMaxLength(50);
 
                     b.Property<string>("Numero_Serie")
                         .IsRequired()
                         .HasColumnName("numero_serie")
-                        .HasColumnType("varchar(50) CHARACTER SET utf8mb4")
+                        .HasColumnType("character varying(50)")
                         .HasMaxLength(50);
 
                     b.Property<string>("Observacoes")
@@ -184,13 +245,13 @@ namespace AssisTec.Migrations
 
                     b.Property<string>("acessorios")
                         .HasColumnName("acessorios")
-                        .HasColumnType("varchar(150) CHARACTER SET utf8mb4")
+                        .HasColumnType("character varying(150)")
                         .HasMaxLength(150);
 
                     b.Property<string>("estado_entrada")
                         .IsRequired()
                         .HasColumnName("estado_entrada")
-                        .HasColumnType("varchar(50) CHARACTER SET utf8mb4")
+                        .HasColumnType("character varying(50)")
                         .HasMaxLength(50);
 
                     b.HasKey("Id_equipamento");
@@ -198,66 +259,150 @@ namespace AssisTec.Migrations
                     b.ToTable("equipamentos");
                 });
 
+            modelBuilder.Entity("AssisTec.Models.HistoricoAlteracaoOS", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("id")
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<DateTime>("dataAlteracao")
+                        .HasColumnName("data_alteracao")
+                        .HasColumnType("timestamp");
+
+                    b.Property<string>("descricao")
+                        .IsRequired()
+                        .HasColumnName("descricao")
+                        .HasColumnType("character varying(100)")
+                        .HasMaxLength(100);
+
+                    b.Property<int>("idOS")
+                        .HasColumnName("id_os")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("idUsuario")
+                        .HasColumnName("id_usuario")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("tipo")
+                        .IsRequired()
+                        .HasColumnName("tipo")
+                        .HasColumnType("character varying(100)")
+                        .HasMaxLength(100);
+
+                    b.HasKey("id");
+
+                    b.HasIndex("idOS");
+
+                    b.HasIndex("idUsuario");
+
+                    b.ToTable("historico_alteracao_os");
+                });
+
+            modelBuilder.Entity("AssisTec.Models.MovimentacaoEstoque", b =>
+                {
+                    b.Property<int>("idMovimentacao")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("id_movimentacao")
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<DateTime>("data")
+                        .HasColumnName("data")
+                        .HasColumnType("timestamp");
+
+                    b.Property<string>("descricao")
+                        .IsRequired()
+                        .HasColumnName("descricao")
+                        .HasColumnType("character varying(100)")
+                        .HasMaxLength(100);
+
+                    b.Property<int?>("idProduto")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("quantidade")
+                        .HasColumnName("quantidade")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("tipoMovimentacao")
+                        .IsRequired()
+                        .HasColumnName("tipo_movimentacao")
+                        .HasColumnType("character varying(10)")
+                        .HasMaxLength(10);
+
+                    b.Property<decimal>("valor")
+                        .HasColumnName("valor")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("idMovimentacao");
+
+                    b.HasIndex("idProduto");
+
+                    b.ToTable("movimentacao_estoque");
+                });
+
             modelBuilder.Entity("AssisTec.Models.OrdemServico", b =>
                 {
                     b.Property<int>("id_os")
                         .ValueGeneratedOnAdd()
                         .HasColumnName("id_os")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<DateTime>("data_abertura")
                         .HasColumnName("data_abertura")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("timestamp");
 
                     b.Property<DateTime?>("data_atualizacao")
                         .HasColumnName("data_atualizacao")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("timestamp");
 
                     b.Property<DateTime?>("data_fechamento")
                         .HasColumnName("data_fechamento")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("timestamp");
 
                     b.Property<string>("diagnostico")
                         .HasColumnName("diagnostico")
-                        .HasColumnType("varchar(500) CHARACTER SET utf8mb4")
+                        .HasColumnType("character varying(500)")
                         .HasMaxLength(500);
 
                     b.Property<int?>("id_cliente")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<int?>("id_equipamento")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<int?>("id_tecnico")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<string>("observacoes")
                         .HasColumnName("observacoes")
-                        .HasColumnType("varchar(500) CHARACTER SET utf8mb4")
+                        .HasColumnType("character varying(500)")
                         .HasMaxLength(500);
 
                     b.Property<string>("problema_relatado")
                         .HasColumnName("problema_relatado")
-                        .HasColumnType("varchar(500) CHARACTER SET utf8mb4")
+                        .HasColumnType("character varying(500)")
                         .HasMaxLength(500);
 
                     b.Property<string>("status")
                         .IsRequired()
                         .HasColumnName("status")
-                        .HasColumnType("varchar(30) CHARACTER SET utf8mb4")
+                        .HasColumnType("character varying(30)")
                         .HasMaxLength(30);
 
                     b.Property<decimal>("valor_mao_obra")
                         .HasColumnName("valor_mao_obra")
-                        .HasColumnType("decimal(65,30)");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<decimal>("valor_pecas")
                         .HasColumnName("valor_pecas")
-                        .HasColumnType("decimal(65,30)");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<decimal>("valor_total")
                         .HasColumnName("valor_total")
-                        .HasColumnType("decimal(65,30)");
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("id_os");
 
@@ -275,12 +420,13 @@ namespace AssisTec.Migrations
                     b.Property<int>("Idforma_pagamento")
                         .ValueGeneratedOnAdd()
                         .HasColumnName("id_forma_pagamento")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<string>("Descricao")
                         .IsRequired()
                         .HasColumnName("descricao")
-                        .HasColumnType("varchar(100) CHARACTER SET utf8mb4")
+                        .HasColumnType("character varying(100)")
                         .HasMaxLength(100);
 
                     b.HasKey("Idforma_pagamento");
@@ -310,90 +456,214 @@ namespace AssisTec.Migrations
                         });
                 });
 
+            modelBuilder.Entity("AssisTec.Models.Produto", b =>
+                {
+                    b.Property<int>("idProduto")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("id_produto")
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("descricao")
+                        .IsRequired()
+                        .HasColumnName("descricao")
+                        .HasColumnType("character varying(100)")
+                        .HasMaxLength(100);
+
+                    b.Property<decimal>("preco_compra")
+                        .HasColumnName("preco_compra")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("preco_venda")
+                        .HasColumnName("preco_venda")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("quantidade")
+                        .HasColumnName("quantidade")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("quantidade_minima")
+                        .HasColumnName("quantidade_minima")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("status")
+                        .IsRequired()
+                        .HasColumnName("status")
+                        .HasColumnType("text");
+
+                    b.Property<string>("unidade")
+                        .IsRequired()
+                        .HasColumnName("unidade")
+                        .HasColumnType("character varying(10)")
+                        .HasMaxLength(10);
+
+                    b.HasKey("idProduto");
+
+                    b.ToTable("produto");
+                });
+
+            modelBuilder.Entity("AssisTec.Models.ServicosOS", b =>
+                {
+                    b.Property<int>("idServico")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("id_servico_os")
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("descricao")
+                        .IsRequired()
+                        .HasColumnName("descricao")
+                        .HasColumnType("character varying(150)")
+                        .HasMaxLength(150);
+
+                    b.Property<int?>("id_OS")
+                        .HasColumnType("integer");
+
+                    b.Property<decimal>("valor_cobrado")
+                        .HasColumnName("valor_cobrado")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("idServico");
+
+                    b.HasIndex("id_OS");
+
+                    b.ToTable("servico_os");
+                });
+
             modelBuilder.Entity("AssisTec.Models.Usuario", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnName("id_usuario")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<string>("Bairro")
                         .IsRequired()
                         .HasColumnName("bairro")
-                        .HasColumnType("varchar(60) CHARACTER SET utf8mb4")
+                        .HasColumnType("character varying(60)")
                         .HasMaxLength(60);
 
                     b.Property<string>("Cep")
                         .IsRequired()
                         .HasColumnName("cep")
-                        .HasColumnType("varchar(9) CHARACTER SET utf8mb4")
+                        .HasColumnType("character varying(9)")
                         .HasMaxLength(9);
 
                     b.Property<string>("Cidade")
                         .IsRequired()
                         .HasColumnName("cidade")
-                        .HasColumnType("varchar(60) CHARACTER SET utf8mb4")
+                        .HasColumnType("character varying(60)")
                         .HasMaxLength(60);
 
                     b.Property<string>("Complemento")
                         .HasColumnName("complemento")
-                        .HasColumnType("varchar(100) CHARACTER SET utf8mb4")
+                        .HasColumnType("character varying(100)")
                         .HasMaxLength(100);
 
                     b.Property<string>("Cpf")
                         .IsRequired()
                         .HasColumnName("cpf")
-                        .HasColumnType("varchar(14) CHARACTER SET utf8mb4")
+                        .HasColumnType("character varying(14)")
                         .HasMaxLength(14);
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnName("email")
+                        .HasColumnType("character varying(100)")
+                        .HasMaxLength(100);
 
                     b.Property<string>("Estado")
                         .IsRequired()
                         .HasColumnName("estado")
-                        .HasColumnType("varchar(100) CHARACTER SET utf8mb4")
+                        .HasColumnType("character varying(100)")
                         .HasMaxLength(100);
 
                     b.Property<int>("Nivel")
                         .HasColumnName("nivel")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasColumnName("nome")
-                        .HasColumnType("varchar(100) CHARACTER SET utf8mb4")
+                        .HasColumnType("character varying(100)")
                         .HasMaxLength(100);
 
                     b.Property<string>("Numero")
                         .IsRequired()
                         .HasColumnName("numero")
-                        .HasColumnType("varchar(10) CHARACTER SET utf8mb4")
+                        .HasColumnType("character varying(10)")
                         .HasMaxLength(10);
 
                     b.Property<string>("Rua")
                         .IsRequired()
                         .HasColumnName("rua")
-                        .HasColumnType("varchar(100) CHARACTER SET utf8mb4")
+                        .HasColumnType("character varying(100)")
                         .HasMaxLength(100);
 
                     b.Property<string>("Senha")
                         .IsRequired()
                         .HasColumnName("senha")
-                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4")
+                        .HasColumnType("character varying(255)")
                         .HasMaxLength(255);
 
                     b.Property<string>("Status")
                         .IsRequired()
                         .HasColumnName("status")
-                        .HasColumnType("varchar(20) CHARACTER SET utf8mb4")
+                        .HasColumnType("character varying(20)")
                         .HasMaxLength(20);
 
                     b.Property<string>("Telefone")
                         .HasColumnName("telefone")
-                        .HasColumnType("varchar(20) CHARACTER SET utf8mb4")
+                        .HasColumnType("character varying(20)")
                         .HasMaxLength(20);
 
                     b.HasKey("Id");
 
                     b.ToTable("usuarios");
+                });
+
+            modelBuilder.Entity("ItemOS", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("id")
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<int>("Quantidade")
+                        .HasColumnName("quantidade")
+                        .HasColumnType("integer");
+
+                    b.Property<decimal>("ValorTotal")
+                        .HasColumnName("valor_total")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("ValorUnitario")
+                        .HasColumnName("valor_unitario")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int?>("id_OS")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("id_produto")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("id_OS");
+
+                    b.HasIndex("id_produto");
+
+                    b.ToTable("item_os");
+                });
+
+            modelBuilder.Entity("AssisTec.Models.ContasPagar", b =>
+                {
+                    b.HasOne("AssisTec.Models.Pagamento", "Pagamento")
+                        .WithMany()
+                        .HasForeignKey("id_forma_pagamento_fk")
+                        .OnDelete(DeleteBehavior.SetNull);
                 });
 
             modelBuilder.Entity("AssisTec.Models.ContasReceber", b =>
@@ -406,6 +676,29 @@ namespace AssisTec.Migrations
                     b.HasOne("AssisTec.Models.OrdemServico", "OrdemServico")
                         .WithMany()
                         .HasForeignKey("id_os_fk")
+                        .OnDelete(DeleteBehavior.SetNull);
+                });
+
+            modelBuilder.Entity("AssisTec.Models.HistoricoAlteracaoOS", b =>
+                {
+                    b.HasOne("AssisTec.Models.OrdemServico", "ordemServico")
+                        .WithMany()
+                        .HasForeignKey("idOS")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("AssisTec.Models.Usuario", "usuario")
+                        .WithMany()
+                        .HasForeignKey("idUsuario")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("AssisTec.Models.MovimentacaoEstoque", b =>
+                {
+                    b.HasOne("AssisTec.Models.Produto", "produto")
+                        .WithMany()
+                        .HasForeignKey("idProduto")
                         .OnDelete(DeleteBehavior.SetNull);
                 });
 
@@ -424,6 +717,27 @@ namespace AssisTec.Migrations
                     b.HasOne("AssisTec.Models.Usuario", "Tecnico")
                         .WithMany()
                         .HasForeignKey("id_tecnico")
+                        .OnDelete(DeleteBehavior.SetNull);
+                });
+
+            modelBuilder.Entity("AssisTec.Models.ServicosOS", b =>
+                {
+                    b.HasOne("AssisTec.Models.OrdemServico", "OrdemServico")
+                        .WithMany()
+                        .HasForeignKey("id_OS")
+                        .OnDelete(DeleteBehavior.SetNull);
+                });
+
+            modelBuilder.Entity("ItemOS", b =>
+                {
+                    b.HasOne("AssisTec.Models.OrdemServico", "OrdemServico")
+                        .WithMany()
+                        .HasForeignKey("id_OS")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.HasOne("AssisTec.Models.Produto", "Produto")
+                        .WithMany()
+                        .HasForeignKey("id_produto")
                         .OnDelete(DeleteBehavior.SetNull);
                 });
 #pragma warning restore 612, 618

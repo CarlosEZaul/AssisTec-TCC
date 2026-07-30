@@ -22,7 +22,7 @@ namespace AssisTec.Models
         public string tipo{get;set;}
         
         [Required]
-        [Column(TypeName = "datetime(6)")]
+        [Column(TypeName = "timestamp")]
         public DateTime dataAlteracao{get;set;}
     }
 }

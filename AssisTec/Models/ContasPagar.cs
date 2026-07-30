@@ -21,14 +21,14 @@ namespace AssisTec.Models
         public decimal valor { get; set; }
         
         [Required]
-        [Column(TypeName = "datetime(6)")]
+        [Column(TypeName = "timestamp")]
         public DateTime data_emissao { get; set; }
 
-        [Column(TypeName = "datetime(6)")]
+        [Column(TypeName = "timestamp")]
         public DateTime? data_pagamento { get; set; }
 
         [Required]
-        [Column(TypeName = "datetime(6)")]
+        [Column(TypeName = "timestamp")]
         public DateTime data_vencimento { get; set; }
         
         [Required]

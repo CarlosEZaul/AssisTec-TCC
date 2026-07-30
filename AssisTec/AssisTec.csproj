@@ -43,6 +43,15 @@
     <Reference Include="BouncyCastle.Cryptography, Version=2.0.0.0, Culture=neutral, PublicKeyToken=072edcf4a5328938, processorArchitecture=MSIL">
       <HintPath>..\packages\BouncyCastle.Cryptography.2.6.2\lib\net461\BouncyCastle.Cryptography.dll</HintPath>
     </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework6.Npgsql, Version=3.2.1.1, Culture=neutral, PublicKeyToken=5d8b90d52f46fda7, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework6.Npgsql.3.2.1.1\lib\net45\EntityFramework6.Npgsql.dll</HintPath>
+    </Reference>
     <Reference Include="Google.Protobuf, Version=3.32.0.0, Culture=neutral, PublicKeyToken=a7d26565bac4d604, processorArchitecture=MSIL">
       <HintPath>..\packages\Google.Protobuf.3.32.0\lib\net45\Google.Protobuf.dll</HintPath>
     </Reference>
@@ -138,8 +147,11 @@
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.13.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="Pomelo.EntityFrameworkCore.MySql, Version=3.2.7.0, Culture=neutral, PublicKeyToken=2cc498582444921b, processorArchitecture=MSIL">
-      <HintPath>..\packages\Pomelo.EntityFrameworkCore.MySql.3.2.7\lib\netstandard2.0\Pomelo.EntityFrameworkCore.MySql.dll</HintPath>
+    <Reference Include="Npgsql, Version=4.1.9.0, Culture=neutral, PublicKeyToken=5d8b90d52f46fda7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Npgsql.4.1.9\lib\net461\Npgsql.dll</HintPath>
+    </Reference>
+    <Reference Include="Npgsql.EntityFrameworkCore.PostgreSQL, Version=3.1.18.0, Culture=neutral, PublicKeyToken=5d8b90d52f46fda7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Npgsql.EntityFrameworkCore.PostgreSQL.3.1.18\lib\netstandard2.0\Npgsql.EntityFrameworkCore.PostgreSQL.dll</HintPath>
     </Reference>
     <Reference Include="Pomelo.JsonObject, Version=2.2.1.0, Culture=neutral, PublicKeyToken=2cc498582444921b, processorArchitecture=MSIL">
       <HintPath>..\packages\Pomelo.JsonObject.2.2.1\lib\netstandard2.0\Pomelo.JsonObject.dll</HintPath>
@@ -249,9 +261,9 @@
     <Compile Include="DTO\OrdemServicoRelatorioDTO.cs" />
     <Compile Include="DTO\ProdutoDTO.cs" />
     <Compile Include="DTO\UsuarioDTO.cs" />
-    <Compile Include="Migrations\20260609165159_InitialCreate.cs" />
-    <Compile Include="Migrations\20260609165159_InitialCreate.Designer.cs">
-      <DependentUpon>20260609165159_InitialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\20260730135416_InitialCreate.cs" />
+    <Compile Include="Migrations\20260730135416_InitialCreate.Designer.cs">
+      <DependentUpon>20260730135416_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\AppDbContextModelSnapshot.cs" />
     <Compile Include="Models\HistoricoAlteracaoOS.cs" />
@@ -312,11 +324,15 @@
     <Compile Include="Utils\GeradorPdfOS.cs" />
     <Compile Include="Utils\GeradorPdfUsuario.cs" />
     <Compile Include="Utils\Validacao.cs" />
-    <Compile Include="Views\Forms\FrmLogin.cs" />
+    <Compile Include="Views\Forms\FrmLogin.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Views\Forms\FrmLogin.Designer.cs">
       <DependentUpon>FrmLogin.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\Forms\FrmPrincipal.cs" />
+    <Compile Include="Views\Forms\FrmPrincipal.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Views\Forms\FrmPrincipal.Designer.cs">
       <DependentUpon>FrmPrincipal.cs</DependentUpon>
     </Compile>
@@ -326,15 +342,21 @@
     <Compile Include="Views\Forms\PasswordForm .Designer.cs">
       <DependentUpon>PasswordForm .cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\Forms\SubForms do Gerenciador de Pedidos\FrmGerenciarOS.cs" />
+    <Compile Include="Views\Forms\SubForms do Gerenciador de Pedidos\FrmGerenciarOS.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Views\Forms\SubForms do Gerenciador de Pedidos\FrmGerenciarOS.Designer.cs">
       <DependentUpon>FrmGerenciarOS.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\UserControls\SubUserControl do Financeiro\Entrada\ucRegistrarEntradaFinanceiro.cs" />
+    <Compile Include="Views\UserControls\SubUserControl do Financeiro\Entrada\ucRegistrarEntradaFinanceiro.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Views\UserControls\SubUserControl do Financeiro\Entrada\ucRegistrarEntradaFinanceiro.Designer.cs">
       <DependentUpon>ucRegistrarEntradaFinanceiro.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\UserControls\SubUserControl do Financeiro\Entrada\ucRegistrarPagamentoEntrada.cs" />
+    <Compile Include="Views\UserControls\SubUserControl do Financeiro\Entrada\ucRegistrarPagamentoEntrada.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Views\UserControls\SubUserControl do Financeiro\Entrada\ucRegistrarPagamentoEntrada.Designer.cs">
       <DependentUpon>ucRegistrarPagamentoEntrada.cs</DependentUpon>
     </Compile>
@@ -344,11 +366,15 @@
     <Compile Include="Views\UserControls\SubUserControl do Financeiro\Saida\ucRegistrarPagamentoSaida.Designer.cs">
       <DependentUpon>ucRegistrarPagamentoSaida.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\UserControls\SubUserControl do Financeiro\Saida\ucRegistrarSaidaFinanceiro.cs" />
+    <Compile Include="Views\UserControls\SubUserControl do Financeiro\Saida\ucRegistrarSaidaFinanceiro.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Views\UserControls\SubUserControl do Financeiro\Saida\ucRegistrarSaidaFinanceiro.Designer.cs">
       <DependentUpon>ucRegistrarSaidaFinanceiro.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\UserControls\SubUserControl do Gerenciador de Clientes\ucFormulario_Clientes.cs" />
+    <Compile Include="Views\UserControls\SubUserControl do Gerenciador de Clientes\ucFormulario_Clientes.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Views\UserControls\SubUserControl do Gerenciador de Clientes\ucFormulario_Clientes.Designer.cs">
       <DependentUpon>ucFormulario_Clientes.cs</DependentUpon>
     </Compile>
@@ -382,11 +408,15 @@
     <Compile Include="Views\UserControls\SubUserControl do Gerenciador de OS\ucDetalhesEquipamento.Designer.cs">
       <DependentUpon>ucDetalhesEquipamento.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\UserControls\SubUserControl do Gerenciador de OS\ucDetalhesOS.cs" />
+    <Compile Include="Views\UserControls\SubUserControl do Gerenciador de OS\ucDetalhesOS.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Views\UserControls\SubUserControl do Gerenciador de OS\ucDetalhesOS.Designer.cs">
       <DependentUpon>ucDetalhesOS.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\UserControls\SubUserControl do Gerenciador de OS\ucFormularioOS.cs" />
+    <Compile Include="Views\UserControls\SubUserControl do Gerenciador de OS\ucFormularioOS.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Views\UserControls\SubUserControl do Gerenciador de OS\ucFormularioOS.Designer.cs">
       <DependentUpon>ucFormularioOS.cs</DependentUpon>
     </Compile>
@@ -396,11 +426,15 @@
     <Compile Include="Views\UserControls\SubUserControl do Gerenciador de OS\ucHistoricoAlteracao.Designer.cs">
       <DependentUpon>ucHistoricoAlteracao.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\UserControls\SubUserControl do Gerenciador de OS\ucHistoricoOS.cs" />
+    <Compile Include="Views\UserControls\SubUserControl do Gerenciador de OS\ucHistoricoOS.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Views\UserControls\SubUserControl do Gerenciador de OS\ucHistoricoOS.Designer.cs">
       <DependentUpon>ucHistoricoOS.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\UserControls\SubUserControl do Gerenciador de OS\ucProdutosUtilizados.cs" />
+    <Compile Include="Views\UserControls\SubUserControl do Gerenciador de OS\ucProdutosUtilizados.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Views\UserControls\SubUserControl do Gerenciador de OS\ucProdutosUtilizados.Designer.cs">
       <DependentUpon>ucProdutosUtilizados.cs</DependentUpon>
     </Compile>
@@ -410,11 +444,15 @@
     <Compile Include="Views\UserControls\SubUserControl do Gerenciador de OS\ucRegistrarPagamentoOS.Designer.cs">
       <DependentUpon>ucRegistrarPagamentoOS.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\UserControls\SubUserControl do Gerenciador de OS\ucServicos.cs" />
+    <Compile Include="Views\UserControls\SubUserControl do Gerenciador de OS\ucServicos.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Views\UserControls\SubUserControl do Gerenciador de OS\ucServicos.Designer.cs">
       <DependentUpon>ucServicos.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\UserControls\SubUserControl do Gerenciador de Usuarios\ucFormularioUsuarios.cs" />
+    <Compile Include="Views\UserControls\SubUserControl do Gerenciador de Usuarios\ucFormularioUsuarios.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Views\UserControls\SubUserControl do Gerenciador de Usuarios\ucFormularioUsuarios.Designer.cs">
       <DependentUpon>ucFormularioUsuarios.cs</DependentUpon>
     </Compile>
@@ -424,35 +462,51 @@
     <Compile Include="Views\UserControls\SubUserControl do Login\ucEsqueciASenha.Designer.cs">
       <DependentUpon>ucEsqueciASenha.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\UserControls\ucBackupImportar.cs" />
+    <Compile Include="Views\UserControls\ucBackupImportar.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Views\UserControls\ucBackupImportar.Designer.cs">
       <DependentUpon>ucBackupImportar.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\UserControls\ucContasPagar.cs" />
+    <Compile Include="Views\UserControls\ucContasPagar.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Views\UserControls\ucContasPagar.Designer.cs">
       <DependentUpon>ucContasPagar.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\UserControls\ucContasReceber.cs" />
+    <Compile Include="Views\UserControls\ucContasReceber.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Views\UserControls\ucContasReceber.Designer.cs">
       <DependentUpon>ucContasReceber.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\UserControls\ucGerenciadorEstoque.cs" />
+    <Compile Include="Views\UserControls\ucGerenciadorEstoque.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Views\UserControls\ucGerenciadorEstoque.Designer.cs">
       <DependentUpon>ucGerenciadorEstoque.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\UserControls\ucGerenciadorOS.cs" />
+    <Compile Include="Views\UserControls\ucGerenciadorOS.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Views\UserControls\ucGerenciadorOS.Designer.cs">
       <DependentUpon>ucGerenciadorOS.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\UserControls\ucGerenciador_Clientes.cs" />
+    <Compile Include="Views\UserControls\ucGerenciador_Clientes.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Views\UserControls\ucGerenciador_Clientes.Designer.cs">
       <DependentUpon>ucGerenciador_Clientes.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\UserControls\ucGerenciador_Usuario.cs" />
+    <Compile Include="Views\UserControls\ucGerenciador_Usuario.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Views\UserControls\ucGerenciador_Usuario.Designer.cs">
       <DependentUpon>ucGerenciador_Usuario.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\UserControls\ucHome.cs" />
+    <Compile Include="Views\UserControls\ucHome.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Views\UserControls\ucHome.Designer.cs">
       <DependentUpon>ucHome.cs</DependentUpon>
     </Compile>
@@ -603,6 +657,7 @@
     <Content Include="Resources\SaidaEstoque.png" />
     <Content Include="Resources\valor_estoque.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

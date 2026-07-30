@@ -1,7 +1,12 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\Pc do estagiario\\RiderProjects\\AssisTec-TCC0906\\",
-  "Documents": [],
+  "WorkspaceRootPath": "C:\\Users\\Pc do estagiario\\Desktop\\AssisTec-27-07\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{0107DE09-5745-4BB2-B7F8-AAB0EF65E6FA}|AssisTec\\AssisTec.csproj|c:\\users\\pc do estagiario\\desktop\\assistec-27-07\\assistec\\migrations\\20260730135416_initialcreate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0107DE09-5745-4BB2-B7F8-AAB0EF65E6FA}|AssisTec\\AssisTec.csproj|solutionrelative:assistec\\migrations\\20260730135416_initialcreate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,7 +14,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Bookmark",
@@ -18,6 +23,19 @@
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "20260730135416_InitialCreate.cs",
+              "DocumentMoniker": "C:\\Users\\Pc do estagiario\\Desktop\\AssisTec-27-07\\AssisTec\\Migrations\\20260730135416_InitialCreate.cs",
+              "RelativeDocumentMoniker": "AssisTec\\Migrations\\20260730135416_InitialCreate.cs",
+              "ToolTip": "C:\\Users\\Pc do estagiario\\Desktop\\AssisTec-27-07\\AssisTec\\Migrations\\20260730135416_InitialCreate.cs",
+              "RelativeToolTip": "AssisTec\\Migrations\\20260730135416_InitialCreate.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-30T13:54:17.92Z",
+              "EditorCaption": ""
             }
           ]
         }

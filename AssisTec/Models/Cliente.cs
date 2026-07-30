@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AssisTec.Models
 {
@@ -22,6 +23,7 @@ namespace AssisTec.Models
         [StringLength(20)]
         public string Status { get; set; } = string.Empty;
 
+        [Column(TypeName = "timestamp")]
         public DateTime? DataNascimento { get; set; }
 
         [Required]

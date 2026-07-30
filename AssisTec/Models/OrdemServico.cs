@@ -24,13 +24,13 @@ namespace AssisTec.Models
         public string status { get; set; } = "ABERTA";
 
         [Required]
-        [Column(TypeName = "datetime(6)")]
+        [Column(TypeName = "timestamp")]
         public DateTime data_abertura { get; set; } = DateTime.Now;
         
-        [Column(TypeName = "datetime(6)")]
+        [Column(TypeName = "timestamp")]
         public DateTime? data_atualizacao { get; set; }
 
-        [Column(TypeName = "datetime(6)")]
+        [Column(TypeName = "timestamp")]
         public DateTime? data_fechamento { get; set; }
 
         [Required]

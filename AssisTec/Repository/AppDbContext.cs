@@ -5,7 +5,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AssisTec.Models;
-using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 
 namespace AssisTec.Repository
 {
@@ -20,21 +19,18 @@ namespace AssisTec.Repository
         public DbSet<Pagamento> Pagamentos { get; set; }
         public DbSet<Produto> Produtos { get; set; }
         public DbSet<MovimentacaoEstoque> movimentacaoEstoque { get; set; }
-        public DbSet<ItemOS>  ItemOS { get; set; }
+        public DbSet<ItemOS> ItemOS { get; set; }
         public DbSet<ServicosOS> ServicosOS { get; set; }
-        public DbSet<HistoricoAlteracaoOS>  HistoricoAlteracaoOS { get; set; }
-        
+        public DbSet<HistoricoAlteracaoOS> HistoricoAlteracaoOS { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
-                string connectionString = "SERVER=localhost; DATABASE=assistec; UID=root; PWD=; PORT=3306;";
+                string connectionString = "Server=aws-0-sa-east-1.pooler.supabase.com;Port=5432;Database=postgres;User Id=postgres.fbagydukbejfqqvcskit;Password=AssisTec2026;SslMode=Require;Trust Server Certificate=true;";
 
-                optionsBuilder.UseMySql(connectionString, mysqlOptions =>
-                    mysqlOptions.ServerVersion(new Version(10, 4, 32), ServerType.MariaDb)
-                );
+                optionsBuilder.UseNpgsql(connectionString);
             }
-            
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -42,10 +38,10 @@ namespace AssisTec.Repository
             modelBuilder.Entity<Usuario>(entity =>
             {
                 entity.ToTable("usuarios");
-    
+
                 entity.HasKey(e => e.Id);
                 entity.Property(e => e.Id).HasColumnName("id_usuario");
-    
+
                 entity.Property(e => e.Nome).HasColumnName("nome");
                 entity.Property(e => e.Cpf).HasColumnName("cpf");
                 entity.Property(e => e.Email).HasColumnName("email");
@@ -65,10 +61,10 @@ namespace AssisTec.Repository
             modelBuilder.Entity<Cliente>(entity =>
             {
                 entity.ToTable("clientes");
-    
+
                 entity.HasKey(e => e.Id);
                 entity.Property(e => e.Id).HasColumnName("id_cliente");
-    
+
                 entity.Property(e => e.Nome).HasColumnName("nome");
                 entity.Property(e => e.Cpf).HasColumnName("cpf");
                 entity.Property(e => e.Telefone).HasColumnName("telefone");
@@ -89,7 +85,7 @@ namespace AssisTec.Repository
 
                 entity.HasKey(e => e.id_conta_receber);
                 entity.Property(e => e.id_conta_receber).HasColumnName("id_conta_receber");
-    
+
                 entity.Property(e => e.descricao).HasColumnName("descricao");
                 entity.Property(e => e.valor)
                     .HasColumnName("valor")
@@ -111,14 +107,14 @@ namespace AssisTec.Repository
                     .HasForeignKey(e => e.id_forma_pagamento_fk)
                     .OnDelete(DeleteBehavior.SetNull);
             });
-            
+
             modelBuilder.Entity<ContasPagar>(entity =>
             {
                 entity.ToTable("contas_pagar");
 
                 entity.HasKey(e => e.id_conta_pagar);
                 entity.Property(e => e.id_conta_pagar).HasColumnName("id_conta_pagar");
-    
+
                 entity.Property(e => e.descricao).HasColumnName("descricao");
                 entity.Property(e => e.valor)
                     .HasColumnName("valor")
@@ -132,29 +128,29 @@ namespace AssisTec.Repository
                     .WithMany()
                     .HasForeignKey(e => e.id_forma_pagamento_fk)
                     .OnDelete(DeleteBehavior.SetNull);
-                
+
                 entity.Property(e => e.observacoes).HasColumnName("observacoes");
             });
-            
+
             modelBuilder.Entity<Equipamento>(entity =>
             {
                 entity.ToTable("equipamentos");
-    
+
                 entity.HasKey(e => e.Id_equipamento);
                 entity.Property(e => e.Id_equipamento).HasColumnName("id_equipamento");
-    
+
                 entity.Property(e => e.Descricao).HasColumnName("descricao");
                 entity.Property(e => e.Marca).HasColumnName("marca");
                 entity.Property(e => e.Modelo).HasColumnName("modelo");
                 entity.Property(e => e.Numero_Serie).HasColumnName("numero_serie");
                 entity.Property(e => e.estado_entrada).HasColumnName("estado_entrada");
                 entity.Property(e => e.acessorios).HasColumnName("acessorios");
-    
+
                 entity.Property(e => e.Observacoes)
                     .HasColumnName("observacoes")
                     .HasColumnType("text");
             });
-            
+
             modelBuilder.Entity<OrdemServico>(entity =>
             {
                 entity.ToTable("ordem_servico");
@@ -165,11 +161,11 @@ namespace AssisTec.Repository
                 entity.Property(e => e.data_abertura).HasColumnName("data_abertura");
                 entity.Property(e => e.data_atualizacao).HasColumnName("data_atualizacao");
                 entity.Property(e => e.data_fechamento).HasColumnName("data_fechamento");
-    
+
                 entity.Property(e => e.valor_mao_obra).HasColumnName("valor_mao_obra");
                 entity.Property(e => e.valor_pecas).HasColumnName("valor_pecas");
                 entity.Property(e => e.valor_total).HasColumnName("valor_total");
-    
+
                 entity.Property(e => e.problema_relatado).HasColumnName("problema_relatado");
                 entity.Property(e => e.diagnostico).HasColumnName("diagnostico");
                 entity.Property(e => e.observacoes).HasColumnName("observacoes");
@@ -195,32 +191,36 @@ namespace AssisTec.Repository
                 entity.ToTable("item_os");
                 entity.HasKey(e => e.Id);
                 entity.Property(e => e.Id).HasColumnName("id");
-                entity.Property(e => e.Quantidade).HasColumnName("Quantidade");
-                entity.Property(e => e.ValorUnitario).HasColumnName("ValorUnitario");
-                entity.Property(e => e.ValorTotal).HasColumnName("ValorTotal");
+
+                entity.Property(e => e.Quantidade).HasColumnName("quantidade");
+                entity.Property(e => e.ValorUnitario).HasColumnName("valor_unitario");
+                entity.Property(e => e.ValorTotal).HasColumnName("valor_total");
+
                 entity.HasOne(e => e.OrdemServico)
                     .WithMany()
                     .HasForeignKey(e => e.id_OS)
                     .OnDelete(DeleteBehavior.SetNull);
+
                 entity.HasOne(e => e.Produto)
                     .WithMany()
                     .HasForeignKey(e => e.id_produto)
                     .OnDelete(DeleteBehavior.SetNull);
-
             });
+
             modelBuilder.Entity<ServicosOS>(entity =>
             {
                 entity.ToTable("servico_os");
                 entity.HasKey(e => e.idServico);
-                entity.Property(e => e.idServico).HasColumnName("idServicoOS");
-                entity.Property(e=> e.descricao).HasColumnName("descricao");
-                entity.Property(e=>e.valor_cobrado).HasColumnName("valor_cobrado");
+                entity.Property(e => e.idServico).HasColumnName("id_servico_os");
+                entity.Property(e => e.descricao).HasColumnName("descricao");
+                entity.Property(e => e.valor_cobrado).HasColumnName("valor_cobrado");
+
                 entity.HasOne(e => e.OrdemServico)
                     .WithMany()
                     .HasForeignKey(e => e.id_OS)
                     .OnDelete(DeleteBehavior.SetNull);
             });
-            
+
             modelBuilder.Entity<Pagamento>(entity =>
             {
                 entity.ToTable("forma_pagamento");
@@ -241,31 +241,33 @@ namespace AssisTec.Repository
             {
                 entity.ToTable("produto");
                 entity.HasKey(e => e.idProduto);
-                entity.Property(e => e.idProduto).HasColumnName("id_Produto");
+                entity.Property(e => e.idProduto).HasColumnName("id_produto");
                 entity.Property(e => e.descricao).HasColumnName("descricao");
                 entity.Property(e => e.unidade).HasColumnName("unidade");
                 entity.Property(e => e.preco_compra).HasColumnName("preco_compra");
                 entity.Property(e => e.preco_venda).HasColumnName("preco_venda");
                 entity.Property(e => e.quantidade).HasColumnName("quantidade");
                 entity.Property(e => e.quantidade_minima).HasColumnName("quantidade_minima");
-                entity.Property(e=> e.status).HasColumnName("status");
+                entity.Property(e => e.status).HasColumnName("status");
             });
 
             modelBuilder.Entity<MovimentacaoEstoque>(entity =>
             {
                 entity.ToTable("movimentacao_estoque");
                 entity.HasKey(e => e.idMovimentacao);
-                entity.Property(e => e.idMovimentacao).HasColumnName("id_Movimentacao");
+                entity.Property(e => e.idMovimentacao).HasColumnName("id_movimentacao");
                 entity.Property(e => e.descricao).HasColumnName("descricao");
                 entity.Property(e => e.quantidade).HasColumnName("quantidade");
-                entity.Property(e=> e.valor).HasColumnName("valor");
+                entity.Property(e => e.valor).HasColumnName("valor");
                 entity.Property(e => e.data).HasColumnName("data");
-                entity.Property(e => e.tipoMovimentacao).HasColumnName("tipoMovimentacao");
-                entity.HasOne(e => e.produto).WithMany()
-                    .HasForeignKey(e=> e.idProduto)
+                entity.Property(e => e.tipoMovimentacao).HasColumnName("tipo_movimentacao");
+
+                entity.HasOne(e => e.produto)
+                    .WithMany()
+                    .HasForeignKey(e => e.idProduto)
                     .OnDelete(DeleteBehavior.SetNull);
             });
-            
+
             modelBuilder.Entity<HistoricoAlteracaoOS>(entity =>
             {
                 entity.ToTable("historico_alteracao_os");
