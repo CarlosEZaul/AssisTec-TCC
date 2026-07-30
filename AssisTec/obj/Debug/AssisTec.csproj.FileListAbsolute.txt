@@ -3380,6 +3380,7 @@ C:\Users\Pc do estagiario\Desktop\AssisTec-27-07\AssisTec\bin\Debug\System.Secur
 C:\Users\Pc do estagiario\Desktop\AssisTec-27-07\AssisTec\bin\Debug\System.Security.Cryptography.Encoding.dll
 C:\Users\Pc do estagiario\Desktop\AssisTec-27-07\AssisTec\bin\Debug\System.Security.Cryptography.Primitives.dll
 C:\Users\Pc do estagiario\Desktop\AssisTec-27-07\AssisTec\bin\Debug\System.Security.Cryptography.X509Certificates.dll
+C:\Users\Pc do estagiario\RiderProjects\AssisTec-TCC30-07\AssisTec\bin\Debug\appSettings.config
 C:\Users\Pc do estagiario\RiderProjects\AssisTec-TCC30-07\AssisTec\bin\Debug\AssisTec.exe.config
 C:\Users\Pc do estagiario\RiderProjects\AssisTec-TCC30-07\AssisTec\bin\Debug\AssisTec.exe
 C:\Users\Pc do estagiario\RiderProjects\AssisTec-TCC30-07\AssisTec\bin\Debug\AssisTec.pdb

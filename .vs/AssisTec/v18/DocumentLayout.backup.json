@@ -1,9 +1,29 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\Pc do estagiario\\Desktop\\AssisTec-27-07\\",
+  "WorkspaceRootPath": "C:\\Users\\Pc do estagiario\\RiderProjects\\AssisTec-TCC30-07\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{0107DE09-5745-4BB2-B7F8-AAB0EF65E6FA}|AssisTec\\AssisTec.csproj|c:\\users\\pc do estagiario\\desktop\\assistec-27-07\\assistec\\migrations\\20260730135416_initialcreate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{0107DE09-5745-4BB2-B7F8-AAB0EF65E6FA}|AssisTec\\AssisTec.csproj|c:\\users\\pc do estagiario\\riderprojects\\assistec-tcc30-07\\assistec\\views\\usercontrols\\ucbackupimportar.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{0107DE09-5745-4BB2-B7F8-AAB0EF65E6FA}|AssisTec\\AssisTec.csproj|solutionrelative:assistec\\views\\usercontrols\\ucbackupimportar.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0107DE09-5745-4BB2-B7F8-AAB0EF65E6FA}|AssisTec\\AssisTec.csproj|c:\\users\\pc do estagiario\\riderprojects\\assistec-tcc30-07\\assistec\\views\\usercontrols\\ucbackupimportar.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0107DE09-5745-4BB2-B7F8-AAB0EF65E6FA}|AssisTec\\AssisTec.csproj|solutionrelative:assistec\\views\\usercontrols\\ucbackupimportar.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0107DE09-5745-4BB2-B7F8-AAB0EF65E6FA}|AssisTec\\AssisTec.csproj|c:\\users\\pc do estagiario\\riderprojects\\assistec-tcc30-07\\assistec\\repository\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0107DE09-5745-4BB2-B7F8-AAB0EF65E6FA}|AssisTec\\AssisTec.csproj|solutionrelative:assistec\\repository\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0107DE09-5745-4BB2-B7F8-AAB0EF65E6FA}|AssisTec\\AssisTec.csproj|c:\\users\\pc do estagiario\\riderprojects\\assistec-tcc30-07\\assistec\\app.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "RelativeMoniker": "D:0:0:{0107DE09-5745-4BB2-B7F8-AAB0EF65E6FA}|AssisTec\\AssisTec.csproj|solutionrelative:assistec\\app.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0107DE09-5745-4BB2-B7F8-AAB0EF65E6FA}|AssisTec\\AssisTec.csproj|c:\\users\\pc do estagiario\\riderprojects\\assistec-tcc30-07\\assistec\\appsettings.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "RelativeMoniker": "D:0:0:{0107DE09-5745-4BB2-B7F8-AAB0EF65E6FA}|AssisTec\\AssisTec.csproj|solutionrelative:assistec\\appsettings.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0107DE09-5745-4BB2-B7F8-AAB0EF65E6FA}|AssisTec\\AssisTec.csproj|c:\\users\\pc do estagiario\\riderprojects\\assistec-tcc30-07\\assistec\\migrations\\20260730135416_initialcreate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{0107DE09-5745-4BB2-B7F8-AAB0EF65E6FA}|AssisTec\\AssisTec.csproj|solutionrelative:assistec\\migrations\\20260730135416_initialcreate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -14,7 +34,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Bookmark",
@@ -26,11 +46,75 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ucBackupImportar.cs",
+              "DocumentMoniker": "C:\\Users\\Pc do estagiario\\RiderProjects\\AssisTec-TCC30-07\\AssisTec\\Views\\UserControls\\ucBackupImportar.cs",
+              "RelativeDocumentMoniker": "AssisTec\\Views\\UserControls\\ucBackupImportar.cs",
+              "ToolTip": "C:\\Users\\Pc do estagiario\\RiderProjects\\AssisTec-TCC30-07\\AssisTec\\Views\\UserControls\\ucBackupImportar.cs",
+              "RelativeToolTip": "AssisTec\\Views\\UserControls\\ucBackupImportar.cs",
+              "ViewState": "AgIAAJkAAAAAAAAAAAAmwBQAAABuAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-30T15:33:57.724Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "ucBackupImportar.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\Pc do estagiario\\RiderProjects\\AssisTec-TCC30-07\\AssisTec\\Views\\UserControls\\ucBackupImportar.cs",
+              "RelativeDocumentMoniker": "AssisTec\\Views\\UserControls\\ucBackupImportar.cs",
+              "ToolTip": "C:\\Users\\Pc do estagiario\\RiderProjects\\AssisTec-TCC30-07\\AssisTec\\Views\\UserControls\\ucBackupImportar.cs [Design]",
+              "RelativeToolTip": "AssisTec\\Views\\UserControls\\ucBackupImportar.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-30T15:33:46.792Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "AppDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\Pc do estagiario\\RiderProjects\\AssisTec-TCC30-07\\AssisTec\\Repository\\AppDbContext.cs",
+              "RelativeDocumentMoniker": "AssisTec\\Repository\\AppDbContext.cs",
+              "ToolTip": "C:\\Users\\Pc do estagiario\\RiderProjects\\AssisTec-TCC30-07\\AssisTec\\Repository\\AppDbContext.cs",
+              "RelativeToolTip": "AssisTec\\Repository\\AppDbContext.cs",
+              "ViewState": "AgIAAA8AAAAAAAAAAAA9wCAAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-30T15:31:05.596Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "App.config",
+              "DocumentMoniker": "C:\\Users\\Pc do estagiario\\RiderProjects\\AssisTec-TCC30-07\\AssisTec\\App.config",
+              "RelativeDocumentMoniker": "AssisTec\\App.config",
+              "ToolTip": "C:\\Users\\Pc do estagiario\\RiderProjects\\AssisTec-TCC30-07\\AssisTec\\App.config",
+              "RelativeToolTip": "AssisTec\\App.config",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000601|",
+              "WhenOpened": "2026-07-30T15:29:58.307Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "appSettings.config",
+              "DocumentMoniker": "C:\\Users\\Pc do estagiario\\RiderProjects\\AssisTec-TCC30-07\\AssisTec\\appSettings.config",
+              "RelativeDocumentMoniker": "AssisTec\\appSettings.config",
+              "ToolTip": "C:\\Users\\Pc do estagiario\\RiderProjects\\AssisTec-TCC30-07\\AssisTec\\appSettings.config",
+              "RelativeToolTip": "AssisTec\\appSettings.config",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000601|",
+              "WhenOpened": "2026-07-30T15:29:31.249Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
               "Title": "20260730135416_InitialCreate.cs",
-              "DocumentMoniker": "C:\\Users\\Pc do estagiario\\Desktop\\AssisTec-27-07\\AssisTec\\Migrations\\20260730135416_InitialCreate.cs",
+              "DocumentMoniker": "C:\\Users\\Pc do estagiario\\RiderProjects\\AssisTec-TCC30-07\\AssisTec\\Migrations\\20260730135416_InitialCreate.cs",
               "RelativeDocumentMoniker": "AssisTec\\Migrations\\20260730135416_InitialCreate.cs",
-              "ToolTip": "C:\\Users\\Pc do estagiario\\Desktop\\AssisTec-27-07\\AssisTec\\Migrations\\20260730135416_InitialCreate.cs",
+              "ToolTip": "C:\\Users\\Pc do estagiario\\RiderProjects\\AssisTec-TCC30-07\\AssisTec\\Migrations\\20260730135416_InitialCreate.cs",
               "RelativeToolTip": "AssisTec\\Migrations\\20260730135416_InitialCreate.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",

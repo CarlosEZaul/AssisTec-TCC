@@ -1,10 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AssisTec.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using AssisTec.Models;
 
 namespace AssisTec.Repository
 {
@@ -27,9 +28,14 @@ namespace AssisTec.Repository
         {
             if (!optionsBuilder.IsConfigured)
             {
-                string connectionString = "Server=aws-0-sa-east-1.pooler.supabase.com;Port=5432;Database=postgres;User Id=postgres.fbagydukbejfqqvcskit;Password=AssisTec2026;SslMode=Require;Trust Server Certificate=true;";
+                var setting = ConfigurationManager.ConnectionStrings["SupabaseConnection"];
+        
+                if (setting == null || string.IsNullOrEmpty(setting.ConnectionString))
+                {
+                    throw new InvalidOperationException("A String de Conexão 'SupabaseConnection' não foi encontrada no arquivo de configuração local.");
+                }
 
-                optionsBuilder.UseNpgsql(connectionString);
+                optionsBuilder.UseNpgsql(setting.ConnectionString);
             }
         }
 

@@ -31,11 +31,7 @@ namespace AssisTec.UserControls
         /// </summary>
         private void InitializeComponent()
         {
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ucBackupImportar));
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             this.label4 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.panelBackup = new System.Windows.Forms.Panel();
@@ -70,7 +66,8 @@ namespace AssisTec.UserControls
             // 
             // label1
             // 
-            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.SystemColors.ControlLightLight;
@@ -78,7 +75,8 @@ namespace AssisTec.UserControls
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(1135, 97);
             this.label1.TabIndex = 149;
-            this.label1.Text = "⚠️ Aviso: Ao importar os dados, as informações atuais podem ser substituídas. Ver" + "ifique o arquivo antes de continuar.";
+            this.label1.Text = "⚠️ Aviso: Ao importar os dados, as informações atuais podem ser substituídas. Ver" +
+    "ifique o arquivo antes de continuar.";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // panelBackup
@@ -98,7 +96,6 @@ namespace AssisTec.UserControls
             // 
             this.btnBackup.Animated = true;
             this.btnBackup.BackColor = System.Drawing.Color.Transparent;
-            this.btnBackup.CustomizableEdges = customizableEdges1;
             this.btnBackup.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.btnBackup.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.btnBackup.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
@@ -108,12 +105,13 @@ namespace AssisTec.UserControls
             this.btnBackup.ForeColor = System.Drawing.Color.White;
             this.btnBackup.Location = new System.Drawing.Point(103, 187);
             this.btnBackup.Name = "btnBackup";
-            this.btnBackup.ShadowDecoration.CustomizableEdges = customizableEdges2;
             this.btnBackup.Size = new System.Drawing.Size(180, 45);
             this.btnBackup.TabIndex = 163;
             this.btnBackup.Text = "Criar Backup";
             this.btnBackup.UseTransparentBackground = true;
             this.btnBackup.Click += new System.EventHandler(this.btnBackup_Click);
+            this.btnBackup.Enter += new System.EventHandler(this.btnBackup_MouseEnter);
+            this.btnBackup.Leave += new System.EventHandler(this.btnBackup_MouseLeave);
             this.btnBackup.MouseEnter += new System.EventHandler(this.btnBackup_MouseEnter);
             // 
             // label5
@@ -165,7 +163,8 @@ namespace AssisTec.UserControls
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(1172, 65);
             this.label6.TabIndex = 162;
-            this.label6.Text = "Gerencie seus dados com segurança. Faça backup ou importe informações de forma si" + "mples e rápida.";
+            this.label6.Text = "Gerencie seus dados com segurança. Faça backup ou importe informações de forma si" +
+    "mples e rápida.";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // panelImportar
@@ -185,7 +184,6 @@ namespace AssisTec.UserControls
             // 
             this.btnImportar.Animated = true;
             this.btnImportar.BackColor = System.Drawing.Color.Transparent;
-            this.btnImportar.CustomizableEdges = customizableEdges3;
             this.btnImportar.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.btnImportar.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.btnImportar.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
@@ -195,7 +193,6 @@ namespace AssisTec.UserControls
             this.btnImportar.ForeColor = System.Drawing.Color.White;
             this.btnImportar.Location = new System.Drawing.Point(113, 187);
             this.btnImportar.Name = "btnImportar";
-            this.btnImportar.ShadowDecoration.CustomizableEdges = customizableEdges4;
             this.btnImportar.Size = new System.Drawing.Size(180, 45);
             this.btnImportar.TabIndex = 163;
             this.btnImportar.Text = "Importar backup";
@@ -248,6 +245,7 @@ namespace AssisTec.UserControls
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panelImportar.ResumeLayout(false);
             this.ResumeLayout(false);
+
         }
 
         private System.Windows.Forms.Panel panelImportar;

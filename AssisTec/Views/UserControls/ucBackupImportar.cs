@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.Drawing;
 using System.IO;
 using System.Threading;
@@ -17,7 +18,7 @@ namespace AssisTec.UserControls
         {
             InitializeComponent();
 
-            _connectionString = "Server=aws-0-sa-east-1.pooler.supabase.com;Port=5432;Database=postgres;User Id=postgres.fbagydukbejfqqvcskit;Password=AssisTec2026;SslMode=Require;Trust Server Certificate=true;";
+            _connectionString = ConfigurationManager.ConnectionStrings["SupabaseConnection"].ConnectionString;
 
             DesignModerno();
         }

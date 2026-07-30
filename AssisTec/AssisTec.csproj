@@ -605,6 +605,9 @@
     <EmbeddedResource Include="Views\UserControls\ucHome.resx">
       <DependentUpon>ucHome.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="appSettings.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Connected Services\wscep\wscep.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>wscep.cs</LastGenOutput>
