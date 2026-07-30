@@ -234,25 +234,29 @@ namespace AssisTec.Service
         }
         
         public void GerarRelatorioClientesPdf(string nome, bool exibirDesativados, string caminhoDestino)
+    {
+        try
         {
-            try
+            List<Cliente> clientesFiltrados = repository.ObterComFiltros(nome, exibirDesativados);
+
+            ClienteDTO.ClientesRelatorioDTO relatorio = new ClienteDTO.ClientesRelatorioDTO
             {
-                List<Cliente> clientesFiltrados = repository.ObterComFiltros(nome, exibirDesativados);
+                FiltroNome = string.IsNullOrEmpty(nome) ? "Todos" : nome,
+                FiltroStatus = exibirDesativados ? "Todos (Ativados/Desativados)" : "Apenas Ativados",
+                TotalAtivos = 0,
+                TotalInativos = 0,
+                TotalGeral = 0,
+                Itens = new List<ClienteDTO.ClienteRelatorioDTO>()
+            };
 
-                ClienteDTO.ClientesRelatorioDTO relatorio = new ClienteDTO.ClientesRelatorioDTO
-                {
-                    FiltroNome = string.IsNullOrEmpty(nome) ? "Todos" : nome,
-                    FiltroStatus = exibirDesativados ? "Todos (Ativados/Desativados)" : "Apenas Ativados",
-                    TotalAtivos = 0,
-                    TotalInativos = 0,
-                    TotalGeral = 0,
-                    Itens = new List<ClienteDTO.ClienteRelatorioDTO>()
-                };
-
+            if (clientesFiltrados != null)
+            {
                 foreach (var cliente in clientesFiltrados)
                 {
-                    bool inativo = cliente.Status.Equals("Desativado", StringComparison.OrdinalIgnoreCase);
-                    
+                    string statusAtual = cliente.Status ?? string.Empty;
+                    bool inativo = statusAtual.Equals("Desativado", StringComparison.OrdinalIgnoreCase) ||
+                                   statusAtual.Equals("Inativo", StringComparison.OrdinalIgnoreCase);
+
                     if (inativo)
                     {
                         relatorio.TotalInativos++;
@@ -266,398 +270,137 @@ namespace AssisTec.Service
                     relatorio.Itens.Add(new ClienteDTO.ClienteRelatorioDTO
                     {
                         Id = cliente.Id,
-                        Nome = cliente.Nome,
-                        Cpf = cliente.Cpf,
-                        Telefone = cliente.Telefone,
-                        Cidade = cliente.Cidade,
-                        Estado = cliente.Estado,
-                        Status = cliente.Status
+                        Nome = cliente.Nome ?? string.Empty,
+                        Cpf = cliente.Cpf ?? string.Empty,
+                        Telefone = cliente.Telefone ?? string.Empty,
+                        Cidade = cliente.Cidade ?? string.Empty,
+                        Estado = cliente.Estado ?? string.Empty,
+                        Status = statusAtual
                     });
                 }
-
-                ExecutarGeracaoPdfClientes(relatorio, caminhoDestino);
             }
-            catch (Exception ex)
+
+            GeradorPdfCliente.GerarRelatorioGeral(relatorio, caminhoDestino);
+        }
+        catch (Exception ex)
+        {
+            string mensagemDetalhada = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
+            throw new Exception("Falha ao processar o relatório de clientes: " + mensagemDetalhada, ex);
+        }
+    }
+
+    public void GerarRelatorioIndividualClientePdf(int idCliente, string caminhoDestino)
+    {
+        try
+        {
+            Cliente cliente = repository.ObterPorId(idCliente);
+            if (cliente == null)
             {
-                throw new Exception("Falha ao gerar o relatório de clientes em PDF.", ex);
+                throw new Exception("Cliente não encontrado para a geração do relatório.");
             }
-        }
 
-        public DataTable ObterHistoricoOsCliente(int id)
-        {
-            return ordemServicoRepository.ObterHistoricoCliente(id);
-        }
+            DataTable tabelaOS = ordemServicoRepository.ObterHistoricoCliente(idCliente);
 
-        private void ExecutarGeracaoPdfClientes(ClienteDTO.ClientesRelatorioDTO dados, string caminhoDestino)
-        {
-            Document doc = new Document(PageSize.A4, 36, 36, 36, 36);
-            FileStream fs = null;
-            try
+            ClienteDTO.ClienteComOrdemServicoDTO relatorio = new ClienteDTO.ClienteComOrdemServicoDTO
             {
-                fs = new FileStream(caminhoDestino, FileMode.Create);
-                PdfWriter writer = PdfWriter.GetInstance(doc, fs);
+                IdCliente = cliente.Id,
+                Nome = cliente.Nome ?? string.Empty,
+                Cpf = cliente.Cpf ?? string.Empty,
+                Telefone = cliente.Telefone ?? string.Empty,
+                StatusCliente = cliente.Status ?? string.Empty,
+                TotalOrdens = 0,
+                OrdensAbertas = 0,
+                OrdensFinalizadas = 0,
+                TotalGasto = 0m,
+                Ordens = new List<ClienteDTO.OrdemServicoItemDTO>()
+            };
 
-                doc.Open();
-
-                BaseFont bfRegular = BaseFont.CreateFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-                BaseFont bfBold = BaseFont.CreateFont(BaseFont.HELVETICA_BOLD, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-
-                Font fontTitulo = new Font(bfBold, 20, Font.NORMAL, new BaseColor(26, 54, 93));
-                Font fontSubtitulo = new Font(bfRegular, 10, Font.NORMAL, new BaseColor(74, 85, 104));
-                Font fontMeta = new Font(bfRegular, 9, Font.NORMAL, new BaseColor(113, 128, 150));
-                Font fontSecao = new Font(bfBold, 12, Font.NORMAL, new BaseColor(43, 108, 176));
-                Font fontBold = new Font(bfBold, 9, Font.NORMAL, new BaseColor(45, 55, 72));
-                Font fontRegular = new Font(bfRegular, 9, Font.NORMAL, new BaseColor(45, 55, 72));
-                Font fontHeaderTabela = new Font(bfBold, 9, Font.NORMAL, BaseColor.WHITE);
-
-                PdfPTable headerTable = new PdfPTable(2);
-                headerTable.WidthPercentage = 100;
-                headerTable.SetWidths(new float[] { 60f, 40f });
-
-                PdfPCell cellLeft = new PdfPCell();
-                cellLeft.Border = PdfPCell.NO_BORDER;
-                cellLeft.AddElement(new Paragraph("AssisTEC", fontTitulo));
-                cellLeft.AddElement(new Paragraph("Relatório Geral de Clientes", fontSubtitulo));
-                headerTable.AddCell(cellLeft);
-
-                PdfPCell cellRight = new PdfPCell();
-                cellRight.Border = PdfPCell.NO_BORDER;
-                Paragraph pMeta = new Paragraph($"Gerado em: {DateTime.Now:dd/MM/yyyy HH:mm}\nUsuário: Logado", fontMeta);
-                pMeta.Alignment = Element.ALIGN_RIGHT;
-                cellRight.AddElement(pMeta);
-                headerTable.AddCell(cellRight);
-
-                doc.Add(headerTable);
-
-                Paragraph linhaDivisoria = new Paragraph(new Chunk(new LineSeparator(2f, 100f, new BaseColor(43, 108, 176), Element.ALIGN_CENTER, -1f)));
-                linhaDivisoria.SpacingAfter = 15f;
-                doc.Add(linhaDivisoria);
-
-                doc.Add(new Paragraph("FILTROS APLICADOS", fontSecao));
-
-                PdfPTable filterTable = new PdfPTable(2);
-                filterTable.WidthPercentage = 100;
-                filterTable.SetWidths(new float[] { 20f, 80f });
-                filterTable.SpacingBefore = 5f;
-                filterTable.SpacingAfter = 15f;
-
-                string[,] filtros = {
-                    { "Nome:", dados.FiltroNome },
-                    { "Status:", dados.FiltroStatus }
-                };
-
-                for (int i = 0; i < 2; i++)
+            if (tabelaOS != null && tabelaOS.Rows.Count > 0)
+            {
+                foreach (DataRow row in tabelaOS.Rows)
                 {
-                    for (int j = 0; j < 2; j++)
+                    string statusOS = ObterValorColuna(row, tabelaOS, "STATUS", "ABERTA");
+                    string tecnico = ObterValorColuna(row, tabelaOS, "TECNICO", ObterValorColuna(row, tabelaOS, "NOME_TECNICO", "Não Atribuído"));
+                    string equipamento = ObterValorColuna(row, tabelaOS, "EQUIPAMENTO", ObterValorColuna(row, tabelaOS, "DISPOSITIVO", "Sem Equipamento"));
+
+                    decimal valor = 0m;
+                    string colValor = tabelaOS.Columns.Contains("VALOR_TOTAL") ? "VALOR_TOTAL" : (tabelaOS.Columns.Contains("VALOR") ? "VALOR" : null);
+                    if (colValor != null && row[colValor] != DBNull.Value)
                     {
-                        bool isLabel = j == 0;
-                        PdfPCell cell = new PdfPCell(new Phrase(filtros[i, j], isLabel ? fontBold : fontRegular));
-                        cell.BackgroundColor = new BaseColor(247, 250, 252);
-                        cell.BorderColor = new BaseColor(237, 242, 247);
-                        cell.Padding = 6;
-                        filterTable.AddCell(cell);
+                        valor = Convert.ToDecimal(row[colValor]);
                     }
-                }
-                doc.Add(filterTable);
 
-                doc.Add(new Paragraph("RESUMO GERAL", fontSecao));
-
-                PdfPTable summaryTable = new PdfPTable(3);
-                summaryTable.WidthPercentage = 100;
-                summaryTable.SetWidths(new float[] { 33.33f, 33.33f, 33.33f });
-                summaryTable.SpacingBefore = 5f;
-                summaryTable.SpacingAfter = 15f;
-
-                summaryTable.AddCell(CriarCardResumo("CLIENTES ATIVOS", dados.TotalAtivos.ToString(), new BaseColor(56, 161, 105), fontMeta, fontTitulo));
-                summaryTable.AddCell(CriarCardResumo("CLIENTES INATIVOS", dados.TotalInativos.ToString(), new BaseColor(229, 62, 98), fontMeta, fontTitulo));
-                summaryTable.AddCell(CriarCardResumo("TOTAL GERAL", dados.TotalGeral.ToString(), new BaseColor(74, 85, 104), fontMeta, fontTitulo));
-
-                doc.Add(summaryTable);
-
-                doc.Add(new Paragraph("DETALHAMENTO DOS CLIENTES", fontSecao));
-
-                PdfPTable dataTable = new PdfPTable(7);
-                dataTable.WidthPercentage = 100;
-                dataTable.SetWidths(new float[] { 6f, 26f, 16f, 14f, 18f, 12f, 8f });
-                dataTable.SpacingBefore = 5f;
-
-                string[] headers = { "ID", "Nome", "CPF", "Telefone", "Cidade", "Estado", "Status" };
-                foreach (var header in headers)
-                {
-                    PdfPCell hCell = new PdfPCell(new Phrase(header, fontHeaderTabela));
-                    hCell.BackgroundColor = new BaseColor(26, 54, 93);
-                    hCell.BorderColor = new BaseColor(26, 54, 93);
-                    hCell.Padding = 6;
-                    dataTable.AddCell(hCell);
-                }
-
-                foreach (var item in dados.Itens)
-                {
-                    dataTable.AddCell(new PdfPCell(new Phrase(item.Id.ToString(), fontRegular)) { Padding = 6, BorderColor = new BaseColor(226, 232, 240) });
-                    dataTable.AddCell(new PdfPCell(new Phrase(item.Nome, fontRegular)) { Padding = 6, BorderColor = new BaseColor(226, 232, 240) });
-                    dataTable.AddCell(new PdfPCell(new Phrase(item.Cpf, fontRegular)) { Padding = 6, BorderColor = new BaseColor(226, 232, 240) });
-                    dataTable.AddCell(new PdfPCell(new Phrase(item.Telefone, fontRegular)) { Padding = 6, BorderColor = new BaseColor(226, 232, 240) });
-                    dataTable.AddCell(new PdfPCell(new Phrase(item.Cidade, fontRegular)) { Padding = 6, BorderColor = new BaseColor(226, 232, 240) });
-                    dataTable.AddCell(new PdfPCell(new Phrase(item.Estado, fontRegular)) { Padding = 6, BorderColor = new BaseColor(226, 232, 240) });
-
-                    bool ativo = item.Status.Equals("Ativado", StringComparison.OrdinalIgnoreCase);
-                    PdfPCell statusCell = new PdfPCell(new Phrase(item.Status, fontBold));
-                    statusCell.BackgroundColor = ativo ? new BaseColor(198, 246, 213) : new BaseColor(254, 215, 215);
-                    statusCell.Padding = 6;
-                    statusCell.HorizontalAlignment = Element.ALIGN_CENTER;
-                    statusCell.BorderColor = new BaseColor(226, 232, 240);
-                    dataTable.AddCell(statusCell);
-                }
-
-                doc.Add(dataTable);
-            }
-            finally
-            {
-                if (doc.IsOpen()) doc.Close();
-                if (fs != null) fs.Dispose();
-            }
-        }
-
-        public void GerarRelatorioIndividualClientePdf(int idCliente, string caminhoDestino)
-        {
-            try
-            {
-                Cliente cliente = repository.ObterPorId(idCliente);
-                if (cliente == null)
-                {
-                    throw new Exception("Cliente não encontrado para a geração do relatório.");
-                }
-
-                DataTable tabelaOS = ordemServicoRepository.ObterHistoricoCliente(idCliente);
-
-                ClienteDTO.ClienteComOrdemServicoDTO relatorio = new ClienteDTO.ClienteComOrdemServicoDTO
-                {
-                    IdCliente = cliente.Id,
-                    Nome = cliente.Nome ?? string.Empty,
-                    Cpf = cliente.Cpf ?? string.Empty,
-                    Telefone = cliente.Telefone ?? string.Empty,
-                    StatusCliente = cliente.Status ?? string.Empty,
-                    TotalOrdens = 0,
-                    OrdensAbertas = 0,
-                    OrdensFinalizadas = 0,
-                    TotalGasto = 0m,
-                    Ordens = new List<ClienteDTO.OrdemServicoItemDTO>()
-                };
-
-                if (tabelaOS != null && tabelaOS.Rows.Count > 0)
-                {
-                    foreach (DataRow row in tabelaOS.Rows)
+                    DateTime? dataFim = null;
+                    string colDataFim = tabelaOS.Columns.Contains("DATA_FECHAMENTO") ? "DATA_FECHAMENTO" : (tabelaOS.Columns.Contains("DATA_FINALIZACAO") ? "DATA_FINALIZACAO" : null);
+                    if (colDataFim != null && row[colDataFim] != DBNull.Value)
                     {
-                        string statusOS = row["STATUS"] != DBNull.Value ? row["STATUS"].ToString() : "ABERTA";
-                        decimal valor = row["VALOR_TOTAL"] != DBNull.Value ? Convert.ToDecimal(row["VALOR_TOTAL"]) : 0m;
-                        
-                        DateTime? dataFim = null;
-                        if (row["DATA_FECHAMENTO"] != DBNull.Value)
-                        {
-                            dataFim = Convert.ToDateTime(row["DATA_FECHAMENTO"]);
-                        }
-
-                        relatorio.TotalOrdens++;
-
-                        if (statusOS.Equals("ABERTA", StringComparison.OrdinalIgnoreCase) || 
-                            statusOS.Equals("Aberto", StringComparison.OrdinalIgnoreCase) || 
-                            statusOS.Equals("Em Andamento", StringComparison.OrdinalIgnoreCase))
-                        {
-                            relatorio.OrdensAbertas++;
-                        }
-                        else if (statusOS.Equals("Finalizado", StringComparison.OrdinalIgnoreCase) || 
-                                 statusOS.Equals("Entregue", StringComparison.OrdinalIgnoreCase))
-                        {
-                            relatorio.OrdensFinalizadas++;
-                            relatorio.TotalGasto += valor;
-                        }
-
-                        relatorio.Ordens.Add(new ClienteDTO.OrdemServicoItemDTO
-                        {
-                            IdOrdemServico = row["ID_ORDEM"] != DBNull.Value ? Convert.ToInt32(row["ID_ORDEM"]) : 0,
-                            Tecnico = row["TECNICO"] != DBNull.Value ? row["TECNICO"].ToString() : "Não Atribuído",
-                            Equipamento = row["EQUIPAMENTO"] != DBNull.Value ? row["EQUIPAMENTO"].ToString() : "Sem Equipamento",
-                            DataAbertura = row["DATA_ABERTURA"] != DBNull.Value ? Convert.ToDateTime(row["DATA_ABERTURA"]) : DateTime.Now,
-                            DataFechamento = dataFim,
-                            ValorTotal = valor,
-                            Status = statusOS
-                        });
+                        dataFim = Convert.ToDateTime(row[colDataFim]);
                     }
-                }
 
-                ExecutarGeracaoPdfIndividualCliente(relatorio, caminhoDestino);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Erro ao gerar o relatório individual do cliente. " + ex.Message);
-            }
-        }
-
-        private void ExecutarGeracaoPdfIndividualCliente(ClienteDTO.ClienteComOrdemServicoDTO dados, string caminhoDestino)
-        {
-            Document doc = new Document(PageSize.A4, 36, 36, 36, 36);
-            FileStream fs = null;
-            try
-            {
-                fs = new FileStream(caminhoDestino, FileMode.Create);
-                PdfWriter writer = PdfWriter.GetInstance(doc, fs);
-
-                doc.Open();
-
-                BaseFont bfRegular = BaseFont.CreateFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-                BaseFont bfBold = BaseFont.CreateFont(BaseFont.HELVETICA_BOLD, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-
-                Font fontTitulo = new Font(bfBold, 18, Font.NORMAL, new BaseColor(26, 54, 93));
-                Font fontSubtitulo = new Font(bfRegular, 10, Font.NORMAL, new BaseColor(74, 85, 104));
-                Font fontMeta = new Font(bfRegular, 9, Font.NORMAL, new BaseColor(113, 128, 150));
-                Font fontSecao = new Font(bfBold, 11, Font.NORMAL, new BaseColor(43, 108, 176));
-                Font fontBold = new Font(bfBold, 9, Font.NORMAL, new BaseColor(45, 55, 72));
-                Font fontRegular = new Font(bfRegular, 9, Font.NORMAL, new BaseColor(45, 55, 72));
-                Font fontHeaderTabela = new Font(bfBold, 9, Font.NORMAL, BaseColor.WHITE);
-
-                PdfPTable headerTable = new PdfPTable(2);
-                headerTable.WidthPercentage = 100;
-                headerTable.SetWidths(new float[] { 60f, 40f });
-
-                PdfPCell cellLeft = new PdfPCell();
-                cellLeft.Border = PdfPCell.NO_BORDER;
-                cellLeft.AddElement(new Paragraph("AssisTEC", fontTitulo));
-                cellLeft.AddElement(new Paragraph("Histórico Financeiro e de Serviços do Cliente", fontSubtitulo));
-                headerTable.AddCell(cellLeft);
-
-                PdfPCell cellRight = new PdfPCell();
-                cellRight.Border = PdfPCell.NO_BORDER;
-                Paragraph pMeta = new Paragraph($"Gerado em: {DateTime.Now:dd/MM/yyyy HH:mm}\nExportado por: Sistema", fontMeta);
-                pMeta.Alignment = Element.ALIGN_RIGHT;
-                cellRight.AddElement(pMeta);
-                headerTable.AddCell(cellRight);
-
-                doc.Add(headerTable);
-
-                Paragraph linhaDivisoria = new Paragraph(new Chunk(new LineSeparator(2f, 100f, new BaseColor(43, 108, 176), Element.ALIGN_CENTER, -1f)));
-                linhaDivisoria.SpacingAfter = 12f;
-                doc.Add(linhaDivisoria);
-
-                doc.Add(new Paragraph("DADOS DO CLIENTE", fontSecao));
-
-                PdfPTable infoTable = new PdfPTable(4);
-                infoTable.WidthPercentage = 100;
-                infoTable.SetWidths(new float[] { 15f, 35f, 15f, 35f });
-                infoTable.SpacingBefore = 4f;
-                infoTable.SpacingAfter = 15f;
-
-                string[,] infoCampos = {
-                    { "Nome:", dados.Nome, "CPF:", dados.Cpf },
-                    { "Telefone:", dados.Telefone, "Código:", dados.IdCliente.ToString() },
-                    { "Situação:", dados.StatusCliente, "", "" }
-                };
-
-                for (int i = 0; i < 3; i++)
-                {
-                    for (int j = 0; j < 4; j++)
+                    DateTime dataAbertura = DateTime.Now;
+                    string colDataIni = tabelaOS.Columns.Contains("DATA_ABERTURA") ? "DATA_ABERTURA" : (tabelaOS.Columns.Contains("DATA") ? "DATA" : null);
+                    if (colDataIni != null && row[colDataIni] != DBNull.Value)
                     {
-                        if (i == 2 && j >= 2)
-                        {
-                            PdfPCell emptyCell = new PdfPCell(new Phrase("", fontRegular));
-                            emptyCell.Border = PdfPCell.NO_BORDER;
-                            infoTable.AddCell(emptyCell);
-                            continue;
-                        }
-
-                        bool isLabel = j % 2 == 0;
-                        PdfPCell cell = new PdfPCell(new Phrase(infoCampos[i, j], isLabel ? fontBold : fontRegular));
-                        cell.BackgroundColor = new BaseColor(247, 250, 252);
-                        cell.BorderColor = new BaseColor(237, 242, 247);
-                        cell.Padding = 6;
-                        infoTable.AddCell(cell);
+                        dataAbertura = Convert.ToDateTime(row[colDataIni]);
                     }
+
+                    int idOS = 0;
+                    string colIdOS = tabelaOS.Columns.Contains("ID_ORDEM") ? "ID_ORDEM" : (tabelaOS.Columns.Contains("ID") ? "ID" : null);
+                    if (colIdOS != null && row[colIdOS] != DBNull.Value)
+                    {
+                        idOS = Convert.ToInt32(row[colIdOS]);
+                    }
+
+                    relatorio.TotalOrdens++;
+
+                    if (statusOS.Equals("ABERTA", StringComparison.OrdinalIgnoreCase) ||
+                        statusOS.Equals("Aberto", StringComparison.OrdinalIgnoreCase) ||
+                        statusOS.Equals("Em Andamento", StringComparison.OrdinalIgnoreCase))
+                    {
+                        relatorio.OrdensAbertas++;
+                    }
+                    else if (statusOS.Equals("Finalizado", StringComparison.OrdinalIgnoreCase) ||
+                             statusOS.Equals("Entregue", StringComparison.OrdinalIgnoreCase) ||
+                             statusOS.Equals("FINALIZADA", StringComparison.OrdinalIgnoreCase))
+                    {
+                        relatorio.OrdensFinalizadas++;
+                        relatorio.TotalGasto += valor;
+                    }
+
+                    relatorio.Ordens.Add(new ClienteDTO.OrdemServicoItemDTO
+                    {
+                        IdOrdemServico = idOS,
+                        Tecnico = tecnico,
+                        Equipamento = equipamento,
+                        DataAbertura = dataAbertura,
+                        DataFechamento = dataFim,
+                        ValorTotal = valor,
+                        Status = statusOS
+                    });
                 }
-                doc.Add(infoTable);
-
-                doc.Add(new Paragraph("MÉTRICAS DE CONSUMO", fontSecao));
-
-                PdfPTable summaryTable = new PdfPTable(4);
-                summaryTable.WidthPercentage = 100;
-                summaryTable.SetWidths(new float[] { 25f, 25f, 25f, 25f });
-                summaryTable.SpacingBefore = 4f;
-                summaryTable.SpacingAfter = 15f;
-
-                summaryTable.AddCell(CriarCardResumo("TOTAL ORDENS", dados.TotalOrdens.ToString(), new BaseColor(74, 85, 104), fontMeta, fontTitulo));
-                summaryTable.AddCell(CriarCardResumo("EM ANDAMENTO", dados.OrdensAbertas.ToString(), new BaseColor(237, 137, 54), fontMeta, fontTitulo));
-                summaryTable.AddCell(CriarCardResumo("FINALIZADAS", dados.OrdensFinalizadas.ToString(), new BaseColor(56, 161, 105), fontMeta, fontTitulo));
-                summaryTable.AddCell(CriarCardResumo("TOTAL INVESTIDO", dados.TotalGasto.ToString("C2"), new BaseColor(49, 130, 206), fontMeta, fontTitulo));
-
-                doc.Add(summaryTable);
-
-                doc.Add(new Paragraph("HISTÓRICO DE ORDENS DE SERVIÇO", fontSecao));
-
-                PdfPTable dataTable = new PdfPTable(7);
-                dataTable.WidthPercentage = 100;
-                dataTable.SetWidths(new float[] { 8f, 24f, 24f, 11f, 11f, 12f, 10f });
-                dataTable.SpacingBefore = 4f;
-
-                string[] headers = { "Nº OS", "Responsável", "Equipamento", "Abertura", "Fechamento", "Valor", "Status" };
-                foreach (var header in headers)
-                {
-                    PdfPCell hCell = new PdfPCell(new Phrase(header, fontHeaderTabela));
-                    hCell.BackgroundColor = new BaseColor(26, 54, 93);
-                    hCell.BorderColor = new BaseColor(26, 54, 93);
-                    hCell.Padding = 6;
-                    dataTable.AddCell(hCell);
-                }
-
-                foreach (var item in dados.Ordens)
-                {
-                    dataTable.AddCell(new PdfPCell(new Phrase(item.IdOrdemServico.ToString(), fontRegular)) { Padding = 6, BorderColor = new BaseColor(226, 232, 240) });
-                    dataTable.AddCell(new PdfPCell(new Phrase(item.Tecnico, fontRegular)) { Padding = 6, BorderColor = new BaseColor(226, 232, 240) });
-                    dataTable.AddCell(new PdfPCell(new Phrase(item.Equipamento, fontRegular)) { Padding = 6, BorderColor = new BaseColor(226, 232, 240) });
-                    dataTable.AddCell(new PdfPCell(new Phrase(item.DataAbertura.ToString("dd/MM/yyyy"), fontRegular)) { Padding = 6, HorizontalAlignment = Element.ALIGN_CENTER, BorderColor = new BaseColor(226, 232, 240) });
-                    
-                    string dataFechamentoText = item.DataFechamento.HasValue ? item.DataFechamento.Value.ToString("dd/MM/yyyy") : "-";
-                    dataTable.AddCell(new PdfPCell(new Phrase(dataFechamentoText, fontRegular)) { Padding = 6, HorizontalAlignment = Element.ALIGN_CENTER, BorderColor = new BaseColor(226, 232, 240) });
-                    
-                    dataTable.AddCell(new PdfPCell(new Phrase(item.ValorTotal.ToString("C2"), fontRegular)) { Padding = 6, HorizontalAlignment = Element.ALIGN_RIGHT, BorderColor = new BaseColor(226, 232, 240) });
-
-                    bool finalizada = item.Status.Equals("Finalizado", StringComparison.OrdinalIgnoreCase) || item.Status.Equals("Entregue", StringComparison.OrdinalIgnoreCase);
-                    PdfPCell statusCell = new PdfPCell(new Phrase(item.Status, fontBold));
-                    statusCell.BackgroundColor = finalizada ? new BaseColor(198, 246, 213) : new BaseColor(254, 215, 215);
-                    statusCell.Padding = 6;
-                    statusCell.HorizontalAlignment = Element.ALIGN_CENTER;
-                    statusCell.BorderColor = new BaseColor(226, 232, 240);
-                    dataTable.AddCell(statusCell);
-                }
-
-                doc.Add(dataTable);
             }
-            catch (Exception e)
-            {
-                throw new Exception("Erro ao gerar relatório " + e.Message);
-            }
-            finally
-            {
-                if (doc.IsOpen()) doc.Close();
-                if (fs != null) fs.Dispose();
-            }
+
+            GeradorPdfCliente.GerarRelatorioIndividual(relatorio, caminhoDestino);
         }
-
-        private PdfPCell CriarCardResumo(string titulo, string valor, BaseColor corBordaTop, Font fTitulo, Font fValor)
+        catch (Exception ex)
         {
-            PdfPCell cell = new PdfPCell();
-            cell.BackgroundColor = new BaseColor(247, 250, 252);
-            cell.BorderColor = new BaseColor(237, 242, 247);
-            cell.BorderWidthTop = 3f;
-            cell.BorderColorTop = corBordaTop;
-            cell.Padding = 8;
-
-            Paragraph pT = new Paragraph(titulo, fTitulo);
-            pT.Alignment = Element.ALIGN_CENTER;
-            cell.AddElement(pT);
-
-            Paragraph pV = new Paragraph(valor, fValor);
-            pV.Alignment = Element.ALIGN_CENTER;
-            cell.AddElement(pV);
-
-            return cell;
+            string mensagemDetalhada = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
+            throw new Exception("Erro ao processar o relatório individual do cliente: " + mensagemDetalhada, ex);
         }
+    }
+
+    private string ObterValorColuna(DataRow row, DataTable table, string nomeColuna, string valorPadrao)
+    {
+        if (table.Columns.Contains(nomeColuna) && row[nomeColuna] != DBNull.Value)
+        {
+            return row[nomeColuna].ToString();
+        }
+        return valorPadrao;
+    }
+
+    public DataTable ObterHistoricoOsCliente(int id)
+    {
+        return ordemServicoRepository.ObterHistoricoCliente(id);
+    }
     }
 }

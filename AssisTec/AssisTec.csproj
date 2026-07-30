@@ -299,7 +299,6 @@
     <Compile Include="Service\ClienteService.cs" />
     <Compile Include="Service\ContasPagarService.cs" />
     <Compile Include="Service\ContasReceberService.cs" />
-    <Compile Include="Service\EquipamentoService.cs" />
     <Compile Include="Service\MovimentacaoEstoqueService.cs" />
     <Compile Include="Service\OrdemServicoService.cs" />
     <Compile Include="Service\PagamentoService.cs" />
@@ -309,7 +308,9 @@
     <Compile Include="Utils\BuscaCEP.cs" />
     <Compile Include="Utils\ContatoWhatsApp.cs" />
     <Compile Include="Utils\DesignComponentes.cs" />
+    <Compile Include="Utils\GeradorPdfCliente.cs" />
     <Compile Include="Utils\GeradorPdfOS.cs" />
+    <Compile Include="Utils\GeradorPdfUsuario.cs" />
     <Compile Include="Utils\Validacao.cs" />
     <Compile Include="Views\Forms\FrmLogin.cs" />
     <Compile Include="Views\Forms\FrmLogin.Designer.cs">

@@ -137,7 +137,6 @@ namespace AssisTec.UserControls
             txtBusca.Enabled = ativo;
             dgvClientes.Enabled = ativo;
             btnOS.Enabled = ativo;
-            btnRelatorio.Enabled = ativo;
             btnContato.Enabled = ativo;
             btnImprimirCliente.Enabled = ativo;
         }

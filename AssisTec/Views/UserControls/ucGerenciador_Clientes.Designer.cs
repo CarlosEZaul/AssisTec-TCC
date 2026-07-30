@@ -87,7 +87,6 @@ namespace AssisTec.UserControls
             // 
             this.btnRelatorio.BackColor = System.Drawing.Color.RoyalBlue;
             this.btnRelatorio.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnRelatorio.Enabled = false;
             this.btnRelatorio.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRelatorio.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.btnRelatorio.ForeColor = System.Drawing.SystemColors.Control;

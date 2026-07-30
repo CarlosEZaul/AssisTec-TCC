@@ -304,13 +304,13 @@ namespace AssisTec.UserControls
             historicoOs.Show();
         }
 
-        private void btnRelatorio_Click(object sender, EventArgs e)
+       private void btnRelatorio_Click(object sender, EventArgs e)
         {
             try
             {
                 string nome = txtBusca.Text.Trim();
                 bool apenasInativos = cbInativo.Checked;
-        
+
                 int nivel = 0;
                 if (cbNivel.SelectedValue != null && int.TryParse(cbNivel.SelectedValue.ToString(), out int valNivel))
                 {
@@ -322,6 +322,7 @@ namespace AssisTec.UserControls
                     saveFileDialog.Filter = "Arquivos PDF (*.pdf)|*.pdf";
                     saveFileDialog.FileName = "Relatorio_Usuarios_" + DateTime.Now.ToString("yyyyMMdd") + ".pdf";
                     saveFileDialog.Title = "Salvar Relatório de Usuários";
+                    saveFileDialog.RestoreDirectory = true;
 
                     if (saveFileDialog.ShowDialog() == DialogResult.OK)
                     {
@@ -351,6 +352,7 @@ namespace AssisTec.UserControls
                     saveFileDialog.Filter = "Arquivos PDF (*.pdf)|*.pdf";
                     saveFileDialog.FileName = $"Relatorio_Produtividade_Tecnico_{idSelected}_{DateTime.Now:yyyyMMdd}.pdf";
                     saveFileDialog.Title = "Salvar Relatório de Produtividade";
+                    saveFileDialog.RestoreDirectory = true;
 
                     if (saveFileDialog.ShowDialog() == DialogResult.OK)
                     {
