@@ -281,11 +281,11 @@
     <Compile Include="Models\Usuario.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\BackupPostgres.cs" />
     <Compile Include="Repository\HistoricoAlteracaoOSRepository.cs" />
     <Compile Include="Repository\IHistoricoAlteracaoOSRepository.cs" />
     <Compile Include="Repository\ServicosOSRepository.cs" />
     <Compile Include="Repository\AppDbContext.cs" />
-    <Compile Include="Repository\BackupXamppAutomated.cs" />
     <Compile Include="Repository\ClienteRepository.cs" />
     <Compile Include="Repository\ContaReceberRepository.cs" />
     <Compile Include="Repository\ContasPagarRepository.cs" />

@@ -17,9 +17,7 @@ namespace AssisTec.UserControls
         {
             InitializeComponent();
 
-            _connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["SuaStringConexao"]?.ConnectionString ?? "SERVER=localhost;DATABASE=assistec;UID=root;PWD=;PORT=3306;";
-
-            _diretorioMysql = @"C:\xampp\mysql\bin";
+            _connectionString = "Server=aws-0-sa-east-1.pooler.supabase.com;Port=5432;Database=postgres;User Id=postgres.fbagydukbejfqqvcskit;Password=AssisTec2026;SslMode=Require;Trust Server Certificate=true;";
 
             DesignModerno();
         }
@@ -40,22 +38,17 @@ namespace AssisTec.UserControls
                 if (sfd.ShowDialog() != DialogResult.OK) return;
 
                 string senha = ObterSenha("Digite uma senha para proteger o backup:");
-                if (senha == null)
-                {
-                    return;
-                }
+                if (senha == null) return;
 
                 ControleInterface(false, "Gerando backup...");
                 _cts = new CancellationTokenSource();
 
                 try
                 {
-                    string destino   = sfd.FileName;
-                    string caminhoDump = Path.Combine(_diretorioMysql, "mysqldump.exe");
+                    string destino = sfd.FileName;
 
                     await Task.Run(() =>
-                        BackupMysql.ExecutarBackup(
-                            _connectionString, caminhoDump, destino, senha));
+                        BackupPostgres.ExecutarBackup(_connectionString, destino, senha));
 
                     MessageBox.Show(
                         "Backup gerado e criptografado com sucesso!",
@@ -90,8 +83,10 @@ namespace AssisTec.UserControls
 
                 string senha = ObterSenha("Digite a senha do backup para restaurar:");
                 if (senha == null) return;
-                
-                var confirmacao = MessageBox.Show("ATENÇÃO: Esta operação substituirá todos os dados atuais do banco.\nDeseja continuar?", "Confirmar Restauração", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+                var confirmacao = MessageBox.Show(
+                    "ATENÇÃO: Esta operação substituirá todos os dados atuais do banco.\nDeseja continuar?",
+                    "Confirmar Restauração", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
                 if (confirmacao != DialogResult.Yes) return;
 
@@ -100,12 +95,10 @@ namespace AssisTec.UserControls
 
                 try
                 {
-                    string origem      = ofd.FileName;
-                    string caminhoMysql = Path.Combine(_diretorioMysql, "mysql.exe");
+                    string origem = ofd.FileName;
 
                     await Task.Run(() =>
-                        BackupMysql.ExecutarImportacao(
-                            _connectionString, caminhoMysql, origem, senha));
+                        BackupPostgres.ExecutarImportacao(_connectionString, origem, senha));
 
                     MessageBox.Show(
                         "Backup restaurado com sucesso!",
