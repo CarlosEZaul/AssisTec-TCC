@@ -7,7 +7,7 @@ namespace AssisTec.Views.UserControls.SubUserControl_do_Gerenciador_de_OS
 {
     public partial class ucDetalhesEquipamento : UserControl
     {
-        OrdemServicoService _ordemServicoService;
+        private readonly OrdemServicoService _ordemServicoService;
         private int idOS;
         public ucDetalhesEquipamento(OrdemServicoService ordemServico, int id)
         {
@@ -16,6 +16,7 @@ namespace AssisTec.Views.UserControls.SubUserControl_do_Gerenciador_de_OS
             _ordemServicoService = ordemServico ?? throw new ArgumentNullException(nameof(ordemServico));
             CarregarComboBox();
             CarregarEquipamento();
+            DesativarBotão();
         }
 
         private void CarregarComboBox()
@@ -28,7 +29,21 @@ namespace AssisTec.Views.UserControls.SubUserControl_do_Gerenciador_de_OS
 
         private void CarregarEquipamento()
         {
-            Equipamento equipamento = _ordemServicoService.ObterEquipamentoPorId(_ordemServicoService.ObterPorId(idOS).id_os);
+            var os = _ordemServicoService.ObterPorId(idOS);
+            if (os == null)
+            {
+                MessageBox.Show("Ordem de Serviço não encontrada.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            Equipamento equipamento = _ordemServicoService.ObterEquipamentoPorId(os.Equipamento.Id_equipamento);
+
+            if (equipamento == null)
+            {
+                MessageBox.Show("Equipamento não encontrado para esta OS.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             txtDescricao.Text = equipamento.Descricao;
             txtMarca.Text = equipamento.Marca;
             txtAcessorio.Text = equipamento.acessorios;
@@ -40,32 +55,50 @@ namespace AssisTec.Views.UserControls.SubUserControl_do_Gerenciador_de_OS
 
         private void SalvarEquipamento()
         {
-            Equipamento equipamento = _ordemServicoService.ObterEquipamentoPorId(idOS);
+            var os = _ordemServicoService.ObterPorId(idOS);
+            if (os == null) return;
+
+            Equipamento equipamento = _ordemServicoService.ObterEquipamentoPorId(os.Equipamento.Id_equipamento);
+            if (equipamento == null) return;
+
             equipamento.Descricao = txtDescricao.Text;
-            equipamento.estado_entrada = cbEstado.SelectedValue?.ToString() ?? cbEstado.Text;
+            equipamento.estado_entrada = cbEstado.SelectedItem?.ToString() ?? cbEstado.Text;
             equipamento.acessorios = txtAcessorio.Text;
             equipamento.Numero_Serie = txtNdeSerie.Text;
             equipamento.Marca = txtMarca.Text;
             equipamento.Modelo = txtModelo.Text;
             equipamento.Observacoes = txtObservacoes.Text;
-            
-            var HistoricoAlteracaoOS = new HistoricoAlteracaoOS
+    
+            var historicoAlteracaoOS = new HistoricoAlteracaoOS
             {
                 idOS = idOS,
-                idUsuario = _ordemServicoService.ObterPorId(idOS).id_tecnico.GetValueOrDefault(),
+                idUsuario = os.id_tecnico.GetValueOrDefault(),
                 tipo = "Alteracao de Dados",
                 descricao = $"Alteração de dados do equipamento {equipamento.Descricao}",
                 dataAlteracao = DateTime.Now
             };
+
             if (_ordemServicoService.AtualizarEquipamento(equipamento))
             {
-                _ordemServicoService.RegistrarHistoricoOS(HistoricoAlteracaoOS);
+                _ordemServicoService.RegistrarHistoricoOS(historicoAlteracaoOS);
                 MessageBox.Show("Equipamento atualizado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 CarregarEquipamento();
             }
             else
             {
-                MessageBox.Show("Falha ao alterar equipamento", "Falha",  MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Falha ao alterar equipamento", "Falha", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void DesativarBotão()
+        {
+            var os =  _ordemServicoService.ObterPorId(idOS);
+            if (os != null)
+            {
+                if (os.status == "FINALIZADA")
+                {
+                    btnSalvar.Enabled = false;
+                }
             }
         }
 
