@@ -3,7 +3,9 @@ using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.Threading.Tasks;
 using System.Windows.Forms;
+using AssisTec.Models;
 using AssisTec.Service;
 using AssisTec.SubForms_do_Gerenciador_de_Pedidos;
 using AssisTec.Utils;
@@ -107,6 +109,7 @@ namespace AssisTec.UserControls
                 MessageBox.Show("Erro ao carregar Ordens de Serviço: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
         private void FormatGrid()
         {
             if (dgvOS.Columns.Count <= 0) return;
@@ -155,6 +158,8 @@ namespace AssisTec.UserControls
             btnGerenciar.Enabled = ativo;
             btnPagamento.Enabled = ativo;
             btnImprimir.Enabled = ativo;
+            btnContatoCliente.Enabled = ativo;
+            btnContatoTecnico.Enabled = ativo;
         }
 
         #endregion
@@ -184,6 +189,23 @@ namespace AssisTec.UserControls
         private void btnGerenciar_Click(object sender, EventArgs e)
         {
             if (_idOS <= 0) return;
+
+            var os = _ordemServicoService.ObterPorId(_idOS);
+            if (os == null)
+            {
+                MessageBox.Show("Ordem de Serviço não encontrada.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            bool ehGerente = Sessao.usuarioLogado != null && Sessao.usuarioLogado.Nivel == 1;
+            bool ehTecnicoResponsavel = Sessao.usuarioLogado != null && os.id_tecnico == Sessao.usuarioLogado.Id;
+
+            if (!ehGerente && !ehTecnicoResponsavel)
+            {
+                MessageBox.Show("Acesso Negado! Apenas o Gerente ou o Técnico responsável por esta Ordem de Serviço podem gerenciá-la.", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             FrmGerenciarOS frmGerenciarOs = new FrmGerenciarOS(_idOS, _ordemServicoService);
             frmGerenciarOs.ShowDialog();
             AtualizarGrid();
@@ -262,11 +284,7 @@ namespace AssisTec.UserControls
 
         #endregion
 
-
-        private void btnRelatorio_Click(object sender, EventArgs e)
-        {
-            throw new System.NotImplementedException();
-        }
+        
 
         private void btnRelatorio_Click_1(object sender, EventArgs e)
         {
@@ -314,7 +332,6 @@ namespace AssisTec.UserControls
 
                         string caminhoLogo = Path.Combine(Application.StartupPath, "Resources", "logo.png");
 
-                        
                         string caminhoArquivo = _ordemServicoService.GerarRelatorioGeralPdf(dtRelatorio, dataInicio, dataFim, status, saveFileDialog.FileName, caminhoLogo);
 
                         this.Cursor = Cursors.Default;
@@ -331,6 +348,116 @@ namespace AssisTec.UserControls
             {
                 this.Cursor = Cursors.Default;
                 MessageBox.Show($"Erro ao gerar o relatório em PDF:\n{ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private async void btnContatoCliente_Click(object sender, EventArgs e)
+        {
+            if (_idOS <= 0)
+            {
+                MessageBox.Show("Por favor, selecione um cliente válido.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            btnContatoCliente.Enabled = false;
+
+            try
+            {
+                var os = _ordemServicoService.ObterPorId(_idOS);
+
+                if (os == null)
+                {
+                    MessageBox.Show("Ordem de Serviço não encontrada.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                Cliente cliente = os.Cliente;
+
+                if (cliente == null)
+                {
+                    MessageBox.Show("Cliente não encontrado para esta OS.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                if (string.IsNullOrWhiteSpace(cliente.Telefone))
+                {
+                    MessageBox.Show("Este cliente não possui um telefone cadastrado.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                bool sucesso = await ContatoWhatsApp.EntrarContato(cliente.Telefone);
+
+                if (sucesso)
+                {
+                    MessageBox.Show("Contato iniciado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("Falha ao iniciar contato. Verifique a conexão.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ocorreu um erro inesperado: {ex.Message}", "Erro Crítico", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                btnContatoCliente.Enabled = true;
+            }
+        }
+
+        private async void btnContatoTecnico_Click(object sender, EventArgs e)
+        {
+            if (_idOS <= 0)
+            {
+                MessageBox.Show("Por favor, selecione um cliente válido.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            btnContatoTecnico.Enabled = false;
+
+            try
+            {
+                var os = _ordemServicoService.ObterPorId(_idOS);
+
+                if (os == null)
+                {
+                    MessageBox.Show("Ordem de Serviço não encontrada.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                Usuario tecnico = os.Tecnico;
+
+                if (tecnico == null)
+                {
+                    MessageBox.Show("Cliente não encontrado para esta OS.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                if (string.IsNullOrWhiteSpace(tecnico.Telefone))
+                {
+                    MessageBox.Show("Este cliente não possui um telefone cadastrado.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                bool sucesso = await ContatoWhatsApp.EntrarContato(tecnico.Telefone);
+
+                if (sucesso)
+                {
+                    MessageBox.Show("Contato iniciado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("Falha ao iniciar contato. Verifique a conexão.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ocorreu um erro inesperado: {ex.Message}", "Erro Crítico", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                btnContatoTecnico.Enabled = true;
             }
         }
     }

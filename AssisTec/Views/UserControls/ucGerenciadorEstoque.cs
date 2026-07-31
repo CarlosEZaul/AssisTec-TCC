@@ -48,7 +48,7 @@ namespace AssisTec.UserControls
             if (dgvEstoque.Columns.Count <= 0) return;
 
             dgvEstoque.Columns[0].HeaderText = "ID_PRODUTO";
-            dgvEstoque.Columns[1].HeaderText = "Descricao";
+            dgvEstoque.Columns[1].HeaderText = "Descrição";
             dgvEstoque.Columns[2].HeaderText = "Unidade";
             dgvEstoque.Columns[3].HeaderText = "Preço de Venda";
             dgvEstoque.Columns[4].HeaderText = "Preço de Compra";

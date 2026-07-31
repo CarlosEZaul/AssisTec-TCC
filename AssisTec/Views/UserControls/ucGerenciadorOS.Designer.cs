@@ -35,6 +35,8 @@ namespace AssisTec.UserControls
             this.dgvOS = new System.Windows.Forms.DataGridView();
             this.label4 = new System.Windows.Forms.Label();
             this.panelBotoes = new System.Windows.Forms.Panel();
+            this.btnContatoTecnico = new System.Windows.Forms.Button();
+            this.btnContatoCliente = new System.Windows.Forms.Button();
             this.btnRelatorio = new System.Windows.Forms.Button();
             this.btnImprimir = new System.Windows.Forms.Button();
             this.btnPagamento = new System.Windows.Forms.Button();
@@ -130,15 +132,51 @@ namespace AssisTec.UserControls
             // panelBotoes
             // 
             this.panelBotoes.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.panelBotoes.Controls.Add(this.btnContatoTecnico);
+            this.panelBotoes.Controls.Add(this.btnContatoCliente);
             this.panelBotoes.Controls.Add(this.btnRelatorio);
             this.panelBotoes.Controls.Add(this.btnImprimir);
             this.panelBotoes.Controls.Add(this.btnPagamento);
             this.panelBotoes.Controls.Add(this.btnNew);
             this.panelBotoes.Controls.Add(this.btnGerenciar);
-            this.panelBotoes.Location = new System.Drawing.Point(234, 688);
+            this.panelBotoes.Location = new System.Drawing.Point(102, 688);
             this.panelBotoes.Name = "panelBotoes";
-            this.panelBotoes.Size = new System.Drawing.Size(630, 61);
+            this.panelBotoes.Size = new System.Drawing.Size(1011, 61);
             this.panelBotoes.TabIndex = 148;
+            // 
+            // btnContatoTecnico
+            // 
+            this.btnContatoTecnico.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnContatoTecnico.BackColor = System.Drawing.Color.RoyalBlue;
+            this.btnContatoTecnico.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnContatoTecnico.Enabled = false;
+            this.btnContatoTecnico.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnContatoTecnico.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.btnContatoTecnico.ForeColor = System.Drawing.SystemColors.Control;
+            this.btnContatoTecnico.Location = new System.Drawing.Point(803, 14);
+            this.btnContatoTecnico.Name = "btnContatoTecnico";
+            this.btnContatoTecnico.Size = new System.Drawing.Size(162, 33);
+            this.btnContatoTecnico.TabIndex = 109;
+            this.btnContatoTecnico.Text = "Entrar em contato com técnico\r\n";
+            this.btnContatoTecnico.UseVisualStyleBackColor = false;
+            this.btnContatoTecnico.Click += new System.EventHandler(this.btnContatoTecnico_Click);
+            // 
+            // btnContatoCliente
+            // 
+            this.btnContatoCliente.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnContatoCliente.BackColor = System.Drawing.Color.RoyalBlue;
+            this.btnContatoCliente.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnContatoCliente.Enabled = false;
+            this.btnContatoCliente.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnContatoCliente.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.btnContatoCliente.ForeColor = System.Drawing.SystemColors.Control;
+            this.btnContatoCliente.Location = new System.Drawing.Point(635, 14);
+            this.btnContatoCliente.Name = "btnContatoCliente";
+            this.btnContatoCliente.Size = new System.Drawing.Size(162, 33);
+            this.btnContatoCliente.TabIndex = 108;
+            this.btnContatoCliente.Text = "Entrar em contato com cliente";
+            this.btnContatoCliente.UseVisualStyleBackColor = false;
+            this.btnContatoCliente.Click += new System.EventHandler(this.btnContatoCliente_Click);
             // 
             // btnRelatorio
             // 
@@ -147,7 +185,7 @@ namespace AssisTec.UserControls
             this.btnRelatorio.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnRelatorio.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRelatorio.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnRelatorio.Location = new System.Drawing.Point(347, 15);
+            this.btnRelatorio.Location = new System.Drawing.Point(357, 14);
             this.btnRelatorio.Name = "btnRelatorio";
             this.btnRelatorio.Size = new System.Drawing.Size(133, 33);
             this.btnRelatorio.TabIndex = 107;
@@ -164,7 +202,7 @@ namespace AssisTec.UserControls
             this.btnImprimir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnImprimir.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.btnImprimir.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnImprimir.Location = new System.Drawing.Point(486, 15);
+            this.btnImprimir.Location = new System.Drawing.Point(496, 14);
             this.btnImprimir.Name = "btnImprimir";
             this.btnImprimir.Size = new System.Drawing.Size(133, 33);
             this.btnImprimir.TabIndex = 106;
@@ -181,7 +219,7 @@ namespace AssisTec.UserControls
             this.btnPagamento.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnPagamento.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnPagamento.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnPagamento.Location = new System.Drawing.Point(173, 15);
+            this.btnPagamento.Location = new System.Drawing.Point(183, 14);
             this.btnPagamento.Name = "btnPagamento";
             this.btnPagamento.Size = new System.Drawing.Size(168, 33);
             this.btnPagamento.TabIndex = 104;
@@ -197,7 +235,7 @@ namespace AssisTec.UserControls
             this.btnNew.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnNew.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.btnNew.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnNew.Location = new System.Drawing.Point(3, 15);
+            this.btnNew.Location = new System.Drawing.Point(13, 14);
             this.btnNew.Name = "btnNew";
             this.btnNew.Size = new System.Drawing.Size(78, 33);
             this.btnNew.TabIndex = 99;
@@ -214,7 +252,7 @@ namespace AssisTec.UserControls
             this.btnGerenciar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnGerenciar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.btnGerenciar.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnGerenciar.Location = new System.Drawing.Point(89, 15);
+            this.btnGerenciar.Location = new System.Drawing.Point(99, 14);
             this.btnGerenciar.Name = "btnGerenciar";
             this.btnGerenciar.Size = new System.Drawing.Size(78, 33);
             this.btnGerenciar.TabIndex = 103;
@@ -662,6 +700,9 @@ namespace AssisTec.UserControls
             ((System.ComponentModel.ISupportInitialize)(this.btnAtualizar)).EndInit();
             this.ResumeLayout(false);
         }
+
+        private System.Windows.Forms.Button btnContatoCliente;
+        private System.Windows.Forms.Button btnContatoTecnico;
 
         private System.Windows.Forms.Panel panel5;
         private System.Windows.Forms.Label lblReceber;

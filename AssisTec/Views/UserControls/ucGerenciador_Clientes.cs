@@ -63,20 +63,19 @@ namespace AssisTec.UserControls
         { 
             if (dgvClientes.Columns.Count <= 0) return;
 
-            dgvClientes.Columns[0].HeaderText = "ID";
-            dgvClientes.Columns[0].Visible = false;
-            dgvClientes.Columns[1].HeaderText = "NOME";
-            dgvClientes.Columns[2].HeaderText = "CPF";
-            dgvClientes.Columns[3].HeaderText = "TELEFONE";
-            dgvClientes.Columns[4].HeaderText = "STATUS";
-            dgvClientes.Columns[5].HeaderText = "DATA DE NASC.";
-            dgvClientes.Columns[6].HeaderText = "CEP";
-            dgvClientes.Columns[7].HeaderText = "RUA";
-            dgvClientes.Columns[8].HeaderText = "NÚMERO";
-            dgvClientes.Columns[9].HeaderText = "CIDADE";
-            dgvClientes.Columns[10].HeaderText = "ESTADO";
-            dgvClientes.Columns[11].HeaderText = "BAIRRO";
-            dgvClientes.Columns[12].HeaderText = "COMPLEMENTO";
+            dgvClientes.Columns[0].HeaderText = "Id";
+            dgvClientes.Columns[1].HeaderText = "Nome";
+            dgvClientes.Columns[2].HeaderText = "Cpf";
+            dgvClientes.Columns[3].HeaderText = "Telefone";
+            dgvClientes.Columns[4].HeaderText = "Status";
+            dgvClientes.Columns[5].HeaderText = "Data de nasc.";
+            dgvClientes.Columns[6].HeaderText = "Cep";
+            dgvClientes.Columns[7].HeaderText = "Rua";
+            dgvClientes.Columns[8].HeaderText = "Número";
+            dgvClientes.Columns[9].HeaderText = "Cidade";
+            dgvClientes.Columns[10].HeaderText = "Estado";
+            dgvClientes.Columns[11].HeaderText = "Bairro";
+            dgvClientes.Columns[12].HeaderText = "Complemento";
         }
         
         public void ListGrid()
@@ -139,6 +138,7 @@ namespace AssisTec.UserControls
             btnOS.Enabled = ativo;
             btnContato.Enabled = ativo;
             btnImprimirCliente.Enabled = ativo;
+            
         }
         #endregion
 

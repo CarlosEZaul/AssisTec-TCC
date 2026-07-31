@@ -19,8 +19,6 @@ namespace AssisTec
         private readonly ProdutoService _produtoService;
         private readonly MovimentacaoEstoqueService _movimentacaoEstoqueService;
         private readonly OrdemServicoService _ordemServicoService;
-        private readonly ClienteService _clienteService;
-        private readonly UsuarioService _usuarioService;
         
         Panel panelUsuario;
         Label lblNome;
@@ -50,7 +48,7 @@ namespace AssisTec
             _produtoService = new ProdutoService(produtoRepository);
             _contasPagarService = new ContasPagarService(contasPagarRepository, pagamentoRepository);
             _contasReceberService = new ContasReceberService(contasReceberRepository, pagamentoRepository, OrdemServicoRepository);
-            _pagamentoService = new PagamentoService(contasReceberRepository,contasPagarRepository, pagamentoRepository);
+            _pagamentoService = new PagamentoService(contasReceberRepository, contasPagarRepository, pagamentoRepository);
             _movimentacaoEstoqueService = new MovimentacaoEstoqueService(movimentacaoEstoqueRepository);
             _ordemServicoService = new OrdemServicoService(OrdemServicoRepository,
                 EquipamentoRepository,
@@ -63,12 +61,10 @@ namespace AssisTec
                 HistoricoAlteracaoOSRepository,
                 contasReceberRepository,
                 pagamentoRepository);
-            _clienteService = new ClienteService(clienteRepository);
-            _usuarioService = new UsuarioService(usuarioRepository);
 
             ConfigurarPanelUsuario();
             ConfigurarNavbar();
-            AbrirUserControl(new ucHome(_ordemServicoService, _produtoService,_movimentacaoEstoqueService, _contasPagarService,_contasReceberService), null);
+            AbrirUserControl(new ucHome(_ordemServicoService, _produtoService, _movimentacaoEstoqueService, _contasPagarService, _contasReceberService), null);
         }
 
         private void ConfigurarPanelUsuario()
@@ -140,11 +136,15 @@ namespace AssisTec
 
             Guna2Button btnHome = CriarBotaoMenu(
                 "🏠 Home",
-                (s, e) => AbrirUserControl(new ucHome(_ordemServicoService,_produtoService, _movimentacaoEstoqueService, _contasPagarService,_contasReceberService), s));
+                (s, e) => AbrirUserControl(new ucHome(_ordemServicoService, _produtoService, _movimentacaoEstoqueService, _contasPagarService, _contasReceberService), s));
 
             Guna2Button btnUsuario = CriarBotaoMenu(
                 "👤 Usuários",
-                (s, e) => AbrirUserControl(new ucGerenciador_Usuario(), s)
+                (s, e) => 
+                {
+                    if (!ValidarAcessoPermitido()) return;
+                    AbrirUserControl(new ucGerenciador_Usuario(), s);
+                }
             );
 
             Guna2Button btnClientes = CriarBotaoMenu(
@@ -154,7 +154,11 @@ namespace AssisTec
 
             Guna2Button btnEstoque = CriarBotaoMenu(
                 "📦 Estoque",
-                (s, e) => AbrirUserControl(new ucGerenciadorEstoque(_produtoService,_movimentacaoEstoqueService,_contasPagarService, _contasReceberService), s)
+                (s, e) => 
+                {
+                    if (!ValidarAcessoEstoque()) return;
+                    AbrirUserControl(new ucGerenciadorEstoque(_produtoService, _movimentacaoEstoqueService, _contasPagarService, _contasReceberService), s);
+                }
             );
 
             Guna2Button btnPedidos = CriarBotaoMenu(
@@ -164,17 +168,29 @@ namespace AssisTec
 
             Guna2Button btnContasReceber = CriarBotaoMenu(
                 "💰 Contas a receber",
-                (s, e) => AbrirUserControl(new ucContasReceber(_contasReceberService, _pagamentoService), s)
+                (s, e) => 
+                {
+                    if (!ValidarAcessoPermitido()) return;
+                    AbrirUserControl(new ucContasReceber(_contasReceberService, _pagamentoService), s);
+                }
             );
 
             Guna2Button btnContasPagar = CriarBotaoMenu(
                 "🧾 Contas a pagar",
-                (s, e) => AbrirUserControl(new ucContasPagar(_contasPagarService, _pagamentoService), s)
+                (s, e) => 
+                {
+                    if (!ValidarAcessoPermitido()) return;
+                    AbrirUserControl(new ucContasPagar(_contasPagarService, _pagamentoService), s);
+                }
             );
 
             Guna2Button btnBackupImportar = CriarBotaoMenu(
                 "☁︎Backup/Importar",
-                (s, e) => AbrirUserControl(new ucBackupImportar(), s)
+                (s, e) => 
+                {
+                    if (!ValidarAcessoPermitido()) return;
+                    AbrirUserControl(new ucBackupImportar(), s);
+                }
             );
 
             Label lblLogo = new Label
@@ -206,6 +222,26 @@ namespace AssisTec
             panelNavegacao.Controls.Add(panelUsuario);
         }
 
+        private bool ValidarAcessoPermitido()
+        {
+            if (Sessao.usuarioLogado != null && (Sessao.usuarioLogado.Nivel == 2 || Sessao.usuarioLogado.Nivel == 3))
+            {
+                MessageBox.Show("Acesso Negado! Seu nível de usuário não tem permissão para acessar este módulo.", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+            return true;
+        }
+
+        private bool ValidarAcessoEstoque()
+        {
+            if (Sessao.usuarioLogado != null && Sessao.usuarioLogado.Nivel == 3)
+            {
+                MessageBox.Show("Acesso Negado! Técnicos não possuem permissão para gerenciar o módulo de Estoque.", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+            return true;
+        }
+
         private Guna2Button CriarBotaoMenu(string texto, EventHandler eventoClick)
         {
             Guna2Button btn = new Guna2Button
@@ -228,30 +264,14 @@ namespace AssisTec
             return btn;
         }
 
-        #region Usuario
-
-        private string ObterFuncao(int nivel)
-        {
-            if (nivel == 1)
-            {
-                return "Gerente";
-            }
-            else if (nivel == 2)
-            {
-                return "Atendente";
-            }
-            else
-            {
-                return "Técnico";
-            }
-        }
-
-        #endregion
-
         private void AbrirUserControl(UserControl uc, object btnSender)
         {
             AtivarBotao(btnSender);
 
+            foreach (Control control in panelConteudo.Controls)
+            {
+                control.Dispose();
+            }
             panelConteudo.Controls.Clear();
 
             uc.Dock = DockStyle.Fill;
@@ -284,10 +304,29 @@ namespace AssisTec
             }
         }
 
+        #region Usuario
+
+        private string ObterFuncao(int nivel)
+        {
+            switch (nivel)
+            {
+                case 1:
+                    return "Gerente";
+                case 2:
+                    return "Atendente";
+                case 3:
+                    return "Técnico";
+                default:
+                    return "";
+            }
+        }
+
         private void funcaoLogOut(Object sender, EventArgs e)
         {
             Sessao.usuarioLogado = null;
             Application.Restart();
         }
+
+        #endregion
     }
 }

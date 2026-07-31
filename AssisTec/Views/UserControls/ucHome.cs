@@ -87,8 +87,6 @@ namespace AssisTec.UserControls
             string diaDaSemana = DateTime.Now.ToString("dddd", culturaBrasil).ToUpper();
             lblNome.Text = $"Bem-vindo de volta, {Sessao.usuarioLogado.Nome}";
             lblData.Text = $"{diaDaSemana}, {dia} De {mes} De {ano}";
-
-            
         }
 
         private void ConfigurarCards()
@@ -110,6 +108,16 @@ namespace AssisTec.UserControls
             dgvOS.DataSource = _ordemServicoService.OrdensRecentes();
             dataGridView1.DataSource = _produtoService.ProdutosAbaixoMinimo();
         }
+        
+        private bool ValidarAcessoEstoque()
+        {
+            if (Sessao.usuarioLogado != null && Sessao.usuarioLogado.Nivel == 3)
+            {
+                MessageBox.Show("Acesso Negado! Técnicos não possuem permissão para gerenciar o módulo de Estoque.", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+            return true;
+        }
 
 
         private void btnOs_Click(object sender, EventArgs e)
@@ -124,12 +132,22 @@ namespace AssisTec.UserControls
 
         private void btnEntradaEstoque_Click(object sender, EventArgs e)
         {
+            if (!ValidarAcessoEstoque())
+            {
+                return;
+            }
             ConfigurarSubComponente(new ucRegistrarEntrada( _produtoService, _movimentacaoEstoqueService, _contasPagarService));
+            
         }
 
         private void btnSaidaEstoque_Click(object sender, EventArgs e)
         {
+            if (!ValidarAcessoEstoque())
+            {
+                return;
+            }
             ConfigurarSubComponente(new ucRegistrarSaida( _produtoService, _movimentacaoEstoqueService, _contasReceberService));
+            
         }
     }
 }
