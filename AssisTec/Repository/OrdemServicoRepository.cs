@@ -108,23 +108,24 @@ namespace AssisTec.Repository
                 })
                 .ToList();
 
-            var servicos = context.ServicosOS
-                .Where(s => s.id_OS == idOS)
-                .Select(s => new ItemOSRelatorioDTO
+            var resultado = new List<ItemOSRelatorioDTO>();
+            resultado.AddRange(pecas);
+
+            return resultado;
+        }
+
+        public List<ServicoOSRelatorioDTO> ObterServicosPorOSId(int idOS)
+        {
+            return context.ServicosOS
+                .AsNoTracking()
+                .Where(i => i.id_OS == idOS)
+                .Select(i => new ServicoOSRelatorioDTO
                 {
-                    Descricao = s.descricao,
-                    Quantidade = 1,
-                    ValorUnitario = s.valor_cobrado,
-                    ValorTotal = s.valor_cobrado,
+                    Descricao = i.descricao,
+                    ValorCobrado = i.valor_cobrado,
                     Tipo = "SERVICO"
                 })
                 .ToList();
-
-            var resultado = new List<ItemOSRelatorioDTO>();
-            resultado.AddRange(pecas);
-            resultado.AddRange(servicos);
-
-            return resultado;
         }
 
         #endregion

@@ -129,7 +129,7 @@ namespace AssisTec.Utils
                 var produtos = dados.Itens?.Where(x => !string.Equals(x.Tipo, "Serviço", StringComparison.OrdinalIgnoreCase)).ToList();
 
                 doc.Add(new Paragraph("SERVIÇOS PRESTADOS", fontSecao));
-                PdfPTable tblServicos = CriarTabelaItens(servicos, fontHeaderTabela, fontRegular);
+                PdfPTable tblServicos = CriarTabelaServicos(servicos, fontHeaderTabela, fontRegular);
                 tblServicos.SpacingBefore = 4f;
                 tblServicos.SpacingAfter = 15f;
                 doc.Add(tblServicos);
@@ -169,6 +169,43 @@ namespace AssisTec.Utils
                     doc.Close();
                 }
             }
+        }
+
+        private static PdfPTable CriarTabelaServicos(System.Collections.Generic.List<ItemOSRelatorioDTO> itens, Font fontHeader, Font fontBody)
+        {
+            PdfPTable table = new PdfPTable(2);
+            table.WidthPercentage = 100;
+            table.SetWidths(new float[] { 75f, 25f });
+
+            string[] headers = { "Descrição do Serviço", "Valor" };
+            foreach (var header in headers)
+            {
+                PdfPCell hCell = new PdfPCell(new Phrase(header, fontHeader));
+                hCell.BackgroundColor = new BaseColor(26, 54, 93);
+                hCell.BorderColor = new BaseColor(26, 54, 93);
+                hCell.Padding = 6;
+                table.AddCell(hCell);
+            }
+
+            if (itens != null && itens.Count > 0)
+            {
+                foreach (var item in itens)
+                {
+                    table.AddCell(new PdfPCell(new Phrase(item.Descricao, fontBody)) { Padding = 6, BorderColor = new BaseColor(226, 232, 240) });
+                    table.AddCell(new PdfPCell(new Phrase(item.ValorTotal.ToString("C2"), fontBody)) { Padding = 6, HorizontalAlignment = Element.ALIGN_RIGHT, BorderColor = new BaseColor(226, 232, 240) });
+                }
+            }
+            else
+            {
+                PdfPCell emptyCell = new PdfPCell(new Phrase("Nenhum serviço registrado nesta ordem.", fontBody));
+                emptyCell.Colspan = 2;
+                emptyCell.Padding = 6;
+                emptyCell.HorizontalAlignment = Element.ALIGN_CENTER;
+                emptyCell.BorderColor = new BaseColor(226, 232, 240);
+                table.AddCell(emptyCell);
+            }
+
+            return table;
         }
 
         private static PdfPTable CriarTabelaItens(System.Collections.Generic.List<ItemOSRelatorioDTO> itens, Font fontHeader, Font fontBody)

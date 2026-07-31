@@ -14,6 +14,7 @@ namespace AssisTec.Repository
         bool ExisteOSAbertaPorTecnico(int idTecnico);
         bool ExisteOSAbertaPorCliente(int idCliente);
         List<ItemOSRelatorioDTO> ObterItensPorOSId(int idOS);
+        List<ServicoOSRelatorioDTO> ObterServicosPorOSId(int idOS);
         DataTable ObterHistoricoUsuario(int idUsuario);
         DataTable ObterHistoricoCliente(int idCliente);
         DataTable OrdensRecentes();

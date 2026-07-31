@@ -12,6 +12,13 @@ namespace AssisTec.DTO
         public string Tipo { get; set; }
     }
 
+    public class ServicoOSRelatorioDTO
+    {
+        public string Descricao { get; set; }
+        public decimal ValorCobrado { get; set; }
+        public string Tipo { get; set; }
+    }
+
     public class OrdemServicoRelatorioDTO
     {
         public int IdOS { get; set; }
@@ -36,5 +43,6 @@ namespace AssisTec.DTO
         public string FormaPagamento { get; set; }
 
         public List<ItemOSRelatorioDTO> Itens { get; set; } = new List<ItemOSRelatorioDTO>();
+        public List<ServicoOSRelatorioDTO> servicos { get; set; } = new List<ServicoOSRelatorioDTO>();
     }
 }

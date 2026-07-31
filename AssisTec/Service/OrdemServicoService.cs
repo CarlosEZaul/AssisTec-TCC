@@ -120,6 +120,11 @@ namespace AssisTec.Service
             return _ordemServicoRepository.ObterItensPorOSId(idOS);
         }
 
+        List<ServicoOSRelatorioDTO> ObterServicosPorOSId(int idOS)
+        {
+            return _ordemServicoRepository.ObterServicosPorOSId(idOS);
+        }
+
         public Produto ObterProdutoPorId(int id)
         {
             return _produtoRepository.ObterProdutoPorId(id);
@@ -700,7 +705,23 @@ namespace AssisTec.Service
                     throw new InvalidOperationException($"Ordem de Serviço #{idOS} não encontrada.");
 
                 var conta = _contaReceberRepository.ObterPorOSId(idOS);
-                var itens = ObterItensPorOSId(idOS);
+                var itens = ObterItensPorOSId(idOS) ?? new List<ItemOSRelatorioDTO>();
+                var servicos = ObterServicosPorOSId(idOS);
+
+                if (servicos != null)
+                {
+                    foreach (var s in servicos)
+                    {
+                        itens.Add(new ItemOSRelatorioDTO
+                        {
+                            Descricao = s.Descricao,
+                            Quantidade = 1,
+                            ValorUnitario = s.ValorCobrado,
+                            ValorTotal = s.ValorCobrado,
+                            Tipo = "Serviço"
+                        });
+                    }
+                }
 
                 string formaPagamentoTexto = "Não registrado";
                 if (conta != null && conta.Pagamento != null)
@@ -737,6 +758,7 @@ namespace AssisTec.Service
                 return relatorio;
             }
         }
+        
 
         #endregion
 
