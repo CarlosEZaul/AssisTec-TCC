@@ -33,20 +33,34 @@ namespace AssisTec.Repository
                 .Where(o => o.data_abertura >= inicioMes && o.data_abertura < fimMes);
 
             var ordens = query.ToList();
+            var osIds = ordens.Select(o => o.id_os).ToList();
+
+            var contasMap = context.ContasReceber
+                .Include(c => c.Pagamento)
+                .Where(c => c.id_os_fk.HasValue && osIds.Contains(c.id_os_fk.Value))
+                .ToList()
+                .GroupBy(c => c.id_os_fk.Value)
+                .ToDictionary(
+                    g => g.Key, 
+                    g => g.FirstOrDefault()?.Pagamento?.Descricao ?? "Não registrado"
+                );
 
             DataTable tabela = new DataTable();
             tabela.Columns.Add("ID", typeof(int));
             tabela.Columns.Add("Cliente", typeof(string));
-            tabela.Columns.Add("Tecnico", typeof(string));
+            tabela.Columns.Add("Técnico", typeof(string));
             tabela.Columns.Add("Equipamento", typeof(string));
             tabela.Columns.Add("Status", typeof(string));
-            tabela.Columns.Add("DataAbertura", typeof(DateTime));
-            tabela.Columns.Add("UltimaAtulizacao", typeof(DateTime));
-            tabela.Columns.Add("DataConclusao", typeof(DateTime));
-            tabela.Columns.Add("ValorTotal", typeof(decimal));
+            tabela.Columns.Add("Data de Abertura", typeof(DateTime));
+            tabela.Columns.Add("Ultima Atualização", typeof(DateTime));
+            tabela.Columns.Add("Data de Conclusão", typeof(DateTime));
+            tabela.Columns.Add("Valor Total", typeof(decimal));
+            tabela.Columns.Add("Forma de Pagamento", typeof(string));
 
             foreach (var o in ordens)
             {
+                string pagamento = contasMap.ContainsKey(o.id_os) ? contasMap[o.id_os] : "-";
+
                 tabela.Rows.Add(
                     o.id_os,
                     o.Cliente != null ? o.Cliente.Nome : string.Empty,
@@ -56,7 +70,8 @@ namespace AssisTec.Repository
                     o.data_abertura,
                     o.data_atualizacao,
                     o.data_fechamento,
-                    o.valor_total
+                    o.valor_total,
+                    pagamento
                 );
             }
 
@@ -453,19 +468,34 @@ namespace AssisTec.Repository
             var query = AplicarFiltros(filtro);
             var ordens = query.ToList();
 
+            var osIds = ordens.Select(o => o.id_os).ToList();
+
+            var contasMap = context.ContasReceber
+                .Include(c => c.Pagamento)
+                .Where(c => c.id_os_fk.HasValue && osIds.Contains(c.id_os_fk.Value))
+                .ToList()
+                .GroupBy(c => c.id_os_fk.Value)
+                .ToDictionary(
+                    g => g.Key, 
+                    g => g.FirstOrDefault()?.Pagamento?.Descricao ?? "Não registrado"
+                );
+
             DataTable tabela = new DataTable();
             tabela.Columns.Add("ID", typeof(int));
             tabela.Columns.Add("Cliente", typeof(string));
-            tabela.Columns.Add("Tecnico", typeof(string));
+            tabela.Columns.Add("Técnico", typeof(string));
             tabela.Columns.Add("Equipamento", typeof(string));
             tabela.Columns.Add("Status", typeof(string));
-            tabela.Columns.Add("DataAbertura", typeof(DateTime));
-            tabela.Columns.Add("UltimaAtulizacao", typeof(DateTime));
-            tabela.Columns.Add("DataConclusao", typeof(DateTime));
-            tabela.Columns.Add("ValorTotal", typeof(decimal));
+            tabela.Columns.Add("Data de Abertura", typeof(DateTime));
+            tabela.Columns.Add("Ultima Atualização", typeof(DateTime));
+            tabela.Columns.Add("Data de Conclusão", typeof(DateTime));
+            tabela.Columns.Add("Valor Total", typeof(decimal));
+            tabela.Columns.Add("Forma de Pagamento", typeof(string));
 
             foreach (var o in ordens)
             {
+                string descPagamento = contasMap.ContainsKey(o.id_os) ? contasMap[o.id_os] : "-";
+
                 tabela.Rows.Add(
                     o.id_os,
                     o.Cliente != null ? o.Cliente.Nome : string.Empty,
@@ -475,7 +505,8 @@ namespace AssisTec.Repository
                     o.data_abertura,
                     o.data_atualizacao,
                     o.data_fechamento,
-                    o.valor_total
+                    o.valor_total,
+                    descPagamento
                 );
             }
 

@@ -17,6 +17,7 @@ using System.Diagnostics;
 using System.IO;
 using AssisTec.Models;
 using AssisTec.Service;
+using AssisTec.Utils;
 using AssisTec.Views.UserControls.SubUserControl_do_Gerenciador_de_OS;
 using Exception = System.Exception;
 using Font = System.Drawing.Font;
@@ -163,7 +164,37 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
 
         private void btnImprimir_Click(object sender, EventArgs e)
         {
-            
+            if (_id <= 0)
+            {
+                MessageBox.Show("Selecione uma Ordem de Serviço válida.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            try
+            {
+                var dadosRelatorio = _ordemServicoService.ImprimirOS(_id);
+
+                using (SaveFileDialog sfd = new SaveFileDialog())
+                {
+                    sfd.Filter = "Arquivo PDF (*.pdf)|*.pdf";
+                    sfd.FileName = $"OS_{_id}_{DateTime.Now:yyyyMMdd_HHmmss}.pdf";
+
+                    if (sfd.ShowDialog() == DialogResult.OK)
+                    {
+                        GeradorPdfOS.ImprimirOS(dadosRelatorio, sfd.FileName);
+
+                        Process.Start(new ProcessStartInfo
+                        {
+                            FileName = sfd.FileName,
+                            UseShellExecute = true
+                        });
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao gerar PDF: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         

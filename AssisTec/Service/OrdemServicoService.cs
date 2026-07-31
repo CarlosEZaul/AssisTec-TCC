@@ -3,11 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Transactions;
 using AssisTec.DTO;
 using AssisTec.Models;
 using AssisTec.Repository;
+using AssisTec.Utils;
 using Microsoft.EntityFrameworkCore;
 
 namespace AssisTec.Service
@@ -438,12 +440,12 @@ namespace AssisTec.Service
 
         #region Relatórios e DataTables
 
-        public System.Data.DataTable ObterHistoricoOsTecnico(int id)
+        public DataTable ObterHistoricoOsTecnico(int id)
         {
             return _ordemServicoRepository.ObterHistoricoUsuario(id);
         }
 
-        public System.Data.DataTable OrdensRecentes()
+        public DataTable OrdensRecentes()
         {
             return _ordemServicoRepository.OrdensRecentes();
         }
@@ -643,6 +645,7 @@ namespace AssisTec.Service
 
                 os.status = "FINALIZADA";
                 os.data_atualizacao = DateTime.Now;
+                os.data_fechamento = DateTime.Now;
 
                 var contaReceber = new ContasReceber
                 {
@@ -671,6 +674,7 @@ namespace AssisTec.Service
                         tipo = "PAGAMENTO_REGISTRADO",
                         descricao = $"Pagamento de {contaReceber.valor:C2} registrado e conta baixada em Contas a Receber. OS #{idOS} finalizada.",
                         dataAlteracao = DateTime.Now
+                        
                     };
 
                     _historicoAlteracaoOSRepository.RegistrarHistorico(historico);
@@ -689,7 +693,7 @@ namespace AssisTec.Service
 
         #region RelatórioPDF
 
-        public OrdemServicoRelatorioDTO GerarReciboOS(int idOS)
+        public OrdemServicoRelatorioDTO ImprimirOS(int idOS)
         {
             if (idOS <= 0)
                 throw new ArgumentException("Identificador da Ordem de Serviço inválido.");
@@ -758,12 +762,126 @@ namespace AssisTec.Service
                 return relatorio;
             }
         }
+
+        public string ExportarReciboPdf(int idOS, string caminhoDestino, string caminhoLogo = null)
+        {
+            var dadosRelatorio = ImprimirOS(idOS);
+
+            string diretorio = Path.GetDirectoryName(caminhoDestino);
+            if (!string.IsNullOrEmpty(diretorio) && !Directory.Exists(diretorio))
+            {
+                Directory.CreateDirectory(diretorio);
+            }
+
+            return GeradorPdfOS.ImprimirOS(dadosRelatorio, caminhoDestino, caminhoLogo);
+        }
+
+        public string GerarRelatorioGeralPdf(DataTable dtDados, DateTime? dataInicio, DateTime? dataFim, string status, string caminhoDestino, string caminhoLogo = null)
+        {
+            RelatorioTotaisDTO totais = CalcularTotaisEInformacoes(dtDados, dataInicio, dataFim, status);
+
+            string diretorio = Path.GetDirectoryName(caminhoDestino);
+            if (!string.IsNullOrEmpty(diretorio) && !Directory.Exists(diretorio))
+            {
+                Directory.CreateDirectory(diretorio);
+            }
+
+            return GeradorPdfOS.GerarRelatorioGeral(dtDados, totais, caminhoDestino, caminhoLogo);
+        }
+        private string GetValorColuna(DataRow row, params string[] nomesColunas)
+        {
+            foreach (string nome in nomesColunas)
+            {
+                if (row.Table.Columns.Contains(nome) && row[nome] != DBNull.Value)
+                {
+                    return row[nome].ToString();
+                }
+            }
+            return "";
+        }
+
+        private RelatorioTotaisDTO CalcularTotaisEInformacoes(DataTable dtDados, DateTime? dataInicio, DateTime? dataFim, string status)
+        {
+            RelatorioTotaisDTO totais = new RelatorioTotaisDTO();
+
+            string filtroPeriodo = "Geral";
+            if (dataInicio.HasValue && dataFim.HasValue)
+            {
+                filtroPeriodo = $"{dataInicio.Value:dd/MM/yyyy} até {dataFim.Value:dd/MM/yyyy}";
+            }
+            else if (dataInicio.HasValue)
+            {
+                filtroPeriodo = $"A partir de {dataInicio.Value:dd/MM/yyyy}";
+            }
+            else if (dataFim.HasValue)
+            {
+                filtroPeriodo = $"Até {dataFim.Value:dd/MM/yyyy}";
+            }
+
+            totais.FiltroPeriodo = filtroPeriodo;
+            totais.FiltroStatus = string.IsNullOrWhiteSpace(status) ? "Todos" : status;
+
+            if (dtDados == null || dtDados.Rows.Count == 0)
+            {
+                return totais;
+            }
+
+            totais.TotalOS = dtDados.Rows.Count;
+
+            foreach (DataRow row in dtDados.Rows)
+            {
+                string statusRow = GetValorColuna(row, "status", "Status");
+                
+                decimal valorTotal = 0m;
+                string valorStr = GetValorColuna(row, "valor_total", "Valor Total", "valorTotal", "total");
+                
+                if (!string.IsNullOrWhiteSpace(valorStr))
+                {
+                    decimal.TryParse(valorStr.Replace("R$", "").Trim(), out valorTotal);
+                }
+
+                string formaPagamento = GetValorColuna(row, "forma_pagamento", "Pagamento", "formaPagamento");
+
+                if (string.Equals(statusRow, "ABERTA", StringComparison.OrdinalIgnoreCase) ||
+                    string.Equals(statusRow, "AGUARDANDO_RETIRADA", StringComparison.OrdinalIgnoreCase) ||
+                    string.Equals(statusRow, "Aberto", StringComparison.OrdinalIgnoreCase) ||
+                    string.Equals(statusRow, "Em Andamento", StringComparison.OrdinalIgnoreCase))
+                {
+                    totais.EmAtendimento++;
+                }
+
+                if (string.Equals(statusRow, "Concluído", StringComparison.OrdinalIgnoreCase) ||
+                    string.Equals(statusRow, "FINALIZADA", StringComparison.OrdinalIgnoreCase) ||
+                    !string.IsNullOrWhiteSpace(formaPagamento) && formaPagamento != "-")
+                {
+                    totais.TotalRecebido += valorTotal;
+                    totais.QntRecebido++;
+                }
+                else if (!string.Equals(statusRow, "CANCELADA", StringComparison.OrdinalIgnoreCase) && 
+                         !string.Equals(statusRow, "Cancelado", StringComparison.OrdinalIgnoreCase))
+                {
+                    totais.TotalAReceber += valorTotal;
+                }
+            }
+
+            return totais;
+        }
+        
         
 
         #endregion
 
         #region Filtro
         
+
+        public (DataTable Dados, int TotalOS, int EmAtendimento, int ParaRetirada, decimal TotalAReceber, decimal TotalRecebido, int QntRecebido, decimal TotalCancelado, int QntCancelado) ObterDadosAtuais()
+        {
+            var filtro = new OrdemServico();
+            var dados = _ordemServicoRepository.ObterTodasOSAtuais();
+            var totais = _ordemServicoRepository.ObterTotais(filtro);
+
+            return (dados, totais.TotalOS, totais.EmAtendimento, totais.ParaRetirada, totais.TotalAReceber, totais.TotalRecebido, totais.QntRecebido, totais.TotalCancelado, totais.QntCancelado);
+        }
 
         public (DataTable Dados, int TotalOS, int EmAtendimento, int ParaRetirada, decimal TotalAReceber, decimal TotalRecebido, int QntRecebido, decimal TotalCancelado, int QntCancelado) Filtrar(
             string dataInicio, string dataFim, string busca, int statusIndex, string statusText)
@@ -777,19 +895,6 @@ namespace AssisTec.Service
             };
 
             var dados = _ordemServicoRepository.Filtrar(filtro);
-            var totais = _ordemServicoRepository.ObterTotais(filtro);
-
-            return (dados, totais.TotalOS, totais.EmAtendimento, totais.ParaRetirada, totais.TotalAReceber, totais.TotalRecebido, totais.QntRecebido, totais.TotalCancelado, totais.QntCancelado);
-        }
-
-        public (int TotalOS, int EmAtendimento, int ParaRetirada, decimal TotalAReceber, decimal TotalRecebido, int QntRecebido, decimal TotalCancelado, int QntCancelado) ObterTotaisPadrao()
-        {
-            return _ordemServicoRepository.ObterTotais(new OrdemServico());
-        }
-        public (DataTable Dados, int TotalOS, int EmAtendimento, int ParaRetirada, decimal TotalAReceber, decimal TotalRecebido, int QntRecebido, decimal TotalCancelado, int QntCancelado) ObterDadosAtuais()
-        {
-            var filtro = new OrdemServico();
-            var dados = _ordemServicoRepository.ObterTodasOSAtuais();
             var totais = _ordemServicoRepository.ObterTotais(filtro);
 
             return (dados, totais.TotalOS, totais.EmAtendimento, totais.ParaRetirada, totais.TotalAReceber, totais.TotalRecebido, totais.QntRecebido, totais.TotalCancelado, totais.QntCancelado);

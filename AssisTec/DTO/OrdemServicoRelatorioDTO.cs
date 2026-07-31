@@ -18,6 +18,20 @@ namespace AssisTec.DTO
         public decimal ValorCobrado { get; set; }
         public string Tipo { get; set; }
     }
+    
+    public class RelatorioTotaisDTO
+    {
+        public int TotalOS { get; set; }
+        public int EmAtendimento { get; set; }
+        public int ParaRetirada { get; set; }
+        public decimal TotalAReceber { get; set; }
+        public decimal TotalRecebido { get; set; }
+        public int QntRecebido { get; set; }
+        public decimal TotalCancelado { get; set; }
+        public int QntCancelado { get; set; }
+        public string FiltroPeriodo { get; set; }
+        public string FiltroStatus { get; set; }
+    }
 
     public class OrdemServicoRelatorioDTO
     {

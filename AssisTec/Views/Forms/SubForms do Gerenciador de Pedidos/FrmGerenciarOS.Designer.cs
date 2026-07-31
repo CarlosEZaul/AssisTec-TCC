@@ -196,7 +196,7 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             this.btnImprimir.Name = "btnImprimir";
             this.btnImprimir.Size = new System.Drawing.Size(75, 23);
             this.btnImprimir.TabIndex = 46;
-            this.btnImprimir.Text = "Imprimir";
+            this.btnImprimir.Text = "Imprimir OS";
             this.btnImprimir.UseVisualStyleBackColor = false;
             this.btnImprimir.Click += new System.EventHandler(this.btnImprimir_Click);
             // 

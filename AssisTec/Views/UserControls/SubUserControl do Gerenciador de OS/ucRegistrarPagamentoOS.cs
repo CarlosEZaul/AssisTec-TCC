@@ -74,11 +74,11 @@ namespace AssisTec.Views.UserControls.SubUserControl_do_Gerenciador_de_OS
                 {
                     MessageBox.Show("Pagamento registrado e OS finalizada com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
             
-                    var dadosRelatorio = _ordemServicoService.GerarReciboOS(_idOS);
+                    var dadosRelatorio = _ordemServicoService.ImprimirOS(_idOS);
 
                     string caminhoPdf = Path.Combine(Path.GetTempPath(), $"Recibo_OS_{_idOS}_{DateTime.Now:yyyyMMdd_HHmmss}.pdf");
             
-                    GeradorPdfOS.GerarRecibo(dadosRelatorio, caminhoPdf);
+                    GeradorPdfOS.ImprimirOS(dadosRelatorio, caminhoPdf);
 
                     Process.Start(new ProcessStartInfo
                     {

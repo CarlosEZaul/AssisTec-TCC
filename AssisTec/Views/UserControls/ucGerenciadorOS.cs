@@ -2,6 +2,7 @@
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Windows.Forms;
 using AssisTec.Service;
 using AssisTec.SubForms_do_Gerenciador_de_Pedidos;
@@ -93,6 +94,7 @@ namespace AssisTec.UserControls
                 lblEmAndamento.Text = resultado.EmAtendimento.ToString();
                 lblRetirada.Text = resultado.ParaRetirada.ToString();
 
+                lblReceber.Text = resultado.TotalAReceber.ToString("C2");
                 lblRecebidoFinalizado.Text = $"{resultado.TotalRecebido:C2} / {resultado.QntRecebido}";
                 lblCancelado.Text = $"{resultado.QntCancelado}";
 
@@ -152,7 +154,7 @@ namespace AssisTec.UserControls
         {
             btnGerenciar.Enabled = ativo;
             btnPagamento.Enabled = ativo;
-            btnRecibo.Enabled = ativo;
+            btnImprimir.Enabled = ativo;
         }
 
         #endregion
@@ -233,7 +235,7 @@ namespace AssisTec.UserControls
 
             try
             {
-                var dadosRelatorio = _ordemServicoService.GerarReciboOS(_idOS);
+                var dadosRelatorio = _ordemServicoService.ImprimirOS(_idOS);
 
                 using (SaveFileDialog sfd = new SaveFileDialog())
                 {
@@ -242,7 +244,7 @@ namespace AssisTec.UserControls
 
                     if (sfd.ShowDialog() == DialogResult.OK)
                     {
-                        GeradorPdfOS.GerarRecibo(dadosRelatorio, sfd.FileName);
+                        GeradorPdfOS.ImprimirOS(dadosRelatorio, sfd.FileName);
 
                         Process.Start(new ProcessStartInfo
                         {
@@ -259,5 +261,77 @@ namespace AssisTec.UserControls
         }
 
         #endregion
+
+
+        private void btnRelatorio_Click(object sender, EventArgs e)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        private void btnRelatorio_Click_1(object sender, EventArgs e)
+        {
+            try
+            {
+                DataTable dtRelatorio = (DataTable)dgvOS.DataSource;
+
+                if (dtRelatorio == null || dtRelatorio.Rows.Count == 0)
+                {
+                    MessageBox.Show("Não há dados na listagem para gerar o relatório.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+
+                using (SaveFileDialog saveFileDialog = new SaveFileDialog())
+                {
+                    saveFileDialog.Filter = "Arquivos PDF (*.pdf)|*.pdf";
+                    saveFileDialog.Title = "Salvar Relatório Geral de Ordens de Serviço";
+                    saveFileDialog.FileName = $"Relatorio_OS_{DateTime.Now:yyyyMMdd_HHmmss}.pdf";
+
+                    if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        this.Cursor = Cursors.WaitCursor;
+
+                        DateTime? dataInicio = null;
+                        if (DateTime.TryParse(mtbDataInicio.Text, out DateTime parsedInicio))
+                        {
+                            dataInicio = parsedInicio.Date;
+                        }
+
+                        DateTime? dataFim = null;
+                        if (DateTime.TryParse(mtbDataFim.Text, out DateTime parsedFim))
+                        {
+                            dataFim = parsedFim.Date;
+                        }
+
+                        string status = null;
+                        if (cbStatus.SelectedIndex > 0 && cbStatus.SelectedItem != null)
+                        {
+                            status = cbStatus.SelectedItem.ToString();
+                        }
+                        else if (!string.IsNullOrWhiteSpace(cbStatus.Text) && cbStatus.Text != "Todos")
+                        {
+                            status = cbStatus.Text;
+                        }
+
+                        string caminhoLogo = Path.Combine(Application.StartupPath, "Resources", "logo.png");
+
+                        
+                        string caminhoArquivo = _ordemServicoService.GerarRelatorioGeralPdf(dtRelatorio, dataInicio, dataFim, status, saveFileDialog.FileName, caminhoLogo);
+
+                        this.Cursor = Cursors.Default;
+
+                        Process.Start(new System.Diagnostics.ProcessStartInfo
+                        {
+                            FileName = caminhoArquivo,
+                            UseShellExecute = true
+                        });
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                this.Cursor = Cursors.Default;
+                MessageBox.Show($"Erro ao gerar o relatório em PDF:\n{ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
     }
 }
