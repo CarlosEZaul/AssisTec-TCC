@@ -131,12 +131,16 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
                 return;
             }
 
-            if (!decimal.TryParse(txtValor.Text, out decimal valorCobrado) || valorCobrado < 0)
+            string apenasNumeros = new string(txtValor.Text.Where(char.IsDigit).ToArray());
+
+            if (!decimal.TryParse(apenasNumeros, out decimal valorConvertido) || valorConvertido <= 0)
             {
                 MessageBox.Show("Informe um valor válido para o serviço.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtValor.Focus();
                 return;
             }
+
+            decimal valorCobrado = valorConvertido / 100m;
 
             try
             {

@@ -87,7 +87,7 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
                 {
                     id_cliente = cbCliente.SelectedValue != null ? Convert.ToInt32(cbCliente.SelectedValue) : (int?)null,
                     id_tecnico = cbTecnico.SelectedValue != null ? Convert.ToInt32(cbTecnico.SelectedValue) : (int?)null,
-                    problema_relatado = txtProblemas.Text.Trim()
+                    problema_relatado = txtProblemas.Text
                 };
 
                 if (_ordemServicoService.SalvarOS(os, equipamento))
@@ -102,10 +102,8 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Erro ao salvar os dados: " , "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Erro ao salvar os dados: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            
-
         }
 
         private void btnLimpar_Click(object sender, EventArgs e)

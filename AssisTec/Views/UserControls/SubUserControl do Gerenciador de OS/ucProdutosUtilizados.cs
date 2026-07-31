@@ -45,7 +45,7 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             if (_ordemServicoService != null)
             {
                 CarregarProdutos();
-                if (_ordemServico.id_os > 0)
+                if (_ordemServico != null && _ordemServico.id_os > 0)
                 {
                     CarregarItensGrid(); 
                 }
@@ -55,7 +55,7 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
         public void AtualizarDados()
         {
             CarregarProdutos();
-            if (_ordemServico.id_os > 0)
+            if (_ordemServico != null && _ordemServico.id_os > 0)
             {
                 CarregarItensGrid();
             }
@@ -97,11 +97,11 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
 
         private void CarregarItensGrid()
         {
-            if (_ordemServico.id_os <= 0) return;
+            if (_ordemServico == null || _ordemServico.id_os <= 0) return;
 
             try
             {
-                IEnumerable<dynamic> listaItens = _ordemServicoService.ObterItensDaOS(_ordemServico.id_os);
+                var listaItens = _ordemServicoService.ObterItensDaOS(_ordemServico.id_os).ToList();
 
                 dgvItensOS.DataSource = null;
                 dgvItensOS.AutoGenerateColumns = true;
@@ -109,7 +109,7 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
                 dgvItensOS.Refresh();
 
                 FormatadorGrid();
-                CalcularTotalOS();
+                CalcularTotalOS(listaItens);
             }
             catch (Exception ex)
             {
@@ -122,8 +122,8 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             if (dgvItensOS.Columns["Id"] != null)
                 dgvItensOS.Columns["Id"].Visible = false;
 
-            if (dgvItensOS.Columns["IdProduto"] != null)
-                dgvItensOS.Columns["IdProduto"].Visible = false;
+            if (dgvItensOS.Columns["id_produto"] != null)
+                dgvItensOS.Columns["id_produto"].Visible = false;
 
             if (dgvItensOS.Columns["ValorUnitario"] != null)
                 dgvItensOS.Columns["ValorUnitario"].DefaultCellStyle.Format = "C2";
@@ -132,23 +132,15 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
                 dgvItensOS.Columns["ValorTotal"].DefaultCellStyle.Format = "C2";
         }
 
-        private void CalcularTotalOS()
+        private void CalcularTotalOS(List<dynamic> itens)
         {
             decimal totalGeral = 0;
 
-            if (dgvItensOS.DataSource is DataTable dt)
+            if (itens != null)
             {
-                foreach (DataRow row in dt.Rows)
+                foreach (var item in itens)
                 {
-                    if (row.RowState == DataRowState.Deleted) continue;
-
-                    if (dt.Columns.Contains("ValorTotal") && row["ValorTotal"] != DBNull.Value && row["ValorTotal"] != null)
-                    {
-                        if (decimal.TryParse(row["ValorTotal"].ToString(), out decimal valor))
-                        {
-                            totalGeral += valor;
-                        }
-                    }
+                    totalGeral += (decimal)item.ValorTotal;
                 }
             }
 
@@ -177,6 +169,12 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
 
         private void btnSalvar_Click(object sender, EventArgs e)
         {
+            if (_idProduto <= 0 || _produto == null)
+            {
+                MessageBox.Show("Selecione um produto válido da lista.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             if (!int.TryParse(txtQntd.Text, out int quantidade) || quantidade <= 0)
             {
                 MessageBox.Show("Informe uma quantidade válida maior que zero.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -186,7 +184,8 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             try
             {
                 bool sucesso = _ordemServicoService.AdicionarOuAtualizarItemOS(_ordemServico, _idProduto, quantidade);
-                var HistoricoAlteracaoOS = new HistoricoAlteracaoOS
+                
+                var historico = new HistoricoAlteracaoOS
                 {
                     idOS = _ordemServico.id_os,
                     idUsuario = _ordemServico.id_tecnico.GetValueOrDefault(),
@@ -194,14 +193,14 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
                     descricao = $"Adicionado {quantidade} do produto {_produto.descricao} na Ordem de Serviço",
                     dataAlteracao = DateTime.Now
                 };
+
                 if (sucesso)
                 {
-                    _ordemServicoService.RegistrarHistoricoOS(HistoricoAlteracaoOS);
+                    _ordemServicoService.RegistrarHistoricoOS(historico);
                     MessageBox.Show("Produto processado com sucesso na Ordem de Serviço!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     LimparSelecaoProduto();
                     CarregarProdutos();
                     CarregarItensGrid();
-                    
                 }
             }
             catch (Exception ex)
@@ -220,11 +219,7 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
 
             int idItem = 0;
 
-            if (dgvItensOS.CurrentRow.DataBoundItem is DataRowView rowView)
-            {
-                idItem = ConverterParaInt(rowView.Row.Table.Columns.Contains("Id") ? rowView["Id"] : null);
-            }
-            else if (dgvItensOS.Columns.Contains("Id") && dgvItensOS.CurrentRow.Cells["Id"].Value != null)
+            if (dgvItensOS.Columns.Contains("Id") && dgvItensOS.CurrentRow.Cells["Id"].Value != null)
             {
                 idItem = ConverterParaInt(dgvItensOS.CurrentRow.Cells["Id"].Value);
             }
@@ -243,18 +238,20 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
 
             try
             {
+                string nomeProduto = _produto != null ? _produto.descricao : "Produto";
+
                 bool sucesso = _ordemServicoService.ReduzirOuRemoverItemOS(idItem, qtdRemover);
                 if (sucesso)
                 {
-                    var HistoricoAlteracaoOS = new HistoricoAlteracaoOS
+                    var historico = new HistoricoAlteracaoOS
                     {
                         idOS = _ordemServico.id_os,
-                        idUsuario =_ordemServico.id_tecnico.GetValueOrDefault(),
+                        idUsuario = _ordemServico.id_tecnico.GetValueOrDefault(),
                         tipo = "REMOCAO_PRODUTO",
-                        descricao = $"Removido {qtdRemover} do produto {_produto.descricao} na Ordem de Serviço",
+                        descricao = $"Removido {qtdRemover} do produto {nomeProduto} na Ordem de Serviço",
                         dataAlteracao = DateTime.Now
                     };
-                    _ordemServicoService.RegistrarHistoricoOS(HistoricoAlteracaoOS);
+                    _ordemServicoService.RegistrarHistoricoOS(historico);
                     MessageBox.Show("Operação de remoção/redução realizada com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     LimparSelecaoProduto();
                     CarregarProdutos();
@@ -338,13 +335,9 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
 
             int idProd = 0;
 
-            if (row.DataBoundItem is DataRowView rowView && rowView.Row.Table.Columns.Contains("IdProduto"))
+            if (dgvItensOS.Columns.Contains("id_produto") && row.Cells["id_produto"].Value != null)
             {
-                idProd = ConverterParaInt(rowView["IdProduto"]);
-            }
-            else if (dgvItensOS.Columns.Contains("IdProduto") && row.Cells["IdProduto"].Value != null)
-            {
-                idProd = ConverterParaInt(row.Cells["IdProduto"].Value);
+                idProd = ConverterParaInt(row.Cells["id_produto"].Value);
             }
 
             if (idProd > 0)
@@ -361,7 +354,7 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
                 CalcularValorTotal();
             }
         }
-        
+
         private void ConfigurarCampoValor()
         {
             txtValor.Text = 0.ToString("C2");

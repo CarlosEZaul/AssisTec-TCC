@@ -152,14 +152,14 @@ namespace AssisTec.Service
                 throw new InvalidOperationException($"Estoque insuficiente. Disponível: {produto.quantidade}");
 
             IEnumerable<dynamic> itens = _itemOSRepository.ObterPorOrdemServico(os.id_os);
-            ItemOS itemExistente = itens?.FirstOrDefault(x => x.id_produto == idProduto);
+            var itemExistenteDynamic = itens?.FirstOrDefault(x => x.id_produto == idProduto);
 
             using (var scope = new TransactionScope())
             {
-                if (itemExistente != null)
+                if (itemExistenteDynamic != null)
                 {
-                    int idItemExistente = itemExistente.Id;
-                    int quantidadeAtual = itemExistente.Quantidade;
+                    int idItemExistente = itemExistenteDynamic.Id;
+                    int quantidadeAtual = itemExistenteDynamic.Quantidade;
                     int novaQuantidade = quantidadeAtual + quantidadeAdicionar;
 
                     if (!RemoverItemDirect(idItemExistente))
@@ -634,8 +634,7 @@ namespace AssisTec.Service
                 if (os.status == "FINALIZADA")
                     throw new InvalidOperationException("Esta Ordem de Serviço já foi finalizada.");
 
-                if (os.valor_total <= 0)
-                    throw new InvalidOperationException("A Ordem de Serviço não possui um valor total válido para pagamento.");
+                
 
                 os.status = "FINALIZADA";
                 os.data_atualizacao = DateTime.Now;
@@ -677,9 +676,8 @@ namespace AssisTec.Service
             }
             catch (Exception ex)
             {
-                throw new ArgumentNullException("Falha ao registrar pagamento" + ex.Message);
+                throw new Exception("Falha ao registrar pagamento: " + ex.Message, ex);
             }
-            
         }
 
         #endregion

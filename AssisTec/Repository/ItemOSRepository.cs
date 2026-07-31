@@ -4,11 +4,10 @@ using System.Data;
 using System.Linq;
 using AssisTec.Models;
 using Microsoft.EntityFrameworkCore;
-using Exception = AssisTec.AtendeClienteService.Exception;
 
 namespace AssisTec.Repository
 {
-    public class ItemOSRepository: IItemOSRepository
+    public class ItemOSRepository : IItemOSRepository
     {
         private readonly AppDbContext _context;
 
@@ -16,7 +15,7 @@ namespace AssisTec.Repository
         {
             _context = context;
         }
-        
+
         public ItemOS ObterPorId(int idItem)
         {
             try
@@ -27,10 +26,10 @@ namespace AssisTec.Repository
             }
             catch (Exception e)
             {
-                throw new ArgumentNullException(e.Message);
+                throw new Exception("Erro ao buscar item por ID: " + e.Message, e);
             }
         }
-        
+
         public bool SalvarItemOS(ItemOS item)
         {
             if (item == null)
@@ -46,6 +45,7 @@ namespace AssisTec.Repository
                 return false;
             }
         }
+
         public bool Remover(int idItem)
         {
             try
@@ -60,9 +60,10 @@ namespace AssisTec.Repository
             }
             catch (Exception e)
             {
-                throw new ArgumentNullException(e.Message);
+                throw new Exception("Erro ao remover item da OS: " + e.Message, e);
             }
         }
+
         public IEnumerable<dynamic> ObterPorOrdemServico(int idOS)
         {
             try
@@ -73,6 +74,7 @@ namespace AssisTec.Repository
                     .Where(x => x.id_OS == idOS)
                     .Select(x => new
                     {
+                        Id = x.Id,
                         id_produto = x.id_produto,
                         Produto = x.Produto != null ? x.Produto.descricao : "Não informado",
                         Quantidade = x.Quantidade,
