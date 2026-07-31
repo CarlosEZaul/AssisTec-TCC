@@ -237,6 +237,15 @@ namespace AssisTec.UserControls
         {
             if (_idOS <= 0) return;
 
+            bool ehGerente = Sessao.usuarioLogado != null && Sessao.usuarioLogado.Nivel == 1;
+            bool ehAtendente = Sessao.usuarioLogado != null && Sessao.usuarioLogado.Nivel == 2;
+
+            if (!ehGerente && !ehAtendente)
+            {
+                MessageBox.Show("Acesso Negado! Apenas Atendentes ou Gerentes podem registrar pagamentos e finalizar Ordens de Serviço.", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             var os = _ordemServicoService.ObterPorId(_idOS);
             if (os != null && !string.Equals(os.status, "AGUARDANDO_RETIRADA", StringComparison.OrdinalIgnoreCase) && !string.Equals(os.status, "PARA RETIRADA", StringComparison.OrdinalIgnoreCase))
             {
@@ -281,11 +290,7 @@ namespace AssisTec.UserControls
                 MessageBox.Show("Erro ao gerar PDF: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
-        #endregion
-
         
-
         private void btnRelatorio_Click_1(object sender, EventArgs e)
         {
             try
@@ -460,5 +465,11 @@ namespace AssisTec.UserControls
                 btnContatoTecnico.Enabled = true;
             }
         }
+
+        #endregion
+
+        
+
+        
     }
 }
