@@ -321,6 +321,9 @@
     <Compile Include="Utils\ContatoWhatsApp.cs" />
     <Compile Include="Utils\DesignComponentes.cs" />
     <Compile Include="Utils\GeradorPdfCliente.cs" />
+    <Compile Include="Utils\GeradorPdfContasPagar.cs" />
+    <Compile Include="Utils\GeradorPdfContasReceber.cs" />
+    <Compile Include="Utils\GeradorPdfEstoque.cs" />
     <Compile Include="Utils\GeradorPdfOS.cs" />
     <Compile Include="Utils\GeradorPdfUsuario.cs" />
     <Compile Include="Utils\Validacao.cs" />

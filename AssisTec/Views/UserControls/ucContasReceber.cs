@@ -63,6 +63,10 @@ namespace AssisTec.UserControls
             dgvContasReceber.Columns[7].HeaderText = "Observacoes";
             dgvContasReceber.Columns[8].HeaderText = "IdOrdemServico";
             dgvContasReceber.Columns[9].HeaderText = "Forma de Pagamento";
+            dgvContasReceber.Columns["ClienteNome"].Visible = false;
+            dgvContasReceber.Columns["Equipamento"].Visible = false;
+            dgvContasReceber.Columns["DefeitoRelatado"].Visible = false;
+            dgvContasReceber.Columns["ServicoRealizado"].Visible = false;
         }
 
         private void ExecutarFiltro()
@@ -101,12 +105,11 @@ namespace AssisTec.UserControls
             _listaLabelsTotais[1].Text = totais.TotalRecebido.ToString("C2");
             _listaLabelsTotais[2].Text = totais.TotalPendente.ToString("C2");
             _listaLabelsTotais[3].Text = totais.TotalAtrasado.ToString("C2");
-
             _idConta = 0;
             MudarEstadoBotoes(false);
-            FormatGrid();
             UpdateMascaraMonetariaGrid();
             _service.ProcessarContasAtrasadas();
+            FormatGrid();
         }
 
         private void MudarEstadoBotoes(bool ativo)
@@ -236,7 +239,75 @@ namespace AssisTec.UserControls
 
         private void btnRecibo_Click(object sender, EventArgs e)
         {
-            throw new System.NotImplementedException();
+            if (_idConta <= 0)
+            {
+                MessageBox.Show("Selecione uma conta para gerar o recibo/relatório individual.", "Aviso",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            using (SaveFileDialog sfd = new SaveFileDialog())
+            {
+                sfd.Filter = "Arquivos PDF (*.pdf)|*.pdf";
+                sfd.FileName = $"Recibo_ContaReceber_{_idConta}_{DateTime.Now:yyyyMMdd}.pdf";
+                sfd.Title = "Salvar Recibo / Relatório Individual";
+
+                if (sfd.ShowDialog() == DialogResult.OK)
+                {
+                    try
+                    {
+                        _service.GerarRelatorioIndividualPdf(_idConta, sfd.FileName);
+                        MessageBox.Show("Recibo gerado com sucesso!", "Sucesso",
+                            MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Erro ao gerar recibo: {ex.Message}", "Erro",
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+        }
+
+        private void btnRelatorio_Click(object sender, EventArgs e)
+        {
+            using (SaveFileDialog sfd = new SaveFileDialog())
+            {
+                sfd.Filter = "Arquivos PDF (*.pdf)|*.pdf";
+                sfd.FileName = $"Relatorio_ContasReceber_{DateTime.Now:yyyyMMdd_HHmmss}.pdf";
+                sfd.Title = "Salvar Relatório Geral de Contas a Receber";
+
+                if (sfd.ShowDialog() == DialogResult.OK)
+                {
+                    try
+                    {
+                        string nomeFormaPagamento = cbFormaPagamento.Text;
+                        if (cbFormaPagamento.SelectedIndex == 0)
+                        {
+                            nomeFormaPagamento = "Todas";
+                        }
+
+                        _service.GerarRelatorioFiltradoPdf(
+                            mtbDataInicio.Text,
+                            mtbDataFim.Text,
+                            txtBusca.Text,
+                            cbStatus.SelectedIndex,
+                            cbStatus.SelectedItem?.ToString(),
+                            cbFormaPagamento.SelectedValue,
+                            nomeFormaPagamento,
+                            sfd.FileName
+                        );
+
+                        MessageBox.Show("Relatório em PDF gerado com sucesso!", "Sucesso",
+                            MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Erro ao gerar relatório: {ex.Message}", "Erro",
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
         }
     }
 }

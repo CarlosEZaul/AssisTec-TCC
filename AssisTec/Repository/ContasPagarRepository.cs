@@ -35,7 +35,7 @@ namespace AssisTec.Repository
                          || (c.data_vencimento < inicioMes && c.status != "PAGA"))
                 .Select(c => new ContasPagarDto
                 {
-                    IdContaReceber = c.id_conta_pagar,
+                    IdContaPagar = c.id_conta_pagar,
                     Descricao = c.descricao,
                     Valor = c.valor,
                     DataEmissao = c.data_emissao,

@@ -87,6 +87,7 @@ namespace AssisTec.UserControls
             cbFormaPagamento.DisplayMember = "exibicao";
             cbFormaPagamento.ValueMember = "id_forma_pagamento";
 
+            cbStatus.Items.Clear();
             cbStatus.Items.AddRange(new[] { "Todos os Status", "PENDENTE", "PAGA", "ATRASADO" });
             cbStatus.SelectedIndex = 0;
             cbFormaPagamento.SelectedIndex = 0;
@@ -110,18 +111,48 @@ namespace AssisTec.UserControls
             {
                 if (dgvContasPagar.Columns.Count <= 0) return;
 
-                dgvContasPagar.Columns[0].HeaderText = "ID_CONTA";
-                dgvContasPagar.Columns[1].HeaderText = "Descrição";
-                dgvContasPagar.Columns[2].HeaderText = "Valor";
-                dgvContasPagar.Columns[3].HeaderText = "Data de Emissão";
-                dgvContasPagar.Columns[4].HeaderText = "Data de Vencimento";
-                dgvContasPagar.Columns[5].HeaderText = "Data de Pagamento";
-                dgvContasPagar.Columns[6].HeaderText = "Status";
-                dgvContasPagar.Columns[7].HeaderText = "Observações";
-                dgvContasPagar.Columns[8].HeaderText = "Forma de Pagamento";
-                
-                
-                
+                if (dgvContasPagar.Columns.Contains("id_conta_pagar"))
+                    dgvContasPagar.Columns["id_conta_pagar"].HeaderText = "ID_CONTA";
+                else if (dgvContasPagar.Columns.Contains("IdContaPagar"))
+                    dgvContasPagar.Columns["IdContaPagar"].HeaderText = "ID_CONTA";
+
+                if (dgvContasPagar.Columns.Contains("descricao"))
+                    dgvContasPagar.Columns["descricao"].HeaderText = "Descrição";
+                else if (dgvContasPagar.Columns.Contains("Descricao"))
+                    dgvContasPagar.Columns["Descricao"].HeaderText = "Descrição";
+
+                if (dgvContasPagar.Columns.Contains("valor"))
+                    dgvContasPagar.Columns["valor"].HeaderText = "Valor";
+                else if (dgvContasPagar.Columns.Contains("Valor"))
+                    dgvContasPagar.Columns["Valor"].HeaderText = "Valor";
+
+                if (dgvContasPagar.Columns.Contains("data_emissao"))
+                    dgvContasPagar.Columns["data_emissao"].HeaderText = "Data de Emissão";
+                else if (dgvContasPagar.Columns.Contains("DataEmissao"))
+                    dgvContasPagar.Columns["DataEmissao"].HeaderText = "Data de Emissão";
+
+                if (dgvContasPagar.Columns.Contains("data_vencimento"))
+                    dgvContasPagar.Columns["data_vencimento"].HeaderText = "Data de Vencimento";
+                else if (dgvContasPagar.Columns.Contains("DataVencimento"))
+                    dgvContasPagar.Columns["DataVencimento"].HeaderText = "Data de Vencimento";
+
+                if (dgvContasPagar.Columns.Contains("data_pagamento"))
+                    dgvContasPagar.Columns["data_pagamento"].HeaderText = "Data de Pagamento";
+                else if (dgvContasPagar.Columns.Contains("DataPagamento"))
+                    dgvContasPagar.Columns["DataPagamento"].HeaderText = "Data de Pagamento";
+
+                if (dgvContasPagar.Columns.Contains("status"))
+                    dgvContasPagar.Columns["status"].HeaderText = "Status";
+                else if (dgvContasPagar.Columns.Contains("Status"))
+                    dgvContasPagar.Columns["Status"].HeaderText = "Status";
+
+                if (dgvContasPagar.Columns.Contains("observacoes"))
+                    dgvContasPagar.Columns["observacoes"].HeaderText = "Observações";
+                else if (dgvContasPagar.Columns.Contains("Observacoes"))
+                    dgvContasPagar.Columns["Observacoes"].HeaderText = "Observações";
+
+                if (dgvContasPagar.Columns.Contains("FormaPagamentoDescricao"))
+                    dgvContasPagar.Columns["FormaPagamentoDescricao"].HeaderText = "Forma de Pagamento";
             }
             catch (Exception e)
             {
@@ -131,9 +162,11 @@ namespace AssisTec.UserControls
 
         private void atualizar()
         {
+            _contasPagarService.ProcessarContasAtrasadas();
             listGrid();
-            cbStatus.SelectedIndex = 0;
-            cbFormaPagamento.SelectedIndex = 0;
+
+            if (cbStatus.Items.Count > 0) cbStatus.SelectedIndex = 0;
+            if (cbFormaPagamento.Items.Count > 0) cbFormaPagamento.SelectedIndex = 0;
 
             var totais = _contasPagarService.ObterTotaisPadrao();
 
@@ -141,7 +174,8 @@ namespace AssisTec.UserControls
             listaLabelsTotais[1].Text = totais.TotalPagar.ToString("C2");
             listaLabelsTotais[2].Text = totais.TotalPendente.ToString("C2");
             listaLabelsTotais[3].Text = totais.TotalAtrasado.ToString("C2");
-            _contasPagarService.ProcessarContasAtrasadas();
+
+            DisableBtn();
             formatgrid();
         }
 
@@ -159,6 +193,7 @@ namespace AssisTec.UserControls
             btnDelete.Enabled = false;
             btnRecibo.Enabled = false;
             btnRegistrarPagamento.Enabled = false;
+            idConta = 0;
         }
 
         #endregion
@@ -167,11 +202,10 @@ namespace AssisTec.UserControls
 
         private void dgvContasPagar_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            if (dgvContasPagar.Columns[e.ColumnIndex].Index == 6 && e.Value != null)
+            if (dgvContasPagar.Columns[e.ColumnIndex].Name.Equals("status", StringComparison.OrdinalIgnoreCase) ||
+                dgvContasPagar.Columns[e.ColumnIndex].Name.Equals("Status", StringComparison.OrdinalIgnoreCase))
             {
-                string status = e.Value.ToString();
-
-                if (status == "ATRASADO")
+                if (e.Value != null && e.Value.ToString() == "ATRASADO")
                 {
                     dgvContasPagar.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.Red;
                     dgvContasPagar.Rows[e.RowIndex].DefaultCellStyle.ForeColor = Color.White;
@@ -181,6 +215,8 @@ namespace AssisTec.UserControls
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
+            if (idConta <= 0) return;
+
             if (MessageBox.Show("Deseja realmente excluir esta conta?", "Confirmação", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
                 return;
 
@@ -218,11 +254,6 @@ namespace AssisTec.UserControls
             filtro();
         }
 
-        private void btnRelatorio_Click(object sender, EventArgs e)
-        {
-            
-        }
-
         private void dgvContasPagar_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0 && dgvContasPagar.Rows.Count > 0)
@@ -237,10 +268,6 @@ namespace AssisTec.UserControls
                     MessageBox.Show(ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-        }
-
-        private void btnRecibo_Click(object sender, EventArgs e)
-        {
         }
 
         private void btnEditar_Click(object sender, EventArgs e)
@@ -284,9 +311,8 @@ namespace AssisTec.UserControls
                 MessageBox.Show("Erro inesperado: " + ex.Message, "Erro", 
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            
-            
         }
+
         private void ConfigurarSubComponente(UserControl uc)
         {
             uc.Disposed += (s, e) => atualizar();
@@ -296,5 +322,67 @@ namespace AssisTec.UserControls
         }
 
         #endregion
+
+        private void btnRelatorio_Click_1(object sender, EventArgs e)
+        {
+            try
+            {
+                using (SaveFileDialog sfd = new SaveFileDialog())
+                {
+                    sfd.Filter = "Arquivo PDF (*.pdf)|*.pdf";
+                    sfd.FileName = $"Relatorio_Contas_Pagar_{DateTime.Now:yyyyMMdd_HHmmss}.pdf";
+
+                    if (sfd.ShowDialog() == DialogResult.OK)
+                    {
+                        string nomeFormaPagamento = cbFormaPagamento.Text;
+                        
+                        _contasPagarService.GerarRelatorioFiltradoPdf(
+                            mtbDataInicio.Text,
+                            mtbDataFim.Text,
+                            txtBusca.Text,
+                            cbStatus.SelectedIndex,
+                            cbStatus.SelectedItem?.ToString(),
+                            cbFormaPagamento.SelectedValue,
+                            nomeFormaPagamento,
+                            sfd.FileName
+                        );
+
+                        MessageBox.Show("Relatório em PDF gerado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao gerar relatório: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnRecibo_Click_1(object sender, EventArgs e)
+        {
+            if (idConta <= 0)
+            {
+                MessageBox.Show("Selecione uma conta para gerar o comprovante/detalhamento.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            try
+            {
+                using (SaveFileDialog sfd = new SaveFileDialog())
+                {
+                    sfd.Filter = "Arquivo PDF (*.pdf)|*.pdf";
+                    sfd.FileName = $"Comprovante_Conta_Pagar_{idConta}_{DateTime.Now:yyyyMMdd_HHmmss}.pdf";
+
+                    if (sfd.ShowDialog() == DialogResult.OK)
+                    {
+                        _contasPagarService.GerarRelatorioIndividualPdf(idConta, sfd.FileName);
+                        MessageBox.Show("Comprovante individual gerado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao gerar o comprovante: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
     }
 }

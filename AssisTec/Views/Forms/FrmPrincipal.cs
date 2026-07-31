@@ -49,7 +49,7 @@ namespace AssisTec
 
             _produtoService = new ProdutoService(produtoRepository);
             _contasPagarService = new ContasPagarService(contasPagarRepository, pagamentoRepository);
-            _contasReceberService = new ContasReceberService(contasReceberRepository, pagamentoRepository);
+            _contasReceberService = new ContasReceberService(contasReceberRepository, pagamentoRepository, OrdemServicoRepository);
             _pagamentoService = new PagamentoService(contasReceberRepository,contasPagarRepository, pagamentoRepository);
             _movimentacaoEstoqueService = new MovimentacaoEstoqueService(movimentacaoEstoqueRepository);
             _ordemServicoService = new OrdemServicoService(OrdemServicoRepository,

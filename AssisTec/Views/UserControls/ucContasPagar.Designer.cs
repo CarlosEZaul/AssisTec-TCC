@@ -462,7 +462,7 @@ namespace AssisTec.UserControls
             this.btnRegistrarPagamento.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRegistrarPagamento.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.btnRegistrarPagamento.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnRegistrarPagamento.Location = new System.Drawing.Point(384, 15);
+            this.btnRegistrarPagamento.Location = new System.Drawing.Point(288, 15);
             this.btnRegistrarPagamento.Name = "btnRegistrarPagamento";
             this.btnRegistrarPagamento.Size = new System.Drawing.Size(117, 33);
             this.btnRegistrarPagamento.TabIndex = 106;
@@ -535,6 +535,7 @@ namespace AssisTec.UserControls
             this.btnRecibo.TabIndex = 101;
             this.btnRecibo.Text = "Emitir Recibo";
             this.btnRecibo.UseVisualStyleBackColor = false;
+            this.btnRecibo.Click += new System.EventHandler(this.btnRecibo_Click_1);
             // 
             // btnRelatorio
             // 
@@ -544,12 +545,13 @@ namespace AssisTec.UserControls
             this.btnRelatorio.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRelatorio.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.btnRelatorio.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnRelatorio.Location = new System.Drawing.Point(288, 15);
+            this.btnRelatorio.Location = new System.Drawing.Point(411, 15);
             this.btnRelatorio.Name = "btnRelatorio";
             this.btnRelatorio.Size = new System.Drawing.Size(90, 33);
             this.btnRelatorio.TabIndex = 103;
             this.btnRelatorio.Text = "Gerar Relatório";
             this.btnRelatorio.UseVisualStyleBackColor = false;
+            this.btnRelatorio.Click += new System.EventHandler(this.btnRelatorio_Click_1);
             // 
             // panel2
             // 
