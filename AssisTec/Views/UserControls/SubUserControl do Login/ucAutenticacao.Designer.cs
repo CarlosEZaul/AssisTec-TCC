@@ -55,7 +55,6 @@ namespace AssisTec.UserControls
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(751, 100);
             this.panel2.TabIndex = 152;
-            this.panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
             // 
             // btnVerificarCodigo
             // 
@@ -80,7 +79,6 @@ namespace AssisTec.UserControls
             this.label3.TabIndex = 184;
             this.label3.Text = "Digite o código";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // mtbCodigo
             // 
@@ -91,7 +89,6 @@ namespace AssisTec.UserControls
             this.mtbCodigo.Size = new System.Drawing.Size(209, 38);
             this.mtbCodigo.TabIndex = 0;
             this.mtbCodigo.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.mtbCodigo.MaskInputRejected += new System.Windows.Forms.MaskInputRejectedEventHandler(this.mtbCodigo_MaskInputRejected);
             // 
             // label4
             // 
@@ -105,7 +102,6 @@ namespace AssisTec.UserControls
             this.label4.TabIndex = 153;
             this.label4.Text = "Autenticação em Dois Fatores (2FA)";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.label4.Click += new System.EventHandler(this.label4_Click);
             // 
             // panel1
             // 
@@ -118,7 +114,6 @@ namespace AssisTec.UserControls
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(751, 100);
             this.panel1.TabIndex = 186;
-            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
             // btnFechar
             // 
@@ -160,7 +155,6 @@ namespace AssisTec.UserControls
             this.label5.TabIndex = 191;
             this.label5.Text = "Não recebeu o código?";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.label5.Click += new System.EventHandler(this.label5_Click);
             // 
             // ucAutenticacao
             // 
