@@ -67,8 +67,8 @@ namespace AssisTec.Service
                         <div style='margin-bottom: 20px;'>
                             <img src='cid:{contentId}' alt='Logo AssisTec' style='max-width: 180px; height: auto;' />
                         </div>
-                        <h2 style='color: #0056b3;'>Redefinição de Senha</h2>
-                        <p>Utilize o código abaixo para redefinir sua senha no sistema AssisTec:</p>
+                        <h2 style='color: #0056b3;'>Código de Verificação</h2>
+                        <p>Utilize o código abaixo no sistema AssisTec:</p>
                         <div style='background-color: #f4f4f4; padding: 10px 20px; display: inline-block; border-radius: 5px; margin: 10px 0;'>
                             <h1 style='color: #0056b3; letter-spacing: 5px; margin: 0;'>{codigoExibicao}</h1>
                         </div>

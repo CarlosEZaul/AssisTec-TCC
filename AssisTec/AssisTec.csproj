@@ -459,6 +459,12 @@
     <Compile Include="Views\UserControls\SubUserControl do Gerenciador de Usuarios\ucFormularioUsuarios.Designer.cs">
       <DependentUpon>ucFormularioUsuarios.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\UserControls\SubUserControl do Login\ucAutenticacao.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\UserControls\SubUserControl do Login\ucAutenticacao.Designer.cs">
+      <DependentUpon>ucAutenticacao.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\UserControls\SubUserControl do Login\ucEsqueciASenha.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -580,6 +586,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\UserControls\SubUserControl do Gerenciador de Usuarios\ucFormularioUsuarios.resx">
       <DependentUpon>ucFormularioUsuarios.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\UserControls\SubUserControl do Login\ucAutenticacao.resx">
+      <DependentUpon>ucAutenticacao.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\UserControls\SubUserControl do Login\ucEsqueciASenha.resx">
       <DependentUpon>ucEsqueciASenha.cs</DependentUpon>

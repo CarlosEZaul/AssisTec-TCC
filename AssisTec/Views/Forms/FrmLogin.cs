@@ -4,6 +4,7 @@ using System.Windows.Forms;
 using AssisTec.Service;
 using AssisTec.Repository;
 using AssisTec.Models;
+using AssisTec.UserControls;
 using AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios;
 using AssisTec.UserControls.SubUserControl_do_Login;
 
@@ -80,14 +81,32 @@ namespace AssisTec
         private void btnLogin_Click(object sender, EventArgs e)
         {
             var (sucesso, mensagem, usuario) = service.RealizarLogin(mtbCPF.Text, txtPassword.Text);
-           
+   
             if (sucesso)
             {
-                MessageBox.Show(mensagem, "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                
 
-                Sessao.usuarioLogado = usuario;
-                this.DialogResult = DialogResult.OK;
-                this.Hide();
+                ucAutenticacao uc2FA = new ucAutenticacao(service, usuario);
+        
+                int larguraOriginal = this.Width;
+                int alturaOriginal = this.Height;
+
+                this.Width = uc2FA.Width;
+                this.Height = uc2FA.Height + 35;
+        
+                this.Controls.Add(uc2FA);
+                uc2FA.BringToFront();
+                uc2FA.Left = (this.ClientSize.Width - uc2FA.Width) / 2;
+                uc2FA.Top = (this.ClientSize.Height - uc2FA.Height) / 2;
+        
+                uc2FA.Disposed += (s, ev) =>
+                {
+                    if (Sessao.usuarioLogado == null)
+                    {
+                        this.Width = larguraOriginal;
+                        this.Height = alturaOriginal;
+                    }
+                };
             }
             else
             {

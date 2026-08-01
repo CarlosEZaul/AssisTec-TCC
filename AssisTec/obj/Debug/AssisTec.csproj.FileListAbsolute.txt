@@ -389,18 +389,15 @@ C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\bin\Debug\System.ValueTuple.x
 C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\obj\Debug\AssisTec.csproj.AssemblyReference.cache
 C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\obj\Debug\AssisTec.FrmPrincipal.resources
 C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\obj\Debug\AssisTec.FrmLogin.resources
-C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\obj\Debug\AssisTec.SubForms_do_Gerenciador_de_Pedidos.Novo_Pedido.resources
 C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\obj\Debug\AssisTec.Properties.Resources.resources
 C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\obj\Debug\AssisTec.csproj.GenerateResource.cache
 C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\obj\Debug\AssisTec.csproj.CoreCompileInputs.cache
 C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\obj\Debug\AssisTec.csproj.Up2Date
 C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\obj\Debug\AssisTec.exe
 C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\obj\Debug\AssisTec.pdb
-C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\obj\Debug\AssisTec.SubForms_do_Gerenciador_de_Pedidos.ucDetalhesPedidos.resources
 C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\obj\Debug\AssisTec.SubForms_do_Gerenciador_de_Pedidos.ucProdutosUtilizados.resources
 C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\obj\Debug\AssisTec.SubForms_do_Gerenciador_de_Pedidos.ucServicos.resources
 C:\Users\carlo\RiderProjects\AssisTEC-TCC\AssisTec\obj\Debug\AssisTec.UserControls.ucGerenciador_Usuario.resources
-C:\Users\carlo\RiderProjects\AssisTEC-TCC\AssisTec\obj\Debug\AssisTec.SubForms_do_Gerenciador_de_Pedidos.FrmEditarPedido.resources
 C:\Users\Pc do estagiario\RiderProjects\AssisTec-TCC\tcc\AssisTec\bin\Debug\AssisTec.exe.config
 C:\Users\Pc do estagiario\RiderProjects\AssisTec-TCC\tcc\AssisTec\bin\Debug\AssisTec.exe
 C:\Users\Pc do estagiario\RiderProjects\AssisTec-TCC\tcc\AssisTec\bin\Debug\AssisTec.pdb
@@ -535,7 +532,6 @@ C:\Users\Pc do estagiario\RiderProjects\AssisTec-TCC\AssisTec\obj\Debug\AssisTec
 C:\Users\Pc do estagiario\RiderProjects\AssisTec-TCC\AssisTec\obj\Debug\AssisTec.exe
 C:\Users\Pc do estagiario\RiderProjects\AssisTec-TCC\AssisTec\obj\Debug\AssisTec.pdb
 C:\Users\Pc do estagiario\RiderProjects\AssisTec-TCC\AssisTec\obj\Debug\AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Clientes.ucFormulario_Clientes.ucFormulario_Clientes.resources
-C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\obj\Debug\AssisTec.formSubs.resources
 C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\obj\Debug\AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Clientes.ucFormulario_Clientes.ucFormulario_Clientes.resources
 C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\obj\Debug\AssisTec.UserControls.ucGerenciador_Clientes.resources
 C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\obj\Debug\AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios.ucFormularioUsuarios.resources
@@ -3849,3 +3845,90 @@ C:\Users\Pc do estagiario\RiderProjects\AssisTec-TCC31-07\AssisTec\obj\Debug\Ass
 C:\Users\Pc do estagiario\RiderProjects\AssisTec-TCC31-07\AssisTec\obj\Debug\AssisTec.csproj.Up2Date
 C:\Users\Pc do estagiario\RiderProjects\AssisTec-TCC31-07\AssisTec\obj\Debug\AssisTec.exe
 C:\Users\Pc do estagiario\RiderProjects\AssisTec-TCC31-07\AssisTec\obj\Debug\AssisTec.pdb
+C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\bin\Debug\appSettings.config
+C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\bin\Debug\BouncyCastle.Crypto.dll
+C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\bin\Debug\EntityFramework.dll
+C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\bin\Debug\EntityFramework6.Npgsql.dll
+C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\bin\Debug\MailKit.dll
+C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\bin\Debug\Microsoft.Bcl.HashCode.dll
+C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\bin\Debug\Microsoft.EntityFrameworkCore.Abstractions.dll
+C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\bin\Debug\Microsoft.EntityFrameworkCore.Design.dll
+C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\bin\Debug\Microsoft.EntityFrameworkCore.dll
+C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\bin\Debug\Microsoft.EntityFrameworkCore.Relational.dll
+C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\bin\Debug\Microsoft.Extensions.Caching.Abstractions.dll
+C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\bin\Debug\Microsoft.Extensions.Caching.Memory.dll
+C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\bin\Debug\Microsoft.Extensions.Configuration.Abstractions.dll
+C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\bin\Debug\Microsoft.Extensions.Configuration.Binder.dll
+C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\bin\Debug\Microsoft.Extensions.Configuration.dll
+C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\bin\Debug\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\bin\Debug\Microsoft.Extensions.DependencyInjection.dll
+C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\bin\Debug\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\bin\Debug\Microsoft.Extensions.Logging.dll
+C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\bin\Debug\Microsoft.Extensions.Options.dll
+C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\bin\Debug\Microsoft.Extensions.Primitives.dll
+C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\bin\Debug\MimeKit.dll
+C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\bin\Debug\MySql.Data.EntityFrameworkCore.dll
+C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\bin\Debug\MySqlBackup.dll
+C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\bin\Debug\MySQLConnection.dll
+C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\bin\Debug\MySqlConnector.dll
+C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\bin\Debug\Npgsql.dll
+C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\bin\Debug\Npgsql.EntityFrameworkCore.PostgreSQL.dll
+C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\bin\Debug\Pomelo.JsonObject.dll
+C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\bin\Debug\System.Collections.Immutable.dll
+C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\bin\Debug\System.ComponentModel.Annotations.dll
+C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\bin\Debug\System.Formats.Asn1.dll
+C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\bin\Debug\BouncyCastle.Crypto.xml
+C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\bin\Debug\EntityFramework.xml
+C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\bin\Debug\EntityFramework6.Npgsql.xml
+C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\bin\Debug\MailKit.pdb
+C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\bin\Debug\MailKit.xml
+C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\bin\Debug\MailKit.dll.config
+C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\bin\Debug\Microsoft.Bcl.HashCode.xml
+C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\bin\Debug\Microsoft.EntityFrameworkCore.xml
+C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\bin\Debug\Microsoft.EntityFrameworkCore.Abstractions.xml
+C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\bin\Debug\Microsoft.EntityFrameworkCore.Design.xml
+C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\bin\Debug\Microsoft.EntityFrameworkCore.Relational.xml
+C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\bin\Debug\Microsoft.Extensions.Caching.Abstractions.xml
+C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\bin\Debug\Microsoft.Extensions.Caching.Memory.xml
+C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\bin\Debug\Microsoft.Extensions.Configuration.xml
+C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\bin\Debug\Microsoft.Extensions.Configuration.Abstractions.xml
+C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\bin\Debug\Microsoft.Extensions.Configuration.Binder.xml
+C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\bin\Debug\Microsoft.Extensions.DependencyInjection.xml
+C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\bin\Debug\Microsoft.Extensions.DependencyInjection.Abstractions.xml
+C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\bin\Debug\Microsoft.Extensions.Logging.xml
+C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\bin\Debug\Microsoft.Extensions.Logging.Abstractions.xml
+C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\bin\Debug\Microsoft.Extensions.Options.xml
+C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\bin\Debug\Microsoft.Extensions.Primitives.xml
+C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\bin\Debug\MimeKit.pdb
+C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\bin\Debug\MimeKit.xml
+C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\bin\Debug\MimeKit.dll.config
+C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\bin\Debug\MySql.Data.EntityFrameworkCore.xml
+C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\bin\Debug\MySqlConnector.xml
+C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\bin\Debug\Npgsql.xml
+C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\bin\Debug\System.Collections.Immutable.xml
+C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\bin\Debug\System.Formats.Asn1.xml
+C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\obj\Debug\AssisTec.csproj.SuggestedBindingRedirects.cache
+C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\obj\Debug\AssisTec.exe.config
+C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\obj\Debug\AssisTec.SubForms_do_Gerenciador_de_Pedidos.FrmGerenciarOS.resources
+C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\obj\Debug\AssisTec.UserControls.SubUserControl_do_Financeiro.ucRegistrarEntradaFinanceiro.resources
+C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\obj\Debug\AssisTec.UserControls.SubUserControl_do_Financeiro.ucRegistrarPagamentoEntrada.resources
+C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\obj\Debug\AssisTec.UserControls.SubUserControl_do_Financeiro.ucRegistrarPagamentoSaida.resources
+C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\obj\Debug\AssisTec.UserControls.SubUserControl_do_Financeiro.ucRegistrarSaidaFinanceiro.resources
+C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\obj\Debug\AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque.ucFormularioProduto.resources
+C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\obj\Debug\AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque.ucMovimentaçãoEstoque.resources
+C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\obj\Debug\AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque.ucRegistrarEntrada.resources
+C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\obj\Debug\AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque.ucRegistrarSaida.resources
+C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\obj\Debug\AssisTec.Views.UserControls.SubUserControl_do_Gerenciador_de_OS.ucDetalhesEquipamento.resources
+C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\obj\Debug\AssisTec.SubForms_do_Gerenciador_de_Pedidos.ucDetalhesOS.resources
+C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\obj\Debug\AssisTec.SubForms_do_Gerenciador_de_Pedidos.ucFormularioOS.resources
+C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\obj\Debug\AssisTec.Views.UserControls.SubUserControl_do_Gerenciador_de_OS.ucHistoricoAlteracao.resources
+C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\obj\Debug\AssisTec.UserControls.ucHistoricoOS.resources
+C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\obj\Debug\AssisTec.Views.UserControls.SubUserControl_do_Gerenciador_de_OS.ucRegistrarPagamentoOS.resources
+C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\obj\Debug\AssisTec.UserControls.ucAutenticacao.resources
+C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\obj\Debug\AssisTec.UserControls.SubUserControl_do_Login.ucEsqueciASenha.resources
+C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\obj\Debug\AssisTec.UserControls.ucBackupImportar.resources
+C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\obj\Debug\AssisTec.UserControls.ucContasPagar.resources
+C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\obj\Debug\AssisTec.UserControls.ucContasReceber.resources
+C:\Users\carlo\RiderProjects\AssisTec-TCC\AssisTec\obj\Debug\AssisTec.UserControls.ucHome.resources
