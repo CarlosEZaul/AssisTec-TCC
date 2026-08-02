@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 using AssisTec.Service;
 using AssisTec.Models;
 using AssisTec.Repository;
@@ -17,21 +18,26 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios
         private readonly DataGridView dgv;
         private readonly UsuarioService service;
         
+        private readonly EmailService _emailService = new EmailService("carlosezzddomingos@gmail.com", "yahs ubev npto pewg");
+        private string _emailOriginal = string.Empty;
+        private string _codigoGerado = string.Empty;
+        private bool _emailVerificado = false;
+
         public ucFormularioUsuarios(int _id, int _modo, DataGridView _dgv, UsuarioService service)
         {
+            InitializeComponent();
             this.modo = _modo;
             this.dgv = _dgv;
             if (modo != 1)
             {
                 this.id = _id;
             }
-            InitializeComponent();
-            
             this.service = service;
+            mtbCodigo.Mask = "000-000";
+            mtbCodigo.TextMaskFormat = MaskFormat.ExcludePromptAndLiterals;
+            mtbCodigo.ReadOnly = false;
         }
-        
-        
-        
+
         private void FormularioUsuarios_Load(object sender, EventArgs e)
         {
             ApplyModernDesign();
@@ -50,8 +56,10 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios
                 cbStatus.SelectedIndex = 0;
                 cbStatus.Enabled = false;
             }
+
+            AtualizarEstadoVerificacaoEmail();
         }
-        
+
         #region Design Moderno
         private void ApplyModernDesign()
         {
@@ -83,8 +91,17 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios
             }
         }
         #endregion
-        
+
         #region Metodos de Interface
+        private bool ValidarFormatoEmail(string email)
+        {
+            if (string.IsNullOrWhiteSpace(email))
+                return false;
+
+            string pattern = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
+            return Regex.IsMatch(email, pattern, RegexOptions.IgnoreCase);
+        }
+
         private void ConfigurarComboBox()
         {
             cbStatus.Items.Clear();
@@ -98,7 +115,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios
             cbNivel.Items.Add("3 - Técnico de TI");
             cbNivel.DropDownStyle = ComboBoxStyle.DropDownList;
         }
-        
+
         private void DeleteAll()
         {
             txtNome.Text = string.Empty;
@@ -116,8 +133,17 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios
             cbStatus.SelectedIndex = -1;
             cbNivel.SelectedIndex = -1;
             okCep = false;
+            
+            _emailVerificado = false;
+            _emailOriginal = string.Empty;
+            _codigoGerado = string.Empty;
+            
+            if (mtbCodigo != null)
+                mtbCodigo.Clear();
+
+            AtualizarEstadoVerificacaoEmail();
         }
-        
+
         public void CarregarDados()
         {
             try
@@ -133,7 +159,11 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios
                 id = usuario.Id;
                 txtNome.Text = usuario.Nome;
                 mtbCPF.Text = usuario.Cpf;
+                
                 txtEmail.Text = usuario.Email;
+                _emailOriginal = usuario.Email;
+                _emailVerificado = true;
+
                 txtSenha.Text = string.Empty; 
                 mtbTel.Text = usuario.Telefone;
                 int indexNivel = (usuario.Nivel >= 1 && usuario.Nivel <= 3) ? usuario.Nivel - 1 : 1;
@@ -148,12 +178,12 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios
                 txtEstado.Text = usuario.Estado;
                 txtComp.Text = usuario.Complemento;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show("Erro ao carregar dados do usuário: " + ex.Message);
             }
         }
-        
+
         private Usuario FormUsuario()
         {
             Usuario user = new Usuario();
@@ -162,7 +192,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios
             user.Cpf = mtbCPF.Text;
             user.Telefone = mtbTel.Text;
             user.Senha = txtSenha.Text;
-            user.Email = txtEmail.Text;
+            user.Email = txtEmail.Text.Trim();
             
             if (cbNivel.SelectedItem != null)
             {
@@ -185,14 +215,136 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios
 
             return user;
         }
-        
+
         private void Fechar()
         {
             this.Dispose();
         }
+
+        private void AtualizarEstadoVerificacaoEmail()
+        {
+            btnVerificarEmail.Enabled = !_emailVerificado;
+    
+            bool aguardandoCodigo = !_emailVerificado && !string.IsNullOrEmpty(_codigoGerado);
+
+            if (mtbCodigo != null)
+            {
+                mtbCodigo.Enabled = aguardandoCodigo;
+            }
+
+            if (btnVerificarCodigo != null)
+            {
+                btnVerificarCodigo.Enabled = aguardandoCodigo;
+            }
+        }
         #endregion
 
         #region Eventos dos Componentes
+        private void txtEmail_TextChanged(object sender, EventArgs e)
+        {
+            string emailAtual = txtEmail.Text.Trim();
+
+            if (modo == 2 && emailAtual.Equals(_emailOriginal, StringComparison.OrdinalIgnoreCase))
+            {
+                _emailVerificado = true;
+            }
+            else
+            {
+                _emailVerificado = false;
+            }
+
+            _codigoGerado = string.Empty;
+            AtualizarEstadoVerificacaoEmail();
+        }
+
+        private async void btnVerificarEmail_Click(object sender, EventArgs e)
+        {
+            string emailDestino = txtEmail.Text.Trim();
+
+            if (string.IsNullOrWhiteSpace(emailDestino))
+            {
+                MessageBox.Show("Informe o e-mail que deseja verificar.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtEmail.Focus();
+                return;
+            }
+
+            if (!ValidarFormatoEmail(emailDestino))
+            {
+                MessageBox.Show("O formato do e-mail digitado é inválido. Digite um e-mail válido (ex: usuario@dominio.com).", "Erro de Formato", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtEmail.Focus();
+                return;
+            }
+
+            if (modo == 2 && emailDestino.Equals(_emailOriginal, StringComparison.OrdinalIgnoreCase))
+            {
+                MessageBox.Show("Este e-mail já é o e-mail atual deste usuário.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            if (service.ExisteEmail(emailDestino))
+            {
+                MessageBox.Show("Este e-mail já está cadastrado para outro usuário no sistema.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            try
+            {
+                Cursor = Cursors.WaitCursor;
+                btnVerificarEmail.Enabled = false;
+
+                _codigoGerado = _emailService.GerarCodigoVerificacao();
+
+                bool enviado = await Task.Run(() => _emailService.EnviarCodigoVerificacao(emailDestino, _codigoGerado));
+
+                if (enviado)
+                {
+                    MessageBox.Show("Código de verificação enviado para o e-mail informado!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    if (mtbCodigo != null)
+                    {
+                        mtbCodigo.Clear();
+                        mtbCodigo.Focus();
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Falha ao enviar e-mail. Verifique a conexão com a internet.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    _codigoGerado = string.Empty;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ocorreu um erro ao enviar o código: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                _codigoGerado = string.Empty;
+            }
+            finally
+            {
+                Cursor = Cursors.Default;
+                AtualizarEstadoVerificacaoEmail();
+            }
+        }
+
+        private void btnVerificarCodigo_Click(object sender, EventArgs e)
+        {
+            string codigoDigitado = mtbCodigo != null ? mtbCodigo.Text.Trim() : string.Empty;
+
+            if (string.IsNullOrEmpty(_codigoGerado))
+            {
+                MessageBox.Show("Solicite o envio do código primeiro.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (codigoDigitado == _codigoGerado)
+            {
+                _emailVerificado = true;
+                MessageBox.Show("E-mail verificado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                AtualizarEstadoVerificacaoEmail();
+            }
+            else
+            {
+                MessageBox.Show("Código incorreto. Tente novamente.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
         private async void mtbCep_Leave(object sender, EventArgs e)
         {
             string cepLimpo = mtbCep.Text.Replace("-", "").Replace("_", "").Trim();
@@ -234,20 +386,34 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios
             if (string.IsNullOrEmpty(txtNome.Text) || !mtbCPF.MaskFull || 
                 !mtbTel.MaskFull || !mtbCep.MaskFull || string.IsNullOrEmpty(txtEmail.Text) || string.IsNullOrEmpty(cbNivel.Text) || string.IsNullOrEmpty(cbStatus.Text))
             {
-                MessageBox.Show("Preencha todos os campos obrigatórios corretamente", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Preencha todos os campos obrigatórios corretamente.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            if (!ValidarFormatoEmail(txtEmail.Text.Trim()))
+            {
+                MessageBox.Show("Informe um e-mail com formato válido.", "Erro de Validação", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtEmail.Focus();
                 return;
             }
 
             if ((modo == 1 || modo == 3) && string.IsNullOrEmpty(txtSenha.Text))
             {
-                MessageBox.Show("A senha é obrigatória para novos usuários", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("A senha é obrigatória para novos usuários.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtSenha.Focus();
                 return;
             }
 
             if (!okCep)
             {
-                MessageBox.Show("CEP inválido ou não verificado", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("CEP inválido ou não verificado.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            if (!_emailVerificado)
+            {
+                MessageBox.Show("O e-mail digitado precisa ser verificado antes de salvar as alterações.", "E-mail não verificado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                btnVerificarEmail.Focus();
                 return;
             }
 
@@ -260,13 +426,13 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios
                     var resultado = service.CadastrarUsuario(user);
                     if (resultado.sucesso)
                     {
-                        MessageBox.Show(resultado.messagem, "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show(resultado.mensagem, "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         DeleteAll();
                         Fechar();
                     }
                     else
                     {
-                        MessageBox.Show(resultado.messagem, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show(resultado.mensagem, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
                 else if (modo == 2) 

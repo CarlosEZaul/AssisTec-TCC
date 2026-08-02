@@ -154,7 +154,7 @@ namespace AssisTec.Service
             return (true, string.Empty);
         }
 
-        public (bool sucesso, string messagem) CadastrarUsuario(Usuario usuario)
+        public (bool sucesso, string mensagem) CadastrarUsuario(Usuario usuario)
         {
             if (usuario == null) 
                 return (false, "Dados do usuário inválidos.");
@@ -166,28 +166,22 @@ namespace AssisTec.Service
                 return (false, "Formato do CPF inválido!");
 
             if (!Validacao.ValidarTelefone(usuario.Telefone))
-                return (false, "Formato do telefone inválido");
+                return (false, "Formato do telefone inválido.");
 
             if (!Validacao.ValidarEmail(usuario.Email))
-                return (false, "Formato do Email inválido");
+                return (false, "Formato do e-mail inválido.");
 
             if (repository.CpfExiste(usuario.Cpf))
-            {
                 return (false, "O CPF informado já está cadastrado no sistema.");
-            }
 
             if (repository.EmailExiste(usuario.Email))
-            {
-                return (false, "E-mail já cadastrado");
-            }
+                return (false, "E-mail já cadastrado no sistema.");
 
             usuario.Senha = GerarHashSHA256(usuario.Senha);
 
             bool inserirUsuario = repository.InserirUsuario(usuario);
             if (inserirUsuario)
-            {
                 return (true, "Usuário cadastrado com sucesso!");
-            }
 
             return (false, "Erro interno ao tentar salvar o usuário.");
         }
@@ -200,13 +194,26 @@ namespace AssisTec.Service
             if (string.IsNullOrWhiteSpace(usuario.Nome))
                 return (false, "O nome do usuário não pode ficar vazio.");
 
+            if (!Validacao.ValidarCPF(usuario.Cpf))
+                return (false, "Formato do CPF inválido!");
+
+            if (!Validacao.ValidarTelefone(usuario.Telefone))
+                return (false, "Formato do telefone inválido.");
+
+            if (!Validacao.ValidarEmail(usuario.Email))
+                return (false, "Formato do e-mail inválido.");
+
             try
             {
                 Usuario usuarioBanco = repository.ObterPorId(usuario.Id);
                 if (usuarioBanco == null)
-                {
                     return (false, "Usuário não localizado no banco de dados para edição.");
-                }
+
+                if (!usuarioBanco.Cpf.Equals(usuario.Cpf, StringComparison.OrdinalIgnoreCase) && repository.CpfExiste(usuario.Cpf))
+                    return (false, "O CPF informado já pertence a outro usuário.");
+
+                if (!usuarioBanco.Email.Equals(usuario.Email, StringComparison.OrdinalIgnoreCase) && repository.EmailExiste(usuario.Email))
+                    return (false, "O e-mail informado já pertence a outro usuário.");
 
                 if (string.IsNullOrWhiteSpace(usuario.Senha))
                 {
@@ -219,15 +226,13 @@ namespace AssisTec.Service
 
                 bool atualizou = repository.AtualizarUsuario(usuario);
                 if (atualizou)
-                {
                     return (true, "Usuário atualizado com sucesso!");
-                }
 
                 return (false, "Erro interno ao tentar atualizar o usuário.");
             }
             catch (Exception ex)
             {
-                throw new Exception("Erro ao processar a edição do usuário: " + ex.Message, ex);
+                return (false, "Erro ao processar a edição do usuário: " + ex.Message);
             }
         }
 

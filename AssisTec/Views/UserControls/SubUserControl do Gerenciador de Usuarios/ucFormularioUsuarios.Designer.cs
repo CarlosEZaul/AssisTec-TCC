@@ -65,7 +65,6 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios
             this.txtNumber = new System.Windows.Forms.TextBox();
             this.lblnum = new System.Windows.Forms.Label();
             this.txtRua = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
             this.cbStatus = new System.Windows.Forms.ComboBox();
             this.cbNivel = new System.Windows.Forms.ComboBox();
             this.txtSenha = new System.Windows.Forms.TextBox();
@@ -82,6 +81,10 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios
             this.btnFechar = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.txtEmail = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.mtbCodigo = new System.Windows.Forms.MaskedTextBox();
+            this.btnVerificarEmail = new System.Windows.Forms.Button();
+            this.btnVerificarCodigo = new System.Windows.Forms.Button();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -89,7 +92,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios
             // 
             this.label34.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label34.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.label34.Location = new System.Drawing.Point(135, 327);
+            this.label34.Location = new System.Drawing.Point(133, 378);
             this.label34.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label34.Name = "label34";
             this.label34.Size = new System.Drawing.Size(127, 18);
@@ -113,7 +116,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios
             // 
             this.label32.Font = new System.Drawing.Font("Comic Sans MS", 9.75F);
             this.label32.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label32.Location = new System.Drawing.Point(394, 532);
+            this.label32.Location = new System.Drawing.Point(392, 564);
             this.label32.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label32.Name = "label32";
             this.label32.Size = new System.Drawing.Size(91, 18);
@@ -125,7 +128,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios
             // 
             this.label31.Font = new System.Drawing.Font("Comic Sans MS", 9.75F);
             this.label31.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label31.Location = new System.Drawing.Point(133, 532);
+            this.label31.Location = new System.Drawing.Point(131, 564);
             this.label31.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label31.Name = "label31";
             this.label31.Size = new System.Drawing.Size(53, 18);
@@ -137,7 +140,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios
             // 
             this.label30.Font = new System.Drawing.Font("Comic Sans MS", 9.75F);
             this.label30.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label30.Location = new System.Drawing.Point(394, 467);
+            this.label30.Location = new System.Drawing.Point(392, 499);
             this.label30.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label30.Name = "label30";
             this.label30.Size = new System.Drawing.Size(61, 18);
@@ -149,7 +152,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios
             // 
             this.label29.Font = new System.Drawing.Font("Comic Sans MS", 9.75F);
             this.label29.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label29.Location = new System.Drawing.Point(131, 467);
+            this.label29.Location = new System.Drawing.Point(129, 499);
             this.label29.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label29.Name = "label29";
             this.label29.Size = new System.Drawing.Size(53, 18);
@@ -161,7 +164,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios
             // 
             this.label28.Font = new System.Drawing.Font("Comic Sans MS", 9.75F);
             this.label28.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label28.Location = new System.Drawing.Point(379, 413);
+            this.label28.Location = new System.Drawing.Point(377, 445);
             this.label28.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label28.Name = "label28";
             this.label28.Size = new System.Drawing.Size(54, 18);
@@ -173,7 +176,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios
             // 
             this.label27.Font = new System.Drawing.Font("Comic Sans MS", 9.75F);
             this.label27.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label27.Location = new System.Drawing.Point(115, 413);
+            this.label27.Location = new System.Drawing.Point(113, 445);
             this.label27.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label27.Name = "label27";
             this.label27.Size = new System.Drawing.Size(69, 18);
@@ -185,7 +188,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios
             // 
             this.label26.Font = new System.Drawing.Font("Comic Sans MS", 9.75F);
             this.label26.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label26.Location = new System.Drawing.Point(205, 378);
+            this.label26.Location = new System.Drawing.Point(203, 410);
             this.label26.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label26.Name = "label26";
             this.label26.Size = new System.Drawing.Size(69, 18);
@@ -197,7 +200,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios
             // 
             this.label25.Font = new System.Drawing.Font("Comic Sans MS", 9.75F);
             this.label25.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label25.Location = new System.Drawing.Point(363, 271);
+            this.label25.Location = new System.Drawing.Point(363, 310);
             this.label25.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label25.Name = "label25";
             this.label25.Size = new System.Drawing.Size(69, 18);
@@ -209,7 +212,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios
             // 
             this.label24.Font = new System.Drawing.Font("Comic Sans MS", 9.75F);
             this.label24.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label24.Location = new System.Drawing.Point(131, 271);
+            this.label24.Location = new System.Drawing.Point(131, 310);
             this.label24.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label24.Name = "label24";
             this.label24.Size = new System.Drawing.Size(69, 18);
@@ -221,7 +224,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios
             // 
             this.label23.Font = new System.Drawing.Font("Comic Sans MS", 9.75F);
             this.label23.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label23.Location = new System.Drawing.Point(129, 225);
+            this.label23.Location = new System.Drawing.Point(129, 264);
             this.label23.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label23.Name = "label23";
             this.label23.Size = new System.Drawing.Size(69, 18);
@@ -368,7 +371,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios
             // 
             this.btnBuscar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnBuscar.Font = new System.Drawing.Font("Comic Sans MS", 9F);
-            this.btnBuscar.Location = new System.Drawing.Point(420, 377);
+            this.btnBuscar.Location = new System.Drawing.Point(418, 409);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(75, 23);
             this.btnBuscar.TabIndex = 156;
@@ -380,7 +383,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios
             // 
             this.mtbCep.BackColor = System.Drawing.Color.White;
             this.mtbCep.Font = new System.Drawing.Font("Comic Sans MS", 8.25F);
-            this.mtbCep.Location = new System.Drawing.Point(282, 377);
+            this.mtbCep.Location = new System.Drawing.Point(280, 409);
             this.mtbCep.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.mtbCep.Mask = "00000-000";
             this.mtbCep.Name = "mtbCep";
@@ -403,7 +406,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios
             // txtComp
             // 
             this.txtComp.BackColor = System.Drawing.Color.White;
-            this.txtComp.Location = new System.Drawing.Point(394, 553);
+            this.txtComp.Location = new System.Drawing.Point(392, 585);
             this.txtComp.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtComp.Name = "txtComp";
             this.txtComp.Size = new System.Drawing.Size(199, 20);
@@ -412,7 +415,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios
             // txtEstado
             // 
             this.txtEstado.BackColor = System.Drawing.Color.White;
-            this.txtEstado.Location = new System.Drawing.Point(394, 488);
+            this.txtEstado.Location = new System.Drawing.Point(392, 520);
             this.txtEstado.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtEstado.Name = "txtEstado";
             this.txtEstado.ReadOnly = true;
@@ -422,7 +425,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios
             // txtCidade
             // 
             this.txtCidade.BackColor = System.Drawing.Color.White;
-            this.txtCidade.Location = new System.Drawing.Point(133, 488);
+            this.txtCidade.Location = new System.Drawing.Point(131, 520);
             this.txtCidade.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtCidade.Name = "txtCidade";
             this.txtCidade.ReadOnly = true;
@@ -432,7 +435,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios
             // txtBairro
             // 
             this.txtBairro.BackColor = System.Drawing.Color.White;
-            this.txtBairro.Location = new System.Drawing.Point(135, 553);
+            this.txtBairro.Location = new System.Drawing.Point(133, 585);
             this.txtBairro.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtBairro.Name = "txtBairro";
             this.txtBairro.ReadOnly = true;
@@ -442,7 +445,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios
             // txtNumber
             // 
             this.txtNumber.BackColor = System.Drawing.Color.White;
-            this.txtNumber.Location = new System.Drawing.Point(394, 434);
+            this.txtNumber.Location = new System.Drawing.Point(392, 466);
             this.txtNumber.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtNumber.Name = "txtNumber";
             this.txtNumber.Size = new System.Drawing.Size(73, 20);
@@ -462,27 +465,17 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios
             // txtRua
             // 
             this.txtRua.BackColor = System.Drawing.Color.White;
-            this.txtRua.Location = new System.Drawing.Point(133, 434);
+            this.txtRua.Location = new System.Drawing.Point(131, 466);
             this.txtRua.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtRua.Name = "txtRua";
             this.txtRua.ReadOnly = true;
             this.txtRua.Size = new System.Drawing.Size(199, 20);
             this.txtRua.TabIndex = 145;
             // 
-            // label7
-            // 
-            this.label7.BackColor = System.Drawing.Color.Transparent;
-            this.label7.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.label7.ForeColor = System.Drawing.Color.LightSkyBlue;
-            this.label7.Location = new System.Drawing.Point(133, 345);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(109, 23);
-            this.label7.TabIndex = 144;
-            // 
             // cbStatus
             // 
             this.cbStatus.FormattingEnabled = true;
-            this.cbStatus.Location = new System.Drawing.Point(363, 292);
+            this.cbStatus.Location = new System.Drawing.Point(363, 331);
             this.cbStatus.Name = "cbStatus";
             this.cbStatus.Size = new System.Drawing.Size(230, 21);
             this.cbStatus.TabIndex = 143;
@@ -490,14 +483,14 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios
             // cbNivel
             // 
             this.cbNivel.FormattingEnabled = true;
-            this.cbNivel.Location = new System.Drawing.Point(133, 292);
+            this.cbNivel.Location = new System.Drawing.Point(133, 331);
             this.cbNivel.Name = "cbNivel";
             this.cbNivel.Size = new System.Drawing.Size(214, 21);
             this.cbNivel.TabIndex = 141;
             // 
             // txtSenha
             // 
-            this.txtSenha.Location = new System.Drawing.Point(133, 246);
+            this.txtSenha.Location = new System.Drawing.Point(133, 285);
             this.txtSenha.Name = "txtSenha";
             this.txtSenha.Size = new System.Drawing.Size(460, 20);
             this.txtSenha.TabIndex = 139;
@@ -623,7 +616,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios
             // 
             this.label1.Font = new System.Drawing.Font("Comic Sans MS", 9.75F);
             this.label1.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label1.Location = new System.Drawing.Point(129, 174);
+            this.label1.Location = new System.Drawing.Point(133, 174);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(69, 18);
@@ -635,8 +628,55 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios
             // 
             this.txtEmail.Location = new System.Drawing.Point(133, 195);
             this.txtEmail.Name = "txtEmail";
-            this.txtEmail.Size = new System.Drawing.Size(460, 20);
+            this.txtEmail.Size = new System.Drawing.Size(315, 20);
             this.txtEmail.TabIndex = 180;
+            this.txtEmail.TextChanged += new System.EventHandler(this.txtEmail_TextChanged);
+            // 
+            // label5
+            // 
+            this.label5.Font = new System.Drawing.Font("Comic Sans MS", 9.75F);
+            this.label5.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.label5.Location = new System.Drawing.Point(133, 218);
+            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(127, 18);
+            this.label5.TabIndex = 183;
+            this.label5.Text = "Verificar código:";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // mtbCodigo
+            // 
+            this.mtbCodigo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.mtbCodigo.Location = new System.Drawing.Point(133, 239);
+            this.mtbCodigo.Mask = "___-___";
+            this.mtbCodigo.Name = "mtbCodigo";
+            this.mtbCodigo.Size = new System.Drawing.Size(209, 21);
+            this.mtbCodigo.TabIndex = 184;
+            this.mtbCodigo.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // btnVerificarEmail
+            // 
+            this.btnVerificarEmail.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnVerificarEmail.Font = new System.Drawing.Font("Comic Sans MS", 9F);
+            this.btnVerificarEmail.Location = new System.Drawing.Point(454, 193);
+            this.btnVerificarEmail.Name = "btnVerificarEmail";
+            this.btnVerificarEmail.Size = new System.Drawing.Size(139, 23);
+            this.btnVerificarEmail.TabIndex = 185;
+            this.btnVerificarEmail.Text = "Verificar E-mail";
+            this.btnVerificarEmail.UseVisualStyleBackColor = true;
+            this.btnVerificarEmail.Click += new System.EventHandler(this.btnVerificarEmail_Click);
+            // 
+            // btnVerificarCodigo
+            // 
+            this.btnVerificarCodigo.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnVerificarCodigo.Font = new System.Drawing.Font("Comic Sans MS", 9F);
+            this.btnVerificarCodigo.Location = new System.Drawing.Point(348, 237);
+            this.btnVerificarCodigo.Name = "btnVerificarCodigo";
+            this.btnVerificarCodigo.Size = new System.Drawing.Size(139, 23);
+            this.btnVerificarCodigo.TabIndex = 186;
+            this.btnVerificarCodigo.Text = "Verificar Código";
+            this.btnVerificarCodigo.UseVisualStyleBackColor = true;
+            this.btnVerificarCodigo.Click += new System.EventHandler(this.btnVerificarCodigo_Click);
             // 
             // ucFormularioUsuarios
             // 
@@ -644,6 +684,10 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(55)))), ((int)(((byte)(76)))));
             this.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.Controls.Add(this.btnVerificarCodigo);
+            this.Controls.Add(this.btnVerificarEmail);
+            this.Controls.Add(this.mtbCodigo);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtEmail);
             this.Controls.Add(this.panel2);
@@ -681,7 +725,6 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios
             this.Controls.Add(this.txtNumber);
             this.Controls.Add(this.lblnum);
             this.Controls.Add(this.txtRua);
-            this.Controls.Add(this.label7);
             this.Controls.Add(this.cbStatus);
             this.Controls.Add(this.cbNivel);
             this.Controls.Add(this.txtSenha);
@@ -699,6 +742,13 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios
             this.ResumeLayout(false);
             this.PerformLayout();
         }
+
+        private System.Windows.Forms.Button btnVerificarEmail;
+        private System.Windows.Forms.Button btnVerificarCodigo;
+
+        private System.Windows.Forms.MaskedTextBox mtbCodigo;
+
+        private System.Windows.Forms.Label label5;
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtEmail;
@@ -742,7 +792,6 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios
         private System.Windows.Forms.TextBox txtNumber;
         private System.Windows.Forms.Label lblnum;
         private System.Windows.Forms.TextBox txtRua;
-        private System.Windows.Forms.Label label7;
         private System.Windows.Forms.ComboBox cbStatus;
         private System.Windows.Forms.ComboBox cbNivel;
         private System.Windows.Forms.TextBox txtSenha;
