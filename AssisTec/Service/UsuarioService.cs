@@ -20,9 +20,9 @@ namespace AssisTec.Service
         private readonly IUsuarioReposity repository;
         private readonly IOrdemServicoRepository ordemServicoRepository;
 
-        public UsuarioService(IUsuarioReposity _repository)
+        public UsuarioService(IUsuarioReposity repository)
         {
-            this.repository = _repository ?? throw new ArgumentNullException(nameof(_repository));
+            this.repository = repository;
         }
 
         public UsuarioService(IUsuarioReposity _repository, IOrdemServicoRepository _ordemServicoRepository)

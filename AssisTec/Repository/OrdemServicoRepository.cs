@@ -153,12 +153,8 @@ namespace AssisTec.Repository
             {
                 DataTable dataTable = new DataTable();
                 dataTable.Columns.Add("ID_ORDEM", typeof(int));
-                dataTable.Columns.Add("ID_CLIENTE", typeof(int));
                 dataTable.Columns.Add("CLIENTE", typeof(string));
-                dataTable.Columns.Add("CLIENTE_EXIBICAO", typeof(string));
-                dataTable.Columns.Add("ID_TECNICO", typeof(int));
                 dataTable.Columns.Add("Técnico Responsável", typeof(string));
-                dataTable.Columns.Add("TECNICO_EXIBICAO", typeof(string));
                 dataTable.Columns.Add("EQUIPAMENTO", typeof(string));
                 dataTable.Columns.Add("DATA_ABERTURA", typeof(DateTime));
                 dataTable.Columns.Add("DATA_FECHAMENTO", typeof(object));
@@ -186,12 +182,8 @@ namespace AssisTec.Repository
                 {
                     dataTable.Rows.Add(
                         os.id_os,
-                        os.ClienteId,
                         os.ClienteNome,
-                        $"ID: {os.ClienteId} - Nome: {os.ClienteNome}",
-                        os.TecnicoId,
                         os.TecnicoNome,
-                        $"ID: {os.TecnicoId} - Nome: {os.TecnicoNome}",
                         os.EquipamentoDescricao,
                         os.data_abertura,
                         (object)os.data_fechamento ?? DBNull.Value,
@@ -214,12 +206,8 @@ namespace AssisTec.Repository
             {
                 DataTable dataTable = new DataTable();
                 dataTable.Columns.Add("ID_ORDEM", typeof(int));
-                dataTable.Columns.Add("ID_CLIENTE", typeof(int));
                 dataTable.Columns.Add("CLIENTE", typeof(string));
-                dataTable.Columns.Add("CLIENTE_EXIBICAO", typeof(string));
-                dataTable.Columns.Add("ID_TECNICO", typeof(int));
                 dataTable.Columns.Add("Técnico Responsável", typeof(string));
-                dataTable.Columns.Add("TECNICO_EXIBICAO", typeof(string));
                 dataTable.Columns.Add("EQUIPAMENTO", typeof(string));
                 dataTable.Columns.Add("DATA_ABERTURA", typeof(DateTime));
                 dataTable.Columns.Add("DATA_FECHAMENTO", typeof(object));
@@ -247,12 +235,8 @@ namespace AssisTec.Repository
                 {
                     dataTable.Rows.Add(
                         os.id_os,
-                        os.ClienteId,
                         os.ClienteNome,
-                        $"ID: {os.ClienteId} - Nome: {os.ClienteNome}",
-                        os.TecnicoId,
                         os.TecnicoNome,
-                        $"ID: {os.TecnicoId} - Nome: {os.TecnicoNome}",
                         os.EquipamentoDescricao,
                         os.data_abertura,
                         (object)os.data_fechamento ?? DBNull.Value,
@@ -608,6 +592,98 @@ namespace AssisTec.Repository
 
             return query;
         }
+        
+        public DataTable FiltrarHistorico(int? idCliente, int? idTecnico, string dataInicio, string dataFim, string busca, string status)
+{
+    var query = context.OrdemServicos
+        .Include(o => o.Cliente)
+        .Include(o => o.Tecnico)
+        .Include(o => o.Equipamento)
+        .AsQueryable();
+
+    if (idCliente.HasValue && idCliente.Value > 0)
+    {
+        query = query.Where(o => o.id_cliente == idCliente.Value);
+    }
+
+    if (idTecnico.HasValue && idTecnico.Value > 0)
+    {
+        query = query.Where(o => o.id_tecnico == idTecnico.Value);
+    }
+
+    if (!string.IsNullOrWhiteSpace(status) && status != "TODOS" && status != "Todos")
+    {
+        query = query.Where(o => o.status == status);
+    }
+
+    if (!string.IsNullOrWhiteSpace(busca))
+    {
+        string termo = busca.Trim().ToLower();
+        bool ehNumero = int.TryParse(termo, out int idBusca);
+
+        query = query.Where(o =>
+            (ehNumero && o.id_os == idBusca) ||
+            (o.Cliente != null && o.Cliente.Nome.ToLower().Contains(termo)) ||
+            (o.Tecnico != null && o.Tecnico.Nome.ToLower().Contains(termo)) ||
+            (o.Equipamento != null && o.Equipamento.Descricao.ToLower().Contains(termo))
+        );
+    }
+
+    if (DateTime.TryParseExact(dataInicio, "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime dtInicio))
+    {
+        query = query.Where(o => o.data_abertura >= dtInicio.Date);
+    }
+
+    if (DateTime.TryParseExact(dataFim, "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime dtFim))
+    {
+        query = query.Where(o => o.data_fechamento < dtFim.Date.AddDays(1));
+    }
+
+    var ordens = query.ToList();
+    var osIds = ordens.Select(o => o.id_os).ToList();
+
+    var contasMap = context.ContasReceber
+        .Include(c => c.Pagamento)
+        .Where(c => c.id_os_fk.HasValue && osIds.Contains(c.id_os_fk.Value))
+        .ToList()
+        .GroupBy(c => c.id_os_fk.Value)
+        .ToDictionary(
+            g => g.Key,
+            g => g.FirstOrDefault()?.Pagamento?.Descricao ?? "Não registrado"
+        );
+
+    DataTable tabela = new DataTable();
+    tabela.Columns.Add("ID", typeof(int));
+    tabela.Columns.Add("Cliente", typeof(string));
+    tabela.Columns.Add("Técnico", typeof(string));
+    tabela.Columns.Add("Equipamento", typeof(string));
+    tabela.Columns.Add("Status", typeof(string));
+    tabela.Columns.Add("Data de Abertura", typeof(DateTime));
+    tabela.Columns.Add("Ultima Atualização", typeof(DateTime));
+    tabela.Columns.Add("Data de Conclusão", typeof(DateTime));
+    tabela.Columns.Add("Valor Total", typeof(decimal));
+    tabela.Columns.Add("Forma de Pagamento", typeof(string));
+
+    foreach (var o in ordens)
+    {
+        string descPagamento = contasMap.ContainsKey(o.id_os) ? contasMap[o.id_os] : "-";
+
+        tabela.Rows.Add(
+            o.id_os,
+            o.Cliente != null ? o.Cliente.Nome : string.Empty,
+            o.Tecnico != null ? o.Tecnico.Nome : string.Empty,
+            o.Equipamento != null ? o.Equipamento.Descricao : string.Empty,
+            o.status,
+            o.data_abertura,
+            o.data_atualizacao,
+            o.data_fechamento,
+            o.valor_total,
+            descPagamento
+        );
+    }
+
+    return tabela;
+}
 
         #endregion
     }

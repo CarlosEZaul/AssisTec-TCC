@@ -28,6 +28,9 @@ namespace AssisTec.Repository
             QntRecebido, decimal TotalCancelado, int QntCancelado) ObterTotais(OrdemServico filtro);
         IQueryable<OrdemServico> AplicarFiltros(OrdemServico filtro);
 
+        DataTable FiltrarHistorico(int? idCliente, int? idTecnico, string dataInicio, string dataFim, string busca,
+            string status);
+
 
     }
 }

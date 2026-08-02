@@ -19,6 +19,8 @@ namespace AssisTec
         private readonly ProdutoService _produtoService;
         private readonly MovimentacaoEstoqueService _movimentacaoEstoqueService;
         private readonly OrdemServicoService _ordemServicoService;
+        private readonly UsuarioService _usuarioService;
+        private readonly  ClienteService _clienteService;
         
         Panel panelUsuario;
         Label lblNome;
@@ -32,6 +34,7 @@ namespace AssisTec
             InitializeComponent();
             
             var context = new AppDbContext();
+            
             var contasReceberRepository = new ContasReceberRepository(context);
             var pagamentoRepository = new PagamentoRepository(context);
             var clienteRepository = new ClienteRepository(context);
@@ -44,7 +47,10 @@ namespace AssisTec
             var ItemOSRepository = new ItemOSRepository(context);
             var ServicosOSRepository = new ServicosOSRepository(context);
             var HistoricoAlteracaoOSRepository = new HistoricoAlteracaoOSRepository(context);
+            var OrdemServicoRepostory =  new OrdemServicoRepository(context);
 
+            _usuarioService = new UsuarioService(usuarioRepository, OrdemServicoRepostory);
+            _clienteService =  new ClienteService(clienteRepository, OrdemServicoRepostory);
             _produtoService = new ProdutoService(produtoRepository);
             _contasPagarService = new ContasPagarService(contasPagarRepository, pagamentoRepository);
             _contasReceberService = new ContasReceberService(contasReceberRepository, pagamentoRepository, OrdemServicoRepository);
@@ -143,13 +149,13 @@ namespace AssisTec
                 (s, e) => 
                 {
                     if (!ValidarAcessoPermitido()) return;
-                    AbrirUserControl(new ucGerenciador_Usuario(), s);
+                    AbrirUserControl(new ucGerenciador_Usuario(_usuarioService, _ordemServicoService), s);
                 }
             );
 
             Guna2Button btnClientes = CriarBotaoMenu(
                 "👥 Clientes",
-                (s, e) => AbrirUserControl(new ucGerenciador_Clientes(), s)
+                (s, e) => AbrirUserControl(new ucGerenciador_Clientes(_clienteService,_ordemServicoService), s)
             );
 
             Guna2Button btnEstoque = CriarBotaoMenu(

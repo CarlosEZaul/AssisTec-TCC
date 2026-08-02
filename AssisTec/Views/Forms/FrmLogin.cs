@@ -49,7 +49,7 @@ namespace AssisTec
                 
                 this.Hide();
 
-                ucFormularioUsuarios ucFormularioUsuarios = new ucFormularioUsuarios(0, 3, null);
+                ucFormularioUsuarios ucFormularioUsuarios = new ucFormularioUsuarios(0, 3, null, service);
                 
                 this.Width = ucFormularioUsuarios.Width;
                 this.Height = ucFormularioUsuarios.Height + 20;

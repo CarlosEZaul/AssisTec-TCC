@@ -12,24 +12,21 @@ namespace AssisTec.UserControls
     public partial class ucGerenciador_Clientes : UserControl
     {
         private int idSelected;
-        private ClienteService service;
-        private ClienteService clienteServiceOs;
+        private readonly ClienteService _clienteService;
+        private readonly OrdemServicoService _ordemServicoService;
  
-        public ucGerenciador_Clientes()
+        public ucGerenciador_Clientes(ClienteService clienteService, OrdemServicoService ordemServicoService)
         {
             InitializeComponent();
-            CriarNovoContexto();
             btnNew.Focus();
+            _clienteService = clienteService;
+            _ordemServicoService = ordemServicoService;
             ListGrid(); 
             
             ApplyModernDesign();
         }
 
-        private void CriarNovoContexto()
-        {
-            this.service = new ClienteService(new ClienteRepository(new AppDbContext()));
-            this.clienteServiceOs = new ClienteService(new ClienteRepository(new AppDbContext()), new OrdemServicoRepository(new AppDbContext()));
-        }
+        
 
         private void ucGerenciadorClientes_Load(object sender, EventArgs e)
         {
@@ -82,9 +79,8 @@ namespace AssisTec.UserControls
         {
             try
             {
-                CriarNovoContexto();
                 dgvClientes.DataSource = null;
-                dgvClientes.DataSource = service.ObterTodos();
+                dgvClientes.DataSource = _clienteService.ObterTodos();
                 FormartGrid();
             }
             catch (Exception ex)
@@ -97,9 +93,8 @@ namespace AssisTec.UserControls
         {
             try
             {
-                CriarNovoContexto();
                 dgvClientes.DataSource = null;
-                dgvClientes.DataSource = service.ObterComFiltros(txtBusca.Text, cbDesativado.Checked);
+                dgvClientes.DataSource = _clienteService.ObterComFiltros(txtBusca.Text, cbDesativado.Checked);
                 FormartGrid();
             }
             catch (Exception ex)
@@ -178,12 +173,12 @@ namespace AssisTec.UserControls
         {
             try
             {
-                if (service.ObterPorId(idSelected).Status == "Ativado")
+                if (_clienteService.ObterPorId(idSelected).Status == "Ativado")
                 {
                     DialogResult result = MessageBox.Show("Deseja desativar o cliente ?", "Desativar", MessageBoxButtons.YesNo);
                     if (result == DialogResult.Yes)
                     {
-                        clienteServiceOs.AlterarStatus(idSelected);
+                        _clienteService.AlterarStatus(idSelected);
                     }
                 }
                 else
@@ -191,7 +186,7 @@ namespace AssisTec.UserControls
                     DialogResult result = MessageBox.Show("Deseja ativar o cliente ?", "Ativar", MessageBoxButtons.YesNo);
                     if (result == DialogResult.Yes)
                     {
-                        service.AlterarStatus(idSelected);
+                        _clienteService.AlterarStatus(idSelected);
                     }
                 }
                 ListGrid();
@@ -219,7 +214,7 @@ namespace AssisTec.UserControls
 
         private void btnOS_Click(object sender, EventArgs e)
         {
-            ucHistoricoOS historicoOs = new ucHistoricoOS(idSelected, clienteServiceOs);
+            ucHistoricoOS historicoOs = new ucHistoricoOS(idSelected, _clienteService, _ordemServicoService);
             this.Controls.Add(historicoOs);
             historicoOs.BringToFront();
             historicoOs.Left = (this.ClientSize.Width - historicoOs.Width) / 2;
@@ -240,7 +235,7 @@ namespace AssisTec.UserControls
 
             try
             {
-                Cliente cliente = service.ObterPorId(idSelected);
+                Cliente cliente = _clienteService.ObterPorId(idSelected);
 
                 if (cliente == null)
                 {
@@ -285,7 +280,6 @@ namespace AssisTec.UserControls
         {
             try
             {
-                CriarNovoContexto();
                 int idCliente = Convert.ToInt32(dgvClientes.CurrentRow.Cells["Id"].Value);
                 string nomeCliente = dgvClientes.CurrentRow.Cells["Nome"].Value.ToString();
 
@@ -298,7 +292,7 @@ namespace AssisTec.UserControls
                     if (sfd.ShowDialog() == DialogResult.OK)
                     {
                         Cursor = Cursors.WaitCursor;
-                        clienteServiceOs.GerarRelatorioIndividualClientePdf(idCliente, sfd.FileName);
+                        _clienteService.GerarRelatorioIndividualClientePdf(idCliente, sfd.FileName);
 
                         Cursor = Cursors.Default;
                         MessageBox.Show("Relatório individual gerado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -329,7 +323,7 @@ namespace AssisTec.UserControls
                         Cursor = Cursors.WaitCursor;
 
                         
-                        clienteServiceOs.GerarRelatorioClientesPdf(filtroNome, exibirDesativados, sfd.FileName);
+                        _clienteService.GerarRelatorioClientesPdf(filtroNome, exibirDesativados, sfd.FileName);
 
                         Cursor = Cursors.Default;
                         MessageBox.Show("Relatório geral gerado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);

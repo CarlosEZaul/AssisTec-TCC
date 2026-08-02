@@ -15,9 +15,9 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios
         private int modo;
         private bool okCep;
         private readonly DataGridView dgv;
-        private UsuarioService service;
+        private readonly UsuarioService service;
         
-        public ucFormularioUsuarios(int _id, int _modo, DataGridView _dgv)
+        public ucFormularioUsuarios(int _id, int _modo, DataGridView _dgv, UsuarioService service)
         {
             this.modo = _modo;
             this.dgv = _dgv;
@@ -27,13 +27,10 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios
             }
             InitializeComponent();
             
-            CriarNovoContexto();
+            this.service = service;
         }
         
-        private void CriarNovoContexto()
-        {
-            this.service = new UsuarioService(new UsuarioRepository(new AppDbContext()));
-        }
+        
         
         private void FormularioUsuarios_Load(object sender, EventArgs e)
         {

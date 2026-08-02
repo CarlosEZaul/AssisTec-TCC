@@ -692,6 +692,29 @@ namespace AssisTec.Service
         #endregion
 
         #region RelatórioPDF
+        public string GerarRelatorioGeralHistoricoPdf(
+            DataTable dtDados, RelatorioTotaisDTO totais, string dataInicio, string dataFim, string status, string caminhoDestino, string caminhoLogo = null)
+        {
+            string filtroPeriodo = "Geral";
+            if (!string.IsNullOrWhiteSpace(dataInicio) && !string.IsNullOrWhiteSpace(dataFim))
+                filtroPeriodo = $"{dataInicio} até {dataFim}";
+            else if (!string.IsNullOrWhiteSpace(dataInicio))
+                filtroPeriodo = $"A partir de {dataInicio}";
+            else if (!string.IsNullOrWhiteSpace(dataFim))
+                filtroPeriodo = $"Até {dataFim}";
+
+            totais.FiltroPeriodo = filtroPeriodo;
+            totais.FiltroStatus = string.IsNullOrWhiteSpace(status) ? "Todos" : status;
+
+            string diretorio = Path.GetDirectoryName(caminhoDestino);
+            if (!string.IsNullOrEmpty(diretorio) && !Directory.Exists(diretorio))
+            {
+                Directory.CreateDirectory(diretorio);
+            }
+
+            return GeradorPdfOS.GerarRelatorioGeral(dtDados, totais, caminhoDestino, caminhoLogo);
+        }
+
 
         public OrdemServicoRelatorioDTO ImprimirOS(int idOS)
         {
@@ -872,8 +895,13 @@ namespace AssisTec.Service
         #endregion
 
         #region Filtro
-        
 
+        public DataTable FiltrarHistorico(int? idCliente, int? idTecnico, string dataInicio, string dataFim, string busca, string status)
+        {
+            return _ordemServicoRepository.FiltrarHistorico(idCliente, idTecnico, dataInicio, dataFim, busca, status);
+        }
+        
+        
         public (DataTable Dados, int TotalOS, int EmAtendimento, int ParaRetirada, decimal TotalAReceber, decimal TotalRecebido, int QntRecebido, decimal TotalCancelado, int QntCancelado) ObterDadosAtuais()
         {
             var filtro = new OrdemServico();

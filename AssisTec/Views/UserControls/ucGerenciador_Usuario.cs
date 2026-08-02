@@ -14,18 +14,15 @@ namespace AssisTec.UserControls
     {
         private int idSelected;
         private UsuarioService service;
-        private UsuarioService serviceOs;
-        public ucGerenciador_Usuario()
+        private OrdemServicoService ordemServicoService;
+        public ucGerenciador_Usuario(UsuarioService usuarioService,  OrdemServicoService ordemServicoService)
         {
             InitializeComponent();
-            CriarNovoContexto();
+            this.service = usuarioService;
+            this.ordemServicoService = ordemServicoService;
         }
 
-        private void CriarNovoContexto()
-        {
-            this.service = new UsuarioService(new UsuarioRepository(new AppDbContext()));
-            this.serviceOs =  new UsuarioService(new UsuarioRepository(new AppDbContext()), new OrdemServicoRepository(new AppDbContext()));
-        }
+        
 
         private void ucGerenciador_Usuario_Load(object sender, EventArgs e)
         {
@@ -86,7 +83,7 @@ namespace AssisTec.UserControls
         {
             try
             {
-                CriarNovoContexto();
+                
                 dgvUsuarios.DataSource = null;
                 dgvUsuarios.DataSource = service.ObterTodos();
                 formartGrid();
@@ -124,7 +121,6 @@ namespace AssisTec.UserControls
 
         private void Filtro()
         {
-            CriarNovoContexto();
             dgvUsuarios.DataSource = null;
             dgvUsuarios.DataSource = service.FiltrarUsuarios(txtBusca.Text, cbInativo.Checked, cbNivel.SelectedIndex);
             formartGrid();
@@ -134,7 +130,7 @@ namespace AssisTec.UserControls
         {
             ControleEstadoComponentes(false);
 
-            ucFormularioUsuarios ucFormularioUsuarios = new ucFormularioUsuarios(idSelected, modoOperacao, dgvUsuarios);
+            ucFormularioUsuarios ucFormularioUsuarios = new ucFormularioUsuarios(idSelected, modoOperacao, dgvUsuarios, service);
             
             ucFormularioUsuarios.Disposed += (sender, e) =>
             {
@@ -296,7 +292,7 @@ namespace AssisTec.UserControls
 
         private void btnHistorico_Click(object sender, EventArgs e)
         {
-            ucHistoricoOS historicoOs = new ucHistoricoOS(idSelected, serviceOs);
+            ucHistoricoOS historicoOs = new ucHistoricoOS(idSelected, service, ordemServicoService);
             this.Controls.Add(historicoOs);
             historicoOs.BringToFront();
             historicoOs.Left = (this.ClientSize.Width - historicoOs.Width) / 2;
@@ -326,7 +322,7 @@ namespace AssisTec.UserControls
 
                     if (saveFileDialog.ShowDialog() == DialogResult.OK)
                     {
-                        serviceOs.GerarRelatorioUsuariosPdf(nome, apenasInativos, nivel, saveFileDialog.FileName);
+                        service.GerarRelatorioUsuariosPdf(nome, apenasInativos, nivel, saveFileDialog.FileName);
                         MessageBox.Show("Relatório de usuários gerado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }
@@ -356,7 +352,7 @@ namespace AssisTec.UserControls
 
                     if (saveFileDialog.ShowDialog() == DialogResult.OK)
                     {
-                        serviceOs.GerarRelatorioIndividualPdf(idSelected, saveFileDialog.FileName);
+                        service.GerarRelatorioIndividualPdf(idSelected, saveFileDialog.FileName);
                         MessageBox.Show("Relatório de produtividade gerado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }
