@@ -22,7 +22,10 @@ namespace AssisTec.Repository
         bool SalvarAlteracoesOS(OrdemServico ordemServico);
         bool ReabrirOrdemServico(int idOS);
         bool CancelarOrdemServico(int idOS);
-        DataTable Filtrar(OrdemServico filtro);
+
+        (DataTable Dados, int TotalOS, int EmAtendimento, int ParaRetirada, decimal TotalAReceber, decimal TotalRecebido
+            , int QntRecebido, decimal TotalCancelado, int QntCancelado) Filtrar(string dataInicio, string dataFim,
+                string busca, int indexStatus, string status);
 
         (int TotalOS, int EmAtendimento, int ParaRetirada, decimal TotalAReceber, decimal TotalRecebido, int
             QntRecebido, decimal TotalCancelado, int QntCancelado) ObterTotais(OrdemServico filtro);

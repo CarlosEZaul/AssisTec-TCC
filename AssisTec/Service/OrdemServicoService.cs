@@ -904,28 +904,59 @@ namespace AssisTec.Service
         
         public (DataTable Dados, int TotalOS, int EmAtendimento, int ParaRetirada, decimal TotalAReceber, decimal TotalRecebido, int QntRecebido, decimal TotalCancelado, int QntCancelado) ObterDadosAtuais()
         {
-            var filtro = new OrdemServico();
-            var dados = _ordemServicoRepository.ObterTodasOSAtuais();
-            var totais = _ordemServicoRepository.ObterTotais(filtro);
+            DataTable dados = _ordemServicoRepository.ObterTodasOSAtuais();
+            var totais = _ordemServicoRepository.ObterTotais(null);
 
-            return (dados, totais.TotalOS, totais.EmAtendimento, totais.ParaRetirada, totais.TotalAReceber, totais.TotalRecebido, totais.QntRecebido, totais.TotalCancelado, totais.QntCancelado);
+            return (
+                dados, 
+                totais.TotalOS, 
+                totais.EmAtendimento, 
+                totais.ParaRetirada, 
+                totais.TotalAReceber, 
+                totais.TotalRecebido, 
+                totais.QntRecebido, 
+                totais.TotalCancelado, 
+                totais.QntCancelado
+            );
         }
 
         public (DataTable Dados, int TotalOS, int EmAtendimento, int ParaRetirada, decimal TotalAReceber, decimal TotalRecebido, int QntRecebido, decimal TotalCancelado, int QntCancelado) Filtrar(
             string dataInicio, string dataFim, string busca, int statusIndex, string statusText)
         {
+            string dataInicioFormatada = ValidarData(dataInicio) ? dataInicio.Trim() : null;
+            string dataFimFormatada = ValidarData(dataFim) ? dataFim.Trim() : null;
+            string statusFormatado = (statusIndex > 0 && !string.Equals(statusText, "TODOS", StringComparison.OrdinalIgnoreCase)) ? statusText : null;
+
             var filtro = new OrdemServico
             {
-                filtroDataInicio = ValidarData(dataInicio) ? dataInicio : null,
-                filtroDataConclusao = ValidarData(dataFim) ? dataFim : null,
-                filtroBusca = busca?.Trim(),
-                filtroStatus = statusIndex > 0 ? statusText : null
+                filtroDataInicio = dataInicioFormatada,
+                filtroDataConclusao = dataFimFormatada,
+                filtroBusca = string.IsNullOrWhiteSpace(busca) ? null : busca.Trim(),
+                filtroStatus = statusFormatado
             };
 
-            var dados = _ordemServicoRepository.Filtrar(filtro);
+            DataTable dados = _ordemServicoRepository.FiltrarHistorico(
+                idCliente: null,
+                idTecnico: null,
+                dataInicio: dataInicioFormatada,
+                dataFim: dataFimFormatada,
+                busca: filtro.filtroBusca,
+                status: statusFormatado
+            );
+
             var totais = _ordemServicoRepository.ObterTotais(filtro);
 
-            return (dados, totais.TotalOS, totais.EmAtendimento, totais.ParaRetirada, totais.TotalAReceber, totais.TotalRecebido, totais.QntRecebido, totais.TotalCancelado, totais.QntCancelado);
+            return (
+                dados, 
+                totais.TotalOS, 
+                totais.EmAtendimento, 
+                totais.ParaRetirada, 
+                totais.TotalAReceber, 
+                totais.TotalRecebido, 
+                totais.QntRecebido, 
+                totais.TotalCancelado, 
+                totais.QntCancelado
+            );
         }
         
 

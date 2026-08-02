@@ -30,7 +30,7 @@ namespace AssisTec.Repository
                 .Include(o => o.Cliente)
                 .Include(o => o.Tecnico)
                 .Include(o => o.Equipamento)
-                .Where(o => o.data_abertura >= inicioMes && o.data_abertura < fimMes);
+                .Where(o => (o.data_abertura >= inicioMes && o.data_abertura < fimMes) || o.status == "ABERTA");
 
             var ordens = query.ToList();
             var osIds = ordens.Select(o => o.id_os).ToList();
@@ -447,55 +447,33 @@ namespace AssisTec.Repository
 
         #region Filtros e Totais Dashboard
 
-        public DataTable Filtrar(OrdemServico filtro)
+        public (DataTable Dados, int TotalOS, int EmAtendimento, int ParaRetirada, decimal TotalAReceber, decimal TotalRecebido, int QntRecebido, decimal TotalCancelado, int QntCancelado) Filtrar(string dataInicio, string dataFim, string busca, int indexStatus, string status)
         {
-            var query = AplicarFiltros(filtro);
-            var ordens = query.ToList();
-
-            var osIds = ordens.Select(o => o.id_os).ToList();
-
-            var contasMap = context.ContasReceber
-                .Include(c => c.Pagamento)
-                .Where(c => c.id_os_fk.HasValue && osIds.Contains(c.id_os_fk.Value))
-                .ToList()
-                .GroupBy(c => c.id_os_fk.Value)
-                .ToDictionary(
-                    g => g.Key, 
-                    g => g.FirstOrDefault()?.Pagamento?.Descricao ?? "Não registrado"
-                );
-
-            DataTable tabela = new DataTable();
-            tabela.Columns.Add("ID", typeof(int));
-            tabela.Columns.Add("Cliente", typeof(string));
-            tabela.Columns.Add("Técnico", typeof(string));
-            tabela.Columns.Add("Equipamento", typeof(string));
-            tabela.Columns.Add("Status", typeof(string));
-            tabela.Columns.Add("Data de Abertura", typeof(DateTime));
-            tabela.Columns.Add("Ultima Atualização", typeof(DateTime));
-            tabela.Columns.Add("Data de Conclusão", typeof(DateTime));
-            tabela.Columns.Add("Valor Total", typeof(decimal));
-            tabela.Columns.Add("Forma de Pagamento", typeof(string));
-
-            foreach (var o in ordens)
+            OrdemServico filtro = new OrdemServico
             {
-                string descPagamento = contasMap.ContainsKey(o.id_os) ? contasMap[o.id_os] : "-";
+                filtroDataInicio = dataInicio,
+                filtroDataConclusao = dataFim,
+                filtroBusca = busca,
+                filtroStatus = (indexStatus > 0 && status != "TODOS") ? status : null
+            };
 
-                tabela.Rows.Add(
-                    o.id_os,
-                    o.Cliente != null ? o.Cliente.Nome : string.Empty,
-                    o.Tecnico != null ? o.Tecnico.Nome : string.Empty,
-                    o.Equipamento != null ? o.Equipamento.Descricao : string.Empty,
-                    o.status,
-                    o.data_abertura,
-                    o.data_atualizacao,
-                    o.data_fechamento,
-                    o.valor_total,
-                    descPagamento
-                );
-            }
+            DataTable tabela = FiltrarHistorico(null, null, dataInicio, dataFim, busca, status);
+    
+            var totais = ObterTotais(filtro);
 
-            return tabela;
+            return (
+                tabela, 
+                totais.TotalOS, 
+                totais.EmAtendimento, 
+                totais.ParaRetirada, 
+                totais.TotalAReceber, 
+                totais.TotalRecebido, 
+                totais.QntRecebido, 
+                totais.TotalCancelado, 
+                totais.QntCancelado
+            );
         }
+        
 
         public (int TotalOS, int EmAtendimento, int ParaRetirada, decimal TotalAReceber, decimal TotalRecebido, int QntRecebido, decimal TotalCancelado, int QntCancelado) ObterTotais(OrdemServico filtro)
         {
@@ -594,96 +572,96 @@ namespace AssisTec.Repository
         }
         
         public DataTable FiltrarHistorico(int? idCliente, int? idTecnico, string dataInicio, string dataFim, string busca, string status)
-{
-    var query = context.OrdemServicos
-        .Include(o => o.Cliente)
-        .Include(o => o.Tecnico)
-        .Include(o => o.Equipamento)
-        .AsQueryable();
+        {
+            var query = context.OrdemServicos
+                .Include(o => o.Cliente)
+                .Include(o => o.Tecnico)
+                .Include(o => o.Equipamento)
+                .AsQueryable();
 
-    if (idCliente.HasValue && idCliente.Value > 0)
-    {
-        query = query.Where(o => o.id_cliente == idCliente.Value);
-    }
+            if (idCliente.HasValue && idCliente.Value > 0)
+            {
+                query = query.Where(o => o.id_cliente == idCliente.Value);
+            }
 
-    if (idTecnico.HasValue && idTecnico.Value > 0)
-    {
-        query = query.Where(o => o.id_tecnico == idTecnico.Value);
-    }
+            if (idTecnico.HasValue && idTecnico.Value > 0)
+            {
+                query = query.Where(o => o.id_tecnico == idTecnico.Value);
+            }
 
-    if (!string.IsNullOrWhiteSpace(status) && status != "TODOS" && status != "Todos")
-    {
-        query = query.Where(o => o.status == status);
-    }
+            if (!string.IsNullOrWhiteSpace(status) && status != "TODOS" && status != "Todos")
+            {
+                query = query.Where(o => o.status == status);
+            }
 
-    if (!string.IsNullOrWhiteSpace(busca))
-    {
-        string termo = busca.Trim().ToLower();
-        bool ehNumero = int.TryParse(termo, out int idBusca);
+            if (!string.IsNullOrWhiteSpace(busca))
+            {
+                string termo = busca.Trim().ToLower();
+                bool ehNumero = int.TryParse(termo, out int idBusca);
 
-        query = query.Where(o =>
-            (ehNumero && o.id_os == idBusca) ||
-            (o.Cliente != null && o.Cliente.Nome.ToLower().Contains(termo)) ||
-            (o.Tecnico != null && o.Tecnico.Nome.ToLower().Contains(termo)) ||
-            (o.Equipamento != null && o.Equipamento.Descricao.ToLower().Contains(termo))
-        );
-    }
+                query = query.Where(o =>
+                    (ehNumero && o.id_os == idBusca) ||
+                    (o.Cliente != null && o.Cliente.Nome.ToLower().Contains(termo)) ||
+                    (o.Tecnico != null && o.Tecnico.Nome.ToLower().Contains(termo)) ||
+                    (o.Equipamento != null && o.Equipamento.Descricao.ToLower().Contains(termo))
+                );
+            }
 
-    if (DateTime.TryParseExact(dataInicio, "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime dtInicio))
-    {
-        query = query.Where(o => o.data_abertura >= dtInicio.Date);
-    }
+            if (DateTime.TryParseExact(dataInicio, "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime dtInicio))
+            {
+                query = query.Where(o => o.data_abertura >= dtInicio.Date);
+            }
 
-    if (DateTime.TryParseExact(dataFim, "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime dtFim))
-    {
-        query = query.Where(o => o.data_fechamento < dtFim.Date.AddDays(1));
-    }
+            if (DateTime.TryParseExact(dataFim, "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime dtFim))
+            {
+                query = query.Where(o => o.data_fechamento < dtFim.Date.AddDays(1));
+            }
 
-    var ordens = query.ToList();
-    var osIds = ordens.Select(o => o.id_os).ToList();
+            var ordens = query.ToList();
+            var osIds = ordens.Select(o => o.id_os).ToList();
 
-    var contasMap = context.ContasReceber
-        .Include(c => c.Pagamento)
-        .Where(c => c.id_os_fk.HasValue && osIds.Contains(c.id_os_fk.Value))
-        .ToList()
-        .GroupBy(c => c.id_os_fk.Value)
-        .ToDictionary(
-            g => g.Key,
-            g => g.FirstOrDefault()?.Pagamento?.Descricao ?? "Não registrado"
-        );
+            var contasMap = context.ContasReceber
+                .Include(c => c.Pagamento)
+                .Where(c => c.id_os_fk.HasValue && osIds.Contains(c.id_os_fk.Value))
+                .ToList()
+                .GroupBy(c => c.id_os_fk.Value)
+                .ToDictionary(
+                    g => g.Key,
+                    g => g.FirstOrDefault()?.Pagamento?.Descricao ?? "Não registrado"
+                );
 
-    DataTable tabela = new DataTable();
-    tabela.Columns.Add("ID", typeof(int));
-    tabela.Columns.Add("Cliente", typeof(string));
-    tabela.Columns.Add("Técnico", typeof(string));
-    tabela.Columns.Add("Equipamento", typeof(string));
-    tabela.Columns.Add("Status", typeof(string));
-    tabela.Columns.Add("Data de Abertura", typeof(DateTime));
-    tabela.Columns.Add("Ultima Atualização", typeof(DateTime));
-    tabela.Columns.Add("Data de Conclusão", typeof(DateTime));
-    tabela.Columns.Add("Valor Total", typeof(decimal));
-    tabela.Columns.Add("Forma de Pagamento", typeof(string));
+            DataTable tabela = new DataTable();
+            tabela.Columns.Add("ID", typeof(int));
+            tabela.Columns.Add("Cliente", typeof(string));
+            tabela.Columns.Add("Técnico", typeof(string));
+            tabela.Columns.Add("Equipamento", typeof(string));
+            tabela.Columns.Add("Status", typeof(string));
+            tabela.Columns.Add("Data de Abertura", typeof(DateTime));
+            tabela.Columns.Add("Ultima Atualização", typeof(DateTime));
+            tabela.Columns.Add("Data de Conclusão", typeof(DateTime));
+            tabela.Columns.Add("Valor Total", typeof(decimal));
+            tabela.Columns.Add("Forma de Pagamento", typeof(string));
 
-    foreach (var o in ordens)
-    {
-        string descPagamento = contasMap.ContainsKey(o.id_os) ? contasMap[o.id_os] : "-";
+            foreach (var o in ordens)
+            {
+                string descPagamento = contasMap.ContainsKey(o.id_os) ? contasMap[o.id_os] : "-";
 
-        tabela.Rows.Add(
-            o.id_os,
-            o.Cliente != null ? o.Cliente.Nome : string.Empty,
-            o.Tecnico != null ? o.Tecnico.Nome : string.Empty,
-            o.Equipamento != null ? o.Equipamento.Descricao : string.Empty,
-            o.status,
-            o.data_abertura,
-            o.data_atualizacao,
-            o.data_fechamento,
-            o.valor_total,
-            descPagamento
-        );
-    }
+                tabela.Rows.Add(
+                    o.id_os,
+                    o.Cliente != null ? o.Cliente.Nome : string.Empty,
+                    o.Tecnico != null ? o.Tecnico.Nome : string.Empty,
+                    o.Equipamento != null ? o.Equipamento.Descricao : string.Empty,
+                    o.status,
+                    o.data_abertura,
+                    o.data_atualizacao,
+                    o.data_fechamento,
+                    o.valor_total,
+                    descPagamento
+                );
+            }
 
-    return tabela;
-}
+            return tabela;
+        }
 
         #endregion
     }
