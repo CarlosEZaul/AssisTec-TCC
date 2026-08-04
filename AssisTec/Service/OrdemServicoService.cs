@@ -705,6 +705,58 @@ namespace AssisTec.Service
                 throw;
             }
         }
+        
+        public bool EmitirReciboOSFinalizada(int idOS, string caminhoSalvarPdf = null)
+        {
+            try
+            {
+                if (idOS <= 0)
+                    throw new ArgumentException("Ordem de Serviço inválida.");
+
+                var os = _ordemServicoRepository.ObterPorId(idOS);
+                if (os == null)
+                    throw new ArgumentException("Ordem de Serviço não encontrada.");
+
+                if (os.status != "FINALIZADA")
+                    throw new InvalidOperationException($"Não é possível emitir recibo para a OS #{idOS} pois seu status atual é '{os.status}'. O recibo só pode ser emitido para OS FINALIZADA.");
+
+                var contaReceber = _contaReceberRepository.ObterPorOSId(idOS);
+                if (contaReceber == null)
+                    throw new InvalidOperationException($"Não foi encontrado registro de Contas a Receber associado à OS #{idOS}.");
+
+                string descricaoFormaPagamento = "Não informada";
+                if (contaReceber.id_forma_pagamento_fk.HasValue && contaReceber.id_forma_pagamento_fk.Value > 0)
+                {
+                    descricaoFormaPagamento = _pagamentoRepository.ObterPorId(contaReceber.id_forma_pagamento_fk.Value).Descricao;
+                }
+
+                var dtoRelatorio = new ContasReceberDto
+                {
+                    IdContaReceber = contaReceber.id_conta_receber,
+                    Descricao = contaReceber.descricao,
+                    Valor = contaReceber.valor,
+                    DataEmissao = contaReceber.data_emissao,
+                    DataVencimento = contaReceber.data_vencimento,
+                    DataPagamento = contaReceber.data_pagamento,
+                    Status = contaReceber.status,
+                    Observacoes = contaReceber.observacoes,
+                    IdOrdemServico = os.id_os,
+                    FormaPagamentoDescricao = descricaoFormaPagamento,
+                    ClienteNome = os.Cliente?.Nome,
+                    Equipamento = os.Equipamento.Descricao,
+                    DefeitoRelatado = os.problema_relatado,
+                    ServicoRealizado = os.diagnostico
+                };
+
+                GeradorPdfContasReceber.GerarRelatorioIndividual(dtoRelatorio, caminhoSalvarPdf);
+
+                return true;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
 
         #endregion
 

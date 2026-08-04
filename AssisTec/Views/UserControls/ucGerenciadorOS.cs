@@ -160,6 +160,7 @@ namespace AssisTec.UserControls
             btnGerenciar.Enabled = ativo;
             btnPagamento.Enabled = ativo;
             btnImprimir.Enabled = ativo;
+            btnRecibo.Enabled = ativo;
             btnContatoCliente.Enabled = ativo;
             btnContatoTecnico.Enabled = ativo;
         }
@@ -470,8 +471,51 @@ namespace AssisTec.UserControls
 
         #endregion
 
-        
 
-        
+        private void btnRecibo_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (dgvOS.CurrentRow == null)
+                {
+                    MessageBox.Show("Selecione uma Ordem de Serviço para emitir o recibo.", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                int idOS = Convert.ToInt32(dgvOS.CurrentRow.Cells["ID"].Value);
+                string status = dgvOS.CurrentRow.Cells["status"].Value?.ToString();
+
+                if (status != "FINALIZADA")
+                {
+                    MessageBox.Show("O recibo só pode ser emitido para Ordens de Serviço FINALIZADAS.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+
+                string caminhoSalvar = null;
+
+                using (SaveFileDialog sfd = new SaveFileDialog())
+                {
+                    sfd.Filter = "Arquivo PDF (*.pdf)|*.pdf";
+                    sfd.FileName = $"Recibo_OS_{idOS}_{DateTime.Now:yyyyMMdd}.pdf";
+                    sfd.Title = "Salvar Recibo de OS";
+
+                    if (sfd.ShowDialog() == DialogResult.OK)
+                    {
+                        caminhoSalvar = sfd.FileName;
+                    }
+                }
+
+                bool sucesso = _ordemServicoService.EmitirReciboOSFinalizada(idOS, caminhoSalvar);
+
+                if (sucesso)
+                {
+                    MessageBox.Show("Recibo gerado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao emitir recibo: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
     }
 }
