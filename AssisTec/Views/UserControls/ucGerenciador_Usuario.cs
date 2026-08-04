@@ -54,6 +54,17 @@ namespace AssisTec.UserControls
         #endregion
 
         #region Metodos de Interface
+
+        private bool ValidarAcesso()
+        {
+            if (Sessao.usuarioLogado.Nivel != 1)
+            {
+                MessageBox.Show("Acesso não permitido");
+                return false;
+            }
+
+            return true;
+        }
         private void ConfigurarComboBox()
         {
             cbNivel.Items.Clear();
@@ -159,14 +170,17 @@ namespace AssisTec.UserControls
         #region Eventos dos Componentes
         private void btnNew_Click(object sender, EventArgs e)
         {
+            if (!ValidarAcesso())
+            {
+                return;
+            }
             AbrirFormularioUsuario(1);
         }
 
         private void btnEditar_Click(object sender, EventArgs e)
         {
-            if (idSelected <= 0)
+            if (!ValidarAcesso())
             {
-                MessageBox.Show("Selecione um usuário na tabela para editar.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
             AbrirFormularioUsuario(2);
@@ -190,6 +204,10 @@ namespace AssisTec.UserControls
 
         private void btnStatus_Click(object sender, EventArgs e)
         {
+            if (!ValidarAcesso())
+            {
+                return;
+            }
             if (idSelected <= 0)
             {
                 MessageBox.Show("Selecione um usuário válido.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);

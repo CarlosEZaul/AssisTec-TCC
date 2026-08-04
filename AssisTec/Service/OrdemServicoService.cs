@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Transactions;
 using AssisTec.DTO;
+using AssisTec.Dtos;
 using AssisTec.Models;
 using AssisTec.Repository;
 using AssisTec.Utils;
@@ -641,8 +642,6 @@ namespace AssisTec.Service
                 if (os.status == "FINALIZADA")
                     throw new InvalidOperationException("Esta Ordem de Serviço já foi finalizada.");
 
-                
-
                 os.status = "FINALIZADA";
                 os.data_atualizacao = DateTime.Now;
                 os.data_fechamento = DateTime.Now;
@@ -661,31 +660,49 @@ namespace AssisTec.Service
                 };
 
                 bool contaSalva = _contaReceberRepository.Inserir(contaReceber);
-                if (!contaSalva) return false;
+                if (!contaSalva) 
+                    return false;
 
                 bool osAtualizada = _ordemServicoRepository.SalvarAlteracoesOS(os);
+                if (!osAtualizada) 
+                    return false;
 
-                if (osAtualizada)
+                var historico = new HistoricoAlteracaoOS
                 {
-                    var historico = new HistoricoAlteracaoOS
-                    {
-                        idOS = idOS,
-                        idUsuario = idUsuario,
-                        tipo = "PAGAMENTO_REGISTRADO",
-                        descricao = $"Pagamento de {contaReceber.valor:C2} registrado e conta baixada em Contas a Receber. OS #{idOS} finalizada.",
-                        dataAlteracao = DateTime.Now
-                        
-                    };
+                    idOS = idOS,
+                    idUsuario = idUsuario,
+                    tipo = "PAGAMENTO_REGISTRADO",
+                    descricao = $"Pagamento de {contaReceber.valor:C2} registrado e conta baixada em Contas a Receber. OS #{idOS} finalizada.",
+                    dataAlteracao = DateTime.Now
+                };
 
-                    _historicoAlteracaoOSRepository.RegistrarHistorico(historico);
-                    return true;
-                }
+                _historicoAlteracaoOSRepository.RegistrarHistorico(historico);
 
-                return false;
+                var dtoRelatorio = new ContasReceberDto
+                {
+                    IdContaReceber = contaReceber.id_conta_receber,
+                    Descricao = contaReceber.descricao,
+                    Valor = contaReceber.valor,
+                    DataEmissao = contaReceber.data_emissao,
+                    DataVencimento = contaReceber.data_vencimento,
+                    DataPagamento = contaReceber.data_pagamento,
+                    Status = contaReceber.status,
+                    Observacoes = contaReceber.observacoes,
+                    IdOrdemServico = os.id_os,
+                    FormaPagamentoDescricao = _pagamentoRepository.ObterPorId(formaPagamento).Descricao,
+                    ClienteNome = os.Cliente?.Nome ?? "Cliente não informado",
+                    Equipamento = os.Equipamento.Descricao,
+                    DefeitoRelatado = os.problema_relatado,
+                    ServicoRealizado = os.diagnostico
+                };
+
+                GeradorPdfContasReceber.GerarRelatorioIndividual(dtoRelatorio, null);
+
+                return true;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw new Exception("Falha ao registrar pagamento: " + ex.Message, ex);
+                throw;
             }
         }
 

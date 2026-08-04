@@ -148,7 +148,7 @@ namespace AssisTec
                 "👤 Usuários",
                 (s, e) => 
                 {
-                    if (!ValidarAcessoPermitido()) return;
+                    if (Sessao.usuarioLogado.Nivel ==3) return;
                     AbrirUserControl(new ucGerenciador_Usuario(_usuarioService, _ordemServicoService), s);
                 }
             );

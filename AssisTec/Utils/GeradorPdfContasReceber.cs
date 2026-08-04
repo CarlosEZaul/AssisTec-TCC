@@ -146,6 +146,25 @@ namespace AssisTec.Service
 
         public static void GerarRelatorioIndividual(ContasReceberDto dto, string caminhoDestino)
         {
+            if (dto == null)
+                throw new ArgumentNullException(nameof(dto), "Os dados do relatório (DTO) não podem ser nulos.");
+
+            if (string.IsNullOrWhiteSpace(caminhoDestino))
+            {
+                string pastaDesktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+                string nomeArquivo =
+                    $"Comprovante_OS_{dto.IdOrdemServico ?? dto.IdContaReceber}_{DateTime.Now:yyyyMMdd_HHmmss}.pdf";
+                caminhoDestino = Path.Combine(pastaDesktop, nomeArquivo);
+            }
+            else
+            {
+                string diretorio = Path.GetDirectoryName(caminhoDestino);
+                if (!string.IsNullOrEmpty(diretorio) && !Directory.Exists(diretorio))
+                {
+                    Directory.CreateDirectory(diretorio);
+                }
+            }
+
             Document doc = new Document(PageSize.A4, 36, 36, 36, 36);
 
             try
@@ -155,8 +174,10 @@ namespace AssisTec.Service
                     PdfWriter writer = PdfWriter.GetInstance(doc, fs);
                     doc.Open();
 
-                    BaseFont bfRegular = BaseFont.CreateFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-                    BaseFont bfBold = BaseFont.CreateFont(BaseFont.HELVETICA_BOLD, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                    BaseFont bfRegular =
+                        BaseFont.CreateFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                    BaseFont bfBold =
+                        BaseFont.CreateFont(BaseFont.HELVETICA_BOLD, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
 
                     Font fontTitulo = new Font(bfBold, 18, Font.NORMAL, new BaseColor(26, 54, 93));
                     Font fontSubtitulo = new Font(bfRegular, 10, Font.NORMAL, new BaseColor(74, 85, 104));
@@ -165,7 +186,8 @@ namespace AssisTec.Service
                     Font fontBold = new Font(bfBold, 9, Font.NORMAL, new BaseColor(45, 55, 72));
                     Font fontRegular = new Font(bfRegular, 9, Font.NORMAL, new BaseColor(45, 55, 72));
 
-                    PdfPTable headerTable = CriarCabecalho("Comprovante / Detalhes da Conta", fontTitulo, fontSubtitulo, fontMeta);
+                    PdfPTable headerTable = CriarCabecalho("Comprovante / Detalhes da Conta", fontTitulo, fontSubtitulo,
+                        fontMeta);
                     doc.Add(headerTable);
 
                     doc.Add(CriarLinhaDivisoria());
@@ -178,11 +200,18 @@ namespace AssisTec.Service
                     infoTable.SpacingBefore = 4f;
                     infoTable.SpacingAfter = 15f;
 
-                    string[,] infoCampos = {
+                    string[,] infoCampos =
+                    {
                         { "Código:", dto.IdContaReceber.ToString(), "Valor:", dto.Valor.ToString("C2") },
                         { "Descrição:", dto.Descricao, "Status:", dto.Status },
-                        { "Emissão:", dto.DataEmissao.ToString("dd/MM/yyyy"), "Vencimento:", dto.DataVencimento?.ToString("dd/MM/yyyy") ?? "-" },
-                        { "Pagamento:", dto.DataPagamento?.ToString("dd/MM/yyyy") ?? "-", "Forma Pagto:", dto.FormaPagamentoDescricao },
+                        {
+                            "Emissão:", dto.DataEmissao.ToString("dd/MM/yyyy"), "Vencimento:",
+                            dto.DataVencimento?.ToString("dd/MM/yyyy") ?? "-"
+                        },
+                        {
+                            "Pagamento:", dto.DataPagamento?.ToString("dd/MM/yyyy") ?? "-", "Forma Pagto:",
+                            dto.FormaPagamentoDescricao
+                        },
                         { "Observações:", string.IsNullOrEmpty(dto.Observacoes) ? "-" : dto.Observacoes, "", "" }
                     };
 
@@ -192,24 +221,28 @@ namespace AssisTec.Service
                         {
                             if (i == 4 && j >= 2)
                             {
-                                PdfPCell emptyCell = new PdfPCell(new Phrase("", fontRegular)) { Border = PdfPCell.NO_BORDER };
+                                PdfPCell emptyCell = new PdfPCell(new Phrase("", fontRegular))
+                                    { Border = PdfPCell.NO_BORDER };
                                 infoTable.AddCell(emptyCell);
                                 continue;
                             }
 
                             bool isLabel = j % 2 == 0;
-                            PdfPCell cell = new PdfPCell(new Phrase(infoCampos[i, j], isLabel ? fontBold : fontRegular));
+                            PdfPCell cell =
+                                new PdfPCell(new Phrase(infoCampos[i, j], isLabel ? fontBold : fontRegular));
                             cell.BackgroundColor = new BaseColor(247, 250, 252);
                             cell.BorderColor = new BaseColor(237, 242, 247);
                             cell.Padding = 6;
                             infoTable.AddCell(cell);
                         }
                     }
+
                     doc.Add(infoTable);
 
                     if (dto.IdOrdemServico.HasValue && dto.IdOrdemServico.Value > 0)
                     {
-                        doc.Add(new Paragraph($"ORDEM DE SERVIÇO VINCULADA (Nº {dto.IdOrdemServico.Value})", fontSecao));
+                        doc.Add(new Paragraph($"ORDEM DE SERVIÇO VINCULADA (Nº {dto.IdOrdemServico.Value})",
+                            fontSecao));
 
                         PdfPTable osTable = new PdfPTable(4);
                         osTable.WidthPercentage = 100;
@@ -217,9 +250,18 @@ namespace AssisTec.Service
                         osTable.SpacingBefore = 4f;
                         osTable.SpacingAfter = 15f;
 
-                        string[,] osCampos = {
-                            { "Cliente:", string.IsNullOrEmpty(dto.ClienteNome) ? "-" : dto.ClienteNome, "Equipamento:", string.IsNullOrEmpty(dto.Equipamento) ? "-" : dto.Equipamento },
-                            { "Defeito Relatado:", string.IsNullOrEmpty(dto.DefeitoRelatado) ? "-" : dto.DefeitoRelatado, "Serviço Realizado:", string.IsNullOrEmpty(dto.ServicoRealizado) ? "-" : dto.ServicoRealizado }
+                        string[,] osCampos =
+                        {
+                            {
+                                "Cliente:", string.IsNullOrEmpty(dto.ClienteNome) ? "-" : dto.ClienteNome,
+                                "Equipamento:", string.IsNullOrEmpty(dto.Equipamento) ? "-" : dto.Equipamento
+                            },
+                            {
+                                "Defeito Relatado:",
+                                string.IsNullOrEmpty(dto.DefeitoRelatado) ? "-" : dto.DefeitoRelatado,
+                                "Serviço Realizado:",
+                                string.IsNullOrEmpty(dto.ServicoRealizado) ? "-" : dto.ServicoRealizado
+                            }
                         };
 
                         for (int i = 0; i < 2; i++)
@@ -227,18 +269,78 @@ namespace AssisTec.Service
                             for (int j = 0; j < 4; j++)
                             {
                                 bool isLabel = j % 2 == 0;
-                                PdfPCell cell = new PdfPCell(new Phrase(osCampos[i, j], isLabel ? fontBold : fontRegular));
+                                PdfPCell cell =
+                                    new PdfPCell(new Phrase(osCampos[i, j], isLabel ? fontBold : fontRegular));
                                 cell.BackgroundColor = new BaseColor(247, 250, 252);
                                 cell.BorderColor = new BaseColor(237, 242, 247);
                                 cell.Padding = 6;
                                 osTable.AddCell(cell);
                             }
                         }
+
                         doc.Add(osTable);
                     }
 
+                    bool possuiCliente = !string.IsNullOrWhiteSpace(dto.ClienteNome) && dto.ClienteNome.Trim() != "-";
+
+                    PdfPTable tabelaAssinaturas;
+
+                    if (possuiCliente)
+                    {
+                        tabelaAssinaturas = new PdfPTable(2);
+                        tabelaAssinaturas.WidthPercentage = 100;
+                        tabelaAssinaturas.SetWidths(new float[] { 45f, 45f });
+                        tabelaAssinaturas.SpacingBefore = 40f;
+
+                        PdfPCell cellCliente = new PdfPCell();
+                        cellCliente.Border = PdfPCell.NO_BORDER;
+                        cellCliente.HorizontalAlignment = Element.ALIGN_CENTER;
+                        cellCliente.AddElement(new Paragraph("________________________________________", fontRegular)
+                            { Alignment = Element.ALIGN_CENTER });
+                        cellCliente.AddElement(new Paragraph(dto.ClienteNome, fontBold)
+                            { Alignment = Element.ALIGN_CENTER });
+                        cellCliente.AddElement(new Paragraph("Assinatura do Cliente", fontMeta)
+                            { Alignment = Element.ALIGN_CENTER });
+
+                        PdfPCell cellEmissor = new PdfPCell();
+                        cellEmissor.Border = PdfPCell.NO_BORDER;
+                        cellEmissor.HorizontalAlignment = Element.ALIGN_CENTER;
+                        cellEmissor.AddElement(new Paragraph("________________________________________", fontRegular)
+                            { Alignment = Element.ALIGN_CENTER });
+                        cellEmissor.AddElement(new Paragraph("AssisTec - Técnico / Emissor", fontBold)
+                            { Alignment = Element.ALIGN_CENTER });
+                        cellEmissor.AddElement(new Paragraph("Assinatura do Responsável", fontMeta)
+                            { Alignment = Element.ALIGN_CENTER });
+
+                        tabelaAssinaturas.AddCell(cellCliente);
+                        tabelaAssinaturas.AddCell(cellEmissor);
+                    }
+                    else
+                    {
+                        tabelaAssinaturas = new PdfPTable(1);
+                        tabelaAssinaturas.WidthPercentage = 50;
+                        tabelaAssinaturas.HorizontalAlignment = Element.ALIGN_CENTER;
+                        tabelaAssinaturas.SpacingBefore = 40f;
+
+                        PdfPCell cellEmissor = new PdfPCell();
+                        cellEmissor.Border = PdfPCell.NO_BORDER;
+                        cellEmissor.HorizontalAlignment = Element.ALIGN_CENTER;
+                        cellEmissor.AddElement(new Paragraph("________________________________________", fontRegular)
+                            { Alignment = Element.ALIGN_CENTER });
+                        cellEmissor.AddElement(new Paragraph("AssisTec - Técnico / Emissor", fontBold)
+                            { Alignment = Element.ALIGN_CENTER });
+                        cellEmissor.AddElement(new Paragraph("Assinatura do Responsável", fontMeta)
+                            { Alignment = Element.ALIGN_CENTER });
+
+                        tabelaAssinaturas.AddCell(cellEmissor);
+                    }
+
+                    doc.Add(tabelaAssinaturas);
+
                     doc.Close();
                 }
+
+                System.Diagnostics.Process.Start(caminhoDestino);
             }
             catch (Exception ex)
             {
