@@ -187,8 +187,13 @@ namespace AssisTec.Service
                     produto.quantidade -= quantidadeAdicionar;
                     _produtoRepository.AtualizarProduto(produto);
 
-                    RegistrarMovimentacao(idProduto, quantidadeAdicionar, produto.preco_venda * quantidadeAdicionar,
-                        $"Saída de estoque (Adição) na OS #{os.id_os}", "Saída");
+                    RegistrarMovimentacao(
+                        idProduto,
+                        quantidadeAdicionar,
+                        produto.preco_venda * quantidadeAdicionar,
+                        $"Saída de estoque (Adição) na OS #{os.id_os}",
+                        "Saída",
+                        Sessao.usuarioLogado.Id);
                 }
                 else
                 {
@@ -207,7 +212,7 @@ namespace AssisTec.Service
                     _produtoRepository.AtualizarProduto(produto);
 
                     RegistrarMovimentacao(idProduto, quantidadeAdicionar, produto.preco_venda * quantidadeAdicionar,
-                        $"Saída de estoque por inclusão na OS #{os.id_os}", "Saída");
+                        $"Saída de estoque por inclusão na OS #{os.id_os}", "Saída", Sessao.usuarioLogado.Id);
                 }
 
                 RecalcularEAtualizarValorPecas(os.id_os);
@@ -251,7 +256,7 @@ namespace AssisTec.Service
                     _produtoRepository.AtualizarProduto(produto);
 
                     RegistrarMovimentacao(produto.idProduto, item.Quantidade, item.ValorUnitario * item.Quantidade,
-                        $"Entrada em estoque por remoção do item da OS #{item.id_OS}", "Entrada");
+                        $"Entrada em estoque por remoção do item da OS #{item.id_OS}", "Entrada",Sessao.usuarioLogado.Id);
                 }
                 else
                 {
@@ -275,7 +280,8 @@ namespace AssisTec.Service
                     _produtoRepository.AtualizarProduto(produto);
 
                     RegistrarMovimentacao(produto.idProduto, quantidadeRemover, item.ValorUnitario * quantidadeRemover,
-                        $"Entrada em estoque por redução do item da OS #{item.id_OS}", "Entrada");
+                        $"Entrada em estoque por redução do item da OS #{item.id_OS}", "Entrada",
+                        Sessao.usuarioLogado.Id);
                 }
 
                 RecalcularEAtualizarValorPecas(ordemServico.id_os);
@@ -313,7 +319,7 @@ namespace AssisTec.Service
             _ordemServicoRepository.SalvarAlteracoesOS(os);
         }
 
-        private void RegistrarMovimentacao(int idProduto, int quantidade, decimal valorTotal, string descricao, string tipo)
+        private void RegistrarMovimentacao(int idProduto, int quantidade, decimal valorTotal, string descricao, string tipo, int id_usuario)
         {
             var movimentacao = new MovimentacaoEstoque
             {
@@ -322,7 +328,8 @@ namespace AssisTec.Service
                 quantidade = quantidade,
                 valor = valorTotal,
                 descricao = descricao,
-                tipoMovimentacao = tipo
+                tipoMovimentacao = tipo,
+                idUsuario =  id_usuario
             };
 
             _movimentacaoEstoqueRepository.InserirMovimentacao(movimentacao);

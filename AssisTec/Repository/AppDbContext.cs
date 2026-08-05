@@ -267,6 +267,10 @@ namespace AssisTec.Repository
                 entity.Property(e => e.valor).HasColumnName("valor");
                 entity.Property(e => e.data).HasColumnName("data");
                 entity.Property(e => e.tipoMovimentacao).HasColumnName("tipo_movimentacao");
+                entity.HasOne(e =>e.usuario).
+                    WithMany().
+                    HasForeignKey(e => e.idUsuario).
+                    OnDelete(DeleteBehavior.SetNull);
 
                 entity.HasOne(e => e.produto)
                     .WithMany()

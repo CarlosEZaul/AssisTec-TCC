@@ -87,6 +87,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
             dgvMovimentacao.Columns[4].HeaderText = "Valor";
             dgvMovimentacao.Columns[5].HeaderText = "Descrição";
             dgvMovimentacao.Columns[6].HeaderText = "Tipo da Movimentação";
+            dgvMovimentacao.Columns[7].HeaderText = "Registrado por";
         }
 
         private void AplicarFiltro()

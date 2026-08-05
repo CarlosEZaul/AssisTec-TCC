@@ -180,7 +180,8 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
                 data = DateTime.Now,
                 descricao = motivoSelecionado,
                 tipoMovimentacao = "ENTRADA",
-                idProduto = _idProduto
+                idProduto = _idProduto,
+                idUsuario = Sessao.usuarioLogado.Id
             };
 
             if (_produtoService.darEntradaProduto(_idProduto, quantidade))
@@ -197,7 +198,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
                         data_pagamento = DateTime.Today,
                         data_vencimento = DateTime.Today,
                         status = "PAGA",
-                        observacoes = $"Entrada no estoque do produto {_produto.descricao}",
+                        observacoes = $"Entrada no estoque do produto {_produto.descricao} registrada pelo usuário {Sessao.usuarioLogado.Nome}",
                         id_forma_pagamento_fk = 1
                     };
                     _contasPagarService.Salvar(contaPagar, true);

@@ -1,30 +1,38 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\Pc do estagiario\\RiderProjects\\AssisTec-TCC30-07\\",
+  "WorkspaceRootPath": "C:\\Users\\Pc do estagiario\\RiderProjects\\AssisTec-TCC03-08-26\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{0107DE09-5745-4BB2-B7F8-AAB0EF65E6FA}|AssisTec\\AssisTec.csproj|c:\\users\\pc do estagiario\\riderprojects\\assistec-tcc30-07\\assistec\\views\\usercontrols\\ucbackupimportar.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{0107DE09-5745-4BB2-B7F8-AAB0EF65E6FA}|AssisTec\\AssisTec.csproj|solutionrelative:assistec\\views\\usercontrols\\ucbackupimportar.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+      "AbsoluteMoniker": "D:0:0:{0107DE09-5745-4BB2-B7F8-AAB0EF65E6FA}|AssisTec\\AssisTec.csproj|c:\\users\\pc do estagiario\\riderprojects\\assistec-tcc03-08-26\\assistec\\migrations\\20260805135329_renomearpropriedadex.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0107DE09-5745-4BB2-B7F8-AAB0EF65E6FA}|AssisTec\\AssisTec.csproj|solutionrelative:assistec\\migrations\\20260805135329_renomearpropriedadex.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{0107DE09-5745-4BB2-B7F8-AAB0EF65E6FA}|AssisTec\\AssisTec.csproj|c:\\users\\pc do estagiario\\riderprojects\\assistec-tcc30-07\\assistec\\views\\usercontrols\\ucbackupimportar.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{0107DE09-5745-4BB2-B7F8-AAB0EF65E6FA}|AssisTec\\AssisTec.csproj|c:\\users\\pc do estagiario\\riderprojects\\assistec-tcc03-08-26\\assistec\\migrations\\appdbcontextmodelsnapshot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0107DE09-5745-4BB2-B7F8-AAB0EF65E6FA}|AssisTec\\AssisTec.csproj|solutionrelative:assistec\\migrations\\appdbcontextmodelsnapshot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0107DE09-5745-4BB2-B7F8-AAB0EF65E6FA}|AssisTec\\AssisTec.csproj|C:\\Users\\Pc do estagiario\\RiderProjects\\AssisTec-TCC03-08-26\\assistec\\migrations\\20260805132307_assistec.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0107DE09-5745-4BB2-B7F8-AAB0EF65E6FA}|AssisTec\\AssisTec.csproj|solutionrelative:assistec\\migrations\\20260805132307_assistec.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0107DE09-5745-4BB2-B7F8-AAB0EF65E6FA}|AssisTec\\AssisTec.csproj|C:\\Users\\Pc do estagiario\\RiderProjects\\AssisTec-TCC03-08-26\\assistec\\views\\usercontrols\\ucbackupimportar.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{0107DE09-5745-4BB2-B7F8-AAB0EF65E6FA}|AssisTec\\AssisTec.csproj|solutionrelative:assistec\\views\\usercontrols\\ucbackupimportar.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{0107DE09-5745-4BB2-B7F8-AAB0EF65E6FA}|AssisTec\\AssisTec.csproj|c:\\users\\pc do estagiario\\riderprojects\\assistec-tcc30-07\\assistec\\repository\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{0107DE09-5745-4BB2-B7F8-AAB0EF65E6FA}|AssisTec\\AssisTec.csproj|C:\\Users\\Pc do estagiario\\RiderProjects\\AssisTec-TCC03-08-26\\assistec\\repository\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{0107DE09-5745-4BB2-B7F8-AAB0EF65E6FA}|AssisTec\\AssisTec.csproj|solutionrelative:assistec\\repository\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{0107DE09-5745-4BB2-B7F8-AAB0EF65E6FA}|AssisTec\\AssisTec.csproj|c:\\users\\pc do estagiario\\riderprojects\\assistec-tcc30-07\\assistec\\app.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "AbsoluteMoniker": "D:0:0:{0107DE09-5745-4BB2-B7F8-AAB0EF65E6FA}|AssisTec\\AssisTec.csproj|C:\\Users\\Pc do estagiario\\RiderProjects\\AssisTec-TCC03-08-26\\assistec\\app.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
       "RelativeMoniker": "D:0:0:{0107DE09-5745-4BB2-B7F8-AAB0EF65E6FA}|AssisTec\\AssisTec.csproj|solutionrelative:assistec\\app.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{0107DE09-5745-4BB2-B7F8-AAB0EF65E6FA}|AssisTec\\AssisTec.csproj|c:\\users\\pc do estagiario\\riderprojects\\assistec-tcc30-07\\assistec\\appsettings.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "AbsoluteMoniker": "D:0:0:{0107DE09-5745-4BB2-B7F8-AAB0EF65E6FA}|AssisTec\\AssisTec.csproj|C:\\Users\\Pc do estagiario\\RiderProjects\\AssisTec-TCC03-08-26\\assistec\\appsettings.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
       "RelativeMoniker": "D:0:0:{0107DE09-5745-4BB2-B7F8-AAB0EF65E6FA}|AssisTec\\AssisTec.csproj|solutionrelative:assistec\\appsettings.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{0107DE09-5745-4BB2-B7F8-AAB0EF65E6FA}|AssisTec\\AssisTec.csproj|c:\\users\\pc do estagiario\\riderprojects\\assistec-tcc30-07\\assistec\\migrations\\20260730135416_initialcreate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0107DE09-5745-4BB2-B7F8-AAB0EF65E6FA}|AssisTec\\AssisTec.csproj|solutionrelative:assistec\\migrations\\20260730135416_initialcreate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Pc do estagiario\\RiderProjects\\AssisTec-TCC03-08-26\\AssisTec\\Migrations\\20260730135416_InitialCreate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:AssisTec\\Migrations\\20260730135416_InitialCreate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -34,7 +42,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Bookmark",
@@ -46,80 +54,101 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "ucBackupImportar.cs",
-              "DocumentMoniker": "C:\\Users\\Pc do estagiario\\RiderProjects\\AssisTec-TCC30-07\\AssisTec\\Views\\UserControls\\ucBackupImportar.cs",
-              "RelativeDocumentMoniker": "AssisTec\\Views\\UserControls\\ucBackupImportar.cs",
-              "ToolTip": "C:\\Users\\Pc do estagiario\\RiderProjects\\AssisTec-TCC30-07\\AssisTec\\Views\\UserControls\\ucBackupImportar.cs",
-              "RelativeToolTip": "AssisTec\\Views\\UserControls\\ucBackupImportar.cs",
-              "ViewState": "AgIAAJkAAAAAAAAAAAAmwBQAAABuAAAAAAAAAA==",
+              "DocumentIndex": 0,
+              "Title": "20260805135329_RenomearPropriedadeX.cs",
+              "DocumentMoniker": "C:\\Users\\Pc do estagiario\\RiderProjects\\AssisTec-TCC03-08-26\\AssisTec\\Migrations\\20260805135329_RenomearPropriedadeX.cs",
+              "RelativeDocumentMoniker": "AssisTec\\Migrations\\20260805135329_RenomearPropriedadeX.cs",
+              "ToolTip": "C:\\Users\\Pc do estagiario\\RiderProjects\\AssisTec-TCC03-08-26\\AssisTec\\Migrations\\20260805135329_RenomearPropriedadeX.cs",
+              "RelativeToolTip": "AssisTec\\Migrations\\20260805135329_RenomearPropriedadeX.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-30T15:33:57.724Z",
+              "WhenOpened": "2026-08-05T13:53:32.501Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "ucBackupImportar.cs [Design]",
-              "DocumentMoniker": "C:\\Users\\Pc do estagiario\\RiderProjects\\AssisTec-TCC30-07\\AssisTec\\Views\\UserControls\\ucBackupImportar.cs",
-              "RelativeDocumentMoniker": "AssisTec\\Views\\UserControls\\ucBackupImportar.cs",
-              "ToolTip": "C:\\Users\\Pc do estagiario\\RiderProjects\\AssisTec-TCC30-07\\AssisTec\\Views\\UserControls\\ucBackupImportar.cs [Design]",
-              "RelativeToolTip": "AssisTec\\Views\\UserControls\\ucBackupImportar.cs [Design]",
+              "DocumentIndex": 1,
+              "Title": "AppDbContextModelSnapshot.cs",
+              "DocumentMoniker": "C:\\Users\\Pc do estagiario\\RiderProjects\\AssisTec-TCC03-08-26\\AssisTec\\Migrations\\AppDbContextModelSnapshot.cs",
+              "RelativeDocumentMoniker": "AssisTec\\Migrations\\AppDbContextModelSnapshot.cs",
+              "ToolTip": "C:\\Users\\Pc do estagiario\\RiderProjects\\AssisTec-TCC03-08-26\\AssisTec\\Migrations\\AppDbContextModelSnapshot.cs",
+              "RelativeToolTip": "AssisTec\\Migrations\\AppDbContextModelSnapshot.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-30T15:33:46.792Z",
-              "EditorCaption": " [Design]"
+              "WhenOpened": "2026-08-05T13:23:31.452Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "AppDbContext.cs",
-              "DocumentMoniker": "C:\\Users\\Pc do estagiario\\RiderProjects\\AssisTec-TCC30-07\\AssisTec\\Repository\\AppDbContext.cs",
-              "RelativeDocumentMoniker": "AssisTec\\Repository\\AppDbContext.cs",
-              "ToolTip": "C:\\Users\\Pc do estagiario\\RiderProjects\\AssisTec-TCC30-07\\AssisTec\\Repository\\AppDbContext.cs",
-              "RelativeToolTip": "AssisTec\\Repository\\AppDbContext.cs",
-              "ViewState": "AgIAAA8AAAAAAAAAAAA9wCAAAAANAAAAAAAAAA==",
+              "Title": "20260805132307_AssisTec.cs",
+              "DocumentMoniker": "C:\\Users\\Pc do estagiario\\RiderProjects\\AssisTec-TCC03-08-26\\AssisTec\\Migrations\\20260805132307_AssisTec.cs",
+              "RelativeDocumentMoniker": "AssisTec\\Migrations\\20260805132307_AssisTec.cs",
+              "ToolTip": "C:\\Users\\Pc do estagiario\\RiderProjects\\AssisTec-TCC03-08-26\\AssisTec\\Migrations\\20260805132307_AssisTec.cs",
+              "RelativeToolTip": "AssisTec\\Migrations\\20260805132307_AssisTec.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-30T15:31:05.596Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-08-05T13:23:08.476Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "App.config",
-              "DocumentMoniker": "C:\\Users\\Pc do estagiario\\RiderProjects\\AssisTec-TCC30-07\\AssisTec\\App.config",
-              "RelativeDocumentMoniker": "AssisTec\\App.config",
-              "ToolTip": "C:\\Users\\Pc do estagiario\\RiderProjects\\AssisTec-TCC30-07\\AssisTec\\App.config",
-              "RelativeToolTip": "AssisTec\\App.config",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000601|",
-              "WhenOpened": "2026-07-30T15:29:58.307Z",
-              "EditorCaption": ""
+              "Title": "ucBackupImportar.cs",
+              "DocumentMoniker": "C:\\Users\\Pc do estagiario\\RiderProjects\\AssisTec-TCC03-08-26\\AssisTec\\Views\\UserControls\\ucBackupImportar.cs",
+              "RelativeDocumentMoniker": "AssisTec\\Views\\UserControls\\ucBackupImportar.cs",
+              "ToolTip": "C:\\Users\\Pc do estagiario\\RiderProjects\\AssisTec-TCC03-08-26\\AssisTec\\Views\\UserControls\\ucBackupImportar.cs",
+              "RelativeToolTip": "AssisTec\\Views\\UserControls\\ucBackupImportar.cs",
+              "ViewState": "AgIAAJkAAAAAAAAAAAAmwBQAAABuAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-30T15:33:57.724Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 4,
-              "Title": "appSettings.config",
-              "DocumentMoniker": "C:\\Users\\Pc do estagiario\\RiderProjects\\AssisTec-TCC30-07\\AssisTec\\appSettings.config",
-              "RelativeDocumentMoniker": "AssisTec\\appSettings.config",
-              "ToolTip": "C:\\Users\\Pc do estagiario\\RiderProjects\\AssisTec-TCC30-07\\AssisTec\\appSettings.config",
-              "RelativeToolTip": "AssisTec\\appSettings.config",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAVAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000601|",
-              "WhenOpened": "2026-07-30T15:29:31.249Z",
-              "EditorCaption": ""
+              "Title": "AppDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\Pc do estagiario\\RiderProjects\\AssisTec-TCC03-08-26\\AssisTec\\Repository\\AppDbContext.cs",
+              "RelativeDocumentMoniker": "AssisTec\\Repository\\AppDbContext.cs",
+              "ToolTip": "C:\\Users\\Pc do estagiario\\RiderProjects\\AssisTec-TCC03-08-26\\AssisTec\\Repository\\AppDbContext.cs",
+              "RelativeToolTip": "AssisTec\\Repository\\AppDbContext.cs",
+              "ViewState": "AgIAAA8AAAAAAAAAAAA9wCAAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-30T15:31:05.596Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 5,
+              "Title": "App.config",
+              "DocumentMoniker": "C:\\Users\\Pc do estagiario\\RiderProjects\\AssisTec-TCC03-08-26\\AssisTec\\App.config",
+              "RelativeDocumentMoniker": "AssisTec\\App.config",
+              "ToolTip": "C:\\Users\\Pc do estagiario\\RiderProjects\\AssisTec-TCC03-08-26\\AssisTec\\App.config",
+              "RelativeToolTip": "AssisTec\\App.config",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000601|",
+              "WhenOpened": "2026-07-30T15:29:58.307Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "appSettings.config",
+              "DocumentMoniker": "C:\\Users\\Pc do estagiario\\RiderProjects\\AssisTec-TCC03-08-26\\AssisTec\\appSettings.config",
+              "RelativeDocumentMoniker": "AssisTec\\appSettings.config",
+              "ToolTip": "C:\\Users\\Pc do estagiario\\RiderProjects\\AssisTec-TCC03-08-26\\AssisTec\\appSettings.config",
+              "RelativeToolTip": "AssisTec\\appSettings.config",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000601|",
+              "WhenOpened": "2026-07-30T15:29:31.249Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
               "Title": "20260730135416_InitialCreate.cs",
-              "DocumentMoniker": "C:\\Users\\Pc do estagiario\\RiderProjects\\AssisTec-TCC30-07\\AssisTec\\Migrations\\20260730135416_InitialCreate.cs",
+              "DocumentMoniker": "C:\\Users\\Pc do estagiario\\RiderProjects\\AssisTec-TCC03-08-26\\AssisTec\\Migrations\\20260730135416_InitialCreate.cs",
               "RelativeDocumentMoniker": "AssisTec\\Migrations\\20260730135416_InitialCreate.cs",
-              "ToolTip": "C:\\Users\\Pc do estagiario\\RiderProjects\\AssisTec-TCC30-07\\AssisTec\\Migrations\\20260730135416_InitialCreate.cs",
+              "ToolTip": "C:\\Users\\Pc do estagiario\\RiderProjects\\AssisTec-TCC03-08-26\\AssisTec\\Migrations\\20260730135416_InitialCreate.cs",
               "RelativeToolTip": "AssisTec\\Migrations\\20260730135416_InitialCreate.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-30T13:54:17.92Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-08-05T13:18:56.578Z"
             }
           ]
         }

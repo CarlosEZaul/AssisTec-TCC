@@ -4,7 +4,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace AssisTec.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class AssisTec : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -146,6 +146,7 @@ namespace AssisTec.Migrations
                     quantidade = table.Column<int>(nullable: false),
                     valor = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     descricao = table.Column<string>(maxLength: 100, nullable: false),
+                    observacoes = table.Column<string>(maxLength: 100, nullable: true),
                     tipo_movimentacao = table.Column<string>(maxLength: 10, nullable: false)
                 },
                 constraints: table =>

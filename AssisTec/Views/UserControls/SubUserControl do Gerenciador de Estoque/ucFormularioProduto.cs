@@ -146,7 +146,9 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
                         quantidade = _produto.quantidade,
                         valor = _produto.preco_compra,
                         tipoMovimentacao = "ENTRADA",
-                        idProduto = _produto.idProduto
+                        idProduto = _produto.idProduto,
+                        idUsuario = Sessao.usuarioLogado.Id
+                        
                     };
                     _movimentacaoEstoqueService.NovaMovimentacaoEstoque(_movimentacaoEstoque);
                 }

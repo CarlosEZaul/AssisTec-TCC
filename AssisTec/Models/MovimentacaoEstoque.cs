@@ -11,6 +11,7 @@ namespace AssisTec.Models
         
        
         public virtual Produto produto { get; set; }
+        public virtual Usuario usuario { get; set; }
         
         public int? idProduto { get; set; }
         
@@ -28,6 +29,10 @@ namespace AssisTec.Models
         [Required]
         [StringLength(100)]
         public string descricao { get; set; }
+        
+        
+       
+        public int idUsuario { get; set; }
         
         [Required]
         [StringLength(10)]

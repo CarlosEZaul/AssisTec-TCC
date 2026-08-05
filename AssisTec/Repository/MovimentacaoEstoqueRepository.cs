@@ -29,33 +29,35 @@ namespace AssisTec.Repository
         }
 
         public object ListarMovimentacaoEstoque()
-        {
-            try
-            {
-                DateTime hoje = DateTime.Today;
-                DateTime primeiroDiaDoMes = new DateTime(hoje.Year, hoje.Month, 1);
-                DateTime ultimoDiaDoMes = primeiroDiaDoMes.AddMonths(1).AddTicks(-1);
+{
+    try
+    {
+        DateTime hoje = DateTime.Today;
+        DateTime primeiroDiaDoMes = new DateTime(hoje.Year, hoje.Month, 1);
+        DateTime ultimoDiaDoMes = primeiroDiaDoMes.AddMonths(1).AddTicks(-1);
 
-                return context.movimentacaoEstoque
-                    .Where(m => m.data >= primeiroDiaDoMes && m.data <= ultimoDiaDoMes)
-                    .Select(m => new
-                    {
-                        m.idMovimentacao,
-                        Produto = Convert.ToString(m.idProduto) + " - " + m.produto.descricao,
-                        m.data,
-                        m.quantidade,
-                        m.valor,
-                        m.descricao,
-                        m.tipoMovimentacao
-                    }).ToList();
-            }
-            catch (Exception e)
+        return context.movimentacaoEstoque
+            .Where(m => m.data >= primeiroDiaDoMes && m.data <= ultimoDiaDoMes)
+            .Select(m => new
             {
-                throw new Exception("Erro ao carregar movimentação do estoque", e);
-            }
-        }
+                ID_Movimentacao = m.idMovimentacao,
+                Produto = Convert.ToString(m.idProduto) + " - " + m.produto.descricao,
+                Data = m.data,
+                Quantidade = m.quantidade,
+                Valor = m.valor,
+                Descricao = m.descricao,
+                TipoMovimentacao = m.tipoMovimentacao,
+                Registrado = Convert.ToString(m.usuario.Id) + " - " + m.usuario.Nome
+            }).ToList();
+    }
+    catch (Exception e)
+    {
+        throw new Exception("Erro ao carregar movimentação do estoque", e);
+    }
+}
 
-        public object Filtrar(DateTime? dataInicio, DateTime? dataFim, string produtoSelecionado, string tipoMovimentacao)
+        public object Filtrar(DateTime? dataInicio, DateTime? dataFim, string produtoSelecionado,
+            string tipoMovimentacao)
         {
             try
             {
@@ -91,7 +93,7 @@ namespace AssisTec.Repository
                         query = query.Where(m => m.idProduto == idProduto);
                     }
                 }
-        
+
                 if (!string.IsNullOrEmpty(tipoMovimentacao) && tipoMovimentacao != "Todos")
                 {
                     query = query.Where(m => m.tipoMovimentacao == tipoMovimentacao);
@@ -105,7 +107,8 @@ namespace AssisTec.Repository
                     Quantidade = m.quantidade,
                     Valor = m.valor,
                     Descricao = m.descricao,
-                    TipoMovimentacao = m.tipoMovimentacao
+                    TipoMovimentacao = m.tipoMovimentacao,
+                    Registrado = Convert.ToString(m.idUsuario) + " - " + m.usuario.Nome
                 }).ToList();
             }
             catch (Exception e)

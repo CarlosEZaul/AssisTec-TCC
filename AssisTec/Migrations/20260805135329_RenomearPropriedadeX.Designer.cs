@@ -10,8 +10,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace AssisTec.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260730135416_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20260805135329_RenomearPropriedadeX")]
+    partial class RenomearPropriedadeX
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -323,6 +323,9 @@ namespace AssisTec.Migrations
                     b.Property<int?>("idProduto")
                         .HasColumnType("integer");
 
+                    b.Property<int>("idUsuario")
+                        .HasColumnType("integer");
+
                     b.Property<int>("quantidade")
                         .HasColumnName("quantidade")
                         .HasColumnType("integer");
@@ -340,6 +343,8 @@ namespace AssisTec.Migrations
                     b.HasKey("idMovimentacao");
 
                     b.HasIndex("idProduto");
+
+                    b.HasIndex("idUsuario");
 
                     b.ToTable("movimentacao_estoque");
                 });
@@ -702,6 +707,12 @@ namespace AssisTec.Migrations
                         .WithMany()
                         .HasForeignKey("idProduto")
                         .OnDelete(DeleteBehavior.SetNull);
+
+                    b.HasOne("AssisTec.Models.Usuario", "usuario")
+                        .WithMany()
+                        .HasForeignKey("idUsuario")
+                        .OnDelete(DeleteBehavior.SetNull)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("AssisTec.Models.OrdemServico", b =>

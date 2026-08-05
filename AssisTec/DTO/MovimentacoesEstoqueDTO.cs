@@ -12,6 +12,7 @@ namespace AssisTec.Dtos
         public decimal Valor { get; set; }
         public string TipoMovimentacao { get; set; }
         public string Descricao { get; set; }
+        public string Registrado { get; set; }
     }
     public class MovimentacoesEstoqueDTO
     {

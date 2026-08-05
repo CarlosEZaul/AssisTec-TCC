@@ -3,15 +3,17 @@ using System;
 using AssisTec.Repository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace AssisTec.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260805132307_AssisTec")]
+    partial class AssisTec
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -321,8 +323,10 @@ namespace AssisTec.Migrations
                     b.Property<int?>("idProduto")
                         .HasColumnType("integer");
 
-                    b.Property<int>("idUsuario")
-                        .HasColumnType("integer");
+                    b.Property<string>("observacoes")
+                        .HasColumnName("observacoes")
+                        .HasColumnType("character varying(100)")
+                        .HasMaxLength(100);
 
                     b.Property<int>("quantidade")
                         .HasColumnName("quantidade")
@@ -341,8 +345,6 @@ namespace AssisTec.Migrations
                     b.HasKey("idMovimentacao");
 
                     b.HasIndex("idProduto");
-
-                    b.HasIndex("idUsuario");
 
                     b.ToTable("movimentacao_estoque");
                 });
@@ -705,12 +707,6 @@ namespace AssisTec.Migrations
                         .WithMany()
                         .HasForeignKey("idProduto")
                         .OnDelete(DeleteBehavior.SetNull);
-
-                    b.HasOne("AssisTec.Models.Usuario", "usuario")
-                        .WithMany()
-                        .HasForeignKey("idUsuario")
-                        .OnDelete(DeleteBehavior.SetNull)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("AssisTec.Models.OrdemServico", b =>

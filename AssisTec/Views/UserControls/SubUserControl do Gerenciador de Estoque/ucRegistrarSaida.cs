@@ -193,7 +193,8 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
                 data = DateTime.Now,
                 descricao = motivoSelecionado,
                 tipoMovimentacao = "SAIDA",
-                idProduto = _idProduto
+                idProduto = _idProduto,
+                idUsuario = Sessao.usuarioLogado.Id
             };
 
             if (_produtoService.darSaidaProduto(_idProduto, quantidade))
@@ -210,7 +211,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
                         data_pagamento = DateTime.Today,
                         data_vencimento = DateTime.Today,
                         status = "PAGA",
-                        observacoes = $"Saída no estoque do produto {_produto.descricao}",
+                        observacoes = $"Saída no estoque do produto {_produto.descricao} registrada pelo usuário {Sessao.usuarioLogado.Nome}",
                         id_forma_pagamento_fk = 1
                     };
                     _contasReceberService.Salvar(contaReceber, true);
