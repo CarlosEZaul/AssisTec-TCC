@@ -161,6 +161,7 @@ namespace AssisTec.UserControls
             btnPagamento.Enabled = ativo;
             btnImprimir.Enabled = ativo;
             btnRecibo.Enabled = ativo;
+            btnAtualizacao.Enabled = ativo;
             btnContatoCliente.Enabled = ativo;
             btnContatoTecnico.Enabled = ativo;
         }
@@ -516,6 +517,11 @@ namespace AssisTec.UserControls
             {
                 MessageBox.Show($"Erro ao emitir recibo: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void btnAtualizacao_Click(object sender, EventArgs e)
+        {
+            ConfigurarSubComponente(new ucHistoricoAlteracao(_ordemServicoService, _idOS));
         }
     }
 }
