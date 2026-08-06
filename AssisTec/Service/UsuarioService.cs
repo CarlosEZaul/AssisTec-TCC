@@ -151,6 +151,16 @@ namespace AssisTec.Service
                 return (false, "Não é possível desativar este usuário pois ele possui Ordens de Serviço em ABERTA.");
             }
 
+            bool ehGerente = repository.EhGerente(id);
+            if (ehGerente)
+            {
+                int quantidadeGerentesAtivos = repository.ObterQuantidadeGerentesAtivos();
+                if (quantidadeGerentesAtivos <= 1)
+                {
+                    return (false, "Não é possível desativar este usuário pois o sistema precisa ter pelo menos um gerente ativo.");
+                }
+            }
+
             return (true, string.Empty);
         }
 

@@ -8,6 +8,8 @@ namespace AssisTec.Repository
         bool InserirUsuario(Usuario usuario);
         List<Usuario> ObterTodosUsuarios();
         List<Usuario> ObterTodosTecnicosAtivados();
+        bool EhGerente(int id);
+        int ObterQuantidadeGerentesAtivos();
         Usuario ObterPorId(int id);
         Usuario ObterPorCpf(string cpf);
         Usuario ObterPorEmail(string email);

@@ -55,6 +55,20 @@ namespace AssisTec.Repository
             }
         }
 
+        public bool EhGerente(int id)
+        {
+            return context.Usuarios
+                .AsNoTracking()
+                .Any(u => u.Id == id && u.Nivel == 1);
+        }
+
+        public int ObterQuantidadeGerentesAtivos()
+        {
+            return context.Usuarios
+                .AsNoTracking()
+                .Count(u => u.Nivel == 1 && u.Status == "Ativado");
+        }
+
         public Usuario ObterPorId(int id)
         {
             try

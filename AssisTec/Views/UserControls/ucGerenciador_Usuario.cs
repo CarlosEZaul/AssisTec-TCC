@@ -208,78 +208,70 @@ namespace AssisTec.UserControls
             {
                 return;
             }
+
             if (idSelected <= 0)
             {
                 MessageBox.Show("Selecione um usuário válido.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            
+
             var usuario = service.ObterPorId(idSelected);
-            
-            string mensagem = "";
-
-            if (usuario.Status == "Ativo")
+            if (usuario == null)
             {
-                mensagem = "Deseja desativar o usuário?";
-            }
-            else
-            {
-                mensagem = "Deseja ativar o usuário?";
-            }
-
-            DialogResult primeiroDialogo = MessageBox.Show(mensagem, "Alterar Status", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (primeiroDialogo == DialogResult.No)
-            {
-                MessageBox.Show("Operação cancelada");
+                MessageBox.Show("Usuário não encontrado.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            int idLogado = Sessao.usuarioLogado.Id;
-            var validacao = service.ValidarAntesDeDesativar(idSelected, idLogado);
+            bool desativando = usuario.Status == "Ativado";
 
-            if (!string.IsNullOrEmpty(validacao.mensagem) && !validacao.sucesso)
+            if (desativando)
             {
-                MessageBox.Show(validacao.mensagem, "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
+                int idLogado = Sessao.usuarioLogado.Id;
+                var validacao = service.ValidarAntesDeDesativar(idSelected, idLogado);
 
-            if (validacao.sucesso)
-            {
-                DialogResult segundoDialogo = MessageBox.Show(validacao.mensagem, "Desativar Conta Atual", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-                if (segundoDialogo == DialogResult.No)
+                if (!validacao.sucesso)
                 {
-                    MessageBox.Show("Operação cancelada");
+                    MessageBox.Show(validacao.mensagem, "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
             }
 
-            var resultado = service.AlterarStatus(idSelected);
+            string mensagemConfirmacao = desativando 
+                ? "Tem certeza que deseja desativar este usuário?" 
+                : "Tem certeza que deseja ativar este usuário?";
+
+            DialogResult confirmacao = MessageBox.Show(
+                mensagemConfirmacao, 
+                "Confirmar Alteração de Status", 
+                MessageBoxButtons.YesNo, 
+                MessageBoxIcon.Question
+            );
+
+            if (confirmacao == DialogResult.No)
+            {
+                return;
+            }
+
+            bool resultado = service.AlterarStatus(idSelected);
 
             if (resultado)
             {
-                MessageBox.Show("Status alterado!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Status alterado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                if (idSelected == idLogado)
-                {
-                    Application.Restart();
-                }
-                else
-                {
-                    idSelected = 0;
-                    btnStatus.Enabled = false;
-                    btnEditar.Enabled = false;
-                    
-                    if (dgvUsuarios != null && dgvUsuarios.Rows.Count > 0)
-                    {
-                        dgvUsuarios.ClearSelection();
-                    }
+                idSelected = 0;
+                btnStatus.Enabled = false;
+                btnEditar.Enabled = false;
 
-                    listGrid();
+                if (dgvUsuarios != null && dgvUsuarios.Rows.Count > 0)
+                {
+                    dgvUsuarios.ClearSelection();
                 }
+
+                listGrid();
             }
             else
             {
-                MessageBox.Show("Erro ao alterar status", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Erro ao alterar o status do usuário.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
