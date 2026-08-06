@@ -3,11 +3,15 @@
   "WorkspaceRootPath": "C:\\Users\\Pc do estagiario\\RiderProjects\\AssisTec-TCC03-08-26\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{0107DE09-5745-4BB2-B7F8-AAB0EF65E6FA}|AssisTec\\AssisTec.csproj|c:\\users\\pc do estagiario\\riderprojects\\assistec-tcc03-08-26\\assistec\\migrations\\20260806152229_renomearchavessecundarias.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0107DE09-5745-4BB2-B7F8-AAB0EF65E6FA}|AssisTec\\AssisTec.csproj|solutionrelative:assistec\\migrations\\20260806152229_renomearchavessecundarias.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{0107DE09-5745-4BB2-B7F8-AAB0EF65E6FA}|AssisTec\\AssisTec.csproj|c:\\users\\pc do estagiario\\riderprojects\\assistec-tcc03-08-26\\assistec\\migrations\\20260805135329_renomearpropriedadex.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{0107DE09-5745-4BB2-B7F8-AAB0EF65E6FA}|AssisTec\\AssisTec.csproj|solutionrelative:assistec\\migrations\\20260805135329_renomearpropriedadex.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{0107DE09-5745-4BB2-B7F8-AAB0EF65E6FA}|AssisTec\\AssisTec.csproj|c:\\users\\pc do estagiario\\riderprojects\\assistec-tcc03-08-26\\assistec\\migrations\\appdbcontextmodelsnapshot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{0107DE09-5745-4BB2-B7F8-AAB0EF65E6FA}|AssisTec\\AssisTec.csproj|C:\\Users\\Pc do estagiario\\RiderProjects\\AssisTec-TCC03-08-26\\assistec\\migrations\\appdbcontextmodelsnapshot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{0107DE09-5745-4BB2-B7F8-AAB0EF65E6FA}|AssisTec\\AssisTec.csproj|solutionrelative:assistec\\migrations\\appdbcontextmodelsnapshot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
@@ -55,6 +59,19 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "20260806152229_RenomearChavesSecundarias.cs",
+              "DocumentMoniker": "C:\\Users\\Pc do estagiario\\RiderProjects\\AssisTec-TCC03-08-26\\AssisTec\\Migrations\\20260806152229_RenomearChavesSecundarias.cs",
+              "RelativeDocumentMoniker": "AssisTec\\Migrations\\20260806152229_RenomearChavesSecundarias.cs",
+              "ToolTip": "C:\\Users\\Pc do estagiario\\RiderProjects\\AssisTec-TCC03-08-26\\AssisTec\\Migrations\\20260806152229_RenomearChavesSecundarias.cs",
+              "RelativeToolTip": "AssisTec\\Migrations\\20260806152229_RenomearChavesSecundarias.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-06T15:22:30.143Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "20260805135329_RenomearPropriedadeX.cs",
               "DocumentMoniker": "C:\\Users\\Pc do estagiario\\RiderProjects\\AssisTec-TCC03-08-26\\AssisTec\\Migrations\\20260805135329_RenomearPropriedadeX.cs",
               "RelativeDocumentMoniker": "AssisTec\\Migrations\\20260805135329_RenomearPropriedadeX.cs",
@@ -67,7 +84,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "AppDbContextModelSnapshot.cs",
               "DocumentMoniker": "C:\\Users\\Pc do estagiario\\RiderProjects\\AssisTec-TCC03-08-26\\AssisTec\\Migrations\\AppDbContextModelSnapshot.cs",
               "RelativeDocumentMoniker": "AssisTec\\Migrations\\AppDbContextModelSnapshot.cs",
@@ -75,12 +92,11 @@
               "RelativeToolTip": "AssisTec\\Migrations\\AppDbContextModelSnapshot.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-08-05T13:23:31.452Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-08-05T13:23:31.452Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "20260805132307_AssisTec.cs",
               "DocumentMoniker": "C:\\Users\\Pc do estagiario\\RiderProjects\\AssisTec-TCC03-08-26\\AssisTec\\Migrations\\20260805132307_AssisTec.cs",
               "RelativeDocumentMoniker": "AssisTec\\Migrations\\20260805132307_AssisTec.cs",
@@ -92,7 +108,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "ucBackupImportar.cs",
               "DocumentMoniker": "C:\\Users\\Pc do estagiario\\RiderProjects\\AssisTec-TCC03-08-26\\AssisTec\\Views\\UserControls\\ucBackupImportar.cs",
               "RelativeDocumentMoniker": "AssisTec\\Views\\UserControls\\ucBackupImportar.cs",
@@ -104,7 +120,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "AppDbContext.cs",
               "DocumentMoniker": "C:\\Users\\Pc do estagiario\\RiderProjects\\AssisTec-TCC03-08-26\\AssisTec\\Repository\\AppDbContext.cs",
               "RelativeDocumentMoniker": "AssisTec\\Repository\\AppDbContext.cs",
@@ -116,7 +132,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 6,
               "Title": "App.config",
               "DocumentMoniker": "C:\\Users\\Pc do estagiario\\RiderProjects\\AssisTec-TCC03-08-26\\AssisTec\\App.config",
               "RelativeDocumentMoniker": "AssisTec\\App.config",
@@ -128,7 +144,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 7,
               "Title": "appSettings.config",
               "DocumentMoniker": "C:\\Users\\Pc do estagiario\\RiderProjects\\AssisTec-TCC03-08-26\\AssisTec\\appSettings.config",
               "RelativeDocumentMoniker": "AssisTec\\appSettings.config",
@@ -140,7 +156,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 8,
               "Title": "20260730135416_InitialCreate.cs",
               "DocumentMoniker": "C:\\Users\\Pc do estagiario\\RiderProjects\\AssisTec-TCC03-08-26\\AssisTec\\Migrations\\20260730135416_InitialCreate.cs",
               "RelativeDocumentMoniker": "AssisTec\\Migrations\\20260730135416_InitialCreate.cs",

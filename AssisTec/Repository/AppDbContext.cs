@@ -91,7 +91,8 @@ namespace AssisTec.Repository
 
                 entity.HasKey(e => e.id_conta_receber);
                 entity.Property(e => e.id_conta_receber).HasColumnName("id_conta_receber");
-
+                entity.Property(e=> e.id_os_fk).HasColumnName("id_os_fk");
+                entity.Property(e => e.id_forma_pagamento_fk).HasColumnName("id_forma_pagamento_fk");
                 entity.Property(e => e.descricao).HasColumnName("descricao");
                 entity.Property(e => e.valor)
                     .HasColumnName("valor")
@@ -120,7 +121,7 @@ namespace AssisTec.Repository
 
                 entity.HasKey(e => e.id_conta_pagar);
                 entity.Property(e => e.id_conta_pagar).HasColumnName("id_conta_pagar");
-
+                entity.Property(e => e.id_forma_pagamento_fk).HasColumnName("id_forma_pagamento_fk");
                 entity.Property(e => e.descricao).HasColumnName("descricao");
                 entity.Property(e => e.valor)
                     .HasColumnName("valor")
@@ -162,7 +163,9 @@ namespace AssisTec.Repository
                 entity.ToTable("ordem_servico");
                 entity.HasKey(e => e.id_os);
                 entity.Property(e => e.id_os).HasColumnName("id_os");
-
+                entity.Property(e=> e.id_cliente).HasColumnName("id_cliente_fk");
+                entity.Property(e => e.id_tecnico).HasColumnName("id_tecnico_fk");
+                entity.Property(e=> e.id_equipamento).HasColumnName("id_equipamento_fk");
                 entity.Property(e => e.status).HasColumnName("status");
                 entity.Property(e => e.data_abertura).HasColumnName("data_abertura");
                 entity.Property(e => e.data_atualizacao).HasColumnName("data_atualizacao");
@@ -197,7 +200,8 @@ namespace AssisTec.Repository
                 entity.ToTable("item_os");
                 entity.HasKey(e => e.Id);
                 entity.Property(e => e.Id).HasColumnName("id");
-
+                entity.Property(e=> e.id_OS).HasColumnName("id_os_fk");
+                entity.Property(e=> e.id_produto).HasColumnName("id_produto_fk");
                 entity.Property(e => e.Quantidade).HasColumnName("quantidade");
                 entity.Property(e => e.ValorUnitario).HasColumnName("valor_unitario");
                 entity.Property(e => e.ValorTotal).HasColumnName("valor_total");
@@ -218,6 +222,7 @@ namespace AssisTec.Repository
                 entity.ToTable("servico_os");
                 entity.HasKey(e => e.idServico);
                 entity.Property(e => e.idServico).HasColumnName("id_servico_os");
+                entity.Property(e => e.id_OS).HasColumnName("id_os_fk");
                 entity.Property(e => e.descricao).HasColumnName("descricao");
                 entity.Property(e => e.valor_cobrado).HasColumnName("valor_cobrado");
 
@@ -283,8 +288,8 @@ namespace AssisTec.Repository
                 entity.ToTable("historico_alteracao_os");
                 entity.HasKey(e => e.id);
                 entity.Property(e => e.id).HasColumnName("id");
-                entity.Property(e => e.idUsuario).HasColumnName("id_usuario");
-                entity.Property(e => e.idOS).HasColumnName("id_os");
+                entity.Property(e => e.idUsuario).HasColumnName("id_usuario_fk");
+                entity.Property(e => e.idOS).HasColumnName("id_os_fk");
                 entity.Property(e => e.descricao).HasColumnName("descricao");
                 entity.Property(e => e.tipo).HasColumnName("tipo");
                 entity.Property(e => e.dataAlteracao).HasColumnName("data_alteracao");

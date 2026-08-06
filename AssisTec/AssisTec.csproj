@@ -271,6 +271,10 @@
     <Compile Include="Migrations\20260805135329_RenomearPropriedadeX.Designer.cs">
       <DependentUpon>20260805135329_RenomearPropriedadeX.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\20260806152229_RenomearChavesSecundarias.cs" />
+    <Compile Include="Migrations\20260806152229_RenomearChavesSecundarias.Designer.cs">
+      <DependentUpon>20260806152229_RenomearChavesSecundarias.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\AppDbContextModelSnapshot.cs" />
     <Compile Include="Models\HistoricoAlteracaoOS.cs" />
     <Compile Include="Models\ServicosOS.cs" />
