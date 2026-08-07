@@ -34,9 +34,16 @@ namespace AssisTec.Models
         [Required]
         public string status { get; set; }
         
+        [Required]
+        public string fornecedor { get; set; }
+        
         [NotMapped]
         [Browsable(false)]
         public string filtroDescricao { get; set; }
+        
+        [NotMapped]
+        [Browsable(false)]
+        public string filtroFornecedor { get; set; }
         
         [NotMapped]
         [Browsable(false)]

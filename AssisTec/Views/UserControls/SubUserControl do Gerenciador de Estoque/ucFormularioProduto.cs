@@ -52,6 +52,8 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
         
                 mtbPrecoCompra.Text = produto.preco_compra.ToString("N2", _cultureBr);
                 mtbPrecoVenda.Text = produto.preco_venda.ToString("N2", _cultureBr);
+
+                txtFornecedor.Text = produto.fornecedor;
             }
         }
 
@@ -110,7 +112,8 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
                     quantidade_minima = qtdMin,
                     preco_compra = precoCompra,
                     preco_venda = precoVenda,
-                    status = "Ativado"
+                    status = "Ativado",
+                    fornecedor = txtFornecedor.Text.Trim()
                 };
 
                 bool sucesso = false;
@@ -129,7 +132,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
                     {
                         descricao = $"Registro do produto: {_produto.descricao} no estoque",
                         valor = _produto.preco_compra * _produto.quantidade,
-                        status = "PAGA",
+                        status = "PENDENTE",
                         data_emissao = DateTime.Today,
                         data_pagamento = DateTime.Today,
                         data_vencimento = DateTime.Today,

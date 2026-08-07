@@ -59,17 +59,21 @@ public static class GeradorPdfEstoque
                 filterTable.SpacingAfter = 15f;
 
                 string[,] filtros = {
-                    { "Descrição:", dados.FiltroDescricao ?? string.Empty, "Status/Estoque:", dados.FiltroStatus ?? string.Empty }
+                    { "Descrição:", dados.FiltroDescricao ?? string.Empty, "Fornecedor:", dados.FiltroFornecedor ?? string.Empty },
+                    { "Status/Estoque:", dados.FiltroStatus ?? string.Empty, "", "" }
                 };
 
-                for (int j = 0; j < 4; j++)
+                for (int i = 0; i < 2; i++)
                 {
-                    bool isLabel = j % 2 == 0;
-                    PdfPCell cell = new PdfPCell(new Phrase(filtros[0, j], isLabel ? fontBold : fontRegular));
-                    cell.BackgroundColor = new BaseColor(247, 250, 252);
-                    cell.BorderColor = new BaseColor(237, 242, 247);
-                    cell.Padding = 6;
-                    filterTable.AddCell(cell);
+                    for (int j = 0; j < 4; j++)
+                    {
+                        bool isLabel = j % 2 == 0;
+                        PdfPCell cell = new PdfPCell(new Phrase(filtros[i, j], isLabel ? fontBold : fontRegular));
+                        cell.BackgroundColor = new BaseColor(247, 250, 252);
+                        cell.BorderColor = new BaseColor(237, 242, 247);
+                        cell.Padding = 6;
+                        filterTable.AddCell(cell);
+                    }
                 }
                 doc.Add(filterTable);
 
@@ -90,12 +94,12 @@ public static class GeradorPdfEstoque
 
                 doc.Add(new Paragraph("DETALHAMENTO DO INVENTÁRIO", fontSecao));
 
-                PdfPTable dataTable = new PdfPTable(8);
+                PdfPTable dataTable = new PdfPTable(9);
                 dataTable.WidthPercentage = 100;
-                dataTable.SetWidths(new float[] { 8f, 32f, 8f, 13f, 13f, 9f, 9f, 8f });
+                dataTable.SetWidths(new float[] { 6f, 22f, 7f, 12f, 12f, 7f, 7f, 15f, 12f });
                 dataTable.SpacingBefore = 5f;
 
-                string[] headers = { "ID", "Descrição", "Unid.", "Preço Compra", "Preço Venda", "Qtd.", "Min.", "Status" };
+                string[] headers = { "ID", "Descrição", "Unid.", "Preço Compra", "Preço Venda", "Qtd.", "Min.", "Fornecedor", "Status" };
                 foreach (var header in headers)
                 {
                     PdfPCell hCell = new PdfPCell(new Phrase(header, fontHeaderTabela));
@@ -116,6 +120,7 @@ public static class GeradorPdfEstoque
                         dataTable.AddCell(new PdfPCell(new Phrase(item.PrecoVenda.ToString("C2"), fontRegular)) { Padding = 6, HorizontalAlignment = Element.ALIGN_RIGHT, BorderColor = new BaseColor(226, 232, 240) });
                         dataTable.AddCell(new PdfPCell(new Phrase(item.Quantidade.ToString(), fontRegular)) { Padding = 6, HorizontalAlignment = Element.ALIGN_RIGHT, BorderColor = new BaseColor(226, 232, 240) });
                         dataTable.AddCell(new PdfPCell(new Phrase(item.QuantidadeMinima.ToString(), fontRegular)) { Padding = 6, HorizontalAlignment = Element.ALIGN_RIGHT, BorderColor = new BaseColor(226, 232, 240) });
+                        dataTable.AddCell(new PdfPCell(new Phrase(item.Fornecedor ?? string.Empty, fontRegular)) { Padding = 6, BorderColor = new BaseColor(226, 232, 240) });
 
                         string statusStr = item.Status ?? string.Empty;
                         bool ativo = statusStr.Equals("Ativo", StringComparison.OrdinalIgnoreCase) || statusStr.Equals("Ativado", StringComparison.OrdinalIgnoreCase);

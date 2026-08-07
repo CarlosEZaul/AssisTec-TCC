@@ -47,6 +47,8 @@ namespace AssisTec.UserControls
             this.btnStatus = new System.Windows.Forms.Button();
             this.btnEditar = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label2 = new System.Windows.Forms.Label();
+            this.txtFornecedor = new System.Windows.Forms.TextBox();
             this.cbDesativados = new System.Windows.Forms.CheckBox();
             this.cbAbaixoMinimo = new System.Windows.Forms.CheckBox();
             this.panelExibicao = new System.Windows.Forms.Panel();
@@ -118,21 +120,21 @@ namespace AssisTec.UserControls
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label1.Font = new System.Drawing.Font("Comic Sans MS", 9.75F);
             this.label1.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label1.Location = new System.Drawing.Point(355, 19);
+            this.label1.Location = new System.Drawing.Point(255, 5);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(53, 18);
+            this.label1.Size = new System.Drawing.Size(120, 18);
             this.label1.TabIndex = 152;
-            this.label1.Text = "Buscar:";
+            this.label1.Text = "Buscar pelo nome:";
             // 
             // txtBusca
             // 
             this.txtBusca.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.txtBusca.BackColor = System.Drawing.Color.White;
-            this.txtBusca.Location = new System.Drawing.Point(416, 19);
+            this.txtBusca.Location = new System.Drawing.Point(138, 26);
             this.txtBusca.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtBusca.Name = "txtBusca";
-            this.txtBusca.Size = new System.Drawing.Size(471, 20);
+            this.txtBusca.Size = new System.Drawing.Size(369, 20);
             this.txtBusca.TabIndex = 151;
             this.txtBusca.TextChanged += new System.EventHandler(this.txtBusca_TextChanged);
             // 
@@ -292,6 +294,8 @@ namespace AssisTec.UserControls
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.label2);
+            this.panel1.Controls.Add(this.txtFornecedor);
             this.panel1.Controls.Add(this.cbDesativados);
             this.panel1.Controls.Add(this.cbAbaixoMinimo);
             this.panel1.Controls.Add(this.btnAtualizar);
@@ -303,6 +307,29 @@ namespace AssisTec.UserControls
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1175, 63);
             this.panel1.TabIndex = 157;
+            // 
+            // label2
+            // 
+            this.label2.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.label2.Font = new System.Drawing.Font("Comic Sans MS", 9.75F);
+            this.label2.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.label2.Location = new System.Drawing.Point(628, 5);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(159, 18);
+            this.label2.TabIndex = 159;
+            this.label2.Text = "Buscar pelo fornecedor:";
+            // 
+            // txtFornecedor
+            // 
+            this.txtFornecedor.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.txtFornecedor.BackColor = System.Drawing.Color.White;
+            this.txtFornecedor.Location = new System.Drawing.Point(519, 26);
+            this.txtFornecedor.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.txtFornecedor.Name = "txtFornecedor";
+            this.txtFornecedor.Size = new System.Drawing.Size(369, 20);
+            this.txtFornecedor.TabIndex = 158;
+            this.txtFornecedor.TextChanged += new System.EventHandler(this.txtFornecedor_TextChanged);
             // 
             // cbDesativados
             // 
@@ -543,6 +570,9 @@ namespace AssisTec.UserControls
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
         }
+
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox txtFornecedor;
 
         private System.Windows.Forms.Button btnRelatorio;
 

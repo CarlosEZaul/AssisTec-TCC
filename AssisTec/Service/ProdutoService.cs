@@ -128,19 +128,20 @@ namespace AssisTec.Service
             return repository.obterTotais(new Produto());
         }
 
-        public (DataTable dados, int totalCadastrado, int abaixoMinimo, int semEstoque, decimal valorEstoque) Filtrar(string descricao, bool abaixoMinimo, bool semEstoque, bool desativados)
+        public (DataTable dados, int totalCadastrado, int abaixoMinimo, int semEstoque, decimal valorEstoque) Filtrar(string descricao, string fornecedor, bool abaixoMinimo, bool semEstoque, bool desativados)
         {
             var filtro = new Produto()
             {
                 filtroDescricao = descricao?.Trim(),
+                filtroFornecedor = fornecedor?.Trim(),
                 filtroAbaixoMinimo = abaixoMinimo,
                 filtroSemEstoque = semEstoque,
                 filtroProdutosDesativados = desativados
             };
-    
+
             var dados = repository.Filtrar(filtro);
             var totais = repository.obterTotais(filtro);
-    
+
             return (dados, totais.totalCadastrado, totais.abaixoMinimo, totais.semEstoque, totais.valorEstoque);
         }
 
@@ -191,6 +192,11 @@ namespace AssisTec.Service
                 throw new ArgumentNullException("Quantidade minima não pode ser menor que 0");
             }
 
+            if (string.IsNullOrWhiteSpace(produto.fornecedor))
+            {
+                throw new ArgumentNullException("Fornecedor nulo");
+            }
+
             return true;
 
         }
@@ -208,7 +214,7 @@ namespace AssisTec.Service
         }
         
        public void GerarRelatorioEstoquePdf(Produto filtro, string caminhoDestino)
-    {
+        {
         try
         {
             DataTable tabelaProdutos = repository.Filtrar(filtro);
@@ -230,6 +236,7 @@ namespace AssisTec.Service
             ProdutoDTO.EstoqueRelatorioDTO relatorio = new ProdutoDTO.EstoqueRelatorioDTO
             {
                 FiltroDescricao = string.IsNullOrEmpty(filtro.filtroDescricao) ? "Todos" : filtro.filtroDescricao,
+                FiltroFornecedor = string.IsNullOrWhiteSpace(filtro.filtroFornecedor) ? "Todos" : filtro.filtroFornecedor,
                 FiltroStatus = filtrosAtivos.Count > 0
                     ? $"{statusDescricao} ({string.Join(", ", filtrosAtivos)})"
                     : statusDescricao,
@@ -253,7 +260,8 @@ namespace AssisTec.Service
                         PrecoCompra = ObterDecimalColuna(row, tabelaProdutos, "PREÇO_COMPRA", "PRECO_COMPRA"),
                         Quantidade = ObterIntColuna(row, tabelaProdutos, "QUANTIDADE", "QTD_ESTOQUE"),
                         QuantidadeMinima = ObterIntColuna(row, tabelaProdutos, "QUANTIDADE_MINIMA", "QTD_MINIMA"),
-                        Status = ObterValorColuna(row, tabelaProdutos, "STATUS", "SITUACAO")
+                        Status = ObterValorColuna(row, tabelaProdutos, "STATUS", "SITUACAO"),
+                        Fornecedor = ObterValorColuna(row, tabelaProdutos, "FORNECEDOR", "Fornecedor")
                     });
                 }
             }
@@ -265,39 +273,39 @@ namespace AssisTec.Service
             string mensagemDetalhada = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
             throw new Exception("Falha ao gerar o relatório de estoque em PDF: " + mensagemDetalhada, ex);
         }
-    }
+        }
 
-    private string ObterValorColuna(DataRow row, DataTable table, string colPrincipal, string colAlternative)
-    {
-        if (table.Columns.Contains(colPrincipal) && row[colPrincipal] != DBNull.Value)
-            return row[colPrincipal].ToString();
+        private string ObterValorColuna(DataRow row, DataTable table, string colPrincipal, string colAlternative)
+        {
+            if (table.Columns.Contains(colPrincipal) && row[colPrincipal] != DBNull.Value)
+                return row[colPrincipal].ToString();
 
-        if (table.Columns.Contains(colAlternative) && row[colAlternative] != DBNull.Value)
-            return row[colAlternative].ToString();
+            if (table.Columns.Contains(colAlternative) && row[colAlternative] != DBNull.Value)
+                return row[colAlternative].ToString();
 
-        return string.Empty;
-    }
+            return string.Empty;
+        }
 
-    private decimal ObterDecimalColuna(DataRow row, DataTable table, string colPrincipal, string colAlternative)
-    {
-        if (table.Columns.Contains(colPrincipal) && row[colPrincipal] != DBNull.Value)
-            return Convert.ToDecimal(row[colPrincipal]);
+        private decimal ObterDecimalColuna(DataRow row, DataTable table, string colPrincipal, string colAlternative)
+        {
+            if (table.Columns.Contains(colPrincipal) && row[colPrincipal] != DBNull.Value)
+                return Convert.ToDecimal(row[colPrincipal]);
 
-        if (table.Columns.Contains(colAlternative) && row[colAlternative] != DBNull.Value)
-            return Convert.ToDecimal(row[colAlternative]);
+            if (table.Columns.Contains(colAlternative) && row[colAlternative] != DBNull.Value)
+                return Convert.ToDecimal(row[colAlternative]);
 
-        return 0m;
-    }
+            return 0m;
+        }
 
-    private int ObterIntColuna(DataRow row, DataTable table, string colPrincipal, string colAlternative)
-    {
-        if (table.Columns.Contains(colPrincipal) && row[colPrincipal] != DBNull.Value)
-            return Convert.ToInt32(row[colPrincipal]);
+        private int ObterIntColuna(DataRow row, DataTable table, string colPrincipal, string colAlternative)
+        {
+            if (table.Columns.Contains(colPrincipal) && row[colPrincipal] != DBNull.Value)
+                return Convert.ToInt32(row[colPrincipal]);
 
-        if (table.Columns.Contains(colAlternative) && row[colAlternative] != DBNull.Value)
-            return Convert.ToInt32(row[colAlternative]);
+            if (table.Columns.Contains(colAlternative) && row[colAlternative] != DBNull.Value)
+                return Convert.ToInt32(row[colAlternative]);
 
-        return 0;
-    }
+            return 0;
+        }
     }
 }

@@ -259,6 +259,7 @@ namespace AssisTec.Repository
                 entity.Property(e => e.preco_venda).HasColumnName("preco_venda");
                 entity.Property(e => e.quantidade).HasColumnName("quantidade");
                 entity.Property(e => e.quantidade_minima).HasColumnName("quantidade_minima");
+                entity.Property(e => e.fornecedor).HasColumnName("fornecedor"); 
                 entity.Property(e => e.status).HasColumnName("status");
             });
 

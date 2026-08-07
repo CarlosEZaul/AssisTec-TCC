@@ -173,6 +173,7 @@ namespace AssisTec.Repository
             dataTable.Columns.Add("QUANTIDADE", typeof(int));
             dataTable.Columns.Add("QUANTIDADE_MINIMA", typeof(int));
             dataTable.Columns.Add("STATUS", typeof(string));
+            dataTable.Columns.Add("Fornecedor", typeof(string));
 
             foreach (var produto in resultado)
             {
@@ -184,7 +185,8 @@ namespace AssisTec.Repository
                     produto.preco_compra,
                     produto.quantidade,
                     produto.quantidade_minima,
-                    produto.status
+                    produto.status,
+                    produto.fornecedor
                 );
             }
             return dataTable;
@@ -197,6 +199,11 @@ namespace AssisTec.Repository
             if (!string.IsNullOrWhiteSpace(filtro.filtroDescricao))
             {
                 query = query.Where(p => p.descricao.Contains(filtro.filtroDescricao));
+            }
+
+            if (!string.IsNullOrWhiteSpace(filtro.filtroFornecedor))
+            {
+                query = query.Where(p => p.fornecedor.Contains(filtro.filtroFornecedor));
             }
 
             if (filtro.filtroAbaixoMinimo)
@@ -231,6 +238,7 @@ namespace AssisTec.Repository
             dataTable.Columns.Add("Descrção", typeof(string));
             dataTable.Columns.Add("Quantidade", typeof(string));
             dataTable.Columns.Add("Quantidade mínima", typeof(int));
+            dataTable.Columns.Add("Fornecedor", typeof(string));
 
             var dadosProjetados = query.Select(p => new
                 {
@@ -238,6 +246,7 @@ namespace AssisTec.Repository
                     p.descricao,
                     p.quantidade,
                     p.quantidade_minima,
+                    p.fornecedor
                 }
             ).ToList();
 
@@ -247,7 +256,8 @@ namespace AssisTec.Repository
                     produto.idProduto,
                     produto.descricao,
                     produto.quantidade,
-                    produto.quantidade_minima
+                    produto.quantidade_minima,
+                    produto.fornecedor
                 );
             }
             

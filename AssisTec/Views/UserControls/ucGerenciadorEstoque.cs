@@ -55,7 +55,8 @@ namespace AssisTec.UserControls
             dgvEstoque.Columns[5].HeaderText = "Quantidade";
             dgvEstoque.Columns[6].HeaderText = "Quantidade Minima";
             dgvEstoque.Columns[7].HeaderText = "Status";
-            
+            dgvEstoque.Columns[8].HeaderText = "Fornecedor";
+
         }
         private void AtualizarGrid()
         {
@@ -67,6 +68,8 @@ namespace AssisTec.UserControls
             _listaLabelsTotais[2].Text = totais.semEstoque.ToString();
             _listaLabelsTotais[3].Text = totais.valorEstoque.ToString();
 
+            txtFornecedor.Text = null;
+            txtBusca.Text = null;
             cbAbaixoMinimo.Checked = false;
             cbDesativados.Checked = false;
             cbSemEstoque.Checked = false;
@@ -94,11 +97,12 @@ namespace AssisTec.UserControls
         private void FiltrarProdutos()
         {
             string termoBusca = txtBusca.Text.Trim();
+            string termoFornecedor = txtFornecedor.Text.Trim();
             bool abaixoMinimo = cbAbaixoMinimo.Checked;
             bool semEstoque = cbSemEstoque.Checked;
             bool desativados = cbDesativados.Checked;
 
-            var resultado = _service.Filtrar(termoBusca, abaixoMinimo, semEstoque, desativados);
+            var resultado = _service.Filtrar(termoBusca, termoFornecedor, abaixoMinimo, semEstoque, desativados);
 
             dgvEstoque.DataSource = resultado.dados;
 
@@ -272,6 +276,7 @@ namespace AssisTec.UserControls
                 Produto filtro = new Produto
                 {
                     filtroDescricao = txtBusca.Text.Trim(),
+                    filtroFornecedor = txtFornecedor.Text.Trim(),
                     filtroAbaixoMinimo = cbAbaixoMinimo.Checked,
                     filtroSemEstoque = cbSemEstoque.Checked,
                     filtroProdutosDesativados = cbDesativados.Checked
@@ -296,5 +301,10 @@ namespace AssisTec.UserControls
             }
         }
         #endregion
+
+        private void txtFornecedor_TextChanged(object sender, EventArgs e)
+        {
+            FiltrarProdutos();
+        }
     }
 }

@@ -48,6 +48,8 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
             this.btnFechar = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnLimpar = new System.Windows.Forms.Button();
+            this.label6 = new System.Windows.Forms.Label();
+            this.txtFornecedor = new System.Windows.Forms.TextBox();
             this.panelBotoes.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -196,7 +198,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
             this.panelBotoes.Controls.Add(this.btnFechar);
             this.panelBotoes.Controls.Add(this.btnSave);
             this.panelBotoes.Controls.Add(this.btnLimpar);
-            this.panelBotoes.Location = new System.Drawing.Point(127, 400);
+            this.panelBotoes.Location = new System.Drawing.Point(127, 449);
             this.panelBotoes.Name = "panelBotoes";
             this.panelBotoes.Size = new System.Drawing.Size(279, 61);
             this.panelBotoes.TabIndex = 251;
@@ -246,11 +248,34 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
             this.btnLimpar.UseVisualStyleBackColor = false;
             this.btnLimpar.Click += new System.EventHandler(this.btnLimpar_Click);
             // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Comic Sans MS", 9.75F);
+            this.label6.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.label6.Location = new System.Drawing.Point(44, 390);
+            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(78, 18);
+            this.label6.TabIndex = 253;
+            this.label6.Text = "Fornecedor";
+            // 
+            // txtFornecedor
+            // 
+            this.txtFornecedor.BackColor = System.Drawing.Color.White;
+            this.txtFornecedor.Location = new System.Drawing.Point(44, 408);
+            this.txtFornecedor.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.txtFornecedor.Name = "txtFornecedor";
+            this.txtFornecedor.Size = new System.Drawing.Size(460, 20);
+            this.txtFornecedor.TabIndex = 252;
+            // 
             // ucFormularioProduto
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(55)))), ((int)(((byte)(76)))));
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.txtFornecedor);
             this.Controls.Add(this.panelBotoes);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.txtQuantidadeMinima);
@@ -266,11 +291,14 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
             this.Controls.Add(this.txtDescricao);
             this.Controls.Add(this.label33);
             this.Name = "ucFormularioProduto";
-            this.Size = new System.Drawing.Size(543, 477);
+            this.Size = new System.Drawing.Size(543, 526);
             this.panelBotoes.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
         }
+
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TextBox txtFornecedor;
 
         private System.Windows.Forms.Panel panelBotoes;
         private System.Windows.Forms.Button btnFechar;

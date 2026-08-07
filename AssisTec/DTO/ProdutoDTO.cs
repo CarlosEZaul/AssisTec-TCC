@@ -14,11 +14,13 @@ namespace AssisTec.Dtos
             public int Quantidade { get; set; }
             public int QuantidadeMinima { get; set; }
             public string Status { get; set; }
+            public string Fornecedor { get; set; }
         }
 
         public class EstoqueRelatorioDTO
         {
             public string FiltroDescricao { get; set; }
+            public string FiltroFornecedor { get; set; }
             public string FiltroStatus { get; set; }
             public int TotalCadastrado { get; set; }
             public int AbaixoMinimo { get; set; }

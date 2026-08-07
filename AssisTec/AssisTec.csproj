@@ -275,6 +275,10 @@
     <Compile Include="Migrations\20260806152229_RenomearChavesSecundarias.Designer.cs">
       <DependentUpon>20260806152229_RenomearChavesSecundarias.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\20260807143158_fornecedor_em_produto.cs" />
+    <Compile Include="Migrations\20260807143158_fornecedor_em_produto.Designer.cs">
+      <DependentUpon>20260807143158_fornecedor_em_produto.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\AppDbContextModelSnapshot.cs" />
     <Compile Include="Models\HistoricoAlteracaoOS.cs" />
     <Compile Include="Models\ServicosOS.cs" />
