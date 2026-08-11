@@ -45,6 +45,10 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
             this.label33 = new System.Windows.Forms.Label();
             this.mtbValor = new System.Windows.Forms.MaskedTextBox();
             this.cbProduto = new System.Windows.Forms.ComboBox();
+            this.cbFormaPagamento = new System.Windows.Forms.ComboBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.cbStatus = new System.Windows.Forms.ComboBox();
+            this.label9 = new System.Windows.Forms.Label();
             this.panelBotoes.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -65,7 +69,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
             this.panelBotoes.Controls.Add(this.btnFechar);
             this.panelBotoes.Controls.Add(this.btnSave);
             this.panelBotoes.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelBotoes.Location = new System.Drawing.Point(0, 256);
+            this.panelBotoes.Location = new System.Drawing.Point(0, 359);
             this.panelBotoes.Name = "panelBotoes";
             this.panelBotoes.Size = new System.Drawing.Size(337, 62);
             this.panelBotoes.TabIndex = 259;
@@ -203,12 +207,56 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
             this.cbProduto.TabIndex = 262;
             this.cbProduto.SelectedIndexChanged += new System.EventHandler(this.cbProduto_SelectedIndexChanged);
             // 
+            // cbFormaPagamento
+            // 
+            this.cbFormaPagamento.FormattingEnabled = true;
+            this.cbFormaPagamento.Location = new System.Drawing.Point(16, 327);
+            this.cbFormaPagamento.Name = "cbFormaPagamento";
+            this.cbFormaPagamento.Size = new System.Drawing.Size(306, 21);
+            this.cbFormaPagamento.TabIndex = 264;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Comic Sans MS", 9.75F);
+            this.label6.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.label6.Location = new System.Drawing.Point(16, 306);
+            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(131, 18);
+            this.label6.TabIndex = 263;
+            this.label6.Text = "Forma de Pagamento";
+            // 
+            // cbStatus
+            // 
+            this.cbStatus.FormattingEnabled = true;
+            this.cbStatus.Location = new System.Drawing.Point(16, 279);
+            this.cbStatus.Name = "cbStatus";
+            this.cbStatus.Size = new System.Drawing.Size(306, 21);
+            this.cbStatus.TabIndex = 266;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Comic Sans MS", 9.75F);
+            this.label9.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.label9.Location = new System.Drawing.Point(16, 255);
+            this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(137, 18);
+            this.label9.TabIndex = 265;
+            this.label9.Text = "Status do pagamento:";
+            // 
             // ucRegistrarEntrada
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(55)))), ((int)(((byte)(76)))));
             this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Controls.Add(this.cbStatus);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.cbFormaPagamento);
+            this.Controls.Add(this.label6);
             this.Controls.Add(this.cbProduto);
             this.Controls.Add(this.mtbValor);
             this.Controls.Add(this.label4);
@@ -222,11 +270,17 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label33);
             this.Name = "ucRegistrarEntrada";
-            this.Size = new System.Drawing.Size(337, 318);
+            this.Size = new System.Drawing.Size(337, 421);
             this.panelBotoes.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
         }
+
+        private System.Windows.Forms.ComboBox cbStatus;
+        private System.Windows.Forms.Label label9;
+
+        private System.Windows.Forms.ComboBox cbFormaPagamento;
+        private System.Windows.Forms.Label label6;
 
         private System.Windows.Forms.ComboBox cbProduto;
 

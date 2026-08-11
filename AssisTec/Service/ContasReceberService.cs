@@ -76,6 +76,20 @@ namespace AssisTec.Service
             return contasDto;
         }
 
+        public DataTable CarregarFormasPagamento(bool incluirOpcaoTodas = false)
+        {
+            var dt = _pagamentoRepository.carregarFormasPamento();
+
+            if (incluirOpcaoTodas)
+            {
+                DataRow dr = dt.NewRow();
+                dr["id_forma_pagamento"] = 0;
+                dr["exibicao"] = "Todas as formas de pagamento";
+                dt.Rows.InsertAt(dr, 0);
+            }
+            return dt;
+        }
+        
         public ContasReceber ObterPorId(int id)
         {
             if (id <= 0) throw new ArgumentException("ID inválido.");

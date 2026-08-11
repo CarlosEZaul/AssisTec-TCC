@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
@@ -15,6 +16,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
         private readonly ProdutoService _produtoService;
         private readonly ContasReceberService _contasReceberService;
         private Produto _produto;
+        private DataTable _dtFormasPagamento;
         private decimal _valor;
         
         public ucRegistrarSaida(int idProduto, ProdutoService produtoService, MovimentacaoEstoqueService movimentacaoEstoqueService, ContasReceberService contasReceberService)
@@ -34,7 +36,6 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
             _produtoService = produtoService ?? throw new ArgumentNullException(nameof(produtoService));
             _movimentacaoEstoqueService = movimentacaoEstoqueService ?? throw new ArgumentNullException(nameof(movimentacaoEstoqueService));
             _contasReceberService = contasReceberService ?? throw new ArgumentNullException(nameof(contasReceberService));
-            
             
             configurarComponentes();
         }
@@ -82,8 +83,78 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
             
             mtbValor.Mask = null; 
             mtbValor.Text = "0,00";
+            
+            _dtFormasPagamento = _contasReceberService.CarregarFormasPagamento(incluirOpcaoTodas: false);
+            
+            cbStatus.SelectedIndexChanged -= cbStatus_SelectedIndexChanged;
+            cbStatus.Items.Clear();
+            cbStatus.Items.AddRange(new[] { "PENDENTE", "PAGA" });
+            cbStatus.SelectedIndex = 0;
+            cbStatus.SelectedIndexChanged += cbStatus_SelectedIndexChanged;
 
             AtualizarProdutoSelecionado();
+            ControlarVisibilidadeFinanceiro();
+        }
+
+        private void ControlarVisibilidadeFinanceiro()
+        {
+            bool eVenda = cbMotivo.SelectedItem?.ToString() == "Venda de mercadoria";
+            
+            cbStatus.Enabled = eVenda;
+
+            if (!eVenda)
+            {
+                cbFormaPagamento.Enabled = false;
+                cbFormaPagamento.DataSource = _dtFormasPagamento;
+                cbFormaPagamento.DisplayMember = "exibicao";
+                cbFormaPagamento.ValueMember = "id_forma_pagamento";
+                cbFormaPagamento.SelectedIndex = -1;
+                cbStatus.SelectedIndex = 0;
+            }
+            else
+            {
+                AtualizarRegraFormaPagamento();
+            }
+        }
+
+        private void AtualizarRegraFormaPagamento()
+        {
+            if (_dtFormasPagamento == null || _dtFormasPagamento.Rows.Count == 0) return;
+
+            string status = cbStatus.SelectedItem?.ToString();
+
+            if (status == "PENDENTE")
+            {
+                DataView dv = new DataView(_dtFormasPagamento);
+                cbFormaPagamento.DataSource = dv;
+                cbFormaPagamento.DisplayMember = "exibicao";
+                cbFormaPagamento.ValueMember = "id_forma_pagamento";
+
+                cbFormaPagamento.SelectedIndex = 0;
+                cbFormaPagamento.Enabled = false;
+            }
+            else if (status == "PAGA")
+            {
+                DataView dv = new DataView(_dtFormasPagamento);
+        
+                string primeiraChave = _dtFormasPagamento.Columns[0].ColumnName;
+                dv.RowFilter = $"{primeiraChave} <> 0 AND exibicao <> '---'";
+
+                cbFormaPagamento.DataSource = dv;
+                cbFormaPagamento.DisplayMember = "exibicao";
+                cbFormaPagamento.ValueMember = "id_forma_pagamento";
+
+                cbFormaPagamento.Enabled = true;
+
+                if (dv.Count > 0)
+                {
+                    cbFormaPagamento.SelectedIndex = 0;
+                }
+                else
+                {
+                    cbFormaPagamento.SelectedIndex = -1;
+                }
+            }
         }
 
         private void AtualizarProdutoSelecionado()
@@ -113,8 +184,11 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
         {
             if (_produto == null || !int.TryParse(txtQuantidade.Text, out int quantidade) || cbMotivo.SelectedItem == null)
             {
-                mtbValor.Text = "0,00";
-                _valor = 0;
+                if (cbMotivo.SelectedItem?.ToString() != "Ajuste de Inventário / Correção de Saldo")
+                {
+                    mtbValor.Text = "0,00";
+                    _valor = 0;
+                }
                 return;
             }
 
@@ -124,6 +198,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
             {
                 _valor = quantidade * _produto.preco_venda;
                 mtbValor.Enabled = false; 
+                mtbValor.Text = _valor.ToString("N2", new CultureInfo("pt-BR"));
             }
             else if (motivo == "Devolução a Fornecedores" || 
                      motivo == "Doação / Brinde" || 
@@ -133,14 +208,12 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
             {
                 _valor = quantidade * _produto.preco_compra;
                 mtbValor.Enabled = false;
+                mtbValor.Text = _valor.ToString("N2", new CultureInfo("pt-BR"));
             }
             else
             {
-                _valor = 0;
                 mtbValor.Enabled = true;
             }
-
-            mtbValor.Text = _valor.ToString("N2", new CultureInfo("pt-BR"));
         }
         #endregion
         
@@ -149,6 +222,11 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
         private void cbProduto_SelectedIndexChanged(object sender, EventArgs e)
         {
             AtualizarProdutoSelecionado();
+        }
+
+        private void cbStatus_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            AtualizarRegraFormaPagamento();
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -171,7 +249,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
                 return;
             }
 
-            if (!decimal.TryParse(mtbValor.Text, out decimal valorDigitado))
+            if (!decimal.TryParse(mtbValor.Text, NumberStyles.Currency, new CultureInfo("pt-BR"), out decimal valorDigitado))
             {
                 MessageBox.Show("Por favor, insira um valor válido.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
@@ -185,6 +263,21 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
             }
 
             string motivoSelecionado = cbMotivo.SelectedItem.ToString();
+
+            if (motivoSelecionado == "Venda de mercadoria")
+            {
+                if (cbStatus.SelectedItem == null)
+                {
+                    MessageBox.Show("Por favor, selecione o status do pagamento.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                if (cbStatus.Text == "PAGA" && (cbFormaPagamento.SelectedValue == null || Convert.ToInt32(cbFormaPagamento.SelectedValue) <= 0))
+                {
+                    MessageBox.Show("Por favor, selecione uma forma de pagamento válida para a venda.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+            }
 
             var novaMovimentacao = new MovimentacaoEstoque
             {
@@ -203,16 +296,18 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
 
                 if (motivoSelecionado == "Venda de mercadoria")
                 {
+                    string statusPagamento = cbStatus.Text;
+
                     var contaReceber = new ContasReceber
                     {
-                        descricao = motivoSelecionado,
+                        descricao = $"{motivoSelecionado} - {_produto.descricao}",
                         valor = _valor,
                         data_emissao = DateTime.Today,
-                        data_pagamento = DateTime.Today,
-                        data_vencimento = DateTime.Today,
-                        status = "PAGA",
+                        data_vencimento = DateTime.Today.AddDays(3),
+                        data_pagamento = statusPagamento == "PAGA" ? (DateTime?)DateTime.Today : null,
+                        status = statusPagamento,
                         observacoes = $"Saída no estoque do produto {_produto.descricao} registrada pelo usuário {Sessao.usuarioLogado.Nome}",
-                        id_forma_pagamento_fk = 1
+                        id_forma_pagamento_fk = Convert.ToInt32(cbFormaPagamento.SelectedValue)
                     };
                     _contasReceberService.Salvar(contaReceber, true);
                 }
@@ -234,6 +329,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
 
         private void cbMotivo_SelectedIndexChanged(object sender, EventArgs e)
         {
+            ControlarVisibilidadeFinanceiro();
             RecalcularTotal();
         }
 
@@ -277,6 +373,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
             if (string.IsNullOrWhiteSpace(texto))
             {
                 mtbValor.Text = "0,00";
+                _valor = 0;
                 return;
             }
 

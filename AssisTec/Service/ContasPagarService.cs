@@ -14,12 +14,12 @@ namespace AssisTec.Service
     public class ContasPagarService
     {
         private readonly IContasPagarRepository _repository;
-        private readonly IPagamentoRepository _pagamento;
+        private readonly IPagamentoRepository _pagamentoRepository;
 
         public ContasPagarService(IContasPagarRepository repository, IPagamentoRepository pagamento)
         {
             _repository = repository ?? throw new ArgumentNullException(nameof(repository));
-            _pagamento = pagamento ?? throw new ArgumentNullException(nameof(pagamento));
+            _pagamentoRepository = pagamento ?? throw new ArgumentNullException(nameof(pagamento));
         }
 
         public void ProcessarContasAtrasadas()
@@ -109,6 +109,20 @@ namespace AssisTec.Service
                 throw new ArgumentException("Data de emissão inválida.");
             if (conta.data_vencimento == DateTime.MinValue) 
                 throw new ArgumentException("Data de vencimento inválida.");
+        }
+        
+        public DataTable CarregarFormasPagamento(bool incluirOpcaoTodas = false)
+        {
+            var dt = _pagamentoRepository.carregarFormasPamento();
+
+            if (incluirOpcaoTodas)
+            {
+                DataRow dr = dt.NewRow();
+                dr["id_forma_pagamento"] = 0;
+                dr["exibicao"] = "Todas as formas de pagamento";
+                dt.Rows.InsertAt(dr, 0);
+            }
+            return dt;
         }
         
         public (DataTable Dados, decimal TotalGeral, decimal TotalPagar, decimal TotalPendente, decimal TotalAtrasado) Filtrar(
