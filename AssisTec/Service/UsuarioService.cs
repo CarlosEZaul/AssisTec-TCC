@@ -268,13 +268,13 @@ namespace AssisTec.Service
             }
         }
 
-        private string GerarHashSHA256(string senhaTextoClaro)
+        private string GerarHashSHA256(string senha)
         {
-            if (string.IsNullOrEmpty(senhaTextoClaro)) return string.Empty;
+            if (string.IsNullOrEmpty(senha)) return string.Empty;
 
             using (SHA256 sha256Hash = SHA256.Create())
             {
-                byte[] bytesOriginal = Encoding.UTF8.GetBytes(senhaTextoClaro);
+                byte[] bytesOriginal = Encoding.UTF8.GetBytes(senha);
                 byte[] bytesHash = sha256Hash.ComputeHash(bytesOriginal);
 
                 StringBuilder builder = new StringBuilder();
@@ -344,37 +344,6 @@ namespace AssisTec.Service
         public DataTable obterHistoricoOs(int id)
         {
             return ordemServicoRepository.ObterHistoricoUsuario(id);
-        }
-
-        public List<Usuario> obterTodosTecnicos()
-        {
-            try
-            {
-                return repository.ObterTodosTecnicosAtivados();
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw;
-            }
-        }
-        
-        public DataTable ObterHistoricoOs(int id)
-        {
-            return ordemServicoRepository.ObterHistoricoUsuario(id);
-        }
-
-        public List<Usuario> ObterTodosTecnicos()
-        {
-            try
-            {
-                return repository.ObterTodosTecnicosAtivados();
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw;
-            }
         }
 
         public void GerarRelatorioIndividualPdf(int idUsuario, string caminhoDestino)

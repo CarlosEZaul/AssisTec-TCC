@@ -63,17 +63,41 @@ namespace AssisTec.Service
                 }
 
                 bodyBuilder.HtmlBody = $@"
-                    <div style='font-family: Arial, sans-serif; padding: 20px; color: #333;'>
-                        <div style='margin-bottom: 20px;'>
-                            <img src='cid:{contentId}' alt='Logo AssisTec' style='max-width: 180px; height: auto;' />
-                        </div>
-                        <h2 style='color: #0056b3;'>Código de Verificação</h2>
-                        <p>Utilize o código abaixo no sistema AssisTec:</p>
-                        <div style='background-color: #f4f4f4; padding: 10px 20px; display: inline-block; border-radius: 5px; margin: 10px 0;'>
-                            <h1 style='color: #0056b3; letter-spacing: 5px; margin: 0;'>{codigoExibicao}</h1>
-                        </div>
-                        <p style='font-size: 12px; color: #777;'>Se você não solicitou este código, ignore este e-mail.</p>
-                    </div>";
+                <table role='presentation' width='100%' cellpadding='0' cellspacing='0' style='background-color: #0d0d0d; padding: 40px 0;'>
+                    <tr>
+                        <td align='center'>
+                            <table role='presentation' width='400' cellpadding='0' cellspacing='0' style='background-color: #1a1a1a; border-radius: 12px; padding: 40px 30px; font-family: Arial, sans-serif; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.4);'>
+                                <tr>
+                                    <td align='center' style='padding-bottom: 20px;'>
+                                        <img src='cid:{contentId}' alt='Logo AssisTec' style='max-width: 160px; height: auto;' />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align='center'>
+                                        <h2 style='color: #4da3ff; margin: 0 0 10px 0; font-weight: 600;'>Código de Verificação</h2>
+                                        <p style='color: #cccccc; font-size: 14px; margin: 0 0 20px 0;'>
+                                            Utilize o código abaixo no sistema AssisTec:
+                                        </p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align='center'>
+                                        <div style='background-color: #262626; padding: 15px 30px; display: inline-block; border-radius: 8px; border: 1px solid #333;'>
+                                            <h1 style='color: #4da3ff; letter-spacing: 8px; margin: 0; font-size: 32px;'>{codigoExibicao}</h1>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align='center' style='padding-top: 25px;'>
+                                        <p style='font-size: 12px; color: #777777; margin: 0;'>
+                                            Se você não solicitou este código, ignore este e-mail.
+                                        </p>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>";
 
                 message.Body = bodyBuilder.ToMessageBody();
 
