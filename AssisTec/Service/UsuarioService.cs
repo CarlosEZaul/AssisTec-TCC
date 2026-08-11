@@ -74,7 +74,7 @@ namespace AssisTec.Service
                     return (false, "Usuário não encontrado.");
                 }
 
-                usuario.Senha = GerarHashSHA256(novaSenha);
+                usuario.Senha = GerarHash(novaSenha);
 
                 bool alterado = repository.AlterarSenha(usuario);
 
@@ -119,7 +119,7 @@ namespace AssisTec.Service
                     return (false, "Este usuário está desativado. Entre em contato com o administrador.", null);
                 }
 
-                string senhaHashDigitada = GerarHashSHA256(senha);
+                string senhaHashDigitada = GerarHash(senha);
                 if (usuario.Senha != senhaHashDigitada)
                 {
                     return (false, "CPF ou senha inválidos.", null);
@@ -187,7 +187,7 @@ namespace AssisTec.Service
             if (repository.EmailExiste(usuario.Email))
                 return (false, "E-mail já cadastrado no sistema.");
 
-            usuario.Senha = GerarHashSHA256(usuario.Senha);
+            usuario.Senha = GerarHash(usuario.Senha);
 
             bool inserirUsuario = repository.InserirUsuario(usuario);
             if (inserirUsuario)
@@ -231,7 +231,7 @@ namespace AssisTec.Service
                 }
                 else 
                 {
-                    usuario.Senha = GerarHashSHA256(usuario.Senha);
+                    usuario.Senha = GerarHash(usuario.Senha);
                 }
 
                 bool atualizou = repository.AtualizarUsuario(usuario);
@@ -268,7 +268,7 @@ namespace AssisTec.Service
             }
         }
 
-        private string GerarHashSHA256(string senha)
+        private string GerarHash(string senha)
         {
             if (string.IsNullOrEmpty(senha)) return string.Empty;
 
