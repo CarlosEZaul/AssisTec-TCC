@@ -84,7 +84,15 @@ namespace AssisTec
    
             if (sucesso)
             {
-                
+                int usuarioIdSalvo = GerenciadorSessaoLocal.ObterUsuarioIdValido();
+
+                if (usuarioIdSalvo == usuario.Id)
+                {
+                    Sessao.usuarioLogado = usuario;
+                    this.DialogResult = DialogResult.OK;
+                    this.Close();
+                    return;
+                }
 
                 ucAutenticacao uc2FA = new ucAutenticacao(service, usuario);
         
@@ -105,6 +113,11 @@ namespace AssisTec
                     {
                         this.Width = larguraOriginal;
                         this.Height = alturaOriginal;
+                    }
+                    else
+                    {
+                        this.DialogResult = DialogResult.OK;
+                        this.Close();
                     }
                 };
             }

@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using AssisTec.Repository;
 using Microsoft.EntityFrameworkCore;
@@ -13,15 +10,14 @@ namespace AssisTec
         [STAThread]
         static void Main()
         {
-            using (var context = new AppDbContext())
-            {
-                context.Database.EnsureCreated();
-                context.Database.Migrate();
-            }
-            
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            
+
+            using (var context = new AppDbContext())
+            {
+                context.Database.Migrate();
+            }
+
             FrmLogin f = new FrmLogin();
             if (f.ShowDialog() == DialogResult.OK)
             {

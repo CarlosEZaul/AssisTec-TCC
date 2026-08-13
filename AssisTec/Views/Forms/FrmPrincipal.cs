@@ -329,8 +329,11 @@ namespace AssisTec
 
         private void funcaoLogOut(Object sender, EventArgs e)
         {
+            GerenciadorSessaoLocal.LimparSessao();
             Sessao.usuarioLogado = null;
+    
             Application.Restart();
+            Environment.Exit(0);
         }
 
         #endregion

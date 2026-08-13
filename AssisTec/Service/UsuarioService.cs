@@ -285,6 +285,8 @@ namespace AssisTec.Service
                 return builder.ToString();
             }
         }
+        
+        
 
         public void GerarRelatorioUsuariosPdf(string nome, bool apenasInativos, int nivel, string caminhoDestino)
         {

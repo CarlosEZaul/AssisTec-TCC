@@ -292,7 +292,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios
                 Cursor = Cursors.WaitCursor;
                 btnVerificarEmail.Enabled = false;
 
-                _codigoGerado = _emailService.GerarCodigoVerificacao();
+                _codigoGerado = CodigoVerificacao.GerarESalvar(emailDestino);
 
                 bool enviado = await Task.Run(() => _emailService.EnviarCodigoVerificacao(emailDestino, _codigoGerado));
 
@@ -307,14 +307,14 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios
                 }
                 else
                 {
-                    MessageBox.Show("Falha ao enviar e-mail. Verifique a conexão com a internet.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     _codigoGerado = string.Empty;
+                    MessageBox.Show("Falha ao enviar e-mail. Verifique a conexão com a internet.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Ocorreu um erro ao enviar o código: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 _codigoGerado = string.Empty;
+                MessageBox.Show($"Ocorreu um erro ao enviar o código: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {

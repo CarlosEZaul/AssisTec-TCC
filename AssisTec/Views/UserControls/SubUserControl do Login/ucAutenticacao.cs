@@ -11,8 +11,6 @@ namespace AssisTec.UserControls
         private readonly UsuarioService _usuarioService;
         private readonly EmailService _emailService;
         private readonly Usuario _usuarioPendente;
-        
-        private string _codigoGerado;
 
         public ucAutenticacao(UsuarioService usuarioService, Usuario usuario)
         {
@@ -27,25 +25,32 @@ namespace AssisTec.UserControls
 
         private async void ucAutenticacao_Load(object sender, EventArgs e)
         {
+            if (_usuarioPendente == null || string.IsNullOrEmpty(_usuarioPendente.Email))
+            {
+                MessageBox.Show("Usuário sem e-mail cadastrado para autenticação.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                FecharTela(DialogResult.Cancel);
+                return;
+            }
+
+            if (CodigoVerificacao.ValidarSemRemover(_usuarioPendente.Email))
+            {
+                ConcluirAutenticacao();
+                return;
+            }
+
             await EnviarCodigoAsync();
         }
 
         private async Task EnviarCodigoAsync()
         {
-            if (_usuarioPendente == null || string.IsNullOrEmpty(_usuarioPendente.Email))
-            {
-                MessageBox.Show("Usuário sem e-mail cadastrado para autenticação.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
             try
             {
                 this.Cursor = Cursors.WaitCursor;
                 lblReenviarCodigo.Enabled = false;
 
-                _codigoGerado = _emailService.GerarCodigoVerificacao();
+                string codigo = CodigoVerificacao.GerarESalvar(_usuarioPendente.Email);
 
-                bool enviado = await Task.Run(() => _emailService.EnviarCodigoVerificacao(_usuarioPendente.Email, _codigoGerado));
+                bool enviado = await Task.Run(() => _emailService.EnviarCodigoVerificacao(_usuarioPendente.Email, codigo));
 
                 if (enviado)
                 {
@@ -79,22 +84,14 @@ namespace AssisTec.UserControls
                 return;
             }
 
-            if (codigoDigitado == _codigoGerado)
+            if (CodigoVerificacao.Validar(_usuarioPendente.Email, codigoDigitado))
             {
                 MessageBox.Show("Autenticação concluída com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                
-                Sessao.usuarioLogado = _usuarioPendente;
-                
-                Form parentForm = this.FindForm();
-                if (parentForm != null)
-                {
-                    parentForm.DialogResult = DialogResult.OK;
-                    parentForm.Close();
-                }
+                ConcluirAutenticacao();
             }
             else
             {
-                MessageBox.Show("Código incorreto. Tente novamente.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Código incorreto ou expirado. Tente novamente.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 mtbCodigo.Clear();
                 mtbCodigo.Focus();
             }
@@ -107,9 +104,26 @@ namespace AssisTec.UserControls
 
         private void btnFechar_Click(object sender, EventArgs e)
         {
-            this.Dispose();
+            FecharTela(DialogResult.Cancel);
         }
 
-        
+        private void ConcluirAutenticacao()
+        {
+            Sessao.usuarioLogado = _usuarioPendente;
+
+            GerenciadorSessaoLocal.SalvarSessao(_usuarioPendente.Id);
+
+            FecharTela(DialogResult.OK);
+        }
+
+        private void FecharTela(DialogResult result)
+        {
+            Form parentForm = this.FindForm();
+            if (parentForm != null)
+            {
+                parentForm.DialogResult = result;
+                parentForm.Close();
+            }
+        }
     }
 }

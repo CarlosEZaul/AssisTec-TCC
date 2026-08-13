@@ -1,6 +1,6 @@
 ﻿using System;
+using System.Drawing.Imaging;
 using System.IO;
-using System.Security.Cryptography;
 using MailKit.Net.Smtp;
 using MailKit.Security;
 using MimeKit;
@@ -24,17 +24,6 @@ namespace AssisTec.Service
             _smtpPorta = smtpPorta;
         }
 
-        public string GerarCodigoVerificacao()
-        {
-            using (var rng = RandomNumberGenerator.Create())
-            {
-                byte[] bytes = new byte[4];
-                rng.GetBytes(bytes);
-                uint randomNum = BitConverter.ToUInt32(bytes, 0);
-                return (randomNum % 1000000).ToString("D6");
-            }
-        }
-
         public bool EnviarCodigoVerificacao(string emailDestino, string codigo)
         {
             try
@@ -49,12 +38,12 @@ namespace AssisTec.Service
                 message.Subject = "Código de Verificação - AssisTec";
 
                 var bodyBuilder = new BodyBuilder();
-
                 string contentId = "logo_assistec_cid";
                 
+                using (var logo = Properties.Resources.logopng)
                 using (var stream = new MemoryStream())
                 {
-                    Properties.Resources.logopng.Save(stream, System.Drawing.Imaging.ImageFormat.Png);
+                    logo.Save(stream, ImageFormat.Png);
                     byte[] bytesImagem = stream.ToArray();
 
                     MimeEntity image = bodyBuilder.LinkedResources.Add("logo.png", bytesImagem, ContentType.Parse("image/png"));
@@ -88,7 +77,14 @@ namespace AssisTec.Service
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td align='center' style='padding-top: 25px;'>
+                                    <td align='center' style='padding-top: 20px;'>
+                                        <p style='color: #888888; font-size: 13px; margin: 0;'>
+                                            Este código expira em <strong>30 minutos</strong>.
+                                        </p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align='center' style='padding-top: 15px;'>
                                         <p style='font-size: 12px; color: #777777; margin: 0;'>
                                             Se você não solicitou este código, ignore este e-mail.
                                         </p>

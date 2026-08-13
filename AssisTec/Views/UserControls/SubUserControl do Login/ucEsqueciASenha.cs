@@ -94,7 +94,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Login
                     return;
                 }
 
-                _codigoGerado = _emailService.GerarCodigoVerificacao();
+                _codigoGerado = CodigoVerificacao.GerarESalvar(_emailDestino);
 
                 bool enviado = await Task.Run(() => _emailService.EnviarCodigoVerificacao(_emailDestino, _codigoGerado));
 
@@ -105,11 +105,13 @@ namespace AssisTec.UserControls.SubUserControl_do_Login
                 }
                 else
                 {
+                    _codigoGerado = null;
                     MessageBox.Show("Falha ao enviar e-mail. Verifique a conexão e as credenciais do remetente.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             catch (Exception ex)
             {
+                _codigoGerado = null;
                 MessageBox.Show($"Ocorreu um erro ao processar a solicitação: {ex.Message}", "Erro inesperado", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
@@ -129,7 +131,13 @@ namespace AssisTec.UserControls.SubUserControl_do_Login
                 return;
             }
 
-            if (codigoDigitado == _codigoGerado)
+            if (string.IsNullOrEmpty(_codigoGerado))
+            {
+                MessageBox.Show("Solicite o envio do código primeiro.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (codigoDigitado == _codigoGerado || CodigoVerificacao.Validar(_emailDestino, codigoDigitado))
             {
                 MessageBox.Show("Código correto! Digite a nova senha.", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 EstadoCodigoConfirmado();
@@ -165,7 +173,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Login
             }
         }
 
-        private void lblReenviarCodigo_Click(object sender, EventArgs e)
+        private async void lblReenviarCodigo_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(_emailDestino))
             {
@@ -173,22 +181,42 @@ namespace AssisTec.UserControls.SubUserControl_do_Login
                 return;
             }
 
-            _codigoGerado = _emailService.GerarCodigoVerificacao();
+            try
+            {
+                this.Cursor = Cursors.WaitCursor;
+                lblReenviarCodigo.Enabled = false;
 
-            if (_emailService.EnviarCodigoVerificacao(_emailDestino, _codigoGerado))
-            {
-                MessageBox.Show("Um novo código foi enviado para o seu e-mail!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                mtbCodigo.Clear();
-                mtbCodigo.Focus();
+                _codigoGerado = CodigoVerificacao.GerarESalvar(_emailDestino);
+
+                bool enviado = await Task.Run(() => _emailService.EnviarCodigoVerificacao(_emailDestino, _codigoGerado));
+
+                if (enviado)
+                {
+                    MessageBox.Show("Um novo código foi enviado para o seu e-mail!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    mtbCodigo.Clear();
+                    mtbCodigo.Focus();
+                }
+                else
+                {
+                    _codigoGerado = null;
+                    MessageBox.Show("Falha ao reenviar o e-mail. Verifique a conexão.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("Falha ao reenviar o e-mail. Verifique a conexão.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                _codigoGerado = null;
+                MessageBox.Show($"Erro ao reenviar código: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                this.Cursor = Cursors.Default;
+                lblReenviarCodigo.Enabled = true;
             }
         }
 
         private void lblAlterarEmail_Click(object sender, EventArgs e)
         {
+            _codigoGerado = null;
             EstadoInicial();
             txtEmail.Focus();
             txtEmail.SelectAll();

@@ -33,5 +33,41 @@ namespace AssisTec.Properties {
                 this["Setting"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string TokenSessao {
+            get {
+                return ((string)(this["TokenSessao"]));
+            }
+            set {
+                this["TokenSessao"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int UsuarioIdSalvo {
+            get {
+                return ((int)(this["UsuarioIdSalvo"]));
+            }
+            set {
+                this["UsuarioIdSalvo"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("2000-01-01")]
+        public global::System.DateTime DataExpiracaoSessao {
+            get {
+                return ((global::System.DateTime)(this["DataExpiracaoSessao"]));
+            }
+            set {
+                this["DataExpiracaoSessao"] = value;
+            }
+        }
     }
 }
