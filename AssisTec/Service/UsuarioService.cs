@@ -180,6 +180,10 @@ namespace AssisTec.Service
 
             if (!Validacao.ValidarEmail(usuario.Email))
                 return (false, "Formato do e-mail inválido.");
+            if (usuario.Senha.Length < 8 || string.IsNullOrWhiteSpace(usuario.Senha))
+            {
+                return (false, "A senha não pode ter menos que 8 caracteres");
+            }
 
             if (repository.CpfExiste(usuario.Cpf))
                 return (false, "O CPF informado já está cadastrado no sistema.");
@@ -270,7 +274,9 @@ namespace AssisTec.Service
 
         private string GerarHash(string senha)
         {
+           
             if (string.IsNullOrEmpty(senha)) return string.Empty;
+            
 
             using (SHA256 sha256Hash = SHA256.Create())
             {

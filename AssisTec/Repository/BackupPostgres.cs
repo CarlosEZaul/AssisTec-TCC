@@ -133,7 +133,7 @@ public sealed class BackupPostgres
     private static List<string> ObterTabelasEmOrdemDeDependencia(NpgsqlConnection conn)
     {
         var todasTabelas = new List<string>();
-        var dependencias = new Dictionary<string, List<string>>(); // filha -> [pais]
+        var dependencias = new Dictionary<string, List<string>>();
 
         using (var cmd = new NpgsqlCommand(
             "SELECT tablename FROM pg_tables WHERE schemaname = 'public' ORDER BY tablename;", conn))
