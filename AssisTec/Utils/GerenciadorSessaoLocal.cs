@@ -29,6 +29,7 @@ namespace AssisTec
         {
             Properties.Settings.Default.UsuarioIdSalvo = 0;
             Properties.Settings.Default.DataExpiracaoSessao = DateTime.MinValue;
+            Properties.Settings.Default.UltimoAcesso = DateTime.MinValue;
             Properties.Settings.Default.Save();
         }
     }

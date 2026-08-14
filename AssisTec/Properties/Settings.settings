@@ -16,6 +16,9 @@
     <Setting Name="DataExpiracaoSessao" Type="System.DateTime" Scope="User">
       <Value Profile="(Default)">2000-01-01</Value>
     </Setting>
+    <Setting Name="UltimoAcesso" Type="System.DateTime" Scope="User">
+      <Value Profile="(Default)">2000-01-01</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
 

@@ -1,79 +1,67 @@
 ﻿using System;
-using System.Runtime.Caching;
-using System.Security.Cryptography;
-using Microsoft.Extensions.Caching.Memory;
-using MemoryCache = System.Runtime.Caching.MemoryCache;
+using System.Collections.Concurrent;
 
 namespace AssisTec.Service
 {
     public static class CodigoVerificacao
     {
-        private static readonly MemoryCache Cache = MemoryCache.Default;
+        public class InfoCodigo
+        {
+            public string Codigo { get; set; }
+            public DateTime DataCriacao { get; set; }
+        }
+
+        private static readonly ConcurrentDictionary<string, InfoCodigo> _codigos = new ConcurrentDictionary<string, InfoCodigo>();
 
         public static string GerarESalvar(string email)
         {
-            string codigo = GerarCodigoCriptografico();
+            Random rand = new Random();
+            string codigo = rand.Next(100000, 999999).ToString();
 
-            var policy = new CacheItemPolicy
+            var info = new InfoCodigo
             {
-                AbsoluteExpiration = DateTimeOffset.UtcNow.AddMinutes(30)
+                Codigo = codigo,
+                DataCriacao = DateTime.Now
             };
 
-            string chaveCache = ObterChaveCache(email);
-            Cache.Set(chaveCache, codigo, policy);
-
+            _codigos[email.ToLower()] = info;
             return codigo;
         }
 
-        public static bool Validar(string email, string codigoDigitado)
+        public static InfoCodigo ObterInfo(string email)
         {
-            if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(codigoDigitado))
+            if (string.IsNullOrEmpty(email)) return null;
+
+            if (_codigos.TryGetValue(email.ToLower(), out var info))
             {
-                return false;
+                return info;
             }
 
-            string chaveCache = ObterChaveCache(email);
-            string codigoSalvo = Cache.Get(chaveCache) as string;
-
-            if (codigoSalvo == null)
-            {
-                return false;
-            }
-
-            if (string.Equals(codigoSalvo, codigoDigitado, StringComparison.Ordinal))
-            {
-                Cache.Remove(chaveCache);
-                return true;
-            }
-
-            return false;
+            return null;
         }
 
-        private static string GerarCodigoCriptografico()
+        public static (bool valido, string mensagem) ValidarCodigo(string email, string codigoDigitado)
         {
-            using (var rng = RandomNumberGenerator.Create())
+            if (string.IsNullOrEmpty(email) || !_codigos.TryGetValue(email.ToLower(), out var info))
             {
-                byte[] bytes = new byte[4];
-                rng.GetBytes(bytes);
-                uint randomNum = BitConverter.ToUInt32(bytes, 0);
-                return (randomNum % 1000000).ToString("D6");
-            }
-        }
-
-        private static string ObterChaveCache(string email)
-        {
-            return $"codigo_verificacao:{email.ToLowerInvariant().Trim()}";
-        }
-        
-        public static bool ValidarSemRemover(string email)
-        {
-            if (string.IsNullOrWhiteSpace(email))
-            {
-                return false;
+                return (false, "Nenhum código foi solicitado para este e-mail.");
             }
 
-            string chaveCache = ObterChaveCache(email);
-            return Cache.Contains(chaveCache);
+            TimeSpan tempoDecorrido = DateTime.Now - info.DataCriacao;
+
+            if (tempoDecorrido.TotalHours > 2)
+            {
+                _codigos.TryRemove(email.ToLower(), out _);
+                return (false, "O código expirou (limite de 2 horas). Solicite um novo código.");
+            }
+
+            if (info.Codigo == codigoDigitado)
+            {
+                _codigos.TryRemove(email.ToLower(), out _);
+                return (true, "Código validado com sucesso.");
+            }
+
+            return (false, "Código incorreto. Tente novamente.");
         }
     }
 }

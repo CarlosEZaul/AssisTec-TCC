@@ -12,6 +12,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Login
         
         private string _codigoGerado;
         private string _emailDestino;
+        private DateTime? _dataGeracaoCodigo;
 
         public ucEsqueciASenha(UsuarioService usuarioService)
         {
@@ -42,6 +43,9 @@ namespace AssisTec.UserControls.SubUserControl_do_Login
 
             txtSenha.Enabled = false;
             btnAlterarSenha.Enabled = false;
+
+            _codigoGerado = null;
+            _dataGeracaoCodigo = null;
 
             AtualizarVisibilidadeLinks();
         }
@@ -95,6 +99,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Login
                 }
 
                 _codigoGerado = CodigoVerificacao.GerarESalvar(_emailDestino);
+                _dataGeracaoCodigo = DateTime.Now;
 
                 bool enviado = await Task.Run(() => _emailService.EnviarCodigoVerificacao(_emailDestino, _codigoGerado));
 
@@ -106,12 +111,14 @@ namespace AssisTec.UserControls.SubUserControl_do_Login
                 else
                 {
                     _codigoGerado = null;
+                    _dataGeracaoCodigo = null;
                     MessageBox.Show("Falha ao enviar e-mail. Verifique a conexão e as credenciais do remetente.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             catch (Exception ex)
             {
                 _codigoGerado = null;
+                _dataGeracaoCodigo = null;
                 MessageBox.Show($"Ocorreu um erro ao processar a solicitação: {ex.Message}", "Erro inesperado", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
@@ -131,20 +138,31 @@ namespace AssisTec.UserControls.SubUserControl_do_Login
                 return;
             }
 
-            if (string.IsNullOrEmpty(_codigoGerado))
+            if (string.IsNullOrEmpty(_codigoGerado) || !_dataGeracaoCodigo.HasValue)
             {
                 MessageBox.Show("Solicite o envio do código primeiro.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            if (codigoDigitado == _codigoGerado || CodigoVerificacao.Validar(_emailDestino, codigoDigitado))
+            if ((DateTime.Now - _dataGeracaoCodigo.Value).TotalHours > 2)
+            {
+                MessageBox.Show("O código expirou pois se passaram mais de 2 horas. Solicite um novo código.", "Código Expirado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                _codigoGerado = null;
+                _dataGeracaoCodigo = null;
+                EstadoInicial();
+                return;
+            }
+
+            var resultadoValidacao = CodigoVerificacao.ValidarCodigo(_emailDestino, codigoDigitado);
+
+            if (resultadoValidacao.valido)
             {
                 MessageBox.Show("Código correto! Digite a nova senha.", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 EstadoCodigoConfirmado();
             }
             else
             {
-                MessageBox.Show("Código incorreto. Tente novamente.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(resultadoValidacao.mensagem, "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 mtbCodigo.Clear();
                 mtbCodigo.Focus();
             }
@@ -157,6 +175,12 @@ namespace AssisTec.UserControls.SubUserControl_do_Login
             if (string.IsNullOrEmpty(novaSenha))
             {
                 MessageBox.Show("Digite a nova senha.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (novaSenha.Length < 8)
+            {
+                MessageBox.Show("A senha não pode ter menos que 8 caracteres", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -187,6 +211,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Login
                 lblReenviarCodigo.Enabled = false;
 
                 _codigoGerado = CodigoVerificacao.GerarESalvar(_emailDestino);
+                _dataGeracaoCodigo = DateTime.Now;
 
                 bool enviado = await Task.Run(() => _emailService.EnviarCodigoVerificacao(_emailDestino, _codigoGerado));
 
@@ -199,12 +224,14 @@ namespace AssisTec.UserControls.SubUserControl_do_Login
                 else
                 {
                     _codigoGerado = null;
+                    _dataGeracaoCodigo = null;
                     MessageBox.Show("Falha ao reenviar o e-mail. Verifique a conexão.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             catch (Exception ex)
             {
                 _codigoGerado = null;
+                _dataGeracaoCodigo = null;
                 MessageBox.Show($"Erro ao reenviar código: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
@@ -216,7 +243,6 @@ namespace AssisTec.UserControls.SubUserControl_do_Login
 
         private void lblAlterarEmail_Click(object sender, EventArgs e)
         {
-            _codigoGerado = null;
             EstadoInicial();
             txtEmail.Focus();
             txtEmail.SelectAll();

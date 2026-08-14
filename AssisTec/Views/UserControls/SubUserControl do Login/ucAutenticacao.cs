@@ -32,13 +32,28 @@ namespace AssisTec.UserControls
                 return;
             }
 
-            if (CodigoVerificacao.ValidarSemRemover(_usuarioPendente.Email))
+            bool precisaCodigo = RequerNovaAutenticacao();
+
+            if (!precisaCodigo)
             {
                 ConcluirAutenticacao();
                 return;
             }
 
             await EnviarCodigoAsync();
+        }
+
+        private bool RequerNovaAutenticacao()
+        {
+            DateTime ultimoAcesso = Properties.Settings.Default.UltimoAcesso;
+
+            if (ultimoAcesso == DateTime.MinValue)
+            {
+                return true;
+            }
+
+            TimeSpan tempoDecorrido = DateTime.Now - ultimoAcesso;
+            return tempoDecorrido.TotalHours >= 2;
         }
 
         private async Task EnviarCodigoAsync()
@@ -54,7 +69,6 @@ namespace AssisTec.UserControls
 
                 if (enviado)
                 {
-                    MessageBox.Show("Código de verificação enviado para o seu e-mail!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     mtbCodigo.Clear();
                     mtbCodigo.Focus();
                 }
@@ -84,14 +98,16 @@ namespace AssisTec.UserControls
                 return;
             }
 
-            if (CodigoVerificacao.Validar(_usuarioPendente.Email, codigoDigitado))
+            var resultado = CodigoVerificacao.ValidarCodigo(_usuarioPendente.Email, codigoDigitado);
+
+            if (resultado.valido)
             {
                 MessageBox.Show("Autenticação concluída com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 ConcluirAutenticacao();
             }
             else
             {
-                MessageBox.Show("Código incorreto ou expirado. Tente novamente.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(resultado.mensagem, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 mtbCodigo.Clear();
                 mtbCodigo.Focus();
             }
@@ -109,6 +125,9 @@ namespace AssisTec.UserControls
 
         private void ConcluirAutenticacao()
         {
+            Properties.Settings.Default.UltimoAcesso = DateTime.Now;
+            Properties.Settings.Default.Save();
+
             Sessao.usuarioLogado = _usuarioPendente;
 
             GerenciadorSessaoLocal.SalvarSessao(_usuarioPendente.Id);

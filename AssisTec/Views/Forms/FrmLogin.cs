@@ -85,9 +85,17 @@ namespace AssisTec
             if (sucesso)
             {
                 int usuarioIdSalvo = GerenciadorSessaoLocal.ObterUsuarioIdValido();
+                DateTime ultimoAcesso = Properties.Settings.Default.UltimoAcesso;
 
-                if (usuarioIdSalvo == usuario.Id)
+                bool sessaoValidaEAtiva = usuarioIdSalvo == usuario.Id && 
+                                          ultimoAcesso != DateTime.MinValue && 
+                                          (DateTime.Now - ultimoAcesso).TotalHours < 2;
+
+                if (sessaoValidaEAtiva)
                 {
+                    Properties.Settings.Default.UltimoAcesso = DateTime.Now;
+                    Properties.Settings.Default.Save();
+
                     Sessao.usuarioLogado = usuario;
                     this.DialogResult = DialogResult.OK;
                     this.Close();
