@@ -48,6 +48,10 @@ namespace AssisTec.Views.UserControls.SubUserControl_do_Gerenciador_de_OS
 
         private void ConfigurarComponentes()
         {
+            txtIdOs.Text = $"#{_idOS}";
+            txtCliente.Text = _ordemServico.Cliente.Nome;
+            txtEquipamento.Text = _ordemServico.Equipamento.Descricao;
+            txtTecnico.Text =  _ordemServico.Tecnico.Nome;
             mtbDataPagamento.Text = DateTime.Now.ToString("dd/MM/yyyy");
             txtValorPeca.Text = _ordemServico.valor_pecas.ToString("C2");
             txtValorServico.Text = _ordemServico.valor_mao_obra.ToString("C2");

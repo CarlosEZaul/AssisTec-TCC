@@ -49,10 +49,10 @@ namespace AssisTec.Service
 
             TimeSpan tempoDecorrido = DateTime.Now - info.DataCriacao;
 
-            if (tempoDecorrido.TotalHours > 2)
+            if (tempoDecorrido.TotalMinutes > 30)
             {
                 _codigos.TryRemove(email.ToLower(), out _);
-                return (false, "O código expirou (limite de 2 horas). Solicite um novo código.");
+                return (false, "O código expirou. Solicite um novo código.");
             }
 
             if (info.Codigo == codigoDigitado)
