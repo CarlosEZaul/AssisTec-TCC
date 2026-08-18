@@ -48,7 +48,7 @@ namespace AssisTec.Models
             { 
                 return valor_mao_obra + valor_pecas; 
             }
-            private set { } 
+            set { } 
         }
 
         [StringLength(500)]
@@ -59,6 +59,11 @@ namespace AssisTec.Models
 
         [StringLength(500)]
         public string observacoes { get; set; } = string.Empty;
+        
+        [NotMapped]
+        [Browsable(false)]
+        public decimal valor_pagamento { get; set; }
+            
         
         [NotMapped]
         [Browsable(false)]

@@ -632,32 +632,36 @@ namespace AssisTec.Service
             return dt;
         }
         
-        public bool RegistrarPagamento(int idOS, int idUsuario, int formaPagamento)
+        public bool RegistrarPagamento(OrdemServico os, int idUsuario, int formaPagamento)
         {
             try
             {
-                if (idOS <= 0)
-                    throw new ArgumentException("Ordem de Serviço inválida.");
-
-                var os = _ordemServicoRepository.ObterPorId(idOS);
                 if (os == null)
                     throw new ArgumentException("Ordem de Serviço não encontrada.");
-
+                
+                if (os.id_os <= 0)
+                    throw new ArgumentException("Ordem de Serviço inválida.");
+                
                 if (os.status == "CANCELADA")
                     throw new InvalidOperationException("Não é possível registrar pagamento para uma OS cancelada.");
 
                 if (os.status == "FINALIZADA")
                     throw new InvalidOperationException("Esta Ordem de Serviço já foi finalizada.");
-
+                
+                string descricaoContaReceber;
+                
+                descricaoContaReceber = os.valor_pagamento != os.valor_total ? $"Recebimento referente à OS #{os.id_os} com desconto de {os.valor_total - os.valor_pagamento}" : $"Recebimento referente à OS #{os.id_os}";
+                
+             
                 os.status = "FINALIZADA";
                 os.data_atualizacao = DateTime.Now;
                 os.data_fechamento = DateTime.Now;
 
                 var contaReceber = new ContasReceber
                 {
-                    id_os_fk = idOS,
-                    descricao = $"Recebimento referente à OS #{idOS}",
-                    valor = os.valor_total,
+                    id_os_fk = os.id_os,
+                    descricao = descricaoContaReceber,
+                    valor = os.valor_pagamento,
                     data_vencimento = DateTime.Now.Date,
                     data_emissao = DateTime.Now.Date,
                     data_pagamento = DateTime.Now.Date,
@@ -676,10 +680,10 @@ namespace AssisTec.Service
 
                 var historico = new HistoricoAlteracaoOS
                 {
-                    idOS = idOS,
+                    idOS = os.id_os,
                     idUsuario = idUsuario,
                     tipo = "PAGAMENTO_REGISTRADO",
-                    descricao = $"Pagamento de {contaReceber.valor:C2} registrado e conta baixada em Contas a Receber. OS #{idOS} finalizada.",
+                    descricao = $"Pagamento de {contaReceber.valor:C2} registrado e conta baixada em Contas a Receber. OS #{os.id_os} finalizada.",
                     dataAlteracao = DateTime.Now
                 };
 
@@ -792,9 +796,9 @@ namespace AssisTec.Service
         }
 
 
-        public OrdemServicoRelatorioDTO ImprimirOS(int idOS)
+        public OrdemServicoRelatorioDTO ImprimirOS(OrdemServico ordemServico)
         {
-            if (idOS <= 0)
+            if (ordemServico.id_os <= 0)
                 throw new ArgumentException("Identificador da Ordem de Serviço inválido.");
 
             using (var context = new AppDbContext())
@@ -802,14 +806,14 @@ namespace AssisTec.Service
                 var os = context.OrdemServicos
                     .Include(o => o.Cliente)
                     .Include(o => o.Equipamento)
-                    .FirstOrDefault(o => o.id_os == idOS);
+                    .FirstOrDefault(o => o.id_os == ordemServico.id_os);
 
                 if (os == null)
-                    throw new InvalidOperationException($"Ordem de Serviço #{idOS} não encontrada.");
+                    throw new InvalidOperationException($"Ordem de Serviço #{ordemServico.id_os} não encontrada.");
 
-                var conta = _contaReceberRepository.ObterPorOSId(idOS);
-                var itens = ObterItensPorOSId(idOS) ?? new List<ItemOSRelatorioDTO>();
-                var servicos = ObterServicosPorOSId(idOS);
+                var conta = _contaReceberRepository.ObterPorOSId(ordemServico.id_os);
+                var itens = ObterItensPorOSId(ordemServico.id_os) ?? new List<ItemOSRelatorioDTO>();
+                var servicos = ObterServicosPorOSId(ordemServico.id_os);
 
                 if (servicos != null)
                 {
@@ -831,6 +835,10 @@ namespace AssisTec.Service
                 {
                     formaPagamentoTexto = conta.Pagamento.Descricao;
                 }
+
+                
+
+                
 
                 var relatorio = new OrdemServicoRelatorioDTO
                 {
@@ -862,9 +870,9 @@ namespace AssisTec.Service
             }
         }
 
-        public string ExportarReciboPdf(int idOS, string caminhoDestino, string caminhoLogo = null)
+        public string ExportarReciboPdf(OrdemServico os, string caminhoDestino, string caminhoLogo = null)
         {
-            var dadosRelatorio = ImprimirOS(idOS);
+            var dadosRelatorio = ImprimirOS(os);
 
             string diretorio = Path.GetDirectoryName(caminhoDestino);
             if (!string.IsNullOrEmpty(diretorio) && !Directory.Exists(diretorio))

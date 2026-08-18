@@ -45,9 +45,9 @@ namespace AssisTec.Views.UserControls.SubUserControl_do_Gerenciador_de_OS
             this.label2 = new System.Windows.Forms.Label();
             this.txtValorTotal = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txtDesconto = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.cbDesconto = new System.Windows.Forms.CheckBox();
             this.label16 = new System.Windows.Forms.Label();
             this.txtIdOs = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
@@ -161,6 +161,7 @@ namespace AssisTec.Views.UserControls.SubUserControl_do_Gerenciador_de_OS
             // txtValorPeca
             // 
             this.txtValorPeca.BackColor = System.Drawing.Color.White;
+            this.txtValorPeca.Enabled = false;
             this.txtValorPeca.Location = new System.Drawing.Point(24, 121);
             this.txtValorPeca.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtValorPeca.Name = "txtValorPeca";
@@ -183,6 +184,7 @@ namespace AssisTec.Views.UserControls.SubUserControl_do_Gerenciador_de_OS
             // txtValorServico
             // 
             this.txtValorServico.BackColor = System.Drawing.Color.White;
+            this.txtValorServico.Enabled = false;
             this.txtValorServico.Location = new System.Drawing.Point(24, 165);
             this.txtValorServico.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtValorServico.Name = "txtValorServico";
@@ -205,6 +207,7 @@ namespace AssisTec.Views.UserControls.SubUserControl_do_Gerenciador_de_OS
             // txtValorTotal
             // 
             this.txtValorTotal.BackColor = System.Drawing.Color.White;
+            this.txtValorTotal.Enabled = false;
             this.txtValorTotal.Location = new System.Drawing.Point(24, 253);
             this.txtValorTotal.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtValorTotal.Name = "txtValorTotal";
@@ -224,15 +227,17 @@ namespace AssisTec.Views.UserControls.SubUserControl_do_Gerenciador_de_OS
             this.label3.TabIndex = 254;
             this.label3.Text = "Valor Total";
             // 
-            // textBox1
+            // txtDesconto
             // 
-            this.textBox1.BackColor = System.Drawing.Color.White;
-            this.textBox1.Location = new System.Drawing.Point(24, 209);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(135, 20);
-            this.textBox1.TabIndex = 255;
-            this.textBox1.Text = "R$";
+            this.txtDesconto.BackColor = System.Drawing.Color.White;
+            this.txtDesconto.Enabled = false;
+            this.txtDesconto.Location = new System.Drawing.Point(24, 209);
+            this.txtDesconto.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.txtDesconto.Name = "txtDesconto";
+            this.txtDesconto.Size = new System.Drawing.Size(135, 20);
+            this.txtDesconto.TabIndex = 255;
+            this.txtDesconto.Text = "R$";
+            this.txtDesconto.TextChanged += new System.EventHandler(this.txtDesconto_TextChanged);
             // 
             // label4
             // 
@@ -246,15 +251,16 @@ namespace AssisTec.Views.UserControls.SubUserControl_do_Gerenciador_de_OS
             this.label4.TabIndex = 256;
             this.label4.Text = "Desconto";
             // 
-            // checkBox1
+            // cbDesconto
             // 
-            this.checkBox1.ForeColor = System.Drawing.SystemColors.Control;
-            this.checkBox1.Location = new System.Drawing.Point(166, 207);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(127, 25);
-            this.checkBox1.TabIndex = 257;
-            this.checkBox1.Text = "Aplicar Desconto";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.cbDesconto.ForeColor = System.Drawing.SystemColors.Control;
+            this.cbDesconto.Location = new System.Drawing.Point(166, 207);
+            this.cbDesconto.Name = "cbDesconto";
+            this.cbDesconto.Size = new System.Drawing.Size(127, 25);
+            this.cbDesconto.TabIndex = 257;
+            this.cbDesconto.Text = "Aplicar Desconto";
+            this.cbDesconto.UseVisualStyleBackColor = true;
+            this.cbDesconto.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
             // label16
             // 
@@ -360,8 +366,8 @@ namespace AssisTec.Views.UserControls.SubUserControl_do_Gerenciador_de_OS
             // panel2
             // 
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel2.Controls.Add(this.checkBox1);
-            this.panel2.Controls.Add(this.textBox1);
+            this.panel2.Controls.Add(this.cbDesconto);
+            this.panel2.Controls.Add(this.txtDesconto);
             this.panel2.Controls.Add(this.label4);
             this.panel2.Controls.Add(this.txtValorTotal);
             this.panel2.Controls.Add(this.label3);
@@ -413,9 +419,9 @@ namespace AssisTec.Views.UserControls.SubUserControl_do_Gerenciador_de_OS
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox txtEquipamento;
 
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtDesconto;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox cbDesconto;
 
         private System.Windows.Forms.TextBox txtValorPeca;
         private System.Windows.Forms.Label label1;

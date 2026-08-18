@@ -172,7 +172,9 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
 
             try
             {
-                var dadosRelatorio = _ordemServicoService.ImprimirOS(_id);
+                var os = _ordemServicoService.ObterPorId(_id);
+                
+                var dadosRelatorio = _ordemServicoService.ImprimirOS(os);
 
                 using (SaveFileDialog sfd = new SaveFileDialog())
                 {

@@ -270,7 +270,9 @@ namespace AssisTec.UserControls
 
             try
             {
-                var dadosRelatorio = _ordemServicoService.ImprimirOS(_idOS);
+                var os = _ordemServicoService.ObterPorId(_idOS);
+                
+                var dadosRelatorio = _ordemServicoService.ImprimirOS(os);
 
                 using (SaveFileDialog sfd = new SaveFileDialog())
                 {

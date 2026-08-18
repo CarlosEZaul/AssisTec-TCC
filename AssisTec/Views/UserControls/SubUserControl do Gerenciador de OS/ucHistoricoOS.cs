@@ -225,7 +225,9 @@ namespace AssisTec.UserControls
                     {
                         string caminhoLogo = Path.Combine(Application.StartupPath, "Resources", "logo.png");
 
-                        _ordemServicoService.ExportarReciboPdf(_idOS, sfd.FileName, caminhoLogo);
+                        var os = _ordemServicoService.ObterPorId(_idOS);
+
+                        _ordemServicoService.ExportarReciboPdf(os, sfd.FileName, caminhoLogo);
 
                         if (File.Exists(sfd.FileName))
                         {
