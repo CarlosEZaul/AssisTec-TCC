@@ -18,18 +18,12 @@ namespace AssisTec.Repository
             _context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        public bool Inserir(ContasReceber conta)
-        {
-            _context.ContasReceber.Add(conta);
-            return _context.SaveChanges() > 0;
-        }
-
+        #region Consulta
         public ContasReceber ObterPorOSId(int idOS)
         {
             return _context.ContasReceber.Include(cr => cr.Pagamento).FirstOrDefault(cr => cr.id_os_fk == idOS);
             
         }
-
         public IEnumerable<ContasReceberDto> ObterTodos()
         {
             var hoje = DateTime.Today;
@@ -82,8 +76,21 @@ namespace AssisTec.Repository
             );
         }
 
-        public ContasReceber ObterPorId(int id) => _context.ContasReceber.Find(id);
+        public ContasReceber ObterPorId(int id)
+        {
+           return _context.ContasReceber.Find(id);
+        }
 
+
+        #endregion
+
+        #region Gerenciamento
+
+        public bool Inserir(ContasReceber conta)
+        {
+            _context.ContasReceber.Add(conta);
+            return _context.SaveChanges() > 0;
+        }
         public bool Atualizar(ContasReceber conta)
         {
             _context.ContasReceber.Update(conta);
@@ -98,7 +105,7 @@ namespace AssisTec.Repository
             _context.ContasReceber.Remove(conta);
             return _context.SaveChanges() > 0;
         }
-
+        
         public bool MarcarComoAtrasado(int id)
         {
             var conta = _context.ContasReceber.Find(id);
@@ -110,6 +117,10 @@ namespace AssisTec.Repository
             return _context.SaveChanges() > 0;
         }
 
+        #endregion
+        
+
+        #region Filtro
         public DataTable Filtrar(ContasReceber filtro)
         {
             var resultado = AplicarFiltros(filtro)
@@ -168,5 +179,21 @@ namespace AssisTec.Repository
 
             return query;
         }
+        
+
+        #endregion
+        
+
+        
+
+        
+        
+        
+
+       
+
+        
+
+        
     }
 }

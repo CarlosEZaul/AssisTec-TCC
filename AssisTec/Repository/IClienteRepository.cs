@@ -10,7 +10,6 @@ namespace AssisTec.Repository
         List<Cliente> ObterTodosClientes();
         Cliente ObterPorId(int id);
         bool AtualizarCliente(Cliente cliente);
-        bool ExcluirCliente(int id);
         Cliente ObterPorCpf(string cpf);
         bool CpfExiste(string cpf); 
         List<Cliente> ObterComFiltros(string busca);

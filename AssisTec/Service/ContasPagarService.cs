@@ -22,39 +22,14 @@ namespace AssisTec.Service
             _pagamentoRepository = pagamento ?? throw new ArgumentNullException(nameof(pagamento));
         }
 
-        public void ProcessarContasAtrasadas()
-        {
-            var contasDto = _repository.ObterTodos();
-            var dataAtual = DateTime.Today;
-
-            foreach (var contaDto in contasDto)
-            {
-                if (contaDto.Status == "PENDENTE" && contaDto.DataVencimento.HasValue && contaDto.DataVencimento.Value.Date < dataAtual)
-                {
-                    var conta = _repository.ObterPorId(contaDto.IdContaPagar);
-                    if (conta != null)
-                    {
-                        conta.status = "ATRASADO";
-                        _repository.Atualizar(conta);
-                    }
-                }
-            }
-        }
-
-        public void Excluir(int id)
-        {
-            if (id <= 0) throw new ArgumentException("ID inválido.");
-
-            if (!_repository.Excluir(id))
-                throw new InvalidOperationException("Falha ao excluir a conta a pagar.");
-        }
+        #region Consulta
 
         public ContasPagar ObterPorId(int id)
         {
             if (id <= 0) throw new ArgumentException("ID inválido.");
 
             return _repository.ObterPorId(id) 
-                ?? throw new InvalidOperationException("Nenhuma conta encontrada.");
+                   ?? throw new InvalidOperationException("Nenhuma conta encontrada.");
         }
 
         public IEnumerable<ContasPagarDto> ObterTodasContas()
@@ -79,6 +54,24 @@ namespace AssisTec.Service
 
             return contasDto;
         }
+        
+        public DataTable CarregarFormasPagamento(bool incluirOpcaoTodas = false)
+        {
+            var dt = _pagamentoRepository.carregarFormasPamento();
+
+            if (incluirOpcaoTodas)
+            {
+                DataRow dr = dt.NewRow();
+                dr["id_forma_pagamento"] = 0;
+                dr["exibicao"] = "Todas as formas de pagamento";
+                dt.Rows.InsertAt(dr, 0);
+            }
+            return dt;
+        }
+
+        #endregion
+
+        #region Gerenciamento
 
         public void Salvar(ContasPagar contasPagar, bool ehInsercao)
         {
@@ -97,34 +90,37 @@ namespace AssisTec.Service
             }
         }
         
-        private void ValidarCampos(ContasPagar conta)
+        public void Excluir(int id)
         {
-            if (string.IsNullOrWhiteSpace(conta.descricao)) 
-                throw new ArgumentException("Descrição obrigatória.");
-            if (conta.valor <= 0) 
-                throw new ArgumentException("Valor deve ser maior que zero.");
-            if (string.IsNullOrWhiteSpace(conta.status)) 
-                throw new ArgumentException("Status obrigatório.");
-            if (conta.data_emissao == DateTime.MinValue) 
-                throw new ArgumentException("Data de emissão inválida.");
-            if (conta.data_vencimento == DateTime.MinValue) 
-                throw new ArgumentException("Data de vencimento inválida.");
-        }
-        
-        public DataTable CarregarFormasPagamento(bool incluirOpcaoTodas = false)
-        {
-            var dt = _pagamentoRepository.carregarFormasPamento();
+            if (id <= 0) throw new ArgumentException("ID inválido.");
 
-            if (incluirOpcaoTodas)
-            {
-                DataRow dr = dt.NewRow();
-                dr["id_forma_pagamento"] = 0;
-                dr["exibicao"] = "Todas as formas de pagamento";
-                dt.Rows.InsertAt(dr, 0);
-            }
-            return dt;
+            if (!_repository.Excluir(id))
+                throw new InvalidOperationException("Falha ao excluir a conta a pagar.");
         }
         
+        public void ProcessarContasAtrasadas()
+        {
+            var contasDto = _repository.ObterTodos();
+            var dataAtual = DateTime.Today;
+
+            foreach (var contaDto in contasDto)
+            {
+                if (contaDto.Status == "PENDENTE" && contaDto.DataVencimento.HasValue && contaDto.DataVencimento.Value.Date < dataAtual)
+                {
+                    var conta = _repository.ObterPorId(contaDto.IdContaPagar);
+                    if (conta != null)
+                    {
+                        conta.status = "ATRASADO";
+                        _repository.Atualizar(conta);
+                    }
+                }
+            }
+        }
+
+        #endregion
+
+        #region Filtro
+
         public (DataTable Dados, decimal TotalGeral, decimal TotalPagar, decimal TotalPendente, decimal TotalAtrasado) Filtrar(
             string dataInicio, string dataFim, string descricao, int statusIndex, string statusText, object idFormaPagamento)
         {
@@ -156,22 +152,16 @@ namespace AssisTec.Service
             return (dados, totais.TotalGeral, totais.TotalPagar, totais.TotalPendente, totais.TotalAtrasado);
         }
 
-        private bool ValidarData(string data)
-            => !string.IsNullOrWhiteSpace(data?.Replace("/", "").Trim())
-               && DateTime.TryParseExact(data, "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out _);
-
-        public void ValidarPagamento(DataGridViewRow row)
-        {
-            if (row == null) throw new InvalidOperationException("Nenhuma conta selecionada.");
-            if (row.Cells["Status"].Value?.ToString() == "PAGA")
-                throw new InvalidOperationException("Registro de pagamento apenas para contas não pagas.");
-        }
+        
 
         public (decimal TotalGeral, decimal TotalPagar, decimal TotalPendente, decimal TotalAtrasado) ObterTotaisPadrao()
         {
             return _repository.ObterTotais(new ContasPagar());
         }
 
+        #endregion
+
+        #region Relatório
         public void GerarRelatorioFiltradoPdf(string dataInicio, string dataFim, string descricao, int statusIndex, string statusText, object idFormaPagamento, string nomeFormaPagamento, string caminhoDestino)
         {
             try
@@ -310,5 +300,53 @@ namespace AssisTec.Service
 
             return null;
         }
+        
+
+        #endregion
+
+        #region Validacao
+        private void ValidarCampos(ContasPagar conta)
+        {
+            if (string.IsNullOrWhiteSpace(conta.descricao)) 
+                throw new ArgumentException("Descrição obrigatória.");
+            if (conta.valor <= 0) 
+                throw new ArgumentException("Valor deve ser maior que zero.");
+            if (string.IsNullOrWhiteSpace(conta.status)) 
+                throw new ArgumentException("Status obrigatório.");
+            if (conta.data_emissao == DateTime.MinValue) 
+                throw new ArgumentException("Data de emissão inválida.");
+            if (conta.data_vencimento == DateTime.MinValue) 
+                throw new ArgumentException("Data de vencimento inválida.");
+        }
+
+        private bool ValidarData(string data)
+        {
+            return !string.IsNullOrWhiteSpace(data?.Replace("/", "").Trim())
+                && DateTime.TryParseExact(data, "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out _);
+        }
+
+        public void ValidarPagamento(DataGridViewRow row)
+        {
+            if (row == null) throw new InvalidOperationException("Nenhuma conta selecionada.");
+            if (row.Cells["Status"].Value?.ToString() == "PAGA")
+                throw new InvalidOperationException("Registro de pagamento apenas para contas não pagas.");
+        }
+        
+
+        #endregion
+
+        
+
+       
+
+        
+        
+        
+        
+        
+        
+        
+
+        
     }
 }

@@ -16,6 +16,76 @@ namespace AssisTec.Repository
             this.context = _context;
         }
 
+        #region Consulta
+        public Produto ObterProdutoPorId(int id)
+        {
+            return context.Produtos.FirstOrDefault(p => p.idProduto == id);
+        }
+        
+        public IEnumerable<Produto> ObterProdutos()
+        {
+            return context.Produtos.ToList();
+        }
+
+        public object ObterDescricaoProdutos()
+        {
+            try
+            {
+                return context.Produtos.Select(p => new
+                {
+                    Produto = Convert.ToString(p.idProduto) + " - " + p.descricao,
+                }).ToList();
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Falha ao obter produtos do DB.", e);
+            }
+        }
+        
+        public DataTable ProdutosAbaixoMinimo()
+        {
+            var produtos = context.Produtos.Where(p => p.quantidade < p.quantidade_minima).OrderBy(p => p.quantidade);
+            return MontarDataTableAbaixoMinimo(produtos);
+            
+        }
+        
+        private DataTable MontarDataTableAbaixoMinimo(IQueryable<Produto> query)
+        {
+            DataTable dataTable = new DataTable();
+            dataTable.Columns.Add("ID_PRODUTO", typeof(int));
+            dataTable.Columns.Add("Descrção", typeof(string));
+            dataTable.Columns.Add("Quantidade", typeof(string));
+            dataTable.Columns.Add("Quantidade mínima", typeof(int));
+            dataTable.Columns.Add("Fornecedor", typeof(string));
+
+            var dadosProjetados = query.Select(p => new
+                {
+                    p.idProduto,
+                    p.descricao,
+                    p.quantidade,
+                    p.quantidade_minima,
+                    p.fornecedor
+                }
+            ).ToList();
+
+            foreach (var produto in dadosProjetados)
+            {
+                dataTable.Rows.Add(
+                    produto.idProduto,
+                    produto.descricao,
+                    produto.quantidade,
+                    produto.quantidade_minima,
+                    produto.fornecedor
+                );
+            }
+            
+            return dataTable;
+        }
+        
+
+        #endregion
+
+        #region Gerenciamento
         public bool InserirProduto(Produto produto)
         {
             try
@@ -72,7 +142,27 @@ namespace AssisTec.Repository
                 throw new Exception("Falha ao excluir produto no banco de dados.", ex);
             }
         }
+        
+        public bool alterarStatus(int id)
+        {
+            var produto = context.Produtos.FirstOrDefault(p => p.idProduto == id);
+            if (produto == null)
+            {
+                return false;
+            }
 
+            if (produto.status == "Ativado")
+            {
+                produto.status = "Desativado";
+            }
+            else
+            {
+                produto.status = "Ativado";
+            }
+            
+            context.SaveChanges();
+            return true;
+        }
         public bool darEntradaProduto(int id, int quantidade)
         {
             try
@@ -114,53 +204,13 @@ namespace AssisTec.Repository
                 throw new Exception("Falha ao dar entrada no produto. Detalhes: " + e.Message, e);
             }
         }
+        
+        
+        
 
-        public bool alterarStatus(int id)
-        {
-            var produto = context.Produtos.FirstOrDefault(p => p.idProduto == id);
-            if (produto == null)
-            {
-                return false;
-            }
+        #endregion
 
-            if (produto.status == "Ativado")
-            {
-                produto.status = "Desativado";
-            }
-            else
-            {
-                produto.status = "Ativado";
-            }
-            
-            context.SaveChanges();
-            return true;
-        }
-
-        public Produto ObterProdutoPorId(int id)
-        {
-            return context.Produtos.FirstOrDefault(p => p.idProduto == id);
-        }
-
-        public IEnumerable<Produto> ObterProdutos()
-        {
-            return context.Produtos.ToList();
-        }
-
-        public object ObterDescricaoProdutos()
-        {
-            try
-            {
-                return context.Produtos.Select(p => new
-                {
-                    Produto = Convert.ToString(p.idProduto) + " - " + p.descricao,
-                }).ToList();
-            }
-            catch (Exception e)
-            {
-                throw new Exception("Falha ao obter produtos do DB.", e);
-            }
-        }
-
+        #region Filtro
         public DataTable Filtrar(Produto filtro)
         {
             var resultado = AplicarFiltro(filtro).ToList();
@@ -223,47 +273,6 @@ namespace AssisTec.Repository
 
             return query;
         }
-
-        public DataTable ProdutosAbaixoMinimo()
-        {
-            var produtos = context.Produtos.Where(p => p.quantidade < p.quantidade_minima).OrderBy(p => p.quantidade);
-            return MontarDataTableAbaixoMinimo(produtos);
-            
-        }
-
-        private DataTable MontarDataTableAbaixoMinimo(IQueryable<Produto> query)
-        {
-            DataTable dataTable = new DataTable();
-            dataTable.Columns.Add("ID_PRODUTO", typeof(int));
-            dataTable.Columns.Add("Descrção", typeof(string));
-            dataTable.Columns.Add("Quantidade", typeof(string));
-            dataTable.Columns.Add("Quantidade mínima", typeof(int));
-            dataTable.Columns.Add("Fornecedor", typeof(string));
-
-            var dadosProjetados = query.Select(p => new
-                {
-                    p.idProduto,
-                    p.descricao,
-                    p.quantidade,
-                    p.quantidade_minima,
-                    p.fornecedor
-                }
-            ).ToList();
-
-            foreach (var produto in dadosProjetados)
-            {
-                dataTable.Rows.Add(
-                    produto.idProduto,
-                    produto.descricao,
-                    produto.quantidade,
-                    produto.quantidade_minima,
-                    produto.fornecedor
-                );
-            }
-            
-            return dataTable;
-        }
-
         public (int totalCadastrado, int abaixoMinimo, int semEstoque, decimal valorEstoque) obterTotais(Produto produto)
         {
             var dados = AplicarFiltro(produto).ToList();
@@ -275,5 +284,26 @@ namespace AssisTec.Repository
 
             return (totalCadastrado, abaixoMinimo, semEstoque, valorEstoque);
         }
+        
+
+        #endregion
+
+        
+
+        
+
+        
+
+       
+
+        
+
+       
+
+        
+
+        
+
+        
     }
 }

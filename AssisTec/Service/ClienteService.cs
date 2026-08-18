@@ -25,24 +25,30 @@ namespace AssisTec.Service
             this.repository = _repository ?? throw new ArgumentNullException(nameof(_repository));
             this.ordemServicoRepository  = _ordemServicoRepository ?? throw new ArgumentNullException(nameof(_ordemServicoRepository));
         }
-        
-        
+
+        #region Consulta
 
         public List<Cliente> ObterTodos()
         {
             return repository.ObterTodosClientes();
         }
-
-        public List<Cliente> FiltrarClientes(string busca)
-        {
-            return repository.ObterComFiltros(busca);
-        }
+        
 
         public Cliente ObterPorId(int id)
         {
             if (id < 0) return null;
             return repository.ObterPorId(id);
         }
+        
+        public DataTable ObterHistoricoOS(int id)
+        {
+            return ordemServicoRepository.ObterHistoricoCliente(id);
+        }
+
+
+        #endregion
+
+        #region Gerenciamento
 
         public (bool sucesso, string mensagem) CadastrarCliente(Cliente cliente)
         {
@@ -132,77 +138,7 @@ namespace AssisTec.Service
 
             return (false, "Erro interno ao tentar atualizar o cliente.");
         }
-
-        public (bool podeExcluir, string mensagem) ValidarExclusao(int id)
-        {
-            if (id <= 0)
-            {
-                return (false, "Selecione um cliente válido para exclusão.");
-            }
-
-            return (true, string.Empty);
-        }
-
-        public bool DeletarCliente(int id)
-        {
-            if (id <= 0) return false;
-            return repository.ExcluirCliente(id);
-        }
         
-        public (bool sucesso, string mensagem, string rua, string bairro, string cidade, string estado) ConsultarCep(string cep)
-        {
-            if (string.IsNullOrWhiteSpace(cep))
-            {
-                return (false, "O CEP não pode estar vazio.", null, null, null, null);
-            }
-
-            string cepLimpo = cep.Replace("-", "").Trim();
-            if (cepLimpo.Length != 8)
-            {
-                return (false, "Formato de CEP inválido. Certifique-se de que possui 8 dígitos.", null, null, null, null);
-            }
-
-            try
-            {
-                BuscaCEP buscaCep = new BuscaCEP();
-                buscaCep.Cep = cepLimpo;
-                buscaCep.Consultar();
-
-                if (string.IsNullOrWhiteSpace(buscaCep.Cidade) || 
-                    string.IsNullOrWhiteSpace(buscaCep.Rua) || 
-                    string.IsNullOrWhiteSpace(buscaCep.Bairro))
-                {
-                    return (false, "Falha ao localizar as informações do CEP informado.", null, null, null, null);
-                }
-
-                return (true, "CEP localizado com sucesso!", buscaCep.Rua, buscaCep.Bairro, buscaCep.Cidade, buscaCep.Estado);
-            }
-            catch (Exception ex)
-            {
-                return (false, $"Erro ao consultar o CEP: {ex.Message}", null, null, null, null);
-            }
-        }
-
-        public DataTable ObterHistoricoOS(int id)
-        {
-            return ordemServicoRepository.ObterHistoricoCliente(id);
-        }
-        public (bool sucesso, string mensagem) ValidarAntesDeDesativarCliente(int idCliente)
-        {
-            if (idCliente <= 0)
-            {
-                return (false, "Selecione um cliente válido.");
-            }
-
-            bool possuiOsAberta = ordemServicoRepository.ExisteOSAbertaPorCliente(idCliente);
-            if (possuiOsAberta)
-            {
-                return (false, "Não é possível alterar o status do cliente pois ele possui Ordens de Serviço em ABERTA.");
-            }
-
-            return (true, string.Empty);
-        }
-
         public bool AlterarStatus(int id)
         {
             var validacao = ValidarAntesDeDesativarCliente(id);
@@ -221,6 +157,10 @@ namespace AssisTec.Service
             }
         }
 
+        #endregion
+
+        #region Filtro
+
         public List<Cliente> ObterComFiltros(string busca, bool ApenasInativos)
         {
             try
@@ -232,7 +172,11 @@ namespace AssisTec.Service
                 throw new Exception("Erro ao obter os clientes.", e);
             }
         }
-        
+
+        #endregion
+
+        #region Relatorio
+
         public void GerarRelatorioClientesPdf(string nome, bool exibirDesativados, string caminhoDestino)
     {
         try
@@ -289,118 +233,186 @@ namespace AssisTec.Service
         }
     }
 
-    public void GerarRelatorioIndividualClientePdf(int idCliente, string caminhoDestino)
-    {
-        try
+        public void GerarRelatorioIndividualClientePdf(int idCliente, string caminhoDestino)
         {
-            Cliente cliente = repository.ObterPorId(idCliente);
-            if (cliente == null)
+            try
             {
-                throw new Exception("Cliente não encontrado para a geração do relatório.");
-            }
-
-            DataTable tabelaOS = ordemServicoRepository.ObterHistoricoCliente(idCliente);
-
-            ClienteDTO.ClienteComOrdemServicoDTO relatorio = new ClienteDTO.ClienteComOrdemServicoDTO
-            {
-                IdCliente = cliente.Id,
-                Nome = cliente.Nome ?? string.Empty,
-                Cpf = cliente.Cpf ?? string.Empty,
-                Telefone = cliente.Telefone ?? string.Empty,
-                StatusCliente = cliente.Status ?? string.Empty,
-                TotalOrdens = 0,
-                OrdensAbertas = 0,
-                OrdensFinalizadas = 0,
-                TotalGasto = 0m,
-                Ordens = new List<ClienteDTO.OrdemServicoItemDTO>()
-            };
-
-            if (tabelaOS != null && tabelaOS.Rows.Count > 0)
-            {
-                foreach (DataRow row in tabelaOS.Rows)
+                Cliente cliente = repository.ObterPorId(idCliente);
+                if (cliente == null)
                 {
-                    string statusOS = ObterValorColuna(row, tabelaOS, "STATUS", "ABERTA");
-                    string tecnico = ObterValorColuna(row, tabelaOS, "TECNICO", ObterValorColuna(row, tabelaOS, "NOME_TECNICO", "Não Atribuído"));
-                    string equipamento = ObterValorColuna(row, tabelaOS, "EQUIPAMENTO", ObterValorColuna(row, tabelaOS, "DISPOSITIVO", "Sem Equipamento"));
-
-                    decimal valor = 0m;
-                    string colValor = tabelaOS.Columns.Contains("VALOR_TOTAL") ? "VALOR_TOTAL" : (tabelaOS.Columns.Contains("VALOR") ? "VALOR" : null);
-                    if (colValor != null && row[colValor] != DBNull.Value)
-                    {
-                        valor = Convert.ToDecimal(row[colValor]);
-                    }
-
-                    DateTime? dataFim = null;
-                    string colDataFim = tabelaOS.Columns.Contains("DATA_FECHAMENTO") ? "DATA_FECHAMENTO" : (tabelaOS.Columns.Contains("DATA_FINALIZACAO") ? "DATA_FINALIZACAO" : null);
-                    if (colDataFim != null && row[colDataFim] != DBNull.Value)
-                    {
-                        dataFim = Convert.ToDateTime(row[colDataFim]);
-                    }
-
-                    DateTime dataAbertura = DateTime.Now;
-                    string colDataIni = tabelaOS.Columns.Contains("DATA_ABERTURA") ? "DATA_ABERTURA" : (tabelaOS.Columns.Contains("DATA") ? "DATA" : null);
-                    if (colDataIni != null && row[colDataIni] != DBNull.Value)
-                    {
-                        dataAbertura = Convert.ToDateTime(row[colDataIni]);
-                    }
-
-                    int idOS = 0;
-                    string colIdOS = tabelaOS.Columns.Contains("ID_ORDEM") ? "ID_ORDEM" : (tabelaOS.Columns.Contains("ID") ? "ID" : null);
-                    if (colIdOS != null && row[colIdOS] != DBNull.Value)
-                    {
-                        idOS = Convert.ToInt32(row[colIdOS]);
-                    }
-
-                    relatorio.TotalOrdens++;
-
-                    if (statusOS.Equals("ABERTA", StringComparison.OrdinalIgnoreCase) ||
-                        statusOS.Equals("Aberto", StringComparison.OrdinalIgnoreCase) ||
-                        statusOS.Equals("Em Andamento", StringComparison.OrdinalIgnoreCase))
-                    {
-                        relatorio.OrdensAbertas++;
-                    }
-                    else if (statusOS.Equals("Finalizado", StringComparison.OrdinalIgnoreCase) ||
-                             statusOS.Equals("Entregue", StringComparison.OrdinalIgnoreCase) ||
-                             statusOS.Equals("FINALIZADA", StringComparison.OrdinalIgnoreCase))
-                    {
-                        relatorio.OrdensFinalizadas++;
-                        relatorio.TotalGasto += valor;
-                    }
-
-                    relatorio.Ordens.Add(new ClienteDTO.OrdemServicoItemDTO
-                    {
-                        IdOrdemServico = idOS,
-                        Tecnico = tecnico,
-                        Equipamento = equipamento,
-                        DataAbertura = dataAbertura,
-                        DataFechamento = dataFim,
-                        ValorTotal = valor,
-                        Status = statusOS
-                    });
+                    throw new Exception("Cliente não encontrado para a geração do relatório.");
                 }
+
+                DataTable tabelaOS = ordemServicoRepository.ObterHistoricoCliente(idCliente);
+
+                ClienteDTO.ClienteComOrdemServicoDTO relatorio = new ClienteDTO.ClienteComOrdemServicoDTO
+                {
+                    IdCliente = cliente.Id,
+                    Nome = cliente.Nome ?? string.Empty,
+                    Cpf = cliente.Cpf ?? string.Empty,
+                    Telefone = cliente.Telefone ?? string.Empty,
+                    StatusCliente = cliente.Status ?? string.Empty,
+                    TotalOrdens = 0,
+                    OrdensAbertas = 0,
+                    OrdensFinalizadas = 0,
+                    TotalGasto = 0m,
+                    Ordens = new List<ClienteDTO.OrdemServicoItemDTO>()
+                };
+
+                if (tabelaOS != null && tabelaOS.Rows.Count > 0)
+                {
+                    foreach (DataRow row in tabelaOS.Rows)
+                    {
+                        string statusOS = ObterValorColuna(row, tabelaOS, "STATUS", "ABERTA");
+                        string tecnico = ObterValorColuna(row, tabelaOS, "TECNICO", ObterValorColuna(row, tabelaOS, "NOME_TECNICO", "Não Atribuído"));
+                        string equipamento = ObterValorColuna(row, tabelaOS, "EQUIPAMENTO", ObterValorColuna(row, tabelaOS, "DISPOSITIVO", "Sem Equipamento"));
+
+                        decimal valor = 0m;
+                        string colValor = tabelaOS.Columns.Contains("VALOR_TOTAL") ? "VALOR_TOTAL" : (tabelaOS.Columns.Contains("VALOR") ? "VALOR" : null);
+                        if (colValor != null && row[colValor] != DBNull.Value)
+                        {
+                            valor = Convert.ToDecimal(row[colValor]);
+                        }
+
+                        DateTime? dataFim = null;
+                        string colDataFim = tabelaOS.Columns.Contains("DATA_FECHAMENTO") ? "DATA_FECHAMENTO" : (tabelaOS.Columns.Contains("DATA_FINALIZACAO") ? "DATA_FINALIZACAO" : null);
+                        if (colDataFim != null && row[colDataFim] != DBNull.Value)
+                        {
+                            dataFim = Convert.ToDateTime(row[colDataFim]);
+                        }
+
+                        DateTime dataAbertura = DateTime.Now;
+                        string colDataIni = tabelaOS.Columns.Contains("DATA_ABERTURA") ? "DATA_ABERTURA" : (tabelaOS.Columns.Contains("DATA") ? "DATA" : null);
+                        if (colDataIni != null && row[colDataIni] != DBNull.Value)
+                        {
+                            dataAbertura = Convert.ToDateTime(row[colDataIni]);
+                        }
+
+                        int idOS = 0;
+                        string colIdOS = tabelaOS.Columns.Contains("ID_ORDEM") ? "ID_ORDEM" : (tabelaOS.Columns.Contains("ID") ? "ID" : null);
+                        if (colIdOS != null && row[colIdOS] != DBNull.Value)
+                        {
+                            idOS = Convert.ToInt32(row[colIdOS]);
+                        }
+
+                        relatorio.TotalOrdens++;
+
+                        if (statusOS.Equals("ABERTA", StringComparison.OrdinalIgnoreCase) ||
+                            statusOS.Equals("Aberto", StringComparison.OrdinalIgnoreCase) ||
+                            statusOS.Equals("Em Andamento", StringComparison.OrdinalIgnoreCase))
+                        {
+                            relatorio.OrdensAbertas++;
+                        }
+                        else if (statusOS.Equals("Finalizado", StringComparison.OrdinalIgnoreCase) ||
+                                 statusOS.Equals("Entregue", StringComparison.OrdinalIgnoreCase) ||
+                                 statusOS.Equals("FINALIZADA", StringComparison.OrdinalIgnoreCase))
+                        {
+                            relatorio.OrdensFinalizadas++;
+                            relatorio.TotalGasto += valor;
+                        }
+
+                        relatorio.Ordens.Add(new ClienteDTO.OrdemServicoItemDTO
+                        {
+                            IdOrdemServico = idOS,
+                            Tecnico = tecnico,
+                            Equipamento = equipamento,
+                            DataAbertura = dataAbertura,
+                            DataFechamento = dataFim,
+                            ValorTotal = valor,
+                            Status = statusOS
+                        });
+                    }
+                }
+
+                GeradorPdfCliente.GerarRelatorioIndividual(relatorio, caminhoDestino);
+            }
+            catch (Exception ex)
+            {
+                string mensagemDetalhada = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
+                throw new Exception("Erro ao processar o relatório individual do cliente: " + mensagemDetalhada, ex);
+            }
+        }
+
+        #endregion
+
+        #region Outras Funcoes
+
+        public (bool sucesso, string mensagem, string rua, string bairro, string cidade, string estado) ConsultarCep(string cep)
+        {
+            if (string.IsNullOrWhiteSpace(cep))
+            {
+                return (false, "O CEP não pode estar vazio.", null, null, null, null);
             }
 
-            GeradorPdfCliente.GerarRelatorioIndividual(relatorio, caminhoDestino);
-        }
-        catch (Exception ex)
-        {
-            string mensagemDetalhada = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
-            throw new Exception("Erro ao processar o relatório individual do cliente: " + mensagemDetalhada, ex);
-        }
-    }
+            string cepLimpo = cep.Replace("-", "").Trim();
+            if (cepLimpo.Length != 8)
+            {
+                return (false, "Formato de CEP inválido. Certifique-se de que possui 8 dígitos.", null, null, null, null);
+            }
 
-    private string ObterValorColuna(DataRow row, DataTable table, string nomeColuna, string valorPadrao)
-    {
-        if (table.Columns.Contains(nomeColuna) && row[nomeColuna] != DBNull.Value)
-        {
-            return row[nomeColuna].ToString();
-        }
-        return valorPadrao;
-    }
+            try
+            {
+                BuscaCEP buscaCep = new BuscaCEP();
+                buscaCep.Cep = cepLimpo;
+                buscaCep.Consultar();
 
-    public DataTable ObterHistoricoOsCliente(int id)
-    {
-        return ordemServicoRepository.ObterHistoricoCliente(id);
-    }
+                if (string.IsNullOrWhiteSpace(buscaCep.Cidade) || 
+                    string.IsNullOrWhiteSpace(buscaCep.Rua) || 
+                    string.IsNullOrWhiteSpace(buscaCep.Bairro))
+                {
+                    return (false, "Falha ao localizar as informações do CEP informado.", null, null, null, null);
+                }
+
+                return (true, "CEP localizado com sucesso!", buscaCep.Rua, buscaCep.Bairro, buscaCep.Cidade, buscaCep.Estado);
+            }
+            catch (Exception ex)
+            {
+                return (false, $"Erro ao consultar o CEP: {ex.Message}", null, null, null, null);
+            }
+        }
+
+        
+        public (bool sucesso, string mensagem) ValidarAntesDeDesativarCliente(int idCliente)
+        {
+            if (idCliente <= 0)
+            {
+                return (false, "Selecione um cliente válido.");
+            }
+
+            bool possuiOsAberta = ordemServicoRepository.ExisteOSAbertaPorCliente(idCliente);
+            if (possuiOsAberta)
+            {
+                return (false, "Não é possível alterar o status do cliente pois ele possui Ordens de Serviço em ABERTA.");
+            }
+
+            return (true, string.Empty);
+        }
+
+        #endregion
+       
+        
+
+        
+        
+
+        
+
+        
+        
+        
+
+        private string ObterValorColuna(DataRow row, DataTable table, string nomeColuna, string valorPadrao)
+        {
+            if (table.Columns.Contains(nomeColuna) && row[nomeColuna] != DBNull.Value)
+            {
+                return row[nomeColuna].ToString();
+            }
+            return valorPadrao;
+        }
+
+        public DataTable ObterHistoricoOsCliente(int id)
+        {
+            return ordemServicoRepository.ObterHistoricoCliente(id);
+        }
     }
 }

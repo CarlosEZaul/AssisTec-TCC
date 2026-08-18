@@ -15,19 +15,7 @@ namespace AssisTec.Repository
             this.context = _context;
         }
 
-        public bool InserirUsuario(Usuario usuario)
-        {
-            try
-            {
-                context.Usuarios.Add(usuario);
-                context.SaveChanges();
-                return true;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Falha interna no repositório ao inserir usuário: " + ex.Message, ex);
-            }
-        }
+        #region Consulta
 
         public List<Usuario> ObterTodosUsuarios()
         {
@@ -54,21 +42,7 @@ namespace AssisTec.Repository
                 throw new Exception("Falha ao consultar técnicos no BD.");
             }
         }
-
-        public bool EhGerente(int id)
-        {
-            return context.Usuarios
-                .AsNoTracking()
-                .Any(u => u.Id == id && u.Nivel == 1);
-        }
-
-        public int ObterQuantidadeGerentesAtivos()
-        {
-            return context.Usuarios
-                .AsNoTracking()
-                .Count(u => u.Nivel == 1 && u.Status == "Ativado");
-        }
-
+        
         public Usuario ObterPorId(int id)
         {
             try
@@ -109,7 +83,89 @@ namespace AssisTec.Repository
         {
             return context.Usuarios.FirstOrDefault(u => u.Email.ToLower() == email.ToLower());
         }
+        
+        public bool EhGerente(int id)
+        {
+            return context.Usuarios
+                .AsNoTracking()
+                .Any(u => u.Id == id && u.Nivel == 1);
+        }
+        
+        public bool CpfExiste(string cpf)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(cpf)) return false;
+               
+                string cpfDigitadoLimpo = cpf.Replace(".", "").Replace("-", "").Replace(",", "").Trim();
 
+                if (cpfDigitadoLimpo.Length != 11) return false;
+
+                return context.Usuarios
+                    .AsNoTracking()
+                    .ToList()
+                    .Any(u => u.Cpf.Replace(".", "").Replace("-", "").Replace(",", "").Trim() == cpfDigitadoLimpo);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Falha ao verificar existência do CPF no banco de dados.", ex);
+            }
+        }
+        
+        public bool EmailExiste(string email)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(email)) return false;
+
+                string emailTratado = email.Trim().ToLower();
+
+                return context.Usuarios
+                    .AsNoTracking()
+                    .Any(u => u.Email.ToLower() == emailTratado);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Falha ao verificar existência do E-mail no banco de dados.", ex);
+            }
+        }
+
+        public bool ExisteGerenteAtivo()
+        {
+            try
+            {
+                return context.Usuarios.Any(u => u.Nivel == 1 && u.Status.Trim().ToLower() == "ativado");
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Falha ao verificar existência de gerente ativo no MySQL.", ex);
+            }
+        }
+        
+        public int ObterQuantidadeGerentesAtivos()
+        {
+            return context.Usuarios
+                .AsNoTracking()
+                .Count(u => u.Nivel == 1 && u.Status == "Ativado");
+        }
+
+        #endregion
+
+        #region Gerenciamento
+
+        public bool InserirUsuario(Usuario usuario)
+        {
+            try
+            {
+                context.Usuarios.Add(usuario);
+                context.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Falha interna no repositório ao inserir usuário: " + ex.Message, ex);
+            }
+        }
         public bool AtualizarUsuario(Usuario usuario)
         {
             try
@@ -128,25 +184,6 @@ namespace AssisTec.Repository
             catch (Exception)
             {
                 return false;
-            }
-        }
-
-        public bool ExcluirUsuario(int id)
-        {
-            try
-            {
-                var usuario = context.Usuarios.FirstOrDefault(u => u.Id == id);
-                if (usuario != null)
-                {
-                    context.Usuarios.Remove(usuario);
-                    context.SaveChanges();
-                    return true;
-                }
-                return false;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Falha ao excluir usuário com ID: " + id + ".", ex);
             }
         }
 
@@ -177,58 +214,7 @@ namespace AssisTec.Repository
                 return false;
             }
         }
-
-        public bool CpfExiste(string cpf)
-        {
-            try
-            {
-                if (string.IsNullOrWhiteSpace(cpf)) return false;
-               
-                string cpfDigitadoLimpo = cpf.Replace(".", "").Replace("-", "").Replace(",", "").Trim();
-
-                if (cpfDigitadoLimpo.Length != 11) return false;
-
-                return context.Usuarios
-                    .AsNoTracking()
-                    .ToList()
-                    .Any(u => u.Cpf.Replace(".", "").Replace("-", "").Replace(",", "").Trim() == cpfDigitadoLimpo);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Falha ao verificar existência do CPF no banco de dados.", ex);
-            }
-        }
-
-        public bool EmailExiste(string email)
-        {
-            try
-            {
-                if (string.IsNullOrWhiteSpace(email)) return false;
-
-                string emailTratado = email.Trim().ToLower();
-
-                return context.Usuarios
-                    .AsNoTracking()
-                    .Any(u => u.Email.ToLower() == emailTratado);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Falha ao verificar existência do E-mail no banco de dados.", ex);
-            }
-        }
-
-        public bool ExisteGerenteAtivo()
-        {
-            try
-            {
-                return context.Usuarios.Any(u => u.Nivel == 1 && u.Status.Trim().ToLower() == "ativado");
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Falha ao verificar existência de gerente ativo no MySQL.", ex);
-            }
-        }
-
+        
         public bool AlterarSenha(Usuario usuario)
         {
             try
@@ -250,33 +236,58 @@ namespace AssisTec.Repository
             }
         }
 
+        #endregion
+
+        #region Fitrlo
+
         public List<Usuario> ObterComFiltros(string nome, bool exibirDesativados, int nivel)
-        {
-            try
-            {
-                IQueryable<Usuario> query = context.Usuarios;
-
-                if (!string.IsNullOrEmpty(nome))
                 {
-                    query = query.Where(u => u.Nome.StartsWith(nome));
+                    try
+                    {
+                        IQueryable<Usuario> query = context.Usuarios;
+        
+                        if (!string.IsNullOrEmpty(nome))
+                        {
+                            query = query.Where(u => u.Nome.StartsWith(nome));
+                        }
+        
+                        if (!exibirDesativados)
+                        {
+                            query = query.Where(u => u.Status == "Ativado");
+                        }
+        
+                        if (nivel > 0)
+                        {
+                            query = query.Where(u => u.Nivel == nivel);
+                        }
+        
+                        return query.OrderBy(u => u.Nome).ToList();
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new Exception("Falha ao obter usuários com filtros.", ex);
+                    }
                 }
 
-                if (!exibirDesativados)
-                {
-                    query = query.Where(u => u.Status == "Ativado");
-                }
+        #endregion
+        
+    
+        
 
-                if (nivel > 0)
-                {
-                    query = query.Where(u => u.Nivel == nivel);
-                }
+        
 
-                return query.OrderBy(u => u.Nome).ToList();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Falha ao obter usuários com filtros.", ex);
-            }
-        }
+        
+
+       
+
+       
+
+        
+
+        
+
+        
+
+        
     }
 }

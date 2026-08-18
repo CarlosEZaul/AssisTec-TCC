@@ -14,7 +14,6 @@ namespace AssisTec.Repository
         Usuario ObterPorCpf(string cpf);
         Usuario ObterPorEmail(string email);
         bool AtualizarUsuario(Usuario usuario);
-        bool ExcluirUsuario(int id);
         bool AlterarStatus(int id);
         bool CpfExiste(string cpf);
         bool EmailExiste(string email);

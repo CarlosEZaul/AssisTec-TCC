@@ -16,22 +16,7 @@ namespace AssisTec.Repository
             this.context = _context;
         }
 
-        public bool InserirCliente(Cliente cliente)
-        {
-            try
-            {
-                context.Clientes.Add(cliente);
-                return context.SaveChanges() > 0;
-            }
-            catch (DbUpdateException dbEx)
-            {
-                throw new Exception("Erro ao inserir cliente no banco: " + (dbEx.InnerException?.Message ?? dbEx.Message), dbEx);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Falha ao inserir cliente.", ex);
-            }
-        }
+        #region Consulta
 
         public List<Cliente> ObterTodosClientes()
         {
@@ -56,6 +41,52 @@ namespace AssisTec.Repository
                 throw new Exception($"Falha ao obter cliente por ID: {id}.", ex);
             }
         }
+        
+        public Cliente ObterPorCpf(string cpf)
+        {
+            try
+            {
+                return context.Clientes.AsNoTracking().FirstOrDefault(c => c.Cpf == cpf);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Falha ao obter cliente por CPF.", ex);
+            }
+        }
+        public bool CpfExiste(string cpf)
+        {
+            try
+            {
+                return context.Clientes.Any(c => c.Cpf == cpf);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Falha ao verificar existência do CPF.", ex);
+            }
+        }
+
+        #endregion
+
+        #region Gerenciamento
+
+        public bool InserirCliente(Cliente cliente)
+        {
+            try
+            {
+                context.Clientes.Add(cliente);
+                return context.SaveChanges() > 0;
+            }
+            catch (DbUpdateException dbEx)
+            {
+                throw new Exception("Erro ao inserir cliente no banco: " + (dbEx.InnerException?.Message ?? dbEx.Message), dbEx);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Falha ao inserir cliente.", ex);
+            }
+        }
+
+        
 
         public bool AtualizarCliente(Cliente cliente)
         {
@@ -79,69 +110,7 @@ namespace AssisTec.Repository
                 throw new Exception("Falha ao atualizar cliente. " + ex.Message, ex);
             }
         }
-
-        public bool ExcluirCliente(int id)
-        {
-            try
-            {
-                var cliente = context.Clientes.FirstOrDefault(c => c.Id == id);
-                if (cliente != null)
-                {
-                    context.Clientes.Remove(cliente);
-                    return context.SaveChanges() > 0;
-                }
-                return false;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception($"Falha ao excluir cliente com ID: {id}.", ex);
-            }
-        }
-
-        public Cliente ObterPorCpf(string cpf)
-        {
-            try
-            {
-                return context.Clientes.AsNoTracking().FirstOrDefault(c => c.Cpf == cpf);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Falha ao obter cliente por CPF.", ex);
-            }
-        }
-
-        public bool CpfExiste(string cpf)
-        {
-            try
-            {
-                return context.Clientes.Any(c => c.Cpf == cpf);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Falha ao verificar existência do CPF.", ex);
-            }
-        }
-
-        public List<Cliente> ObterComFiltros(string busca)
-        {
-            try
-            {
-                var query = context.Clientes.AsNoTracking().AsQueryable();
-
-                if (!string.IsNullOrWhiteSpace(busca))
-                {
-                    string buscaLimpa = busca.Replace(".", "").Replace("-", "").Trim();
-                    query = query.Where(c => c.Nome.Contains(busca) || c.Cpf.Contains(buscaLimpa));
-                }
-
-                return query.ToList();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Falha ao filtrar clientes.", ex);
-            }
-        }
-
+        
         public bool AlterarStatus(int id)
         {
             try
@@ -170,6 +139,32 @@ namespace AssisTec.Repository
             }
         }
 
+        #endregion
+
+        #region Filtro
+
+        public List<Cliente> ObterComFiltros(string busca)
+        {
+            try
+            {
+                var query = context.Clientes.AsNoTracking().AsQueryable();
+
+                if (!string.IsNullOrWhiteSpace(busca))
+                {
+                    string buscaLimpa = busca.Replace(".", "").Replace("-", "").Trim();
+                    query = query.Where(c => c.Nome.Contains(busca) || c.Cpf.Contains(buscaLimpa));
+                }
+
+                return query.ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Falha ao filtrar clientes.", ex);
+            }
+        }
+
+        
+
         public List<Cliente> ObterComFiltros(string nome, bool exibirDesativados)
         {
             try
@@ -193,5 +188,15 @@ namespace AssisTec.Repository
                 throw new Exception("Falha ao obter clientes com filtros.", ex);
             }
         }
+
+        #endregion
+
+        
+
+        
+
+       
+
+       
     }
 }

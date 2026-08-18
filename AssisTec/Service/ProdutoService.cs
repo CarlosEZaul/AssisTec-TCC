@@ -21,6 +21,7 @@ namespace AssisTec.Service
             this.repository = repository ?? throw new ArgumentNullException(nameof(repository));
         }
 
+        #region Consulta
         public IEnumerable<Produto> ObterProdutos()
         {
             return repository.ObterProdutos();
@@ -32,6 +33,33 @@ namespace AssisTec.Service
             return repository.ObterProdutoPorId(id);
         }
         
+        public object obterDescricaoProdutos()
+        {
+            try
+            {
+                return repository.ObterDescricaoProdutos();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+        
+        public DataTable ProdutosAbaixoMinimo()
+        {
+            try
+            {
+                return repository.ProdutosAbaixoMinimo();
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Erro ao dar abaixo do produto", e);
+            }
+        }
+        #endregion
+
+        #region Gerenciamento
 
         public bool Salvar(Produto produto)
         {
@@ -67,25 +95,7 @@ namespace AssisTec.Service
             }
         }
 
-        public bool excluirProduto(Produto produto)
-        {
-            if(produto.idProduto < 0)
-            {
-                throw new ArgumentNullException("Produto nulo");
-            }
-            var excluir = repository.ExcluirProduto(produto.idProduto);
-
-            if (excluir)
-            {
-                return true;
-            }
-            else
-            {
-                throw new Exception("Falha ao deletar Produto");
-            }
-            
-            
-        }
+        
 
         public bool alterarStatus(int id)
         {
@@ -123,6 +133,10 @@ namespace AssisTec.Service
             }
         }
 
+        #endregion
+
+        #region Filtro
+
         public (int totalCadastrado, int abaixoMinimo, int semEstoque, decimal valorEstoque) obterTotais()
         {
             return repository.obterTotais(new Produto());
@@ -145,19 +159,9 @@ namespace AssisTec.Service
             return (dados, totais.totalCadastrado, totais.abaixoMinimo, totais.semEstoque, totais.valorEstoque);
         }
 
-        public object obterDescricaoProdutos()
-        {
-            try
-            {
-                return repository.ObterDescricaoProdutos();
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw;
-            }
-        }
-        
+        #endregion
+
+        #region Validacao
 
         private bool ValidarCampos(Produto produto)
         {
@@ -201,19 +205,10 @@ namespace AssisTec.Service
 
         }
 
-        public DataTable ProdutosAbaixoMinimo()
-        {
-            try
-            {
-                return repository.ProdutosAbaixoMinimo();
-            }
-            catch (Exception e)
-            {
-                throw new Exception("Erro ao dar abaixo do produto", e);
-            }
-        }
-        
-       public void GerarRelatorioEstoquePdf(Produto filtro, string caminhoDestino)
+        #endregion
+
+        #region Relatorio
+        public void GerarRelatorioEstoquePdf(Produto filtro, string caminhoDestino)
         {
         try
         {
@@ -307,5 +302,13 @@ namespace AssisTec.Service
 
             return 0;
         }
+        
+
+        #endregion
+       
+
+        
+        
+       
     }
 }

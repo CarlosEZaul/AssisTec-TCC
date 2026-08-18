@@ -18,7 +18,7 @@ namespace AssisTec.Repository
             this.context = context;
         }
 
-        #region Consultas e Leitura
+        #region Consulta
 
         public DataTable ObterTodasOSAtuais()
         {
@@ -142,11 +142,7 @@ namespace AssisTec.Repository
                 })
                 .ToList();
         }
-
-        #endregion
-
-        #region Relatórios e DataTables
-
+        
         public DataTable ObterHistoricoUsuario(int idUsuario)
         {
             try
@@ -261,7 +257,6 @@ namespace AssisTec.Repository
 
             return MontarDataTableOrdemServico(ordens);
         }
-
         private DataTable MontarDataTableOrdemServico(IQueryable<OrdemServico> query)
         {
             DataTable dataTable = new DataTable();
@@ -300,8 +295,9 @@ namespace AssisTec.Repository
         }
 
         #endregion
+        
 
-        #region Persistência e Alterações de Estado
+        #region Gerenciamento
 
         public bool SalvarOrdemServico(OrdemServico ordemServico)
         {

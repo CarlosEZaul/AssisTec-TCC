@@ -15,6 +15,8 @@ namespace AssisTec.Repository
             this.context = _context ?? throw new ArgumentNullException(nameof(_context));
         }
 
+        #region Consulta
+
         public DataTable carregarFormasPamento()
         {
             DataTable dt = new DataTable();
@@ -23,13 +25,13 @@ namespace AssisTec.Repository
             try
             {
                 var formas = context.Pagamentos
-                                    .OrderBy(f => f.Descricao)
-                                    .Select(f => new
-                                    {
-                                        f.Idforma_pagamento,
-                                        f.Descricao
-                                    })
-                                    .ToList();
+                    .OrderBy(f => f.Descricao)
+                    .Select(f => new
+                    {
+                        f.Idforma_pagamento,
+                        f.Descricao
+                    })
+                    .ToList();
                 foreach (var forma in formas)
                 {
                     dt.Rows.Add(forma.Idforma_pagamento, forma.Descricao.ToUpper());
@@ -65,6 +67,10 @@ namespace AssisTec.Repository
                 throw new Exception($"Falha ao obter forma de pagamento ID: {id}.", ex);
             }
         }
+
+        #endregion
+
+        #region Gerenciamento
 
         public bool Inserir(Pagamento pagamento)
         {
@@ -112,5 +118,11 @@ namespace AssisTec.Repository
                 throw new Exception($"Falha ao excluir forma de pagamento ID: {id}.", ex);
             }
         }
+
+        #endregion
+
+       
+
+        
     }
 }

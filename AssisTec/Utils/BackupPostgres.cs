@@ -8,9 +8,9 @@ using Npgsql;
 
 public sealed class BackupPostgres
 {
-    private const int KeySizeBits       = 256;
-    private const int BlockSizeBits     = 128;
-    private const int KdfIterations     = 100_000;
+    private const int KeySizeBits = 256;
+    private const int BlockSizeBits = 128;
+    private const int KdfIterations = 100_000;
     private const int StreamBufferBytes = 256 * 1024;
 
     public static void ExecutarBackup(
@@ -19,7 +19,7 @@ public sealed class BackupPostgres
         string senhaCriptografia)
     {
         byte[] salt  = GerarBytesAleatorios(16);
-        byte[] iv    = GerarBytesAleatorios(16);
+        byte[] iv = GerarBytesAleatorios(16);
         byte[] chave = DerivarChave(senhaCriptografia, salt);
 
         using (var conn = new NpgsqlConnection(connectionString))
@@ -33,11 +33,11 @@ public sealed class BackupPostgres
                 fsDest.Write(salt, 0, salt.Length);
                 fsDest.Write(iv,   0, iv.Length);
 
-                using (var aes       = CriarAes(chave, iv))
+                using (var aes  = CriarAes(chave, iv))
                 using (var encryptor = aes.CreateEncryptor())
                 using (var cryptoStream = new CryptoStream(fsDest, encryptor, CryptoStreamMode.Write))
-                using (var zipStream    = new GZipStream(cryptoStream, CompressionMode.Compress))
-                using (var writer       = new BinaryWriter(zipStream, Encoding.UTF8, leaveOpen: true))
+                using (var zipStream = new GZipStream(cryptoStream, CompressionMode.Compress))
+                using (var writer  = new BinaryWriter(zipStream, Encoding.UTF8, leaveOpen: true))
                 {
                     writer.Write(tabelas.Count);
 
@@ -73,7 +73,7 @@ public sealed class BackupPostgres
                    StreamBufferBytes))
         {
             byte[] salt  = LerBytesExatos(fsBackup, 16);
-            byte[] iv    = LerBytesExatos(fsBackup, 16);
+            byte[] iv = LerBytesExatos(fsBackup, 16);
             byte[] chave = DerivarChave(senhaCriptografia, salt);
 
             using (var aes = CriarAes(chave, iv))

@@ -31,139 +31,36 @@ namespace AssisTec.Service
             this.ordemServicoRepository = _ordemServicoRepository ?? throw new ArgumentNullException(nameof(_ordemServicoRepository));
         }
 
+        #region Consulta
+
         public List<Usuario> ObterTodos()
         {
             return repository.ObterTodosUsuarios();
         }
-
-        public List<Usuario> FiltrarUsuarios(string busca, bool apenasInativos, int nivel)
-        {
-            return repository.ObterComFiltros(busca, apenasInativos, nivel);
-        }
-
         public Usuario ObterPorId(int id)
         {
             if (id <= 0) return null;
             return repository.ObterPorId(id);
         }
-
-        public bool AlterarStatus(int id)
-        {
-            return repository.AlterarStatus(id);
-        }
-
+        
         public bool ExisteEmail(string email)
         {
             if (string.IsNullOrWhiteSpace(email)) return false;
             return repository.EmailExiste(email);
         }
-
-        public (bool sucesso, string mensagem) AlterarSenha(string email, string novaSenha)
+        public DataTable obterHistoricoOs(int id)
         {
-            try
-            {
-                if (string.IsNullOrWhiteSpace(novaSenha))
-                {
-                    return (false, "A nova senha não pode estar em branco.");
-                }
-
-                var usuario = repository.ObterPorEmail(email);
-
-                if (usuario == null)
-                {
-                    return (false, "Usuário não encontrado.");
-                }
-
-                usuario.Senha = GerarHash(novaSenha);
-
-                bool alterado = repository.AlterarSenha(usuario);
-
-                if (alterado)
-                {
-                    return (true, "Senha alterada com sucesso!");
-                }
-
-                return (false, "Não foi possível atualizar a senha no banco de dados.");
-            }
-            catch (Exception ex)
-            {
-                
-                return (false, "Ocorreu um erro interno ao tentar alterar a senha. "+ex.Message);
-            }
+            return ordemServicoRepository.ObterHistoricoUsuario(id);
         }
 
-        public (bool sucesso, string mensagem, Usuario usuario) RealizarLogin(string cpf, string senha)
+        #endregion
+
+        #region Gerenciamento
+
+        public bool AlterarStatus(int id)
         {
-            if (string.IsNullOrWhiteSpace(cpf) || string.IsNullOrWhiteSpace(senha))
-            {
-                return (false, "Por favor, preencha o CPF e a senha.", null);
-            }
-
-            string cpfLimpo = cpf.Replace(".", "").Replace("-", "").Trim();
-            if (cpfLimpo.Length != 11)
-            {
-                return (false, "O CPF digitado é inválido. Certifique-se de digitar os 11 dígitos.", null);
-            }
-
-            try
-            {
-                Usuario usuario = repository.ObterPorCpf(cpfLimpo);
-
-                if (usuario == null)
-                {
-                    return (false, "CPF ou senha inválidos.", null);
-                }
-
-                if (!usuario.Status.Equals("Ativado", StringComparison.OrdinalIgnoreCase))
-                {
-                    return (false, "Este usuário está desativado. Entre em contato com o administrador.", null);
-                }
-
-                string senhaHashDigitada = GerarHash(senha);
-                if (usuario.Senha != senhaHashDigitada)
-                {
-                    return (false, "CPF ou senha inválidos.", null);
-                }
-
-                return (true, $"Bem-vindo de volta, {usuario.Nome}!", usuario);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Erro interno ao processar o login: " + ex.Message, ex);
-            }
+            return repository.AlterarStatus(id);
         }
-
-        public (bool sucesso, string mensagem) ValidarAntesDeDesativar(int id, int idUsuarioLogado)
-        {
-            if (id <= 0)
-            {
-                return (false, "Selecione um usuário válido para realizar a exclusão.");
-            }
-
-            if (idUsuarioLogado == id)
-            {
-                return (false, "Você não pode desativar a sua própria conta logada no sistema.");
-            }
-
-            bool possuiOsAberta = ordemServicoRepository.ExisteOSAbertaPorTecnico(id);
-            if (possuiOsAberta)
-            {
-                return (false, "Não é possível desativar este usuário pois ele possui Ordens de Serviço em ABERTA.");
-            }
-
-            bool ehGerente = repository.EhGerente(id);
-            if (ehGerente)
-            {
-                int quantidadeGerentesAtivos = repository.ObterQuantidadeGerentesAtivos();
-                if (quantidadeGerentesAtivos <= 1)
-                {
-                    return (false, "Não é possível desativar este usuário pois o sistema precisa ter pelo menos um gerente ativo.");
-                }
-            }
-
-            return (true, string.Empty);
-        }
-
         public (bool sucesso, string mensagem) CadastrarUsuario(Usuario usuario)
         {
             if (usuario == null) 
@@ -249,50 +146,52 @@ namespace AssisTec.Service
                 return (false, "Erro ao processar a edição do usuário: " + ex.Message);
             }
         }
-
-        public async Task<(bool sucesso, string cidade, string rua, string bairro, string estado)> ConsultarCepAsync(string cep)
+        public (bool sucesso, string mensagem) AlterarSenha(string email, string novaSenha)
         {
             try
             {
-                BuscaCEP buscador = new BuscaCEP();
-                buscador.Cep = cep;
-
-                var ds = await Task.Run(() => buscador.Consultar());
-
-                if (ds != null && !string.IsNullOrWhiteSpace(buscador.Cidade))
+                if (string.IsNullOrWhiteSpace(novaSenha))
                 {
-                    return (true, buscador.Cidade, buscador.Rua, buscador.Bairro, buscador.Estado);
+                    return (false, "A nova senha não pode estar em branco.");
                 }
 
-                return (false, null, null, null, null);
+                var usuario = repository.ObterPorEmail(email);
+
+                if (usuario == null)
+                {
+                    return (false, "Usuário não encontrado.");
+                }
+
+                usuario.Senha = GerarHash(novaSenha);
+
+                bool alterado = repository.AlterarSenha(usuario);
+
+                if (alterado)
+                {
+                    return (true, "Senha alterada com sucesso!");
+                }
+
+                return (false, "Não foi possível atualizar a senha no banco de dados.");
             }
-            catch
+            catch (Exception ex)
             {
-                return (false, null, null, null, null);
+                
+                return (false, "Ocorreu um erro interno ao tentar alterar a senha. "+ex.Message);
             }
         }
 
-        private string GerarHash(string senha)
+        #endregion
+
+        #region Filtro
+        public List<Usuario> FiltrarUsuarios(string busca, bool apenasInativos, int nivel)
         {
-           
-            if (string.IsNullOrEmpty(senha)) return string.Empty;
-            
-
-            using (SHA256 sha256Hash = SHA256.Create())
-            {
-                byte[] bytesOriginal = Encoding.UTF8.GetBytes(senha);
-                byte[] bytesHash = sha256Hash.ComputeHash(bytesOriginal);
-
-                StringBuilder builder = new StringBuilder();
-                for (int i = 0; i < bytesHash.Length; i++)
-                {
-                    builder.Append(bytesHash[i].ToString("x2"));
-                }
-                return builder.ToString();
-            }
+            return repository.ObterComFiltros(busca, apenasInativos, nivel);
         }
         
-        
+
+        #endregion
+
+        #region Relatorio
 
         public void GerarRelatorioUsuariosPdf(string nome, bool apenasInativos, int nivel, string caminhoDestino)
         {
@@ -348,12 +247,6 @@ namespace AssisTec.Service
                 throw new Exception("Falha ao gerar o relatório de usuários em PDF: ", ex);
             }
         }
-
-        public DataTable obterHistoricoOs(int id)
-        {
-            return ordemServicoRepository.ObterHistoricoUsuario(id);
-        }
-
         public void GerarRelatorioIndividualPdf(int idUsuario, string caminhoDestino)
         {
             try
@@ -441,5 +334,150 @@ namespace AssisTec.Service
                 default: return $"Nível {nivel}";
             }
         }
+
+        #endregion
+
+        #region Outras funcoes
+
+        public (bool sucesso, string mensagem, Usuario usuario) RealizarLogin(string cpf, string senha)
+        {
+            if (string.IsNullOrWhiteSpace(cpf) || string.IsNullOrWhiteSpace(senha))
+            {
+                return (false, "Por favor, preencha o CPF e a senha.", null);
+            }
+
+            string cpfLimpo = cpf.Replace(".", "").Replace("-", "").Trim();
+            if (cpfLimpo.Length != 11)
+            {
+                return (false, "O CPF digitado é inválido. Certifique-se de digitar os 11 dígitos.", null);
+            }
+
+            try
+            {
+                Usuario usuario = repository.ObterPorCpf(cpfLimpo);
+
+                if (usuario == null)
+                {
+                    return (false, "CPF ou senha inválidos.", null);
+                }
+
+                if (!usuario.Status.Equals("Ativado", StringComparison.OrdinalIgnoreCase))
+                {
+                    return (false, "Este usuário está desativado. Entre em contato com o administrador.", null);
+                }
+
+                string senhaHashDigitada = GerarHash(senha);
+                if (usuario.Senha != senhaHashDigitada)
+                {
+                    return (false, "CPF ou senha inválidos.", null);
+                }
+
+                return (true, $"Bem-vindo de volta, {usuario.Nome}!", usuario);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Erro interno ao processar o login: " + ex.Message, ex);
+            }
+        }
+
+        public (bool sucesso, string mensagem) ValidarAntesDeDesativar(int id, int idUsuarioLogado)
+        {
+            if (id <= 0)
+            {
+                return (false, "Selecione um usuário válido para realizar a exclusão.");
+            }
+
+            if (idUsuarioLogado == id)
+            {
+                return (false, "Você não pode desativar a sua própria conta logada no sistema.");
+            }
+
+            bool possuiOsAberta = ordemServicoRepository.ExisteOSAbertaPorTecnico(id);
+            if (possuiOsAberta)
+            {
+                return (false, "Não é possível desativar este usuário pois ele possui Ordens de Serviço em ABERTA.");
+            }
+
+            bool ehGerente = repository.EhGerente(id);
+            if (ehGerente)
+            {
+                int quantidadeGerentesAtivos = repository.ObterQuantidadeGerentesAtivos();
+                if (quantidadeGerentesAtivos <= 1)
+                {
+                    return (false, "Não é possível desativar este usuário pois o sistema precisa ter pelo menos um gerente ativo.");
+                }
+            }
+
+            return (true, string.Empty);
+        }
+        
+        public async Task<(bool sucesso, string cidade, string rua, string bairro, string estado)> ConsultarCep(string cep)
+        {
+            try
+            {
+                BuscaCEP buscador = new BuscaCEP();
+                buscador.Cep = cep;
+
+                var ds = await Task.Run(() => buscador.Consultar());
+
+                if (ds != null && !string.IsNullOrWhiteSpace(buscador.Cidade))
+                {
+                    return (true, buscador.Cidade, buscador.Rua, buscador.Bairro, buscador.Estado);
+                }
+
+                return (false, null, null, null, null);
+            }
+            catch
+            {
+                return (false, null, null, null, null);
+            }
+        }
+        
+        private string GerarHash(string senha)
+        {
+           
+            if (string.IsNullOrEmpty(senha)) return string.Empty;
+            
+
+            using (SHA256 sha256Hash = SHA256.Create())
+            {
+                byte[] bytesOriginal = Encoding.UTF8.GetBytes(senha);
+                byte[] bytesHash = sha256Hash.ComputeHash(bytesOriginal);
+
+                StringBuilder builder = new StringBuilder();
+                for (int i = 0; i < bytesHash.Length; i++)
+                {
+                    builder.Append(bytesHash[i].ToString("x2"));
+                }
+                return builder.ToString();
+            }
+        }
+
+        #endregion
+       
+
+       
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+        
+        
+
+        
+
+        
+
+        
     }
 }

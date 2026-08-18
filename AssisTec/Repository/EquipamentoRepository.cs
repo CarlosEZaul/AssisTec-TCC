@@ -12,7 +12,9 @@ namespace AssisTec.Repository
         {
             _context = context;
         }
-        
+
+        #region Consulta
+
         public Equipamento ObterEquipamentoPorId(int id)
         {
             try
@@ -25,6 +27,9 @@ namespace AssisTec.Repository
             }
         }
 
+        #endregion
+
+        #region Gerenciamento
         public bool SalvarEquipamento(Equipamento equipamento)
         {
             try
@@ -51,5 +56,12 @@ namespace AssisTec.Repository
                 throw;
             }
         }
+        
+
+        #endregion
+        
+        
+
+        
     }
 }

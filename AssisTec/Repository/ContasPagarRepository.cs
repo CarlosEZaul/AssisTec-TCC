@@ -18,11 +18,7 @@ namespace AssisTec.Repository
             _context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        public bool Inserir(ContasPagar conta)
-        {
-            _context.Add(conta);
-            return _context.SaveChanges() > 0;
-        }
+        #region Consulta
 
         public IEnumerable<ContasPagarDto> ObterTodos()
         {
@@ -32,7 +28,7 @@ namespace AssisTec.Repository
 
             return _context.Contas_Pagar
                 .Where(c => (c.data_vencimento >= inicioMes && c.data_vencimento < fimMes)
-                         || (c.data_vencimento < inicioMes && c.status != "PAGA"))
+                            || (c.data_vencimento < inicioMes && c.status != "PAGA"))
                 .Select(c => new ContasPagarDto
                 {
                     IdContaPagar = c.id_conta_pagar,
@@ -53,8 +49,16 @@ namespace AssisTec.Repository
             return _context.Contas_Pagar.Find(id);
         }
 
-        
+        #endregion
 
+        #region Gerenciamento
+
+        public bool Inserir(ContasPagar conta)
+        {
+            _context.Add(conta);
+            return _context.SaveChanges() > 0;
+        }
+        
         public bool Atualizar(ContasPagar conta)
         {
             _context.Update(conta);
@@ -78,6 +82,10 @@ namespace AssisTec.Repository
             conta.status = "ATRASADO";
             return _context.SaveChanges() > 0;
         }
+
+        #endregion
+
+        #region Filtro
 
         public DataTable Filtrar(ContasPagar filtro)
         {
@@ -161,5 +169,17 @@ namespace AssisTec.Repository
 
             return query;
         }
+
+        #endregion
+
+        
+
+        
+
+        
+
+        
+
+        
     }
 }

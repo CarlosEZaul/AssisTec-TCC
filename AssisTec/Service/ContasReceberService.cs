@@ -26,33 +26,14 @@ namespace AssisTec.Service
             _ordemServicoRepository = ordemServicoRepository;
         }
 
-        public void ProcessarContasAtrasadas()
-        {
-            var contasDto = _repository.ObterTodos();
-            var dataAtual = DateTime.Today;
-
-            foreach (var contaDto in contasDto)
-            {
-                if (contaDto.Status == "PENDENTE" && contaDto.DataVencimento.HasValue && contaDto.DataVencimento.Value.Date < dataAtual)
-                {
-                    var conta = _repository.ObterPorId(contaDto.IdContaReceber);
-                    if (conta != null)
-                    {
-                        conta.status = "ATRASADO";
-                        _repository.Atualizar(conta);
-                    }
-                }
-            }
-        }
-
-        public void Excluir(int id)
+        #region Consulta
+        public ContasReceber ObterPorId(int id)
         {
             if (id <= 0) throw new ArgumentException("ID inválido.");
 
-            if (!_repository.Excluir(id))
-                throw new InvalidOperationException("A conta informada não foi localizada para exclusão.");
+            return _repository.ObterPorId(id)
+                   ?? throw new InvalidOperationException("Conta a receber não localizada.");
         }
-
         public IEnumerable<ContasReceberDto> CarregarTodas()
         {
             var contasDto = _repository.ObterTodos().ToList();
@@ -90,14 +71,10 @@ namespace AssisTec.Service
             return dt;
         }
         
-        public ContasReceber ObterPorId(int id)
-        {
-            if (id <= 0) throw new ArgumentException("ID inválido.");
 
-            return _repository.ObterPorId(id)
-                ?? throw new InvalidOperationException("Conta a receber não localizada.");
-        }
+        #endregion
 
+        #region Gerenciamento
         public void Salvar(ContasReceber conta, bool ehInsercao)
         {
             ValidarCampos(conta);
@@ -115,30 +92,35 @@ namespace AssisTec.Service
             }
         }
 
-        private void ValidarCampos(ContasReceber conta)
+        public void Excluir(int id)
         {
-            if (string.IsNullOrWhiteSpace(conta.descricao)) 
-                throw new ArgumentException("Descrição obrigatória.");
-            if (conta.valor <= 0) 
-                throw new ArgumentException("Valor deve ser maior que zero.");
-            if (string.IsNullOrWhiteSpace(conta.status)) 
-                throw new ArgumentException("Status obrigatório.");
-            if (conta.data_emissao == DateTime.MinValue) 
-                throw new ArgumentException("Data de emissão inválida.");
-            if (conta.data_vencimento == DateTime.MinValue) 
-                throw new ArgumentException("Data de vencimento inválida.");
+            if (id <= 0) throw new ArgumentException("ID inválido.");
+
+            if (!_repository.Excluir(id))
+                throw new InvalidOperationException("A conta informada não foi localizada para exclusão.");
+        }
+        public void ProcessarContasAtrasadas()
+        {
+            var contasDto = _repository.ObterTodos();
+            var dataAtual = DateTime.Today;
+
+            foreach (var contaDto in contasDto)
+            {
+                if (contaDto.Status == "PENDENTE" && contaDto.DataVencimento.HasValue && contaDto.DataVencimento.Value.Date < dataAtual)
+                {
+                    var conta = _repository.ObterPorId(contaDto.IdContaReceber);
+                    if (conta != null)
+                    {
+                        conta.status = "ATRASADO";
+                        _repository.Atualizar(conta);
+                    }
+                }
+            }
         }
 
-        private bool ValidarData(string data)
-            => !string.IsNullOrWhiteSpace(data?.Replace("/", "").Trim())
-               && DateTime.TryParseExact(data, "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out _);
+        #endregion
 
-        public void ValidarPagamento(DataGridViewRow row)
-        {
-            if (row == null) throw new InvalidOperationException("Nenhuma conta selecionada.");
-            if (row.Cells["Status"].Value?.ToString() == "PAGA")
-                throw new InvalidOperationException("Registro de pagamento apenas para contas não pagas.");
-        }
+        #region Filtro
 
         public (DataTable Dados, decimal TotalGeral, decimal TotalRecebido, decimal TotalPendente, decimal TotalAtrasado) Filtrar(
             string dataInicio, string dataFim, string descricao, int statusIndex, string statusText, object idFormaPagamento)
@@ -175,6 +157,39 @@ namespace AssisTec.Service
         {
             return _repository.ObterTotais(new ContasReceber());
         }
+
+        #endregion
+
+        #region Validacao
+
+        private void ValidarCampos(ContasReceber conta)
+        {
+            if (string.IsNullOrWhiteSpace(conta.descricao)) 
+                throw new ArgumentException("Descrição obrigatória.");
+            if (conta.valor <= 0) 
+                throw new ArgumentException("Valor deve ser maior que zero.");
+            if (string.IsNullOrWhiteSpace(conta.status)) 
+                throw new ArgumentException("Status obrigatório.");
+            if (conta.data_emissao == DateTime.MinValue) 
+                throw new ArgumentException("Data de emissão inválida.");
+            if (conta.data_vencimento == DateTime.MinValue) 
+                throw new ArgumentException("Data de vencimento inválida.");
+        }
+
+        private bool ValidarData(string data)
+            => !string.IsNullOrWhiteSpace(data?.Replace("/", "").Trim())
+               && DateTime.TryParseExact(data, "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out _);
+
+        public void ValidarPagamento(DataGridViewRow row)
+        {
+            if (row == null) throw new InvalidOperationException("Nenhuma conta selecionada.");
+            if (row.Cells["Status"].Value?.ToString() == "PAGA")
+                throw new InvalidOperationException("Registro de pagamento apenas para contas não pagas.");
+        }
+
+        #endregion
+
+        #region Relatorio
 
         public void GerarRelatorioFiltradoPdf(string dataInicio, string dataFim, string descricao, int statusIndex, string statusText, object idFormaPagamento, string nomeFormaPagamento, string caminhoDestino)
         {
@@ -340,5 +355,21 @@ namespace AssisTec.Service
 
             return null;
         }
+
+        #endregion
+
+        
+
+        
+        
+        
+
+       
+
+        
+
+        
+
+        
     }
 }

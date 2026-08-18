@@ -15,19 +15,7 @@ namespace AssisTec.Repository
             _context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        public bool SalvarAcaoOS(ServicosOS servicos)
-        {
-            if (servicos.idServico > 0)
-            {
-                _context.ServicosOS.Update(servicos);
-            }
-            else
-            {
-                _context.ServicosOS.Add(servicos);
-            }
-
-            return _context.SaveChanges() > 0;
-        }
+        #region Consulta
 
         public ServicosOS ObterAcaoOSPorID(int idAcao)
         {
@@ -36,14 +24,7 @@ namespace AssisTec.Repository
                 .FirstOrDefault(a => a.idServico == idAcao);
         }
 
-        public bool ExcluirAcaoOS(int idAcao)
-        {
-            var acao = _context.ServicosOS.Find(idAcao);
-            if (acao == null) return false;
-
-            _context.ServicosOS.Remove(acao);
-            return _context.SaveChanges() > 0;
-        }
+       
 
         public List<ServicosOS> ListarAcaoOSPorOS(int idOS)
         {
@@ -60,5 +41,34 @@ namespace AssisTec.Repository
                 })
                 .ToList();
         }
+
+        #endregion
+
+        #region Gerenciamento
+
+        public bool SalvarAcaoOS(ServicosOS servicos)
+        {
+            if (servicos.idServico > 0)
+            {
+                _context.ServicosOS.Update(servicos);
+            }
+            else
+            {
+                _context.ServicosOS.Add(servicos);
+            }
+
+            return _context.SaveChanges() > 0;
+        }
+        
+        public bool ExcluirAcaoOS(int idAcao)
+        {
+            var acao = _context.ServicosOS.Find(idAcao);
+            if (acao == null) return false;
+
+            _context.ServicosOS.Remove(acao);
+            return _context.SaveChanges() > 0;
+        }
+
+        #endregion
     }
 }

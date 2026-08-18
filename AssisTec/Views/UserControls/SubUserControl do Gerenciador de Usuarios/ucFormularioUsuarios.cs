@@ -353,7 +353,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios
                 try
                 {
                     Cursor = Cursors.WaitCursor;
-                    var resultado = await service.ConsultarCepAsync(mtbCep.Text);
+                    var resultado = await service.ConsultarCep(mtbCep.Text);
 
                     if (resultado.sucesso)
                     {

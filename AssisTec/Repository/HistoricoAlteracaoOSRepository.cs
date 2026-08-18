@@ -15,18 +15,7 @@ namespace AssisTec.Repository
             _context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        public bool RegistrarHistorico(HistoricoAlteracaoOS historico)
-        {
-            try
-            {
-                _context.HistoricoAlteracaoOS.Add(historico);
-                return _context.SaveChanges() > 0;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
-        }
+        #region Consulta
 
         public IEnumerable<dynamic> ObterPorOrdemServico(int idOS)
         {
@@ -52,5 +41,28 @@ namespace AssisTec.Repository
                 throw new Exception("Erro ao consultar o histórico da Ordem de Serviço.", e);
             }
         }
+
+        #endregion
+
+        #region Gerenciamento
+
+        public bool RegistrarHistorico(HistoricoAlteracaoOS historico)
+        {
+            try
+            {
+                _context.HistoricoAlteracaoOS.Add(historico);
+                return _context.SaveChanges() > 0;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        #endregion
+
+        
+
+      
     }
 }
