@@ -90,7 +90,7 @@ namespace AssisTec
             return cpf.EndsWith(digito);
         }
 
-        public static (bool sucesso, string mensagem) ValidarData(DateTime data)
+        public static (bool sucesso, string mensagem) ValidarDataNascimento(DateTime data)
         {
             if (data > DateTime.Today)
             {

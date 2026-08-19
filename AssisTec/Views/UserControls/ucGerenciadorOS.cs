@@ -71,10 +71,9 @@ namespace AssisTec.UserControls
                 lblEmAndamento.Text = resultado.EmAtendimento.ToString();
                 lblRetirada.Text = resultado.ParaRetirada.ToString();
         
-                // Adicionada a atualização da label de valor a receber
                 lblReceber.Text = resultado.TotalAReceber.ToString("C2");
                 lblRecebidoFinalizado.Text = $"{resultado.TotalRecebido:C2} / {resultado.QntRecebido}";
-                lblCancelado.Text = $"{resultado.QntCancelado}"; // Removido o total em dinheiro se for para mostrar apenas a quantidade, mantendo o padrão do AtualizarGrid
+                lblCancelado.Text = $"{resultado.QntCancelado}";
 
                 _idOS = 0;
                 MudarEstadoBotoes(false);

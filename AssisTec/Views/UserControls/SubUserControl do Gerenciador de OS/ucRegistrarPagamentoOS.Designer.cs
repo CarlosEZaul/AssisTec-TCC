@@ -105,6 +105,7 @@ namespace AssisTec.Views.UserControls.SubUserControl_do_Gerenciador_de_OS
             // 
             // mtbDataPagamento
             // 
+            this.mtbDataPagamento.Enabled = false;
             this.mtbDataPagamento.Location = new System.Drawing.Point(24, 32);
             this.mtbDataPagamento.Mask = "00/00/0000";
             this.mtbDataPagamento.Name = "mtbDataPagamento";
@@ -277,6 +278,7 @@ namespace AssisTec.Views.UserControls.SubUserControl_do_Gerenciador_de_OS
             // txtIdOs
             // 
             this.txtIdOs.BackColor = System.Drawing.Color.White;
+            this.txtIdOs.Enabled = false;
             this.txtIdOs.Location = new System.Drawing.Point(102, 15);
             this.txtIdOs.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtIdOs.Name = "txtIdOs";
@@ -298,6 +300,7 @@ namespace AssisTec.Views.UserControls.SubUserControl_do_Gerenciador_de_OS
             // txtEquipamento
             // 
             this.txtEquipamento.BackColor = System.Drawing.Color.White;
+            this.txtEquipamento.Enabled = false;
             this.txtEquipamento.Location = new System.Drawing.Point(119, 41);
             this.txtEquipamento.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtEquipamento.Name = "txtEquipamento";
@@ -319,6 +322,7 @@ namespace AssisTec.Views.UserControls.SubUserControl_do_Gerenciador_de_OS
             // txtCliente
             // 
             this.txtCliente.BackColor = System.Drawing.Color.White;
+            this.txtCliente.Enabled = false;
             this.txtCliente.Location = new System.Drawing.Point(102, 67);
             this.txtCliente.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtCliente.Name = "txtCliente";
@@ -340,6 +344,7 @@ namespace AssisTec.Views.UserControls.SubUserControl_do_Gerenciador_de_OS
             // txtTecnico
             // 
             this.txtTecnico.BackColor = System.Drawing.Color.White;
+            this.txtTecnico.Enabled = false;
             this.txtTecnico.Location = new System.Drawing.Point(102, 93);
             this.txtTecnico.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtTecnico.Name = "txtTecnico";

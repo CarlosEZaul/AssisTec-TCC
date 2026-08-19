@@ -30,7 +30,7 @@ namespace AssisTec.Repository
                 .Include(o => o.Cliente)
                 .Include(o => o.Tecnico)
                 .Include(o => o.Equipamento)
-                .Where(o => (o.data_abertura >= inicioMes && o.data_abertura < fimMes) || o.status == "ABERTA");
+                .Where(o => o.data_abertura >= inicioMes && o.data_abertura < fimMes);
 
             var ordens = query.ToList();
             var osIds = ordens.Select(o => o.id_os).ToList();

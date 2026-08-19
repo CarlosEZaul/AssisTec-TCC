@@ -76,7 +76,7 @@ namespace AssisTec.Service
                 return (false, "Data de nascimento é obrigatório");
             }
             
-            var (dataValida, mensagemData) = Validacao.ValidarData(cliente.DataNascimento.Value);
+            var (dataValida, mensagemData) = Validacao.ValidarDataNascimento(cliente.DataNascimento.Value);
             if (!dataValida)
             {
                 return (false, mensagemData);
@@ -119,7 +119,7 @@ namespace AssisTec.Service
                 return (false, "Data de nascimento é obrigatório");
             }
             
-            var (dataValida, mensagemData) = Validacao.ValidarData(cliente.DataNascimento.Value);
+            var (dataValida, mensagemData) = Validacao.ValidarDataNascimento(cliente.DataNascimento.Value);
             if (!dataValida)
             {
                 return (false, mensagemData);
