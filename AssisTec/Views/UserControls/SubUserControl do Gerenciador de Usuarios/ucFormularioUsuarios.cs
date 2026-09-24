@@ -18,7 +18,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Usuarios
         private readonly DataGridView dgv;
         private readonly UsuarioService service;
         
-        private readonly EmailService _emailService = new EmailService("carlosezzddomingos@gmail.com", "yahs ubev npto pewg");
+        private readonly EmailService _emailService = new EmailService("assistectcc@gmail.com", "bjcz jxut deup ajcl");
         private string _emailOriginal = string.Empty;
         private string _codigoGerado = string.Empty;
         private bool _emailVerificado = false;

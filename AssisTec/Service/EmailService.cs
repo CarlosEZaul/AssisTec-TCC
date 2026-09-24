@@ -4,6 +4,7 @@ using System.IO;
 using MailKit.Net.Smtp;
 using MailKit.Security;
 using MimeKit;
+using MimeKit.Utils;
 
 namespace AssisTec.Service
 {
@@ -38,19 +39,13 @@ namespace AssisTec.Service
                 message.Subject = "Código de Verificação - AssisTec";
 
                 var bodyBuilder = new BodyBuilder();
-                string contentId = "logo_assistec_cid";
-                
-                using (var logo = Properties.Resources.logopng)
-                using (var stream = new MemoryStream())
-                {
-                    logo.Save(stream, ImageFormat.Png);
-                    byte[] bytesImagem = stream.ToArray();
 
-                    MimeEntity image = bodyBuilder.LinkedResources.Add("logo.png", bytesImagem, ContentType.Parse("image/png"));
-                    image.ContentId = contentId;
-                    image.ContentDisposition = new ContentDisposition(ContentDisposition.Inline);
-                }
+                // 1. O ContentId no MimeKit para imagens Inline DEVE estar entre delimitadores < > no cabeçalho
+                string contentId = MimeUtils.GenerateMessageId();
 
+                bodyBuilder.TextBody = $"Seu código de verificação é: {codigoExibicao}\n\nEste código expira em 30 minutos.\nSe você não solicitou este código, ignore este e-mail.";
+
+                // 2. No HTML, use o cid sem os símbolos < e >
                 bodyBuilder.HtmlBody = $@"
                 <table role='presentation' width='100%' cellpadding='0' cellspacing='0' style='background-color: #0d0d0d; padding: 40px 0;'>
                     <tr>
@@ -58,7 +53,7 @@ namespace AssisTec.Service
                             <table role='presentation' width='400' cellpadding='0' cellspacing='0' style='background-color: #1a1a1a; border-radius: 12px; padding: 40px 30px; font-family: Arial, sans-serif; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.4);'>
                                 <tr>
                                     <td align='center' style='padding-bottom: 20px;'>
-                                        <img src='cid:{contentId}' alt='Logo AssisTec' style='max-width: 160px; height: auto;' />
+                                        <img src='cid:{contentId}' alt='Logo AssisTec' width='160' style='max-width: 160px; height: auto; display: block;' />
                                     </td>
                                 </tr>
                                 <tr>
@@ -94,6 +89,20 @@ namespace AssisTec.Service
                         </td>
                     </tr>
                 </table>";
+
+                byte[] bytesImagem;
+                using (var logo = Properties.Resources.logopng)
+                using (var stream = new MemoryStream())
+                {
+                    logo.Save(stream, ImageFormat.Png);
+                    bytesImagem = stream.ToArray();
+                }
+
+                // 3. Adiciona o recurso vinculado forçando os atributos corretos
+                var image = bodyBuilder.LinkedResources.Add("logo.png", bytesImagem, ContentType.Parse("image/png"));
+                image.ContentId = contentId;
+                image.ContentDisposition = new ContentDisposition(ContentDisposition.Inline);
+                image.IsAttachment = false; // Garante que o celular entenda como elemento gráfico da página
 
                 message.Body = bodyBuilder.ToMessageBody();
 

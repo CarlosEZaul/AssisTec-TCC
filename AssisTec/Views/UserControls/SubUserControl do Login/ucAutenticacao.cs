@@ -17,7 +17,7 @@ namespace AssisTec.UserControls
             InitializeComponent();
             _usuarioService = usuarioService;
             _usuarioPendente = usuario;
-            _emailService = new EmailService("carlosezzddomingos@gmail.com", "yahs ubev npto pewg");
+            _emailService = new EmailService("assistectcc@gmail.com", "bjcz jxut deup ajcl");
 
             mtbCodigo.Mask = "000-000";
             mtbCodigo.TextMaskFormat = MaskFormat.ExcludePromptAndLiterals;
