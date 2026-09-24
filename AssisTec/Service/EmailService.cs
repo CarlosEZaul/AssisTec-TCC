@@ -39,13 +39,12 @@ namespace AssisTec.Service
                 message.Subject = "Código de Verificação - AssisTec";
 
                 var bodyBuilder = new BodyBuilder();
-
-                // 1. O ContentId no MimeKit para imagens Inline DEVE estar entre delimitadores < > no cabeçalho
+                
                 string contentId = MimeUtils.GenerateMessageId();
 
                 bodyBuilder.TextBody = $"Seu código de verificação é: {codigoExibicao}\n\nEste código expira em 30 minutos.\nSe você não solicitou este código, ignore este e-mail.";
 
-                // 2. No HTML, use o cid sem os símbolos < e >
+                
                 bodyBuilder.HtmlBody = $@"
                 <table role='presentation' width='100%' cellpadding='0' cellspacing='0' style='background-color: #0d0d0d; padding: 40px 0;'>
                     <tr>
