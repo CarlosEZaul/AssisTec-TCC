@@ -671,6 +671,7 @@
     <Content Include="Resources\AdicionarEntidade.png" />
     <Content Include="Resources\aprovado.png" />
     <Content Include="Resources\atencao.png" />
+    <Content Include="Resources\Atendente.png" />
     <Content Include="Resources\cancelado.png" />
     <Content Include="Resources\cifrao.png" />
     <Content Include="Resources\cifrao_vermelho.png" />
@@ -686,6 +687,9 @@
     <Content Include="Resources\produto.png" />
     <Content Include="Resources\relogio_pendente.png" />
     <Content Include="Resources\SaidaEstoque.png" />
+    <Content Include="Resources\Tecnicos.png" />
+    <Content Include="Resources\TotalUsuarios.png" />
+    <Content Include="Resources\UsuarioInativo.png" />
     <Content Include="Resources\valor_estoque.png" />
   </ItemGroup>
   <ItemGroup />

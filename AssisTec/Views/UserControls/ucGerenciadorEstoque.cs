@@ -83,8 +83,6 @@ namespace AssisTec.UserControls
         {
             btnEditar.Enabled = ativo;
             btnStatus.Enabled = ativo;
-            //btnEntrada.Enabled = ativo;
-            //btnSaida.Enabled = ativo;
         }
         private void ConfigurarSubComponente(UserControl uc)
         {
@@ -300,11 +298,13 @@ namespace AssisTec.UserControls
                 MessageBox.Show("Erro ao gerar o relatório de estoque: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        #endregion
-
+        
         private void txtFornecedor_TextChanged(object sender, EventArgs e)
         {
             FiltrarProdutos();
         }
+        #endregion
+
+        
     }
 }

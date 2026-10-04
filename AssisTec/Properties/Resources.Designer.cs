@@ -111,6 +111,16 @@ namespace AssisTec.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Atendente {
+            get {
+                object obj = ResourceManager.GetObject("Atendente", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap backup {
             get {
                 object obj = ResourceManager.GetObject("backup", resourceCulture);
@@ -294,6 +304,36 @@ namespace AssisTec.Properties {
         internal static System.Drawing.Bitmap SaidaEstoque {
             get {
                 object obj = ResourceManager.GetObject("SaidaEstoque", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Tecnicos {
+            get {
+                object obj = ResourceManager.GetObject("Tecnicos", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap TotalUsuarios {
+            get {
+                object obj = ResourceManager.GetObject("TotalUsuarios", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap UsuarioInativo {
+            get {
+                object obj = ResourceManager.GetObject("UsuarioInativo", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

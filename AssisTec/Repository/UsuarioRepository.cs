@@ -236,58 +236,70 @@ namespace AssisTec.Repository
             }
         }
 
+        
+
         #endregion
 
         #region Fitrlo
 
         public List<Usuario> ObterComFiltros(string nome, bool exibirDesativados, int nivel)
+        {
+            try
+            {
+                IQueryable<Usuario> query = context.Usuarios;
+
+                if (!string.IsNullOrEmpty(nome))
                 {
-                    try
-                    {
-                        IQueryable<Usuario> query = context.Usuarios;
-        
-                        if (!string.IsNullOrEmpty(nome))
-                        {
-                            query = query.Where(u => u.Nome.StartsWith(nome));
-                        }
-        
-                        if (!exibirDesativados)
-                        {
-                            query = query.Where(u => u.Status == "Ativado");
-                        }
-        
-                        if (nivel > 0)
-                        {
-                            query = query.Where(u => u.Nivel == nivel);
-                        }
-        
-                        return query.OrderBy(u => u.Nome).ToList();
-                    }
-                    catch (Exception ex)
-                    {
-                        throw new Exception("Falha ao obter usuários com filtros.", ex);
-                    }
+                    query = query.Where(u => u.Nome.StartsWith(nome));
                 }
 
+                if (!exibirDesativados)
+                {
+                    query = query.Where(u => u.Status == "Ativado");
+                }
+
+                if (nivel > 0)
+                {
+                    query = query.Where(u => u.Nivel == nivel);
+                }
+
+                return query.OrderBy(u => u.Nome).ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Falha ao obter usuários com filtros.", ex);
+            }
+        }
+        public (int totalAtivados, int atendentesAtivados, int tecnicosAtivados, int totalInativos) ObterTotaisUsuarios()
+        {
+            try
+            {
+                var totais = context.Usuarios
+                    .AsNoTracking()
+                    .GroupBy(u => 1)
+                    .Select(g => new
+                    {
+                        TotalAtivados = g.Count(u => u.Status == "Ativado"),
+                        AtendentesAtivados = g.Count(u => u.Status == "Ativado" && u.Nivel == 2),
+                        TecnicosAtivados = g.Count(u => u.Status == "Ativado" && u.Nivel == 3),
+                        TotalInativos = g.Count(u => u.Status != "Ativado")
+                    })
+                    .FirstOrDefault();
+
+                if (totais == null)
+                {
+                    return (0, 0, 0, 0);
+                }
+
+                return (totais.TotalAtivados, totais.AtendentesAtivados, totais.TecnicosAtivados, totais.TotalInativos);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Falha ao obter totais de usuários no banco de dados.", ex);
+            }
+        }
+
         #endregion
-        
-    
-        
 
-        
-
-        
-
-       
-
-       
-
-        
-
-        
-
-        
-
-        
     }
 }
