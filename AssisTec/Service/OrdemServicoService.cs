@@ -63,7 +63,7 @@ namespace AssisTec.Service
             return _clienteRepository.ObterTodosClientes();
         }
 
-        public List<Usuario> ObterTecnicosAtivados()
+        public List<Usuario> ObterTecnicos()
         {
             return _usuarioRepository.ObterTodosTecnicosAtivados();
         }

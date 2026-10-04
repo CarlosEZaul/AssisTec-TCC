@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Globalization;
 using System.Linq;
+using System.Text;
 using System.Windows.Forms;
 
 using AssisTec.Models;
@@ -26,33 +28,115 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
 
         private void configurarComboBox()
         {
-            List<Usuario> tecnicos = _ordemServicoService.ObterTecnicosAtivados();
-            cbTecnico.DataSource = null;
-            cbTecnico.DisplayMember = "nome";
-            cbTecnico.ValueMember = "Id";
-            cbTecnico.DataSource = tecnicos;
-            cbTecnico.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
-            cbTecnico.AutoCompleteSource = AutoCompleteSource.ListItems;
-            cbTecnico.DropDownStyle = ComboBoxStyle.DropDown;
-            cbTecnico.SelectedIndex = -1;
+            string Normalizar(string s)
+            {
+                if (string.IsNullOrEmpty(s)) return "";
+                var sb = new StringBuilder();
+                foreach (char c in s.Normalize(NormalizationForm.FormD))
+                    if (CharUnicodeInfo.GetUnicodeCategory(c) != UnicodeCategory.NonSpacingMark)
+                        sb.Append(c);
+                return sb.ToString().ToLowerInvariant();
+            }
 
-            List<Cliente> clientes = _ordemServicoService.ObterClientes().Where(c=> c.Status == "Ativado").ToList();
-            cbCliente.DataSource = null;
-            cbCliente.DisplayMember = "nome";
-            cbCliente.ValueMember = "Id";
-            cbCliente.DataSource = clientes;
-            cbCliente.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
-            cbCliente.AutoCompleteSource = AutoCompleteSource.ListItems;
-            cbCliente.DropDownStyle = ComboBoxStyle.DropDown;
-            cbCliente.SelectedIndex = -1;
+            string SoDigitos(string s) => new string((s ?? "").Where(char.IsDigit).ToArray());
+            
+            void ConfigurarBusca(ComboBox cb, List<dynamic> listaOriginal)
+            {
+                cb.DisplayMember = "Exibicao";
+                cb.ValueMember = "Id";
+                cb.DataSource = listaOriginal;
+                cb.AutoCompleteMode = AutoCompleteMode.None;
+                cb.DropDownStyle = ComboBoxStyle.DropDown;
+                cb.SelectedIndex = -1;
 
-            cbEstado.Items.Add("Perfeito");
-            cbEstado.Items.Add("Marcas de Uso");
-            cbEstado.Items.Add("Danificado");
-            cbEstado.Items.Add("Incompleto");
+                var timer = new Timer { Interval = 200 };
+
+                cb.TextUpdate += (s, e) =>
+                {
+                    timer.Stop();
+                    timer.Start();
+                };
+
+                timer.Tick += (s, e) =>
+                {
+                    timer.Stop();
+
+                    string textoAtual = cb.Text;
+                    int posicaoCursor = cb.SelectionStart;
+                    string termo = Normalizar(textoAtual.Trim());
+                    string digitos = SoDigitos(textoAtual);
+
+                    cb.BeginUpdate();
+                    try
+                    {
+                        if (string.IsNullOrWhiteSpace(termo))
+                        {
+                            cb.DroppedDown = false;
+                            cb.DataSource = listaOriginal;
+                            cb.DisplayMember = "Exibicao";
+                            cb.ValueMember = "Id";
+                            cb.SelectedIndex = -1;
+                            cb.Text = "";
+                            return;
+                        }
+
+                        var listaFiltrada = listaOriginal
+                            .Where(x => Normalizar((string)x.Nome).Contains(termo) ||
+                                        Normalizar((string)x.Exibicao).Contains(termo) ||
+                                        (digitos.Length > 0 && SoDigitos((string)x.Cpf).Contains(digitos)))
+                            .ToList();
+
+                        cb.DataSource = listaFiltrada;
+                        cb.DisplayMember = "Exibicao";
+                        cb.ValueMember = "Id";
+                        cb.SelectedIndex = -1;         
+
+                        cb.Text = textoAtual;
+                        cb.SelectionStart = Math.Min(posicaoCursor, textoAtual.Length);
+                        cb.SelectionLength = 0;
+
+                        if (listaFiltrada.Count > 0 && !cb.DroppedDown)
+                            cb.DroppedDown = true;
+                    }
+                    finally
+                    {
+                        cb.EndUpdate();
+                        Cursor.Current = Cursors.Default;
+                    }
+                };
+            }
+
+            var clientes = _ordemServicoService.ObterClientes()
+                .Where(c => c.Status == "Ativado")
+                .Select(c => (dynamic)new
+                {
+                    c.Id,
+                    c.Nome,
+                    c.Cpf,
+                    Exibicao = $"{c.Nome} - {c.Cpf}"
+                })
+                .OrderBy(c => (string)c.Nome)
+                .ToList();
+
+            var tecnicos = _ordemServicoService.ObterTecnicos()
+                .Select(t => (dynamic)new
+                {
+                    t.Id,
+                    t.Nome,
+                    t.Cpf,
+                    Exibicao = $"{t.Nome} - {t.Cpf}"
+                })
+                .OrderBy(t => (string)t.Nome)
+                .ToList();
+
+            ConfigurarBusca(cbCliente, clientes);
+            ConfigurarBusca(cbTecnico, tecnicos);
+
+            cbEstado.Items.Clear();
+            cbEstado.Items.AddRange(new object[] { "Perfeito", "Marcas de Uso", "Danificado", "Incompleto" }); 
+            
         }
         
-
         private void LimparTxt()
         {
             cbTecnico.SelectedIndex = -1;
@@ -114,6 +198,22 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
         private void btnFechar_Click(object sender, EventArgs e)
         {
             this.Hide();
+        }
+
+        private void cbCliente_Format(object sender, ListControlConvertEventArgs e)
+        {
+            if (e.ListItem is Usuario tecnico)
+            {
+                e.Value = $"{tecnico.Nome} - {tecnico.Cpf}";
+            }
+        }
+
+        private void cbTecnico_Format(object sender, ListControlConvertEventArgs e)
+        {
+            if (e.ListItem is Cliente cliente)
+            {
+                e.Value = $"{cliente.Nome} - {cliente.Cpf}";
+            }
         }
     }
 }

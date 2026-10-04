@@ -511,6 +511,7 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             this.cbTecnico.Name = "cbTecnico";
             this.cbTecnico.Size = new System.Drawing.Size(270, 21);
             this.cbTecnico.TabIndex = 37;
+            this.cbTecnico.Format += new System.Windows.Forms.ListControlConvertEventHandler(this.cbTecnico_Format);
             // 
             // label11
             // 
@@ -530,6 +531,7 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             this.cbCliente.Name = "cbCliente";
             this.cbCliente.Size = new System.Drawing.Size(270, 21);
             this.cbCliente.TabIndex = 35;
+            this.cbCliente.Format += new System.Windows.Forms.ListControlConvertEventHandler(this.cbCliente_Format);
             // 
             // label12
             // 
