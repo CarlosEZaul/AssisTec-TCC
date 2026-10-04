@@ -34,12 +34,12 @@ namespace AssisTec.UserControls
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ucGerenciador_Clientes));
             this.panelBotoes = new System.Windows.Forms.Panel();
             this.btnContato = new System.Windows.Forms.Button();
-            this.btnRelatorio = new System.Windows.Forms.Button();
             this.btnImprimirCliente = new System.Windows.Forms.Button();
             this.btnOS = new System.Windows.Forms.Button();
             this.btnEditar = new System.Windows.Forms.Button();
             this.btnNew = new System.Windows.Forms.Button();
             this.btnStatus = new System.Windows.Forms.Button();
+            this.btnRelatorio = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.dgvClientes = new System.Windows.Forms.DataGridView();
             this.label14 = new System.Windows.Forms.Label();
@@ -57,7 +57,6 @@ namespace AssisTec.UserControls
             // 
             this.panelBotoes.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.panelBotoes.Controls.Add(this.btnContato);
-            this.panelBotoes.Controls.Add(this.btnRelatorio);
             this.panelBotoes.Controls.Add(this.btnImprimirCliente);
             this.panelBotoes.Controls.Add(this.btnOS);
             this.panelBotoes.Controls.Add(this.btnEditar);
@@ -65,7 +64,7 @@ namespace AssisTec.UserControls
             this.panelBotoes.Controls.Add(this.btnStatus);
             this.panelBotoes.Location = new System.Drawing.Point(334, 685);
             this.panelBotoes.Name = "panelBotoes";
-            this.panelBotoes.Size = new System.Drawing.Size(755, 61);
+            this.panelBotoes.Size = new System.Drawing.Size(665, 61);
             this.panelBotoes.TabIndex = 146;
             // 
             // btnContato
@@ -75,28 +74,13 @@ namespace AssisTec.UserControls
             this.btnContato.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnContato.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.btnContato.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnContato.Location = new System.Drawing.Point(638, 15);
+            this.btnContato.Location = new System.Drawing.Point(542, 15);
             this.btnContato.Name = "btnContato";
             this.btnContato.Size = new System.Drawing.Size(110, 33);
             this.btnContato.TabIndex = 106;
             this.btnContato.Text = "Entrar em Contato";
             this.btnContato.UseVisualStyleBackColor = false;
             this.btnContato.Click += new System.EventHandler(this.btnContato_Click);
-            // 
-            // btnRelatorio
-            // 
-            this.btnRelatorio.BackColor = System.Drawing.Color.RoyalBlue;
-            this.btnRelatorio.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnRelatorio.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnRelatorio.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.btnRelatorio.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnRelatorio.Location = new System.Drawing.Point(542, 15);
-            this.btnRelatorio.Name = "btnRelatorio";
-            this.btnRelatorio.Size = new System.Drawing.Size(90, 33);
-            this.btnRelatorio.TabIndex = 105;
-            this.btnRelatorio.Text = "Gerar Relatório";
-            this.btnRelatorio.UseVisualStyleBackColor = false;
-            this.btnRelatorio.Click += new System.EventHandler(this.btnRelatorio_Click);
             // 
             // btnImprimirCliente
             // 
@@ -176,6 +160,22 @@ namespace AssisTec.UserControls
             this.btnStatus.Text = "Ativar/Desativar";
             this.btnStatus.UseVisualStyleBackColor = false;
             this.btnStatus.Click += new System.EventHandler(this.btnStatus_Click);
+            // 
+            // btnRelatorio
+            // 
+            this.btnRelatorio.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnRelatorio.BackColor = System.Drawing.Color.RoyalBlue;
+            this.btnRelatorio.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnRelatorio.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRelatorio.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.btnRelatorio.ForeColor = System.Drawing.SystemColors.Control;
+            this.btnRelatorio.Location = new System.Drawing.Point(1023, 8);
+            this.btnRelatorio.Name = "btnRelatorio";
+            this.btnRelatorio.Size = new System.Drawing.Size(90, 33);
+            this.btnRelatorio.TabIndex = 105;
+            this.btnRelatorio.Text = "Gerar Relatório";
+            this.btnRelatorio.UseVisualStyleBackColor = false;
+            this.btnRelatorio.Click += new System.EventHandler(this.btnRelatorio_Click);
             // 
             // label4
             // 
@@ -260,6 +260,7 @@ namespace AssisTec.UserControls
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Controls.Add(this.btnAtualizar);
+            this.panel1.Controls.Add(this.btnRelatorio);
             this.panel1.Controls.Add(this.cbDesativado);
             this.panel1.Controls.Add(this.txtBusca);
             this.panel1.Controls.Add(this.label14);

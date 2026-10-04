@@ -47,6 +47,7 @@ namespace AssisTec.UserControls
             this.panel2 = new System.Windows.Forms.Panel();
             this.btnAtualizar = new System.Windows.Forms.PictureBox();
             this.txtBusca = new System.Windows.Forms.TextBox();
+            this.btnRelatorio = new System.Windows.Forms.Button();
             this.cbInativo = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
             this.cbNivel = new System.Windows.Forms.ComboBox();
@@ -56,7 +57,6 @@ namespace AssisTec.UserControls
             this.panelBotoes = new System.Windows.Forms.Panel();
             this.btnContato = new System.Windows.Forms.Button();
             this.btnImprimir = new System.Windows.Forms.Button();
-            this.btnRelatorio = new System.Windows.Forms.Button();
             this.btnHistorico = new System.Windows.Forms.Button();
             this.btnStatus = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
@@ -225,6 +225,7 @@ namespace AssisTec.UserControls
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel2.Controls.Add(this.btnAtualizar);
             this.panel2.Controls.Add(this.txtBusca);
+            this.panel2.Controls.Add(this.btnRelatorio);
             this.panel2.Controls.Add(this.cbInativo);
             this.panel2.Controls.Add(this.label1);
             this.panel2.Controls.Add(this.cbNivel);
@@ -240,7 +241,7 @@ namespace AssisTec.UserControls
             this.btnAtualizar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnAtualizar.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnAtualizar.BackgroundImage")));
             this.btnAtualizar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnAtualizar.Location = new System.Drawing.Point(1121, 0);
+            this.btnAtualizar.Location = new System.Drawing.Point(1121, 1);
             this.btnAtualizar.Name = "btnAtualizar";
             this.btnAtualizar.Size = new System.Drawing.Size(38, 38);
             this.btnAtualizar.TabIndex = 50;
@@ -258,12 +259,28 @@ namespace AssisTec.UserControls
             this.txtBusca.TabIndex = 53;
             this.txtBusca.TextChanged += new System.EventHandler(this.txtBusca_TextChanged);
             // 
+            // btnRelatorio
+            // 
+            this.btnRelatorio.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnRelatorio.BackColor = System.Drawing.Color.RoyalBlue;
+            this.btnRelatorio.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnRelatorio.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRelatorio.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.btnRelatorio.ForeColor = System.Drawing.SystemColors.Control;
+            this.btnRelatorio.Location = new System.Drawing.Point(1025, 5);
+            this.btnRelatorio.Name = "btnRelatorio";
+            this.btnRelatorio.Size = new System.Drawing.Size(90, 33);
+            this.btnRelatorio.TabIndex = 106;
+            this.btnRelatorio.Text = "Gerar Relatório";
+            this.btnRelatorio.UseVisualStyleBackColor = false;
+            this.btnRelatorio.Click += new System.EventHandler(this.btnRelatorio_Click);
+            // 
             // cbInativo
             // 
             this.cbInativo.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.cbInativo.Font = new System.Drawing.Font("Ebrima", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbInativo.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.cbInativo.Location = new System.Drawing.Point(954, 20);
+            this.cbInativo.Location = new System.Drawing.Point(850, 16);
             this.cbInativo.Name = "cbInativo";
             this.cbInativo.Size = new System.Drawing.Size(161, 24);
             this.cbInativo.TabIndex = 136;
@@ -287,7 +304,7 @@ namespace AssisTec.UserControls
             // 
             this.cbNivel.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.cbNivel.FormattingEnabled = true;
-            this.cbNivel.Location = new System.Drawing.Point(733, 17);
+            this.cbNivel.Location = new System.Drawing.Point(668, 18);
             this.cbNivel.Name = "cbNivel";
             this.cbNivel.Size = new System.Drawing.Size(158, 21);
             this.cbNivel.TabIndex = 135;
@@ -299,7 +316,7 @@ namespace AssisTec.UserControls
             this.label2.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label2.Font = new System.Drawing.Font("Ebrima", 8.25F);
             this.label2.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label2.Location = new System.Drawing.Point(632, 20);
+            this.label2.Location = new System.Drawing.Point(567, 21);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(94, 18);
@@ -342,14 +359,13 @@ namespace AssisTec.UserControls
             this.panelBotoes.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.panelBotoes.Controls.Add(this.btnContato);
             this.panelBotoes.Controls.Add(this.btnImprimir);
-            this.panelBotoes.Controls.Add(this.btnRelatorio);
             this.panelBotoes.Controls.Add(this.btnHistorico);
             this.panelBotoes.Controls.Add(this.btnNew);
             this.panelBotoes.Controls.Add(this.btnStatus);
             this.panelBotoes.Controls.Add(this.btnEditar);
             this.panelBotoes.Location = new System.Drawing.Point(296, 688);
             this.panelBotoes.Name = "panelBotoes";
-            this.panelBotoes.Size = new System.Drawing.Size(761, 61);
+            this.panelBotoes.Size = new System.Drawing.Size(664, 61);
             this.panelBotoes.TabIndex = 132;
             // 
             // btnContato
@@ -359,7 +375,7 @@ namespace AssisTec.UserControls
             this.btnContato.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnContato.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.btnContato.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnContato.Location = new System.Drawing.Point(635, 15);
+            this.btnContato.Location = new System.Drawing.Point(540, 15);
             this.btnContato.Name = "btnContato";
             this.btnContato.Size = new System.Drawing.Size(110, 33);
             this.btnContato.TabIndex = 147;
@@ -382,21 +398,6 @@ namespace AssisTec.UserControls
             this.btnImprimir.Text = "Imprimir Usuário";
             this.btnImprimir.UseVisualStyleBackColor = false;
             this.btnImprimir.Click += new System.EventHandler(this.btnImprimir_Click);
-            // 
-            // btnRelatorio
-            // 
-            this.btnRelatorio.BackColor = System.Drawing.Color.RoyalBlue;
-            this.btnRelatorio.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnRelatorio.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnRelatorio.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.btnRelatorio.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnRelatorio.Location = new System.Drawing.Point(540, 15);
-            this.btnRelatorio.Name = "btnRelatorio";
-            this.btnRelatorio.Size = new System.Drawing.Size(90, 33);
-            this.btnRelatorio.TabIndex = 106;
-            this.btnRelatorio.Text = "Gerar Relatório";
-            this.btnRelatorio.UseVisualStyleBackColor = false;
-            this.btnRelatorio.Click += new System.EventHandler(this.btnRelatorio_Click);
             // 
             // btnHistorico
             // 
