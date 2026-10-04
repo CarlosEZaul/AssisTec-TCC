@@ -47,10 +47,24 @@ namespace AssisTec.UserControls
             this.txtBusca = new System.Windows.Forms.TextBox();
             this.cbDesativado = new System.Windows.Forms.CheckBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.lblClientesInativados = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.panel7 = new System.Windows.Forms.Panel();
+            this.lblTotalClientes = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panelBotoes.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvClientes)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnAtualizar)).BeginInit();
             this.panel1.SuspendLayout();
+            this.panel2.SuspendLayout();
+            this.panel4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
+            this.panel7.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // panelBotoes
@@ -200,11 +214,11 @@ namespace AssisTec.UserControls
             this.dgvClientes.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Sunken;
             this.dgvClientes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvClientes.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.dgvClientes.Location = new System.Drawing.Point(22, 100);
+            this.dgvClientes.Location = new System.Drawing.Point(20, 156);
             this.dgvClientes.MultiSelect = false;
             this.dgvClientes.Name = "dgvClientes";
             this.dgvClientes.ReadOnly = true;
-            this.dgvClientes.Size = new System.Drawing.Size(1138, 579);
+            this.dgvClientes.Size = new System.Drawing.Size(1138, 523);
             this.dgvClientes.TabIndex = 144;
             this.dgvClientes.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvClientes_CellClick);
             // 
@@ -252,7 +266,7 @@ namespace AssisTec.UserControls
             this.cbDesativado.Name = "cbDesativado";
             this.cbDesativado.Size = new System.Drawing.Size(158, 24);
             this.cbDesativado.TabIndex = 147;
-            this.cbDesativado.Text = "Exibir Desativados";
+            this.cbDesativado.Text = "Exibir Inativados";
             this.cbDesativado.UseVisualStyleBackColor = true;
             this.cbDesativado.CheckedChanged += new System.EventHandler(this.cbDesativado_CheckedChanged);
             // 
@@ -265,10 +279,106 @@ namespace AssisTec.UserControls
             this.panel1.Controls.Add(this.txtBusca);
             this.panel1.Controls.Add(this.label14);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(0, 38);
+            this.panel1.Location = new System.Drawing.Point(0, 107);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1175, 46);
             this.panel1.TabIndex = 148;
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.panel4);
+            this.panel2.Controls.Add(this.panel7);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel2.Location = new System.Drawing.Point(0, 38);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(1175, 69);
+            this.panel2.TabIndex = 149;
+            // 
+            // panel4
+            // 
+            this.panel4.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel4.Controls.Add(this.lblClientesInativados);
+            this.panel4.Controls.Add(this.label3);
+            this.panel4.Controls.Add(this.pictureBox3);
+            this.panel4.Location = new System.Drawing.Point(592, 6);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(239, 56);
+            this.panel4.TabIndex = 170;
+            // 
+            // lblClientesInativados
+            // 
+            this.lblClientesInativados.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblClientesInativados.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.lblClientesInativados.Location = new System.Drawing.Point(66, 26);
+            this.lblClientesInativados.Name = "lblClientesInativados";
+            this.lblClientesInativados.Size = new System.Drawing.Size(149, 23);
+            this.lblClientesInativados.TabIndex = 4;
+            this.lblClientesInativados.Text = "0";
+            // 
+            // label3
+            // 
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.label3.Location = new System.Drawing.Point(66, 3);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(131, 23);
+            this.label3.TabIndex = 1;
+            this.label3.Text = "Clientes Inativados";
+            // 
+            // pictureBox3
+            // 
+            this.pictureBox3.BackgroundImage = global::AssisTec.Properties.Resources.UsuarioInativo;
+            this.pictureBox3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pictureBox3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureBox3.Location = new System.Drawing.Point(3, 1);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(57, 51);
+            this.pictureBox3.TabIndex = 0;
+            this.pictureBox3.TabStop = false;
+            // 
+            // panel7
+            // 
+            this.panel7.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.panel7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel7.Controls.Add(this.lblTotalClientes);
+            this.panel7.Controls.Add(this.label7);
+            this.panel7.Controls.Add(this.pictureBox1);
+            this.panel7.Location = new System.Drawing.Point(343, 6);
+            this.panel7.Name = "panel7";
+            this.panel7.Size = new System.Drawing.Size(239, 56);
+            this.panel7.TabIndex = 169;
+            // 
+            // lblTotalClientes
+            // 
+            this.lblTotalClientes.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTotalClientes.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.lblTotalClientes.Location = new System.Drawing.Point(66, 28);
+            this.lblTotalClientes.Name = "lblTotalClientes";
+            this.lblTotalClientes.Size = new System.Drawing.Size(149, 23);
+            this.lblTotalClientes.TabIndex = 2;
+            this.lblTotalClientes.Text = "0";
+            // 
+            // label7
+            // 
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.label7.Location = new System.Drawing.Point(66, 3);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(149, 23);
+            this.label7.TabIndex = 1;
+            this.label7.Text = "Clientes Ativados";
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackgroundImage = global::AssisTec.Properties.Resources.TotalUsuarios;
+            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureBox1.Location = new System.Drawing.Point(3, 1);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(57, 51);
+            this.pictureBox1.TabIndex = 0;
+            this.pictureBox1.TabStop = false;
             // 
             // ucGerenciador_Clientes
             // 
@@ -277,8 +387,9 @@ namespace AssisTec.UserControls
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(55)))), ((int)(((byte)(76)))));
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panelBotoes);
-            this.Controls.Add(this.label4);
             this.Controls.Add(this.dgvClientes);
+            this.Controls.Add(this.panel2);
+            this.Controls.Add(this.label4);
             this.Name = "ucGerenciador_Clientes";
             this.Size = new System.Drawing.Size(1175, 749);
             this.Load += new System.EventHandler(this.ucGerenciadorClientes_Load);
@@ -287,8 +398,24 @@ namespace AssisTec.UserControls
             ((System.ComponentModel.ISupportInitialize)(this.btnAtualizar)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.panel2.ResumeLayout(false);
+            this.panel4.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
+            this.panel7.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
         }
+
+        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.Label lblClientesInativados;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.PictureBox pictureBox3;
+        private System.Windows.Forms.Panel panel7;
+        private System.Windows.Forms.Label lblTotalClientes;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.PictureBox pictureBox1;
+
+        private System.Windows.Forms.Panel panel2;
 
         private System.Windows.Forms.Panel panel1;
 

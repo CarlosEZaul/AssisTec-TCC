@@ -21,8 +21,8 @@ namespace AssisTec.UserControls
             btnNew.Focus();
             _clienteService = clienteService;
             _ordemServicoService = ordemServicoService;
-            ListGrid(); 
-            
+            ListGrid();
+            CarregarTotaisUsuarios();
             ApplyModernDesign();
         }
 
@@ -82,6 +82,7 @@ namespace AssisTec.UserControls
                 dgvClientes.DataSource = null;
                 dgvClientes.DataSource = _clienteService.ObterTodos();
                 FormartGrid();
+                CarregarTotaisUsuarios();
             }
             catch (Exception ex)
             {
@@ -100,6 +101,21 @@ namespace AssisTec.UserControls
             catch (Exception ex)
             {
                 Console.WriteLine("Erro na busca: " + ex.Message);
+            }
+        }
+
+        private void CarregarTotaisUsuarios()
+        {
+            try
+            {
+                var totais = _clienteService.ObterTotaisUsuarios();
+
+                lblTotalClientes.Text = totais.total.ToString();
+                lblClientesInativados.Text = totais.totalInativos.ToString();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao carregar totais de usuários: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

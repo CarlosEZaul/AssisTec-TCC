@@ -173,9 +173,9 @@ namespace AssisTec.UserControls
             {
                 var totais = service.ObterTotaisUsuarios();
 
-                lblTotalUsuarios.Text = totais.totalAtivados.ToString();
-                lblTotalAtendentes.Text = totais.atendentesAtivados.ToString();
-                lblTotalTecnicos.Text = totais.tecnicosAtivados.ToString();
+                lblTotalUsuarios.Text = totais.total.ToString();
+                lblTotalAtendentes.Text = totais.atendentes.ToString();
+                lblTotalTecnicos.Text = totais.tecnicos.ToString();
                 lblUsuariosInativos.Text = totais.totalInativos.ToString();
             }
             catch (Exception ex)

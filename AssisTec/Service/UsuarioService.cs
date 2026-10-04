@@ -53,7 +53,7 @@ namespace AssisTec.Service
             return ordemServicoRepository.ObterHistoricoUsuario(id);
         }
         
-        public (int totalAtivados, int atendentesAtivados, int tecnicosAtivados, int totalInativos) ObterTotaisUsuarios()
+        public (int total, int atendentes, int tecnicos, int totalInativos) ObterTotaisUsuarios()
         {
             return repository.ObterTotaisUsuarios();
         }

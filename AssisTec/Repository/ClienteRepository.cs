@@ -189,6 +189,27 @@ namespace AssisTec.Repository
             }
         }
 
+        public (int totalCliente, int totalInativos) ObterTotaisClientes()
+        {
+            try
+            {
+                int total = context.Clientes
+                    .AsNoTracking()
+                    .Count(u => u.Status == "Ativado");
+        
+                int totalInativos = context.Clientes
+                    .AsNoTracking()
+                    .Count(u => u.Status != "Ativado");
+        
+                return (total, totalInativos);
+            }
+            catch (Exception ex)
+            {
+                
+                throw new Exception("Falha ao obter totais de clientes no banco de dados. " + ex.Message, ex);
+            }
+        }
+
         #endregion
 
         

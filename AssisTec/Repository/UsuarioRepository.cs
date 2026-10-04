@@ -270,19 +270,19 @@ namespace AssisTec.Repository
                 throw new Exception("Falha ao obter usuários com filtros.", ex);
             }
         }
-        public (int totalAtivados, int atendentesAtivados, int tecnicosAtivados, int totalInativos) ObterTotaisUsuarios()
+        public (int totalUsuarios, int atendentes, int tecnicos, int totalInativos) ObterTotaisUsuarios()
         {
             try
             {
-                int totalAtivados = context.Usuarios
+                int total = context.Usuarios
                     .AsNoTracking()
                     .Count(u => u.Status == "Ativado");
         
-                int atendentesAtivados = context.Usuarios
+                int atendentes = context.Usuarios
                     .AsNoTracking()
                     .Count(u => u.Status == "Ativado" && u.Nivel == 2);
         
-                int tecnicosAtivados = context.Usuarios
+                int tecnicos = context.Usuarios
                     .AsNoTracking()
                     .Count(u => u.Status == "Ativado" && u.Nivel == 3);
         
@@ -290,7 +290,7 @@ namespace AssisTec.Repository
                     .AsNoTracking()
                     .Count(u => u.Status != "Ativado");
         
-                return (totalAtivados, atendentesAtivados, tecnicosAtivados, totalInativos);
+                return (total, atendentes, tecnicos, totalInativos);
             }
             catch (Exception ex)
             {

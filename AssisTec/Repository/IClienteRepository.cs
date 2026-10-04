@@ -15,6 +15,7 @@ namespace AssisTec.Repository
         List<Cliente> ObterComFiltros(string busca);
         bool AlterarStatus(int id);
         List<Cliente> ObterComFiltros(string nome, bool exibirDesativados);
+        (int totalCliente, int totalInativos) ObterTotaisClientes();
         
     }
 }

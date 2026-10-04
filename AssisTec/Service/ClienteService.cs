@@ -44,6 +44,20 @@ namespace AssisTec.Service
         {
             return ordemServicoRepository.ObterHistoricoCliente(id);
         }
+        
+        public (int total, int totalInativos) ObterTotaisUsuarios()
+        {
+            return repository.ObterTotaisClientes();
+        }
+        
+        private string ObterValorColuna(DataRow row, DataTable table, string nomeColuna, string valorPadrao)
+        {
+            if (table.Columns.Contains(nomeColuna) && row[nomeColuna] != DBNull.Value)
+            {
+                return row[nomeColuna].ToString();
+            }
+            return valorPadrao;
+        }
 
 
         #endregion
@@ -401,14 +415,7 @@ namespace AssisTec.Service
         
         
 
-        private string ObterValorColuna(DataRow row, DataTable table, string nomeColuna, string valorPadrao)
-        {
-            if (table.Columns.Contains(nomeColuna) && row[nomeColuna] != DBNull.Value)
-            {
-                return row[nomeColuna].ToString();
-            }
-            return valorPadrao;
-        }
+        
 
         public DataTable ObterHistoricoOsCliente(int id)
         {

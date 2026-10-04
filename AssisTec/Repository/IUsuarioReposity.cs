@@ -19,7 +19,7 @@ namespace AssisTec.Repository
         bool EmailExiste(string email);
         bool ExisteGerenteAtivo();
         bool AlterarSenha(Usuario usuario);
-        (int totalAtivados, int atendentesAtivados, int tecnicosAtivados, int totalInativos) ObterTotaisUsuarios();
+        (int totalUsuarios, int atendentes, int tecnicos, int totalInativos) ObterTotaisUsuarios();
         List<Usuario> ObterComFiltros(string nome, bool exibirDesativados, int nivel);
     }
 }

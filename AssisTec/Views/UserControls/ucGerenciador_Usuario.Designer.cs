@@ -488,7 +488,7 @@ namespace AssisTec.UserControls
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(149, 23);
             this.label7.TabIndex = 1;
-            this.label7.Text = "Usuários Cadastrados";
+            this.label7.Text = "Usuários Ativados";
             // 
             // pictureBox1
             // 
@@ -565,7 +565,7 @@ namespace AssisTec.UserControls
             this.cbInativo.Name = "cbInativo";
             this.cbInativo.Size = new System.Drawing.Size(161, 24);
             this.cbInativo.TabIndex = 136;
-            this.cbInativo.Text = "Exibir desativados";
+            this.cbInativo.Text = "Exibir Inativados";
             this.cbInativo.UseVisualStyleBackColor = true;
             this.cbInativo.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
