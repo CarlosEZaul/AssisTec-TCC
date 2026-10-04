@@ -30,6 +30,7 @@ namespace AssisTec.UserControls
             ApplyModernDesign();
             listGrid();
             formartGrid();
+            CarregarTotaisUsuarios();
         }
 
         #region Design Moderno
@@ -94,12 +95,12 @@ namespace AssisTec.UserControls
         {
             try
             {
-                
                 dgvUsuarios.DataSource = null;
                 dgvUsuarios.DataSource = service.ObterTodos();
                 formartGrid();
                 cbInativo.Checked = false;
                 cbNivel.SelectedIndex = 0;
+                CarregarTotaisUsuarios();
             }
             catch (Exception ex)
             {
@@ -164,6 +165,23 @@ namespace AssisTec.UserControls
             btnAtualizar.Enabled = ativo;
             txtBusca.Enabled = ativo;
             dgvUsuarios.Enabled = ativo;
+        }
+        
+        private void CarregarTotaisUsuarios()
+        {
+            try
+            {
+                var totais = service.ObterTotaisUsuarios();
+
+                lblTotalUsuarios.Text = totais.totalAtivados.ToString();
+                lblTotalAtendentes.Text = totais.atendentesAtivados.ToString();
+                lblTotalTecnicos.Text = totais.tecnicosAtivados.ToString();
+                lblUsuariosInativos.Text = totais.totalInativos.ToString();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao carregar totais de usuários: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
         #endregion
 
@@ -419,6 +437,32 @@ namespace AssisTec.UserControls
             finally
             {
                 btnContato.Enabled = true;
+            }
+        }
+
+        private void dgvUsuarios_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (dgvUsuarios.Columns[e.ColumnIndex].Name.Equals("Nivel", StringComparison.OrdinalIgnoreCase) ||
+                dgvUsuarios.Columns[e.ColumnIndex].DataPropertyName.Equals("Nivel", StringComparison.OrdinalIgnoreCase))
+            {
+                if (e.Value != null && int.TryParse(e.Value.ToString(), out int nivel))
+                {
+                    switch (nivel)
+                    {
+                        case 1:
+                            e.Value = "1 - Gerente";
+                            e.FormattingApplied = true;
+                            break;
+                        case 2:
+                            e.Value = "2 - Atendente";
+                            e.FormattingApplied = true;
+                            break;
+                        case 3:
+                            e.Value = "3 - Técnico";
+                            e.FormattingApplied = true;
+                            break;
+                    }
+                }
             }
         }
     }

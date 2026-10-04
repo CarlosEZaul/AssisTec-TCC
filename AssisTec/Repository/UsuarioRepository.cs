@@ -274,28 +274,28 @@ namespace AssisTec.Repository
         {
             try
             {
-                var totais = context.Usuarios
+                int totalAtivados = context.Usuarios
                     .AsNoTracking()
-                    .GroupBy(u => 1)
-                    .Select(g => new
-                    {
-                        TotalAtivados = g.Count(u => u.Status == "Ativado"),
-                        AtendentesAtivados = g.Count(u => u.Status == "Ativado" && u.Nivel == 2),
-                        TecnicosAtivados = g.Count(u => u.Status == "Ativado" && u.Nivel == 3),
-                        TotalInativos = g.Count(u => u.Status != "Ativado")
-                    })
-                    .FirstOrDefault();
-
-                if (totais == null)
-                {
-                    return (0, 0, 0, 0);
-                }
-
-                return (totais.TotalAtivados, totais.AtendentesAtivados, totais.TecnicosAtivados, totais.TotalInativos);
+                    .Count(u => u.Status == "Ativado");
+        
+                int atendentesAtivados = context.Usuarios
+                    .AsNoTracking()
+                    .Count(u => u.Status == "Ativado" && u.Nivel == 2);
+        
+                int tecnicosAtivados = context.Usuarios
+                    .AsNoTracking()
+                    .Count(u => u.Status == "Ativado" && u.Nivel == 3);
+        
+                int totalInativos = context.Usuarios
+                    .AsNoTracking()
+                    .Count(u => u.Status != "Ativado");
+        
+                return (totalAtivados, atendentesAtivados, tecnicosAtivados, totalInativos);
             }
             catch (Exception ex)
             {
-                throw new Exception("Falha ao obter totais de usuários no banco de dados.", ex);
+                
+                throw new Exception("Falha ao obter totais de usuários no banco de dados. " + ex.Message, ex);
             }
         }
 

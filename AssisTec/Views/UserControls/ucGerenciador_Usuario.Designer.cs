@@ -318,6 +318,7 @@ namespace AssisTec.UserControls
             // 
             // panel3
             // 
+            this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel3.Controls.Add(this.panel4);
             this.panel3.Controls.Add(this.panel5);
             this.panel3.Controls.Add(this.panel6);
@@ -335,7 +336,7 @@ namespace AssisTec.UserControls
             this.panel4.Controls.Add(this.lblTotalAtendentes);
             this.panel4.Controls.Add(this.label3);
             this.panel4.Controls.Add(this.pictureBox3);
-            this.panel4.Location = new System.Drawing.Point(349, 6);
+            this.panel4.Location = new System.Drawing.Point(348, 6);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(239, 56);
             this.panel4.TabIndex = 168;
@@ -378,7 +379,7 @@ namespace AssisTec.UserControls
             this.panel5.Controls.Add(this.lblUsuariosInativos);
             this.panel5.Controls.Add(this.label13);
             this.panel5.Controls.Add(this.pictureBox4);
-            this.panel5.Location = new System.Drawing.Point(835, 6);
+            this.panel5.Location = new System.Drawing.Point(834, 6);
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(239, 56);
             this.panel5.TabIndex = 169;
@@ -421,7 +422,7 @@ namespace AssisTec.UserControls
             this.panel6.Controls.Add(this.lblTotalTecnicos);
             this.panel6.Controls.Add(this.label5);
             this.panel6.Controls.Add(this.fifgurinha);
-            this.panel6.Location = new System.Drawing.Point(590, 6);
+            this.panel6.Location = new System.Drawing.Point(589, 6);
             this.panel6.Name = "panel6";
             this.panel6.Size = new System.Drawing.Size(239, 56);
             this.panel6.TabIndex = 167;
@@ -464,7 +465,7 @@ namespace AssisTec.UserControls
             this.panel7.Controls.Add(this.lblTotalUsuarios);
             this.panel7.Controls.Add(this.label7);
             this.panel7.Controls.Add(this.pictureBox1);
-            this.panel7.Location = new System.Drawing.Point(100, 6);
+            this.panel7.Location = new System.Drawing.Point(99, 6);
             this.panel7.Name = "panel7";
             this.panel7.Size = new System.Drawing.Size(239, 56);
             this.panel7.TabIndex = 166;
@@ -607,9 +608,9 @@ namespace AssisTec.UserControls
             // 
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(55)))), ((int)(((byte)(76)))));
-            this.panel1.Controls.Add(this.dgvUsuarios);
             this.panel1.Controls.Add(this.panel2);
             this.panel1.Controls.Add(this.panel3);
+            this.panel1.Controls.Add(this.dgvUsuarios);
             this.panel1.Controls.Add(this.label4);
             this.panel1.Controls.Add(this.panelBotoes);
             this.panel1.Controls.Add(this.label15);
@@ -643,6 +644,7 @@ namespace AssisTec.UserControls
             this.dgvUsuarios.Size = new System.Drawing.Size(1138, 523);
             this.dgvUsuarios.TabIndex = 150;
             this.dgvUsuarios.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvUsuarios_CellClick);
+            this.dgvUsuarios.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvUsuarios_CellFormatting);
             // 
             // ucGerenciador_Usuario
             // 
