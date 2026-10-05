@@ -194,6 +194,7 @@ namespace AssisTec.UserControls
             // label4
             // 
             this.label4.BackColor = System.Drawing.Color.Transparent;
+            this.label4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label4.Dock = System.Windows.Forms.DockStyle.Top;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold);
             this.label4.ForeColor = System.Drawing.Color.White;
@@ -286,6 +287,7 @@ namespace AssisTec.UserControls
             // 
             // panel2
             // 
+            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel2.Controls.Add(this.panel4);
             this.panel2.Controls.Add(this.panel7);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
@@ -301,7 +303,7 @@ namespace AssisTec.UserControls
             this.panel4.Controls.Add(this.lblClientesInativados);
             this.panel4.Controls.Add(this.label3);
             this.panel4.Controls.Add(this.pictureBox3);
-            this.panel4.Location = new System.Drawing.Point(592, 6);
+            this.panel4.Location = new System.Drawing.Point(591, 6);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(239, 56);
             this.panel4.TabIndex = 170;
@@ -344,7 +346,7 @@ namespace AssisTec.UserControls
             this.panel7.Controls.Add(this.lblTotalClientes);
             this.panel7.Controls.Add(this.label7);
             this.panel7.Controls.Add(this.pictureBox1);
-            this.panel7.Location = new System.Drawing.Point(343, 6);
+            this.panel7.Location = new System.Drawing.Point(342, 6);
             this.panel7.Name = "panel7";
             this.panel7.Size = new System.Drawing.Size(239, 56);
             this.panel7.TabIndex = 169;
