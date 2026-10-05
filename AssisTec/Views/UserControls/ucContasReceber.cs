@@ -309,5 +309,8 @@ namespace AssisTec.UserControls
                 }
             }
         }
+
+        private void dgvContasReceber_CellDoubleClick(object sender, DataGridViewCellEventArgs e) => btnEditar_Click(sender, e);
+        
     }
 }

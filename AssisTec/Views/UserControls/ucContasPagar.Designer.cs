@@ -144,6 +144,7 @@ namespace AssisTec.UserControls
             this.dgvContasPagar.Size = new System.Drawing.Size(1138, 503);
             this.dgvContasPagar.TabIndex = 160;
             this.dgvContasPagar.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvContasPagar_CellClick);
+            this.dgvContasPagar.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvContasPagar_CellDoubleClick);
             this.dgvContasPagar.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvContasPagar_CellFormatting);
             // 
             // panelExibicao

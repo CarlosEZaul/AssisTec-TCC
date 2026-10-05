@@ -222,6 +222,7 @@ namespace AssisTec.UserControls
             this.dgvClientes.Size = new System.Drawing.Size(1138, 523);
             this.dgvClientes.TabIndex = 144;
             this.dgvClientes.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvClientes_CellClick);
+            this.dgvClientes.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvClientes_CellDoubleClick);
             // 
             // label14
             // 
@@ -394,7 +395,6 @@ namespace AssisTec.UserControls
             this.Controls.Add(this.label4);
             this.Name = "ucGerenciador_Clientes";
             this.Size = new System.Drawing.Size(1175, 749);
-            this.Load += new System.EventHandler(this.ucGerenciadorClientes_Load);
             this.panelBotoes.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvClientes)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnAtualizar)).EndInit();

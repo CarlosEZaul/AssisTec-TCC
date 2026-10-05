@@ -384,5 +384,8 @@ namespace AssisTec.UserControls
                 MessageBox.Show("Erro ao gerar o comprovante: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void dgvContasPagar_CellDoubleClick(object sender, DataGridViewCellEventArgs e) => btnEditar_Click(sender, e);
+
     }
 }

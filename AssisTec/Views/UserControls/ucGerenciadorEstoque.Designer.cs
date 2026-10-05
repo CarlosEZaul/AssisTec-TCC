@@ -113,6 +113,7 @@ namespace AssisTec.UserControls
             this.dgvEstoque.Size = new System.Drawing.Size(1138, 503);
             this.dgvEstoque.TabIndex = 149;
             this.dgvEstoque.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvEstoque_CellClick);
+            this.dgvEstoque.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvEstoque_CellDoubleClick);
             this.dgvEstoque.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvEstoque_CellFormatting);
             // 
             // label1

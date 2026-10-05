@@ -305,6 +305,8 @@ namespace AssisTec.UserControls
         }
         #endregion
 
-        
+
+        private void dgvEstoque_CellDoubleClick(object sender, DataGridViewCellEventArgs e) => btnEditar_Click(sender, e);
+
     }
 }

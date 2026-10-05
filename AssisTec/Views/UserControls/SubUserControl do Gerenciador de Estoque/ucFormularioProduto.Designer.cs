@@ -89,7 +89,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
             // cbUnidade
             // 
             this.cbUnidade.FormattingEnabled = true;
-            this.cbUnidade.Location = new System.Drawing.Point(44, 134);
+            this.cbUnidade.Location = new System.Drawing.Point(44, 121);
             this.cbUnidade.Name = "cbUnidade";
             this.cbUnidade.Size = new System.Drawing.Size(460, 21);
             this.cbUnidade.TabIndex = 242;
@@ -99,7 +99,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Comic Sans MS", 9.75F);
             this.label9.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label9.Location = new System.Drawing.Point(44, 110);
+            this.label9.Location = new System.Drawing.Point(44, 100);
             this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(59, 18);
@@ -108,7 +108,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
             // 
             // mtbPrecoCompra
             // 
-            this.mtbPrecoCompra.Location = new System.Drawing.Point(44, 302);
+            this.mtbPrecoCompra.Location = new System.Drawing.Point(44, 251);
             this.mtbPrecoCompra.Mask = "0.00";
             this.mtbPrecoCompra.Name = "mtbPrecoCompra";
             this.mtbPrecoCompra.Size = new System.Drawing.Size(460, 20);
@@ -121,7 +121,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Comic Sans MS", 9.75F);
             this.label1.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label1.Location = new System.Drawing.Point(44, 281);
+            this.label1.Location = new System.Drawing.Point(44, 230);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(112, 18);
@@ -130,7 +130,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
             // 
             // mtbPrecoVenda
             // 
-            this.mtbPrecoVenda.Location = new System.Drawing.Point(44, 358);
+            this.mtbPrecoVenda.Location = new System.Drawing.Point(44, 295);
             this.mtbPrecoVenda.Mask = "0.00";
             this.mtbPrecoVenda.Name = "mtbPrecoVenda";
             this.mtbPrecoVenda.Size = new System.Drawing.Size(460, 20);
@@ -143,7 +143,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Comic Sans MS", 9.75F);
             this.label3.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label3.Location = new System.Drawing.Point(44, 337);
+            this.label3.Location = new System.Drawing.Point(44, 274);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(106, 18);
@@ -155,7 +155,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Comic Sans MS", 9.75F);
             this.label4.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label4.Location = new System.Drawing.Point(44, 170);
+            this.label4.Location = new System.Drawing.Point(44, 148);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(79, 18);
@@ -165,7 +165,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
             // txtQuantidade
             // 
             this.txtQuantidade.BackColor = System.Drawing.Color.White;
-            this.txtQuantidade.Location = new System.Drawing.Point(44, 188);
+            this.txtQuantidade.Location = new System.Drawing.Point(44, 166);
             this.txtQuantidade.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtQuantidade.Name = "txtQuantidade";
             this.txtQuantidade.Size = new System.Drawing.Size(460, 20);
@@ -176,7 +176,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Comic Sans MS", 9.75F);
             this.label5.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label5.Location = new System.Drawing.Point(44, 223);
+            this.label5.Location = new System.Drawing.Point(44, 189);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(129, 18);
@@ -186,7 +186,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
             // txtQuantidadeMinima
             // 
             this.txtQuantidadeMinima.BackColor = System.Drawing.Color.White;
-            this.txtQuantidadeMinima.Location = new System.Drawing.Point(44, 241);
+            this.txtQuantidadeMinima.Location = new System.Drawing.Point(44, 207);
             this.txtQuantidadeMinima.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtQuantidadeMinima.Name = "txtQuantidadeMinima";
             this.txtQuantidadeMinima.Size = new System.Drawing.Size(460, 20);
@@ -198,7 +198,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
             this.panelBotoes.Controls.Add(this.btnFechar);
             this.panelBotoes.Controls.Add(this.btnSave);
             this.panelBotoes.Controls.Add(this.btnLimpar);
-            this.panelBotoes.Location = new System.Drawing.Point(127, 449);
+            this.panelBotoes.Location = new System.Drawing.Point(127, 366);
             this.panelBotoes.Name = "panelBotoes";
             this.panelBotoes.Size = new System.Drawing.Size(279, 61);
             this.panelBotoes.TabIndex = 251;
@@ -253,7 +253,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Comic Sans MS", 9.75F);
             this.label6.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label6.Location = new System.Drawing.Point(44, 390);
+            this.label6.Location = new System.Drawing.Point(44, 318);
             this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(78, 18);
@@ -263,7 +263,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
             // txtFornecedor
             // 
             this.txtFornecedor.BackColor = System.Drawing.Color.White;
-            this.txtFornecedor.Location = new System.Drawing.Point(44, 408);
+            this.txtFornecedor.Location = new System.Drawing.Point(44, 336);
             this.txtFornecedor.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtFornecedor.Name = "txtFornecedor";
             this.txtFornecedor.Size = new System.Drawing.Size(460, 20);
@@ -291,7 +291,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Gerenciador_de_Estoque
             this.Controls.Add(this.txtDescricao);
             this.Controls.Add(this.label33);
             this.Name = "ucFormularioProduto";
-            this.Size = new System.Drawing.Size(543, 526);
+            this.Size = new System.Drawing.Size(543, 443);
             this.panelBotoes.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();

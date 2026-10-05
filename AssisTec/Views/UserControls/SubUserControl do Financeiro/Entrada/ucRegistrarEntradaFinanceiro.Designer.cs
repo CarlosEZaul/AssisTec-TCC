@@ -73,7 +73,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Comic Sans MS", 9.75F);
             this.label2.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label2.Location = new System.Drawing.Point(64, 56);
+            this.label2.Location = new System.Drawing.Point(41, 59);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(119, 18);
@@ -94,7 +94,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
             // txtDescricao
             // 
             this.txtDescricao.BackColor = System.Drawing.Color.White;
-            this.txtDescricao.Location = new System.Drawing.Point(64, 74);
+            this.txtDescricao.Location = new System.Drawing.Point(41, 77);
             this.txtDescricao.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtDescricao.Name = "txtDescricao";
             this.txtDescricao.Size = new System.Drawing.Size(460, 20);
@@ -105,7 +105,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Comic Sans MS", 9.75F);
             this.label1.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label1.Location = new System.Drawing.Point(64, 104);
+            this.label1.Location = new System.Drawing.Point(41, 100);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(44, 18);
@@ -117,7 +117,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Comic Sans MS", 9.75F);
             this.label3.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label3.Location = new System.Drawing.Point(64, 156);
+            this.label3.Location = new System.Drawing.Point(41, 144);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(110, 18);
@@ -129,7 +129,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Comic Sans MS", 9.75F);
             this.label5.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label5.Location = new System.Drawing.Point(64, 320);
+            this.label5.Location = new System.Drawing.Point(41, 285);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(126, 18);
@@ -141,7 +141,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Comic Sans MS", 9.75F);
             this.label6.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label6.Location = new System.Drawing.Point(64, 212);
+            this.label6.Location = new System.Drawing.Point(41, 190);
             this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(131, 18);
@@ -153,7 +153,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Comic Sans MS", 9.75F);
             this.label7.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label7.Location = new System.Drawing.Point(64, 372);
+            this.label7.Location = new System.Drawing.Point(41, 332);
             this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(135, 18);
@@ -165,7 +165,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Comic Sans MS", 9.75F);
             this.label8.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label8.Location = new System.Drawing.Point(64, 426);
+            this.label8.Location = new System.Drawing.Point(41, 380);
             this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(89, 18);
@@ -175,7 +175,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
             // txtObservacoes
             // 
             this.txtObservacoes.BackColor = System.Drawing.Color.White;
-            this.txtObservacoes.Location = new System.Drawing.Point(64, 444);
+            this.txtObservacoes.Location = new System.Drawing.Point(41, 398);
             this.txtObservacoes.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtObservacoes.Name = "txtObservacoes";
             this.txtObservacoes.Size = new System.Drawing.Size(460, 20);
@@ -187,7 +187,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
             this.panel2.Controls.Add(this.btnFechar);
             this.panel2.Controls.Add(this.btnSave);
             this.panel2.Controls.Add(this.btnLimpar);
-            this.panel2.Location = new System.Drawing.Point(133, 494);
+            this.panel2.Location = new System.Drawing.Point(133, 430);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(279, 61);
             this.panel2.TabIndex = 234;
@@ -240,7 +240,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
             // cbFormaPagamento
             // 
             this.cbFormaPagamento.FormattingEnabled = true;
-            this.cbFormaPagamento.Location = new System.Drawing.Point(64, 396);
+            this.cbFormaPagamento.Location = new System.Drawing.Point(41, 356);
             this.cbFormaPagamento.Name = "cbFormaPagamento";
             this.cbFormaPagamento.Size = new System.Drawing.Size(460, 21);
             this.cbFormaPagamento.TabIndex = 235;
@@ -248,7 +248,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
             // mtbDataEmissao
             // 
             this.mtbDataEmissao.Enabled = false;
-            this.mtbDataEmissao.Location = new System.Drawing.Point(64, 179);
+            this.mtbDataEmissao.Location = new System.Drawing.Point(41, 167);
             this.mtbDataEmissao.Mask = "00/00/0000";
             this.mtbDataEmissao.Name = "mtbDataEmissao";
             this.mtbDataEmissao.Size = new System.Drawing.Size(460, 20);
@@ -257,7 +257,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
             // 
             // mtbDataPagamento
             // 
-            this.mtbDataPagamento.Location = new System.Drawing.Point(64, 344);
+            this.mtbDataPagamento.Location = new System.Drawing.Point(41, 309);
             this.mtbDataPagamento.Mask = "00/00/0000";
             this.mtbDataPagamento.Name = "mtbDataPagamento";
             this.mtbDataPagamento.Size = new System.Drawing.Size(460, 20);
@@ -266,7 +266,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
             // 
             // mtbDataVencimento
             // 
-            this.mtbDataVencimento.Location = new System.Drawing.Point(64, 236);
+            this.mtbDataVencimento.Location = new System.Drawing.Point(41, 214);
             this.mtbDataVencimento.Mask = "00/00/0000";
             this.mtbDataVencimento.Name = "mtbDataVencimento";
             this.mtbDataVencimento.Size = new System.Drawing.Size(460, 20);
@@ -276,7 +276,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
             // cbStatus
             // 
             this.cbStatus.FormattingEnabled = true;
-            this.cbStatus.Location = new System.Drawing.Point(64, 295);
+            this.cbStatus.Location = new System.Drawing.Point(41, 261);
             this.cbStatus.Name = "cbStatus";
             this.cbStatus.Size = new System.Drawing.Size(460, 21);
             this.cbStatus.TabIndex = 240;
@@ -287,7 +287,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Comic Sans MS", 9.75F);
             this.label9.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label9.Location = new System.Drawing.Point(64, 271);
+            this.label9.Location = new System.Drawing.Point(41, 237);
             this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(51, 18);
@@ -296,7 +296,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
             // 
             // mtbValor
             // 
-            this.mtbValor.Location = new System.Drawing.Point(64, 125);
+            this.mtbValor.Location = new System.Drawing.Point(41, 121);
             this.mtbValor.Mask = "0.00";
             this.mtbValor.Name = "mtbValor";
             this.mtbValor.Size = new System.Drawing.Size(460, 20);
@@ -329,7 +329,7 @@ namespace AssisTec.UserControls.SubUserControl_do_Financeiro
             this.Controls.Add(this.label4);
             this.Controls.Add(this.txtDescricao);
             this.Name = "ucRegistrarEntradaFinanceiro";
-            this.Size = new System.Drawing.Size(543, 569);
+            this.Size = new System.Drawing.Size(543, 505);
             this.Load += new System.EventHandler(this.ucRegistrarEntradaFinanceiro_Load);
             this.panel2.ResumeLayout(false);
             this.ResumeLayout(false);

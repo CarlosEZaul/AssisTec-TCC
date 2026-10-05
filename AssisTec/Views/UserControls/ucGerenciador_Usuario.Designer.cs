@@ -644,6 +644,7 @@ namespace AssisTec.UserControls
             this.dgvUsuarios.Size = new System.Drawing.Size(1138, 523);
             this.dgvUsuarios.TabIndex = 150;
             this.dgvUsuarios.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvUsuarios_CellClick);
+            this.dgvUsuarios.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvUsuarios_CellDoubleClick);
             this.dgvUsuarios.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvUsuarios_CellFormatting);
             // 
             // ucGerenciador_Usuario

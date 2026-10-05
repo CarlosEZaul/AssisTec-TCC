@@ -25,13 +25,6 @@ namespace AssisTec.UserControls
             CarregarTotaisUsuarios();
             ApplyModernDesign();
         }
-
-        
-
-        private void ucGerenciadorClientes_Load(object sender, EventArgs e)
-        {
-            
-        }
         
         #region Design Moderno
         private void ApplyModernDesign()
@@ -352,5 +345,8 @@ namespace AssisTec.UserControls
                 MessageBox.Show($"Erro ao gerar o relatório geral: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void dgvClientes_CellDoubleClick(object sender, DataGridViewCellEventArgs e) => btnEditar_Click(sender, e);
+        
     }
 }

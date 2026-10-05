@@ -103,6 +103,7 @@ namespace AssisTec.UserControls
             this.dgvContasReceber.Size = new System.Drawing.Size(1138, 503);
             this.dgvContasReceber.TabIndex = 53;
             this.dgvContasReceber.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvContasReceber_CellClick);
+            this.dgvContasReceber.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvContasReceber_CellDoubleClick);
             this.dgvContasReceber.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvContasReceber_CellFormatting);
             // 
             // label4
