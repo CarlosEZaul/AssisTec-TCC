@@ -579,6 +579,26 @@ namespace AssisTec.Service
                 throw new ArgumentException("Ordem de Serviço não encontrada.");
             }
 
+            if (os.Cliente == null)
+            {
+                throw new ArgumentException("Cliente não encontrado");
+            }
+
+            if (os.Cliente.Status != "Ativado")
+            {
+                throw new ArgumentException("Cliente está desativado, reative para gerenciar a OS");
+            }
+
+            if (os.Tecnico == null)
+            {
+                throw new ArgumentException("Usuário não existe");
+            }
+            
+            if (os.Tecnico.Status != "Ativado")
+            {
+                throw new ArgumentException("Usuário está desativado, reative para gerenciar a OS");
+            }
+
             if (os.status != "CANCELADA" && os.status != "AGUARDANDO_RETIRADA")
             {
                 throw new InvalidOperationException("Apenas Ordens de Serviço canceladas ou aguardando retirada podem ser reabertas.");
