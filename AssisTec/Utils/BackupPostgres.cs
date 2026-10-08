@@ -156,12 +156,13 @@ public sealed class BackupPostgres
                 ON tc.constraint_name = ccu.constraint_name
             WHERE tc.constraint_type = 'FOREIGN KEY'
               AND tc.table_schema = 'public';", conn))
+            
         using (var rdr = cmd.ExecuteReader())
         {
             while (rdr.Read())
             {
                 string filha = rdr.GetString(0);
-                string pai   = rdr.GetString(1);
+                string pai = rdr.GetString(1);
                 if (filha != pai && dependencias.ContainsKey(filha))
                     dependencias[filha].Add(pai);
             }
