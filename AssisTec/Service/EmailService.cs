@@ -97,11 +97,10 @@ namespace AssisTec.Service
                     bytesImagem = stream.ToArray();
                 }
 
-                // 3. Adiciona o recurso vinculado forçando os atributos corretos
                 var image = bodyBuilder.LinkedResources.Add("logo.png", bytesImagem, ContentType.Parse("image/png"));
                 image.ContentId = contentId;
                 image.ContentDisposition = new ContentDisposition(ContentDisposition.Inline);
-                image.IsAttachment = false; // Garante que o celular entenda como elemento gráfico da página
+                image.IsAttachment = false; 
 
                 message.Body = bodyBuilder.ToMessageBody();
 
