@@ -77,16 +77,23 @@ namespace AssisTec.UserControls
             }
         }
 
+        private void FormatGrid()
+        {
+            dgvOS.Columns[0].Visible = false;
+        }
+
         private void listGridUsuario(int id)
         {
             DataTable dtHistorico = _usuarioService.obterHistoricoOs(id);
             ConfigurarComponentes(dtHistorico);
+            FormatGrid();
         }
 
         private void listGridCliente(int id)
         {
             DataTable dtHistorico = _clienteService.ObterHistoricoOS(id);
             ConfigurarComponentes(dtHistorico);
+            FormatGrid();
         }
 
         private void AtualizarIdSelecionado(int rowIndex)

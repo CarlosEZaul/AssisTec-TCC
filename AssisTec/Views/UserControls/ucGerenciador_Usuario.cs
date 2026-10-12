@@ -128,6 +128,7 @@ namespace AssisTec.UserControls
             dgvUsuarios.Columns[13].HeaderText = "Estado";
             dgvUsuarios.Columns[14].HeaderText = "Complemento";
             
+            dgvUsuarios.Columns[0].Visible = false;
             dgvUsuarios.Columns[4].Visible = false;
         }
 

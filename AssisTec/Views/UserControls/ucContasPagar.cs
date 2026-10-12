@@ -153,6 +153,8 @@ namespace AssisTec.UserControls
 
                 if (dgvContasPagar.Columns.Contains("FormaPagamentoDescricao"))
                     dgvContasPagar.Columns["FormaPagamentoDescricao"].HeaderText = "Forma de Pagamento";
+
+                dgvContasPagar.Columns[0].Visible = false;
             }
             catch (Exception e)
             {

@@ -63,6 +63,9 @@ namespace AssisTec.UserControls
             dgvContasReceber.Columns[7].HeaderText = "Observacoes";
             dgvContasReceber.Columns[8].HeaderText = "IdOrdemServico";
             dgvContasReceber.Columns[9].HeaderText = "Forma de Pagamento";
+
+
+            dgvContasReceber.Columns[0].Visible = false;
             dgvContasReceber.Columns["ClienteNome"].Visible = false;
             dgvContasReceber.Columns["Equipamento"].Visible = false;
             dgvContasReceber.Columns["DefeitoRelatado"].Visible = false;

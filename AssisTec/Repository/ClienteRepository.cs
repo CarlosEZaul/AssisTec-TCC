@@ -165,15 +165,15 @@ namespace AssisTec.Repository
 
         
 
-        public List<Cliente> ObterComFiltros(string nome, bool exibirDesativados)
+        public List<Cliente> ObterComFiltros(string busca, bool exibirDesativados)
         {
             try
             {
                 IQueryable<Cliente> query = context.Clientes;
 
-                if (!string.IsNullOrEmpty(nome))
+                if (!string.IsNullOrEmpty(busca))
                 {
-                    query = query.Where(u => u.Nome.StartsWith(nome));
+                    query = query.Where(u => u.Nome.StartsWith(busca));
                 }
 
                 if (!exibirDesativados)

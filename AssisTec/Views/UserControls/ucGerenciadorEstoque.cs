@@ -56,6 +56,8 @@ namespace AssisTec.UserControls
             dgvEstoque.Columns[6].HeaderText = "Quantidade Minima";
             dgvEstoque.Columns[7].HeaderText = "Status";
             dgvEstoque.Columns[8].HeaderText = "Fornecedor";
+            
+            dgvEstoque.Columns[0].Visible =  false;
 
         }
         private void AtualizarGrid()

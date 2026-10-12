@@ -56,7 +56,7 @@ namespace AssisTec.UserControls
             this.dgvOS = new System.Windows.Forms.DataGridView();
             this.panel7 = new System.Windows.Forms.Panel();
             this.lblEstoque = new System.Windows.Forms.Label();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.dgvEstoque = new System.Windows.Forms.DataGridView();
             this.panel8 = new System.Windows.Forms.Panel();
             this.panel9 = new System.Windows.Forms.Panel();
             this.panelBotoes = new System.Windows.Forms.Panel();
@@ -79,7 +79,7 @@ namespace AssisTec.UserControls
             this.panel6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvOS)).BeginInit();
             this.panel7.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvEstoque)).BeginInit();
             this.panel8.SuspendLayout();
             this.panel9.SuspendLayout();
             this.panelBotoes.SuspendLayout();
@@ -358,7 +358,7 @@ namespace AssisTec.UserControls
             this.panel7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(55)))), ((int)(((byte)(76)))));
             this.panel7.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panel7.Controls.Add(this.lblEstoque);
-            this.panel7.Controls.Add(this.dataGridView1);
+            this.panel7.Controls.Add(this.dgvEstoque);
             this.panel7.Dock = System.Windows.Forms.DockStyle.Right;
             this.panel7.Location = new System.Drawing.Point(626, 0);
             this.panel7.Name = "panel7";
@@ -377,23 +377,23 @@ namespace AssisTec.UserControls
             this.lblEstoque.Text = "Estoque baixo";
             this.lblEstoque.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // dataGridView1
+            // dgvEstoque
             // 
-            this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.AllowUserToDeleteRows = false;
-            this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
-            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataGridView1.BackgroundColor = System.Drawing.Color.Gray;
-            this.dataGridView1.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Sunken;
-            this.dataGridView1.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.dataGridView1.Location = new System.Drawing.Point(35, 49);
-            this.dataGridView1.MultiSelect = false;
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.Size = new System.Drawing.Size(469, 380);
-            this.dataGridView1.TabIndex = 55;
+            this.dgvEstoque.AllowUserToAddRows = false;
+            this.dgvEstoque.AllowUserToDeleteRows = false;
+            this.dgvEstoque.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvEstoque.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvEstoque.BackgroundColor = System.Drawing.Color.Gray;
+            this.dgvEstoque.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Sunken;
+            this.dgvEstoque.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
+            this.dgvEstoque.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvEstoque.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.dgvEstoque.Location = new System.Drawing.Point(35, 49);
+            this.dgvEstoque.MultiSelect = false;
+            this.dgvEstoque.Name = "dgvEstoque";
+            this.dgvEstoque.ReadOnly = true;
+            this.dgvEstoque.Size = new System.Drawing.Size(469, 380);
+            this.dgvEstoque.TabIndex = 55;
             // 
             // panel8
             // 
@@ -545,7 +545,7 @@ namespace AssisTec.UserControls
             this.panel6.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvOS)).EndInit();
             this.panel7.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvEstoque)).EndInit();
             this.panel8.ResumeLayout(false);
             this.panel9.ResumeLayout(false);
             this.panelBotoes.ResumeLayout(false);
@@ -571,7 +571,7 @@ namespace AssisTec.UserControls
 
         private System.Windows.Forms.Label lblEstoque;
 
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dgvEstoque;
 
         private System.Windows.Forms.Label lblOsRecentes;
 

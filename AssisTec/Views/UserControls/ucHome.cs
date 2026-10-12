@@ -48,10 +48,10 @@ namespace AssisTec.UserControls
             
 
             //Estoque
-            DesignComponentes.StyleDataGridView(dataGridView1);
-            DesignComponentes.RecortarCantosDataGridView(dataGridView1,15);
+            DesignComponentes.StyleDataGridView(dgvEstoque);
+            DesignComponentes.RecortarCantosDataGridView(dgvEstoque,15);
             DesignComponentes.ArredondarPainel(panel7, 15, Color.FromArgb(50, 50, 50), 1);
-            DesignComponentes.centralizarWidthControl(dataGridView1, panel7.Width);
+            DesignComponentes.centralizarWidthControl(dgvEstoque, panel7.Width);
             DesignComponentes.AdicionarImagemNaLabel(lblEstoque, Properties.Resources.abaixo_minimo);
             DesignComponentes.centralizarWidthControl(lblEstoque, panel7.Width);
             
@@ -102,11 +102,18 @@ namespace AssisTec.UserControls
             lblMinimo.Text = abaixoMinimo.ToString();
         }
 
+        private void FormatGrid()
+        {
+            dgvOS.Columns[0].Visible = false;
+            dgvEstoque.Columns[0].Visible = false;
+        }
+
         private void AtualizarGrid()
         {
             ConfigurarCards();
             dgvOS.DataSource = _ordemServicoService.OrdensRecentes();
-            dataGridView1.DataSource = _produtoService.ProdutosAbaixoMinimo();
+            dgvEstoque.DataSource = _produtoService.ProdutosAbaixoMinimo();
+            FormatGrid();
         }
         
         private bool ValidarAcessoEstoque()

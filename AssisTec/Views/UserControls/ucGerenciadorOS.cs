@@ -144,6 +144,8 @@ namespace AssisTec.UserControls
                 dgvOS.Columns["ValorTotal"].HeaderText = "Valor Total";
                 dgvOS.Columns["ValorTotal"].DefaultCellStyle.Format = "C2";
             }
+
+            dgvOS.Columns[0].Visible = false;
         }
 
         private void ConfigurarSubComponente(UserControl uc)

@@ -53,19 +53,21 @@ namespace AssisTec.UserControls
         { 
             if (dgvClientes.Columns.Count <= 0) return;
 
-            dgvClientes.Columns[0].HeaderText = "Id";
+            dgvClientes.Columns[0].HeaderText = "ID";
             dgvClientes.Columns[1].HeaderText = "Nome";
-            dgvClientes.Columns[2].HeaderText = "Cpf";
+            dgvClientes.Columns[2].HeaderText = "CPF";
             dgvClientes.Columns[3].HeaderText = "Telefone";
             dgvClientes.Columns[4].HeaderText = "Status";
             dgvClientes.Columns[5].HeaderText = "Data de nasc.";
-            dgvClientes.Columns[6].HeaderText = "Cep";
+            dgvClientes.Columns[6].HeaderText = "CEP";
             dgvClientes.Columns[7].HeaderText = "Rua";
             dgvClientes.Columns[8].HeaderText = "Número";
             dgvClientes.Columns[9].HeaderText = "Cidade";
             dgvClientes.Columns[10].HeaderText = "Estado";
             dgvClientes.Columns[11].HeaderText = "Bairro";
             dgvClientes.Columns[12].HeaderText = "Complemento";
+
+            dgvClientes.Columns[0].Visible = false;
         }
         
         public void ListGrid()

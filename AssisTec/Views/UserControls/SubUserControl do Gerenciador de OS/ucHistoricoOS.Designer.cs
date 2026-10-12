@@ -69,11 +69,11 @@ namespace AssisTec.UserControls
             this.dgvOS.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Sunken;
             this.dgvOS.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvOS.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.dgvOS.Location = new System.Drawing.Point(19, 92);
+            this.dgvOS.Location = new System.Drawing.Point(19, 103);
             this.dgvOS.MultiSelect = false;
             this.dgvOS.Name = "dgvOS";
             this.dgvOS.ReadOnly = true;
-            this.dgvOS.Size = new System.Drawing.Size(1119, 518);
+            this.dgvOS.Size = new System.Drawing.Size(1119, 507);
             this.dgvOS.TabIndex = 53;
             this.dgvOS.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvOS_CellClick);
             // 
