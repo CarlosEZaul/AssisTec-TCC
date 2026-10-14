@@ -70,6 +70,12 @@ namespace AssisTec.UserControls
         
 
         #endregion
+
+        #region Funções para a tela
+
+        
+
+        
         
         private void ConfigurarSubComponente(UserControl uc)
         {
@@ -106,6 +112,14 @@ namespace AssisTec.UserControls
         {
             dgvEstoque.Columns[0].Visible = false;
         }
+        
+        #endregion
+
+        #region Funções ou Métodos
+
+        
+
+        
 
         private void AtualizarGrid()
         {
@@ -124,7 +138,9 @@ namespace AssisTec.UserControls
             }
             return true;
         }
+        #endregion
 
+        #region Funções dos componentes
 
         private void btnOs_Click(object sender, EventArgs e)
         {
@@ -155,5 +171,7 @@ namespace AssisTec.UserControls
             ConfigurarSubComponente(new ucRegistrarSaida( _produtoService, _movimentacaoEstoqueService, _contasReceberService));
             
         }
+        
+        #endregion
     }
 }
