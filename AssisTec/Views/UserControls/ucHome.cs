@@ -104,7 +104,6 @@ namespace AssisTec.UserControls
 
         private void FormatGrid()
         {
-            dgvOS.Columns[0].Visible = false;
             dgvEstoque.Columns[0].Visible = false;
         }
 

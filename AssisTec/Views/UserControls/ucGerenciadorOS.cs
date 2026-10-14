@@ -115,7 +115,7 @@ namespace AssisTec.UserControls
         {
             if (dgvOS.Columns.Count <= 0) return;
 
-            if (dgvOS.Columns.Contains("ID")) dgvOS.Columns["ID"].HeaderText = "ID";
+            if (dgvOS.Columns.Contains("ID")) dgvOS.Columns["ID"].HeaderText = "ID_OS";
             if (dgvOS.Columns.Contains("Cliente")) dgvOS.Columns["Cliente"].HeaderText = "Cliente";
             if (dgvOS.Columns.Contains("Tecnico")) dgvOS.Columns["Tecnico"].HeaderText = "Técnico";
             if (dgvOS.Columns.Contains("Equipamento")) dgvOS.Columns["Equipamento"].HeaderText = "Equipamento";
@@ -144,8 +144,6 @@ namespace AssisTec.UserControls
                 dgvOS.Columns["ValorTotal"].HeaderText = "Valor Total";
                 dgvOS.Columns["ValorTotal"].DefaultCellStyle.Format = "C2";
             }
-
-            dgvOS.Columns[0].Visible = false;
         }
 
         private void ConfigurarSubComponente(UserControl uc)
@@ -472,10 +470,7 @@ namespace AssisTec.UserControls
                 btnContatoTecnico.Enabled = true;
             }
         }
-
-        #endregion
-
-
+        
         private void btnRecibo_Click(object sender, EventArgs e)
         {
             try
@@ -526,5 +521,10 @@ namespace AssisTec.UserControls
         {
             ConfigurarSubComponente(new ucHistoricoAlteracao(_ordemServicoService, _idOS));
         }
+
+        #endregion
+
+
+        
     }
 }
