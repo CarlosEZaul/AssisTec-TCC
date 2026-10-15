@@ -110,7 +110,7 @@ namespace AssisTec.SubForms_do_Gerenciador_de_Pedidos
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Comic Sans MS", 9.75F);
             this.label13.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label13.Location = new System.Drawing.Point(-3, 332);
+            this.label13.Location = new System.Drawing.Point(4, 332);
             this.label13.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(89, 18);
