@@ -49,7 +49,7 @@ namespace AssisTec.Views.UserControls.SubUserControl_do_Gerenciador_de_OS
             this.label4.ForeColor = System.Drawing.Color.White;
             this.label4.Location = new System.Drawing.Point(0, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(793, 38);
+            this.label4.Size = new System.Drawing.Size(791, 38);
             this.label4.TabIndex = 150;
             this.label4.Text = "Histórico de Alteração da OS";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -59,16 +59,16 @@ namespace AssisTec.Views.UserControls.SubUserControl_do_Gerenciador_de_OS
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel3.Controls.Add(this.panel1);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel3.Location = new System.Drawing.Point(0, 380);
+            this.panel3.Location = new System.Drawing.Point(0, 378);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(793, 45);
+            this.panel3.Size = new System.Drawing.Size(791, 45);
             this.panel3.TabIndex = 151;
             // 
             // panel1
             // 
             this.panel1.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.panel1.Controls.Add(this.btnFechar);
-            this.panel1.Location = new System.Drawing.Point(358, 5);
+            this.panel1.Location = new System.Drawing.Point(357, 5);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(80, 26);
             this.panel1.TabIndex = 34;
@@ -102,7 +102,7 @@ namespace AssisTec.Views.UserControls.SubUserControl_do_Gerenciador_de_OS
             this.dgvHistoricoOS.MultiSelect = false;
             this.dgvHistoricoOS.Name = "dgvHistoricoOS";
             this.dgvHistoricoOS.ReadOnly = true;
-            this.dgvHistoricoOS.Size = new System.Drawing.Size(793, 342);
+            this.dgvHistoricoOS.Size = new System.Drawing.Size(791, 340);
             this.dgvHistoricoOS.TabIndex = 152;
             // 
             // ucHistoricoAlteracao
@@ -110,11 +110,12 @@ namespace AssisTec.Views.UserControls.SubUserControl_do_Gerenciador_de_OS
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(55)))), ((int)(((byte)(76)))));
+            this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.Controls.Add(this.dgvHistoricoOS);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.label4);
             this.Name = "ucHistoricoAlteracao";
-            this.Size = new System.Drawing.Size(793, 425);
+            this.Size = new System.Drawing.Size(791, 423);
             this.panel3.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvHistoricoOS)).EndInit();
